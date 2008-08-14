@@ -1,0 +1,194 @@
+speakers,Textcode,Subtextno,Speaker,Original Spkr,Aware,Role,Surname,Forenames,Age,Gender,Nationality,Birthplace,Education,Educlevel,Occupation,Affiliations,Other languages,Comments
+24,S1A-009,1,B,,yes,,Sayce,Peter,26-45,male,British,London,,Secondary,Government executive,,,
+25,S1A-010,1,A,,yes,,Moore,Nina,66+,female,British,London,,Secondary,Welfare officer (retired),,,
+26,S1A-010,1,B,,yes,,Moore,Miranda,26-45,female,British,London,,Secondary,Writer,,,
+38,S1A-013,1,B,,yes,,,,46-65,female,British,EastMidlands,,Secondary,Housewife
+39,S1A-013,1,C,,yes,,,,46-65,male,British,EastMidlands,,Secondary,Housewife
+57,S1A-018,1,A,,yes,,Tollfree,Eleanor,20,female,British,London,,Secondary,Student,,,
+78,S1A-022,1,A,,yes,,Clift,Naomi,21,female,British,China,,Secondary,Student,,,Adopted in infancy; born Mauritian Chinese
+82,S1A-023,1,A,,yes,,,,46-65,male,British,London,,Secondary,Journalist,,,
+83,S1A-023,1,B,,yes,,,,46-65,female,British,Southeast,,Secondary,Writer,,,
+86,S1A-025,1,A,,yes,,,,26-45,male,British,London,,Secondary,,,,Brother of $B
+87,S1A-025,1,B,,yes,,,,26-45,female,British,London,,Secondary,Secretary,,,Sister of $A
+96,S1A-028,1,A,,yes,,,Fred,92,male,British,Southwest,,Secondary,Ex-shopkeeper,,,
+99,S1A-028,1,D,,yes,,Clift,Naomi,21,female,British,China,,Secondary,Student,,,Adopted in infancy; born Mauritian Chinese
+100,S1A-028,1,E,,yes,,,,80,female,British,Southwest,,Secondary,,,,
+115,S1A-032,1,D,,yes,,Clift,Naomi,21,female,British,China,,Secondary,Student,,,Adopted in infancy; born Mauritian Chinese
+117,S1A-032,2,B,,yes,,Clift,Naomi,21,female,British,China,,Secondary,Student,,,Adopted in infancy; born Mauritian Chinese
+123,S1A-034,1,B,,yes,,,,18-25,male,British,Northwest,,Secondary,Student,,,
+125,S1A-035,1,B,,yes,,,,18-25,female,British,East,,Secondary,Student,,,
+126,S1A-036,1,A,,yes,,,Caroline,29,female,British,London,O-Levels,Secondary,"Secretary, Thames Water Co.",,,
+127,S1A-036,1,B,,yes,,,Alice,29,female,British,London,O-Levels,Secondary,"Secretary, Consumers' Association",,,
+146,S1A-043,1,B,,yes,,,,28,male,British,Northwest,,Secondary,Musician
+160,S1A-047,1,B,,yes,,,,26-45,female,British,London,"Undergraduate student, UCL",Secondary,Student
+161,S1A-047,1,C,,yes,,,,66+,female,British,London,,Secondary,Ex-secretary (retired)
+163,S1A-048,1,B,,yes,,,,26-45,female,British,London,,Secondary,Nursery Nurse
+164,S1A-048,1,C,,yes,,,,26-45,female,British,London,"Undergraduate student, UCL",Secondary,Student
+165,S1A-049,1,A,,yes,,,Karen,30,female,British,London,O-Levels,Secondary,"Administrator, interior design company"
+166,S1A-049,1,B,,yes,,,Alice,29,female,British,London,O-Levels,Secondary,"Secretary, Consumers' Association"
+167,S1A-049,1,C,,yes,,,Caroline,29,female,British,London,O-Levels,Secondary,"Secretary, Thames Water Co."
+169,S1A-050,1,B,,yes,,,Stella,18-25,female,British,Northwest,,Secondary,Student
+171,S1A-051,1,B,,yes,,,,66+,female,British,Southeast,,Secondary,Housewife
+173,S1A-051,2,B,,yes,,,,18-25,male,British,East,,Secondary,Student
+175,S1A-051,3,B,,yes,,,,26-45,female,British,London,,Secondary,Student
+177,S1A-051,4,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+179,S1A-052,1,B,,yes,,,,46-65,male,British,London,,Secondary,Photojournalist,,
+181,S1A-052,2,A,,yes,,,,46-65,male,British,London,,Secondary,Photojournalist,,
+186,S1A-053,1,C,,yes,,,,46-65,male,British,London,,Secondary,Computer management,,
+218,S1A-059,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+221,S1A-061,1,A,,yes,,Sayce,Peter,26-45,male,British,London,,Secondary,Government executive
+224,S1A-062,1,B,,yes,,,,18-25,female,British,Southeast,,Secondary,Student
+228,S1A-063,1,D,,yes,,,,26-45,female,British,Southeast,,Secondary,Nurse,,,
+233,S1A-065,1,B,,yes,,,,26-45,female,British,East,,Secondary,Housewife,,,Spent part of life in Scotland
+243,S1A-068,1,A,,yes,,Jones,Aled D.,18-25,male,British,Wales,,Secondary,"Student, student union officer"
+244,S1A-068,1,B,,yes,,,,24,female,British,EastMidlands,,Secondary,Student
+246,S1A-069,1,A,,yes,,Jones,Aled D.,18-25,male,British,Wales,,Secondary,"Student, student union officer"
+247,S1A-069,1,B,,yes,,,,24,female,British,EastMidlands,,Secondary,Student
+248,S1A-069,2,A,,yes,,Jones,Aled D.,18-25,male,British,Wales,,Secondary,"Student, student union officer"
+249,S1A-069,2,B,,yes,,,,18-25,female,British,EastMidlands,Chemistry student,Secondary,Student
+250,S1A-070,1,A,,yes,,Jones,Aled D.,18-25,male,British,Wales,,Secondary,"Student, student union officer"
+262,S1A-074,1,A,,yes,,,,21,female,British,London,,Secondary,Student,,,
+263,S1A-074,1,B,,yes,,,Tom,21,male,British,London,,Secondary,Travel officer,,,
+266,S1A-074,2,B,,yes,,,,22,male,British,London,,Secondary,Student,,,
+268,S1A-074,3,B,,yes,,,,21,male,British,London,,Secondary,Student,,,
+270,S1A-074,4,A,,yes,,,Tom,21,male,British,London,,Secondary,Travel officer,,,
+271,S1A-074,4,B,,yes,,,,26-45,male,British,Southeast,,Secondary,Student,,,
+277,S1A-074,6,B,,yes,,,Nick,28,male,British,Southwest,,Secondary,Student,,,
+278,S1A-074,7,A,,yes,,,,18-25,male,British,Northeast,,Secondary,Student,,,
+287,S1A-077,1,C,,yes,,,Elizabeth,18-25,female,British,Southeast,,Secondary,Student,,,
+288,S1A-077,1,D,,yes,,,James,18-25,male,British,London,,Secondary,Student,,,
+290,S1A-078,1,B,,yes,,,,18-25,male,British,East,,Secondary,Student
+293,S1A-078,2,C,,yes,,,,18-25,female,British,Southeast,,Secondary,Student
+295,S1A-078,3,B,,yes,,,,18-25,male,British,Southeast,,Secondary,Student
+298,S1A-078,4,C,,yes,,,,18-25,female,British,London,,Secondary,Student
+305,S1A-081,1,B,,yes,,,Caroline,29,female,British,London,O-Levels,Secondary,"Secretary, Thames Water Co."
+307,S1A-082,1,B,,yes,,,,18-25,male,British,Southeast,,Secondary,Student,,,
+309,S1A-083,1,A,,yes,,,Paquita,44,female,British,London,O-Levels,Secondary,"Tennis coach, guitarist",,,
+310,S1A-083,1,B,,yes,,,Sandra,46-65,female,British,Spain,O-Levels,Secondary,Flamenco dancing teacher,,,Father: Spanish; Mother: Gipsy. In UK since child
+312,S1A-084,1,B,,yes,,Scott,Kate,18-25,female,British,London,"Undergraduate in English, UCL",Secondary,Student,,,
+313,S1A-084,1,C,,yes,,,,18-25,female,British,Northeast,"Undergraduate in English, UCL",Secondary,Student,,,
+314,S1A-085,1,A,,yes,,,,18-25,male,British,London,,Secondary,Student,,,
+315,S1A-085,1,B,,yes,,Scott,Kate,18-25,female,British,London,"Undergraduate in English, UCL",Secondary,Student,,,
+322,S1A-087,2,B,,yes,,,,18-25,male,British,London,"Undergraduate student, UCL",Secondary,Student
+329,S1A-089,2,B,,yes,,,,18-25,female,British,London,"Undergraduate student, UCL",Secondary,Student
+333,S1A-089,4,B,,yes,,,,18-25,female,British,Northeast,"Undergraduate student, UCL",Secondary,Student
+335,S1A-090,1,B,,yes,,,Maureen,46-65,female,British,Scotland,"Undergraduate student, UCL",Secondary,Student
+336,S1A-090,1,C,,yes,,,Caroline,46-65,female,British,London,"Undergraduate student, UCL",Secondary,Student
+337,S1A-090,1,D,,yes,,,Joan,66+,female,British,London,"Undergraduate student, UCL",Secondary,"Student, retired nurse"
+338,S1A-090,2,A,,yes,,,,18-25,female,British,London,"Undergraduate student, UCL",Secondary,Student
+339,S1A-090,2,B,,yes,,,Maureen,46-65,female,British,Scotland,"Undergraduate student, UCL",Secondary,Student
+340,S1A-090,2,C,,yes,,,,18-25,female,British,London,"Undergraduate student, UCL",Secondary,Student
+342,S1A-091,1,B,,yes,,,Jenny,26-45,female,British,London,,Secondary,Student
+346,S1A-093,1,B,,yes,,Tollfree,Eleanor,20,female,British,London,,Secondary,Student
+347,S1A-094,1,A,,yes,,Wagner,Mary,66+,female,British,Southeast,,Secondary,Retired
+378,S1B-001,1,B,,yes,,Turner,Mary,46-65,female,British,London,,Secondary,Student,,Hebrew,
+379,S1B-001,1,C,,yes,,Smith,John,18-25,male,British,London,,Secondary,,,,
+381,S1B-002,1,B,,yes,,,Susan,18-25,female,British,East,,Secondary,Student,,,
+382,S1B-002,1,C,,yes,,,Vicky,18-25,female,British,London,,Secondary,Student,,,
+383,S1B-002,1,D,,yes,,,Phillip,18-25,male,British,East,,Secondary,Student,,,
+384,S1B-002,1,E,,yes,,,Vincent,18-25,male,British,London,,Secondary,Student,,,
+385,S1B-002,1,F,,yes,,,Jeremy,18-25,male,British,EastMidlands,,Secondary,Student,,,
+386,S1B-002,1,G,,yes,,,Georgina,18-25,female,British,London,,Secondary,Student
+393,S1B-003,1,B,,yes,,,Colin,23,male,British,London,,Secondary,Student
+395,S1B-003,1,D,,yes,,,Jill,18-25,female,British,East,,Secondary,Student
+396,S1B-003,1,E,,yes,,,Melanie,18-25,female,British,London,,Secondary,Student
+414,S1B-005,1,B,,yes,,,Michael,18-25,male,British,London,,Secondary,Student
+415,S1B-005,1,C,,yes,,,Rebecca,18-25,female,British,London,,Secondary,Student
+416,S1B-005,1,D,,yes,,,Joanna,18-25,female,British,Southeast,,Secondary,Student
+417,S1B-005,1,E,,yes,,,Michael,18-25,male,British,Southeast,,Secondary,Student
+419,S1B-006,1,B,,yes,,,Jackie,18-25,female,British,London,,Secondary,student
+423,S1B-007,1,B,,yes,,,Barbara,18-25,female,British,London,,Secondary,Student
+424,S1B-007,1,C,,yes,,,Colin,18-25,male,British,East,,Secondary,Student
+425,S1B-007,1,D,,yes,,,James,18-25,male,British,London,,Secondary,Student
+426,S1B-007,1,E,,yes,,,Duncan,18-25,male,British,London,,Secondary,Student
+428,S1B-008,1,B,,yes,,,David,23,male,British,London,,Secondary,Student
+429,S1B-008,1,C,,yes,,,Miriam,18-25,female,British,Scotland,,Secondary,Student
+442,S1B-009,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+451,S1B-011,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+452,S1B-011,1,C,,yes,,,,18-25,female,British,London,,Secondary,Student
+453,S1B-011,1,D,,yes,,,,18-25,male,British,Southeast,,Secondary,Student
+454,S1B-011,1,E,,yes,,,,18-25,male,British,London,,Secondary,Student
+455,S1B-011,1,F,,yes,,,,18-25,female,British,London,,Secondary,Student
+456,S1B-011,1,G,,yes,,,,18-25,male,British,London,,Secondary,Student
+457,S1B-011,1,H,,yes,,,,18-25,female,British,Southeast,,Secondary,Student
+462,S1B-013,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+463,S1B-013,1,C,,yes,,,,18-25,female,British,Southeast,,Secondary,Student
+464,S1B-013,1,D,,yes,,,,18-25,female,British,London,,Secondary,Student
+465,S1B-013,1,E,,yes,,,,18-25,female,British,East,,Secondary,Student
+467,S1B-014,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+468,S1B-014,1,C,,yes,,,,18-25,female,British,London,,Secondary,Student
+470,S1B-015,1,B,,yes,,,John,18-25,male,British,WestMidlands,,Secondary,Student
+471,S1B-015,1,C,,yes,,,Rebecca,18-25,female,British,London,,Secondary,Student
+473,S1B-016,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+474,S1B-016,1,C,,yes,,,Matt,18-25,male,British,Southeast,,Secondary,Student
+475,S1B-016,1,D,,yes,,,Esther,18-25,female,British,London,,Secondary,Student
+477,S1B-017,1,B,,yes,,,,46-65,male,British,London,,Secondary,Student
+479,S1B-017,1,D,,yes,,,,18-25,male,British,London,,Secondary,Student
+480,S1B-017,1,E,,yes,,,,18-25,female,British,London,,Secondary,Student
+481,S1B-018,1,A,,yes,,,,24,male,British,EastMidlands,,Secondary,Student
+483,S1B-018,1,C,,yes,,,,25,male,British,London,,Secondary,Student,,
+485,S1B-018,1,E,,yes,,,Chris,18-25,male,British,London,,Secondary,Student,,
+489,S1B-019,1,C,,yes,,,Michael,18-25,male,British,EastMidlands,,Secondary,Student,,
+491,S1B-019,1,E,,yes,,,Eleanor,18-25,female,British,London,,Secondary,Student,,
+493,S1B-020,1,B,,yes,,,Victor,18-25,male,British,London,,Secondary,Student,,
+494,S1B-020,1,C,,yes,,,,18-25,male,British,London,,Secondary,Student,,
+495,S1B-021,1,A,,yes,Chairman,Morgan,Cliff,61,male,British,Wales,Grammar School,Secondary,"Broadcaster, ex-rugby player",,Welsh
+517,S1B-025,1,B,,yes,,Ledward,Daphne,26-45,female,British,Yorkshire,,Secondary,Horticulturalist,,"French, Latin",
+518,S1B-025,1,C,,yes,,Downham,Fred,46-65,male,British,Northwest,,Secondary,Horticulturalist,,None,
+523,S1B-026,1,D,,yes,,Dickens,Monica,66+,female,British,London,"St Paul's School, Hammersmith, London",Secondary,Novelist,,,
+593,S1B-040,1,B,,yes,,Haines,Joe,63,male,British,London,,Secondary,Journalist,,,Former Press Officer to the Prime Minister
+603,S1B-043,1,B,,yes,Interviewee,Major,John,47,male,British,London,,Secondary,"Politician, accountant",,,
+619,S1B-049,1,B,,yes,Interviewee,Mottley,Shiela,46-65,female,British,Northwest,,Secondary,,,None,
+632,S1B-052,1,B,,yes,,Clark,William,74,male,British,London,,Secondary,"Politician, accountant",,,
+633,S1B-052,1,C,,yes,,Major,John,47,male,British,London,,Secondary,Politician,,,
+651,S1B-053,1,F,,yes,,Lamond,James,63,male,British,Scotland,Burrelton School,Secondary,"Politician, engineering draughtsman",,,
+652,S1B-053,1,G,,yes,,Tebbit,Norman,60,male,British,London,Edmonton County Grammar School,Secondary,"Politician, businessman",,,
+668,S1B-055,1,H,,yes,,Lamond,James,63,male,British,Scotland,Burrelton School,Secondary,"Politician, engineering draughtsman",,,
+716,S1B-059,1,J,,yes,,Madden,Max,50,male,British,London,Grammar School,Secondary,Politician,
+728,S1B-060,1,C,,yes,,Peacock,Elizabeth,54,female,British,Yorkshire,"Secondary School, Skipton, Yorkshire",Secondary,Politician,,,
+781,S1B-074,2,B,,yes,,,,18-25,male,British,Southwest,,Secondary,Student,,Some French
+784,S1B-074,3,C,,yes,,Lawrence,Jane,20,female,British,London,,Secondary,Student,,
+805,S1B-078,1,B,,yes,,,Denis,66+,male,British,Northeast,,Secondary,Student
+806,S1B-078,1,C,,yes,,,Chris,26-45,female,British,London,,Secondary,Student
+807,S1B-078,1,D,,yes,,,Ted,46-65,male,British,London,,Secondary,Student
+808,S1B-078,1,E,,yes,,,,46-65,female,British,London,,Secondary,Student
+809,S1B-079,1,A,,yes,Chairman,,Andy,18-25,male,British,London,,Secondary,Student
+810,S1B-079,1,B,,yes,,,Carol,18-25,male,British,London,,Secondary,Student
+811,S1B-079,1,C,,yes,,,,18-25,male,British,WestMidlands,,Secondary,Student
+812,S1B-079,1,D,,yes,,,,18-25,male,British,London,,Secondary,Student
+813,S1B-079,1,E,,yes,,,Katherine,18-25,female,British,London,,Secondary,Student
+814,S1B-079,1,F,,yes,,Thompson,Katherine,18-25,female,British,London,,Secondary,Student
+815,S1B-079,1,G,,yes,,,Joe,18-25,male,British,London,,Secondary,Student
+816,S1B-079,1,H,,yes,,,Emma,18-25,female,British,London,,Secondary,Student
+817,S1B-079,1,I,,yes,,,,18-25,female,British,London,,Secondary,Student
+818,S1B-079,1,J,,yes,,,,18-25,male,British,WestMidlands,,Secondary,Student,,
+820,S1B-080,1,B,,yes,,,,25,female,British,Southeast,,Secondary,Student,,
+827,S2A-005,1,A,,yes,,Bromley,Peter,46-65,male,British,Northwest,,Secondary,Sports reporter,,None
+829,S2A-005,3,A,,yes,,Bromley,Peter,46-65,male,British,Northwest,,Secondary,Sports reporter,,None
+831,S2A-005,5,A,,yes,,Bromley,Peter,46-65,male,British,Northwest,,Secondary,Sports reporter,,None
+832,S2A-006,1,A,,yes,,Bromley,Peter,46-65,male,British,Northwest,,Secondary,Sports reporter,,None
+842,S2A-007,6,A,,yes,,Ovett,Steve,36,male,British,Southeast,,Secondary,Former athlete
+845,S2A-007,9,A,,yes,,Ovett,Steve,36,male,British,Southeast,,Secondary,Former athlete
+847,S2A-007,11,A,,yes,,Ovett,Steve,36,male,British,Southeast,,Secondary,Former athlete
+849,S2A-007,13,A,,yes,,Ovett,Steve,36,male,British,Southeast,,Secondary,Former athlete
+857,S2A-009,1,A,,yes,,Darke,Ian,26-45,male,British,Southeast,,Secondary,Sports reporter,,None
+861,S2A-012,2,A,,yes,,Harris,Nick,26-45,male,British,Southeast,,Secondary,Sports reporter,,None
+882,S2A-020,1,A,,yes,,Hosken,John,46-65,male,British,Southwest,,Secondary,Broadcaster,,"Spanish, French",
+920,S2A-045,1,A,,yes,Lecturer,Grosvenor,Gerald,40,male,British,London,Harrow School; military training,Secondary,Businessman,,,6th Duke of Westminster
+927,S2A-050,1,A,,yes,Interviewee,McCullin,Don,46-65,male,British,London,,Secondary,Photojournalist,,,
+928,S2A-050,2,A,,yes,Interviewee,McCullin,Don,46-65,male,British,London,,Secondary,Photojournalist,,,
+935,S2A-055,2,A,,yes,,Clarkson,Jeremy,26-45,male,British,Yorkshire,Public School,Secondary,Broadcaster,,
+936,S2A-055,3,A,,yes,,Clarkson,Jeremy,26-45,male,British,Yorkshire,Public School,Secondary,Broadcaster,,
+973,S2B-002,1,J,,yes,,Major,John,47,male,British,London,,Secondary,Politician,,,
+977,S2B-003,1,C,,yes,,Major,John,47,male,British,London,,Secondary,Politician,,,
+998,S2B-004,1,E,,yes,,Major,John,47,male,British,London,,Secondary,Politician
+1009,S2B-005,1,G,,yes,,Major,John,47,male,British,London,,Secondary,Politician
+1079,S2B-014,1,B,,yes,,Major,John,47,male,British,London,,Secondary,Politician
+1097,S2B-015,2,C,,yes,,Hamilton,Archie,50,male,British,Scotland,Eton,Secondary,Politician
+1110,S2B-016,4,B,,yes,,Windsor,Elisabeth,46-65,female,British,London,,Secondary,HM The Queen,,,
+1129,S2B-020,1,A,,yes,,Hayton,Phillip,44,male,British,Yorkshire,,Secondary,"Broadcaster, journalist",,,
+1148,S2B-023,1,A,,yes,Presenter,Tong,Pete,26-45,male,British,London,,Secondary,"Broadcaster, musician"
+1159,S2B-030,1,A,,yes,,Major,John,48,male,British,London,,Secondary,Politician,,,Prime Minister
+1165,S2B-031,3,A,,yes,Presenter,Durrell,Gerald,66,male,British,India,Educated by private tutors in Greece,Secondary,"Naturalist, writer",,,
+1168,S2B-033,1,A,,yes,Presenter,Norman,Barry,58,male,British,London,Highgate School,Secondary,"Broadcaster, film critic",,,
+1184,S2B-041,1,A,,yes,,Queen Elizabeth II,,46-65,female,British,London,,Secondary,,,,

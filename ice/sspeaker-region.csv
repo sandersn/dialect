@@ -1,0 +1,657 @@
+speakers,Textcode,Subtextno,Speaker,Original Spkr,Aware,Role,Surname,Forenames,Age,Gender,Nationality,Birthplace,Education,Educlevel,Occupation,Affiliations,Other languages,Comments
+12,S1A-005,1,A,,yes,,Broadbent,Judith,18-25,female,British,Yorkshire,"BA Linguistics, UCL",University,Student,,,
+13,S1A-005,1,B,,yes,,Tollfree,Laura,18-25,female,British,London,"BA Linguistics, UCL",University,Student,,,
+14,S1A-006,1,A,,yes,,,Sandra,18-25,female,British,London,,University,,,,
+16,S1A-007,1,A,,yes,,Tollfree,Laura,46-65,male,British,London,,,,,,
+17,S1A-007,1,B,,yes,,Tollfree,Laura,46-65,female,British,London,,,,,,
+18,S1A-007,1,C,,yes,,Tollfree,Laura,18-25,female,British,London,"BA Linguistics, UCL",University,Student,,,
+19,S1A-007,1,D,,yes,,,,46-65,male,British,London,,,,,,
+22,S1A-008,1,B,,yes,,Tollfree,Laura,18-25,male,British,London,"BA Linguistics, UCL",University,Student,,,
+23,S1A-009,1,A,,yes,,Sayce,Oonagh,46-65,female,British,London,MA English,University,Part-time University teacher,,"French, Italian","Researcher, Survey of English Usage"
+24,S1A-009,1,B,,yes,,Sayce,Peter,26-45,male,British,London,,Secondary,Government executive,,,
+25,S1A-010,1,A,,yes,,Moore,Nina,66+,female,British,London,,Secondary,Welfare officer (retired),,,
+26,S1A-010,1,B,,yes,,Moore,Miranda,26-45,female,British,London,,Secondary,Writer,,,
+27,S1A-011,1,A,,yes,,,,26-45,female,British,Southeast,,University,Teacher,,,
+28,S1A-011,1,B,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,"Researcher, Survey of English Usage"
+29,S1A-011,1,C,,yes,,,,26-45,male,British,Southeast,Training as solicitor,University,Trainee solicitor,,,
+30,S1A-011,2,A,,yes,,Woodford,Kate,26,female,British,EastMidlands,,University,Lexicographer,,"French, Spanish",
+32,S1A-012,1,A,,yes,,Scales,Rob,26-45,male,British,London,,University,Teacher
+33,S1A-012,1,B,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher"
+34,S1A-012,1,C,,yes,,Carpenter,Roger,26-45,male,British,London,,University,Teacher
+35,S1A-012,1,D,,yes,,King-Smith,Gavin,26-45,male,British,London,,University,Management consultant
+36,S1A-012,1,E,,yes,,Colborn,Tim,26-45,male,British,Southeast,,University,Accountant
+38,S1A-013,1,B,,yes,,,,46-65,female,British,EastMidlands,,Secondary,Housewife
+39,S1A-013,1,C,,yes,,,,46-65,male,British,EastMidlands,,Secondary,Housewife
+42,S1A-014,1,A,,yes,,Tollfree,Laura,18-25,female,British,London,"BA Linguistics, UCL",University,Student
+45,S1A-015,1,A,,yes,,Rosta,Andrew,18-25,male,British,Northwest,"BA English, UCL",University,Student
+53,S1A-017,1,A,,yes,,Durant,Ian,27,male,British,Southeast,,University,Accountant,,,
+54,S1A-017,1,B,,yes,,,Zara,26,female,British,London,A-levels,University,Accountant,,,Indian ethnic origin
+55,S1A-017,1,C,,yes,,Tollfree,Laura,18-25,female,British,London,"BA Linguistics, UCL",University,Student,,,
+57,S1A-018,1,A,,yes,,Tollfree,Eleanor,20,female,British,London,,Secondary,Student,,,
+58,S1A-018,1,B,,yes,,Cage,Liz,20,female,British,London,,,,,,
+59,S1A-018,1,C,,yes,,Debenham,Simon,28,male,British,London,,University,Accountant,,,
+65,S1A-019,1,F,,yes,,,,18-25,female,British,London,UCL BA in Linguistics,University,Student,,,
+69,S1A-020,1,D,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+70,S1A-021,1,A,,yes,,,,26-45,male,British,London,,University,Musician,,,
+71,S1A-021,1,B,,yes,,,,26-45,female,British,Southeast,,University,Teacher,,,
+72,S1A-021,1,C,,yes,,,,26-45,male,British,Southeast,,University,Teacher,,,
+73,S1A-021,1,D,,yes,,,,26-45,female,British,Southeast,,University,Teacher,,,
+74,S1A-021,2,A,,yes,,,,26-45,female,British,Southeast,,University,Teacher,,,
+75,S1A-021,2,B,,yes,,,,26-45,male,British,London,,University,Musician,,,
+76,S1A-021,2,C,,yes,,,,26-45,female,British,Southeast,,University,Teacher,,,
+77,S1A-021,2,D,,yes,,,,26-45,male,British,Southeast,,University,Teacher,,,
+78,S1A-022,1,A,,yes,,Clift,Naomi,21,female,British,China,,Secondary,Student,,,Adopted in infancy; born Mauritian Chinese
+79,S1A-022,1,B,,yes,,Clift,Jean,61,female,British,Southwest,,University,Teacher of English as a Second Language,,,
+80,S1A-022,1,C,,yes,,Clift,Marc,65,male,British,Australia,,,Ex-British Council officer,,,Spent most of life in UK
+81,S1A-022,1,D,,yes,,Clift,Rebecca,25,female,British,China,Cambridge,University,Postgraduate student,,,Adopted in infancy; born Mauritian Chinese
+82,S1A-023,1,A,,yes,,,,46-65,male,British,London,,Secondary,Journalist,,,
+83,S1A-023,1,B,,yes,,,,46-65,female,British,Southeast,,Secondary,Writer,,,
+84,S1A-024,1,A,,yes,,Sidney,Greenbaum,46-65,male,British,London,"MA, PhD",University,Professor of English,,Hebrew,"Director, Survey of English Usage"
+86,S1A-025,1,A,,yes,,,,26-45,male,British,London,,Secondary,,,,Brother of $B
+87,S1A-025,1,B,,yes,,,,26-45,female,British,London,,Secondary,Secretary,,,Sister of $A
+88,S1A-026,1,A,,yes,,Carpenter,Roger,26-45,male,British,London,,University,Teacher,,,
+89,S1A-026,1,B,,yes,,Colborn,Tim,26-45,male,British,Southeast,,University,Accountant,,,
+90,S1A-026,1,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management Consultant,,,
+91,S1A-026,1,D,,yes,,Scales,Rob,26-45,male,British,London,,University,Teacher,,,
+92,S1A-027,1,A,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+93,S1A-027,1,B,,yes,,Peppe,A.H.,26-45,male,British,Southeast,,University,Greengrocer,,,
+94,S1A-027,1,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management Consultant,,,
+95,S1A-027,1,D,,yes,,Lanner,J.E.,26-45,female,British,Southeast,,University,Nurse,,,
+96,S1A-028,1,A,,yes,,,Fred,92,male,British,Southwest,,Secondary,Ex-shopkeeper,,,
+97,S1A-028,1,B,,yes,,Clift,Marc,65,male,British,Australia,,,Ex-British Council officer,,,Spent most of life in UK
+98,S1A-028,1,C,,yes,,Clift,Rebecca,25,female,British,China,Cambridge,University,Postgraduate student,,,Adopted in infancy; born Mauritian Chinese
+99,S1A-028,1,D,,yes,,Clift,Naomi,21,female,British,China,,Secondary,Student,,,Adopted in infancy; born Mauritian Chinese
+100,S1A-028,1,E,,yes,,,,80,female,British,Southwest,,Secondary,,,,
+103,S1A-029,1,B,,yes,,,Andrew,24,male,British,London,BA,University,Computer programmer,,,
+104,S1A-029,1,C,,yes,,,Andy,21,male,British,London,BA,University,Computer programmer,,,
+105,S1A-029,1,D,,yes,,Porter,Nick,22,male,British,WestMidlands,MSc,University,Computer programmer,,,
+110,S1A-031,1,A,,yes,,Beaumann,Nicola,46-65,female,British,London,,University,Writer,,,
+111,S1A-031,1,B,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+113,S1A-032,1,B,,yes,,Clift,Jean,61,female,British,Southwest,,University,Teacher of English as a Second Language,,,
+114,S1A-032,1,C,,yes,,Clift,Marc,65,male,British,Australia,,,Ex-British Council officer,,,Spent most of life in UK
+115,S1A-032,1,D,,yes,,Clift,Naomi,21,female,British,China,,Secondary,Student,,,Adopted in infancy; born Mauritian Chinese
+116,S1A-032,2,A,,yes,,Clift,Rebecca,25,female,British,China,,University,Postgraduate student,,,Adopted in infancy; born Mauritian Chinese
+117,S1A-032,2,B,,yes,,Clift,Naomi,21,female,British,China,,Secondary,Student,,,Adopted in infancy; born Mauritian Chinese
+118,S1A-032,2,C,,yes,,Clift,Jean,61,female,British,Southwest,,University,Teacher of English as a Second Language,,,
+119,S1A-032,2,D,,yes,,Clift,Marc,65,male,British,Australia,,,Ex-British Council officer,,,Spent most of life in UK
+122,S1A-034,1,A,,yes,,,,26-45,female,British,London,,University,Career counsellor,,,
+123,S1A-034,1,B,,yes,,,,18-25,male,British,Northwest,,Secondary,Student,,,
+124,S1A-035,1,A,,yes,,,,26-45,female,British,London,,University,Career counsellor,,,
+125,S1A-035,1,B,,yes,,,,18-25,female,British,East,,Secondary,Student,,,
+126,S1A-036,1,A,,yes,,,Caroline,29,female,British,London,O-Levels,Secondary,"Secretary, Thames Water Co.",,,
+127,S1A-036,1,B,,yes,,,Alice,29,female,British,London,O-Levels,Secondary,"Secretary, Consumers' Association",,,
+128,S1A-037,1,A,,yes,,,Jenny,18-25,female,British,London,,University,Student,,,
+129,S1A-037,1,B,,yes,,,Isobel,29,female,British,London,,University,,,,
+130,S1A-038,1,A,,yes,,,Danielle,21,female,British,Scotland,"BSc Engineering, Edinburgh University",University,"PhD student, Engineering, Cambridge",,,
+132,S1A-038,1,C,,yes,,,Moses,24,male,British,Portugal,"BA Social Science, Canterbury",University,"MPhil student, International Relations, Cambridge",,,Moved to UK age 5
+133,S1A-039,1,A,,yes,,Tollfree,Laura,18-25,female,British,London,BA Linguistics,University,"PhD student (Linguistics), Cambridge",,,
+134,S1A-039,1,B,,yes,,,Danielle,21,female,British,Scotland,"BSc Engineering, Edinburgh University",University,"PhD student, Cambridge",,,
+135,S1A-040,1,A,,yes,,,Vicky,25,female,British,Southeast,"Degree in History, London",University,"PGCE student, Cambridge",,,
+136,S1A-040,1,B,,yes,,,Caroline,23,female,British,Yorkshire,"Degree Modern Languages, Cambridge",University,"PGCE student, Cambridge; ex-EFL teacher",,,
+137,S1A-040,1,C,,yes,,,Louisa,24,female,British,London,"Degree Modern Languages, Cambridge, PGCE",University,"Teacher of Modern Languages, Cambridge",,Greek,
+138,S1A-040,1,D,,yes,,,Vanessa,22,female,British,Southeast,"Degree English, Durham University",University,"PGCE student, Cambridge",,,
+139,S1A-040,1,E,,yes,,,Brandon,25,male,British,Southeast,"Degree, Cambridge",University,Social worker,,,
+140,S1A-041,1,A,,yes,,,Moses,24,male,British,Portugal,"BA Social Science, Canterbury",University,"MPhil student, International Relations, Cambridge",,,Moved to London age 5
+141,S1A-041,1,B,,yes,,,Jim,23,male,British,London,"Degree in Geography, Lampeter (Wales)",University,"MPhil student in Glaciology, Cambridge",,,
+142,S1A-042,1,A,,yes,,,Vicky,25,female,British,Southeast,"Degree in History, London",University,"PGCE student, Cambridge",,,
+143,S1A-042,1,B,,yes,,,Caroline,23,female,British,Yorkshire,"Degree in Modern Languages, Cambridge",University,"PGCE student, Cambridge; ex-EFL teacher",,,
+144,S1A-042,1,C,,yes,,,Vanessa,22,female,British,Southeast,"Degree in English, Durham University",University,"PGCE student, Cambridge",,,
+145,S1A-043,1,A,,yes,,White,Ashley,31,male,British,London,,University,"Tennis coach, PhD student",,,
+146,S1A-043,1,B,,yes,,,,28,male,British,Northwest,,Secondary,Musician
+147,S1A-044,1,A,,yes,,,,55,female,British,Northwest,Music degree,University,Singing teacher
+148,S1A-044,1,B,,yes,,White,Ashley,31,male,British,London,,University,"Tennis coach, PhD student"
+149,S1A-045,1,A,,yes,,White,Ashley,31,male,British,London,,University,"Tennis coach, PhD student"
+150,S1A-045,1,B,,yes,,,,55,female,British,Northwest,Music degree,University,Singing teacher
+151,S1A-045,2,A,,yes,,,,28,male,British,Northwest,Manchester University,University,
+152,S1A-045,2,B,,yes,,White,Ashley,31,male,British,London,,University,"Tennis coach, PhD student"
+153,S1A-045,3,A,,yes,,White,Ashley,31,male,British,London,,University,"Tennis coach, PhD student"
+154,S1A-045,3,B,,yes,,,,28,male,British,Northwest,Manchester University,University,
+159,S1A-047,1,A,,yes,,,,26-45,male,British,London,,University,Computer Operator/Programmer
+160,S1A-047,1,B,,yes,,,,26-45,female,British,London,"Undergraduate student, UCL",Secondary,Student
+161,S1A-047,1,C,,yes,,,,66+,female,British,London,,Secondary,Ex-secretary (retired)
+162,S1A-048,1,A,,yes,,,,26-45,female,British,London,,University,Antique Dealer
+163,S1A-048,1,B,,yes,,,,26-45,female,British,London,,Secondary,Nursery Nurse
+164,S1A-048,1,C,,yes,,,,26-45,female,British,London,"Undergraduate student, UCL",Secondary,Student
+165,S1A-049,1,A,,yes,,,Karen,30,female,British,London,O-Levels,Secondary,"Administrator, interior design company"
+166,S1A-049,1,B,,yes,,,Alice,29,female,British,London,O-Levels,Secondary,"Secretary, Consumers' Association"
+167,S1A-049,1,C,,yes,,,Caroline,29,female,British,London,O-Levels,Secondary,"Secretary, Thames Water Co."
+168,S1A-050,1,A,,yes,,Neustein,,46-65,male,British,London,PhD,University,Student Counsellor
+169,S1A-050,1,B,,yes,,,Stella,18-25,female,British,Northeast,,Secondary,Student
+171,S1A-051,1,B,,yes,,,,66+,female,British,Southeast,,Secondary,Housewife
+173,S1A-051,2,B,,yes,,,,18-25,male,British,East,,Secondary,Student
+175,S1A-051,3,B,,yes,,,,26-45,female,British,London,,Secondary,Student
+177,S1A-051,4,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+179,S1A-052,1,B,,yes,,,,46-65,male,British,London,,Secondary,Photojournalist,,
+181,S1A-052,2,A,,yes,,,,46-65,male,British,London,,Secondary,Photojournalist,,
+184,S1A-053,1,A,,yes,,,,26-45,male,British,WestMidlands,,University,Student,,
+185,S1A-053,1,B,,yes,,,,26-45,female,British,Southwest,,University,Student,,
+186,S1A-053,1,C,,yes,,,,46-65,male,British,London,,Secondary,Computer management,,
+187,S1A-054,1,A,,yes,,Beaumann,Nicola,46-65,female,British,London,,University,Writer,,
+188,S1A-054,1,B,,yes,,Boase,Sue,26-45,female,British,London,,University,"Researcher, lecturer",,
+191,S1A-055,1,C,,yes,,Woodford,Kate,26,female,British,EastMidlands,,University,Lexicographer,,"French, Spanish"
+192,S1A-055,1,D,,yes,,,,18-25,female,British,London,,University,Secretary,,
+193,S1A-055,1,E,,yes,,,,26-45,male,British,London,,University,Lexicographer,,
+194,S1A-056,1,A,,yes,,,,26-45,male,British,Southeast,,University,Teacher of EFL,,,
+195,S1A-056,1,B,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+196,S1A-056,1,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management consultant,,,
+197,S1A-056,2,A,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+198,S1A-056,2,B,,yes,,,,26-45,male,British,Southeast,,University,Teacher of EFL,,,
+199,S1A-056,2,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management consultant,,,
+200,S1A-056,3,A,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+201,S1A-056,3,B,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management consultant,,,
+202,S1A-056,3,C,,yes,,,,26-45,male,British,Southeast,,University,Teacher of EFL,,,
+203,S1A-056,4,A,,yes,,,,26-45,male,British,Southeast,,University,Teacher of EFL,,,
+204,S1A-056,4,B,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+205,S1A-056,4,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management consultant,,,
+206,S1A-057,1,A,,yes,,,,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+207,S1A-057,1,B,,yes,,,,66+,male,British,Southeast,,University,Retired engineer,,,Father of speaker C
+208,S1A-057,1,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management consultant,,,
+211,S1A-058,1,C,,yes,,,Cheryl,32,female,British,USA,UK secondary education and degree,University,"Actress, writer"
+214,S1A-058,2,C,,yes,,,Cheryl,32,female,British,USA,UK secondary education and degree,University,"Actress, writer"
+215,S1A-058,3,A,,yes,,,,26-45,male,British,London,,University,Engineer
+216,S1A-058,3,B,,yes,,,Cheryl,32,female,British,USA,UK secondary education and degree,University,"Actress, writer"
+218,S1A-059,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+221,S1A-061,1,A,,yes,,Sayce,Peter,26-45,male,British,London,,Secondary,Government executive
+222,S1A-061,1,B,,yes,,Busby,Derek Charles,46-65,male,British,London,,University,Government official
+224,S1A-062,1,B,,yes,,,,18-25,female,British,Southeast,,Secondary,Student
+225,S1A-063,1,A,,yes,,,,26-45,male,British,Southeast,,University,Doctor
+226,S1A-063,1,B,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Researcher, lecturer",,,
+227,S1A-063,1,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management consultant,,,
+228,S1A-063,1,D,,yes,,,,26-45,female,British,Southeast,,Secondary,Nurse,,,
+232,S1A-065,1,A,,yes,,,,26-45,female,British,London,,University,Student,,,
+233,S1A-065,1,B,,yes,,,,26-45,female,British,East,,Secondary,Housewife,,,Spent part of life in Scotland
+234,S1A-065,1,C,,yes,,,,46-65,male,British,London,,University,Student,,,
+235,S1A-065,1,D,,yes,,,,18-25,male,British,Northeast,,University,Student,,,
+236,S1A-065,1,E,,yes,,,,46-65,male,British,Scotland,,University,Farmer,,,
+237,S1A-065,1,F,,yes,,,,18-25,male,British,London,,University,Student,,,
+238,S1A-065,1,G,,yes,,,,18-25,male,British,Scotland,,University,Student,,,
+239,S1A-066,1,A,,yes,,,,46,male,British,London,,University,Careers counsellor,,,
+240,S1A-066,1,B,,yes,,,,29,female,British,Southeast,PhD,University,Student,,,
+241,S1A-067,1,A,,yes,,Ruskin,Sheila,26-45,female,British,India,,University,"Actress, trainee holistic massage practitioner",,,Lived most of life in Sevenoaks and London W1
+242,S1A-067,1,B,,yes,,,,26-45,female,British,Southeast,,University,"Writer, housewife"
+243,S1A-068,1,A,,yes,,Jones,Aled D.,18-25,male,British,Wales,,Secondary,"Student, student union officer"
+244,S1A-068,1,B,,yes,,,,24,female,British,EastMidlands,,Secondary,Student
+246,S1A-069,1,A,,yes,,Jones,Aled D.,18-25,male,British,Wales,,Secondary,"Student, student union officer"
+247,S1A-069,1,B,,yes,,,,24,female,British,EastMidlands,,Secondary,Student
+248,S1A-069,2,A,,yes,,Jones,Aled D.,18-25,male,British,Wales,,Secondary,"Student, student union officer"
+249,S1A-069,2,B,,yes,,,,18-25,female,British,EastMidlands,Chemistry student,Secondary,Student
+250,S1A-070,1,A,,yes,,Jones,Aled D.,18-25,male,British,Wales,,Secondary,"Student, student union officer"
+253,S1A-071,1,B,,yes,,Buckley,Justin,21,male,British,Southeast,"BA English, UCL",University,Student
+258,S1A-073,1,A,,yes,,,,46-65,male,British,London,,University,Industrial chemist,,,"Also lived: Oxford, Epping area, Montpellier"
+259,S1A-073,1,B,,yes,,,,46-65,male,British,WestMidlands,,University,Opthalmic surgeon,,,"Also lived: Isle of Wight, Plymouth, London, Kent"
+260,S1A-073,1,C,,yes,,,,26-45,female,British,London,,University,"Writer, housewife",,,
+261,S1A-073,1,D,,yes,,,,26-45,female,British,Southeast,,University,"Research chemist, housewife",,,"Also lived: St Albans, Epping"
+262,S1A-074,1,A,,yes,,,,21,female,British,London,,Secondary,Student,,,
+263,S1A-074,1,B,,yes,,,Tom,21,male,British,London,,Secondary,Travel officer,,,
+264,S1A-074,1,C,,yes,,,Paul,23,male,British,London,,University,Travel officer,,,
+265,S1A-074,2,A,,yes,,,Paul,23,male,British,London,,University,Travel officer,,,
+266,S1A-074,2,B,,yes,,,,22,male,British,London,,Secondary,Student,,,
+267,S1A-074,3,A,,yes,,,Louise,22,female,British,London,,University,Travel officer,,,
+268,S1A-074,3,B,,yes,,,,21,male,British,London,,Secondary,Student,,,
+269,S1A-074,3,C,,yes,,,,27,female,British,London,,University,Travel officer,,,
+270,S1A-074,4,A,,yes,,,Tom,21,male,British,London,,Secondary,Travel officer,,,
+271,S1A-074,4,B,,yes,,,,26-45,male,British,Southeast,,Secondary,Student,,,
+272,S1A-074,4,C,,yes,,,Louise,22,female,British,London,,University,Travel officer,,,
+275,S1A-074,5,C,,yes,,,,27,male,British,London,,University,Student union officer,,,
+277,S1A-074,6,B,,yes,,,Nick,28,male,British,Southwest,,Secondary,Student,,,
+278,S1A-074,7,A,,yes,,,,18-25,male,British,Northeast,,Secondary,Student,,,
+282,S1A-075,1,B,,yes,,,James,26-45,male,British,London,,University,Businessman,,,Speaker is partially deaf
+285,S1A-077,1,A,,yes,,,Mike,26-45,male,British,London,,University,Careers counsellor,,,
+286,S1A-077,1,B,,yes,,,Gill,26-45,female,British,London,,University,Careers counsellor,,,
+287,S1A-077,1,C,,yes,,,Elizabeth,18-25,female,British,Southeast,,Secondary,Student,,,
+288,S1A-077,1,D,,yes,,,James,18-25,male,British,London,,Secondary,Student,,,
+289,S1A-078,1,A,,yes,,,,26-45,female,British,London,,University,Student union officer,,,
+290,S1A-078,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+291,S1A-078,2,A,,yes,,,,26-45,male,British,London,,University,Student union officer
+292,S1A-078,2,B,,yes,,,,26-45,female,British,London,,University,Student union officer
+293,S1A-078,2,C,,yes,,,,18-25,female,British,Southeast,,Secondary,Student
+294,S1A-078,3,A,,yes,,,,26-45,female,British,London,,University,Student union officer
+295,S1A-078,3,B,,yes,,,,18-25,male,British,Southeast,,Secondary,Student
+296,S1A-078,4,A,,yes,,,,26-45,male,British,London,,University,Student union officer
+297,S1A-078,4,B,,yes,,,,26-45,female,British,London,,University,Student union officer
+298,S1A-078,4,C,,yes,,,,18-25,female,British,London,,Secondary,Student
+299,S1A-079,1,A,,yes,,,,26-45,female,British,London,,University,Student union officer
+300,S1A-079,1,B,,yes,,,Tony,26-45,male,British,London,,University,Student union officer
+301,S1A-079,1,C,,yes,,,,26-45,female,British,Southeast,"Degree, UCL",University,Student
+302,S1A-080,1,A,,yes,,,Jenny,18-25,female,British,London,,University,
+303,S1A-080,1,B,,yes,,,Isobel,26-45,female,British,London,,University,
+304,S1A-081,1,A,,yes,,White,Ashley,31,male,British,London,,University,"Tennis coach, PhD student"
+305,S1A-081,1,B,,yes,,,Caroline,29,female,British,London,O-Levels,Secondary,"Secretary, Thames Water Co."
+306,S1A-082,1,A,,yes,,,,26-45,female,British,London,,University,Lecturer,,,
+307,S1A-082,1,B,,yes,,,,18-25,male,British,Southeast,,Secondary,Student,,,
+309,S1A-083,1,A,,yes,,,Paquita,44,female,British,London,O-Levels,Secondary,"Tennis coach, guitarist",,,
+310,S1A-083,1,B,,yes,,,Sandra,46-65,female,British,Spain,O-Levels,Secondary,Flamenco dancing teacher,,,Father: Spanish; Mother: Gipsy. In UK since child
+311,S1A-084,1,A,,yes,,Buckley,Justin,21,male,British,Southeast,"English degree, UCL",University,"Researcher, Survey of English Usage",,,
+312,S1A-084,1,B,,yes,,Scott,Kate,18-25,female,British,London,"Undergraduate in English, UCL",Secondary,Student,,,
+313,S1A-084,1,C,,yes,,,,18-25,female,British,Northeast,"Undergraduate in English, UCL",Secondary,Student,,,
+314,S1A-085,1,A,,yes,,,,18-25,male,British,London,,Secondary,Student,,,
+315,S1A-085,1,B,,yes,,Scott,Kate,18-25,female,British,London,"Undergraduate in English, UCL",Secondary,Student,,,
+317,S1A-086,1,B,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,,
+319,S1A-087,1,A,,yes,,Dytham,,46-65,male,British,Southeast,,University,Dentist,,,
+320,S1A-087,1,B,,yes,,,,26-45,male,British,Southeast,,University,Physicist,,,
+321,S1A-087,2,A,,yes,,Dytham,,46-65,male,British,Southeast,,University,Dentist,,,
+322,S1A-087,2,B,,yes,,,,18-25,male,British,London,"Undergraduate student, UCL",Secondary,Student
+323,S1A-088,1,A,,yes,,Dytham,,46-65,male,British,Southeast,,University,Dentist
+324,S1A-088,1,B,,yes,,,,26-45,male,British,Southeast,,University,Physicist
+326,S1A-089,1,A,,yes,,Dytham,,46-65,male,British,Southeast,,University,Dentist
+327,S1A-089,1,B,,yes,,,,26-45,male,British,Southeast,,University,Physicist
+329,S1A-089,2,B,,yes,,,,18-25,female,British,London,"Undergraduate student, UCL",Secondary,Student
+333,S1A-089,4,B,,yes,,,,18-25,female,British,Northeast,"Undergraduate student, UCL",Secondary,Student
+335,S1A-090,1,B,,yes,,,Maureen,46-65,female,British,Scotland,"Undergraduate student, UCL",Secondary,Student
+336,S1A-090,1,C,,yes,,,Caroline,46-65,female,British,London,"Undergraduate student, UCL",Secondary,Student
+337,S1A-090,1,D,,yes,,,Joan,66+,female,British,London,"Undergraduate student, UCL",Secondary,"Student, retired nurse"
+338,S1A-090,2,A,,yes,,,,18-25,female,British,London,"Undergraduate student, UCL",Secondary,Student
+339,S1A-090,2,B,,yes,,,Maureen,46-65,female,British,Scotland,"Undergraduate student, UCL",Secondary,Student
+340,S1A-090,2,C,,yes,,,,18-25,female,British,London,"Undergraduate student, UCL",Secondary,Student
+341,S1A-091,1,A,,yes,,,Isobel,29,female,British,Spain,,University,
+342,S1A-091,1,B,,yes,,,Jenny,26-45,female,British,London,,Secondary,Student
+343,S1A-092,1,A,,yes,,,Isobel,29,female,British,Spain,,University,
+344,S1A-092,1,B,,yes,,Mason,David,27,male,British,Southeast,,University,
+345,S1A-093,1,A,,yes,,Tollfree,Laura,18-25,female,British,London,"Degree in Linguistics, UCL",University,Student
+346,S1A-093,1,B,,yes,,Tollfree,Eleanor,20,female,British,London,,Secondary,Student
+347,S1A-094,1,A,,yes,,Wagner,Mary,66+,female,British,Southeast,,Secondary,Retired
+348,S1A-094,1,B,,yes,,Tollfree,Laura,18-25,female,British,London,"Degree in Linguistics, UCL",University,Student
+349,S1A-095,1,A,,yes,,Debenham,Giles,25,male,British,London,,,
+350,S1A-095,1,B,,yes,,Debenham,Simon,28,male,British,London,,University,Accountant
+351,S1A-095,2,A,,yes,,Debenham,Susan,48,female,British,London,,,
+352,S1A-095,2,B,,yes,,Debenham,Simon,28,male,British,London,,University,Accountant
+353,S1A-095,3,A,,yes,,Debenham,Giles,25,male,British,London,,,
+354,S1A-095,3,B,,yes,,Debenham,Simon,28,male,British,London,,University,Accountant,,,
+355,S1A-095,4,A,,yes,,Debenham,Susan,48,female,British,London,,,,,,
+356,S1A-095,4,B,,yes,,Debenham,Simon,28,male,British,London,,University,Accountant,,,
+358,S1A-096,1,B,,yes,,,Cheryl,32,female,British,USA,BA Development Psychology,University,"Actress, poet",,,
+359,S1A-097,1,A,,yes,,Rosta,Andrew,18-25,male,British,Northwest,"UCL, Linguistics",University,"PhD student, Linguistics",,,"Researcher, Survey of English Usage"
+361,S1A-098,1,A,,yes,,Woodford,Kate,26,female,British,EastMidlands,,University,Lexicographer,,"French, Spanish",
+362,S1A-098,1,B,,yes,,Howells,Sian,25,female,British,Wales,,University,Personal Assistant in German bank,,"French, German",
+363,S1A-098,2,A,,yes,,Dowell,John,26-45,male,British,London,PhD,University,Employed at UCL,,,
+364,S1A-098,2,B,,yes,,Woodford,Kate,26,female,British,EastMidlands,,University,Lexicographer,,"French, Spanish",
+365,S1A-098,3,A,,yes,,Woodford,Kate,26,female,British,EastMidlands,,University,Lexicographer,,"French, Spanish",
+366,S1A-098,3,B,,yes,,Peters,Roz,27,female,British,London,,University,Civil servant,,,
+367,S1A-099,1,A,,yes,,,,18-25,female,British,Wales,,University,Nurse,,,
+368,S1A-099,1,B,,yes,,Buckley,Justin,21,male,British,Southeast,"BA English, UCL",University,"Student, researcher",,,"Researcher, Survey of English Usage"
+369,S1A-099,2,A,,yes,,,,18-25,female,British,London,B-Techs,University,Shop assistant,,,
+370,S1A-099,2,B,,yes,,Buckley,Justin,21,male,British,Southeast,"BA English, UCL",University,"Student, researcher",,,"Researcher, Survey of English Usage"
+371,S1A-100,1,A,,yes,,Gibney,Marie,46-65,female,British,Northwest,,University,University secretary,,,"Secretary, Survey of English Usage"
+374,S1A-100,2,B,,yes,,Gibney,Marie,46-65,female,British,Northwest,,University,University secretary,,,"Secretary, Survey of English Usage"
+375,S1A-100,3,A,,yes,,,Sean,26-45,male,British,EastMidlands,,University,"Artist, journalist",,,
+376,S1A-100,3,B,,yes,,Buckley,Justin,21,male,British,Southeast,"BA English, UCL",University,"Student, researcher",,,"Researcher, Survey of English Usage"
+377,S1B-001,1,A,,yes,Tutor,Weitzman,Michael,46-65,male,British,London,,University,University Lecturer,,Hebrew,
+378,S1B-001,1,B,,yes,,Turner,Mary,46-65,female,British,London,,Secondary,Student,,Hebrew,
+379,S1B-001,1,C,,yes,,Smith,John,18-25,male,British,London,,Secondary,,,,
+381,S1B-002,1,B,,yes,,,Susan,18-25,female,British,East,,Secondary,Student,,,
+382,S1B-002,1,C,,yes,,,Vicky,18-25,female,British,London,,Secondary,Student,,,
+383,S1B-002,1,D,,yes,,,Phillip,18-25,male,British,Southeast,,Secondary,Student,,,
+384,S1B-002,1,E,,yes,,,Vincent,18-25,male,British,London,,Secondary,Student,,,
+385,S1B-002,1,F,,yes,,,Jeremy,18-25,male,British,EastMidlands,,Secondary,Student,,,
+386,S1B-002,1,G,,yes,,,Georgina,18-25,female,British,London,,Secondary,Student
+392,S1B-003,1,A,,yes,Tutor,Houghton,George,26-45,male,British,Northwest,"MA, PhD",University,University Lecturer
+393,S1B-003,1,B,,yes,,,Colin,23,male,British,London,,Secondary,Student
+395,S1B-003,1,D,,yes,,,Jill,18-25,female,British,London,,Secondary,Student
+396,S1B-003,1,E,,yes,,,Melanie,18-25,female,British,London,,Secondary,Student
+414,S1B-005,1,B,,yes,,,Michael,18-25,male,British,London,,Secondary,Student
+415,S1B-005,1,C,,yes,,,Rebecca,18-25,female,British,London,,Secondary,Student
+416,S1B-005,1,D,,yes,,,Joanna,18-25,female,British,Southeast,,Secondary,Student
+417,S1B-005,1,E,,yes,,,Michael,18-25,male,British,Southeast,,Secondary,Student
+419,S1B-006,1,B,,yes,,,Jackie,18-25,female,British,London,,Secondary,student
+422,S1B-007,1,A,,yes,Tutor,Agnew,Clive,26-45,male,British,London,PhD,University,Lecturer in Geography
+423,S1B-007,1,B,,yes,,,Barbara,18-25,female,British,London,,Secondary,Student
+424,S1B-007,1,C,,yes,,,Colin,18-25,male,British,London,,Secondary,Student
+425,S1B-007,1,D,,yes,,,James,18-25,male,British,London,,Secondary,Student
+426,S1B-007,1,E,,yes,,,Duncan,18-25,male,British,London,,Secondary,Student
+428,S1B-008,1,B,,yes,,,David,23,male,British,London,,Secondary,Student
+429,S1B-008,1,C,,yes,,,Miriam,18-25,female,British,Scotland,,Secondary,Student
+441,S1B-009,1,A,,yes,Tutor,Fitzgerald,M.,26-45,female,British,London,PhD Anatomy,University,University lecturer
+442,S1B-009,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+450,S1B-011,1,A,,yes,Tutor,Austin,R.C.,46-65,male,British,Southeast,,University,Lecturer in Public Law
+451,S1B-011,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+452,S1B-011,1,C,,yes,,,,18-25,female,British,London,,Secondary,Student
+453,S1B-011,1,D,,yes,,,,18-25,male,British,Southeast,,Secondary,Student
+454,S1B-011,1,E,,yes,,,,18-25,male,British,London,,Secondary,Student
+455,S1B-011,1,F,,yes,,,,18-25,female,British,London,,Secondary,Student
+456,S1B-011,1,G,,yes,,,,18-25,male,British,London,,Secondary,Student
+457,S1B-011,1,H,,yes,,,,18-25,female,British,Southeast,,Secondary,Student
+459,S1B-012,1,A,,yes,,Tollfree,Laura,18-25,female,British,London,BA Linguistics,University,Student (PhD)
+460,S1B-012,1,B,,yes,Tutor,,April,28,female,British,Scotland,PhD Phonology,University,University Lecturer
+462,S1B-013,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+463,S1B-013,1,C,,yes,,,,18-25,female,British,Southeast,,Secondary,Student
+464,S1B-013,1,D,,yes,,,,18-25,female,British,London,,Secondary,Student
+465,S1B-013,1,E,,yes,,,,18-25,female,British,London,,Secondary,Student
+467,S1B-014,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+468,S1B-014,1,C,,yes,,,,18-25,female,British,London,,Secondary,Student
+469,S1B-015,1,A,,yes,Tutor,Wolf,J.,26-45,male,British,London,PhD,University,University Lecturer
+470,S1B-015,1,B,,yes,,,John,18-25,male,British,WestMidlands,,Secondary,Student
+471,S1B-015,1,C,,yes,,,Rebecca,18-25,female,British,London,,Secondary,Student
+472,S1B-016,1,A,,yes,Tutor,Houghton,George,26-45,male,British,Northwest,PhD,University,University Lecturer
+473,S1B-016,1,B,,yes,,,,18-25,male,British,London,,Secondary,Student
+474,S1B-016,1,C,,yes,,,Matt,18-25,male,British,Southeast,,Secondary,Student
+475,S1B-016,1,D,,yes,,,Esther,18-25,female,British,London,,Secondary,Student
+476,S1B-017,1,A,,yes,Tutor,Orton,Clive,26-45,male,British,London,,University,Lecturer in Archaeology
+477,S1B-017,1,B,,yes,,,,46-65,male,British,London,,Secondary,Student
+479,S1B-017,1,D,,yes,,,,18-25,male,British,London,,Secondary,Student
+480,S1B-017,1,E,,yes,,,,18-25,female,British,London,,Secondary,Student
+481,S1B-018,1,A,,yes,,,,24,male,British,EastMidlands,,Secondary,Student
+482,S1B-018,1,B,,yes,Tutor,,,46-65,male,British,London,,University,University Lecturer,,
+483,S1B-018,1,C,,yes,,,,25,male,British,London,,Secondary,Student,,
+484,S1B-018,1,D,,yes,Tutor,,,34,male,British,Southeast,,University,University tutor,,
+485,S1B-018,1,E,,yes,,,Chris,18-25,male,British,London,,Secondary,Student,,
+489,S1B-019,1,C,,yes,,,Michael,18-25,male,British,EastMidlands,,Secondary,Student,,
+491,S1B-019,1,E,,yes,,,Eleanor,18-25,female,British,London,,Secondary,Student,,
+493,S1B-020,1,B,,yes,,,Victor,18-25,male,British,London,,Secondary,Student,,
+494,S1B-020,1,C,,yes,,,,18-25,male,British,London,,Secondary,Student,,
+495,S1B-021,1,A,,yes,Chairman,Morgan,Cliff,61,male,British,Wales,Grammar School,Secondary,"Broadcaster, ex-rugby player",,Welsh
+496,S1B-021,1,B,,yes,,Heyhoe-Flint,Rachael,52,female,British,WestMidlands,Wolverhampton High School; Dartford College of Physical Education,University,"Ex-cricketer, broadcaster, writer",,None
+497,S1B-021,1,C,,yes,,Wooller,Wilfred,66+,male,British,Wales,Cambridge (MA),University,Justice of the Peace,,Some French
+498,S1B-021,2,A,,yes,Chairman,Neil,Andrew,42,male,British,Scotland,Paisley Grammar School; Glasgow University (MA),University,"Editor, The Sunday Times",,,
+502,S1B-022,1,B,,yes,,Bragg,Melvyn,52,male,British,Cumbria,"Wadham College, Oxford",University,"Broadcaster, novelist",,,
+503,S1B-022,1,C,,yes,,Mortimer,John,58,male,British,London,Harrow School; Brasenose Coll. Oxford; Inner Temple,University,"Barrister, novelist, playwright",,,"QC, 1966"
+504,S1B-022,1,D,,yes,,Jackson,Glenda,55,female,British,Northwest,"West Kirby Grammar School; Royal Academy of Dramatic Arts, London",University,"Political candidate, actress",,,
+507,S1B-023,1,A,,yes,Chairman,Baker,Richard,66,male,British,London,"Peterhouse, Cambridge",University,"Broadcaster, ex-actor",,,
+509,S1B-023,1,C,,yes,,Nunn,Trevor,51,male,British,East,"Downing College, Cambridge (BA)",University,"Associate Director, The Royal Shakespeare Company",,,
+510,S1B-024,1,A,,yes,Chairman,Bragg,Melvyn,52,male,British,Cumbria,"Wadham College, Oxford (MA)",University,"Broadcaster, novelist",,,
+511,S1B-024,1,B,,yes,,Lawson,Mark,26-45,male,British,London,UCL (BA English),University,Journalist,,,
+512,S1B-024,1,C,,yes,,Mortimer,John,58,male,British,London,Harrow School; Brasenose Coll. Oxford; Inner Temple,University,"Barrister, novelist, playwright",,,"QC, 1966"
+513,S1B-024,1,D,,yes,,Couper,Heather,42,female,British,London,Grammar Sch; Univ. of Leicester (BSc Physics & Astronomy),University,Prof. of Astronomy; science broadcaster/writer,"FRAS, 1970","French, Latin, German",
+514,S1B-024,1,E,,yes,,Davies,Peter,26-45,male,British,Southwest,,University,,,"French, some German",
+515,S1B-024,1,F,,yes,,Dobbs,Michael,46-65,male,British,London,,University,"Politician, novelist",,,
+516,S1B-025,1,A,,yes,Chairman,Jones,Clay,66+,male,British,Wales,,University,Broadcaster,,Welsh,
+517,S1B-025,1,B,,yes,,Ledward,Daphne,26-45,female,British,Yorkshire,,Secondary,Horticulturalist,,"French, Latin",
+518,S1B-025,1,C,,yes,,Downham,Fred,46-65,male,British,Northwest,,Secondary,Horticulturalist,,None,
+519,S1B-025,1,D,,yes,,Buczacki,Stefan,26-45,male,British,EastMidlands,PhD,University,Horticulturalist,,"French, Russian",
+520,S1B-026,1,A,,yes,Chairman,Purves,Libby,26-45,female,British,London,"Oxford University, English 1971",University,Broadcaster,,French,
+521,S1B-026,1,B,,yes,,Horrocks,Stella,46-65,female,British,Yorkshire,Teachers' Training College,University,Ex-teacher,,None,
+522,S1B-026,1,C,,yes,,Hayes,Brian,46-65,male,British,Australia,,University,Broadcaster,,,
+523,S1B-026,1,D,,yes,,Dickens,Monica,66+,female,British,London,"St Paul's School, Hammersmith, London",Secondary,Novelist,,,
+525,S1B-027,1,A,,yes,Chairman,Sissons,Peter,49,male,British,Northwest,Oxford University (MA),University,Broadcaster,,,
+526,S1B-027,1,B,,yes,,Clarke,Kenneth,51,male,British,EastMidlands,"Nottingham High School; Gonville & Caius College, Cambridge (BA, LLB)",University,Politician,,,
+527,S1B-027,1,C,,yes,,Hattersley,Roy,59,male,British,EastMidlands,Sheffield Grammar School; Hull University,University,"Politician, journalist",,,
+528,S1B-027,1,D,,yes,,Ashdown,Paddy,41,male,British,India,Bedfordshire Public School; Hong Kong University,University,"Politician, ex-soldier",,Chinese,Moved to Britain aged 4
+530,S1B-028,1,A,,yes,Chairman,MacIntyre,Ian,60,male,British,Scotland,"Cambridge (MA); College of Europe, Bruges",University,Broadcaster,,"French, Norwegian, Russian, Italian",
+531,S1B-028,1,B,,yes,,Sacks,Jonathan,43,male,British,London,"Cambridge (MA); Oxford (PhD); Jews' College, London",University,Chief Rabbi,,,
+532,S1B-028,1,C,,yes,,Halsey,A.H.,68,male,British,EastMidlands,"London School of Economics (BSC Econ, PhD), MA Oxon",University,"Professorial Fellow, Nuffield College, Oxford",,,Former Professor of Social & Admin. Studies
+533,S1B-028,1,D,,yes,,McDade,John,26-45,male,British,Scotland,,University,Clergyman,,,
+535,S1B-029,1,A,,yes,,Hannan,Patrick,46-65,male,British,Wales,,University,Broadcaster,,,
+536,S1B-029,1,B,,yes,,Parris,Matthew,42,male,British,South Africa,"Waterford School, Swaziland; Cambridge (BA); Yale University",University,"Journalist, ex-politician",,Spanish,
+537,S1B-029,1,C,,yes,,Thomas,Daffyd Elis,45,male,British,Wales,University College North Wales,University,Politician; Ex-tutor in Celtic Studies,,,"Ex-lecturer in English, Univ. Coll. North Wales"
+541,S1B-030,1,C,,yes,,Daley,Janet,46-65,female,,USA,,University,Journalist,,,
+544,S1B-030,1,F,,yes,,Pearce,Edward,52,male,British,Northeast,Grammar School; Oxford (MA); University of Stockholm,University,"Political commentator, writer",,,
+547,S1B-031,1,C,,yes,,Pearce,Edward,52,male,British,Northeast,Grammar School; Oxford (MA); University of Stockholm,University,"Political commentator, writer",,,
+548,S1B-031,1,D,,yes,,Daley,Janet,26-45,female,,USA,,University,Journalist,,,
+551,S1B-032,1,A,,yes,,Baker,Richard,66,male,British,London,"Peterhouse, Cambridge",University,"Broadcaster, ex-actor",,,
+552,S1B-032,1,B,,yes,,Handley,Vernon,61,male,British,London,"Enfield School; Balliol College, Oxford; Guildhall School of Music",University,"Conductor, Royal Liverpool Philharmonic Orchestra",,,
+553,S1B-032,1,C,,yes,,Thomson,Bryden,46-65,male,British,Scotland,"Ayr Academy; Royal Scottish Academy of Music; Staatliche Hochschule fur Musik, Hamburg",University,Composer,"Fellow, Royal Scottish Acad. of Music & Drama",German,
+554,S1B-033,1,A,,yes,Chairman,Northam,Gerry,26-45,male,British,London,,University,Broadcaster,,,
+555,S1B-033,1,B,,yes,,Wheeler,Sir John,51,male,British,East,"Staff College, Wakefield",University,Politician,,,
+556,S1B-033,1,C,,yes,,Owen,David,46-65,male,British,Wales,,University,"President, Association of Chief Police Officers; ex-detective",,,
+557,S1B-033,1,D,,yes,,Hattersley,Roy,59,male,British,EastMidlands,Sheffield Grammar School; Hull University,University,Politician,,,
+561,S1B-034,1,A,,yes,Chairman,Dimbleby,David,53,male,British,London,Charterhouse School; Oxford (MA); University of Paris,University,Broadcaster,,,
+563,S1B-034,1,C,,yes,,Bradbury,,46-65,male,British,EastMidlands,,,County Councillor,,,
+565,S1B-034,1,E,,yes,,Higgins,Bertha,46-65,female,British,EastMidlands,,University,County Councillor,,,
+571,S1B-034,1,K,,yes,,,,46-65,male,British,Scotland,,,County Councillor,,,
+573,S1B-035,1,A,,yes,Chairman,Dimbleby,Jonathan,47,male,British,London,UCL (BA Philosophy),University,Broadcaster,,,
+575,S1B-035,1,C,,yes,,Rifkind,Malcolm,45,male,British,Scotland,"Edinburgh University (LLB, MSc)",University,Politician,,,"Lectured at University of Rhodesia, 1967-8"
+576,S1B-035,1,D,,yes,,Wilkinson,Paul,54,male,British,Wales,"University College Swansea; University of Wales (BA History & Politics, MA)",University,Professor of International Relations,,,
+577,S1B-036,1,A,,yes,Chairman,Naughtie,James,40,male,British,Scotland,Grammar School; Aberdeen University; Syracuse University,University,Broadcaster,,,
+579,S1B-036,1,C,,yes,,Robertson,George,45,male,British,Scotland,"Dunoon Grammar School; University of Dundee (MA Hons, 1968)",University,Politician,,,
+581,S1B-036,1,E,,yes,,Patten,John,46,male,British,London,"Wimbledon College; Sidney Sussex College, Cambridge (PhD 1972)",University,Politician,,,Former university lecturer
+583,S1B-037,1,B,,yes,,Aslet,Clive,36,male,British,London,"Peterhouse, Cambridge",University,"Deputy Editor, Country Life",,,
+587,S1B-038,1,B,,yes,Chairman,Dimbleby,Jonathan,47,male,British,London,UCL (BA Philosophy),University,Broadcaster,,,
+589,S1B-039,1,A,,yes,Chairman,Neil,Andrew,42,male,British,Scotland,Grammar School; University of Glasgow,University,"Journalist, Editor, `The Sunday Times'",,,
+593,S1B-040,1,B,,yes,,Haines,Joe,63,male,British,London,,Secondary,Journalist,,,Former Press Officer to the Prime Minister
+594,S1B-040,1,C,,yes,,Pimlott,Ben,46,male,British,London,"Rokeby School, Wimbledon; Marlborough Coll.; Worcester Coll.; Oxford (MA, BPhil); Newcastle (PhD)",University,Professor of Politics & Contemporary History,,,
+595,S1B-040,1,D,,yes,,Jenkins,Roy,71,male,British,Wales,"Abersychan Grammar School; University College Cardiff; Balliol College, Oxford",University,Politician,,,
+596,S1B-041,1,A,,yes,Interviewer,Nicholson,Mavis,61,female,British,Wales,,University,Broadcaster,,,
+597,S1B-041,1,B,,yes,Interviewee,Runcie,Robert,66,male,British,London,Merchant Taylor's School; Oxford; Cambridge,University,Former Archbishop of Canterbury,,,
+598,S1B-042,1,A,,yes,Interviewer,Aspel,Michael,57,male,British,London,London,University,Broadcaster,,,
+599,S1B-042,1,B,,yes,Interviewee,Laurie,Hugh,26-45,male,British,Southeast,Eton; Cambridge (Archaeology),University,"Comedian, actor",,,
+600,S1B-042,2,A,,yes,Interviewer,Morley,Sheridan,46-65,male,British,London,,University,Broadcaster,,French,
+601,S1B-042,2,B,,yes,Interviewee,Mortimer,John,58,male,British,London,Harrow School; Brasenose Coll. Oxford; Inner Temple,University,"Barrister, novelist, playwright",,,"QC, 1966"
+602,S1B-043,1,A,,yes,Interviewer,Dimbleby,Jonathan,47,male,British,London,UCL (BA Philosophy),University,Broadcaster,,,
+603,S1B-043,1,B,,yes,Interviewee,Major,John,47,male,British,London,,Secondary,"Politician, accountant",,,
+605,S1B-044,1,B,,yes,Interviewee,Walker,Lynn,26-45,female,British,Scotland,,University,Critic,,None,
+611,S1B-045,1,B,,yes,Interviewee,Jarman,Derek,49,male,British,London,"King's College, London; Slade School of Art",University,"Painter, film director",,,
+612,S1B-046,1,A,,yes,Interviewer,Lawley,Sue,45,female,British,WestMidlands,Bristol University (BA Modern Languages),University,Broadcaster,,,
+613,S1B-046,1,B,,yes,Interviewee,Byatt,A.S.,55,female,British,EastMidlands,"Cambridge; Bryn Mawr College, Pa., USA; Somerville Coll., Oxford",University,Novelist,,,Former lecturer in English
+614,S1B-047,1,A,,yes,Interviewer,MacIntyre,Ian,60,male,British,Scotland,"Prescot Grammar School; St John's College, Cambridge; College of Europe, Bruges",University,Broadcaster,,"French, Norwegian, Russian, Italian",
+617,S1B-048,1,B,,yes,Interviewee,Stewart,Mary,75,female,British,London,"Skellfield School, Ripon, Yorks; Durham University",University,Novelist,,,Former lecturer in English
+618,S1B-049,1,A,,yes,Interviewer,Cuffe,Jenny,26-45,female,British,London,,University,Broadcaster,,"French, Spanish, Italian",
+619,S1B-049,1,B,,yes,Interviewee,Mottley,Shiela,46-65,female,British,Northwest,,Secondary,,,None,
+620,S1B-050,1,A,,yes,Interviewer,Billington,Michael,52,male,British,WestMidlands,Oxford (BA),University,"Drama critic, journalist",,,
+622,S1B-051,1,A,,yes,,Summerson,Hugo,41,male,British,WestMidlands,Agricultural College,University,"Politician, surveyor",,,
+623,S1B-051,1,B,,yes,,Battle,John,40,male,British,Yorkshire,"Upholland College, Leeds",University,Politician,,,Trained for R.C. Church
+625,S1B-051,1,D,,yes,,Skinner,Denis,58,male,British,EastMidlands,"Sheffield University; Ruskin College, Oxford",University,"Politician, miner",,,
+626,S1B-051,1,E,,yes,,Rogers,Allan,59,male,British,Wales,University College Swansea (BSc Geology),University,"Politician, geologist",,,"Worked in USA, Canada, Australia, 1956-63"
+627,S1B-051,1,F,,yes,,Holt,Richard,60,male,British,London,Wembley Technical College,University,Politician,,,
+629,S1B-051,1,H,,yes,,Mahon,Alice,54,female,British,Canada,Bradford University,University,"Politician, lecturer",,,
+630,S1B-051,1,I,,yes,,Livingstone,Ken,46,male,British,London,Fawcett College of Education,University,"Politician, lab technician",,,
+632,S1B-052,1,B,,yes,,Clark,William,74,male,British,London,,Secondary,"Politician, accountant",,,
+633,S1B-052,1,C,,yes,,Major,John,47,male,British,London,,Secondary,Politician,,,
+634,S1B-052,1,D,,yes,,Beith,Alan,47,male,British,Southeast,"King's School, Macclesfield; Balliol College Oxf.",University,"Politician, lecturer",,,
+635,S1B-052,1,E,,yes,,Higgins,Terence,63,male,British,London,Cambridge; Yale,University,"Politician, economist",,,
+636,S1B-052,1,F,,yes,,Sheldon,Robert,68,male,British,Northwest,Technical College; London University,University,"Politician, engineer",,,
+637,S1B-052,1,G,,yes,,Wardle,Charles,62,male,British,Southeast,"Lincoln Coll, Oxford; Harvard Business School",University,Politician,,,
+639,S1B-052,1,I,,yes,,Stewart,Ian,56,male,British,London,"Jesus College, Cambridge (MA, LittD (1978))",University,Politician,,,
+643,S1B-052,1,M,,yes,,Fraser,John,57,male,British,London,"Grammar School, Chelsea; Loughborough Univ.",University,"Politician, solicitor",,,
+645,S1B-052,1,O,,yes,,Salmond,Alex,37,male,British,Scotland,St Andrew's,University,"Politician, economist",,,
+647,S1B-053,1,B,,yes,,Thatcher,Margaret,65,female,British,EastMidlands,Oxford; Lincoln's Inn,University,Politician,,,
+649,S1B-053,1,D,,yes,,Ashdown,Paddy,41,male,British,India,Bedfordshire Public School; Hong Kong University,University,"Politician, ex-soldier",,Chinese,Moved to Britain aged 4
+650,S1B-053,1,E,,yes,,Squire,Robin,47,male,British,London,"Tiffin School, Kingston-upon Thames; Accountancy training",University,"Politician, chartered accountant",FCA,,
+651,S1B-053,1,F,,yes,,Lamond,James,63,male,British,Scotland,Burrelton School,Secondary,"Politician, engineering draughtsman",,,
+652,S1B-053,1,G,,yes,,Tebbit,Norman,60,male,British,London,Edmonton County Grammar School,Secondary,"Politician, businessman",,,
+653,S1B-053,1,H,,yes,,Norris,Steve,46,male,British,Northwest,"Worcester College, Oxford",University,Politician,,,
+655,S1B-053,1,J,,yes,,Onslow,Cranley,65,male,British,Southeast,"Harrow School; Oriel College, Oxford; Geneva University",University,Politician,,,
+658,S1B-054,1,C,,yes,,Wells,Bowen,56,male,British,London,"St Paul's School, London, Exeter University",University,Politician,,,
+659,S1B-054,1,D,,yes,,Budgeon,Nicholas,54,male,British,Southeast,Cambridge,University,"Politician, barrister",,,
+660,S1B-054,1,E,,yes,,Cryer,Bob,56,male,British,Yorkshire,"Salt School, Shipley; Hull University",University,"Politician, teacher",,,
+663,S1B-055,1,C,,yes,,Eastham,Ken,63,male,British,Northwest,Openslaw Technical College,University,"Politician, engineer",,,
+664,S1B-055,1,D,,yes,,Lloyd,Tony,41,male,British,Northwest,Stretford Grammar School; Nottingham University (BSc); Manchester Business School (DipBA),University,"Politician, Lecturer in Business Studies",,,
+666,S1B-055,1,F,,yes,,Howard,Michael,50,male,British,Wales,"Grammar School; Peterhouse, Cambridge; Inner Temple",University,"Politician, barrister",,,
+668,S1B-055,1,H,,yes,,Lamond,James,63,male,British,Scotland,Burrelton School,Secondary,"Politician, engineering draughtsman",,,
+672,S1B-055,1,L,,yes,,Fyfe,Maria,53,female,British,Scotland,"High School, Glasgow; Strathclyde Univ",University,"Politician, lecturer",,,
+674,S1B-055,1,N,,yes,,Reid,John,44,male,British,Scotland,Stirling Univ (PhD),University,"Politician, researcher",,,
+675,S1B-055,1,O,,yes,,Hicks,Maureen,43,female,British,London,"Furzedown College of Education, London",University,"Politician, lecturer",,,
+677,S1B-056,1,B,,yes,,Grist,Ian,53,male,British,Wales,"Jesus College, Oxford",University,Politician,,,
+678,S1B-056,1,C,,yes,,Powell,Ray,63,male,British,Wales,London School of Economics,University,Politician,,,
+680,S1B-056,1,E,,yes,,Griffiths,Win,48,male,British,Wales,Grammar School; Univ of Wales,University,"Politician, teacher",,,
+681,S1B-056,1,F,,yes,,Jones,Barry,53,male,British,Wales,Bangor College of Education,University,"Politician, teacher of English",,,
+682,S1B-056,1,G,,yes,,Michael,Alun,48,male,British,Wales,Colwyn Bay Grammar School; Keele University (BA English & Philos.),University,Politician,,,Former journalist
+684,S1B-056,1,I,,yes,,Bennett,Nicholas,42,male,British,London,Polytechnic of N.London (BA Philosophy); Univ. of London Inst of Educ (PGCE); Univ. of Sussex (MA),University,Politician,,,
+686,S1B-056,1,K,,yes,,Walker,Bill,62,male,British,Scotland,"Logie School, Dundee; Trades College, Dundee; College for Distributive Trades",University,Politician,"FIPM, FBIM",,
+690,S1B-057,1,D,,yes,,Wigley,Daffyd,47,male,British,Wales,Manchester University,University,"Politician, economist",,
+692,S1B-057,1,F,,yes,,Howard,Michael,50,male,British,Wales,"Peterhouse, Cambridge; Inner Temple",University,"Politician, barrister",,
+698,S1B-057,1,L,,yes,,Kirkwood,Archy,45,male,British,Scotland,Heriot-Watt University (BSc Pharmacy),University,Politician,,
+700,S1B-057,1,N,,yes,,Eastham,Ken,64,male,British,Northwest,Openslaw Technical College,University,"Politician, engineer",,
+705,S1B-058,1,D,,yes,,Wallace,James,37,male,British,Scotland,Edinburgh Univeristy,University,Politician,,
+708,S1B-059,1,B,,yes,,Howard,Michael,50,male,British,Wales,"Grammar School; Peterhouse, Cambridge",University,Politician (Sec. of State for Employment),
+712,S1B-059,1,F,,yes,,Blair,Tony,38,male,British,Northeast,"St John's College, Oxford",University,Politician,
+715,S1B-059,1,I,,yes,,Stern,Michael,49,male,British,London,,University,"Politician, accountant",
+716,S1B-059,1,J,,yes,,Madden,Max,50,male,British,London,Grammar School,Secondary,Politician,
+717,S1B-059,1,K,,yes,,Dickens,Sir Geoffrey,60,male,British,London,"Easthome School, Wembley; Harrow Technical College; Acton Technical College",University,"Politician, businessman",
+720,S1B-059,1,N,,yes,,Lloyd,Tony,41,male,British,Northwest,Stretford Grammar Sch.; Nottingham University (BSc); Manchester Business School (DipBA),University,"Politician, Lecturer in Business Studies",
+721,S1B-059,1,O,,yes,,Forth,Eric,47,male,British,Scotland,"Jordanhill College School, Glasgow; Glasgow University",University,"Politician, businessman",
+724,S1B-059,1,R,,yes,,Butler,Christopher,41,male,British,Wales,"Cardiff High School; Emmanuel College, Cambridge",University,"Politician, Market Researcher",,,
+725,S1B-059,1,S,,yes,,Ashley,Jack,69,male,British,Northwest,"Ruskin College, Oxford; Gonville & Caius College, Cambridge",University,Politician,,,Partially deaf
+728,S1B-060,1,C,,yes,,Peacock,Elizabeth,54,female,British,Yorkshire,"Secondary School, Skipton, Yorkshire",Secondary,Politician,,,
+729,S1B-060,1,D,,yes,,Henderson,Doug,42,male,British,Scotland,"Waid Academy, Fife; Central College, Glasgow; Strathclyde University (BA)",University,Politician,,,
+735,S1B-061,1,A,,yes,Defence counsel,Nugee,Edward,64,male,British,Unknown,Worcester College; Oxford,University,Barrister (QC),,,
+736,S1B-061,1,B,,yes,Plaintiff,Hill,John,26-45,male,British,Southeast,,,Businessman,,,
+740,S1B-063,1,A,,yes,Judge,Hirst,David,65,male,British,East,"Eton; Trinity College, Cambridge (MA)",University,High Court Judge
+744,S1B-064,1,B,,yes,Prosecution witness,Lehrer,Michael,,male,British,London,,,Businessman
+747,S1B-065,1,B,,yes,Defence witness,Lampitt,Robert,46-65,male,British,London,,,Businessman
+750,S1B-066,1,B,,yes,Plaintiff,Hoffman,Heidi,18-25,female,British,Southeast,,,
+753,S1B-066,2,B,,yes,Plaintiff's witness,White,Lorraine,18-25,female,British,Northeast,,,
+756,S1B-067,1,B,,yes,Defence witness,Tarburn,,18-25,female,British,Scotland,,,Travel company representative,,,
+760,S1B-068,1,C,,yes,Judge,MacPherson,,65,male,British,Scotland,"Wellington Coll., Berkshire; Trinity Coll., Oxford",University,High Court Judge,,,
+763,S1B-068,2,C,,yes,Judge,MacPherson,,65,male,British,Scotland,"Wellington Coll., Berkshire; Trinity Coll., Oxford",University,High Court Judge,,,
+766,S1B-069,1,B,,yes,Defence witness,Basnett,,,male,British,WestMidlands,,,Businessman,,,
+770,S1B-071,1,A,,yes,,Wharton,John,26-45,male,British,Southeast,,University,Architect,,
+771,S1B-071,1,B,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,
+772,S1B-071,1,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management consultant,,
+773,S1B-072,1,A,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,
+774,S1B-072,1,B,,yes,,,,26-45,female,British,Southeast,,University,Solicitor,,
+775,S1B-073,1,A,,yes,,Boase,Sue,26-45,female,British,Southeast,,University,"Lecturer, researcher",,
+776,S1B-073,1,B,,yes,,Salano,Michael,26-45,male,British,Southeast,,University,Building contractor,,
+777,S1B-073,1,C,,yes,,King-Smith,Gavin,26-45,male,British,Southeast,,University,Management consultant,,
+778,S1B-074,1,A,,yes,,,,32,male,British,London,,University,Lecturer,,Spanish
+779,S1B-074,1,B,,yes,,,Ross,27,male,British,Scotland,,University,Insurance salesman,,
+780,S1B-074,2,A,,yes,,,Ross,27,male,British,Scotland,,University,Insurance salesman,,
+781,S1B-074,2,B,,yes,,,,18-25,male,British,Southwest,,Secondary,Student,,Some French
+782,S1B-074,3,A,,yes,,,Ross,27,male,British,Scotland,,University,Insurance salesman,,
+783,S1B-074,3,B,,yes,,Kalman,Anthony,27,male,British,London,,University,Chef,,
+784,S1B-074,3,C,,yes,,Lawrence,Jane,20,female,British,London,,Secondary,Student,,
+796,S1B-076,1,B,,yes,,Rosta,And,18-25,male,British,Northwest,"BA in Linguistics, UCL",University,PhD student,,,
+798,S1B-077,1,A,,yes,Chairman,Donoghue,Helen,26-45,female,British,Southeast,Grammar School; Bristol University,University,Senior Lecturer in Microbiology,,,"Lived in Bristol, Bradford, London"
+805,S1B-078,1,B,,yes,,,Denis,66+,male,British,Northeast,,Secondary,Student
+806,S1B-078,1,C,,yes,,,Chris,26-45,female,British,London,,Secondary,Student
+807,S1B-078,1,D,,yes,,,Ted,46-65,male,British,London,,Secondary,Student
+808,S1B-078,1,E,,yes,,,,46-65,female,British,London,,Secondary,Student
+809,S1B-079,1,A,,yes,Chairman,,Andy,18-25,male,British,London,,Secondary,Student
+810,S1B-079,1,B,,yes,,,Carol,18-25,male,British,London,,Secondary,Student
+811,S1B-079,1,C,,yes,,,,18-25,male,British,WestMidlands,,Secondary,Student
+812,S1B-079,1,D,,yes,,,,18-25,male,British,London,,Secondary,Student
+813,S1B-079,1,E,,yes,,,Katherine,18-25,female,British,London,,Secondary,Student
+814,S1B-079,1,F,,yes,,Thompson,Katherine,18-25,female,British,London,,Secondary,Student
+815,S1B-079,1,G,,yes,,,Joe,18-25,male,British,London,,Secondary,Student
+816,S1B-079,1,H,,yes,,,Emma,18-25,female,British,London,,Secondary,Student
+817,S1B-079,1,I,,yes,,,,18-25,female,British,London,,Secondary,Student
+818,S1B-079,1,J,,yes,,,,18-25,male,British,EastMidlands,,Secondary,Student,,
+819,S1B-080,1,A,,yes,,,Ross,27,male,British,Scotland,,University,Insurance salesman,,
+820,S1B-080,1,B,,yes,,,,25,female,British,Southeast,,Secondary,Student,,
+821,S1B-080,2,A,,yes,,,Ross,27,male,British,Scotland,,University,Insurance salesman,,
+822,S1B-080,2,B,,yes,,,,32,male,British,London,,University,Lecturer,,
+825,S2A-003,1,A,,yes,,Green,Alan,26-45,male,British,Ireland,,,,,
+826,S2A-004,1,A,,yes,,French,Ray,46-65,male,British,Northwest,University of Leeds,University,Sports reporter,,"French, Latin, Russian"
+827,S2A-005,1,A,,yes,,Bromley,Peter,46-65,male,British,Northwest,,Secondary,Sports reporter,,None
+828,S2A-005,2,A,,yes,,McKenzie,Lee,26-45,male,British,Southeast,,University,Sports reporter,,French
+829,S2A-005,3,A,,yes,,Bromley,Peter,46-65,male,British,Northwest,,Secondary,Sports reporter,,None
+830,S2A-005,4,A,,yes,,McKenzie,Lee,26-45,male,British,Southeast,,University,Sports reporter,,French
+831,S2A-005,5,A,,yes,,Bromley,Peter,46-65,male,British,Northwest,,Secondary,Sports reporter,,None
+832,S2A-006,1,A,,yes,,Bromley,Peter,46-65,male,British,Northwest,,Secondary,Sports reporter,,None
+842,S2A-007,6,A,,yes,,Ovett,Steve,36,male,British,Southeast,,Secondary,Former athlete
+845,S2A-007,9,A,,yes,,Ovett,Steve,36,male,British,Southeast,,Secondary,Former athlete
+847,S2A-007,11,A,,yes,,Ovett,Steve,36,male,British,Southeast,,Secondary,Former athlete
+849,S2A-007,13,A,,yes,,Ovett,Steve,36,male,British,Southeast,,Secondary,Former athlete
+852,S2A-008,3,A,,yes,,Neil,Andrew,42,male,British,Scotland,"Paisley Grammar School; University of Glasgow (MA Politics & Economics, 1971)",University,"Journalist, editor `The Sunday Times'",,
+854,S2A-008,5,A,,yes,,Neil,Andrew,42,male,British,Scotland,"Paisley Grammar School; University of Glasgow (MA Politics & Economics, 1971)",University,"Journalist, editor `The Sunday Times'",,
+857,S2A-009,1,A,,yes,,Darke,Ian,26-45,male,British,Southeast,,Secondary,Sports reporter,,None
+859,S2A-011,1,A,,yes,,Dimbleby,Jonathan,47,male,British,London,,University,"Journalist, broadcaster",,
+861,S2A-012,2,A,,yes,,Harris,Nick,26-45,male,British,Southeast,,Secondary,Sports reporter,,None
+872,S2A-014,1,A,,yes,,Green,Alan,26-45,male,British,Ireland,,University,Broadcaster
+881,S2A-019,1,A,,yes,,Dimbleby,Jonathan,47,male,British,Southeast,,University,Broadcaster
+882,S2A-020,1,A,,yes,,Hosken,John,46-65,male,British,Southwest,,Secondary,Broadcaster,,"Spanish, French",
+883,S2A-020,2,A,,yes,,McLellan,Andrew,46-65,male,British,Scotland,,University,Broadcaster,,"Latin, Greek, Hebrew, French, German",
+884,S2A-021,1,A,,yes,Lecturer,Newsam,Sir Peter,63,male,British,Yorkshire,"Clifton College, Yorks; Queen's College, Oxford (MA, DipEd)",University,"Director, London Institute of Education",,,
+885,S2A-022,1,A,,yes,Lecturer,James,Simon,26-45,male,British,London,MA(Oxon),University,Military Archaeologist,,Italian,
+886,S2A-023,1,A,,yes,Lecturer,Banham,John,51,male,British,London,"Charterhouse School; Queen's College, Cambridge (BA Natural Sciences)",University,"Director, Confederation of British Industry",,,
+887,S2A-024,1,A,,yes,Lecturer,Vanags,Patsy,26-45,female,British,London,,University,Part-time lecturer,,,
+888,S2A-025,1,A,,yes,Lecturer,Chandler,A.,26-45,male,British,London,,University,Lecturer in Engineering,,,
+889,S2A-026,1,A,,yes,Lecturer,Jeffreys,David,26-45,male,British,WestMidlands,,University,Lecturer in Egyptology,,,
+890,S2A-027,1,A,,yes,Lecturer,Steinberg,Hannah,46-65,female,British,Germany,PhD,University,Professor of Pharmacology,,German,Moved to Britain aged c.7
+891,S2A-028,1,A,,yes,Lecturer,Johnstone,Wyndham,26-45,male,British,London,"BSc Physics, PhD",University,Research Scientist,,None,
+892,S2A-028,2,A,,yes,Lecturer,Abbott,David,26-45,male,British,Northwest,B.Eng. (Hons),University,Network Administrator,,,Lives in Greater Manchester
+893,S2A-028,3,A,,yes,Lecturer,Roberts,Derek,46-65,male,British,London,PhD,University,"Provost, UCL; ex-businessman",,,
+894,S2A-029,1,A,,yes,Lecturer,Gower,Nicole,26-45,female,British,Southeast,BSc Hons Human Biology,University,Research Assistant/Trial Coordinator,,French,
+895,S2A-029,2,A,,yes,Lecturer,Betts,Andy,26-45,male,British,Southeast,"BSc, PhD",University,Lecturer,,"French, German",
+896,S2A-029,3,A,,yes,Lecturer,Newton,Andrew,26-45,male,British,London,"BSc Physics, MSc Information Technology",University,Research Fellow,,French,
+899,S2A-031,2,A,,yes,Lecturer,Cassells,Sir John,64,male,British,Yorkshire,"Sedbergh School, Yorks.; Trinity Colege, Cambridge (Classics, 1951)",University,"Dir., National Committee on Education",,,Former Civil Servant
+900,S2A-032,1,A,,yes,Lecturer,Hutchins,John,46-65,male,British,Southeast,,University,University lecturer,,,
+901,S2A-033,1,A,,yes,Lecturer,Ash,Katy,26-45,female,British,Southeast,BSc,University,Clinical Trial Data Manager,,None,
+902,S2A-033,2,A,,yes,Lecturer,Edwards,D.R.L.,26-45,male,British,London,"M.B.B.S., M.R.C. Psych.",University,Associate Research Fellow in Psychiatry,,"French, some Danish & Russian",
+903,S2A-033,3,A,,yes,Lecturer,Lansbury,A.N.,26-45,female,British,Southeast,"BSc, PhD",University,Physicist,,,
+904,S2A-034,1,A,,yes,Lecturer,Wood,Andrew,18-25,male,British,Yorkshire,"BSc Applied Chemistry, MSc",University,PhD Student,,None,
+905,S2A-034,2,A,,yes,Lecturer,Morrissey,Mark,18-25,male,British,WestMidlands,BSc Computer Science & Electronic Engineering,University,Computer Systems Administration,,,
+906,S2A-034,3,A,,yes,Lecturer,Ramsay,R.,26-45,female,British,Southeast,"MA, MRBS",University,Doctor,,"French, German",
+908,S2A-035,1,A,,yes,Lecturer,Spencer,Sharon,26-45,female,British,London,"BSc, PhD Biochemistry",University,Associate Research Assistant,,None,
+909,S2A-035,2,A,,yes,Lecturer,James,Lindsay,26-45,female,British,Unknown,BSc Social Science,University,"Registered General Nurse, Research Assistant",,None,
+910,S2A-035,3,A,,yes,Lecturer,Lang,Harriet,18-25,female,British,Southeast,BSc Speech Communication,University,Research Assistant,,French,
+911,S2A-036,1,A,,yes,Lecturer,Weitzmann,Michael,26-45,male,British,London,,University,Lecturer in Jewish & Hebrew Studies,,Hebrew,
+912,S2A-037,1,A,,yes,Lecturer,Roberts,Derek,46-65,male,British,London,PhD,University,"Provost, UCL; ex-businessman",,,
+913,S2A-038,1,A,,yes,Lecturer,Laslett,Sir Peter,76,male,British,London,Grammar School; Cambridge,University,"Reader in Politics & Hist. Soc. Struct, 1966-83, Cambridge","FBA, 1979",,
+914,S2A-039,1,A,,yes,Lecturer,Philips,Andrew,46,male,British,Wales,Reading University (BA),University,"Director, Humanities & Soc. Sci., British Library",ALA,,
+915,S2A-040,1,A,,yes,Lecturer,Cook,Peter,46-65,male,British,Canada,,University,Professor of Architecture,,,
+916,S2A-041,1,A,,yes,Lecturer,Cullen,A.L.,46-65,male,British,London,,University,Professor of Electrical Engineering,,,
+917,S2A-042,1,A,,yes,Lecturer,Elkins,R.P.,46-65,male,British,London,,University,Professor of Endocrinology,,,
+918,S2A-043,1,A,,yes,Lecturer,Rapley,C.G.,46-65,male,British,London,,University,Professor of Physics & Astronomy,,,
+919,S2A-044,1,A,,yes,Lecturer,Twining,W.L.,46-65,male,British,London,,University,Professor of Laws,,,
+920,S2A-045,1,A,,yes,Lecturer,Grosvenor,Gerald,40,male,British,London,Harrow School; military training,Secondary,Businessman,,,6th Duke of Westminster
+921,S2A-046,1,A,,yes,Lecturer,Rose,Graham,18-25,male,British,Northeast,"BSc Geography, MSc Micropalaeontology",University,Student,,Indonesian,
+922,S2A-046,2,A,,yes,Lecturer,Shaw,Andrew,26-45,male,British,East,BSc Toxicology & Pharmacology; PhD,University,Lecturer in Toxicology,,None,
+923,S2A-046,3,A,,yes,Lecturer,Cope,Mark,26-45,male,British,Northwest,"BSc (Eng), PhD",University,Lecturer in Medical Physics & Bioengineering,,None,
+924,S2A-047,1,A,,yes,Lecturer,Macaskill,C.,26-45,female,British,EastMidlands,"MSc, PhD Medical Demography",University,Lecturer,,"French, Tamasheq",
+925,S2A-048,1,A,,yes,Lecturer,Tait,W.,46-65,male,British,London,,University,Lecturer in Egyptology,,,
+926,S2A-049,1,A,,yes,Lecturer,Burgoyne,John,46-65,male,British,Cumbria,,University,,,,
+927,S2A-050,1,A,,yes,Interviewee,McCullin,Don,46-65,male,British,London,,Secondary,Photojournalist,,,
+928,S2A-050,2,A,,yes,Interviewee,McCullin,Don,46-65,male,British,London,,Secondary,Photojournalist,,,
+929,S2A-051,1,A,,yes,,King,C.A.,55,male,British,London,"BSc (Zoology), MSc, PhD (Biochemistry)",University,Lecturer in Biology,,None,
+930,S2A-052,1,A,,yes,,Hart,George,26-45,male,British,London,,University,Archaeologist,,
+934,S2A-055,1,A,,yes,,Baker,Sue,26-45,female,British,Southeast,,University,Broadcaster,,French
+935,S2A-055,2,A,,yes,,Clarkson,Jeremy,26-45,male,British,Yorkshire,Public School,Secondary,Broadcaster,,
+936,S2A-055,3,A,,yes,,Clarkson,Jeremy,26-45,male,British,Yorkshire,Public School,Secondary,Broadcaster,,
+937,S2A-056,1,A,,yes,,Ball,Ginny,26-45,female,British,London,BSc (Hons),University,Lecturer,,"French, some German"
+938,S2A-056,2,A,,yes,,Ball,Ginny,26-45,female,British,London,BSc (Hons),University,Lecturer,,"French, some German"
+939,S2A-057,1,A,,yes,,Bindman,David,46-65,male,British,London,,University,Professor of the History of Art,,
+940,S2A-057,2,A,,yes,,Bindman,David,46-65,male,British,London,,University,Professor of the History of Art,,
+942,S2A-058,2,A,,yes,,Walton,Nick,26-45,male,British,London,"BSc, PhD",University,Astronomer,,Dutch
+943,S2A-058,3,A,,yes,,Burt,Avril,46-65,female,British,London,BSc (Hons),University,Medical Research Assistant,,None
+951,S2A-065,1,A,,yes,,Evans,John Field,63,male,British,Wales,"Cardiff High School; Exeter College, Oxford (MA)",University,High Court Judge,,,
+952,S2A-066,1,A,,yes,,Hoffman,Sir Leonard,57,male,British,South Africa,"University of Cape Town (BA); Oxford (MA,BCL)",University,High Court Judge,,,"Rhodes Scholar to Queen's College, Oxford, 1950s"
+953,S2A-066,2,A,,yes,,Hirst,David,65,male,British,East,"Eton; Trinity College, Cambridge (MA)",University,High Court Judge,,,
+959,S2B-001,1,A,,yes,Newscaster,Snow,John,53,male,,Ireland,"Wellington College; Balliol College, Oxford",University,"Broadcaster, journalist",,,
+960,S2B-001,1,B,,yes,,Gowing,Nick,40,male,British,London,Bristol University,University,"Broadcaster, journalist",,,
+964,S2B-002,1,A,,yes,Newscaster,Snow,John,53,male,British,Ireland,"Wellington College, Somerset; Balliol College, Oxford (BA Hons)",University,Broadcaster,,,
+965,S2B-002,1,B,,yes,,Neild,Paul,26-45,male,British,Northwest,,University,"Broadcaster, journalist",,,
+973,S2B-002,1,J,,yes,,Major,John,47,male,British,London,,Secondary,Politician,,,
+974,S2B-002,1,K,,yes,,Biffin,John,61,male,British,London,"Jesus College, Cambridge (BA)",University,Politician,,,
+975,S2B-003,1,A,,yes,Newscaster,MacDonald,Trevor,52,male,,Trinidad,,University,"Broadcaster, journalist",,,
+976,S2B-003,1,B,,yes,,Brunson,Michael,51,male,British,East,"Queen's College, Oxford",University,"Broadcaster, journalist",,,
+977,S2B-003,1,C,,yes,,Major,John,47,male,British,London,,Secondary,Politician,,,
+978,S2B-003,1,D,,yes,,Mellor,David,42,male,British,London,"Swanage Grammar School; Christ's College, Cambridge (BA Hons, 1970)",University,"Politician, barrister",,,
+990,S2B-003,1,P,,yes,,Allen,Peter,45,male,British,London,,,Broadcaster,,,Worked in Australia
+991,S2B-003,1,Q,,yes,,Thatcher,Carol,26-45,female,British,London,,,Freelance journalist,,,Worked in Australia
+998,S2B-004,1,E,,yes,,Major,John,47,male,British,London,,Secondary,Politician
+1009,S2B-005,1,G,,yes,,Major,John,47,male,British,London,,Secondary,Politician
+1010,S2B-006,1,A,,yes,Presenter,Redhead,Brian,62,male,British,Northeast,Grammar School; Cambridge,University,Broadcaster
+1017,S2B-007,1,A,,yes,Presenter,Naughtie,James,40,male,British,Scotland,Grammar School; Aberdeen University; Syracuse University,University,Broadcaster
+1023,S2B-007,1,G,,yes,,Mellor,David,42,male,British,London,"Swanage Grammar School; Christ's College, Cambridge (BA Hons, 1970)",University,"Politician, barrister"
+1028,S2B-008,1,A,,yes,,Naughtie,James,40,male,British,Scotland,Grammar School; Aberdeen University; Syracuse University,University,Broadcaster
+1045,S2B-009,1,H,,yes,,Fletcher,Winston,54,male,British,London,"Westminster City School; St John's College, Cambridge (MA)",University,"Businessman; Visiting Professor, Lancaster Management School","Member, The Royal Society of Arts",,
+1047,S2B-010,1,A,,yes,Newscaster,Paxman,Jeremy,41,male,British,Yorkshire,Cambridge University,University,Broadcaster,,,
+1051,S2B-011,1,A,,yes,Newscaster,McDonald,Trevor,52,male,,Trinidad,,,Broadcaster,,,
+1058,S2B-011,1,H,,yes,,Archer,Geoffrey,45,female,British,London,,University,"Broadcaster, journalist",,,Former solicitor's articled clerk
+1060,S2B-011,1,J,,yes,,Allen,Bob,26-45,male,British,Scotland,,,"Representative, Scottish Fishermen's Association",,,
+1062,S2B-011,1,L,,yes,,Foulkes,George,49,male,British,Scotland,"Keith Grammar School, Scotland; Edinburgh University (BSc 1964)",University,Politician,,,
+1068,S2B-012,1,D,,yes,,Singleton,Valerie,54,female,British,London,"Royal Academy of Dramatic Art, London",University,"Broadcaster, journalist, ex-actress",,,
+1079,S2B-014,1,B,,yes,,Major,John,47,male,British,London,,Secondary,Politician
+1097,S2B-015,2,C,,yes,,Hamilton,Archie,50,male,British,Scotland,Eton,Secondary,Politician
+1107,S2B-016,3,B,,yes,,Ashdown,Paddy,45,male,British,India,Bedfordshire Public School; Hong Kong University,University,"Politician, ex-soldier",,Chinese,Moved to Britain age 4
+1110,S2B-016,4,B,,yes,,Windsor,Elisabeth,46-65,female,British,London,,Secondary,HM The Queen,,,
+1113,S2B-017,1,A,,yes,Presenter,Kershaw,Richard,26-45,male,British,London,Cambridge University; University of Virginia Graduate School,University,"Broadcaster, journalist",,,
+1120,S2B-018,2,C,,yes,,Kinnock,Neil,49,male,British,Wales,University of Wales,University,Politician,,,
+1122,S2B-019,1,A,,yes,Presenter,Naughtie,James,40,male,British,Scotland,Grammar School; Aberdeen University; Syracuse University,University,"Broadcaster, journalist",,,
+1128,S2B-019,1,G,,yes,,Hoggett,Brenda,46,female,British,Yorkshire,"Richmond High School, Yorkshire; Girton College, Cambridge (MA); Gray's Inn",University,Law Commissioner,,,"Visiting Professor, King's College, London"
+1129,S2B-020,1,A,,yes,,Hayton,Phillip,44,male,British,Yorkshire,,Secondary,"Broadcaster, journalist",,,
+1131,S2B-020,1,C,,yes,,Patten,Chris,47,male,British,London,"Balliol College, Oxford",University,Politician,,,
+1141,S2B-020,2,F,,yes,,Cunningham,John,52,male,British,Yorkshire,Jarrow Grammar School; Durham University (PhD),University,"Politician, chemist, lecturer"
+1148,S2B-023,1,A,,yes,Presenter,Tong,Pete,26-45,male,British,London,,Secondary,"Broadcaster, musician"
+1150,S2B-023,3,A,,yes,Presenter,Byalls,Peter,26-45,male,British,London,,,"Broadcaster, journalist"
+1153,S2B-025,1,A,,yes,Presenter,Arnold-Baker,Charles,73,male,British,Poland,"Winchester College, Oxford, Inner Temple",University,"Visiting Professor, City University"
+1157,S2B-028,2,A,,yes,Presenter,Naughtie,James,40,male,British,Scotland,"Grammar School, Aberdeen Univ, Syracuse Univ",University,"Broadcaster, journalist",,,
+1158,S2B-029,1,A,,yes,Presenter,Sacks,Jonathon,43,male,British,London,"Oxford, University of London, Jew's College London",University,Chief Rabbi,,,
+1159,S2B-030,1,A,,yes,,Major,John,48,male,British,London,,Secondary,Politician,,,Prime Minister
+1160,S2B-030,2,A,,yes,,Kinnock,Neil,49,male,British,Wales,University College Cardiff,University,Politician,,Welsh,Leader of the Opposition
+1161,S2B-030,3,A,,yes,,Kinnock,Neil,49,male,British,Wales,University College Cardiff,University,Politician,,Welsh,Leader of the Opposition
+1162,S2B-030,4,A,,yes,,Barnes,Rosie,45,female,British,WestMidlands,Birmingham University (B Soc Sci),University,Politician,,,
+1163,S2B-031,1,A,,yes,Debater,Alderson,John,69,male,British,Yorkshire,Middle Temple,University,Chief Constable (retired),,,
+1164,S2B-031,2,A,,yes,Debater,Owen,David,58,male,British,Wales,"Harrow, Cambridge, Grays Inn",University,Barrister,,,
+1165,S2B-031,3,A,,yes,Presenter,Durrell,Gerald,66,male,British,India,Educated by private tutors in Greece,Secondary,"Naturalist, writer",,,
+1166,S2B-032,1,A,,yes,Presenter,Wilson,Edgar,46-65,male,British,Northeast,,University,Writer,,,
+1167,S2B-032,2,A,,yes,Presenter,Redhead,Brian,62,male,British,Northeast,Grammar School; Cambridge,University,Broadcaster,,,
+1168,S2B-033,1,A,,yes,Presenter,Norman,Barry,58,male,British,London,Highgate School,Secondary,"Broadcaster, film critic",,,
+1169,S2B-034,1,A,,yes,Presenter,Hennessy,Peter,46-65,male,British,WestMidlands,Stroud School; Cambridge; Harvard; LSE,University,"Visiting Prof of Government, Strathclyde Univ.",,,
+1170,S2B-035,1,A,,yes,Debater,Redwood,John,40,male,British,London,"Kent College, Canterbury; Oxford (MA, DPhil)",University,Politician,,,
+1172,S2B-036,1,A,,yes,Debater,Gould,Bryan,52,male,,New Zealand,"Auckland University; Oxford (BA, LLB, MA, BCL)",University,Politician,,,
+1174,S2B-037,1,A,,yes,Presenter,Scarman,Leslie,80,male,British,London,Oxford; Middle Temple,University,High Court Judge (retired),,,Lord Scarman
+1177,S2B-038,3,A,,yes,Presenter,Lapotaire,Jane,47,female,British,East,"Grammar School; Theatre School, Bristol",University,Actress,,,
+1184,S2B-041,1,A,,yes,,Queen Elizabeth II,,46-65,female,British,London,,Secondary,,,,
+1185,S2B-041,2,A,,yes,,Lamont,Norman,50,male,British,Shetland,Cambridge (BA),University,Politician,,,
+1186,S2B-042,1,A,,yes,Lecturer,Denman,Hugh,55,male,British,London,"BA, MA, Dip Soc Sci (Oxford)",University,Lecturer,,"French, German, Italian, Russian, Yiddish"
+1195,S2B-050,1,A,,yes,,Howe,Sir Geoffrey,64,male,British,Wales,"Winchester, Cambridge, Middle Temple (MA, LLB)",University,"Politician, Barrister",,

@@ -1,0 +1,143 @@
+Perth, Australia|Australia
+Australia|Australia
+Halifax|Canada
+China|China
+Germany|Germany
+India|India
+New Zealand|New Zealand
+Poland|Poland
+Portugal|Portugal
+Cape Town|South Africa
+South Africa|South Africa
+Spain|Spain
+Trinidad|Trinidad
+USA|USA
+Cumbria|Cumbria
+Suffolk|East
+Cambridge|East
+Ipswich|East
+Norfolk|East
+Norwich|East
+Peterborough|East
+Birmingham|WestMidlands
+Cheltenham|WestMidlands
+Cirencester|WestMidlands
+Northampton|WestMidlands
+Shropshire|WestMidlands
+Stroud|WestMidlands
+Warwickshire|WestMidlands
+Wolverhampton|WestMidlands
+Worcs|WestMidlands
+Worcestershire|WestMidlands
+Brambletye|Unknown
+UK|Unknown
+Dublin|Ireland
+Belfast|Ireland
+London?|London
+Ascot|London
+Bridgewater|London
+Bromley|London
+Croydon|London
+Cumberland|London
+Dulwich|London
+Essex|London
+Haileybury|London
+Hammersmith|London
+Harrow|London
+Hemel Hempstead|London
+Hertfordshire|London
+London (south)|London
+London south|London
+London|London
+Middlesex|London
+Nr Guildford|London
+Rotherhithe|London
+Sevenoaks|London
+South London|London
+St Albans|London
+Stanmore|London
+Watford|London
+Weybridge|London
+Willesden, London|London
+Pinner, Middlesex|London
+Coventry|EastMidlands
+Derby|EastMidlands
+Grantham|EastMidlands
+Kettering|EastMidlands
+Leicester|EastMidlands
+Midlands|EastMidlands
+Nottingham|EastMidlands
+Sheffield|EastMidlands
+Birkenhead|Northwest
+Burnley|Northwest
+Cheshire|Northwest
+Lancashire|Northwest
+Liverpool|Northwest
+Liverpool|Northwest
+Manchester|Northwest
+Merseyside|Northwest
+St Helens|Northwest
+Stretford|Northwest
+Hyde, Cheshire|Northwest
+Galgate, Lancaster|Northwest
+North England|Northeast
+Darlington|Northeast
+Durham|Northeast
+Hartlepool|Northeast
+Herefordshire|Northeast
+Newcastle|Northeast
+Newcastle-upon-Tyne|Northeast
+Tyne & Wear|Northeast
+Amesbury|Southeast
+Aylesbury|Southeast
+Oxford|Southeast
+Portsmouth|Southeast
+Reading|Southeast
+Oxfordshire|Southeast
+Southampton|Southeast
+Croxley|Southeast
+UK South|Southeast
+UK south|Southeast
+Berwick|Southeast
+Bexhill|Southeast
+Brighton|Southeast
+Kent|Southeast
+South east UK|Southeast
+Surrey|Southeast
+Surrey/Kent|Southeast
+Sussex|Southeast
+Tunbridge Wells|Southeast
+West Kent|Southeast
+UK south east|Southeast
+N. Kent|Southeast
+Horsham, Essex|Southeast
+Edinburgh|Scotland
+Glasgow|Scotland
+Scotland|Scotland
+Ayr, Scotland|Scotland
+Dunoon, Scotland|Scotland
+Paisley, Scotland|Scotland
+Dumfries|Scotland
+Kincardineshire|Scotland
+Lerwick, Shetland|Shetland
+Devon|Southwest
+Plymouth|Southwest
+Truro|Southwest
+Dorset|Southwest
+Wiltshire|Southwest
+Stroud, Glos.|Southwest
+Newport|Wales
+North Wales|Wales
+South Wales|Wales
+Wales|Wales
+Cardigan, Wales|Wales
+Colwyn Bay, Wales|Wales
+Glamorgan, Wales|Wales
+Port Talbot, Wales|Wales
+Bradford|Yorkshire
+Leeds|Yorkshire
+West Yorkshire|Yorkshire
+York|Yorkshire
+Yorkshire|Yorkshire
+Barnsley|Yorkshire
+Keighley, Yorkshire|Yorkshire

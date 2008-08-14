@@ -1,0 +1,90 @@
+See .doc for abstract version.
+
+14:45 - 16:15
+11:00 - 12:00 [a moins]
+arg. Some time in the afternoon or so
+11:15 - 12:30
+19:30 - 20:10
+20:30 - 21:10
+Clustering of cochlear implant users using Levenshtein distance
+In ascending order of detail, written in Word (somehow)
+
+Clustering of cochlear implant users with Levenshtein distance (SB
+Chin, NC Sanders, in progress):
+-- Why --
+Building on previous work (Sanders & Chin, submitted) that found
+Levenshtein distance to be comparable to human judgments of
+intelligibility, clustering of cochlear implant users uses additional
+information obtainable from this measure. Intelligibility judgments
+are typically collected from adult speakers of English with no hearing
+problems. Levenshtein distance correlates well with this measure, but
+because of its computational nature can also calculate intelligibility
+between any pair of cochlear implant users. This distance is new
+information, because actual intelligibility judgments between two
+implants users have not been obtained.
+
+These clusters of cochlear implant users are the first step toward
+automatic grouping of implant users by their phonological
+characteristics. This could eventually allow computers to
+automatically group a new implant user with an existing cluster and
+thereby determine a system of phonological training.  If there are
+differing effects of deafness on cochlear implant that result in
+phonological differences, then clustering should be able to sort them
+into groups [given enough distance information]. These groups can then
+be analysed separately to determine the specific errors they make in
+speech and how they should be corrected.
+
+ASIDE: An important point
+is that we are not looking at a priori factors for clustering
+(most obvious example is total communication/oral
+communication).
+
+-- What --
+The variant of Levenshtein distance that has been shown to correlate
+best with human intelligibility judgments simply counts the number of
+features that differ between the baseline speaker and a cochlear
+implant user. Although intelligibility judgments can be gathered
+easily from humans, with no transcription step required, Levenshtein
+distance can also count the number of features that differ between two
+cochlear implant users. This means that Levenshtein distance can be
+measured between two cochlear implant users as easily as it can
+from the baseline.
+
+ASIDE: Because of the high correlation with human judgments from the
+baseline, it seems reasonable to assume that Levenshtein distance
+between two cochlear implant users correlates well with the
+intelligibility judgments between the two, although these have not
+been collected for comparison.
+
+Thus, the clustering technique uses information not available to
+previous percent-correct distances: comparisons between all implant
+users. With just baseline scores, all intelligibility scores of the
+same value cannot be differentiated. For example, three
+intelligibility scores of 78% cannot be distinguished as different,
+even if the actual phonologies of the speakers are quite
+different. However, if you know that the intelligibility between
+speaker 1 and speaker 2 is 80%, while the intelligibility between both
+and speaker 3 is only 30%, then you have a better basis for grouping
+speakers 1 and 2 together and putting speaker 3 into a separate category.
+
+-Graph here so nobody has to read the gory details-
+
+-- How --
+The clustering technique used here is hierarchical binary
+clustering. With this technique, every speaker is initially put alone
+into a group. Then the two closest groups are merged. When there is
+only one group left, the process is complete. This merging process
+creates a tree that contains all speakers; clusters emerge from the
+tree by how well the nested groups cohere. Currently, two speakers of
+a set of eight have been found to cohere into a group outlying from
+the rest, which cluster more closely around the baseline
+speaker. Research is ongoing to determine what makes these two
+speakers differ from the others.
+
+TECHNICAL NOTE: The two closest groups are defined by using the
+greatest distance between any member in the groups. This is called
+`complete link' set distance.
+
+ASIDE: I never figured out how to work in the term 'high-dimensional
+triangulation' in a believeable way. This is too bad, because it
+sounds really cool.

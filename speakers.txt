@@ -1,0 +1,134 @@
+"Perth, Australia"|Australia
+Australia|Australia
+Halifax|Canada
+Germany|Germany
+India|India
+New Zealand|New Zealand
+Poland|Poland
+Portugal|Portugal
+Cape Town|South Africa
+South Africa|South Africa
+Spain|Spain
+Trinidad|Trinidad
+USA|USA
+Cumbria|Cumbria
+Suffolk|"East Anglia"
+Cambridge|"East Anglia"
+Ipswich|"East Anglia"
+Norfolk|"East Anglia"
+Norwich|"East Anglia"
+Peterborough|"East Anglia"
+Birmingham|"Heart of England"
+Cheltenham|"Heart of England"
+Cirencester|"Heart of England"
+Northampton|"Heart of England"
+Shropshire|"Heart of England"
+Stroud|"Heart of England"
+Warwickshire|"Heart of England"
+Wolverhampton|"Heart of England"
+Dublin|Ireland
+Belfast|Ireland
+Ascot|London
+Bridgewater|London
+Bromley|London
+Croydon|London
+Cumberland|London
+Dulwich|London
+Essex|London
+Haileybury|London
+Hammersmith|London
+Harrow|London
+Hemel Hempstead|London
+Hertfordshire|London
+London (south)|London
+London south|London
+London|London
+Middlesex|London
+Nr Guildford|London
+Rotherhithe|London
+Sevenoaks|London
+South London|London
+St Albans|London
+Stanmore|London
+Watford|London
+Weybridge|London
+"Willesden, London"|London
+"Pinner, Middlesex"|London
+Coventry|"Middle England"
+Derby|"Middle England"
+Grantham|"Middle England"
+Kettering|"Middle England"
+Leicester|"Middle England"
+Midlands|"Middle England"
+Nottingham|"Middle England"
+Sheffield|"Middle England"
+Birkenhead|"NW England"
+Burnley|"NW England"
+Cheshire|"NW England"
+Lancashire|"NW England"
+Liverpool|"NW England"
+Liverpool|"NW England"
+Manchester|"NW England"
+St "Helens|NW England"
+Stretford|"NW England"
+"Hyde, Cheshire"|"NW England"
+"Galgate, Lancaster"|"NW England"
+North England|Northumbria
+Darlington|Northumbria
+Durham|Northumbria
+Hartlepool|Northumbria
+Herefordshire|Northumbria
+Newcastle|Northumbria
+Newcastle-upon-Tyne|Northumbria
+Tyne & Wear|Northumbria
+Amesbury|"SE England"
+Aylesbury|"SE England"
+Oxford|"SE England"
+Portsmouth|"SE England"
+Reading|"SE England"
+Oxfordshire|"SE England"
+Southampton|"SE England"
+Croxley|"SE England"
+UK South|"SE England"
+UK south|"SE England"
+Berwick|"SE England"
+Bexhill|"SE England"
+Brighton|"SE England"
+Kent|"SE England"
+South east UK|"SE England"
+Surrey|"SE England"
+Surrey/Kent|"SE England"
+Sussex|"SE England"
+Tunbridge Wells|"SE England"
+West Kent|"SE England"
+UK south east|"SE England"
+N. Kent|"SE England"
+"Horsham, Essex"|"SE England"
+Edinburgh|Scotland
+Glasgow|Scotland
+Scotland|Scotland
+"Ayr, Scotland"|Scotland
+"Dunoon, Scotland"|Scotland
+"Paisley, Scotland"|Scotland
+Dumfries|Scotland
+"Lerwick, Shetland"|Shetland
+Devon|"West England"
+Plymouth|"West England"
+Truro|"West England"
+Dorset|"West England"
+Wiltshire|"West England"
+Newport|Wales
+North Wales|Wales
+South Wales|Wales
+Wales|Wales
+"Cardigan, Wales"|Wales
+"Colwyn Bay, Wales"|Wales
+"Glamorgan, Wales"|Wales
+"Port Talbot, Wales"|Wales
+Bradford|Yorkshire
+Leeds|Yorkshire
+West Yorkshire|Yorkshire
+York|Yorkshire
+Yorkshire|Yorkshire
+Barnsley|Yorkshire
+"Keighley, Yorkshire"|Yorkshire
