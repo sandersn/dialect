@@ -1,8 +1,9 @@
 % \usepackage{tipa}
-% \usepackage{graphicx}
 % \newcommand{\bibcorporate}[1]{#1} % stolen from Erik Meijer's apacite.tex
 \documentclass[11pt]{article}
 \usepackage{setspace}
+% \usepackage{graphicx}
+\usepackage[all]{xy}
 
 % \usepackage{acl07}
 \usepackage{robbib}
@@ -457,149 +458,40 @@ for every other character. Then $ins$ and $del$ return half of this
 average. With these three functions defined, the table-based algorithm
 given above can combine feature distances to find the minimum word distance.
 
-\subsubsection{Statistical approaches}
-Recent approaches to dialect distance have gone back almost to Goebl's
-definitions, but with more emphasis on information theoretic measures
-to help extract information. For example, \namecite{sanders08} gives a
-method called Maximum Likelihood distance that uses a naive Bayes
-classifier trained on bigrams. \namecite{hinrichs07} uses vector math or
-something to do nearly the same thing. Maximum Likelihood distance is
-described here.
+%%% NEW ok (and hence buggy) %%%
+A similar technique can be used to combine multiple speakers from a
+region in a single comparison---average distance between speakers is
+used as a baseline for scaling, and the distances between different
+regions can then be compared on an equal scale.
 
-\label{dunningalgorithm}
+\[ \overline{s_{ij}} = \frac{\sum_{i \in S}\sum_{j \in S}{d(s_i,s_j)}}{|s_i||s_j|}\]
 
-\cite{dunning94} gives a method for language classification that uses
-a simple Markov-based bigram language model. Essentially, it addresses
-the question ``How likely was the training corpus to have generated
-the test corpus?''. The method starts with Bayes' Law in equation
-\ref{bayes} and makes the maximum likelihood assumption to obtain the
-na\"ive Bayes classifier in equation \ref{naivebayes}.  The na\"ive
-Bayes classifier assumes a uniform prior, and assumes that the test
-data have a probability of one.
-                                % or is it the training data? hmm
-With the bigram Markov model, the maximum likelihood estimation (MLE) is
-easily computed as in equation \ref{bigramprod}.
-
-\begin{equation}
-\label{bayes}
-P(training|test) = \frac{P(test|training) P(training)}{P(test)}
-\end{equation}
-
-\begin{equation}
-\label{naivebayes}
-P(training|test) = P(test|training)
-\end{equation}
-
-\begin{equation}
-\label{bigramprod}
-MLE = \prod_{i=1}^n P(bigram_i)
-% ought to come up with a better name for the lhs. steal from Dunning k
-\end{equation}
-
-Dunning then chooses the training language that maximizes the
-likelihood for
-the test word list. This modification alters only which side of
-the comparison is being varied: Dunning has only one word list, which
-is then compared to many possible languages. This method has only one
-training language, the target, but estimates the distance from
-multiple test word lists.
-
-% Essentially, this reverses the
-% question by keeping the training corpus constant and testing against
-% multiple sets of data. The likelihoods produced by this can be used as
-% a distance measure.
-
-For example, assume the following
-artificial training language ``ababcaaaaaa''. The bigrams of this
-language are ``ab'', ``ba'', ``ab'', ``bc'', \ldots Then the frequency
-of each bigram can be calculated:
-
-\begin{tabular}{ccc}
-P(``aa'') = & $\frac{5\ occurrences}{10\ bigrams}$ & = 0.5 \\
-P(``ab'') = & $\frac{2}{10}$ & = 0.2 \\
-P(``ba'') = & $\frac{1}{10}$ & = 0.1 \\
-P(``bc'') = & $\frac{1}{10}$ & = 0.1 \\
-P(``ca'') = & $\frac{1}{10}$ & = 0.1 \\
-\end{tabular}
-
-If the estimator is asked to classify the test word ``abc'', it would
-be broken into the bigrams ``ab'' and ``bc'', giving the likelihood
-P(``ab'') $\cdot$ P(``bc'') $= 0.2 \cdot 0.1 = 0.02$. In comparison,
-the string ``aab'' would have the likelihood P(``aa'') $\cdot$
-P(``ab''') $= 0.5 \cdot 0.2 = 0.1 $. ``aab'' is therefore closer to
-the language that generated the training corpus, despite the fact that
-``abc'' actually occurs in the training.
-
-Unfortunately, this estimator needs refinement in a several areas. The
-worst problem is that it gives zero probability for any bigram that
-does not occur in the training, such as ``ac'' in the example
-above. This single factor, P(``ac'')$=0$, causes the estimated
-probability of the entire test string to fall to zero---in other
-words, saying that the distance between the two languages is
-infinite. This is a real problem when the test corpora consist of
-phonetically disordered speech, as in our experiments.
-
-The solution is to smooth the input, preventing the appearance of
-zero probabilities. Smoothing allocates some of the probability space
-to unseen bigrams. The smoothing method used here is the
-Good-Turing method, first presented by \cite{good53}.
-%and explained in \namecite{jurafskymartin}.
-Good-Turing smoothing estimates the counts of bigrams seen N times
-from the counts of bigrams seen N+1 times. The precise equation used to
-determine the expected value for a bigram
-seen a certain number of times is
-$r^* = (r+1)(n_{r+1} / n_r)$.
-
-For the most interesting case, previously unseen bigrams, $r=0$
-because that is the number of times these bigrams have
-appeared. Then $r+1=1$ and $n_1$ is the number of different
-bigrams that have occurred only once. Finally, $n_0$ is the number of
-bigrams that have never occurred, which can be found by subtracting
-all bigrams seen any number of times from the total number of possible
-bigrams. Of course, Good-Turing smoothing is applied to
-higher numbers as well: for example, the number of bigrams seen six
-times is estimated from the number of bigrams seen seven times by
-using the appropriate values of $r, n_6, \textrm{and } n_7$.
-
-Two minor problems remain. First, longer words give lower likelihoods. To ensure
-that likelihoods of different test corpora are
-comparable, we scale the results of each test corpus by the length of
-the corpus.
-Second, it is more convenient for both human and computer to use
-some other measure than raw likelihoods. Since likelihoods are just
-probabilities, 1.0 means ``identical to training language'' and 0.0 means
-``infinite distance from training language''.
-To improve intuitive understanding of the results, we
-would like a distance measure that is greater
-for weaker matches between training and test. In addition, storing very small
-probabilities can be problematic when using hardware-native floating
-point numbers.
-Taking the negative logarithm of the likelihoods solves both of these
-problems: the logarithm converts a 0--1 range to a 0--$-\infty$ range,
-which, when negated, produces a number that increases in a way that
-corresponds nicely with intuitions of distance.
+\[ lev_{ij} = d(s_i,s_j) / \overline{s_{ij}} \]
 
 \subsection{Syntactic  Distance}
+% 1st sentence is awkward (and 2nd too a little)
 Recently some work in syntax has begun as well. The first steps in
 this were Nerbonne and Wiersma's 2006 analysis of Finnish L2 learners
 of English, followed by Sanders' 2007 analysis of British dialect
 areas. Syntax distance must be approached in quite a different way than
 phonological distance. First, syntactic data is extractable from raw
-text, so there is usually much more available. But this has a
-concomitant (or an associated) drop in reliability of the
+text, so there is usually much more available. But this implies an
+associated drop in manual linguistic processing of the
 data.
 
 % this paragraph explains the difference between syntactic corpora and
 % phonological corpora, badly.
-Second, the phonological data is pre-processed by the
-transcriber. This important step reduces the dimensionality of a
-complex phonetic waveform to a few binary features. While making
-phonological algorithms easier to work with, it may introduce bias
-from the transcriber---some dialect surveys have been known to exhibit
-``field worker dialects'' (cite this, probably from Trudgill). A
+Phonological data is pre-processed, unavoidably, by the perceptual
+system of the transcriber. This important step reduces the information
+in a complex phonetic waveform to a few binary features. While
+phonological transcriptions are easier to work with, they may exhibit bias
+from the transcriber---some dialect surveys have been found to exhibit
+``field worker dialects'' (cite this, probably from Trudgill, and give
+an example) in which
+boundaries between regions occur based on the transcriber. A
 similar bias can occur when text is hand-parsed, but with a
-large enough corpus, one can use an automatic parse that should have
-fewer biases, albeit at the cost of more random error.
+large enough corpus, one can use an automatic parser that should have
+fewer biases, albeit at the cost of more error.
 
 % This paragraph need an introducing paragraph
 Finally, if computational methods are duplicating the results of
@@ -610,114 +502,166 @@ areas cohere at various linguistic levels, which is typically done by
 hand or not at all by traditional dialectologists.
 
 \subsubsection{Nerbonne and Wiersma}
-This section is too short (still a summary) and written
-incorrectly--not as a summary of previous work.
+\label{nerbonne06}
+TODO:This section is too short (still a summary). This might be OK if it is
+merged with the previous section.
 
 Syntax distance has been much less explored. At present, there is
-really only one method used. (Although I need to try some others ... )
-Due to the larger corpora available for syntactic analysis and the
-less careful selection of content of said corpora, a statistical
-method that is resistant to error is more appropriate than the typical
-low-data symbolic approach used in phonology. Beyond this, the
-syntactically annotated corpora are not word- or sentence-aligned in
-the same way that the available phonological data are. Hence a
-syntactic distance measure will have to have counting as its basis by
-default.
+really only one method used. Due to the lack of alignment between the
+larger corpora available for syntactic analysis, a statistical
+comparison of differences in more appriopriate than the simple
+symbolic approach possible with the word-aligned corpora used in
+phonology. Because of the lack of alignment, a syntactic distance
+measure will have to use counting as its basis by default.
 
-One of the first methods was proposed by \namecite{nerbonne06}.
-It models syntax by part-of-speech (POS) trigrams and
-uses the trigram types in a permutation test of significance. This was
-extended by \namecite{sanders07}, who used \quotecite{sampson00} leaf-ancestor
-paths as the basis for building the model instead. Both approaches
-essentially treated the representation of syntax as symbols for the
-actual permutation test, however.
+\namecite{nerbonne06} was an early method proposed for syntactic
+distance.  It models syntax by part-of-speech (POS) trigrams and uses
+the trigram types in a permutation test of significance. This method was
+extended by \namecite{sanders07}, who used \quotecite{sampson00}
+leaf-ancestor paths as the basis for building the model instead.
 
-The problem with this method is that it is just a statistical test for
-significance; although it includes a simple distance measure, it is
-impossible to normalise completely to account for effects of size
-because the corpora are not aligned. A permutation test is needed to
-determine if this distance is significant. But the permutation test
-can only tell us whether the two corpora are unlike.
+The heart of the measure is simple: the difference in type counts
+between the combined types of two corpora. \namecite{kessler01}
+originally proposed this measure, the {\sc Recurrence}
+metric (see equation \ref{rmeasure}). To account for differences
+in corpus size, repeated sampling is used. In addition, the samples
+are normalised to account for differences in sentence length.
+Unfortunately, even normalised, the measure doesn't indicate whether
+its results are significant; a permutation test is needed for that.
 
-Other ideas include training a
-model on one area and comparing the entropy (compression) of other
-areas. At this point it's unclear whether this would provide a
-comparable measure, however.
+\begin{equation}
+R = \Sigma_i |c_{ai} - c_{bi}|
+\label{rmeasure}
+\end{equation}
+
+Given two corpora $a$ and $b$, $c_a$ and $c_b$ are the type counts.
+$R$ is designed to represent the amount of variation exhibited by the two corpora.
+TODO:This sounds slightly wrong.
+
+
+% Other ideas include training a
+% model on one area and comparing the entropy (compression) of other
+% areas. At this point it's unclear whether this would provide a
+% comparable measure, however.
 
 \subsubsection{Language models}
-Part-of-speech trigrams are quite easy to obtain from a syntactically
-annotated corpus. Nerbonne and Wiersma (2006) argue that POS trigrams
+Part-of-speech (POS) trigrams are quite easy to obtain from a syntactically
+annotated corpus. \namecite{nerbonne06} argue that POS trigrams
 can accurately represent at least the important parts of syntax,
 similar to the way chunk parsing can capture the most important
-information about a sentence. POS
-trigrams can be collected from a tree by
-\verb+(window 3 (leaves tree))+
+information about a sentence. POS trigrams can either be generated by
+a tagger as Nerbonne and Wiersa did, or taken from the leaves of
+the trees of a parsed corpus.
 
 On the other hand, it would be nice to directly represent the upper
-structure of trees. Sampson's leaf-ancestor paths provide one way to
-do this: they simply append the path to the root to each POS in the
-sentence.
+structure of trees. \quotecite{sampson00} leaf-ancestor paths provide one way to
+do this: leaf-ancestor paths produce for each leaf in the tree the
+path from that leaf back to the root. Sampson originally developed
+leaf-ancestor paths as an improved measure of similarity between
+gold-standard and machine-parsed trees, to be used in evaluating
+parsers. The basic idea of a collection of features that capture
+distance between trees transfers quite nicely to our
+work. \namecite{sanders07} replaced POS trigrams with leaf-ancestor
+paths for the ICE corpus and found improved results on larger
+corpora. However, smaller corpora are less likely to attain significance
+compared to POS trigram features.
 
-Wow. There is a lot more I could say about this. Probably another
-paragraph of background before starting to talk about leaf-ancestor
-paths, and then all the gory details from my ACL paper. That was at
-least a page.
+Leaf-ancestor paths are simple as long as every sibling is unique. For
+example, the parse tree
+\[\xymatrix{
+  &&\textrm{S} \ar@{-}[dl] \ar@{-}[dr] &&\\
+  &\textrm{NP} \ar@{-}[d] \ar@{-}[dl] &&\textrm{VP} \ar@{-}[d]\\
+  \textrm{Det} \ar@{-}[d] & \textrm{N} \ar@{-}[d] && \textrm{V} \ar@{-}[d] \\
+\textrm{the}& \textrm{dog} && \textrm{barks}\\}
+\]
+creates the following leaf-ancestor paths:
 
-Another idea is supertags rather than leaf-ancestor paths. This is
-quite similar but might work better.
+\begin{itemize}
+\item S-NP-Det-The
+\item S-NP-N-dog
+\item S-VP-V-barks
+\end{itemize}
+
+For identical siblings, brackets must be inserted in the path to
+disambiguate the first sibling from the second. The details are
+incidental to the main idea however, since identical siblings are a
+rare occurrence in any case. (Note: I haven't checked :)
+% Another idea is supertags rather than leaf-ancestor paths. This is
+% quite similar but might work better.
 
 \subsubsection{Permutation test}
 
-A permutation test works by determining if the distance between two
-corpora is significant or just statistical error (this is the wrong
-sense of statistical error). The first step is to calculate the distance between
-two corpora. Then the corpora are combined and two subcorpora are
-extracted from the combined corpus. This is repeated many times: if
-the distance between the subcorpora is less than the distance between
-the original corpora, we can see that combining the two corpora erased
-the differences. Repeating this test enough times will show if the
-difference is significant. Twenty times is the minimum for
-significance, but usually the test is repeated one (ten?) thousand times or more.
-
-Of course, as a basis for the test, we first need a way to calculate
-distance. The measure used here, called Recurrence, is due to Kessler
-(2001). It is fairly simple: all POS tokens are sorted by type and
-counted. Then for each POS type the count in both corpora is averaged
-and the count of one is subtracted from the average. The measure is
-designed to represent the amount of variation from each other is
-exhibited by the two corpora.
-
+A permutation test detects whether two corpora are significantly
+different. It does this on the basis of the R measure described in
+section \ref{nerbonne06}. The test first calculutes $R$ between
+samples of the two corpora. Then the corpora are mixed together and
+$R$ is calculated between two samples are drawn from the mixed
+corpus. If the two corpora are different, $R$ should be larger between
+the samples of the original corpora than $R$ from the mixed
+corpus. Any real differences will be randomly redistributed by the
+mixing process, lowering $R$ of samples. Repeating this comparison
+enough times will show if the difference is significant. Twenty times
+is the minimum needed to detect significance for $p < 0.5$
+significance, but I repeat the test one thousand times in my
+experiments.
+\subsection{Normalisation}
 Afterward, the distance must be normalised to account for two things:
 the length of sentences in the corpus and the amount of variety in the
 corpus. If sentence length differs too much between corpora, there
-will be consistently lower token counts in one corpus. So the counts
-are re-allocated by relative sizes of two corpora. (More explanation
-and an equation is needed here or perhaps later). If the number of
-types differs too much between the two corpora, the corpus with more
-tokens will consistently have lower token counts as well. To avoid
+will be consistently lower token counts in one corpus, which would
+cause a spuriously large $R$. In addition, if one corpus has less
+variety than the other, it will have inflated type counts, because
+more tokens will be allocated to fewer types. To avoid
 this all tokens are scaled by the average number of types per token
 across both corpora: $2n/N$ where $n$ is the type count and $N$ is
 the token count. The additional factor $2$ is necessary because we are
 recombining the tokens from the two corpora.
 
-Once the distances have been normalised, the measures of the original
-corpora and the sampled subcorpora should be comparable. It is a
-simple matter to repeat this process enough times to ascertain whether
-the two original corpora are statistically different.
+% this is the technical explanation which I think Sandra wants me to
+% leave out. Probably. Maaybe it was just the past history.
+% So the counts
+% are re-allocated by relative sizes of two corpora. (More explanation
+% and an equation is needed here or perhaps later).
 
-\subsubsection{Sanders (2007)}
-A proper overview of leaf-ancestor paths. Something decent ok.
+\section{Experiment}
+The two methods described in the previous section, Levenshtein
+distance for phonology and a permutation test based on {\sc
+  Recurrence} for syntax, were used to analyse British dialect data.
 
-\section{Methods}
-\begin{enumerate}
-\item \quotecite{nerbonne97} refinement, without information gain weighting.
-\item \quotecite{nerbonne06} syntax distance.
-\item Combined on the data gathered and analysed in \namecite{shackleton07}.
-\item And the ICE data (with leaf-ancestor paths) of \namecite{sanders07}.
-\item And dividing both sets of data according to the same Government
-  Office regions.
-\end{enumerate}
+These data come from two sources. The definitive phonological
+data source is the Survey of English Dialects (SED) \cite{orton63}, dialect dat
+
+collected in the 1950s. This corpus consists mostly of phonological features
+of older rural speakers, aiming to capture dialect boundaries that
+would erode and mutate rapidly in the last half of the 20th century. Recently,
+\namecite{shackleton07} carried out a comprehensive computational
+study of the SED data. I used his data set organised by Government Office
+Region rather than county.
+
+For syntax, I used the International Corpus of English (ICE)
+\cite{nelson02}. The ICE is a corpus of syntactically annotated
+conversations and speeches collected in the 1990s. The speakers with a
+place of birth recorded were used to form the data set. In order to
+have enough speakers in each corpus, Government Office Regions were
+used to group the speakers instead of counties. Nine Government Office
+Regions form England; Scotland and Wales each count as a single region
+in this grouping. Only English data are available in the SED, so the
+final comparison does not include Scotland and Wales. However, they
+are shown in the intermediate syntactic results.
+
+% \begin{enumerate}
+% \item \quotecite{nerbonne97} refinement, without information gain weighting.
+% \item \quotecite{nerbonne06} syntax distance.
+% \item Combined on the data gathered and analysed in \namecite{shackleton07}.
+% \item And the ICE data (with leaf-ancestor paths) of \namecite{sanders07}.
+% \item And dividing both sets of data according to the same Government
+%   Office regions.
+% \end{enumerate}
+
 \subsection{Levenshtein Distance Experiment}
+The phonological data used are a subset of the SED.
+TODO:Get this from Shackleton's paper.
+TODO:TODO:I think I DID this and then lost it in the conversion to svn.
 \begin{enumerate}
 \item Group the data of \cite{shackleton07} into government office
   regions.
@@ -765,8 +709,10 @@ A proper overview of leaf-ancestor paths. Something decent ok.
 \item So we can look at the regions that were not significantly
   different to see whether their distances were considerably less than
   other regions.
+\item In addition, we can look at the numbers for $R$ in the regions
+  that are significantly different.
 \item There is no hard limit for this.
-\item See the results below.
+\item See the results below. (Preview: They are really bad)
 \end{enumerate}
 The second question of this paper can now be answered: whether
 multiple ways of measuring linguistic distance give the same
@@ -791,7 +737,7 @@ In order to carry this out, the phonological distances of Shackleton
 \section{Results}
 \begin{enumerate}
 \item Phonogical distance was not surprising. It's also not done.
-\item Syntax distance was mostly significant except between NW, SE,
+\item Syntax distance was significant except between NW, SE,
   London and EM. (that's a chain there)
 \item The two correlated how? This isn't done.
 \end{enumerate}
