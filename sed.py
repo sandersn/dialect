@@ -29,8 +29,6 @@ regions = dict(ne=range(2,11)+range(17,23),
                sw=range(193,206)+range(240,262)+range(279,302),
                ld=range(238,240))
 ## util ##
-def lst_extract(l, n):
-    return [l[i] for i in n]
 def curried(f):
     def curhelp(n, args):
         if n==0:
@@ -42,6 +40,9 @@ def curried(f):
         return f
     else:
         return curhelp(arity, [])
+@curried
+def lst_extract(n, l):
+    return [l[i] for i in n]
 @curried
 def takewhile(f, s):
     for i,c in enumerate(s):
@@ -61,7 +62,7 @@ def mapc(f,l):
     return map(f,l)
 ## read CSV ##
 def group_words(csv):
-    "[[str]]-> {str:{str:{str:[float]}}}"
+    "[[str]]-> {str:{str:{str:[float]}}} ie {Word:{Segment:{Feature:[Value]}}}"
     segment_name = lambda s: s[:re.search('[0-9]', s).end()]
     segment = fnc.pipe(car, dropwhile(str.islower), segment_name)
     feature = lambda s: s[re.search('[0-9]', s).end():]
@@ -77,10 +78,9 @@ def group_regions(regions, words):
          {str:{str:{str:[(str,[float])]}}}
     that is, {Region:{Word:{Segment:[Feature]}}}"""
     sub2 = lambda n: n-2
+    dctmapper = curried(dct.map)
     def outermost(range):
-        inner = lambda d:dct.map(innermost, d)
-        innermost = lambda d:dct.map(extractor, d)
-        extractor = lambda l:lst_extract(l, map(sub2, range))
+        inner = dctmapper(dctmapper(lst_extract(map(sub2, range))))
         return dct.map(inner, words)
     return dct.map(outermost, regions)
 def group_sed_in_gor():
@@ -93,24 +93,36 @@ def flatten(regions):
     return map(mapc(flatten1), map(flatten1, flatten1(regions)))
 ### analysis ###
 def analyse(regions, avgs=None):
-    keys = lst.all_pairs(sorted(regions))
+    keys = lst.all_pairs(sorted(regions.keys()))
     regions = lst.all_pairs(flatten(regions))
     avgregions = lst.avg(map(sed_avg_total, regions))
-    return dict(zip(keys, map(lambda rs:sed_distance(rs,avgregions), regions)))
-    return dict(zip(keys,
-                    map(sed_distance,
-                        regions,
-                        avgs or map(sed_avg_total, regions))))
-def feature_sub(fs1, fs2):
+    return dict(zip(keys, map(sed_distance(avgregions), regions)))
+def feature_sub((cons1,fs1), (cons2,fs2)):
     "{str:[float]}*{str:[float]} -> float"
-    return (len(set(fs1) ^ set(fs2)) +
 #             sum(map(uncurry(lst.cross) | map(sub | abs) | lst.avg,
-#                         dct.zip(fs1,fs2.values())))
-            sum(lst.avg(abs(inf1-inf2) for inf1,inf2 in lst.cross(f1,f2))
-                    for f1,f2 in dct.zip(fs1,fs2).values()))
-def sed_distance((region1, region2), avg):
-    return sum(map(lambda ws:sed_levenshtein(ws,avg),zip(region1,region2)))
-def sed_levenshtein((ws1,ws2),avg):
+#                     dct.zip(fs1,fs2.values())))
+    return (len(set(fs1) ^ set(fs2))
+            + sum(lst.avg(abs(inf1-inf2) for inf1,inf2 in lst.cross(f1,f2))
+                  for f1,f2 in dct.zip(fs1,fs2).values()))
+#TODO: This looks badly wrong. Why is there a cross in there? Shouldn't it be:
+    if cons1 != cons2:
+        return len(fs1) + len(fs2)
+    else:
+        return sum(abs(f1-f2) for f1,f2 in dct.zip(fs1, fs2).values())
+def makesegment(d):
+    features = dict(C=dict(GL=0.0, V=0.0, H=0.0,), #['C','PV','H','IR','HW','VO','L','W','V','GL','PL'],
+                    # got rid of
+                    V=dict(B=1.0, H=1.0, L=1.0, R=1.0), #Got rid of '' and "RH"
+                    R=dict(MN=1.5, PL=1.0))
+    type,keys = cl.findif(lambda (t,fs): any(k in fs for k in d), features.items())
+    keys.update(d)
+    return (type, keys)
+cons = fst
+@curried
+def sed_distance(avg, (region1, region2)):
+    return sum(map(sed_levenshtein(avg),zip(region1,region2)))
+@curried
+def sed_levenshtein(avg,(ws1,ws2)):
     return lev._levenshtein(ws1, ws2, avg,
                            (lambda _:avg,lambda _:avg,feature_sub))[-1][-1]
 def sed_avg(ws1, ws2):

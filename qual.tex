@@ -35,7 +35,7 @@ statistically using a permutation test, with trigram features designed
 to capture at least surface syntax. I tried the same test with
 leaf-ancestor paths as features.
 
-\section{Background}
+\section{Previous Work}
 \subsection{S\'eguy}
 Measurement of linguistic similarity has always been a part of
 linguistics from its beginning, with various degrees of
@@ -226,7 +226,7 @@ $0.6 + 0.3 = 0.9$ given a smaller $w$, for example.
 % paradigm---you don't want to overdo neutralisation because otherwise
 % the underlying form becomes quite distant from the surface form.
 
-\subsection{Phonological Distance}
+\section{Methods}
 
 It is at this point that the two types of analysis, phonological and
 syntactic, diverge. Although Goebl's techniques are general enough to
@@ -238,7 +238,7 @@ methods from other fields. These methods, while generally giving more
 accurate results quickly, are tied to the type of data on which they
 operate.
 
-\subsubsection{Kessler}
+\subsection{Phonological Distance}
 
 The most significant of these methods for phonological distance was
 introduced to dialectometry by \namecite{kessler95}. Kessler used
@@ -401,52 +401,67 @@ are common to both words and both produce a diagonal move.
 % then jump over to Dunning and all the language identification work
 % that happened in the early 90s
 \subsubsection{Heeringa}
-
-Variations on this theme have been explored, and best
-described in Heeringa 2004. Starting with \cite{nerbonne97}, he
-augmented the distance definition so that substitution cost was based
-on the number of features that would have to change. This provides
-more precision, and is based on phonological theory. Later, he also
-tried weighting features by information gain (Nerbonne and Heeringa
-1998?). In his dissertation, \namecite{heeringa04} tried an even more
-phonetic method when he defined the substitution cost between segments
-as the total distance between the first two formants, as measured in
-barks. However, because he did not have access to the original speech
-of the dialect data he was measuring, this substitution cost was
-uniform across all instances of a particular segment.
-
-This section is still a summary. Some detail in the methods needs to
-be added still. The following paragraphs were moved from the method
-section were they are out of place.
+\label{levmethod}
+Variations on this theme have been explored, and best described by
+\namecite{heeringa04}. Starting with \cite{nerbonne97}, he augmented
+the distance definition so that substitution cost was based on the
+number of phonological features that differ between segments. This provides more
+precision and is based on phonological theory. He also tried
+weighting features by information gain.  In his dissertation,
+\cite{heeringa04}, he tried a more phonetic method when he defined the
+substitution cost between segments as the total distance between the
+first two formants, as measured in barks. However, because he did not
+have access to the original speech of the dialect data he was
+measuring, this substitution cost was uniform across all instances of
+a particular segment.
 
 The most direct way to refine Levenshtein distance to take advantage
-of linguistic knowledge is by
-changing the definitions of $ins$, $del$, and $sub$ to take into
-account phonetic
-and phonological properties of segments. When segments are treated as
-feature bundles instead of merely being atomic, \cite{nerbonne97}
-propose that the substitution distance between two segments simply be
-the number of features that are different. Two identical segments will
-therefore have a substitution distance of zero; segments phonetically
-similar will have a small distance. For example, [k] and [g] would
-have a distance of one in this system.
+of linguistic knowledge is by changing the definitions of $ins$,
+$del$, and $sub$ to take into account phonetic and phonological
+properties of segments. When segments are treated as feature bundles
+instead of merely being atomic, \namecite{nerbonne97} propose that the
+substitution distance between two segments simply be the number of
+features that are different. Two identical segments will therefore
+have a substitution distance of zero; segments phonetically similar
+will have a small distance. For example, [k] and [g] would have a
+distance of one in this system. \namecite{shackleton07} further uses
+numeric rather than binary features, which allows for relative
+weighting of features, so that [k] and [t] are more similar than [k]
+and [p].
+
+The features used in this paper are those used by Shackleton. The
+feature set defines different features for vowels, consonants and
+vowel-following rhotics. The features are given in table
+\ref{featureset}.
+
+\begin{table}
+\begin{tabular}{c|lr}
+Vowel & Height & 1.0 -- 7.0 \\
+  & Backing & 1.0 -- 3.0 \\
+  & Rounding & 1.0 -- 2.0 \\
+  & Length & 0.5 -- 2.0 \\ \hline
+Consonant & Fricative & 0.0 -- 1.0 \\
+  & h/wh & 0.0 -- 1.0 \\
+  & Glottal  Stop &0.0 -- 1.0 \\
+  & Velar & 0.0 -- 2.0 \\
+  & Other & 0.0 -- 1.0 \\ \hline
+Rhotic & Place & 1.0 -- 3.0 \\
+  & Manner & 0.0 -- 4.0 \\
+\end{tabular}
+\caption{Feature Set used by Shackleton (2007)}
+\label{featureset}
+\end{table}
 
 Although it increases precision, feature-based substitution causes a
 number of complications. The first is that substitution distance
-becomes complicated when not all features are specified for every segment. This is
-the case, for example, between the vowels and consonants.
-The minimum difference must be at least the number of unshared
-features, such as \emph{Advanced Tongue Root} for vowels or
-\emph{obstruent} for consonants. In other words, the minimum segment
-distance will always be at least the sum of the non-shared
-features. The distance of the shared features can then be added on to
-this baseline. %This is known as the Hamming, or Manhattan distance
-%(cite Kondrak and Nerbonne or Heeringa on this after verifying it).
-For example, if a consonant with seven features shares only two
-features with a five-feature vowel, the minimum distance will be eight:
-\[ (7 - 2) + (5 - 2) = 5 + 3 = 8 \] As a result, the range of
-distances possible will be have a minimum of 8 if all shared features
-match and a maximum of 10 if none do.
+($sub$) becomes complicated since vowels and consonants do not share
+features.  Here, the difference must be the number of unshared
+features, so vowels and consonants always have a distance of 9, given
+the feature set in table \ref{featureset} give consonants 5 features
+and vowels 4.  If both segments are consonantal or vocalic, the
+individual feature differences are summed.  For example, [a] and [e]
+has the following value: \[ |3-3| + |3-2| + |0-0| + |0-0| = 1 \]
+TODO:Check this in interactive mode.
 
 The second complication is obtaining definitions for $ins$ and $del$
 once $sub$ is defined. It would be best to retain the original
@@ -455,18 +470,36 @@ deletion. To deal with substitution's variable cost, then, insertion and
 deletion should be averages. To find the average substitution cost, one can
  take the average cost of substituting every character
 for every other character. Then $ins$ and $del$ return half of this
-average. With these three functions defined, the table-based algorithm
+average. With these three functions defined as below, the table-based algorithm
 given above can combine feature distances to find the minimum word distance.
 
 %%% NEW ok (and hence buggy) %%%
+\[ \begin{array}{l}
+   ins(t_j) = \overline{sub} / 2 \\
+   del(s_i) = \overline{sub} / 2 \\
+   sub(s_i,t_j) = \left\{
+     \begin{array}{ll}
+       |s_i|+|t_j| & \textrm{if $C(s_i) \ne C(t_j)$} \\
+       \sum_{f_s,f_t \in s_i \times t_j} |f_s - f_t| & \textrm{otherwise}
+     \end{array} \right.
+
+   \end{array}
+\]
+
+Here, $f_s$ and $f_t$ are the features of the segments $s_i$ and $t_j$
+being compared, $C$ is the consonantal property of a segment, and
+$\overline{sub}$ is the average substitution cost, defined below.
+
+\[ \overline{s_{ij}} = \frac{\sum_{i \in S}\sum_{j \in S}{levenshtein(s_i,s_j)}}{|s_i||s_j|}\]
+
+\[ \overline{sub} = \sum_{i \in S}\sum_{j \in S}levenshtein(s_i,s_j) / \overline{s_{ij}} \]
+
 A similar technique can be used to combine multiple speakers from a
 region in a single comparison---average distance between speakers is
 used as a baseline for scaling, and the distances between different
 regions can then be compared on an equal scale.
+TODO:Not finished, and equations are extraordinarily vague.
 
-\[ \overline{s_{ij}} = \frac{\sum_{i \in S}\sum_{j \in S}{d(s_i,s_j)}}{|s_i||s_j|}\]
-
-\[ lev_{ij} = d(s_i,s_j) / \overline{s_{ij}} \]
 
 \subsection{Syntactic  Distance}
 % 1st sentence is awkward (and 2nd too a little)
@@ -503,8 +536,7 @@ hand or not at all by traditional dialectologists.
 
 \subsubsection{Nerbonne and Wiersma}
 \label{nerbonne06}
-TODO:This section is too short (still a summary). This might be OK if it is
-merged with the previous section.
+TODO:These next few pages are divided into way too many sections.
 
 Syntax distance has been much less explored. At present, there is
 really only one method used. Due to the lack of alignment between the
@@ -523,7 +555,7 @@ leaf-ancestor paths as the basis for building the model instead.
 The heart of the measure is simple: the difference in type counts
 between the combined types of two corpora. \namecite{kessler01}
 originally proposed this measure, the {\sc Recurrence}
-metric (see equation \ref{rmeasure}). To account for differences
+metric ($R$) given in equation \ref{rmeasure}. To account for differences
 in corpus size, repeated sampling is used. In addition, the samples
 are normalised to account for differences in sentence length.
 Unfortunately, even normalised, the measure doesn't indicate whether
@@ -536,7 +568,7 @@ R = \Sigma_i |c_{ai} - c_{bi}|
 
 Given two corpora $a$ and $b$, $c_a$ and $c_b$ are the type counts.
 $R$ is designed to represent the amount of variation exhibited by the two corpora.
-TODO:This sounds slightly wrong.
+TODO:This sounds slightly wrong. Steal from acl07.tex
 
 
 % Other ideas include training a
@@ -590,6 +622,7 @@ rare occurrence in any case. (Note: I haven't checked :)
 % quite similar but might work better.
 
 \subsubsection{Permutation test}
+\label{permutationtest}
 
 A permutation test detects whether two corpora are significantly
 different. It does this on the basis of the R measure described in
@@ -604,6 +637,15 @@ enough times will show if the difference is significant. Twenty times
 is the minimum needed to detect significance for $p < 0.5$
 significance, but I repeat the test one thousand times in my
 experiments.
+
+For example, assume that $R$ detects real differences between London
+and Scotland such that $R(\textrm{London},\textrm{Scotland}) =
+100$. The permutation test then mixes the London and Scotland to
+create LSMixed. Since the real differences are now mixed randomly, we
+would expect $R(\textrm{LSMixed}, \textrm{LSMixed}) < 100$, something
+like 90 or 95. This should be true at least 95\% of the time if the
+differences are significant.
+
 \subsection{Normalisation}
 Afterward, the distance must be normalised to account for two things:
 the length of sentences in the corpus and the amount of variety in the
@@ -628,15 +670,14 @@ The two methods described in the previous section, Levenshtein
 distance for phonology and a permutation test based on {\sc
   Recurrence} for syntax, were used to analyse British dialect data.
 
-These data come from two sources. The definitive phonological
-data source is the Survey of English Dialects (SED) \cite{orton63}, dialect dat
-
-collected in the 1950s. This corpus consists mostly of phonological features
-of older rural speakers, aiming to capture dialect boundaries that
-would erode and mutate rapidly in the last half of the 20th century. Recently,
-\namecite{shackleton07} carried out a comprehensive computational
-study of the SED data. I used his data set organised by Government Office
-Region rather than county.
+These data come from two sources. The definitive phonological data
+source is the Survey of English Dialects (SED) \cite{orton63}, dialect
+data collected in the 1950s. This corpus consists mostly of
+phonological features of older rural speakers, aiming to capture
+dialect boundaries that would erode and mutate rapidly in the last
+half of the 20th century. Recently, \namecite{shackleton07} carried
+out a comprehensive computational study of the SED data. I used his
+data set organised by Government Office Region rather than county.
 
 For syntax, I used the International Corpus of English (ICE)
 \cite{nelson02}. The ICE is a corpus of syntactically annotated
@@ -659,19 +700,43 @@ are shown in the intermediate syntactic results.
 % \end{enumerate}
 
 \subsection{Levenshtein Distance Experiment}
-The phonological data used are a subset of the SED.
-TODO:Get this from Shackleton's paper.
-TODO:TODO:I think I DID this and then lost it in the conversion to svn.
-\begin{enumerate}
-\item Group the data of \cite{shackleton07} into government office
-  regions.
-\item (TODO:Summarise the data set here.)
-\item It's from the 50s, 50 single (double?) syllable words designed
-  for maximal dialect variation.
-\item Compare each site in each region to each site in every other region.
-\item Average the distances.
-\item This forms a graph connecting the 11 regions by phonological distance.
-\end{enumerate}
+
+\namecite{shackleton07} chose a 55-word subset of the words elicited
+by the SED survey. The subset contains only vowels and consonants known
+to vary in England. Only these segments were analysed. Using this data
+set, I grouped the speakers in the survey into their respective
+Government Office Regions (GORs) and compared all speakers of a region to all
+speakers of every other region. The distances were averaged as
+described in section \ref{levmethod}. This produced a fully connected
+graph of the nine English GORs, with the edges annotated with
+phonological distance. TODO: A small illegible figure would be nice
+here.
+
+\subsection{Syntax Distance Experiment}
+
+Starting from the GOR-grouped ICE corpus, I produced trigrams and
+leaf-ancestor paths from the trees. Then I chose varying parameter
+settings, varying sample size between 500 and 1000, $R$ measure
+between $r$ and $r^2$, and input data type between trigram and
+leaf-ancestor path. To test that the results from a particular
+parameter settings were valid, I ran a preliminary test of each one on London and
+Scotland. First, I compared London and Scotland, which, according to
+normal linguistic knowledge, should be quite different.
+(TODO:Cite this, maybe starting from http://www.abdn.ac.uk/~enl038/grammar.htm)
+Then I mixed them
+together and split the mixed corpus into two the size of the
+original. If the two locations are properly identified as different,
+London and Scotland should be significantly different with $p < 0.05$, while the
+shuffled doppelgangers should not be.
+
+This was true for only one parameter settings: distance measure $r$,
+sample size of 1000 and input data of leaf-ancestor paths. For the
+rest London and Scotland were not significantly different, indicating
+that the corpora were too small. See the discussion for more details.
+As a result, I ran the rest of the experiment only for the parameter
+setting that produced significant results. Here, all but 7 of the 55
+connections between the 11 GORs were significant.
+
 \subsection{Syntax Distance Experiment}
 \begin{enumerate}
 \item Group the ICE corpus into government office regions.
