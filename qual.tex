@@ -729,44 +729,29 @@ original. If the two locations are properly identified as different,
 London and Scotland should be significantly different with $p < 0.05$, while the
 shuffled doppelgangers should not be.
 
-This was true for only one parameter settings: distance measure $r$,
+This was true for only one parameter setting: distance measure $r$,
 sample size of 1000 and input data of leaf-ancestor paths. For the
 rest London and Scotland were not significantly different, indicating
-that the corpora were too small. See the discussion for more details.
+that the corpora were too small. A few parameter settings were almost
+significant, with $p < 0.10$, however. See the discussion for more details.
 As a result, I ran the rest of the experiment only for the parameter
 setting that produced significant results. Here, all but 7 of the 55
 connections between the 11 GORs were significant.
+TODO: Check this and prepare the graph for inclusion in the results
+section.
 
-\subsection{Syntax Distance Experiment}
-\begin{enumerate}
-\item Group the ICE corpus into government office regions.
-\item The ICE corpus consists of transcribed conversations and
-  monologues, parsed according to some syntactic standard.
-\item The parsed sentences were split into leaf-ancestor paths and
-  part-of-speech trigrams.
-\item The experiments were run with a variety of parameters.
-\item Sample sizes of 1000 and 500, $r$ and $r^2$.
-\item First, for each parameter setting, a preliminary test comparing
-  London and Scotland was carried out.
-\item First, London and Scotland were compared.
-\item Then they were shuffled together and split into two halves the
-  same size as London and Scotland themselves.
-\item If the method is discriminating successfully, London and
-  Scotland should be significantly different and the shuffled London
-  and Scotland should {\em not} be significantly different.
-\item This was true for only one parameter setting: distance measure
-  $r$ and sample size 1000, using leaf-ancestor paths.
-\item For the rest, London and Scotland were not significantly
-  different at $p < 0.05$.
-\item Although some parameter settings resulted in $p < 0.10$, in
-  particular $r$, 1000, trigrams.
-\item I suspect this is a problem of corpus size. More on that below.
-\item Finally, all government office regions were compared to each
-  other using the successful parameter settings of 1000, $r$, 1000,
-  paths.
-\item The results are \ldots below?
-\end{enumerate}
 \subsection{Correlation}
+Correlation of phonological distance and syntactic distance is
+difficult because the significance test for syntactic distance is a
+binary value. Its coarseness does not provide enough information
+compared to the numeric value produced by Levenshtein distance.
+
+It is possible to use the $R$ value for comparison between regions
+that were found to be significantly different by the permutation test,
+but I don't know if this is valid. This correlation turns out to be really
+bad, at least until I revise my feature substitution algorithm to not
+be completely insane.
+
 \begin{enumerate}
 \item The output of the syntax distance is too simple for anything but
   coarse comparison to phonological distance.

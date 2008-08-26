@@ -40,6 +40,8 @@ def curried(f):
         return f
     else:
         return curhelp(arity, [])
+def carcdr(f):
+    return lambda l, *args, **kwargs: f(l[0], l[1:], *args, **kwargs)
 @curried
 def lst_extract(n, l):
     return [l[i] for i in n]
@@ -66,12 +68,12 @@ def group_words(csv):
     segment_name = lambda s: s[:re.search('[0-9]', s).end()]
     segment = fnc.pipe(car, dropwhile(str.islower), segment_name)
     feature = lambda s: s[re.search('[0-9]', s).end():]
+    features = carcdr(lambda title, data:(feature(title), map(float, data)))
+    phones = lambda l: dct.map(dict, dct.collapse(l, segment, features))
 
     words = dct.collapse(cdr(csv),
                          fnc.pipe(car, takewhile(str.islower)),
                          fnc.ident)
-    features = lambda l:(feature(car(l)),map(float,cdr(l)))
-    phones = lambda l: dct.map(dict, dct.collapse(l, segment, features))
     return dct.map(phones, words)
 def group_regions(regions, words):
     """{str:[int]}*{str:{str:[(str,[float])]}} ->
@@ -110,10 +112,18 @@ def feature_sub((cons1,fs1), (cons2,fs2)):
     else:
         return sum(abs(f1-f2) for f1,f2 in dct.zip(fs1, fs2).values())
 def makesegment(d):
-    features = dict(C=dict(GL=0.0, V=0.0, H=0.0,), #['C','PV','H','IR','HW','VO','L','W','V','GL','PL'],
-                    # got rid of
+    # C's low numbers:
+    # GL=PV: {0,.5,1}, H/HW/W: {0,1}, V=C=PL=IR=VO={0,1}, L={0,1,2}
+    # I think H/HW/W should be collapsed at read time. L(6), PV(5) and C(4) not
+    # also not IR,VO,PL(2) but I wish we had more of them.
+    # TODO: Next at readtime create consistent segments and collapse H/HW/W to
+    # just HW
+    # this will get rid of the insufficient cl.findif below
+    features = dict(C=dict(GL=0.0, V=0.0, H=0.0, PV=0.0, L=0.0),#H=HW=W total(6)
                     V=dict(B=1.0, H=1.0, L=1.0, R=1.0), #Got rid of '' and "RH"
-                    R=dict(MN=1.5, PL=1.0))
+                    R=dict(MN=1.5, PL=1.0),
+                    # mult's range is 0.0 - 2.0 but it's meaning varies?
+                    MULT=dict(MULT=1.0)) #also: VC, but that was mistake eh.
     type,keys = cl.findif(lambda (t,fs): any(k in fs for k in d), features.items())
     keys.update(d)
     return (type, keys)
@@ -131,102 +141,3 @@ def sed_avg(ws1, ws2):
 def sed_avg_total((region1, region2)):
     "([[{str:[float]}]],[[{str:[float]}]]) -> float"
     return lst.avg(map(sed_avg, region1, region2)) / 2
-### type reification ###
-import types
-def typ(x):
-    def docstring_type(f):
-        s = car(f.__doc__.splitlines())
-        if '->' in s and '--' in s:
-            return text.before(s, '--').strip()
-        else:
-            return s
-    if isinstance(x, bool):
-        return 'bool'
-    elif isinstance(x, int):
-        return 'int'
-    elif isinstance(x, float):
-        return 'float'
-    elif isinstance(x, str):
-        return 'str'
-    elif isinstance(x, tuple):
-        return '(' + ','.join(map(typ, x)) + ')'
-    elif isinstance(x, list):
-        if len(x) > 0:
-            return '[' + typ(x[0]) + ']'
-        else:
-            return "[]"
-    elif isinstance(x, dict):
-        try:
-            k = x.iterkeys().next()
-            return "{" + typ(k) + ":" + typ(x[k]) + "}"
-        except StopIteration:
-            return "{}"
-    elif isinstance(x, types.FunctionType):
-        return docstring_type(x)
-    else:
-        return str(type(x))
-## type instantiation
-def mak(s):
-    def check(type, expected, i):
-        if s[i]!=expected:
-            raise ValueError("""Bad %s syntax at character %i:
-    Expected: %s; Found; %s""" % (type, i, expected, s[i]))
-    def make(i):
-        if s[i:i+4]=='bool': return i+4,bool()
-        elif s[i:i+3]=='int': return i+3,int()
-        elif s[i:i+5]=='float': return i+5,float()
-        elif s[i:i+3]=='str': return i+3,str()
-        elif s[i]=='[': # cof*monad*cof
-            i,x = make(i+1)
-            check("list", "]", i)
-            return i+1,[x]
-        elif s[i]=="{":
-            i,k = make(i+1)
-            check("dictionary", ":", i)
-            i,v = make(i+1)
-            check("dictionary", "}", i)
-            return i+1,{k:v}
-        elif s[i]=='(':
-            xs = []
-            i,x = make(i+1)
-            xs.append(x)
-            check("tuple", ",", i)
-            while s[i]==',':
-                i,x = make(i+1)
-                xs.append(x)
-            check("tuple", ")", i)
-            return i+1,tuple(xs)
-        else:
-            raise ValueError("Bad syntax at character %i" % i)
-        # turns out I need a Real Parser to allow use of functions.
-        # oh well.
-##             i,types = make(i) # this may have infinite recursion
-##             # it's not right anyway since it doesn't allow multiple arguments
-##             if s[i:i+2]=="->": i+=2
-##             i,v = make(i)
-##             def f(*args):
-##                 for arg,type in zip(args,types):
-##                     assert typ(arg)==type, "Type mismatch"
-##                 return v
-##             return f
-    return make(0)[1]
-### Maybe monad ###
-#     ret might also be called mlist
-#     ret :: a -> Maybe a
-#     ret = Just
-#     >>= should really be named seq ( or mplus )
-#     >>= :: Maybe a -> (a -> Maybe b) -> Maybe b
-#     >>= Nothing f = Nothing
-#     >>= (Just a) f = f a
-#     >> should really be named ignore ( or mcdr )
-#     >> :: Maybe a -> Maybe b -> Maybe b
-#     >> Nothing _ = Nothing
-#     >> (Just a) m = m
-### List monad ###
-#     ret :: a -> [a]
-#     ret = list
-#     >>= :: [a] -> (a -> [b]) -> [b]
-#     >>= [] f = [] -- this is unnecessary since this is the 
-#     >>= l f = mapn f l
-#     >> [] _ = []
-#     >> _ l = l
