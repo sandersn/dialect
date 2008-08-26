@@ -68,8 +68,10 @@ def group_words(csv):
     segment_name = lambda s: s[:re.search('[0-9]', s).end()]
     segment = fnc.pipe(car, dropwhile(str.islower), segment_name)
     feature = lambda s: s[re.search('[0-9]', s).end():]
+    fillsegment = curried(dct.map_items)(makesegment)
     features = carcdr(lambda title, data:(feature(title), map(float, data)))
-    phones = lambda l: dct.map(dict, dct.collapse(l, segment, features))
+    phones = lambda l: dct.map(fnc.pipe(dict, fillsegment),
+                               dct.collapse(l, segment, features))
 
     words = dct.collapse(cdr(csv),
                          fnc.pipe(car, takewhile(str.islower)),
@@ -88,6 +90,22 @@ def group_regions(regions, words):
 def group_sed_in_gor():
     reader = list(csv.reader(open('sed.csv')))
     return group_regions(regions, group_words(lst.transpose(reader)))
+def makesegment(type,d):
+    # C's numbers:
+    # GL=PV: {0,.5,1}, H/HW/W: {0,1}, V=C=PL=IR=VO={0,1}, L={0,1,2}
+    # I think H/HW/W should be collapsed at read time. L(6), PV(5) and C(4) not
+    # also not IR,VO,PL(2) but I wish we had more of them.
+    # TODO: Next at readtime create consistent segments and collapse H/HW/W to
+    # just HW
+    # this will get rid of the insufficient cl.findif below
+    features = dict(C=dict(GL=0.0, V=0.0, H=0.0, PV=0.0, L=0.0),#H=HW=W total(6)
+                    V=dict(B=1.0, H=1.0, L=1.0, R=1.0), #Got rid of '' and "RH"
+                    R=dict(MN=1.5, PL=1.0),
+                    # mult's range is 0.0 - 2.0 but it's meaning varies?
+                    MULT=dict(MULT=1.0)) #also: VC, but that was mistake eh.
+    keys = dict(features[type])
+    keys.update(d)
+    return (type, keys)
 def flatten(regions):
     '{str:{str:{str:{str:[float]}}}} -> [[[{str:[float]}]]]'
     def flatten1(d):
@@ -111,22 +129,6 @@ def feature_sub((cons1,fs1), (cons2,fs2)):
         return len(fs1) + len(fs2)
     else:
         return sum(abs(f1-f2) for f1,f2 in dct.zip(fs1, fs2).values())
-def makesegment(d):
-    # C's low numbers:
-    # GL=PV: {0,.5,1}, H/HW/W: {0,1}, V=C=PL=IR=VO={0,1}, L={0,1,2}
-    # I think H/HW/W should be collapsed at read time. L(6), PV(5) and C(4) not
-    # also not IR,VO,PL(2) but I wish we had more of them.
-    # TODO: Next at readtime create consistent segments and collapse H/HW/W to
-    # just HW
-    # this will get rid of the insufficient cl.findif below
-    features = dict(C=dict(GL=0.0, V=0.0, H=0.0, PV=0.0, L=0.0),#H=HW=W total(6)
-                    V=dict(B=1.0, H=1.0, L=1.0, R=1.0), #Got rid of '' and "RH"
-                    R=dict(MN=1.5, PL=1.0),
-                    # mult's range is 0.0 - 2.0 but it's meaning varies?
-                    MULT=dict(MULT=1.0)) #also: VC, but that was mistake eh.
-    type,keys = cl.findif(lambda (t,fs): any(k in fs for k in d), features.items())
-    keys.update(d)
-    return (type, keys)
 cons = fst
 @curried
 def sed_distance(avg, (region1, region2)):
