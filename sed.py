@@ -1,7 +1,7 @@
 "Extract data from CSV of SED data, courtesy of Bob Shackleton."
 "For great justice!"
 from util.fnc import cur, compose#, pipe
-from util.lst import fst,snd,car,cdr
+from util.lst import fst,snd,car,cdr,concat
 from util.reflect import traced,postmortem
 from util import fnc, lst, dct, text
 import inspect
@@ -60,27 +60,27 @@ def dropwhile(f, s):
     else:
         return ''
 @curried
-def mapc(f,l):
+def cmap(f,l):
     return map(f,l)
+chop = lambda s: s[:-1]
 ## read CSV ##
 def group_words(csv):
-    "[[str]]-> {str:{str:{str:[float]}}} ie {Word:{Segment:{Feature:[Value]}}}"
+    "[[str]]-> {str:{str:(str,{str:[float]})}} ie {Word:{Segment:{Feature:[Value]}}}"
     segment_name = lambda s: s[:re.search('[0-9]', s).end()]
     segment = fnc.pipe(car, dropwhile(str.islower), segment_name)
     feature = lambda s: s[re.search('[0-9]', s).end():]
-    fillsegment = curried(dct.map_items)(makesegment)
+    fillsegments = curried(dct.map_items)(makesegment)
     features = carcdr(lambda title, data:(feature(title), map(float, data)))
-    phones = lambda l: dct.map(fnc.pipe(dict, fillsegment),
-                               dct.collapse(l, segment, features))
+    phones = lambda l: dct.map(dict, dct.collapse(l, segment, features))
 
     words = dct.collapse(cdr(csv),
                          fnc.pipe(car, takewhile(str.islower)),
                          fnc.ident)
-    return dct.map(phones, words)
+    return dct.map(fnc.pipe(phones, fillsegments), words)
 def group_regions(regions, words):
-    """{str:[int]}*{str:{str:[(str,[float])]}} ->
-         {str:{str:{str:[(str,[float])]}}}
-    that is, {Region:{Word:{Segment:[Feature]}}}"""
+    """{str:[int]}*{str:{str:(str,{str:[float]})}} ->
+         {str:{str:{str:(str,{str:[float]})}}}
+    that is, {Region:{Word:{Segment:(Type,{Feature:[Value]})}}}"""
     sub2 = lambda n: n-2
     dctmapper = curried(dct.map)
     def outermost(range):
@@ -90,56 +90,69 @@ def group_regions(regions, words):
 def group_sed_in_gor():
     reader = list(csv.reader(open('sed.csv')))
     return group_regions(regions, group_words(lst.transpose(reader)))
+#@check(str,{str:[float]},(str,{str:[float]}))
 def makesegment(type,d):
     # C's numbers:
     # GL=PV: {0,.5,1}, H/HW/W: {0,1}, V=C=PL=IR=VO={0,1}, L={0,1,2}
     # I think H/HW/W should be collapsed at read time. L(6), PV(5) and C(4) not
     # also not IR,VO,PL(2) but I wish we had more of them.
-    # TODO: Next at readtime create consistent segments and collapse H/HW/W to
-    # just HW
-    # this will get rid of the insufficient cl.findif below
+    size = len(d.itervalues().next())
     features = dict(C=dict(GL=0.0, V=0.0, H=0.0, PV=0.0, L=0.0),#H=HW=W total(6)
                     V=dict(B=1.0, H=1.0, L=1.0, R=1.0), #Got rid of '' and "RH"
                     R=dict(MN=1.5, PL=1.0),
-                    # mult's range is 0.0 - 2.0 but it's meaning varies?
-                    MULT=dict(MULT=1.0)) #also: VC, but that was mistake eh.
-    keys = dict(features[type])
+                    # mult's range is 0.0 - 2.0 but its meaning varies?
+                    MULT=dict(MULT=1.0),
+                    VC=dict()) # VC is erroneous data eh.
+    #TODO:Collapse H/HW/W
+    #TODO:Decide if V's L and C's L are different and if so make them different
+    keys = dct.map(lambda default:[default]*size, features[chop(type)])
     keys.update(d)
-    return (type, keys)
+    return keys
 def flatten(regions):
     '{str:{str:{str:{str:[float]}}}} -> [[[{str:[float]}]]]'
     def flatten1(d):
         return map(snd, sorted(d.items()))
-    return map(mapc(flatten1), map(flatten1, flatten1(regions)))
+    return map(cmap(flatten1), map(flatten1, flatten1(regions)))
 ### analysis ###
 def analyse(regions, avgs=None):
     keys = lst.all_pairs(sorted(regions.keys()))
     regions = lst.all_pairs(flatten(regions))
     avgregions = lst.avg(map(sed_avg_total, regions))
     return dict(zip(keys, map(sed_distance(avgregions), regions)))
-def feature_sub((cons1,fs1), (cons2,fs2)):
-    "{str:[float]}*{str:[float]} -> float"
-#             sum(map(uncurry(lst.cross) | map(sub | abs) | lst.avg,
-#                     dct.zip(fs1,fs2.values())))
-    return (len(set(fs1) ^ set(fs2))
-            + sum(lst.avg(abs(inf1-inf2) for inf1,inf2 in lst.cross(f1,f2))
-                  for f1,f2 in dct.zip(fs1,fs2).values()))
-#TODO: This looks badly wrong. Why is there a cross in there? Shouldn't it be:
-    if cons1 != cons2:
-        return len(fs1) + len(fs2)
-    else:
-        return sum(abs(f1-f2) for f1,f2 in dct.zip(fs1, fs2).values())
-cons = fst
+def feature_sub(seg1, seg2):
+    "({str:float}*{str:float}) -> float"
+    "({str:[float]},{str:[float]}) -> float"
+    "The cross is there to cross the samples of region1 with those of region2"
+    "Which is wrong. Each sample should be crossed at the levenshtein level,"
+    "not below it"
+    return (len(set(seg1) ^ set(seg2))
+            + sum(abs(f1-f2) for f1,f2 in dct.zip(seg1,seg2).values()))
+##     return (len(set(seg1) ^ set(seg2))
+##             + sum(lst.avg(abs(inf1-inf2) for inf1,inf2 in lst.cross(f1,f2))
+##                   for f1,f2 in dct.zip(seg1,seg2).values()))
 @curried
 def sed_distance(avg, (region1, region2)):
-    return sum(map(sed_levenshtein(avg),zip(region1,region2)))
+    "float*([[{str:[float]}]],[[{str:[float]}]])->float"
+    return sum(map(sed_levenshtein(avg), zip(region1, region2)))
+def transpose_word(word):
+    "[{str:[float]}] -> [[{str:float}]]"
+    def transpose_segment(seg):
+        return [dict(zip(seg.keys(), ns)) for ns in lst.transpose(seg.values())]
+    return lst.transpose(map(transpose_segment, word))
 @curried
 def sed_levenshtein(avg,(ws1,ws2)):
-    return lev._levenshtein(ws1, ws2, avg,
-                           (lambda _:avg,lambda _:avg,feature_sub))[-1][-1]
+    "float*([{str:[float]}],[{str:[float]}])->float"
+    def levenshtein((w1, w2)):
+        return lev._levenshtein(w1, w2, avg,
+                                (lambda _:avg,lambda _:avg,feature_sub))[-1][-1]
+    return lst.avg(map(levenshtein,
+                       lst.cross(transpose_word(ws1), transpose_word(ws2))))
+##     return lev._levenshtein(ws1, ws2, avg,
+##                            (lambda _:avg,lambda _:avg,feature_sub))[-1][-1]
 def sed_avg(ws1, ws2):
     "[{str:[float]}]*[{str:[float]}] -> float"
-    return lst.avg(map(fnc.uncurry(feature_sub), lst.cross(ws1, ws2)))
+    segs1,segs2 = (concat(transpose_word(ws1)), concat(transpose_word(ws1)))
+    return lst.avg(map(fnc.uncurry(feature_sub), lst.cross(segs1, segs2)))
 def sed_avg_total((region1, region2)):
     "([[{str:[float]}]],[[{str:[float]}]]) -> float"
     return lst.avg(map(sed_avg, region1, region2)) / 2
