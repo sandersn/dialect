@@ -121,15 +121,8 @@ def analyse(regions, avgs=None):
     return dict(zip(keys, map(sed_distance(avgregions), regions)))
 def feature_sub(seg1, seg2):
     "({str:float}*{str:float}) -> float"
-    "({str:[float]},{str:[float]}) -> float"
-    "The cross is there to cross the samples of region1 with those of region2"
-    "Which is wrong. Each sample should be crossed at the levenshtein level,"
-    "not below it"
     return (len(set(seg1) ^ set(seg2))
             + sum(abs(f1-f2) for f1,f2 in dct.zip(seg1,seg2).values()))
-##     return (len(set(seg1) ^ set(seg2))
-##             + sum(lst.avg(abs(inf1-inf2) for inf1,inf2 in lst.cross(f1,f2))
-##                   for f1,f2 in dct.zip(seg1,seg2).values()))
 @curried
 def sed_distance(avg, (region1, region2)):
     "float*([[{str:[float]}]],[[{str:[float]}]])->float"
@@ -147,8 +140,6 @@ def sed_levenshtein(avg,(ws1,ws2)):
                                 (lambda _:avg,lambda _:avg,feature_sub))[-1][-1]
     return lst.avg(map(levenshtein,
                        lst.cross(transpose_word(ws1), transpose_word(ws2))))
-##     return lev._levenshtein(ws1, ws2, avg,
-##                            (lambda _:avg,lambda _:avg,feature_sub))[-1][-1]
 def sed_avg(ws1, ws2):
     "[{str:[float]}]*[{str:[float]}] -> float"
     segs1,segs2 = (concat(transpose_word(ws1)), concat(transpose_word(ws1)))

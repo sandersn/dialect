@@ -494,10 +494,9 @@ $\overline{sub}$ is the average substitution cost, defined below.
 
 \[ \overline{sub} = \sum_{i \in S}\sum_{j \in S}levenshtein(s_i,s_j) / \overline{s_{ij}} \]
 
-A similar technique can be used to combine multiple speakers from a
-region in a single comparison---average distance between speakers is
-used as a baseline for scaling, and the distances between different
-regions can then be compared on an equal scale.
+Finally, multiple speakers per region can be compared by comparing
+every speaker from the first region to every speaker from the second
+region and averaging the distances.
 TODO:Not finished, and equations are extraordinarily vague.
 
 
@@ -702,15 +701,14 @@ are shown in the intermediate syntactic results.
 \subsection{Levenshtein Distance Experiment}
 
 \namecite{shackleton07} chose a 55-word subset of the words elicited
-by the SED survey. The subset contains only vowels and consonants known
-to vary in England. Only these segments were analysed. Using this data
-set, I grouped the speakers in the survey into their respective
-Government Office Regions (GORs) and compared all speakers of a region to all
-speakers of every other region. The distances were averaged as
-described in section \ref{levmethod}. This produced a fully connected
-graph of the nine English GORs, with the edges annotated with
-phonological distance. TODO: A small illegible figure would be nice
-here.
+by the SED survey. The subset contains only vowels and consonants
+known to vary in England. Using this data set, I grouped the speakers
+in the survey into their respective Government Office Regions (GORs)
+and compared all speakers of a region to all speakers of every other
+region. The distances were averaged as described in section
+\ref{levmethod}. This produced a fully connected graph of the nine
+English GORs, with the edges weighted by phonological
+distance. TODO: A small illegible figure would be nice here.
 
 \subsection{Syntax Distance Experiment}
 
@@ -721,7 +719,7 @@ between $r$ and $r^2$, and input data type between trigram and
 leaf-ancestor path. To test that the results from a particular
 parameter settings were valid, I ran a preliminary test of each one on London and
 Scotland. First, I compared London and Scotland, which, according to
-normal linguistic knowledge, should be quite different.
+existing linguistic knowledge, should be quite different.
 (TODO:Cite this, maybe starting from http://www.abdn.ac.uk/~enl038/grammar.htm)
 Then I mixed them
 together and split the mixed corpus into two the size of the
@@ -741,54 +739,36 @@ TODO: Check this and prepare the graph for inclusion in the results
 section.
 
 \subsection{Correlation}
-Correlation of phonological distance and syntactic distance is
-difficult because the significance test for syntactic distance is a
-binary value. Its coarseness does not provide enough information
-compared to the numeric value produced by Levenshtein distance.
-
-It is possible to use the $R$ value for comparison between regions
-that were found to be significantly different by the permutation test,
-but I don't know if this is valid. This correlation turns out to be really
-bad, at least until I revise my feature substitution algorithm to not
-be completely insane.
-
-\begin{enumerate}
-\item The output of the syntax distance is too simple for anything but
-  coarse comparison to phonological distance.
-\item It's just a significance test.
-\item So we can look at the regions that were not significantly
-  different to see whether their distances were considerably less than
-  other regions.
-\item In addition, we can look at the numbers for $R$ in the regions
-  that are significantly different.
-\item There is no hard limit for this.
-\item See the results below. (Preview: They are really bad)
-\end{enumerate}
+% OLD
 The second question of this paper can now be answered: whether
 multiple ways of measuring linguistic distance give the same
 answer. As the answers provided by syntax distance are somewhat crude
 at this point, the correlation will necessarily be crude as well, but
 it should be possible to see if the syntax distance measure at least
 agrees with the phonological measure.
+%END OLD
 
-Ideally, this would be a simple matter of aligning distances and
-running a correlation on them (see for example papers by Heeringa
-2003-2005 or so.) However, given the yes/no data that is in addition
-obscured by the requirement of corpus size, the best comparison is
-simply that of agreement. Is the phonological distance between two corpora that
-were significantly different according to the syntactic measure
-significantly (not sure how to calculate this) higher than the average
-distance?
+Correlation of phonological distance and syntactic distance is
+difficult because the significance test for syntactic distance is a
+binary value. Its coarseness does not provide enough information
+compared to the numeric value produced by Levenshtein distance.
+It is possible to use the $R$ value for comparison between regions
+that were found to be significantly different by the permutation
+test. I'm not sure this is a valid comparison.
+Unfortunately, the correlation between syntax and phonology is
+very low: -0.096. (Which is much better than -0.012).
 
-% experiment..
-In order to carry this out, the phonological distances of Shackleton
-(2007) were grouped into the same areas as the corpora of Sanders
-(2007). The group distances were the average of the constituent area distances.
+Alternatively, we could just look at the region pairs that fail to
+achieve significance in the syntactic permutation test and check to
+see if their phonogical distance is lower than the other pairs.
+
 \section{Results}
 \begin{enumerate}
-\item Phonogical distance was not surprising. It's also not done.
+\item Phonogical distance was not surprising. It's not done, but it'll
+  probably be nearly the same as Shackleton's results, just much much
+  coarser and only using one distance measure.
 \item Syntax distance was significant except between NW, SE,
-  London and EM. (that's a chain there)
+  London and EM. (that's a chain there eh)
 \item The two correlated how? This isn't done.
 \end{enumerate}
 \section{Discussion}
