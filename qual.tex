@@ -2,7 +2,7 @@
 % \newcommand{\bibcorporate}[1]{#1} % stolen from Erik Meijer's apacite.tex
 \documentclass[11pt]{article}
 \usepackage{setspace}
-% \usepackage{graphicx}
+\usepackage{graphicx}
 \usepackage[all]{xy}
 
 % \usepackage{acl07}
@@ -739,15 +739,6 @@ TODO: Check this and prepare the graph for inclusion in the results
 section.
 
 \subsection{Correlation}
-% OLD
-The second question of this paper can now be answered: whether
-multiple ways of measuring linguistic distance give the same
-answer. As the answers provided by syntax distance are somewhat crude
-at this point, the correlation will necessarily be crude as well, but
-it should be possible to see if the syntax distance measure at least
-agrees with the phonological measure.
-%END OLD
-
 Correlation of phonological distance and syntactic distance is
 difficult because the significance test for syntactic distance is a
 binary value. Its coarseness does not provide enough information
@@ -755,31 +746,119 @@ compared to the numeric value produced by Levenshtein distance.
 It is possible to use the $R$ value for comparison between regions
 that were found to be significantly different by the permutation
 test. I'm not sure this is a valid comparison.
-Unfortunately, the correlation between syntax and phonology is
-very low: -0.096. (Which is much better than -0.012).
 
-Alternatively, we could just look at the region pairs that fail to
+Alternatively, I could just look at the region pairs that fail to
 achieve significance in the syntactic permutation test and check to
-see if their phonogical distance is lower than the other pairs.
+see if their phonogical distance is lower than the other pairs. I
+don't do this (yet).
 
 \section{Results}
-\begin{enumerate}
-\item Phonogical distance was not surprising. It's not done, but it'll
-  probably be nearly the same as Shackleton's results, just much much
-  coarser and only using one distance measure.
-\item Syntax distance was significant except between NW, SE,
-  London and EM. (that's a chain there eh)
-\item The two correlated how? This isn't done.
-\end{enumerate}
+
+\begin{figure}
+  \includegraphics{sed_dendrogram}
+\caption{Phonological distance cluster}
+\label{phonology-dendrogram}
+\end{figure}
+
+Levenshtein distance nicely clusters the GORs into two main branches,
+North and South, shown in figure \ref{phonology-dendrogram}. In the
+North, Yorkshire and Northwest clustered fairly tightly, followed the
+East Midlands and the Northeast. In the South, East England, London
+and the Southeast formed a cluster that likely reflects the greater
+London area, followed by the Southwest and West Midlands.
+
+The permutation test showed that distances between all regions were
+significant except between the regions in figure
+\ref{syntax-nonsig}. Corpus size correlates weakly negatively with
+significance ($r = -0.72$). Size is obviously a factor, though not the
+only one. Perhaps sampling with replacement on smaller corpora
+exaggerate differences through repetition. Larger corpora contain more
+variety and so will be less likely to appear significantly different.
+
+\begin{table}
+\begin{tabular}{cc}
+  Yorkshire & East Midlands \\ \hline
+  East Midlands & London \\\hline
+  London & Southeast \\\hline
+  Southeast & Southwest \\\hline
+  Northwest & London\\\hline
+  Northwest & Southeast \\\hline
+\end{tabular}
+\caption{Regions with no significant $R$ difference}
+\label{syntax-nonsig}
+\end{table}
+
+\begin{figure}
+  \includegraphics{ice_dendrogram}
+\caption{Syntactic distance cluster}
+\label{syntax-dendrogram}
+\end{figure}
+
+The dendrogram produced by clustering R distance (figure
+\ref{syntax-dendrogram} is harder to
+interpret. There are two clear groups, but several of the distances
+are not significant, such as those forming the tight East
+Midlands/London cluster. However, in other cases the grouping will still hold
+since there are other distances that are significant being taken into
+account. The members of the group are less obvious than those from
+phonological distance, too. This could be caused by the 40-year
+difference in corpus collection date or by noise from the measurement
+method.
+TODO: I should really do something like ANOVA here too I think.
+TODO: I need to explain hierarchical clustering quickly in the methods
+section.
+
+There is generally a North/South distinction in the syntactic
+clustering as well, but there are some odd members of each group. In
+particular, East England groups with the North and the Northwest
+groups with the South. The second is probably erroneous because the
+distances between the Northwest and Southeast/London are not
+significant, so it's not possible to pinpoint where the Northwest
+should, in fact, be grouped.
+
+On the other hand, the correlation between Levenshtein distance and
+$R$ is low: -0.096. For the correlation, only the significant
+distances were considered.
+
+% OLD
+The second (?) question of this paper can now be answered: whether
+multiple ways of measuring linguistic distance give the same
+answer. As the answers provided by syntax distance are somewhat crude
+at this point, the correlation will necessarily be crude as well, but
+it should be possible to see if the syntax distance measure at least
+agrees with the phonological measure.
+%END OLD
+
+
 \section{Discussion}
 
 Discussion
   \begin{enumerate}
   \item What do these tell us?
   \item Do the two distances correlate?
+  \item Well, no.
+  \item This is interesting because existing dialectology usually will
+    focus on a single area of linguistics for its data.
+  \item Pre-computational methods spent much of its analyses on
+    constructing isoglosses.
+  \item But inspection of actual data show that reality is too messy
+    for this to work consistently
+  \item Gradients are a better characterisation.
+  \item Computational dialectometry is even more narrow in its
+    corpora, although it produces gradients.
+  \item Both previous approaches fail to show that dialect boundaries
+    are consistent across different aspects of language.
+  \item Isoglosses for their lack of corpus coverage (cherry-picking examples)
+  \item Computational approaches for their lack of corpus
+    variety. (looking only at phonology)
+  \subsection{Future work}
   \item Do the distances correlate with any other distances,
     particularly geographic distance?
-  \item The End.
+  \item Awesome diagrams for Let04, here we come!
+  \item Make the syntax distance measurement require less data.
+  \item Then re-measure on counties.
+  \item This will allow more precise induction of dialect areas since
+    counties are so small.
   \end{enumerate}
 
 
