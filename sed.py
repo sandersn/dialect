@@ -65,7 +65,7 @@ def cmap(f,l):
 chop = lambda s: s[:-1]
 ## read CSV ##
 def group_words(csv):
-    "[[str]]-> {str:{str:(str,{str:[float]})}} ie {Word:{Segment:{Feature:[Value]}}}"
+    "[[str]]-> {str:{str:{str:[float]}}} ie {Word:{Segment:{Feature:[Value]}}}"
     segment_name = lambda s: s[:re.search('[0-9]', s).end()]
     segment = fnc.pipe(car, dropwhile(str.islower), segment_name)
     feature = lambda s: s[re.search('[0-9]', s).end():]
@@ -78,8 +78,8 @@ def group_words(csv):
                          fnc.ident)
     return dct.map(fnc.pipe(phones, fillsegments), words)
 def group_regions(regions, words):
-    """{str:[int]}*{str:{str:(str,{str:[float]})}} ->
-         {str:{str:{str:(str,{str:[float]})}}}
+    """{str:[int]}*{str:{str:{str:[float]}}} ->
+         {str:{str:{str:{str:[float]}}}}
     that is, {Region:{Word:{Segment:(Type,{Feature:[Value]})}}}"""
     sub2 = lambda n: n-2
     dctmapper = curried(dct.map)
@@ -90,7 +90,7 @@ def group_regions(regions, words):
 def group_sed_in_gor():
     reader = list(csv.reader(open('sed.csv')))
     return group_regions(regions, group_words(lst.transpose(reader)))
-#@check(str,{str:[float]},(str,{str:[float]}))
+#@check(str,{str:[float]},{str:[float]}))
 def makesegment(type,d):
     # C's numbers:
     # GL=PV: {0,.5,1}, H/HW/W: {0,1}, V=C=PL=IR=VO={0,1}, L={0,1,2}
@@ -108,12 +108,12 @@ def makesegment(type,d):
     keys = dct.map(lambda default:[default]*size, features[chop(type)])
     keys.update(d)
     return keys
+### analysis ###
 def flatten(regions):
     '{str:{str:{str:{str:[float]}}}} -> [[[{str:[float]}]]]'
     def flatten1(d):
         return map(snd, sorted(d.items()))
     return map(cmap(flatten1), map(flatten1, flatten1(regions)))
-### analysis ###
 def analyse(regions, avgs=None):
     keys = lst.all_pairs(sorted(regions.keys()))
     regions = lst.all_pairs(flatten(regions))

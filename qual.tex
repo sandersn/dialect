@@ -11,7 +11,7 @@
 \author{Nathan Sanders}
 \begin{document}
 \maketitle
-%\doublespacing
+\doublespacing
 \section{Introduction}
 
 I applied existing dialectometric techniques to the English of Britain
@@ -832,93 +832,95 @@ agrees with the phonological measure.
 
 \section{Discussion}
 
-Discussion
-  \begin{enumerate}
-  \item What do these tell us?
-  \item Do the two distances correlate?
-  \item Well, no.
-  \item This is interesting because existing dialectology usually will
-    focus on a single area of linguistics for its data.
-  \item Pre-computational methods spent much of its analyses on
-    constructing isoglosses.
-  \item But inspection of actual data show that reality is too messy
-    for this to work consistently
-  \item Gradients are a better characterisation.
-  \item Computational dialectometry is even more narrow in its
-    corpora, although it produces gradients.
-  \item Both previous approaches fail to show that dialect boundaries
-    are consistent across different aspects of language.
-  \item Isoglosses for their lack of corpus coverage (cherry-picking examples)
-  \item Computational approaches for their lack of corpus
-    variety. (looking only at phonology)
-  \subsection{Future work}
-  \item Do the distances correlate with any other distances,
-    particularly geographic distance?
-  \item Awesome diagrams for Let04, here we come!
-  \item Make the syntax distance measurement require less data.
-  \item Then re-measure on counties.
-  \item This will allow more precise induction of dialect areas since
-    counties are so small.
-  \end{enumerate}
+On the whole, agreement between phonological and syntactic distance is
+weak. Different ways of comparing the distances show differing degrees
+of similarity. Both methods show a North/South distinction, but it is
+much stronger in phonological distance. The details, however, vary
+quite a bit. There are three good explanations for this. First, and
+least satisfying, is the possibility that one of the distances is not
+measuring what it is supposed to. Second, the corpora may not agree
+because of the 40 year difference in age and differing collection
+methodologies. Third, syntactic and phonological dialect markers may
+not share the same boundaries.
+
+The third possibility is the most interesting because previous work
+will not have exposed this difference. Traditional dialectology
+focusses on a few features from each collection site. The features
+are supposed to be representative; sharp differences between dialects
+are supposed to appear in many features and collect into isogloss
+bundles.
+
+There are two problems with this. First, phonological data is easier
+to analyse, leaving syntactic data as a second-class citizen. For
+example, syntax features often has many more occurring variants than
+phonological features. Worse, isogloss boundaries only work at a
+high-level, such as the North/South boundary in England or the
+North/South boundary in German (TODO:might not want to mention this if
+I have to find a citation, though Trudgill would probably do). At a
+fine scale, the variation is only partially regular and obscured with
+pervasive random traits. The complexity is obvious in atlasses based
+on the SED data (TODO:Cite Atlas of English Dialects)---many features
+have a regular distribution, but one which correlates only weakly with
+other features' distributions. Isogloss bundles, needed to draw
+dialect boundaries, only appear in a few places.
+
+Computational analysis, such as
+\cite{shackleton07}, captures feature variation precisely using
+statistical analysis. The resulting complexity clearly shows the
+inaptitude of isogloss bundles to capture it. Gradients are a better
+way to find dialect areas--often only one or two features will serve
+as a boundary between two dialects (see Shackleton, or Nerbonne or
+basically anybody). Only particularly steep gradients will show
+up as bundles of isoglosses.
+
+Unfortunately, computational research on syntax has been
+lacking. Unlike traditional methods, where syntax was a second-class
+citizen because of difficulty in analysing using the same methods as
+phonology, syntax is completely missing in computational
+research. The more complex analytic methods for phonology cannot be applied at all
+to syntactic data.
+
+This paper attempts to address that lack, and provide some first steps
+to show whether syntax and phonology assist each other in establishing
+dialects, or whether they are not related at all. If they are not
+related, and syntactic gradients can be as weak as phonological ones,
+then some new dialect areas may be apparent that were not visible in
+previous phonology-onlyl analyses.
+TODO: Mention this at the beginning of the paper too. I don't think
+it's clear there.
+
+\subsection{Future Work}
+
+This paper is, however, only a beginning. There are a number of way to
+improve upon the work presented here. The obvious criticism of the
+syntax distance used here is that it requires so much data that the
+results are no more detailed than those available from traditional
+methods. Its precision lags phonological distance methods badly. The
+first priority should be a syntax distance method that works with
+smaller corpora. This would allow me to re-run the current experiment
+on counties rather than Government Office Regions, resulting in more
+precise induction of dialect areas.
+
+Another problem with the current study is the 40-year difference in
+collection dates between the phonological corpus and the syntactic
+corpus. A recent phonological corpus would likely show the same sort
+of changes in the North/South divide that show up in the syntactic
+corpus. The British population became more mobile during the second
+half of the 20th century, and the SED survey explicitly attempted to capture
+the dialects that existed before this happened. Also it would be nice to have at
+least Scotland and Wales for comparison too.
+
+One interesting question is
+how phonological and syntactic distances correlate with geographic
+distance---\namecite{gooskens04a} show that often the correlation is
+very good. This would also allow better visualisation of dialect areas
+than a hierarchical dendrogram.
 
 
-% \begin{enumerate}
-% \item Introduction
-%   \begin{enumerate}
-%   \item talking about Seguy again.
-%   \item some similar work has been done with English
-%   \item Blah blah computers are great but stubborn
-%   \item Why not at least try though
-%   \item Hence: phonological distance and syntax distance
-%   \end{enumerate}
-% \item Phonological distance
-%   \begin{enumerate}
-%   \item Cochlear data
-%     \begin{enumerate}
-%     \item 107 word list
-%     \item Pediatric cochlear implant users
-%     \item Collected for Steven B. Chin's research project
-%     \end{enumerate}
-%   \item British data
-%     \begin{enumerate}
-%     \item 1001 (just Long) word list
-%     \item Collected from NORM in the 1950s to capture British dialects
-%       before they were destroyed by mobility and mess media.
-%     \item This has happened only to some extent, however. There are
-%       still regional differences, but the regions are different and
-%       the differences have changed since the 1950s.
-%     \item Analysed by Shackleton (2007) in numerous ways.
-%     \item Correlation with my syntax results will follow.
-%     \end{enumerate}
-%   \item Some other stuff
-%   \end{enumerate}
-% \item Syntax distance
-%   \begin{enumerate}
-%   \item No alignment, but massive corpora.
-%   \item Ergo, different methods : statistics.
-%   \item Current method only tells whether region is significantly
-%     different or not. That's not so great.
-%   \item But with a statistical method, the most you can hope for is
-%     distance---details of any differences will have to be extracted
-%     separately.
-%   \item You might be able to extract info from the data structures created along
-%     the way; naive bayes maximum entropy
-%     classifier gives quite good results for what bigrams are the most
-%     important to it.
 %   \item Some ideas include using supertags instead of leaf-ancestor
 %     paths, perhaps automatically extracted from the manual parse.
 %   \item Another idea is comparing entropy by compression. This seems
 %     pretty promising to me.
-%   \end{enumerate}
-
-% \item Discussion
-%   \begin{enumerate}
-%   \item What do these tell us?
-%   \item Do the two distances correlate?
-%   \item Do the distances correlate with any other distances,
-%     particularly geographic distance?
-%   \item The End.
-%   \end{enumerate}
 
 % Notes:
 % Apparently one Clive Upton has something resembling a British dialect
@@ -946,7 +948,6 @@ Discussion
 % J.D.A.Widdowson]. : PE1705.U68 1996
 % 1994: PE1704.U65 1994
 
-%\end{enumerate}
 \bibliographystyle{robbib} % ACL is \bibliographystyle{acl}
 \bibliography{central}
 \end{document}
