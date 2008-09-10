@@ -11,7 +11,7 @@
 \author{Nathan Sanders}
 \begin{document}
 \maketitle
-\doublespacing
+%\doublespacing
 \section{Introduction}
 
 I applied existing dialectometric techniques to the English of Britain
@@ -284,7 +284,8 @@ for itself changes nothing and thus has zero cost.
 
 The formal definition of the functions $ins$, $del$, and $sub$
 for characters is
-\[ \begin{array}{l}
+\begin{equation}
+\begin{array}{l}
    ins(t_j) = 1 \\
    del(s_i) = 1 \\
    sub(s_i,t_j) = \left\{
@@ -294,8 +295,7 @@ for characters is
      \end{array} \right.
 
    \end{array}
-\]
-
+\end{equation}
 For example, with these costs, the distance between \textit{sick} and
 \textit{tick} is two---a substitution of t for s. The distance between
 \textit{dog} and \textit{dog} is zero. The distance between
@@ -304,65 +304,69 @@ correspond, so three insertions and three deletions are needed to
 convert \textit{dog} to \textit{cat}. Not all calculations are so
 easy. The distance between \textit{realty} and \textit{reality} is a
 single insertion. The distance between \textit{nonrelated} and
-\textit{words} is 9, not 15 ($10 + 5$), because the characters `o-r-d'
-are in correspondence. While a linguist can easily learn to calculate Levenshtein
-distance, an algorithm does not learn and must have a systematic way
-to choose the best alignment.
+\textit{words} is 9, not $15 =10 + 5$, because the characters `o-r-d'
+are in correspondence.
 
-To do this, Levenshtein's algorithm must provide a way to build up
-the distance between two strings based on smaller substrings.
-This leads to a recursive algorithm in which Levenshtein distance
-between two strings is defined in terms of the cheapest of three
-possible combinations of source/target substrings plus an operation to
-produce the two strings. Let us take as an example the distance
-between the source ``cab'' and the target ``cob''. The three cases are
-as follows:
-
-\begin{enumerate}
-\item Insertion of `b' to ``ca'' to produce
-``cob''. Insertion costs 1, and the distance between ``ca'' and
-``cob'' is 3, so the cost of this case is 4.
-\item Deletion of `b' from ``cabb'' to produce ``cob''. Deletion costs
-  1, and the distance between ``cabb'' and ``cob'' is 3, so the cost
-  of this case is 4.
-\item Substitution of `b' to `b' in ``ca'' to produce
-  ``co''. Substitution of identical characters costs 0, and the distance
-  between ``ca'' and ``co'' is 2 because the substitution of `o' for
-  `a' already cost 2. The resulting cost of this case is 2.
-\end{enumerate}
-
-For this example, the substitution case is the cheapest. It is notable
-that the substrings in each of the three cases can be derived for any
-pair of source/target strings. There is one case for each of the
-operations specified above. This leads to the following formal
-definition of Levenshtein's distance algorithm.
+Although a linguist can easily learn to calculate Levenshtein distance,
+a computer must be provided with a formal algorithm to choose
+the best alignment. Levenshtein's algorithm
+builds up the distance between two strings based on smaller
+substrings.  This leads to a recursive algorithm in which Levenshtein
+distance between two new strings is defined in terms of the cheapest of
+three possible operations on two existing strings. The algorithm is
+stated formally in equation \ref{levequation}.
 
 For each character $s_i \in S$ and $t_j \in T$ for any word $S$ and $T$,
-\[ \begin{array}{rl}
- levenshtein(s_i,t_j) = minimum( & ins(s_i)+levenshtein(s_{i-1},t_j),\\
-& del(t_j)+levenshtein(s_i,t_{j-1}, \\
-& sub(s_i,t_j)+levenshtein(s_{i-1},t_{j-1}))
-   \end{array}
-\]
+\begin{equation}
+  levenshtein(s_i,t_j) = minimum \left(
+  \begin{array}{l}
+   ins(s_i)+levenshtein(s_{i-1},t_j), \\
+ del(t_j)+levenshtein(s_i,t_{j-1}), \\
+ sub(s_i,t_j)+levenshtein(s_{i-1},t_{j-1})
+   \end{array} \right)
+   \label{levequation}
+\end{equation}
 The total distance is $levenshtein(S_{|S|},T_{|T|})$.
 
-This recursive definition of distance is most efficiently realised by
-storing previous distances in a table. In addition, the table make a
-nice visualisation of the algorithm's operation.
-For example, finding
-the Levenshtein distance from ``ART''
-to ``CAT'' creates the table in figure \ref{art2cattable}. In this
-table, the substring cases for ``ART'' and ``CAT'' can be found in the
-square above for insertion, the square to the left for deletion and
-the diagonal above-left square for substitution.
-In this
-table, insertion corresponds to a downward move, deletion to a
-rightward move, and substitution a diagonal move. The total
-Levenshtein distance is found at the bottom-righthand corner, but the
-distances to all intermediate forms are stored in the table as
-well. The intermediate form ``CATART'', for example, is obtained by
-inserting three times without any deletions or substitutions. Its
-cost of 3 is found at the bottom of the first column.
+% Take as an example the distance between the source ``cab'' and
+% the target ``cob''. The three cases are as follows:
+
+% \begin{enumerate}
+% \item Insertion: lev(``cab'',``cob'') = ins(`b')+lev(``ca'',``cob'').
+%   This is a particularly bad match, because the recursive call to lev
+%   costs 3: ``ca'' and ``cob'' only share one character. The total cost
+%   is 4=1+3 since insertion costs 1.
+% \item Deletion: lev(``cabb'',``cob'') = del(`b')+lev(``cab'',
+%   ``co''). This option is even worse; the cost is still 4 because deletion costs
+%   1 and the distance between ``cab'' and ``co'' is 3. But the answer
+%   is also wrong because the output is ``ca'' because `b' is deleted.
+% \item Substitution of `b' to `b' in ``ca'' to produce
+%   ``co''. Substitution of identical characters costs 0, and the distance
+%   between ``ca'' and ``co'' is 2 because the substitution of `o' for
+%   `a' already cost 2. The resulting cost of this case is 2.
+% \end{enumerate}
+
+% For this example, the substitution case is the cheapest. It is notable
+% that the substrings in each of the three cases can be derived for any
+% pair of source/target strings. There is one case for each of the
+% operations specified above. This leads to the following formal
+% definition of Levenshtein's distance algorithm.
+
+This recursive definition is most efficiently realised by storing
+previous distances in a table. In addition, the table makes a nice
+visualisation of the algorithm's operation.  For example, finding the
+Levenshtein distance from ``ART'' to ``CAT'' creates the table in
+figure \ref{art2cattable}. In this table, the substring cases for
+``ART'' and ``CAT'' can be found in the square above for insertion,
+the square to the left for deletion and the diagonal above-left square
+for substitution.  In the same way, insertion corresponds to a downward
+move, deletion to a rightward move, and substitution to a diagonal
+move. The total Levenshtein distance is found at the bottom-righthand
+corner, but the distances to all intermediate forms are stored in the
+table as well. The intermediate form ``CATART'', for example, is
+obtained by inserting three times without any deletions or
+substitutions. Its cost of 3 is found at the bottom of the first
+column.
 
 \begin{figure}
 \caption{The distance table for ``ART'' to ``CAT''}
@@ -396,7 +400,6 @@ them: insert `C' to obtain ``CART'', moving down in the table; then
 delete `R' to obtain ``CAT'', moving left in the table. `A' and `T'
 are common to both words and both produce a diagonal move.
 
-% example here
 % then mention Gersic again (remember him?)
 % then jump over to Dunning and all the language identification work
 % that happened in the early 90s
@@ -460,8 +463,7 @@ features, so vowels and consonants always have a distance of 9, given
 the feature set in table \ref{featureset} give consonants 5 features
 and vowels 4.  If both segments are consonantal or vocalic, the
 individual feature differences are summed.  For example, [a] and [e]
-has the following value: \[ |3-3| + |3-2| + |0-0| + |0-0| = 1 \]
-TODO:Check this in interactive mode.
+has the following difference: \[ |1-5| + |2-1| + |1-1| + |1-1| = 5 \]
 
 The second complication is obtaining definitions for $ins$ and $del$
 once $sub$ is defined. It would be best to retain the original
@@ -470,35 +472,38 @@ deletion. To deal with substitution's variable cost, then, insertion and
 deletion should be averages. To find the average substitution cost, one can
  take the average cost of substituting every character
 for every other character. Then $ins$ and $del$ return half of this
-average. With these three functions defined as below, the table-based algorithm
+average. With these three functions defined as in equation
+\ref{indelsub}, the table-based algorithm
 given above can combine feature distances to find the minimum word distance.
 
 %%% NEW ok (and hence buggy) %%%
-\[ \begin{array}{l}
+\begin{equation}\begin{array}{l}
    ins(t_j) = \overline{sub} / 2 \\
    del(s_i) = \overline{sub} / 2 \\
    sub(s_i,t_j) = \left\{
      \begin{array}{ll}
        |s_i|+|t_j| & \textrm{if $C(s_i) \ne C(t_j)$} \\
-       \sum_{f_s,f_t \in s_i \times t_j} |f_s - f_t| & \textrm{otherwise}
+       \sum_{f_s,f_t \in s_i,t_j} |f_s - f_t| & \textrm{otherwise}
      \end{array} \right.
 
    \end{array}
-\]
+\label{indelsub}
+\end{equation}
 
 Here, $f_s$ and $f_t$ are the features of the segments $s_i$ and $t_j$
 being compared, $C$ is the consonantal property of a segment, and
-$\overline{sub}$ is the average substitution cost, defined below.
+$\overline{sub}$ is the average substitution cost for all segments,
+defined in equation \ref{avgsub}.
 
-\[ \overline{s_{ij}} = \frac{\sum_{i \in S}\sum_{j \in S}{levenshtein(s_i,s_j)}}{|s_i||s_j|}\]
+\begin{equation}
+\overline{sub} = \sum_{w_i,w_j \in W_1\times W_2}(\sum_{s_i,s_j \in w_i
+  \times w_j}sub(w_i,w_j) / |w_i\times w_j|) / |W_1\times W_2|
+\label{avgsub}
+\end{equation}
 
-\[ \overline{sub} = \sum_{i \in S}\sum_{j \in S}levenshtein(s_i,s_j) / \overline{s_{ij}} \]
-
-Finally, multiple speakers per region can be compared by comparing
-every speaker from the first region to every speaker from the second
-region and averaging the distances.
-TODO:Not finished, and equations are extraordinarily vague.
-
+In this equation, $W$ is the total set of words in some data set. All
+the different substitutions of segments for all the different
+combination of words in the data are tried and then averaged.
 
 \subsection{Syntactic  Distance}
 % 1st sentence is awkward (and 2nd too a little)
@@ -518,7 +523,7 @@ system of the transcriber. This important step reduces the information
 in a complex phonetic waveform to a few binary features. While
 phonological transcriptions are easier to work with, they may exhibit bias
 from the transcriber---some dialect surveys have been found to exhibit
-``field worker dialects'' (cite this, probably from Trudgill, and give
+``field worker dialects'' (TODO:cite this, probably from Trudgill, and give
 an example) in which
 boundaries between regions occur based on the transcriber. A
 similar bias can occur when text is hand-parsed, but with a
@@ -535,7 +540,6 @@ hand or not at all by traditional dialectologists.
 
 \subsubsection{Nerbonne and Wiersma}
 \label{nerbonne06}
-TODO:These next few pages are divided into way too many sections.
 
 Syntax distance has been much less explored. At present, there is
 really only one method used. Due to the lack of alignment between the
@@ -566,9 +570,9 @@ R = \Sigma_i |c_{ai} - c_{bi}|
 \end{equation}
 
 Given two corpora $a$ and $b$, $c_a$ and $c_b$ are the type counts.
-$R$ is designed to represent the amount of variation exhibited by the two corpora.
-TODO:This sounds slightly wrong. Steal from acl07.tex
-
+$R$ is designed to represent the amount of variation exhibited by the
+two corpora while allowing the contribution of individual types to be
+extracted simply.
 
 % Other ideas include training a
 % model on one area and comparing the entropy (compression) of other
@@ -615,8 +619,8 @@ creates the following leaf-ancestor paths:
 
 For identical siblings, brackets must be inserted in the path to
 disambiguate the first sibling from the second. The details are
-incidental to the main idea however, since identical siblings are a
-rare occurrence in any case. (Note: I haven't checked :)
+incidental to the main idea and in case identical siblings are
+somewhat rare.
 % Another idea is supertags rather than leaf-ancestor paths. This is
 % quite similar but might work better.
 
@@ -645,7 +649,7 @@ would expect $R(\textrm{LSMixed}, \textrm{LSMixed}) < 100$, something
 like 90 or 95. This should be true at least 95\% of the time if the
 differences are significant.
 
-\subsection{Normalisation}
+\subsubsection{Normalisation}
 Afterward, the distance must be normalised to account for two things:
 the length of sentences in the corpus and the amount of variety in the
 corpus. If sentence length differs too much between corpora, there
@@ -657,6 +661,12 @@ this all tokens are scaled by the average number of types per token
 across both corpora: $2n/N$ where $n$ is the type count and $N$ is
 the token count. The additional factor $2$ is necessary because we are
 recombining the tokens from the two corpora.
+
+\subsection{Clustering}
+
+Finally, the results of the two distance methods can be compared using
+hierarchical clustering. The dendrogram that results from hierarchical
+clustering allows the two methods to be compared visually.
 
 % this is the technical explanation which I think Sandra wants me to
 % leave out. Probably. Maaybe it was just the past history.
@@ -705,10 +715,10 @@ by the SED survey. The subset contains only vowels and consonants
 known to vary in England. Using this data set, I grouped the speakers
 in the survey into their respective Government Office Regions (GORs)
 and compared all speakers of a region to all speakers of every other
-region. The distances were averaged as described in section
-\ref{levmethod}. This produced a fully connected graph of the nine
+region. The distances between speakers were averaged per region.
+This produced a fully connected graph of the nine
 English GORs, with the edges weighted by phonological
-distance. TODO: A small illegible figure would be nice here.
+distance.
 
 \subsection{Syntax Distance Experiment}
 
@@ -735,8 +745,6 @@ significant, with $p < 0.10$, however. See the discussion for more details.
 As a result, I ran the rest of the experiment only for the parameter
 setting that produced significant results. Here, all but 7 of the 55
 connections between the 11 GORs were significant.
-TODO: Check this and prepare the graph for inclusion in the results
-section.
 
 \subsection{Correlation}
 Correlation of phonological distance and syntactic distance is
@@ -805,8 +813,6 @@ phonological distance, too. This could be caused by the 40-year
 difference in corpus collection date or by noise from the measurement
 method.
 TODO: I should really do something like ANOVA here too I think.
-TODO: I need to explain hierarchical clustering quickly in the methods
-section.
 
 There is generally a North/South distinction in the syntactic
 clustering as well, but there are some odd members of each group. In
@@ -854,12 +860,10 @@ There are two problems with this. First, phonological data is easier
 to analyse, leaving syntactic data as a second-class citizen. For
 example, syntax features often has many more occurring variants than
 phonological features. Worse, isogloss boundaries only work at a
-high-level, such as the North/South boundary in England or the
-North/South boundary in German (TODO:might not want to mention this if
-I have to find a citation, though Trudgill would probably do). At a
+high-level, such as the North/South boundary in England. At a
 fine scale, the variation is only partially regular and obscured with
 pervasive random traits. The complexity is obvious in atlasses based
-on the SED data (TODO:Cite Atlas of English Dialects)---many features
+on the SED data \cite{orton78}---many features
 have a regular distribution, but one which correlates only weakly with
 other features' distributions. Isogloss bundles, needed to draw
 dialect boundaries, only appear in a few places.
@@ -891,7 +895,7 @@ it's clear there.
 
 \subsection{Future Work}
 
-This paper is, however, only a beginning. There are a number of way to
+This paper is, however, only a beginning. There are a number of ways to
 improve upon the work presented here. The obvious criticism of the
 syntax distance used here is that it requires so much data that the
 results are no more detailed than those available from traditional
@@ -916,6 +920,10 @@ distance---\namecite{gooskens04a} show that often the correlation is
 very good. This would also allow better visualisation of dialect areas
 than a hierarchical dendrogram.
 
+Missing citations:
+Trudgill on isogloss bundles
+Trudgill on `field worker' dialects
+Somebody on Scotland/London syntactic differences
 
 %   \item Some ideas include using supertags instead of leaf-ancestor
 %     paths, perhaps automatically extracted from the manual parse.
