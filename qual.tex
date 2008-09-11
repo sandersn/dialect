@@ -11,37 +11,46 @@
 \author{Nathan Sanders}
 \begin{document}
 \maketitle
-%\doublespacing
+\doublespacing
 \section{Introduction}
+This paper compares phonology and syntax distances in dialectometry,
+using computational methods as a basis. Computational methods have
+come to dominate dialectometry, but they are limited in focus compared
+to previous work; most have explored phonological distance only, while
+earlier methods integrated phonological, lexical, and syntactic data.
 
-I applied existing dialectometric techniques to the English of Britain
-and introduced new techniques for measuring both phonological and
-syntactic distance. Comparisons between distance have become rarer
-since computational linguistics has taken over dialectometry. I also
-compare the results of the two, although we will see that there is a
-reason comparisons are rare; they are not very informative.
+However, the isogloss bundles that were the primary product of
+pre-computational methods do not adequately capture gradient
+generalisations; irregular boundaries are not useful for this purpose
+and have to be discarded. Recent methods are mathematically
+sophisticated, capable of identifying dialect gradients. The purpose
+of this work is to integrate phonological and syntactic data in the
+way that early dialectology did, but use the computational methods
+that have previously only been used to analyse one are of linguistics
+at a time.
 
-The dominant phonological distance measure in computational
-dialectometry is Levenshtein distance or a variant
-thereof. Statistical methods are slowly being introduced, such as the
-information measure of \cite{hinrichs07} and \cite{sanders08}.
-I developed a statistical method that uses a naive Bayes
-classifier, similar to language identification methods developed in
-the early 90s.
+To do this, I measured phonological distance using the Survey of
+English Dialects (SED) \cite{orton63} interview data for phonology,
+and the International Corpus of English (ICE) \cite{nelson02} speech
+data for syntax. I used Levenshtein distance \cite{lev65} with
+phonological features \cite{nerbonne97} for phonological distance, and
+a permutation test based on Kessler's $R$ \cite{kessler01} for
+syntactic distance \cite{nerbonne06}. I compared the two results over
+the nine Government Office Regions of England and compared the
+correlation and clustering of the results.
 
-Syntactic distance has not been measured well in computational
-dialectometry. Nerbonne and Wiersma have measured syntactic distance
-statistically using a permutation test, with trigram features designed
-to capture at least surface syntax. I tried the same test with
-leaf-ancestor paths as features.
+The results show how phonology and syntax contribute to dialect
+boundaries, and whether these boundaries reinforce each other. If the
+two distances do not contribute to the same boundaries, new dialect
+areas may be apparent that were not visible in previous phonology-only
+analyses.
 
 \section{Previous Work}
 \subsection{S\'eguy}
 Measurement of linguistic similarity has always been a part of
-linguistics from its beginning, with various degrees of
-respectability. Until 1973, when S\'eguy dubbed a new set of
+linguistics. However, until \namecite{seguy73} dubbed a new set of
 approaches `dialectometry', these methods lagged behind the rest of
-linguistics in formalisation. However, S\'eguy's quantitative analysis
+linguistics in formalisation. S\'eguy's quantitative analysis
 of Gascogne French, while not aided by computer, was the predecessor
 of more powerful statistical methods that essentially required the use
 of computer as well as establishing the field's general dependence on
@@ -51,12 +60,13 @@ This makes both collection and analysis easier, although it requires
 much more work when trying to produce a complete picture of dialect
 variation.
 
-The ALF project, which S\'eguy directed, begin in 195? to collect data
-in a dialect survey which asked speakers from the towns of Gascogne
-questions informed by different areas of linguistics. For our
-purposes, the most interesting are the phonological data: these were
-individual words designed to capture the already-studied variation in
-the area in order to characterise its extent precisely.
+The project to build the Atlas Linguistique de Fran\c{c}ais, which
+S\'eguy directed, collected data in a dialect survey which asked
+speakers from the towns of Gascogne questions informed by different
+areas of linguistics. For our purposes, the most interesting are the
+phonological data: these were individual words designed to capture the
+already-studied variation in the area in order to characterise its
+extent precisely.
 
 The atlases, as eventually published, contained not only annotated
 maps, but some analysis as well. This analysis was what S\'eguy named
@@ -67,15 +77,14 @@ linguistically sophisticated and numerically naive: isoglosses were
 posited from observations of type counts along with their arrangement
 on the map.
 
-\subsection{Gersic}
-At or just before the same time as the Atlas was finally published in
-1973, Gersic proposed a computational method for measuring distance
-between to phonological segments. Segments are specified as a vector
-of features---consonants have
-one feature set, while vowels have another. Features are given numeric
-values. For example, a [+voice] segment will have $1$ in the third
-position of the feature vector, while a [-voice] segment will have
-$0$. Gersic then gives a
+\subsection{Ger\v{s}i\'c}
+Just before S\'eguy's Atlas was finally published in 1973,
+\namecite{gersic71} proposed a computational method for measuring
+distance between to phonological segments. Segments are specified as a
+vector of features---consonants have one feature set, while vowels
+have another. Features are given numeric values. For example, a
+[+voice] segment will have $1$ in the third position of the feature
+vector, while a [-voice] segment will have $0$. Gersic then gives a
 function $d$ that gives the distance between segments:
 \[ d(i,j) = \sum_{k=1} |a_{i_k} - a_{j_k}|\] Where $a_i$ is the first
 segment
@@ -94,10 +103,9 @@ contribution was development of various methods to combine individual
 distances into global distances and from there global clusters. These
 methods were more sophisticated mathematically than previous
 dialectometry, and operated with any features extracted from the data. His
-analyses have mostly used the Atlas Linguistique de Francais
-(ALF).
+analyses have mostly used the Atlas Linguistique de Fran\c{c}ais.
 
-In Goebl (2006), he provides a summary of his work, including
+\namecite{goebl06} provides a summary of his work, including
 definitions of the measures Relative and Weighted Identity
 Value. These measures are independent of the source, capable of
 extracting distances from any set of features, which need not be
@@ -400,9 +408,6 @@ them: insert `C' to obtain ``CART'', moving down in the table; then
 delete `R' to obtain ``CAT'', moving left in the table. `A' and `T'
 are common to both words and both produce a diagonal move.
 
-% then mention Gersic again (remember him?)
-% then jump over to Dunning and all the language identification work
-% that happened in the early 90s
 \subsubsection{Heeringa}
 \label{levmethod}
 Variations on this theme have been explored, and best described by
@@ -476,7 +481,6 @@ average. With these three functions defined as in equation
 \ref{indelsub}, the table-based algorithm
 given above can combine feature distances to find the minimum word distance.
 
-%%% NEW ok (and hence buggy) %%%
 \begin{equation}\begin{array}{l}
    ins(t_j) = \overline{sub} / 2 \\
    del(s_i) = \overline{sub} / 2 \\
@@ -522,25 +526,18 @@ Phonological data is pre-processed, unavoidably, by the perceptual
 system of the transcriber. This important step reduces the information
 in a complex phonetic waveform to a few binary features. While
 phonological transcriptions are easier to work with, they may exhibit bias
-from the transcriber---some dialect surveys have been found to exhibit
-``field worker dialects'' (TODO:cite this, probably from Trudgill, and give
-an example) in which
-boundaries between regions occur based on the transcriber. A
+from the transcriber---dialect surveys have been found to exhibit
+``field worker dialects'' in which
+boundaries between regions occur based on the transcriber, see for
+example \quotecite{nerbonne03} analysis of LAMSAS data. A
 similar bias can occur when text is hand-parsed, but with a
 large enough corpus, one can use an automatic parser that should have
 fewer biases, albeit at the cost of more error.
 
-% This paragraph need an introducing paragraph
-Finally, if computational methods are duplicating the results of
-previous work, that's great, but it would be even better to have a
-way of finding relationships between
-the results of the various methods; this would tell us how well the
-areas cohere at various linguistic levels, which is typically done by
-hand or not at all by traditional dialectologists.
-
 \subsubsection{Nerbonne and Wiersma}
 \label{nerbonne06}
 
+% this is sort of redundant with the last section
 Syntax distance has been much less explored. At present, there is
 really only one method used. Due to the lack of alignment between the
 larger corpora available for syntactic analysis, a statistical
@@ -699,15 +696,6 @@ in this grouping. Only English data are available in the SED, so the
 final comparison does not include Scotland and Wales. However, they
 are shown in the intermediate syntactic results.
 
-% \begin{enumerate}
-% \item \quotecite{nerbonne97} refinement, without information gain weighting.
-% \item \quotecite{nerbonne06} syntax distance.
-% \item Combined on the data gathered and analysed in \namecite{shackleton07}.
-% \item And the ICE data (with leaf-ancestor paths) of \namecite{sanders07}.
-% \item And dividing both sets of data according to the same Government
-%   Office regions.
-% \end{enumerate}
-
 \subsection{Levenshtein Distance Experiment}
 
 \namecite{shackleton07} chose a 55-word subset of the words elicited
@@ -850,11 +838,11 @@ methodologies. Third, syntactic and phonological dialect markers may
 not share the same boundaries.
 
 The third possibility is the most interesting because previous work
-will not have exposed this difference. Traditional dialectology
+will not have exposed this difference. Traditional dialectometry
 focusses on a few features from each collection site. The features
 are supposed to be representative; sharp differences between dialects
 are supposed to appear in many features and collect into isogloss
-bundles.
+bundles \cite{chambers92}.
 
 There are two problems with this. First, phonological data is easier
 to analyse, leaving syntactic data as a second-class citizen. For
@@ -873,8 +861,7 @@ Computational analysis, such as
 statistical analysis. The resulting complexity clearly shows the
 inaptitude of isogloss bundles to capture it. Gradients are a better
 way to find dialect areas--often only one or two features will serve
-as a boundary between two dialects (see Shackleton, or Nerbonne or
-basically anybody). Only particularly steep gradients will show
+as a boundary between two dialects. Only particularly steep gradients will show
 up as bundles of isoglosses.
 
 Unfortunately, computational research on syntax has been
@@ -889,9 +876,7 @@ to show whether syntax and phonology assist each other in establishing
 dialects, or whether they are not related at all. If they are not
 related, and syntactic gradients can be as weak as phonological ones,
 then some new dialect areas may be apparent that were not visible in
-previous phonology-onlyl analyses.
-TODO: Mention this at the beginning of the paper too. I don't think
-it's clear there.
+previous phonology-only analyses.
 
 \subsection{Future Work}
 
@@ -920,10 +905,8 @@ distance---\namecite{gooskens04a} show that often the correlation is
 very good. This would also allow better visualisation of dialect areas
 than a hierarchical dendrogram.
 
-Missing citations:
-Trudgill on isogloss bundles
-Trudgill on `field worker' dialects
-Somebody on Scotland/London syntactic differences
+% Missing citations:
+% Scotland/London syntactic differences
 
 %   \item Some ideas include using supertags instead of leaf-ancestor
 %     paths, perhaps automatically extracted from the manual parse.
