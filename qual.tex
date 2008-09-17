@@ -715,15 +715,14 @@ leaf-ancestor paths from the trees. Then I chose varying parameter
 settings, varying sample size between 500 and 1000, $R$ measure
 between $r$ and $r^2$, and input data type between trigram and
 leaf-ancestor path. To test that the results from a particular
-parameter settings were valid, I ran a preliminary test of each one on London and
-Scotland. First, I compared London and Scotland, which, according to
-existing linguistic knowledge, should be quite different.
-(TODO:Cite this, maybe starting from http://www.abdn.ac.uk/~enl038/grammar.htm)
-Then I mixed them
-together and split the mixed corpus into two the size of the
-original. If the two locations are properly identified as different,
-London and Scotland should be significantly different with $p < 0.05$, while the
-shuffled doppelgangers should not be.
+parameter settings were valid, I ran a preliminary test of each one on
+London and Scotland. First, I compared London and Scotland, which,
+have several syntactic differences already catalogued by linguists
+\cite{aitken79}.  Then I mixed them together and split the mixed
+corpus into two the size of the original. If the two locations are
+properly identified as different, London and Scotland should be
+significantly different with $p < 0.05$, while the shuffled
+doppelgangers should not be.
 
 This was true for only one parameter setting: distance measure $r$,
 sample size of 1000 and input data of leaf-ancestor paths. For the
@@ -791,7 +790,7 @@ variety and so will be less likely to appear significantly different.
 \end{figure}
 
 The dendrogram produced by clustering R distance (figure
-\ref{syntax-dendrogram} is harder to
+\ref{syntax-dendrogram}) is harder to
 interpret. There are two clear groups, but several of the distances
 are not significant, such as those forming the tight East
 Midlands/London cluster. However, in other cases the grouping will still hold
@@ -901,7 +900,7 @@ least Scotland and Wales for comparison too.
 
 One interesting question is
 how phonological and syntactic distances correlate with geographic
-distance---\namecite{gooskens04a} show that often the correlation is
+distance---\namecite{gooskens04a} shows that often the correlation is
 very good. This would also allow better visualisation of dialect areas
 than a hierarchical dendrogram.
 
