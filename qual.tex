@@ -105,23 +105,23 @@ Ger\v{s}i\'c linguistically and Goebl mathematically.
 \subsection{Ger\v{s}i\'c}
 Just before S\'eguy's Atlas was finally published in 1973,
 \namecite{gersic71} proposed a computational method for measuring
-distance between to phonological segments. Segments are specified as a
-vector of features---consonants have one feature set, while vowels
-have another. Features are given numeric values. For example, a
-[+voice] segment will have $1$ in the third position of the feature
-vector, while a [-voice] segment will have $0$. Gersic then gives a
-function $d$ that gives the distance between segments:
-\[ d(i,j) = \sum_{k=1} |a_{i_k} - a_{j_k}|\] Where $a_i$ is the first
-segment
-being compared and $a_j$ the second. However, the equation is easier
-to understand if summarised by the English prose ``count the number of
-features with values that differ between segments''. Gersic did not
-provide a way to compare vowels with consonants, or a way to combine
-the segment distances into word distances, but those techniques would
-be developed later.
+distance between two phonological segments. Segments are specified as
+a vector of numeric features---consonants have a set of five features,
+while vowels have a different set of five features.  For example, the
+third consonantal feature, voice, give $1$ to a [+voice] segment and
+$0$ to a [-voice] segment. Gersic then gives a function $d$ that sums
+the features to find the distance between segments:
+\[ d(i,j) = \sum_{k=1} |a_{i_k} - a_{j_k}|\] where $a_i$ is the first
+segment being compared and $a_j$ the second. However, the equation is
+easier to understand as ``count the
+number of features with values that differ between segments''. For
+example, [k] compared to [g] would differ for one feature, voice, so
+$d(\textrm{[g]},\textrm{[k]}) = 1$. Unfortunately, $d(\textrm{[a]},
+\textrm{[k]})$ is not defined.
 
-TODO:Example here, maybe from Gersic's paper? I need to get his
-feature set again.
+Although the S\'eguy's phonological analysis of the Linguistic Atlas
+of France did not use Ger\v{s}i\'c's proposal, the more complex
+analysis it required became feasible as more work shifted to the computer.
 
 \subsection{Goebl}
 
@@ -133,19 +133,29 @@ methods were more sophisticated mathematically than previous
 dialectometry, and operated with any features extracted from the data. His
 analyses have mostly used the Atlas Linguistique de Fran\c{c}ais.
 
-\namecite{goebl06} provides a summary of his work, including
-definitions of the measures Relative and Weighted Identity
-Value. These measures are independent of the source, capable of
-extracting distances from any set of features, which need not be
-specified a priori, unlike Gersic's method. For example, Relative
-Identity Value, when comparing any two segments, counts the number of
-features which share the same value, and divides by the number of
-shared features. This has the advantage that it is robust in the fact
-of (1) unshared features and (2) missing data. The result is a single
-percentage that indicates the relative similarity. Calculating this
-distance between all pairs of things to be compared produces a matrix
-which can be used for clustering or other purposes. The equation is
-actually:
+\namecite{goebl06} provides a summary of his work. Most relevant for
+this paper are the measures Relative Identity Value and Weighted
+Identity Value. They are general methods that are the basis for nearly
+all subsequent fine-grained dialectometrical analyses. They have three
+important properties. First, they are independent of the source
+data. They can operate over any linguistic data for which they are
+given a feature set, such as the one proposed by Ger\v{s}i\'c for
+phonology. Second, they can compare data even for items that do not
+have identical feature sets. This improves on Ger\v{s}i\'c's $d$,
+which cannot compare consonants and vowels. Third, they can compare
+data sets that are missing some entries. This improves on S\'eguy's
+analysis by providing a principled way to handle missing survey
+responses.
+
+Relative Identity Value, when comparing any two items, counts the
+number of features which share the same value and then discounts
+(lowers) the importance of the result by the number of unshared
+features. The result is a single percentage that indicates
+relative similarity. Calculating this distance between all pairs
+of items in two regions produces a matrix which can be used for
+clustering or other purposes. Note that the presentation below splits
+Goebl's original equations into more manageable pieces; the high-level
+equation for Relative Identity Value is:
 
 \begin{equation}
   \frac{\textrm{identical}_{jk}} {\textrm{identical}_{jk} - \textrm{unidentical}_{jk}}
@@ -158,39 +168,40 @@ For some items being compared $j$ and $k$. In this case
 \end{equation}
 where $i$ is each feature shared by $j$ and $k$ (called
 $\textrm{\~N}_{jk}$). \textit{unidentical} is defined similarly, except
-that it looks at all features, not just the shared features.
+that it counts all features N, not just the shared features
+$\textrm{\~N}_{jk}$.
 \begin{equation}
   \textrm{unidentical}_{jk} = |f \in \textrm{N} : f_j \neq f_k|
 \end{equation}
 
-Additionally, Goebl
-describes a refinement of the method called Weighted Identity
-Value. This measure stems from the idea that some differences are
-more important than others, in particular that more information arises
-from feature values that only happen a few times rather than those
-values that characterise a large number of the items being studied.
-This idea shows up later in the permutation tests used by Nerbonne and Wiersma.
+Weighted Identity Value is a refinement of Relative Identity
+Value. This measure stems defines some differences as more
+important than others. In particular, more information arises from
+feature values that only happen a few times rather than those values
+that characterise a large number of the items being studied.  This
+idea shows up later in the normalisation of syntax distance given by
+\namecite{nerbonne06}.
 
 The mathematical implementation of this idea is fairly simple. Goebl
-is interested in feature values that occur only a few times. This is
-because, if a feature has some value shared by all of the items being
-compared, then it provides {\it no} useful information for
-distinguishing the items---they all belong to the same group.
-The situation improves if all but one item
-share the same value for a feature; at least there are now two
-groups, although the larger group is still not very informative.
-The most information is available if each item being studied
-has a different value for a feature; the items fall trivially into
-singleton groups, one per item.
+is interested in feature values that occur only a few times.  If a
+feature has some value shared by all of the items being compared, then
+it provides {\it no} useful information for distinguishing the
+items---they all belong to the same group.  The situation improves if
+all but one item share the same value for a feature; at least there
+are now two groups, although the larger group is still not very
+informative.  The most information is available if each item being
+studied has a different value for a feature; the items fall trivially
+into singleton groups, one per item.
 
-Equation \ref{wiv-ident} works by discounting (lowering)
+Equation \ref{wiv-ident} works by discounting
 the \textit{identical} count from equation \ref{riv} by
 the amount of information that feature value conveys. The
 amount of information, as discussed above, is based on the number of
-items that share a particular value for a feature. If
-the worst case, in which all items share the same value for some
-feature, then that feature is useless, so \textit{identical} should be
-discounted all the way to zero. The equation for \textit{identical} now becomes
+items that share a particular value for a feature. If all items share
+the same value for some feature, then \textit{identical} will be discounted all the
+way to zero--the feature conveys no useful information.
+Weighted Identical Value's equation for \textit{identical} is
+therefore
 \begin{equation}
   \textrm{identical} = \sum_f \left\{
   \begin{array}{ll}
@@ -200,6 +211,7 @@ discounted all the way to zero. The equation for \textit{identical} now becomes
 \label{wiv-ident}
 \end{equation}
 
+\noindent{}The complete definition of Weighted Identity Value is
 \begin{equation} \sum_i \frac{\sum_f \left\{
   \begin{array}{ll}
     0 & \textrm{if} f_j \neq f_k \\
@@ -213,7 +225,7 @@ discounted all the way to zero. The equation for \textit{identical} now becomes
   \label{wiv-full}
   \end{equation}
 
-  where $\textrm{agree}f_{j}$ is the number of candidates that agree
+  \noindent{}where $\textrm{agree}f_{j}$ is the number of candidates that agree
   with item $j$ on feature $f$ and $Ni$ is the total number of
   candidates ($w$ is the weight, discussed below). Because of the
   piecewise definition of \textit{identical}, this number is always at
@@ -256,30 +268,33 @@ discounted. A high $w$ will subtract more from uninteresting groups,
 so the contribution of the above two features might be discounted to
 $0.6 + 0.3 = 0.9$ given a smaller $w$, for example.
 
-% William. Idsardi is an OT critic based on computability grounds
-
 % NOTE: This is a lot like avoiding excessive neutralisation in a
 % paradigm---you don't want to overdo neutralisation because otherwise
 % the underlying form becomes quite distant from the surface form.
 
-\section{Methods}
+\section{Computational Approaches}
 
 It is at this point that the two types of analysis, phonological and
 syntactic, diverge. Although Goebl's techniques are general enough to
-operate over any set of features that can be extracted, later work
-uses properties specific to the type of data in order to achieve
-better results. Specifically, the application of computational
-linguistics to dialectometry beginning in the 1990s introduced
-methods from other fields. These methods, while generally giving more
-accurate results quickly, are tied to the type of data on which they
-operate.
+operate over any set of features that can be extracted, better results
+can be obtained by specialising the general measures above to take
+advantage of properties of the input.  Specifically, the application
+of computational linguistics to dialectometry beginning in the 1990s
+introduced methods from other fields. These methods, while generally
+giving more accurate results quickly, are tied to the type of data on
+which they operate.
 
 \subsection{Phonological Distance}
+
+Phonological distance is a good example; algorithms can take advantage
+of the ordered, regular properties of phonology to produce better
+results in less time. TODO: Finish this or link it with the existing
+paragraph.
 
 The most significant of these methods for phonological distance was
 introduced to dialectometry by \namecite{kessler95}. Kessler used
 Levenshtein distance \cite{lev65} to determine distance between
-individual words and then just used simple addition to combine the
+individual words and then used addition to combine the
 distances.  Levenshtein distance is a simple idea---simply count the
 number of differences between two strings. The intent is the same as
 Goebl's Relative Identity Value, using single characters of a word as
@@ -363,78 +378,6 @@ For each character $s_i \in S$ and $t_j \in T$ for any word $S$ and $T$,
    \label{levequation}
 \end{equation}
 The total distance is $levenshtein(S_{|S|},T_{|T|})$.
-
-% Take as an example the distance between the source ``cab'' and
-% the target ``cob''. The three cases are as follows:
-
-% \begin{enumerate}
-% \item Insertion: lev(``cab'',``cob'') = ins(`b')+lev(``ca'',``cob'').
-%   This is a particularly bad match, because the recursive call to lev
-%   costs 3: ``ca'' and ``cob'' only share one character. The total cost
-%   is 4=1+3 since insertion costs 1.
-% \item Deletion: lev(``cabb'',``cob'') = del(`b')+lev(``cab'',
-%   ``co''). This option is even worse; the cost is still 4 because deletion costs
-%   1 and the distance between ``cab'' and ``co'' is 3. But the answer
-%   is also wrong because the output is ``ca'' because `b' is deleted.
-% \item Substitution of `b' to `b' in ``ca'' to produce
-%   ``co''. Substitution of identical characters costs 0, and the distance
-%   between ``ca'' and ``co'' is 2 because the substitution of `o' for
-%   `a' already cost 2. The resulting cost of this case is 2.
-% \end{enumerate}
-
-% For this example, the substitution case is the cheapest. It is notable
-% that the substrings in each of the three cases can be derived for any
-% pair of source/target strings. There is one case for each of the
-% operations specified above. This leads to the following formal
-% definition of Levenshtein's distance algorithm.
-
-This recursive definition is most efficiently realised by storing
-previous distances in a table. In addition, the table makes a nice
-visualisation of the algorithm's operation.  For example, finding the
-Levenshtein distance from ``ART'' to ``CAT'' creates the table in
-figure \ref{art2cattable}. In this table, the substring cases for
-``ART'' and ``CAT'' can be found in the square above for insertion,
-the square to the left for deletion and the diagonal above-left square
-for substitution.  In the same way, insertion corresponds to a downward
-move, deletion to a rightward move, and substitution to a diagonal
-move. The total Levenshtein distance is found at the bottom-righthand
-corner, but the distances to all intermediate forms are stored in the
-table as well. The intermediate form ``CATART'', for example, is
-obtained by inserting three times without any deletions or
-substitutions. Its cost of 3 is found at the bottom of the first
-column.
-
-\begin{figure}
-\caption{The distance table for ``ART'' to ``CAT''}
-
-\begin{center}
-\begin{tabular}{c|c|c|c|c}
-%\hline
-  &   & A & R & T \\
-\hline
-  & $\mathbf{0}$ & 1 & 2 & 3 \\
-\hline
-C & $\mathbf{1}$ & 2 & 3 & 4 \\
-\hline
-A & 2 & $\mathbf{1}$ & $\mathbf{2}$ & 3 \\
-\hline
-T & 3 & 2 & 3 & $\mathbf{2}$
-% \hline
-\end{tabular}
-
-\end{center}
-
-\label{art2cattable}
-\end{figure}
-
-The optimal path is shown in bold. Notice that it
-follows the diagonal for free substitutions and propagates either down or right
-in their absence. The final distance is two, indicating that two
-primitive operators are required; that is, two insertions or deletions.
-In fact, the table gives
-them: insert `C' to obtain ``CART'', moving down in the table; then
-delete `R' to obtain ``CAT'', moving left in the table. `A' and `T'
-are common to both words and both produce a diagonal move.
 
 \subsubsection{Heeringa}
 \label{levmethod}
