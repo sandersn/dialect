@@ -232,41 +232,40 @@ therefore
   least $1$ because $f_k$ agrees already with $f_j$. The effect of
   this equation is to take the count of shared features and weight
   them by the size of the sharing group. The features that are shared
-  with a large number of other items get larger fraction of the normal
+  with a large number of other items get a larger fraction of the normal
   count subtracted.
 
-For example, let $j$ and $k$ be some English segments /t/ and /s/,
-respectively, which share the features \textit{place} and
-\textit{voice}. Coronals
-and voiceless sounds are both common in English, but assume for this
-example that voiceless segments occur more often. There will be more
-agreeing segments in lack of voicing than those agreeing in place. So the
-total weight of \textit{place} between /t/ and /s/ will be more than
-that of \textit{voice}: In equation \ref{wiv-place}, we see that 1000
-of the 2000 segments in the corpus agree with /s/ in place, while 1500
-agree in voice.
+  For example, let $j$ and $k$ be sets of productions for the
+  underlying English segment /s/. The allophones of /s/ vary mostly on the feature
+  \textit{voice}. Seeing an unvoiced [s] is less ``surprising'' than
+  seeing a voiced [z] for /s/, so the discounting process should
+  reflect this. For example, assume that an English corpus contains 2000
+  underlying /s/ segments. If 500 of them are realised as [z], the
+  discounting for \textit{voice} will be as follows:
 
-\begin{equation}
-  1 - \textrm{agree}place_{jk} = 1 - 1000/2000 = 1 - 0.5 = 0.5
-  \label{wiv-place}
+  \begin{equation}
+    \begin{array}{c}
+      identical_{/s/\to[z]} = 1 - 500/2000 = 1 - 0.25 = 0.75 \\
+      identical_{/s/\to[s]} = 1 - 1500/2000 = 1 - 0.75 = 0.25
+    \end{array}
+    \label{wiv-voice}
   \end{equation}
 
-\begin{equation}
-  1 - \textrm{agree}voice_{jk} = 1 - 1500/2000 = 1 - 0.75 = 0.25
-  \label{wiv-voice}
-\end{equation}
+  Each time /s/ surfaces as [s], it only receives 1/4 of a point
+  toward the agreement score when it matches another [s]. When /s/
+  surfaces as [z], it receives three times as much for matching
+  another [z]: 3/4 points towards the agreement score. If the
+  alternation is even more weighted toward faithfulness, the ratio
+  changes even more; if /s/ surfaces as [z] only 1/10 of the time,
+  then [z] receives 9 times more value for matching than [s] does.
 
-So these two features, once weighted, will no longer contribute a full
-$2.0$ to the amount of agreement between the two segments /s/ and /t/,
-but only $1.0$. Their combined weight has been halved because both
-features are so common as to not need further explanation.
-Therefore, as \textit{agree} grows larger, it subtracts more and more
-from the original value of 1.
-The final value, $w$, which is what gives the name ``weighted identity
-value'' to this measure, provides a way to control how much is
-discounted. A high $w$ will subtract more from uninteresting groups,
-so the contribution of the above two features might be discounted to
-$0.6 + 0.3 = 0.9$ given a smaller $w$, for example.
+  The final value, $w$, which is what gives the name ``weighted
+  identity value'' to this measure, provides a way to control how much
+  is discounted. A high $w$ will subtract more from uninteresting
+  groups, so that \textit{voice} might be worth less than
+  \textit{place} for /t/ because /t/'s allophones vary more over
+  \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
+  facilitate the presentation.
 
 % NOTE: This is a lot like avoiding excessive neutralisation in a
 % paradigm---you don't want to overdo neutralisation because otherwise
@@ -286,44 +285,39 @@ which they operate.
 
 \subsection{Phonological Distance}
 
-Phonological distance is a good example; algorithms can take advantage
-of the ordered, regular properties of phonology to produce better
-results in less time. TODO: Finish this or link it with the existing
-paragraph.
+Phonological distance is a good example; algorithms that can take
+advantage of the ordered, regular properties of phonology will produce
+better results in less time. \namecite{kessler95} introduced
+Levenshtein distance \cite{lev65} to dialectometry in order to
+determine distance between individual words. Then he summed the
+individual word distances to find distances between dialect areas.
 
-The most significant of these methods for phonological distance was
-introduced to dialectometry by \namecite{kessler95}. Kessler used
-Levenshtein distance \cite{lev65} to determine distance between
-individual words and then used addition to combine the
-distances.  Levenshtein distance is a simple idea---simply count the
+Levenshtein distance is a simple idea---simply count the
 number of differences between two strings. The intent is the same as
 Goebl's Relative Identity Value, using single characters of a word as
-features. However, since strings are an ordered sequence of characters
-in this model, determining the best set of correspondences between two
-strings is a non-trivial problem. This is the problem that
-Levenshtein's algorithm solves. It tries all possible alignments and
+features. However, Levenshtein distance uses the property that strings
+are an ordered sequence of characters. Levenshtein's algorithm solves
+the non-trivial problem of determining the best set of correspondences
+between two strings. It tries all possible alignments and
 remembers the best ones using a dynamic programming algorithm. The
 alignment generated by the algorithm is guaranteed to have the most
-possible correspondences between the two input strings. Like Goebl's
-measures, Levenshtein distance is in principle applicable to any
+possible correspondences between the two input strings.
+Levenshtein distance is in principle applicable to any
 ordered sequence and as such has been used in many fields
-\cite{sankoff83}. However, its discovery of correspondence makes it
+\cite{sankoff83}. However, its discovery of correspondences makes it
 particularly suited for phonology.
 
-The Levenshtein distance algorithm models alignment
-as the series of changes necessary to convert the first sequence to
-the second. This means that input to the algorithm includes the cost
-of changes, in addition to the two sequences. Three changes are
-typically specified: insertion, deletion, and substitution. Others have
-been proposed for use in phonology,
-such as metathesis (see \cite{kondrak02} for an
-example), but since metathesis can be modelled as an insertion and a
-deletion, there is not much reason unless it is deemed to be very
-common for some corpus.
-Given these inputs, the algorithm calculates the number of each
-operation necessary to convert the first sequence to the
-second. Finding the lowest total operation cost produces the highest number of
-correspondences.
+The Levenshtein distance algorithm models alignment as the series of
+changes necessary to convert the first string to the second. This
+means that input to the algorithm includes the cost of changes, in
+addition to the two strings. Three operations are typically
+specified: insertion, deletion, and substitution. Others have been
+proposed for use in phonology; see \cite{kondrak02} for examples and
+analysis of in terms of efficiency and context-sensitivity. Given two
+strings and three operations, the algorithm calculates the number of
+each operation necessary to convert the first string to the
+second. Finding the lowest total operation cost produces the highest
+number of correspondences.
 
 In a character-based model, insertion and deletion are the primitive operations,
 with a cost of one each. Substitution is one insertion and one
@@ -347,7 +341,22 @@ for characters is
 
    \end{array}
 \end{equation}
-For example, with these costs, the distance between \textit{sick} and
+
+Now for each character $s_i \in S$ and $t_j \in T$ for any string $S$ and $T$,
+\begin{equation}
+  levenshtein(s_i,t_j) = min \left(
+  \begin{array}{l}
+   ins(s_i)+levenshtein(s_{i-1},t_j), \\
+ del(t_j)+levenshtein(s_i,t_{j-1}), \\
+ sub(s_i,t_j)+levenshtein(s_{i-1},t_{j-1})
+   \end{array} \right)
+   \label{levequation}
+\end{equation}
+The total distance between $S$ and $T$ is $levenshtein(S_{|S|},T_{|T|})$.
+
+This recursive algorithm finds the distance between two strings in
+terms of the cheapest of three operations on their substrings.
+For example, with this algorithm, the distance between \textit{sick} and
 \textit{tick} is two---a substitution of t for s. The distance between
 \textit{dog} and \textit{dog} is zero. The distance between
 \textit{dog} and \textit{cat} is six because none of the characters
@@ -357,27 +366,6 @@ easy. The distance between \textit{realty} and \textit{reality} is a
 single insertion. The distance between \textit{nonrelated} and
 \textit{words} is 9, not $15 =10 + 5$, because the characters `o-r-d'
 are in correspondence.
-
-Although a linguist can easily learn to calculate Levenshtein distance,
-a computer must be provided with a formal algorithm to choose
-the best alignment. Levenshtein's algorithm
-builds up the distance between two strings based on smaller
-substrings.  This leads to a recursive algorithm in which Levenshtein
-distance between two new strings is defined in terms of the cheapest of
-three possible operations on two existing strings. The algorithm is
-stated formally in equation \ref{levequation}.
-
-For each character $s_i \in S$ and $t_j \in T$ for any word $S$ and $T$,
-\begin{equation}
-  levenshtein(s_i,t_j) = minimum \left(
-  \begin{array}{l}
-   ins(s_i)+levenshtein(s_{i-1},t_j), \\
- del(t_j)+levenshtein(s_i,t_{j-1}), \\
- sub(s_i,t_j)+levenshtein(s_{i-1},t_{j-1})
-   \end{array} \right)
-   \label{levequation}
-\end{equation}
-The total distance is $levenshtein(S_{|S|},T_{|T|})$.
 
 \subsubsection{Heeringa}
 \label{levmethod}
@@ -403,13 +391,19 @@ substitution distance between two segments simply be the number of
 features that are different. Two identical segments will therefore
 have a substitution distance of zero; segments phonetically similar
 will have a small distance. For example, [k] and [g] would have a
-distance of one in this system. \namecite{shackleton07} further uses
-numeric rather than binary features, which allows for relative
-weighting of features, so that [k] and [t] are more similar than [k]
-and [p].
+distance of 1 in this system:
 
-The features used in this paper are those used by Shackleton. The
-feature set defines different features for vowels, consonants and
+\[ (velar=velar \land{} \ldots \land{} +voice\neq -voice) \to (0
++ \ldots + 1) = 1\]
+
+\subsubsection{Shackleton}
+For his analysis of English dialects, \namecite{shackleton07} uses
+numeric rather than binary features. This allows for relative
+weighting of features, so that [k] and [t] are more similar than [k]
+and [p]. Shackleton's feature set is very similar to the one proposed by
+\namecite{gersic71}, although he includes some features specifically
+designed for variation known to exist in English dialects. Most
+importantly, he defines different features for vowels, consonants and
 vowel-following rhotics. The features are given in table
 \ref{featureset}.
 
@@ -433,13 +427,14 @@ Rhotic & Place & 1.0 -- 3.0 \\
 
 Although it increases precision, feature-based substitution causes a
 number of complications. The first is that substitution distance
-($sub$) becomes complicated since vowels and consonants do not share
-features.  Here, the difference must be the number of unshared
-features, so vowels and consonants always have a distance of 9, given
-the feature set in table \ref{featureset} give consonants 5 features
-and vowels 4.  If both segments are consonantal or vocalic, the
-individual feature differences are summed.  For example, [a] and [e]
-has the following difference: \[ |1-5| + |2-1| + |1-1| + |1-1| = 5 \]
+($sub$) must distinguish between vowels, consonants and rhotics, since
+they do not share features. Substitution distance must instead be the
+number of unshared features, so vowels and consonants always have a
+distance of 9, because the feature set in table \ref{featureset} gives
+consonants 5 features and vowels 4. As before, if both segments are
+are of the same type, the individual feature differences are summed.  For
+example, [a] and [e] has the following difference: \[ |1-5| + |2-1| +
+|1-1| + |1-1| = 5 \]
 
 The second complication is obtaining definitions for $ins$ and $del$
 once $sub$ is defined. It would be best to retain the original
