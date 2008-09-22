@@ -775,35 +775,48 @@ agrees with the phonological measure.
 
 \section{Discussion}
 
-On the whole, agreement between phonological and syntactic distance is
-weak. Different ways of comparing the distances show differing degrees
-of similarity. Both methods show a North/South distinction, but it is
-much stronger in phonological distance. The details, however, vary
-quite a bit. There are three good explanations for this. First, and
-least satisfying, is the possibility that one of the distances is not
-measuring what it is supposed to. Second, the corpora may not agree
-because of the 40 year difference in age and differing collection
-methodologies. Third, syntactic and phonological dialect markers may
-not share the same boundaries.
+On the whole, correlation between phonological and syntactic distance
+is low. Different ways of comparing the distances show differing
+distances. Both methods, $R$ and Levenshtein distance, show a
+North/South distinction, but it is much stronger in phonological
+distance. The details, however, vary quite a bit. There are at least
+five reasonable
+explanations for this. First, and least satisfying, is the possibility
+that one of the distances is not measuring what it is supposed
+to. Second, the corpora may not agree because of the 40 year
+difference in age and differing collection methodologies. Third,
+syntactic and phonological dialect markers may not share the same
+boundaries.
 
-The third possibility is the most interesting because previous work
+\begin{itemize}
+\item One of the distances is not measuring what it is supposed to.
+\item The corpora may not agree because of the 40-year difference in age.
+\item Place of birth, as recorded in the ICE, may not correlate well
+  enough with spoken dialect, especially given variations in speaker
+  education level and place of residence.
+\item Systematic variation in annotation may come form the corpus
+  creators rather than the speakers themselves.
+\item Syntactic and phonological dialect boundaries may be different.
+\end{itemize}
+
+Of these, the last is the most interesting because previous work
 will not have exposed this difference. Traditional dialectometry
 focusses on a few features from each collection site. The features
 are supposed to be representative; sharp differences between dialects
 are supposed to appear in many features and collect into isogloss
 bundles \cite{chambers92}.
 
-There are two problems with this. First, phonological data is easier
-to analyse, leaving syntactic data as a second-class citizen. For
-example, syntax features often has many more occurring variants than
-phonological features. Worse, isogloss boundaries only work at a
-high-level, such as the North/South boundary in England. At a
-fine scale, the variation is only partially regular and obscured with
-pervasive random traits. The complexity is obvious in atlasses based
-on the SED data \cite{orton78}---many features
-have a regular distribution, but one which correlates only weakly with
-other features' distributions. Isogloss bundles, needed to draw
-dialect boundaries, only appear in a few places.
+There are two problems with traditional methods. First, phonological
+data is easier to analyse, leaving syntactic data as a second-class
+citizen. For example, syntax features often have many more occurring
+variants than phonological features. Worse, isogloss boundaries only
+work at a high level, such as the North/South boundary in England. At
+a fine scale, the variation is only partially regular and obscured
+with pervasive random traits. The complexity is obvious in atlasses
+based on the SED data \cite{orton78}---many features have a regular
+distribution, but one which correlates only weakly with other
+features' distributions. Isogloss bundles, needed to draw dialect
+boundaries, only appear in a few places.
 
 Computational analysis, such as
 \cite{shackleton07}, captures feature variation precisely using
@@ -813,14 +826,15 @@ way to find dialect areas--often only one or two features will serve
 as a boundary between two dialects. Only particularly steep gradients will show
 up as bundles of isoglosses.
 
-Unfortunately, computational research on syntax has been
-lacking. Unlike traditional methods, where syntax was a second-class
-citizen because of difficulty in analysing using the same methods as
+TODO: Reword to be less critical of traditional dialectometry.
+Unfortunately, computational research on syntax distance has been
+lacking. Unlike traditional dialectometry, where syntax was a second-class
+citizen because of difficulty in analysing it with the same methods as
 phonology, syntax is completely missing in computational
 research. The more complex analytic methods for phonology cannot be applied at all
 to syntactic data.
 
-This paper attempts to address that lack, and provide some first steps
+This paper attempted to address that lack, and provide some first steps
 to show whether syntax and phonology assist each other in establishing
 dialects, or whether they are not related at all. If they are not
 related, and syntactic gradients can be as weak as phonological ones,
