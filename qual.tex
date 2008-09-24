@@ -705,20 +705,17 @@ of the 55 connections between the 11 GORs were significant.
 \label{phonology-dendrogram}
 \end{figure}
 
-Levenshtein distance nicely clusters the GORs into two main branches,
-North and South, shown in figure \ref{phonology-dendrogram}. In the
-North, Yorkshire and Northwest clustered fairly tightly, followed the
-East Midlands and the Northeast. In the South, East England, London
-and the Southeast formed a cluster that likely reflects the greater
-London area, followed by the Southwest and West Midlands.
+For the phonological results, Levenshtein distance nicely clusters the
+GORs into two main branches, North and South, shown in figure
+\ref{phonology-dendrogram}. In the North, Yorkshire and Northwest
+clustered fairly tightly, followed the East Midlands and the
+Northeast. In the South, East England, London and the Southeast formed
+a cluster that likely reflects the greater London area, followed by
+the Southwest and West Midlands.
 
-The permutation test showed that distances between all regions were
-significant except between the regions in table
-\ref{syntax-nonsig}. Corpus size correlates weakly negatively with
-significance ($r = -0.72$). Size is obviously a factor, though not the
-only one. Perhaps sampling with replacement on smaller corpora
-exaggerate differences through repetition. Larger corpora contain more
-variety and so will be less likely to appear significantly different.
+For the syntactic results, the permutation test over $R$ showed that
+distances between all regions were significant except between the 7
+regions in table \ref{syntax-nonsig}.
 
 \begin{table}
 \begin{tabular}{cc}
@@ -739,39 +736,29 @@ variety and so will be less likely to appear significantly different.
 \label{syntax-dendrogram}
 \end{figure}
 
-The dendrogram produced by clustering R distance (figure
-\ref{syntax-dendrogram}) is harder to
-interpret. There are two clear groups, but several of the distances
-are not significant, such as those forming the tight East
-Midlands/London cluster. However, in other cases the grouping will still hold
-since there are other distances that are significant being taken into
-account. The members of the group are less obvious than those from
-phonological distance, too. This could be caused by the 40-year
-difference in corpus collection date or by noise from the measurement
-method.
-TODO: I should really do something like ANOVA here too I think.
+The dendrogram produced by clustering $R$ distance (figure
+\ref{syntax-dendrogram}) is harder to interpret because some of the
+distances are not significant. There are two clear groups, but the
+cluster on the left is not necessarily as tight as it appears because
+many of the connections are based on distances that are not
+significant, such as the East Midlands/London cluster. However, the
+two major clusters still hold because of the significant inter-cluster
+distances found between individual members.
 
 There is generally a North/South distinction in the syntactic
-clustering as well, but there are some odd members of each group. In
-particular, East England groups with the North and the Northwest
-groups with the South. The second is probably erroneous because the
-distances between the Northwest and Southeast/London are not
-significant, so it's not possible to pinpoint where the Northwest
-should, in fact, be grouped.
+clustering as well, although it is muddled a bit because the East of
+England groups with the northern regions, and the Northwest groups
+with southern regions. It's not clear why the Northwest should be so
+close to the Southwest and the East of England so far from London and
+the Southeast.
 
-On the other hand, the correlation between Levenshtein distance and
-$R$ is low: -0.096. For the correlation, only the significant
-distances were considered.
-
-% OLD
-The second (?) question of this paper can now be answered: whether
-multiple ways of measuring linguistic distance give the same
-answer. As the answers provided by syntax distance are somewhat crude
-at this point, the correlation will necessarily be crude as well, but
-it should be possible to see if the syntax distance measure at least
-agrees with the phonological measure.
-%END OLD
-
+Corpus size is a factor in the quality of the measurement as well;
+corpus size correlates negatively with $R$ ($r = -0.72$). Perhaps
+sampling with replacement on smaller corpora exaggerates differences
+through the sampling repetition. Larger corpora contain more variety and so will be
+less likely to appear significantly different. On the other hand, the
+correlation between Levenshtein distance and $R$ is low: $r=-0.096$. For
+the correlations, only the significant distances were considered.
 
 \section{Discussion}
 
@@ -779,66 +766,55 @@ On the whole, correlation between phonological and syntactic distance
 is low. Different ways of comparing the distances show differing
 distances. Both methods, $R$ and Levenshtein distance, show a
 North/South distinction, but it is much stronger in phonological
-distance. The details, however, vary quite a bit. There are at least
-five reasonable
-explanations for this. First, and least satisfying, is the possibility
-that one of the distances is not measuring what it is supposed
-to. Second, the corpora may not agree because of the 40 year
-difference in age and differing collection methodologies. Third,
-syntactic and phonological dialect markers may not share the same
-boundaries.
+distance. The details, however, vary quite a bit. This is a
+preliminary answer to the question of this paper: whether multiple
+ways of measuring linguistic distance give the same results.
+
+There are at least five reasonable explanations for the difference
+between the two distance measures. First, and
+least satisfying, is the possibility that one of the distances is not
+measuring what it is supposed to. Second, the corpora may not agree
+because of the 40 year difference in age and differing collection
+methodologies. Third, syntactic and phonological dialect markers may
+not share the same boundaries.
 
 \begin{itemize}
-\item One of the distances is not measuring what it is supposed to.
-\item The corpora may not agree because of the 40-year difference in age.
+\item One or both of the distances does not measure what it is supposed to.
+\item The two corpora may not agree on dialect boundaries because of
+  their 40-year difference in age.
 \item Place of birth, as recorded in the ICE, may not correlate well
-  enough with spoken dialect, especially given variations in speaker
+  with spoken dialect, especially given variations in speaker
   education level and place of residence.
-\item Systematic variation in annotation may come form the corpus
-  creators rather than the speakers themselves.
+\item Dialect boundaries may appear from systematic variation in
+  annotation practises rather than the speech.
 \item Syntactic and phonological dialect boundaries may be different.
 \end{itemize}
 
-Of these, the last is the most interesting because previous work
-will not have exposed this difference. Traditional dialectometry
-focusses on a few features from each collection site. The features
-are supposed to be representative; sharp differences between dialects
-are supposed to appear in many features and collect into isogloss
-bundles \cite{chambers92}.
+Of these, the last is the most interesting because previous work will
+not have exposed this difference. Traditional dialectometry focusses
+on a strong agreement among a few features from each collection
+site. Because syntactic features are fewer in number than phonological
+ones, they are under-represented in this type of
+analysis. Unfortunately, this means that the syntactic contribution to
+isogloss bundles is correspondingly reduced. In addition, because of
+isogloss bundles' insensitivity to rare variations that disagree with
+the bulk of the data, syntactic features rarely contribute to
+isogloss bundles of successful dialect boundaries.
+% I really need to CITE this.
 
-There are two problems with traditional methods. First, phonological
-data is easier to analyse, leaving syntactic data as a second-class
-citizen. For example, syntax features often have many more occurring
-variants than phonological features. Worse, isogloss boundaries only
-work at a high level, such as the North/South boundary in England. At
-a fine scale, the variation is only partially regular and obscured
-with pervasive random traits. The complexity is obvious in atlasses
-based on the SED data \cite{orton78}---many features have a regular
-distribution, but one which correlates only weakly with other
-features' distributions. Isogloss bundles, needed to draw dialect
-boundaries, only appear in a few places.
+In contrast, computational analysis, such as \cite{shackleton07},
+captures feature variation precisely using statistical analysis and
+sophisticated algorithms. The resulting analysis displays dialects as
+gradient phenomena, displaying much more complexity than the
+corresponding isogloss analysis. But current specialised computational
+methods only apply to phonology. Syntactic data cannot be analysed
+without a syntax-specific method.
 
-Computational analysis, such as
-\cite{shackleton07}, captures feature variation precisely using
-statistical analysis. The resulting complexity clearly shows the
-inaptitude of isogloss bundles to capture it. Gradients are a better
-way to find dialect areas--often only one or two features will serve
-as a boundary between two dialects. Only particularly steep gradients will show
-up as bundles of isoglosses.
-
-TODO: Reword to be less critical of traditional dialectometry.
-Unfortunately, computational research on syntax distance has been
-lacking. Unlike traditional dialectometry, where syntax was a second-class
-citizen because of difficulty in analysing it with the same methods as
-phonology, syntax is completely missing in computational
-research. The more complex analytic methods for phonology cannot be applied at all
-to syntactic data.
-
-This paper attempted to address that lack, and provide some first steps
+This paper attempts to address that lack, and provide some first steps
 to show whether syntax and phonology assist each other in establishing
-dialects, or whether they are not related at all. If they are not
+dialects, or whether their dialect regions are unrelated. If they are not
 related, and syntactic gradients can be as weak as phonological ones,
-then some new dialect areas may be apparent that were not visible in
+then some new dialect regions may become apparent that were not visible in
 previous phonology-only analyses.
 
 \subsection{Future Work}
@@ -859,14 +835,15 @@ corpus. A recent phonological corpus would likely show the same sort
 of changes in the North/South divide that show up in the syntactic
 corpus. The British population became more mobile during the second
 half of the 20th century, and the SED survey explicitly attempted to capture
-the dialects that existed before this happened. Also it would be nice to have at
-least Scotland and Wales for comparison too.
+the dialects that existed before this happened \cite{orton78}.
+It would also be nice to have data from the rest of the United Kingdom for
+comparison as well, or at least Scotland and Wales as with the ICE.
 
-TODO: integrate this.
-Alternatively, I could just look at the region pairs that fail to
-achieve significance in the syntactic permutation test and check to
-see if their phonogical distance is lower than the other pairs. I
-don't do this (yet).
+% TODO: integrate this.
+% Alternatively, I could just look at the region pairs that fail to
+% achieve significance in the syntactic permutation test and check to
+% see if their phonogical distance is lower than the other pairs. I
+% don't do this (yet).
 
 One interesting question is
 how phonological and syntactic distances correlate with geographic
@@ -874,39 +851,10 @@ distance---\namecite{gooskens04a} shows that often the correlation is
 very good. This would also allow better visualisation of dialect areas
 than a hierarchical dendrogram.
 
-% Missing citations:
-% Scotland/London syntactic differences
-
 %   \item Some ideas include using supertags instead of leaf-ancestor
 %     paths, perhaps automatically extracted from the manual parse.
 %   \item Another idea is comparing entropy by compression. This seems
 %     pretty promising to me.
-
-% Notes:
-% Apparently one Clive Upton has something resembling a British dialect
-% atlas that could be used the same way that Nerbonne and Heeringa
-% did. But I wonder why they didn't already do it---Norwegian seems much
-% less likely than English simply because one {\em expects} it to have
-% larger corpora.
-
-% Actually the wikipedia has a nice overview of the survey project and links to
-% the resulting
-% works.
-
-% \verb+http://en.wikipedia.org/wiki/Survey_of_English_Dialects+ ; It is
-% problematic in that the data were collected in the 50s from NORMs
-% because they were interested in the traditional dialects, not the new
-% ones that might arise.
-
-% Voices is in progress and will eventually provide a modern dialect survey.
-% 1978. The linguistic atlas of England, edited by Orton, John
-% Widdowson and Clive Upton. (probably the best) : PE1705.L56
-
-% 1993. Survey of English Dialect: The Dictionary and Grammar :
-% PE1704.U65 1994
-% 1996. An Atlas of English Dialects. 2nd edn. London: Routledge [with
-% J.D.A.Widdowson]. : PE1705.U68 1996
-% 1994: PE1704.U65 1994
 
 \bibliographystyle{robbib} % ACL is \bibliographystyle{acl}
 \bibliography{central}
