@@ -21,12 +21,12 @@ earlier methods integrated phonological, lexical, and syntactic data.
 
 However, the isogloss bundles that were the primary product of
 pre-computational methods do not adequately capture gradient
-generalisations; irregular boundaries are not useful for this purpose
+generalizations; irregular boundaries are not useful for this purpose
 and have to be discarded. Recent methods are mathematically
 sophisticated, capable of identifying dialect gradients. The purpose
 of this work is to integrate phonological and syntactic data in the
 way that early dialectology did, but use the computational methods
-that have previously only been used to analyse one are of linguistics
+that have previously only been used to analyze one are of linguistics
 at a time.
 
 To do this, I measured phonological distance using the Survey of
@@ -50,7 +50,7 @@ analyses.
 Measurement of linguistic similarity has always been a part of
 linguistics. However, until \namecite{seguy73} dubbed a new set of
 approaches `dialectometry', these methods lagged behind the rest of
-linguistics in formalisation. S\'eguy's quantitative analysis
+linguistics in formalization. S\'eguy's quantitative analysis
 of Gascogne French, while not aided by computer, was the predecessor
 of more powerful statistical methods that essentially required the use
 of computer as well as establishing the field's general dependence on
@@ -83,7 +83,7 @@ S\'eguy reversed the process. He first combined the survey data to get
 a numeric score between each site. Then he posited dialect boundaries
 where large distances resulted between sites. The difference is
 important, because a single numeric score is dramatically easier to
-analyse than hundreds of individual boundaries. The outcome is that
+analyze than hundreds of individual boundaries. The outcome is that
 much more subtle dialect boundaries are visible this way; where before
 one saw only a jumble of conflicting boundary lines, now one sees
 smaller, but consistent numerical differences separating regions. {Dialectometry
@@ -94,7 +94,7 @@ boundaries were too uncertain.}
 However, S\'eguy's method of combination was simple both
 linguistically and mathematically. When comparing two sites, any
 difference in a response would be counted as 1. Only identical
-responses counted as a distance of 0. Words were not analysed
+responses counted as a distance of 0. Words were not analyzed
 phonologically, nor were responses weighted by their relative amount
 of variation. Finally, only geographically adjacent sites were
 compared. This is a reasonable restriction, but later studies were
@@ -126,7 +126,7 @@ analysis it required became feasible as more work shifted to the computer.
 \subsection{Goebl}
 
 Later, Hans Goebl emerged as a leader in the field of dialectometry,
-formalising the aims and methods of dialectometry. His primary
+formalizing the aims and methods of dialectometry. His primary
 contribution was development of various methods to combine individual
 distances into global distances and from there global clusters. These
 methods were more sophisticated mathematically than previous
@@ -178,8 +178,8 @@ Weighted Identity Value is a refinement of Relative Identity
 Value. This measure stems defines some differences as more
 important than others. In particular, more information arises from
 feature values that only happen a few times rather than those values
-that characterise a large number of the items being studied.  This
-idea shows up later in the normalisation of syntax distance given by
+that characterize a large number of the items being studied.  This
+idea shows up later in the normalization of syntax distance given by
 \namecite{nerbonne06}.
 
 The mathematical implementation of this idea is fairly simple. Goebl
@@ -240,7 +240,7 @@ therefore
   \textit{voice}. Seeing an unvoiced [s] is less ``surprising'' than
   seeing a voiced [z] for /s/, so the discounting process should
   reflect this. For example, assume that an English corpus contains 2000
-  underlying /s/ segments. If 500 of them are realised as [z], the
+  underlying /s/ segments. If 500 of them are realized as [z], the
   discounting for \textit{voice} will be as follows:
 
   \begin{equation}
@@ -267,8 +267,8 @@ therefore
   \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
   facilitate the presentation.
 
-% NOTE: This is a lot like avoiding excessive neutralisation in a
-% paradigm---you don't want to overdo neutralisation because otherwise
+% NOTE: This is a lot like avoiding excessive neutralization in a
+% paradigm---you don't want to overdo neutralization because otherwise
 % the underlying form becomes quite distant from the surface form.
 
 \section{Computational Approaches}
@@ -276,7 +276,7 @@ therefore
 It is at this point that the two types of analysis, phonological and
 syntactic, diverge. Although Goebl's techniques are general enough to
 operate over any set of features that can be extracted, better results
-can be obtained by specialising the general measures above to take
+can be obtained by specializing the general measures above to take
 advantage of properties of the input.  Specifically, the application
 of computational linguistics to dialectometry beginning in the 1990s
 introduced methods from other fields. These methods, while generally
@@ -493,7 +493,7 @@ data is not sentence-aligned.
 
 Due to the lack of alignment between the
 larger corpora available for syntactic analysis, a statistical
-comparison of differences is more appriopriate than the simple
+comparison of differences is more appropriate than the simple
 symbolic approach possible with the word-aligned corpora used in
 phonology. Because of the lack of alignment, a syntactic distance
 measure will have to use counting as its basis by default.
@@ -521,8 +521,8 @@ variation exhibited by the two corpora while allowing the contribution
 of individual types to be extracted simply.
 
 To account for differences in corpus size, repeated sampling is
-used. In addition, the samples are normalised to account for
-differences in sentence length.  Unfortunately, even normalised, the
+used. In addition, the samples are normalized to account for
+differences in sentence length.  Unfortunately, even normalized, the
 measure doesn't indicate whether its results are significant; a
 permutation test is needed for that.
 
@@ -537,7 +537,7 @@ annotated corpus. \namecite{nerbonne06} argue that POS trigrams
 can accurately represent at least the important parts of syntax,
 similar to the way chunk parsing can capture the most important
 information about a sentence. POS trigrams can either be generated by
-a tagger as Nerbonne and Wiersa did, or taken from the leaves of
+a tagger as Nerbonne and Wiersma did, or taken from the leaves of
 the trees of a parsed corpus.
 
 On the other hand, it might be better to directly represent the upper
@@ -581,7 +581,7 @@ significance compared to POS trigram features.
 
 A permutation test detects whether two corpora are significantly
 different. It does this on the basis of the R measure described in
-section \ref{nerbonne06}. The test first calculutes $R$ between
+section \ref{nerbonne06}. The test first calculates $R$ between
 samples of the two corpora. Then the corpora are mixed together and
 $R$ is calculated between two samples are drawn from the mixed
 corpus. If the two corpora are different, $R$ should be larger between
@@ -602,8 +602,8 @@ would expect $R(\textrm{LSMixed}_1, \textrm{LSMixed}_2) < 100$, something
 like 90 or 95. This should be true at least 95\% of the time if the
 differences are significant.
 
-\subsubsection{Normalisation}
-Afterward, the distance must be normalised to account for two things:
+\subsubsection{Normalization}
+Afterward, the distance must be normalized to account for two things:
 the length of sentences in the corpus and the amount of variety in the
 corpus. If sentence length differs too much between corpora, there
 will be consistently lower token counts in one corpus, which would
@@ -615,28 +615,25 @@ across both corpora: $2n/N$ where $n$ is the type count and $N$ is
 the token count. The additional factor $2$ is necessary because we are
 recombining the tokens from the two corpora.
 
-\subsection{Clustering}
+\subsection{Analysis}
 
-Finally, the results of the two distance methods can be compared using
-hierarchical clustering. The dendrogram that results from hierarchical
-clustering allows the two methods to be compared visually.
-Correlation of phonological distance and syntactic distance is
-difficult because the significance test for syntactic distance is a
-binary value. Its coarseness does not provide enough information
-compared to the numeric value produced by Levenshtein distance.
-It is possible to use the $R$ value for comparison between regions
-that were found to be significantly different by the permutation
-test.
+The results of the two distance methods can be compared using
+binary hierarchical clustering. The resulting dendrogram allows the two
+methods to be compared visually.
 
-\subsection{Regression Analysis}
-
-I should do a regression analysis too. I need to make sure of how to
-do it. TODO: Do this.
+Correlation is also useful to find out how similar the two method's
+predictions are. Because of the connected nature of the inter-region
+distances, Mantel's test is necessary to ensure that the correlation
+is significant. Mantel's test is a permutation test, similar to the
+permutation test described for $R$. One distance result set is
+permuted repeatedly and at each step correlated with the other
+set. The correlation is significant if it is larger than the permuted
+correlations more than 95\% of the time.
 
 \section{Experiment}
 The two methods described in the previous section, Levenshtein
 distance for phonology and a permutation test based on {\sc
-  Recurrence} for syntax, were used to analyse British dialect data.
+  Recurrence} for syntax, were used to analyze British dialect data.
 
 These data come from two sources. The definitive phonological data
 source is the Survey of English Dialects (SED) \cite{orton63}, dialect
@@ -644,11 +641,11 @@ data collected in the 1950s. This corpus consists mostly of
 phonological features of older rural speakers, aiming to capture
 dialect boundaries that would erode and mutate rapidly in the last
 half of the 20th century. Recently, \namecite{shackleton07} carried
-out a comprehensive computational study of the SED data. He focussed
+out a comprehensive computational study of the SED data. He focused
 especially on vowels because of the amount of variation known to exist
 in English vowels. I used his
-data set organised by Government Office Region rather than county in
-order to match the organisation of the syntactic results below.
+data set organized by Government Office Region rather than county in
+order to match the organization of the syntactic results below.
 
 For syntax, I used the International Corpus of English (ICE)
 \cite{nelson02}. The ICE is a corpus of syntactically annotated
@@ -665,7 +662,7 @@ Wales. However, they are shown in the intermediate syntactic results.
 \subsection{Levenshtein Distance Experiment}
 
 \namecite{shackleton07} chose a 55-word subset of the words elicited
-by the SED survey. The subset focusses on words containing vowels and
+by the SED survey. The subset focuses on words containing vowels and
 consonants known to vary in England. Using this data set, I grouped
 the speakers in the survey into their respective Government Office
 Regions and compared all speakers of a region to all speakers of every
@@ -682,11 +679,11 @@ $r^2$, and input data type between trigram and leaf-ancestor path. To
 test that the results from a particular parameter settings were valid,
 I ran a preliminary test on London and Scotland. First, I
 compared London and Scotland, which have several syntactic
-differences already catalogued by linguists \cite{aitken79}.  Then I
+differences already cataloged by linguists \cite{aitken79}.  Then I
 mixed the the two together and split the mixed corpus into two the size of
 the originals. If the two locations are properly identified as
 different, London and Scotland should be significantly different with
-$p < 0.05$, while the shuffled doppelgangers should not be.
+$p < 0.05$, while the shuffled impostors should not be.
 
 This was true for only one parameter setting: a distance measure of
 $r$, a sample size of 1000 and leaf-ancestor paths as input. Other
@@ -752,6 +749,11 @@ with southern regions. It's not clear why the Northwest should be so
 close to the Southwest and the East of England so far from London and
 the Southeast.
 
+Two correlations were carried out using Pearson's $r$ and Mantel's test of
+significance. The first was a correlation of $R$ with Levenshtein
+distance, and the second was a correlation of $R$ with corpus
+size. However, neither correlation with $R$ was significant.
+
 Corpus size is a factor in the quality of the measurement as well;
 corpus size correlates negatively with $R$ ($r = -0.72$). Perhaps
 sampling with replacement on smaller corpora exaggerates differences
@@ -786,12 +788,12 @@ not share the same boundaries.
   with spoken dialect, especially given variations in speaker
   education level and place of residence.
 \item Dialect boundaries may appear from systematic variation in
-  annotation practises rather than the speech.
+  annotation practices rather than the speech.
 \item Syntactic and phonological dialect boundaries may be different.
 \end{itemize}
 
 Of these, the last is the most interesting because previous work will
-not have exposed this difference. Traditional dialectometry focusses
+not have exposed this difference. Traditional dialectometry focuses
 on a strong agreement among a few features from each collection
 site. Because syntactic features are fewer in number than phonological
 ones, they are under-represented in this type of
@@ -806,8 +808,8 @@ In contrast, computational analysis, such as \cite{shackleton07},
 captures feature variation precisely using statistical analysis and
 sophisticated algorithms. The resulting analysis displays dialects as
 gradient phenomena, displaying much more complexity than the
-corresponding isogloss analysis. But current specialised computational
-methods only apply to phonology. Syntactic data cannot be analysed
+corresponding isogloss analysis. But current specialized computational
+methods only apply to phonology. Syntactic data cannot be analyzed
 without a syntax-specific method.
 
 This paper attempts to address that lack, and provide some first steps
@@ -842,13 +844,13 @@ comparison as well, or at least Scotland and Wales as with the ICE.
 % TODO: integrate this.
 % Alternatively, I could just look at the region pairs that fail to
 % achieve significance in the syntactic permutation test and check to
-% see if their phonogical distance is lower than the other pairs. I
+% see if their phonological distance is lower than the other pairs. I
 % don't do this (yet).
 
 One interesting question is
 how phonological and syntactic distances correlate with geographic
 distance---\namecite{gooskens04a} shows that often the correlation is
-very good. This would also allow better visualisation of dialect areas
+very good. This would also allow better visualization of dialect areas
 than a hierarchical dendrogram.
 
 %   \item Some ideas include using supertags instead of leaf-ancestor
