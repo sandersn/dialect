@@ -1,0 +1,239 @@
+
+\documentclass{beamer}
+
+\usetheme{Ilmenau}
+\usepackage[all]{xy}
+
+\title{Syntactic and Phonological Distance in British Dialects}
+\author{Nathan Sanders}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \frametitle{Welcome to Jones!}
+
+  \begin{itemize}
+  \item You will join an elite, but rapidly dwindling group of brawling immortals. Try to keep your head.
+  \item The Norwegians may be watching you. Act casual and pretend to be an American Tourist.
+  \item You will kill your father and marry your mother.
+  \item  Androids from the future will appear and fight over your destiny.
+  \item  The key to defeating the French is to avoid looting.
+  \item  Only the pure of heart can remove the sword from the stone.
+  \item  Never trust a monkey.
+  \item  Family tragedy and a drug overdose will let you see the future.
+  \item  USE LINUX, THE FREE OPERATING SYSTEM BY LINUS TORVALDS.
+%   \item  You will become indepently wealthy and spend your time
+%     exploring ruinous ruins.
+  \item  You will age rapidly and fall in love with a wizard.
+  \item It's a wonderful life!
+  \end{itemize}
+\end{frame}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Methods}
+\subsection{Phonology}
+\begin{frame}
+  \begin{itemize}
+  \item Levenshtein distance
+  \item You know, string edit distance?
+  \end{itemize}
+\begin{figure}
+\caption{The distance table for ``ART'' to ``CAT''}
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+%\hline
+  &   & A & R & T \\
+\hline
+  & $\mathbf{0}$ & 1 & 2 & 3 \\
+\hline
+C & $\mathbf{1}$ & 2 & 3 & 4 \\
+\hline
+A & 2 & $\mathbf{1}$ & $\mathbf{2}$ & 3 \\
+\hline
+T & 3 & 2 & 3 & $\mathbf{2}$
+% \hline
+\end{tabular}
+
+\end{center}
+
+\label{art2cattable}
+\end{figure}
+
+\end{frame}
+\begin{frame}
+    This makes for a pretty equation OR tail-recursive, extraordinarily
+    efficient code implemented entirely in Scheme. You get the
+    equation today.
+\begin{definition}
+Now for each character $s_i \in S$ and $t_j \in T$ for any string $S$ and $T$,
+\begin{equation}
+  levenshtein(s_i,t_j) = min \left(
+  \begin{array}{l}
+   ins(s_i)+levenshtein(s_{i-1},t_j), \\
+ del(t_j)+levenshtein(s_i,t_{j-1}), \\
+ sub(s_i,t_j)+levenshtein(s_{i-1},t_{j-1})
+   \end{array} \right)
+   \label{levequation}
+\end{equation}
+The total distance between $S$ and $T$ is $levenshtein(S_{|S|},T_{|T|})$.
+\end{definition}
+\end{frame}
+\begin{frame}
+  Don't worry about the details. The important part is how $ins$,
+  $sub$ and $del$ are defined. Here is one of the simplest
+  definitions:
+\begin{definition}
+\begin{equation}
+\begin{array}{l}
+   ins(t_j) = 1 \\
+   del(s_i) = 1 \\
+   sub(s_i,t_j) = \left\{
+     \begin{array}{ll}
+       0 & \textrm{if $s_i=t_j$} \\
+       2 & \textrm{otherwise}
+     \end{array} \right.
+
+   \end{array}
+\end{equation}
+\end{definition}
+\end{frame}
+\subsection{Syntax}
+\begin{frame}
+  A permutation test over R over leaf-ancestor paths.
+\end{frame}
+\begin{frame}
+  \includegraphics[width=0.45\textwidth]{GB_GOR98_A4}
+\end{frame}
+\begin{frame}
+  \frametitle{Leaf-Ancestor Paths}
+The parse tree
+\[\xymatrix{
+  &&\textrm{S} \ar@{-}[dl] \ar@{-}[dr] &&\\
+  &\textrm{NP} \ar@{-}[d] \ar@{-}[dl] &&\textrm{VP} \ar@{-}[d]\\
+  \textrm{Det} \ar@{-}[d] & \textrm{N} \ar@{-}[d] && \textrm{V} \ar@{-}[d] \\
+\textrm{the}& \textrm{dog} && \textrm{barks}\\}
+\]
+creates the following leaf-ancestor paths:
+
+\begin{itemize}
+\item S-NP-Det-The
+\item S-NP-N-dog
+\item S-VP-V-barks
+\end{itemize}
+\end{frame}
+\section{Experiment}
+\begin{frame}
+  \frametitle{Corpora}
+  \begin{itemize}
+  \item Phonology: Survey of English Dialects (SED)
+  \item Syntax: International Corpus of English, Great Britain
+    (ICE-GB)
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{SED}
+  \begin{itemize}
+  \item Classic dialectology corpus: collected from interviews.
+  \item NORMs (Non-educated, Old, Rural, Male)
+  \item 
+  \end{itemize}
+\end{frame}
+\section{Results}
+
+\section{Practicalities}
+\subsection{Useful Code}
+\begin{frame}
+  \frametitle{\tt iceread}
+  \begin{itemize}
+  \item The ICE is a nice corpus. Syntactically annotated speech. Not
+    every day you find that, eh?
+  \item I wrote some Python code that reads the ICE trees and allows you
+    to sort and group them by speaker properties.
+  \item It's available via subversion here, I guess.
+  \end{itemize}
+\end{frame}
+\subsection{Lessons}
+\begin{frame}
+  \frametitle{Things I learned}
+  \begin{itemize}
+  \item Always, {\it always} make a repeatable build script for your experiment.
+  \item But {\tt bash} isn't the language to write that script in. %Try Python.
+  \item Be {\tt nice}. Watch your program execute the first time.
+  \item Python's GC can be unreliable.
+  \item Don't be afraid to rewrite your prototype in a faster
+    language. It's not as hard as you think.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{A Mystery}
+  \begin{itemize}
+  \item The only method I could get to work was repeated sampling with
+    replacement.
+  \item However, shuffling the corpora together and splitting them to
+    be the same size should have worked just as well.
+  \item Why not? You tell me.
+  \item Here's some of the code, I guess.
+  \end{itemize}
+\end{frame}
+\end{document}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+Read order:
+Phono- and tono-genesis:
+I think this is boring, but may we should read at least one paper about it. I vote for
+Svantesson based purely on the fact that Ken can also throw in his comments from
+his paper.
+
+--Near mergers-- and incomplete neutralisation:
+well THIS is an explosive topic. Let me see.
+I like
+Nycs, J. 2005. The dynamics of near-meger in accomodation. (sounds
+like it mentions both perception and produciton)
+Yu, A C L forthcoming might be interesting, if only to rip on. It
+seems to me to be difficult to construct a believable exemplar model.
+-- Incomplete neutralisation --
+Warner, N, A Jongman, J Sereno, R. Kemps mentions both  production and
+perception. And of course one of Bob's papers might be good because we
+could bug him about his ideas.
+-- Frequency effects --
+Jurafsky, D,A Bell and C Girand. 2002. seems better if it talks about
+both production and perception. But of course the other one probably
+does too.
+-- Acquisition --
+This is already ordered by interestingness
+Bohn, O.S.; Flege, J.E. (1990). Perception and Production of a New Vowel Category by Adult Second Language Learners. In Leather, J. \& James, A. (Eds.) New Sounds 90: Proceedings of the 1990 Amsterdam Symposium on the Acquisition of Second- 
+Language Speech.Amsterdam: University of Amsterdam Press. pp. 37-56 
+Bradlow, A.R., D.B. Pisoni, R. Akahane-Yamada, & Y. Tohkura (1997).  Training 
+Japanese listeners to identify English /r/ and /l/, IV: Some effects of perceptual 
+learning on speech production.  Journal of the Acoustical Society of America, 101: 
+2299 - 2310.   
+Dorman, M. F., Ausberger, C., Bailey, P., & Raphael, L. J. (1978). The relationship 
+between speech perception and production in children who subsititute /t/ or /d/ for 
+/s/. Journal of the Acoustical Society of America, 64(S1), p. S51 
+  THIS one should be under dialect, it sounds so interesting
+Flege, J. E., Munro, M. J., MacKay, I. R. A. (1995). Factors affecting strength of 
+perceived foreign accent in a second language. Journal of the Acoustical Society of America, 97, 3125--3134 
+
+- especially L2 -
+-- General issues --
+I thought we already talked about this.
+-- Dialect --
+I guess that
+Brasseur 2006
+Clopper and Pisoni
+Markham 1999
+Niedzielski 2001
+
+-- Accommodation --
+Pardo 2006 is still the best
+or what about
+Smiljanic and Bradlow
+Giles was pretty boring and would be expensive to copy

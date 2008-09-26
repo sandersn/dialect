@@ -108,7 +108,7 @@ Ger\v{s}i\'c linguistically and Goebl mathematically.
 Just before S\'eguy's Atlas was finally published in 1973,
 \namecite{gersic71} proposed a computational method for measuring
 distance between two phonological segments. Segments are specified as
-a vector of numeric features---consonants have a set of five features,
+a vector of numeric features---consonants have a set of five features
 while vowels have a different set of five features.  For example, the
 third consonantal feature, voice, give $1$ to a [+voice] segment and
 $0$ to a [-voice] segment. Gersic then gives a function $d$ that sums
@@ -116,7 +116,7 @@ the features to find the distance between segments:
 \[ d(i,j) = \sum_{k=1} |a_{i_k} - a_{j_k}|\] where $a_i$ is the first
 segment being compared and $a_j$ the second. However, the equation is
 easier to understand as ``count the
-number of features with values that differ between segments''. For
+number of features with values that differ between segments.'' For
 example, [k] compared to [g] would differ for one feature, voice, so
 $d(\textrm{[g]},\textrm{[k]}) = 1$. Unfortunately, $d(\textrm{[a]},
 \textrm{[k]})$ is not defined.
@@ -132,7 +132,7 @@ formalizing the aims and methods of dialectometry. His primary
 contribution was development of various methods to combine individual
 distances into global distances and from there global clusters. These
 methods were more sophisticated mathematically than previous
-dialectometry, and operated with any features extracted from the data. His
+dialectometry and operated with any features extracted from the data. His
 analyses have mostly used the Atlas Linguistique de Fran\c{c}ais.
 
 \namecite{goebl06} provides a summary of his work. Most relevant for
@@ -179,21 +179,21 @@ $\textrm{\~N}_{jk}$.
 Weighted Identity Value is a refinement of Relative Identity
 Value. This measure stems defines some differences as more
 important than others. In particular, more information arises from
-feature values that only happen a few times rather than those values
+feature values that only happen a few times rather than from those values
 that characterize a large number of the items being studied.  This
 idea shows up later in the normalization of syntax distance given by
 \namecite{nerbonne06}.
 
 The mathematical implementation of this idea is fairly simple. Goebl
-is interested in feature values that occur only a few times.  If a
-feature has some value shared by all of the items being compared, then
-it provides {\it no} useful information for distinguishing the
-items---they all belong to the same group.  The situation improves if
-all but one item share the same value for a feature; at least there
-are now two groups, although the larger group is still not very
-informative.  The most information is available if each item being
-studied has a different value for a feature; the items fall trivially
-into singleton groups, one per item.
+is interested in feature values that occur only a few times. If a
+feature has some value that is shared by all of the items, then all
+items belong to the same group. This feature value provides {\it no}
+useful information for distinguishing the items.  The situation
+improves if all but one item share the same value for a feature; at
+least there are now two groups, although the larger group is still not
+very informative.  The most information is available if each item
+being studied has a different value for a feature; the items fall
+trivially into singleton groups, one per item.
 
 Equation \ref{wiv-ident} works by discounting
 the \textit{identical} count from equation \ref{riv} by
@@ -294,7 +294,7 @@ Levenshtein distance \cite{lev65} to dialectometry in order to
 determine distance between individual words. Then he summed the
 individual word distances to find distances between dialect areas.
 
-Levenshtein distance is a simple idea---simply count the
+Levenshtein distance is a simple idea---count the
 number of differences between two strings. The intent is the same as
 Goebl's Relative Identity Value, using single characters of a word as
 features. However, Levenshtein distance uses the property that strings
@@ -311,7 +311,7 @@ particularly suited for phonology.
 
 The Levenshtein distance algorithm models alignment as the series of
 changes necessary to convert the first string to the second. This
-means that input to the algorithm includes the cost of changes, in
+means that input to the algorithm includes the cost of changes in
 addition to the two strings. Three operations are typically
 specified: insertion, deletion, and substitution. Others have been
 proposed for use in phonology; see \cite{kondrak02} for examples and
@@ -371,7 +371,7 @@ are in correspondence.
 
 \subsubsection{Heeringa}
 \label{levmethod}
-Variations on this theme have been explored, and best described by
+Variations on this theme have been explored and best described by
 \namecite{heeringa04}. Starting with \cite{nerbonne97}, he augmented
 the distance definition so that substitution cost was based on the
 number of phonological features that differ between segments. This provides more
@@ -479,16 +479,17 @@ combination of words in the data are tried and then averaged.
 
 \subsection{Syntactic  Distance}
 % 1st sentence is awkward (and 2nd too a little)
-Recently some work in syntax has begun as well. The first steps in
-this were \quotecite{nerbonne06} analysis of Finnish L2 learners
-of English, followed by \quotecite{sanders07} analysis of British dialect
-areas. Syntax distance must be approached quite differently than
-phonological distance. Syntactic data is extractable from raw
-text, so it is much easier to build a syntactic corpus. But this implies an
-associated drop in manual linguistic processing of the
-data. As a result, the principle difference between present phonological and
-syntactic corpora is that phonology data is word-aligned, while syntax
-data is not sentence-aligned.
+Recently, computational dialectometry has expanded to analysis of
+syntax as well. The first work in this area was \quotecite{nerbonne06}
+analysis of Finnish L2 learners of English, followed by
+\quotecite{sanders07} analysis of British dialect areas. Syntax
+distance must be approached quite differently than phonological
+distance. Syntactic data is extractable from raw text, so it is much
+easier to build a syntactic corpus. But this implies an associated
+drop in manual linguistic processing of the data. As a result, the
+principle difference between present phonological and syntactic
+corpora is that phonology data is word-aligned, while syntax data is
+not sentence-aligned.
 
 \subsubsection{Nerbonne and Wiersma}
 \label{nerbonne06}
@@ -570,7 +571,7 @@ Sampson originally developed leaf-ancestor paths as an improved
 measure of similarity between gold-standard and machine-parsed trees,
 to be used in evaluating parsers. The basic idea of a collection of
 features that capture distance between trees transfers quite nicely to
-our work. \namecite{sanders07} replaced POS trigrams with
+this application. \namecite{sanders07} replaced POS trigrams with
 leaf-ancestor paths for the ICE corpus and found improved results on
 larger corpora. However, smaller corpora are less likely to attain
 significance compared to POS trigram features.
@@ -756,33 +757,26 @@ significance. The first was a correlation of $R$ with Levenshtein
 distance, and the second was a correlation of $R$ with corpus
 size. However, neither correlation with $R$ was significant.
 
-Corpus size is a factor in the quality of the measurement as well;
-corpus size correlates negatively with $R$ ($r = -0.72$). Perhaps
-sampling with replacement on smaller corpora exaggerates differences
-through the sampling repetition. Larger corpora contain more variety and so will be
-less likely to appear significantly different. On the other hand, the
-correlation between Levenshtein distance and $R$ is low: $r=-0.096$. For
-the correlations, only the significant distances were considered.
-
 \section{Discussion}
 
-On the whole, correlation between phonological and syntactic distance
-is low. Different ways of comparing the distances show differing
-distances. Both methods, $R$ and Levenshtein distance, show a
-North/South distinction, but it is much stronger in phonological
-distance. The details, however, vary quite a bit. This is a
+On the whole, the two methods of comparing distance, $R$ and
+Levenshtein distance, produce differing results---there is no
+significant correlation between the two methods. Although both show
+something like a North/South distinction, its orientation is much more
+obvious from phonological distance. This lack of agreement is a
 preliminary answer to the question of this paper: whether multiple
 ways of measuring linguistic distance give the same results.
 
 There are at least five reasonable explanations for the difference
-between the two distance measures. First, and
-least satisfying, is the possibility that one of the distances is not
-measuring what it is supposed to. Second, the corpora may not agree
-because of the 40 year difference in age and differing collection
-methodologies. Third, syntactic and phonological dialect markers may
-not share the same boundaries.
+between the two distance measures.
+% First, and
+% least satisfying, is the possibility that one of the distances is not
+% measuring what it is supposed to. Second, the corpora may not agree
+% because of the 40 year difference in age and differing collection
+% methodologies. Third, syntactic and phonological dialect markers may
+% not share the same boundaries.
 
-\begin{itemize}
+\begin{enumerate}
 \item One or both of the distances does not measure what it is supposed to.
 \item The two corpora may not agree on dialect boundaries because of
   their 40-year difference in age.
@@ -792,7 +786,7 @@ not share the same boundaries.
 \item Dialect boundaries may appear from systematic variation in
   annotation practices rather than the speech.
 \item Syntactic and phonological dialect boundaries may be different.
-\end{itemize}
+\end{enumerate}
 
 Of these, the last is the most interesting because previous work will
 not have exposed this difference. Traditional dialectometry focuses
@@ -823,15 +817,15 @@ previous phonology-only analyses.
 
 \subsection{Future Work}
 
-This paper is, however, only a beginning. There are a number of ways to
-improve upon the work presented here. The obvious criticism of the
+This paper is, however, only a beginning. There are a number of ways
+to improve upon the work presented here. The obvious criticism of the
 syntax distance used here is that it requires so much data that the
 results are no more detailed than those available from traditional
 methods. Its precision lags phonological distance methods badly. The
 first priority should be a syntax distance method that works with
-smaller corpora. This would allow me to re-run the current experiment
-on counties rather than Government Office Regions, resulting in more
-precise induction of dialect areas.
+smaller corpora. Such a method would allow the current experiment to
+be re-run on counties rather than Government Office Regions, resulting
+in more precise induction of dialect areas.
 
 Another problem with the current study is the 40-year difference in
 collection dates between the phonological corpus and the syntactic
