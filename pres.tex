@@ -19,7 +19,7 @@
   \item You will kill your father and marry your mother.
   \item  Androids from the future will appear and fight over your destiny.
   \item  The key to defeating the French is to avoid looting.
-  \item  Only the pure of heart can remove the sword from the stone.
+  %\item  Only the pure of heart can remove the sword from the stone.
   \item  Never trust a monkey.
   \item  Family tragedy and a drug overdose will let you see the future.
   \item  USE LINUX, THE FREE OPERATING SYSTEM BY LINUS TORVALDS.
@@ -34,7 +34,39 @@
 
 \section[Outline]{}
 \frame{\tableofcontents}
-
+\section{Background}
+\begin{frame}
+  \frametitle{Dialectometry}
+  Actually, I'd better start with the larger field, dialectology.
+  \begin{definition}
+    Dialectology looks for boundaries between languages. 
+  \end{definition}
+  \begin{definition}
+    A dialect is mutually intelligible with other dialects in the same
+    language. It is not a very precise term, but iHowever you
+    want to define `language'---dialect is not a very precise term.
+  \end{definition}
+%  Dialectometry uses agglomerative techniques and clever math to do
+%  dialectology
+\end{frame}
+\begin{frame}
+  \frametitle{Before Dialectometry}
+  (coke map goes here)
+  % omg, they say "soft drink" in Shelbyville??! what idiots. Also my
+  % grandma says 'pop'.
+  % Sorry, this tells you NOTHING new. It only reflects existing
+  % boundaries. No* contribution to new knowledge of boundaries.
+\end{frame}
+\begin{frame}
+  % Statistics can tell you if something is significant, but only if
+  % you have multiple samples.
+  % Once you have multiple samples, you can start telling HOW
+  % different something is.
+  % Now you get the old SOLID boundaries but also gradients.
+  % And you know exactly how important they are.
+  \frametitle{After Dialectometry}
+  (Wilbur's map of NL or New England goes here)
+\end{frame}
 \section{Methods}
 \subsection{Phonology}
 \begin{frame}
@@ -134,6 +166,7 @@ creates the following leaf-ancestor paths:
   \item Phonology: Survey of English Dialects (SED)
   \item Syntax: International Corpus of English, Great Britain
     (ICE-GB)
+  \item (picture?)
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -141,7 +174,7 @@ creates the following leaf-ancestor paths:
   \begin{itemize}
   \item Classic dialectology corpus: collected from interviews.
   \item NORMs (Non-educated, Old, Rural, Male)
-  \item 
+  \item (picture?)
   \end{itemize}
 \end{frame}
 \section{Results}
@@ -156,8 +189,58 @@ creates the following leaf-ancestor paths:
   \item I wrote some Python code that reads the ICE trees and allows you
     to sort and group them by speaker properties.
   \item It's available via subversion here, I guess.
+  \item Here's how to use it.
   \end{itemize}
 \end{frame}
+\begin{frame}
+    {\tt iceread.read('sspeakers.txt', 12)}
+  \begin{itemize}
+    \item Log in to jones and find a good place to check out a
+      project.
+  \item {\tt svn co /Volumes/Data/svnrep/britishdialects dialect}
+% as a bonus this gives you the code for what I've talked
+% about today
+    \item {\tt cd dialect/ice}
+    \item {\tt python2.5} % sorry, doesn't work on older versions of
+      % Python
+  \end{itemize} % group speakers by column 12
+\end{frame}
+\begin{frame}
+  % so.import the library and then the basic interface is
+  % iceread.read, which gives you the speakers from the corpus that
+  % are in the text file passed.
+  % The second parameter is the column to group by.
+  % The returned value is a dictionary, one key for each group. Each
+  % group is a list of parsed sentences (draw picture)
+  % http://jones.ling.indiana.edu/wiki/IceCorpus
+\begin{verbatim}
+>>> import iceread
+>>> speakers = iceread.read('sspeakers.txt', 12)
+>>> speakers.keys()
+['Northeast', 'Southeast', 'Scotland', 'EastMidlands', 'India', 'Yorkshire', 'WestMidlands', 'China', 'Northwest', 'Wales', 'East', 'London', 'Spain', 'Southwest']
+>>> from pprint import pprint
+>>> pprint(speakers["A"][0])
+[('PU,CL',
+  [('SU,NP', ['NPHD,PRON']),
+   ('VB,VP', ['OP,AUX', 'MVB,V']),
+   ('OD,NP',
+    [('NPPR,AJP', [('AJPR,AVP', ['AVHD,ADV']), 'AJHD,ADJ']),
+     'NPHD,N',
+     ('NPPO,PP', ['P,PREP', ('PC,NP', ['NPHD,N', 'PAUSE,PAUSE'])])]),
+   ('A,PP', ['P,PREP', ('PC,NP', ['NPHD,N'])]),
+   ('A,PP',
+    ['P,PREP',
+     ('PC,NP', [('DT,DTP', ['DTCE,ART']), 'NPHD,N', 'PAUSE,PAUSE'])])]),
+ '']
+\end{verbatim} % there is also a low-level interface you can use to
+               % read the corpus in more flexibly, using either
+               % corpus, with a custom grouping of speakers (eg more
+               % than one property). Or you can even read a corpus
+               % file yourself and then uses sentences to extract the
+               % sentences from it. This gives you all the sentences
+               % in a single file sorted by speaker.
+\end{frame}
+
 \subsection{Lessons}
 \begin{frame}
   \frametitle{Things I learned}
