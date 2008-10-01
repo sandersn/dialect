@@ -7,7 +7,7 @@ from util import dct
 from util.fnc import car, cdr, cur, pipe, iseq, elem
 from util.lst import takewhile, mapn
 from util.reflect import traced
-from typecheck import typecheck
+#from typecheck import typecheck
 import re
 import csv
 ## util ##
@@ -42,9 +42,9 @@ def useful(line):
 def speaker_code(line): # warning! I think this is borken
     match = re.search("<#X?[0-9]{1,4}:[0-9]:([A-Z?])>", line)
     return match.group(1) if match else ''
-@typecheck(object, {str:[(str, [object])]})
+#@typecheck(object, {str:[(str, [object])]})
 def sentences(lines):
-    @typecheck([str], [(str, [object])], n=int)
+    #@typecheck([str], [(str, [object])], n=int)
     def parseloop(lines, n=0):
         return [(clean(lines[0]),
                  parseloop(lines[1:], n=n+1) if lines[1:] else [])
@@ -52,20 +52,21 @@ def sentences(lines):
     return dct.collapse(splitby(elem('<sent>'), lines, first=True),
                         pipe(car, speaker_code),
                         pipe(cdr, cur(filter, useful), parseloop, car))
-@typecheck(str, int, {str:[(str,str)]})
-def groupby(speakerfile, index):
+#@typecheck(str, int, {str:[(str,str)]})
+def groupby(speakerfile, index, delimiter='\t'):
     "12 is birthplace, 14 is education level; 1 is filename, 3 is speaker code"
-    return dct.collapse_pairs([(x[index],(x[1],x[3])) for x in
-                               csv.reader(open(speakerfile))][1:])
+    return dct.collapse_pairs([(x[index],(x[1],x[3]))
+                               for x in csv.reader(open(speakerfile),
+                                                   delimiter=delimiter)][1:])
     ## note:should filter by amount of data not number of speakers
-@typecheck({str:[(str,str)]}, {str:[(str, [object])]})
+#@typecheck({str:[(str,str)]}, {str:[(str, [object])]})
 def corpus(speakers):
     "Warning! This contains a hard-coded path specific to jones"
-    @typecheck((str,str), [(str, [object])])
+    #@typecheck((str,str), [(str, [object])])
     def per_speaker((fname,speaker)):
          return sentences(open('/Volumes/Data/Corpora/en/ice-gb/ice-gb-2/data/'+
                                fname.lower()+'.cor'))[speaker]
     return dct.map(lambda files: mapn(per_speaker, files), speakers)
-def read(speakerfile, index):
-    return corpus(groupby(speakerfile, index))
+def read(speakerfile, index, delimiter='\t'):
+    return corpus(groupby(speakerfile, index, delimiter))
 
