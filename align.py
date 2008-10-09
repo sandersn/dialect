@@ -1,6 +1,6 @@
 from __future__ import division # Corporate math still sucks
 from util import dct
-from util.fnc import cur,compose,pipe,negate,iseq
+from util.fnc import cur,compose,pipe,negate,iseq,named
 from util.reflect import postmortem
 from util.lst import concat, avg, fst, snd, car, cdr
 from itertools import imap
@@ -109,9 +109,9 @@ def run_compare_shared_sgbsiy(fs):
                        classify(compare(base, sgb)),
                        classify(compare(base, siy)),
                        default=set())
-getsrc = lambda rule: rule.src
-getdst = lambda rule: rule.dst
-getpair = lambda rule: (rule.dst, rule.src)
+getsrc = named('src', lambda rule: rule.src)
+getdst = named('dst', lambda rule: rule.dst)
+getpair = named('rule', lambda rule: (rule.dst, rule.src))
 def run_collapse_differences(fs, get=getdst):
     base = fs[0]
     del fs[0]
