@@ -251,10 +251,59 @@ int compareshuffle(const dialect& a, const dialect& b) {
   //cout << total_r << endl;
   return normaliseshuffle(total_r, a, b);
 }
+/// Find most interesting leaf-ancestor paths ///
+void insertBySnd(list<pair<string, double> >& l,
+                 pair<string, double> entry) {
+  double key = entry.second;
+  for(list<pair<string, double> >::iterator i = l.begin(); i != l.end(); i++) {
+    if(key > i->second) {
+      l.insert(i, entry);
+      return;
+    }
+  }
+  l.insert(l.end(), entry);
+}
+vector<string> max5(const entry& e) {
+  list<pair<string,double> > best;
+  entry::const_iterator j = e.begin();
+  double leastBest = j->second;
+  // of course there will always be at least 5 entries because
+  // there will always be either 500 or 1000
+  for(int i = 0; i < 5; i++, j++) {
+    insertBySnd(best, make_pair(j->first, j->second));
+  }
+  for(; j!=e.end(); j++) {
+    if(j->second > leastBest) {
+      insertBySnd(best, make_pair(j->first, j->second));
+      best.pop_back();
+      leastBest = best.back().second;
+    }
+  }
+  vector<string> bestTitles;
+  for(list<pair<string, double> >::iterator i = best.begin(); i != best.end(); i++) {
+    bestTitles.push_back(i->first);
+  }
+  return bestTitles;
+}
+vector<string> best5r(const sample& c) {
+  // let halfR = Dict.map (abs ... (-)) c in
+  entry halfR;
+  for(sample::const_iterator i = c.begin(); i!=c.end(); i++) {
+    halfR[i->first] = abs(i->second.first - i->second.second);
+  }
+  return max5(halfR);
+}
+/// ///
 double average_r(const dialect& a, const dialect& b) {
   double sum = 0.0;
   for(int i = 0; i < 100; i++) {
-    sum += R_MEASURE(normalise(permutation(a), permutation(b), 5));
+    sample normed = normalise(permutation(a), permutation(b), 5);
+    vector<string> bests = best5r(normed);
+    for(int i = 0; i < 5; i++) {
+      cout << bests[i] << ' ';
+    }
+    cout << endl;
+    sum += R_MEASURE(normed);
   }
   return sum / 100.0;
 }
@@ -281,6 +330,21 @@ pair<string, vector<vector<string> > > readfile(const char* filename) {
 //bool gt1 (double f) { return f > 1; }
 //int ook () { return 1; }
 int main(int argv, char** argc) {
+  /*
+  /// TEST
+  entry test;
+  test["a"] = 20.0;
+  test["b"] = 5.0;
+  test["c"] = 7.0;
+  test["d"] = 2.0;
+  test["e"] = 6.0;
+  test["f"] = 5.0;
+  vector<string> answer = max5(test);
+  cout << "Length is " << answer.size() << endl;
+  for(int i = 0; i < 5; i++) {
+    cout << answer[i] << endl;
+  }
+  /// END TEST*/
   if(argv==2) {
     pair<string, vector<vector<string > > > l1 = readfile(argc[1]);
     cout << "Control: " << l1.first << endl;
@@ -293,7 +357,7 @@ int main(int argv, char** argc) {
     cout << average_r(l1.second, l2.second) << endl;
   } else {
     cout << "Not enough arguments: " << argv << endl;
-  }
+    }
   return 0;
 }
 
