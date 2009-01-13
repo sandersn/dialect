@@ -45,12 +45,14 @@ def tinify(regions):
     items = sorted(dct.count(mapn(concat, regions.values())).items(), key=snd)
     code = encode(map(fst, items))
     return dct.map(cur(map, cur(map, code.__getitem__)), regions)
-def readcorpus(extractor, speakers):
+def readcorpus(extractor, speakers, delimiter='\t'):
     return dct.map(cur(map, extractor), iceread.read(speakers, 12))
-def generate(speakers):
-    for region, data in tinify(readcorpus(path.trigrams,speakers)).items():
+def generate(speakers, delimiter='\t'):
+    for region, data in tinify(readcorpus(path.trigrams, speakers, delimiter)
+                               ).items():
         write(region, data, region+'-trigram.dat')
-    for region, data in tinify(readcorpus(path.paths,speakers)).items():
+    for region, data in tinify(readcorpus(path.paths, speakers, delimiter)
+                               ).items():
         write(region, data, region+'-path.dat')
 import csv
 import random
