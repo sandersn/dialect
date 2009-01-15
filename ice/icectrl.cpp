@@ -263,7 +263,7 @@ void insertBySnd(list<pair<string, double> >& l,
   }
   l.insert(l.end(), entry);
 }
-vector<string> max5(const entry& e) {
+void max5(const entry& e) {
   list<pair<string,double> > best;
   entry::const_iterator j = e.begin();
   double leastBest = j->second;
@@ -279,31 +279,26 @@ vector<string> max5(const entry& e) {
       leastBest = best.back().second;
     }
   }
-  vector<string> bestTitles;
-  for(list<pair<string, double> >::iterator i = best.begin(); i != best.end(); i++) {
-    bestTitles.push_back(i->first);
+  for(list<pair<string,double> >::iterator i = best.begin(); i != best.end(); i++) {
+    cout << i->first << '*' << i->second << ';';
   }
-  return bestTitles;
+  cout << endl;
 }
-vector<string> best5r(const sample& c) {
-  // let halfR = Dict.map (abs ... (-)) c in
+// best5r = maxN 5 . Dict.map (abs ... (-))
+void best5r(const sample& c) {
   entry halfR;
   for(sample::const_iterator i = c.begin(); i!=c.end(); i++) {
     halfR[i->first] = abs(i->second.first - i->second.second);
   }
-  return max5(halfR);
+  max5(halfR);
 }
 /// ///
 double average_r(const dialect& a, const dialect& b) {
   double sum = 0.0;
   for(int i = 0; i < 100; i++) {
     sample normed = normalise(permutation(a), permutation(b), 5);
-    vector<string> bests = best5r(normed);
-    for(int i = 0; i < 5; i++) {
-      cout << bests[i] << ' ';
-    }
-    cout << endl;
     sum += R_MEASURE(normed);
+    best5r(normed);
   }
   return sum / 100.0;
 }
