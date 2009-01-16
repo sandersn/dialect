@@ -252,11 +252,11 @@ int compareshuffle(const dialect& a, const dialect& b) {
   return normaliseshuffle(total_r, a, b);
 }
 /// Find most interesting leaf-ancestor paths ///
-void insertBySnd(list<pair<string, double> >& l,
-                 pair<string, double> entry) {
-  double key = entry.second;
+void insertByAbsSnd(list<pair<string, double> >& l,
+                 const pair<string, double>& entry) {
+  double key = abs(entry.second);
   for(list<pair<string, double> >::iterator i = l.begin(); i != l.end(); i++) {
-    if(key > i->second) {
+    if(key > abs(i->second)) {
       l.insert(i, entry);
       return;
     }
@@ -270,13 +270,13 @@ void max5(const entry& e) {
   // of course there will always be at least 5 entries because
   // there will always be either 500 or 1000
   for(int i = 0; i < 5; i++, j++) {
-    insertBySnd(best, make_pair(j->first, j->second));
+    insertByAbsSnd(best, make_pair(j->first, j->second));
   }
   for(; j!=e.end(); j++) {
-    if(j->second > leastBest) {
-      insertBySnd(best, make_pair(j->first, j->second));
+    if(abs(j->second) > leastBest) {
+      insertByAbsSnd(best, make_pair(j->first, j->second));
       best.pop_back();
-      leastBest = best.back().second;
+      leastBest = abs(best.back().second);
     }
   }
   for(list<pair<string,double> >::iterator i = best.begin(); i != best.end(); i++) {
@@ -284,11 +284,11 @@ void max5(const entry& e) {
   }
   cout << endl;
 }
-// best5r = maxN 5 . Dict.map (abs ... (-))
+// best5r = maxN 5 . Dict.map (abs . uncurry (-))
 void best5r(const sample& c) {
   entry halfR;
   for(sample::const_iterator i = c.begin(); i!=c.end(); i++) {
-    halfR[i->first] = abs(i->second.first - i->second.second);
+    halfR[i->first] = i->second.first - i->second.second;
   }
   max5(halfR);
 }
