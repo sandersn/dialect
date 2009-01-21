@@ -280,7 +280,7 @@ void max5(const entry& e) {
     }
   }
   for(list<pair<string,double> >::iterator i = best.begin(); i != best.end(); i++) {
-    cout << i->first << '*' << i->second << ';';
+    cout << i->first << ' ' << i->second << '\t';
   }
   cout << endl;
 }

@@ -1,26 +1,28 @@
-import qualified Data.ByteString.Char8 as Str
 import Text.ParserCombinators.Parsec
+import Text.ParserCombinators.Parsec.Char
 import Data.List
 import Data.Ord
+import Data.Function (on)
 import Data.Char
-main = print.map fst.detinify =<< Str.readFile "tinified-best5-path.txt"
-detinify s = massage histogram
-    where paths = sort . concat . map (Str.split ' ') . Str.split '\n' $ s
-          histogram = (zip (nub paths) (map length . group $ paths))
-          massage = tail . reverse . sortBy (comparing snd) . map decode
-decode (path,count) = (Str.foldr bar 0 path, count)
-    where bar n total = 223 * total + (ord n - 32)
-histogram l = zip (map head ls) (map length ls)
-    where ls = group . sort $ l
+import Data.Either (rights)
+import Control.Monad (liftM2, mzero)
+import Numeric
+main = print.map avg.cluster.map parseLines.lines
+     =<< readFile "tinified-best5-path.txt"
+    where cluster = histogram (==) fst.concat.rights
+          avg = liftPair (decode.fst.head) (average.map snd)
+average l = sum l / fromIntegral (length l)
+histogram p key = groupBy (p `on` key).sortBy (comparing key)
+decode path = foldr (\ c total -> 223 * total + (ord c - 32)) 0 path
+liftPair f g a = (f a, g a)
 
-{-codedValues = line `endBy` eol
-line = do pairs <- pair `sepBy` (char ';'); char '\n'; 
-pairs = do code <- many1 (oneOf ['!'..'z'])
-           char '*'
-           val <- chars ('.' : ['0'..'9'])
-           char ';'
-           optional '\n'
-           return (code, val)-}
+parseLines = parse line "ok computer"
+line = pair `endBy` (char '\t')
+pair = liftM2 (,) (many1 (noneOf " \t")) (char ' ' >> number)
+number = do s <- getInput
+            case readSigned readFloat s of
+              [(n, s')] -> setInput s' >> return n
+              _ -> mzero
 
 bestpaths = [("PU,CL VB,VP MVB,V", 19684),
              ("PU,CL SU,NP NPHD,PRON", 12850),
