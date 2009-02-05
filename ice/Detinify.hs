@@ -24,36 +24,44 @@ number = do s <- getInput
               [(n, s')] -> setInput s' >> return n
               _ -> mzero
 
-bestpaths = [("PU,CL VB,VP MVB,V", 19684),
-             ("PU,CL SU,NP NPHD,PRON", 12850),
-             ("PU,CL [ SU,NP NPHD,PRON", 11073),
-             ("PU,CL VB,VP [ OP,AUX", 10438),
-             ("PU,CL ] VB,VP MVB,V", 9800),
-             ("PU,CL [ DISMK,CONNEC", 8555),
-             ("PU,NONCL DISMK,REACT ", 5602),
-             ("PU,CL A,PP [ P,PREP", 7472),
-             ("PU,CL A,AVP AVHD,ADV", 6659),
-             ("PU,CL PAUSE,PAUSE", 3175),
-             ("] PU,NONCL PAUSE,PAUSE", 2398),
-             ("PU,CL DISMK,INTERJEC ", 1860),
-             ("] PU,CL PAUSE,PAUSE", 6650),
-             ("PU,NONCL DISMK,INTERJEC ", 2017),
-             ("PU,CL [ DISMK,REACT ", 1611),
-             ("PU,NONCL ELE,NP NPHD,N", 1470),
-             ("PU,CL OD,CL VB,VP [ OP,AUX", 1234),
-             ("PU,CL CJ,CL VB,VP MVB,V", 3207),
-             ("PU,CL CJ,CL VB,VP [ OP,AUX", 2239),
-             ("PU,CL CJ,CL A,PP [ P,PREP", 1415),
-             ("PU,CL OD,CL ] VB,VP MVB,V", 1098),
-             ("PU,NONCL [ DISMK,CONNEC", 940),
-             ("PU,CL A,PP PC,NP [ DT,DTP DTCE,ART", 2706),
-             ("PU,CL A,CL [ SUB,SUBP SBHD,CONJUNC", 2508),
-             ("PU,NONCL [ DISMK,REACT ", 2227),
-             ("PU,CL CJ,CL ] VB,VP MVB,V", 2057),
-             ("PU,CL OD,NP NPHD,N", 1939),
-             ("PU,CL DISMK,CONNEC", 1834),
-             ("PU,CL CJ,CL [ SU,NP NPHD,PRON", 1630),
-             ("PU,CL CJ,CL SU,NP NPHD,PRON", 1610)]
+bestpaths =sortBy (comparing snd)
+            [(("PU,CL CJ,CL SU,NP NPHD,PRON", 1610), 34.386099999999999)
+           , (("PU,CL [ DISMK,REACT ", 1611), 23.120699999999999)
+           , (("PU,CL CJ,CL [ SU,NP NPHD,PRON", 1630), 23.843800000000002)
+           , (("] PU,CL VB,VP MVB,V", 1685), 24.755500000000001)
+           , (("] PU,CL A,AVP AVHD,ADV", 1759), 30.924299999999999)
+           , (("PU,CL DISMK,CONNEC", 1834), 28.138100000000001)
+           , (("PU,CL DISMK,INTERJEC ", 1860), 28.711218181818182)
+           , (("PU,CL [ DISMK,INTERJEC ", 1966), 25.888849999999998)
+           , (("PU,NONCL DISMK,INTERJEC ", 2017), 25.12088)
+           , (("PU,CL OD,CL VB,VP MVB,V", 2046), -21.20335)
+           , (("PU,CL CS,NP [ DT,DTP DTCE,ART", 2090), 26.666399999999999)
+           , (("PU,CL OD,NP [ DT,DTP DTCE,ART", 2286), -21.3429)
+           , (("PU,CL A,CL VB,VP MVB,V", 2301), -19.2925)
+           , (("PU,CL A,CL SU,NP NPHD,PRON", 2322), 18.196300000000001)
+           , (("] PU,NONCL PAUSE,PAUSE", 2398), -30.739742857142861)
+           , (("PU,CL ] SU,NP NPHD,N", 2853), -26.229749999999999)
+           , (("PU,CL PAUSE,PAUSE", 3175), 31.073055555555559)
+           , (("PU,CL CJ,CL VB,VP MVB,V", 3207), -12.490666666666664)
+           , (("PU,NONCL DISMK,REACT ", 5602), 44.045899999999996)
+           , (("] PU,CL PAUSE,PAUSE", 6650), 25.836588888888887)
+           , (("PU,CL A,AVP AVHD,ADV", 6659), 15.9057)
+           , (("PU,CL A,PP [ P,PREP", 7472), 41.766370000000002)
+           , (("PU,CL [ DISMK,CONNEC", 8555), 50.947025000000004)
+           , (("PU,CL ] VB,VP MVB,V", 9800), 75.412035999999986)
+           , (("PU,CL VB,VP [ OP,AUX", 10438), 74.7334125)
+           , (("PU,CL [ SU,NP NPHD,PRON", 11073), 87.509215789473686)
+           , (("PU,CL SU,NP NPHD,PRON", 12850), 93.917162637362651)
+           , (("PU,CL VB,VP MVB,V", 19684), 142.44978085106376)
+           , (("PU,CL OD,CL SU,NP NPHD,PRON", 773), -18.326000000000001)
+           , (("] PU,NONCL ELE,NP NPHD,N", 912), -20.405999999999999)
+           , (("PU,CL OD,CL [ SUB,SUBP SBHD,CONJUNC", 930), -27.523399999999999)
+           , (("PU,CL OD,CL ] VB,VP MVB,V", 1098), -20.106200000000001)
+           , (("] PU,CL CS,AJP AJHD,ADJ", 1211), 20.442499999999999)
+           , (("PU,CL OD,CL VB,VP [ OP,AUX", 1234), -28.2287)
+           , (("PU,CL DISMK,FRM ", 1259), 22.309649999999998)
+           , (("PU,CL CS,NP NPHD,N", 1325), 20.8065)]
+
 besttrigrams = [("NPHD,PRON OP,AUX MVB,V", 12193),
                 ("DTCE,PRON NPHD,N AJHD,ADJ", 57),
                 ("DISMK,REACT  DISMK,REACT  NPHD,PRON", 84),
