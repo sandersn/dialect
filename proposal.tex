@@ -1,25 +1,334 @@
 \documentclass[11pt]{article}
+%\usepackage{setspace}
+\usepackage{robbib}
+
 \author{Nathan Sanders, Indiana University \\ \tt{ncsander@indiana.edu}}
-\title{A Great Day For Freedom : A Two Page Prospectus}
+\title{Syntax Distance in Dialectometry : A Convincing Dissertation
+  Proposal}
 \begin{document}
 \maketitle
+
 This proposal proposes to continue my existing line of research on
 dialect distance using syntactic features. My previous research has
 focussed on statistical measures as pioneered by Nerbonne \& Wiersma
 and extended their features to better capture complex syntactic
 structure.
+
+\section{Introduction}
+
+Entice a goat! Provoke a ruffian! Flatter a Swede! All in one game!
+
 \begin{enumerate}
+\item This dissertation is proposed to continue my existing line of research.
+\item And that line is\ldots
 \item Introduction, cut down from previous version
-\item Maybe bulked up for accessibility
-\item Background mostly the same
-\item Method mostly the same
-\item But with additions for more feature types
-\item Then associated explanation of training since the corpus is not
-  already parsed.
-\item Instead of Results, \ldots Previous Results?
-\item Instead of Analysis/Conclusion, \ldots nothing?
+\item The very start should be bulked up for accessibility. And
+  different somethings.
+\item And should flatter the Swedes.
 \end{enumerate}
 
+This (dissertation (proposal proposes) dissertation) study on syntax
+distance in dialectometry using computational methods as a basis. This
+is a continuation of my previous work (CITE qualifying paper) and
+earlier work by \namecite{nerbonne06}. And other work that I discover
+some time this month. Hopefully this month. Computational methods have
+come to dominate dialectometry, but they are limited in focus compared
+to previous work; most have explored phonological distance only, while
+earlier methods integrated phonological, lexical, and syntactic data.
+
+However, the isogloss bundles that were the primary product of
+pre-computational methods do not adequately capture gradient
+generalizations; irregular boundaries are not useful for this purpose
+and have to be discarded. Recent methods are mathematically
+sophisticated, capable of identifying dialect gradients. The purpose
+of this work is to integrate phonological and syntactic data in the
+way that early dialectology did, but use the computational methods
+that have previously only been used to analyze one are of linguistics
+at a time.
+
+Previous work has investigated statistical syntax distance in two
+corpora: different generations of Norwegian L2 speakers of English
+\cite{nerbonne06}, and the ICE corpus, consisting of native English
+speakers born in various parts of England \cite{nelson02}. In
+addition, Sanders' work used two types of features as input to the
+statistical classifier: trigrams and leaf-ancestor paths
+\cite{sampson00}. Both Nerbonne \& Wiersma and Sanders used a
+permutation test based on Kessler's $R$ \cite{kessler01}. Sanders'
+work applied the permutation test to multiple areas by dividing the
+ICE up by speaker birthplace. This dissertation will be the first to
+use this method while juggling AND cycling. I mean, the first to use
+this method on a corpus collected with dialect analyses in mind.
+
+Specifically, the Nordisk dialektkorpus. This is the part where I
+flatter the Swedes. TODO: Do this.
+
+\section{Early Methods}
+
+\subsection{S\'eguy}
+
+Measurement of linguistic similarity has always been a part of
+linguistics. However, until \namecite{seguy73} dubbed a new set of
+approaches `dialectometry', these methods lagged behind the rest of
+linguistics in formalization. S\'eguy's quantitative analysis
+of Gascogne French, while not aided by computer, was the predecessor
+of more powerful statistical methods that essentially required the use
+of computer as well as establishing the field's general dependence on
+well-crafted dialect surveys that divide the incoming data along
+traditional linguistic boundaries: phonology, morphology, syntax, etc.
+This makes both collection and analysis easier, although it requires
+much more work when trying to produce a complete picture of dialect
+variation.
+
+The project to build the Atlas Linguistique et Ethnographique de la
+Gascogne, which S\'eguy directed, collected data in a dialect survey
+of Gascogne which asked speakers questions informed by different areas
+of linguistics. For example, the pronunciation of `dog' (``chien'')
+was collected to measure phonological variation. It had two common
+variants and many other rare ones: [k\~an], [k\~a], as well as [ka],
+[ko], [kano], among others. These variants were, for the most part,
+% or hat "chapeau": SapEu, kapEt, kapEu (SapE, SapEl, kapEl
+known by linguists ahead of time, but their exact geographical
+distribution was not.
+
+The atlases, as eventually published, contained not only annotated
+maps, but some analysis as well. This analysis was what S\'eguy named
+dialectometry. Dialectometry differs from previous attempts to find
+dialect boundaries in the way it combines the information from the
+dialect survey. Previously, dialectologists looked for isogloss
+boundaries for individual items. A dialect boundary is generated when
+enough individual isogloss boundaries coincided. However, there is so
+much individual variation that only major dialect boundaries can
+be captured this way.
+
+S\'eguy reversed the process. He first combined the survey data to get
+a numeric score between each site. Then he posited dialect boundaries
+where large distances resulted between sites. The difference is
+important, because a single numeric score is dramatically easier to
+analyze than hundreds of individual boundaries. The outcome is that
+much more subtle dialect boundaries are visible this way; where before
+one saw only a jumble of conflicting boundary lines, now one sees
+smaller, but consistent numerical differences separating regions. {Dialectometry
+  enables classification of gradient dialect boundaries, since now one
+can distinguish weak and strong boundaries. Previously, weak
+boundaries were too uncertain.}
+
+However, S\'eguy's method of combination was simple both
+linguistically and mathematically. When comparing two sites, any
+difference in a response would be counted as 1. Only identical
+responses counted as a distance of 0. Words were not analyzed
+phonologically, nor were responses weighted by their relative amount
+of variation. Finally, only geographically adjacent sites were
+compared. This is a reasonable restriction, but later studies were
+able to lift it because of the availability of greater computational
+power. Work following S\'eguy's would improve on both aspects. To wit,
+Ger\v{s}i\'c linguistically and Goebl mathematically.
+
+TODO:Change this transition to leave out phonology and hence Gersic.
+
+\subsection{Goebl}
+
+Later, Hans Goebl emerged as a leader in the field of dialectometry,
+formalizing the aims and methods of dialectometry. His primary
+contribution was development of various methods to combine individual
+distances into global distances and from there global clusters. These
+methods were more sophisticated mathematically than previous
+dialectometry and operated with any features extracted from the data. His
+analyses have mostly used the Atlas Linguistique de Fran\c{c}ais.
+
+\namecite{goebl06} provides a summary of his work. Most relevant for
+this paper are the measures Relative Identity Value and Weighted
+Identity Value. They are general methods that are the basis for nearly
+all subsequent fine-grained dialectometrical analyses. They have three
+important properties. First, they are independent of the source
+data. They can operate over any linguistic data for which they are
+given a feature set, such as the one proposed by Ger\v{s}i\'c for
+phonology. Second, they can compare data even for items that do not
+have identical feature sets. This improves on Ger\v{s}i\'c's $d$,
+which cannot compare consonants and vowels. Third, they can compare
+data sets that are missing some entries. This improves on S\'eguy's
+analysis by providing a principled way to handle missing survey
+responses.
+
+Relative Identity Value, when comparing any two items, counts the
+number of features which share the same value and then discounts
+(lowers) the importance of the result by the number of unshared
+features. The result is a single percentage that indicates
+relative similarity. Calculating this distance between all pairs
+of items in two regions produces a matrix which can be used for
+clustering or other purposes. Note that the presentation below splits
+Goebl's original equations into more manageable pieces; the high-level
+equation for Relative Identity Value is:
+
+\begin{equation}
+  \frac{\textrm{identical}_{jk}} {\textrm{identical}_{jk} - \textrm{unidentical}_{jk}}
+\label{riv}
+\end{equation}
+For some items being compared $j$ and $k$. In this case
+\textit{identical} is
+\begin{equation}
+  \textrm{identical}_{jk} = |f \in \textrm{\~N}_{jk} : f_j = f_k|
+\end{equation}
+where $i$ is each feature shared by $j$ and $k$ (called
+$\textrm{\~N}_{jk}$). \textit{unidentical} is defined similarly, except
+that it counts all features N, not just the shared features
+$\textrm{\~N}_{jk}$.
+\begin{equation}
+  \textrm{unidentical}_{jk} = |f \in \textrm{N} : f_j \neq f_k|
+\end{equation}
+
+Weighted Identity Value is a refinement of Relative Identity
+Value. This measure stems defines some differences as more
+important than others. In particular, more information arises from
+feature values that only happen a few times rather than from those values
+that characterize a large number of the items being studied.  This
+idea shows up later in the normalization of syntax distance given by
+\namecite{nerbonne06}.
+
+The mathematical implementation of this idea is fairly simple. Goebl
+is interested in feature values that occur only a few times. If a
+feature has some value that is shared by all of the items, then all
+items belong to the same group. This feature value provides {\it no}
+useful information for distinguishing the items.  The situation
+improves if all but one item share the same value for a feature; at
+least there are now two groups, although the larger group is still not
+very informative.  The most information is available if each item
+being studied has a different value for a feature; the items fall
+trivially into singleton groups, one per item.
+
+Equation \ref{wiv-ident} works by discounting
+the \textit{identical} count from equation \ref{riv} by
+the amount of information that feature value conveys. The
+amount of information, as discussed above, is based on the number of
+items that share a particular value for a feature. If all items share
+the same value for some feature, then \textit{identical} will be discounted all the
+way to zero--the feature conveys no useful information.
+Weighted Identical Value's equation for \textit{identical} is
+therefore
+\begin{equation}
+  \textrm{identical} = \sum_f \left\{
+  \begin{array}{ll}
+    0 & \textrm{if} f_j \neq f_k \\
+    1 - \frac{\textrm{agree}f_{j}}{(Ni)w} & \textrm{if} f_j = f_k
+  \end{array} \right.
+\label{wiv-ident}
+\end{equation}
+
+\noindent{}The complete definition of Weighted Identity Value is
+\begin{equation} \sum_i \frac{\sum_f \left\{
+  \begin{array}{ll}
+    0 & \textrm{if} f_j \neq f_k \\
+    1 - \frac{\textrm{agree}f_j} {(Ni)w} & \textrm{if} f_j = f_k
+\end{array} \right.}
+  {\sum_f \left\{
+  \begin{array}{ll}
+    0 & \textrm{if} f_j \neq f_k \\
+    1 - \frac{\textrm{agree}f_j} {(Ni)w} & \textrm{if} f_j = f_k
+    \end{array} \right. - |f \in \textrm{N} : f_j \neq f_k|}
+  \label{wiv-full}
+  \end{equation}
+
+  \noindent{}where $\textrm{agree}f_{j}$ is the number of candidates that agree
+  with item $j$ on feature $f$ and $Ni$ is the total number of
+  candidates ($w$ is the weight, discussed below). Because of the
+  piecewise definition of \textit{identical}, this number is always at
+  least $1$ because $f_k$ agrees already with $f_j$. The effect of
+  this equation is to take the count of shared features and weight
+  them by the size of the sharing group. The features that are shared
+  with a large number of other items get a larger fraction of the normal
+  count subtracted.
+
+  For example, let $j$ and $k$ be sets of productions for the
+  underlying English segment /s/. The allophones of /s/ vary mostly on the feature
+  \textit{voice}. Seeing an unvoiced [s] is less ``surprising'' than
+  seeing a voiced [z] for /s/, so the discounting process should
+  reflect this. For example, assume that an English corpus contains 2000
+  underlying /s/ segments. If 500 of them are realized as [z], the
+  discounting for \textit{voice} will be as follows:
+
+  \begin{equation}
+    \begin{array}{c}
+      identical_{/s/\to[z]} = 1 - 500/2000 = 1 - 0.25 = 0.75 \\
+      identical_{/s/\to[s]} = 1 - 1500/2000 = 1 - 0.75 = 0.25
+    \end{array}
+    \label{wiv-voice}
+  \end{equation}
+
+  Each time /s/ surfaces as [s], it only receives 1/4 of a point
+  toward the agreement score when it matches another [s]. When /s/
+  surfaces as [z], it receives three times as much for matching
+  another [z]: 3/4 points towards the agreement score. If the
+  alternation is even more weighted toward faithfulness, the ratio
+  changes even more; if /s/ surfaces as [z] only 1/10 of the time,
+  then [z] receives 9 times more value for matching than [s] does.
+
+  The final value, $w$, which is what gives the name ``weighted
+  identity value'' to this measure, provides a way to control how much
+  is discounted. A high $w$ will subtract more from uninteresting
+  groups, so that \textit{voice} might be worth less than
+  \textit{place} for /t/ because /t/'s allophones vary more over
+  \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
+  facilitate the presentation.
+
+\section{Computational Methods}
+
+It is at this point that the two types of analysis, phonological and
+syntactic, diverge. Although Goebl's techniques are general enough to
+operate over any set of features that can be extracted, better results
+can be obtained by specializing the general measures above to take
+advantage of properties of the input.  Specifically, the application
+of computational linguistics to dialectometry beginning in the 1990s
+introduced methods from other fields. These methods, while generally
+giving more accurate results quickly, are tied to the type of data on
+which they operate.
+
+% NEW
+The dominant phonological distance measure is Levenshtein
+distance. This distance is essentially the count of differing
+segments, although various refinements have been tried, such as
+inclusion of distinctive features or phonetic
+correlates. \namecite{heeringa04} gives an excellent analysis of the
+applications and variations of Levenshtein distance. While Levenshtein
+distance provides much information as a classifier, it is limited
+because it must have a word aligned corpus for comparison. A number of
+statistical methods have been proposed that remove this requirement
+(Sanders, Zastrow, earlier types) but none have been as successful on
+existing dialect resources, which are small and are already
+word-aligned. New resources are not forthcoming because the proposed
+methods still rely on a phonetic transcription process. So this is
+basically a dead-end.
+% end NEW
+
+\begin{enumerate}
+\item Also cut phonoogical approaches here.
+\item Reword intro paragraph. (maybe summarise phonology as another
+  paragraph after the current intro)
+\item I should really check around to see if there is any new work out
+  there. Surely there is. Course John is free to do whatever works and
+  Wybo may have graduated or something. So there might not be any more
+  work on it.
+\item Explain leaf-ancestor paths, trigrams, dependency `paths' (to be
+  invented).
+\item Previous results on English.
+\section{Experiment}
+\item Method mostly the same, minus the phonology part and the
+  comparison part.
+\item Train constituency parser on Swedish treebank 1.
+\item Train dependency parser on Swedish treebank 2.
+\item Obviously I need the names of these things ok.
+
+\section{Conclusion}
+\item Also known as Discussion.
+\item Specifically, remember all that stuff I wrote in my future work sections?
+\item I'm not doing any of that.
+\item Well, OK, maybe I will.
+\item But the stuff I'm {\it serious} about has already been described.
+\item This section is just for things I might need to pad out the
+  proposal.
+\end{enumerate}
+
+Kan dit verlik tweentig pagen zij?
+
+Poda esse iste ventei pagas?
 \section{Dialectometry}
 
 Dialectometry is the quantitative linguistic study of differences
@@ -74,6 +383,8 @@ machine. But this provides an opportunity to use multiple parsing
 methods. There exist Swedish treebanks parsed by both constituent parsers and
 dependency parsers.
 
+\bibliographystyle{robbib}
+\bibliography{central}
 \end{document}
 %%% Local Variables: 
 %%% mode: latex
