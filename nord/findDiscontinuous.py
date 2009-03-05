@@ -21,7 +21,8 @@ def elapsed(startTime):
     return time.time()-startTime
 
 def sentences(fileName):
-    """return a list of sentences"""
+    """str -> [sentence] -- return a list of sentences
+    where sentence = str (though implicitly [str] separated by \n)"""
 
     outFile = open('temp.txt', 'w')
     text = open (fileName, 'r')
@@ -49,7 +50,7 @@ def sentences(fileName):
 
 
 def addWordID(sentence):
-    """ return a list of data of each sentence
+    """str -> [[int,str...]] -- return a list of data of each sentence
         in treebank file with wordID added  """
 
     i=0
@@ -259,16 +260,14 @@ def flatten(tree):
     return(tree)
 
         
-def discontinuous(flapTree):
+def discontinuous(span):
     """take a dictionary of tree structure and report discontinue nodes"""
-
-    span = flapTree
-    disList = list()
+    disList = []
     i=0
     for key, leaves in span.items():
         leaves.sort()
         
-        if len(leaves) ==1:
+        if len(leaves)==1:
             #print key, 'single daughter', span[key]
             continue
         
