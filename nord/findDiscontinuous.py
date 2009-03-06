@@ -23,7 +23,19 @@ def elapsed(startTime):
 def sentences(fileName):
     """str -> [sentence] -- return a list of sentences
     where sentence = str (though implicitly [str] separated by \n)"""
-
+##     sentences = []
+##     acc = []
+##     for line in open(fileName):
+##         line = line.rstrip('\r\n')
+##         if re.match(r"#BOS", line):
+##             sentences.append(''.join("\n" + line for line in acc))
+##             acc = [line]
+##         else:
+##             acc.append(line)
+##     sentences.append(''.join("\n" + line for line in acc))
+##     sentences.pop(0)
+##     sentences.append('')
+##     return sentences
     outFile = open('temp.txt', 'w')
     text = open (fileName, 'r')
     
@@ -31,14 +43,12 @@ def sentences(fileName):
         line = line.rstrip('\r\n')
         if re.match(r'#BOS', line):
             outFile.write("\n")
-            outFile.write(line)
-            outFile.write("\n")
+            outFile.write(line + "\n")
         elif re.match(r'#EOS',line):
             outFile.write(line)
             outFile.write("\n\n")
         else:
-            outFile.write (line)
-            outFile.write("\n")
+            outFile.write (line + "\n")
          #   outFile.write('\n')
 
     outFile.close()
@@ -52,23 +62,7 @@ def sentences(fileName):
 def addWordID(sentence):
     """str -> [[int,str...]] -- return a list of data of each sentence
         in treebank file with wordID added  """
-
-    i=0
-    lineList = list()
-    lines = sentence.split('\n')
-    for line in lines:
-        columns = line.split('\t')
-        #print columns
-        columns.insert(0, i)
-        lineList.append(columns)
-        i+=1
-        if re.search (r'#EOS', line):
-            i=0 ### to ensure wordIDs in the range of the length of sentence,
-                ### so that such ID numbers will not be confused
-                ### with phrasesIDs that are in the range of 500~
-
-    return(lineList)
-
+    return [[i]+line.split('\t') for i,line in enumerate(sentence.split('\n'))]
 
 def POS(fileName, outFileName):        
     """read in a file of tree structrue and returns a file
@@ -76,7 +70,8 @@ def POS(fileName, outFileName):
     
     inFile = open(fileName, 'r') 
     outPOS = open (outFileName, 'w')
-    
+    def wr(columns, *ns):
+        outPOS.write('\t'.join(columns[n] for n in ns) + '\n')
     for line in inFile:
         if line == '\n':
             outPOS.write(line)
@@ -93,34 +88,34 @@ def POS(fileName, outFileName):
                 if re.match(r'#[EB]OS', line):
                      outPOS.write("\n")
                 elif len(columns[2])>0:
-                    outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[3], columns[-1]))
+                    wr(columns, 0, 1, 3, -1)
                     #print columns[0], columns[1]
                 elif len(columns[7])>0:
                     if re.search(r'([a-z]|--)', columns[7]):
-                        outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[6], columns[-1]))
+                        wr(columns, 0, 1, 6, -1)
                         #print columns[0], columns[1]
                     elif re.search(r'(OA|HD|CJ|MO|NK|DA|PM|RC|OC|SB|MNR|PG|AG)', columns[7]):
                     ### to avoid tags of grammatical function that are not POS tags
-                        outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[5], columns[-1]))
+                        wr(columns, 0, 1, 5, -1)
                         #print columns[0], columns[1]
                     else:
-                        outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[7], columns[-1]))
+                        wr(columns, 0, 1, 7, -1)
                         #print columns[0], columns[1]
                 elif len(columns[6]) > 0:              
                     if re.search(r'[a-z]', columns[6]):
-                        outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[5], columns[-1]))
+                        wr(columns, 0, 1, 5, -1)
                         #print columns[0], columns[1]
                     elif re.match(r'--', columns[6]):
-                        outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[5], columns[-1]))
+                        wr(columns, 0, 1, 5, -1)
                         #print columns[0], columns[1]
                     else:
-                        outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[6], columns[-1]))
+                        wr(columns, 0, 1, 6, -1)
                         #print columns[0], columns[1]
                 elif len(columns[5]) > 0:
-                    outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[5], columns[-1]))
+                    wr(columns, 0, 1, 5, -1)
                     #print columns[0], columns[1]
                 else:
-                    outPOS.write('%s\t%s\t%s\t%s\n' % (columns[0], columns[1], columns[7], columns[-1]))
+                    wr(columns, 0, 1, 7, -1)
                     #print columns[0], columns[1]
 
 
@@ -305,28 +300,22 @@ def main():
     IDFile = open (inputData+'.data', 'w') ### create a temp file with wordID added
     
     sents = sentences(inputData) ### original treebank data
+    id_sents = []
     for sentence in sents:
-        words = addWordID(sentence) ### a list of words in each sentence
-
-        for word in words:
-            IDFile.write('\t'.join(map(str, word[:-1])) + '\t')
-##             for col in word[:-1]:
-##                 # NCS: No-op; if len(word) < 2, the word[:-1] loop never executes
-##                 if len(word)<2:
-##                     IDFile.write(word[-1])
-##                     IDFile.write('\n')
-##                 else:
-##                     IDFile.write('%s\t' % col)
-            IDFile.write(word[-1])
-            IDFile.write('\n')
+        acc = []
+        ### a list of words in each sentence
+        for word in addWordID(sentence):
+            acc.append(word)
+            IDFile.write('\t'.join(map(str, word)) + '\n')
+        id_sents.append(acc)
         IDFile.write('\n\n')
 
     IDFile.close()
-
+    
     ##################################################
     ### get relevant data from the treebank data
     POS(inputData+'.data', inputData+'.pos') 
-
+    return id_sents
     ##################################################
     ### find DISCONTINUOUS nodes in each tree and output modified structures
     clauses = sentences(inputData+'.pos')
