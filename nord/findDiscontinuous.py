@@ -328,21 +328,18 @@ def main():
 
     ### check structures sentence by sentence
     correction = 0 ### count how many sentences in the file involve discontinuity 
-    for i in range(len(clauses)):
-    #for clause,tree in zip(clauses, treeData):
-        phrases = getPhrases(clauses[i])
-        tree = flatten(phrases)
-        span = discontinuous(tree)
-        #span = discontinuous(flatten(getPhrases(clauses[i])))
+    #for i in range(len(clauses)):
+    for clause,tree in zip(clauses, treeData):
+        span = discontinuous(flatten(getPhrases(clause)))
         if len(span)>0: ### if there are discontinuous elements in the structure
             correction +=1
-            try:                
+            try:
                 for j in range(len(span)):
                     k = 0
                     discon = str(span[j][0]) ### the discontinous word
                     nextWord = str(span[j][1])
 
-                lines = treeData[i].split('\n')
+                lines = tree.split('\n')
                 for line in lines:
                     columns = line.split('\t')
                     
@@ -454,12 +451,12 @@ def main():
                             modAddFile.write(columns[-1])
                             modAddFile.write('\n')
                             
-                    
+                            
             except TypeError:
                 pass
             
         else: ### for sentences that do not have any discontinuous elements
-            lines = treeData[i].split('\n')
+            lines = tree.split('\n')
             for line in lines:
                 columns = line.split('\t')
                 for col in columns[1:-1]:
@@ -470,16 +467,16 @@ def main():
                 modAddFile.write(columns[-1])
                 modAddFile.write('\n')
 
-    percentage = correction/i*100  
-    print "There are",i,"sentences in this file."
+    percentage = correction/len(clauses)*100
+    print "There are",len(clauses),"sentences in this file."
     print correction,"sentences involve discontinuous structures. (",percentage,"%)"
     elapsedTime=elapsed(startTime)
     print "elapsed time = ", elapsedTime
-    modFile.write('elapsed time = %s ' % elapsedTime)
-    modAddFile.write('elapsed time = %s ' % elapsedTime)
+##     modFile.write('elapsed time = %s ' % elapsedTime)
+##     modAddFile.write('elapsed time = %s ' % elapsedTime)
     return clauses,clauses2,treeData,id_sents
     
-    sys.exit(0)        
+    sys.exit(0)
     
 if __name__ == "__main__":
     main()
