@@ -19,7 +19,13 @@ def elapsed(startTime):
     """return the amount of time
     which as elapsed since startTime"""
     return time.time()-startTime
-
+def deCSV(sentence):
+    "[str] -> [[[str]]]"
+    rez = [line.split('\t') for line in sentence.split('\n') if line!='']
+    return filter(None, rez)
+def reCSV(sentence):
+    "[[[str]]] -> [str]"
+    return '\n'.join('\t'.join(map(str, word)) for word in sentence)
 def sentences(fileName):
     """str -> [sentence] -- return a list of sentences
     where sentence = str (though implicitly [str] separated by \n)"""
@@ -58,83 +64,94 @@ def sentences(fileName):
     
     return(sentences)
 
+def addTreebankID(sents, fileName):
+    "original treebank data * IDed treebank output filename"
+    IDFile = open (fileName, 'w') ### create a temp file with wordID added
+    
+    id_sents = []
+    for sentence in sents:
+        acc = []
+        ### a list of words in each sentence
+        for word in addWordID(sentence):
+            acc.append(word)
+            IDFile.write('\t'.join(map(str, word)) + '\n')
+        id_sents.append(acc)
+        IDFile.write('\n\n')
 
+    IDFile.close()
+
+    return id_sents
 def addWordID(sentence):
     """str -> [[int,str...]] -- return a list of data of each sentence
         in treebank file with wordID added  """
-    return [[i]+line.split('\t') for i,line in enumerate(sentence.split('\n'))]
+    #return [[i]+word for i,word in enumerate(deCSV(sentence))]
+    return [[str(i)]+line.split('\t') for i,line in enumerate(sentence.split('\n'))]
 
-def POS(fileName, outFileName):        
-    """read in a file of tree structrue and returns a file
+def ioPOS(fileName, outFileName): # TODO: Not done and not bug-compatible either
+    poss = POS(fileName)
+    outPOS = open(outFileName, 'w')
+    outPOS.write('\n\n'.join('\n'.join('\t'.join(cols) for cols in sent)
+                             for sent in poss))
+    outPOS.close()
+def POS(fileName, outFileName):
+    """read in a file of tree structure and returns a file
     with a list of wordID, word, POS and motherID"""
     
-    inFile = open(fileName, 'r') 
-    outPOS = open (outFileName, 'w')
+    inFile = open(fileName, 'r')
+    outPOS = open(outFileName, 'w')
+    poss = []
+    pos = []
     def wr(columns, *ns):
         outPOS.write('\t'.join(columns[n] for n in ns) + '\n')
+        pos.append([columns[n] for n in ns])
     for line in inFile:
         if line == '\n':
             outPOS.write(line)
         else:
-            
             line = line.rstrip('\r\n')
             columns = line.split('\t')
-            #print columns
-            #print len(columns)
             
             try: ### check which column the POS tag is in
-                     ### it occurrence in relation to the 2nd / 7th columns is more regular
-                     ### the rest is to account for special cases
-                if re.match(r'#[EB]OS', line):
-                     outPOS.write("\n")
+                ### it occurrence in relation to the 2nd / 7th columns
+                ### is more regular the rest is to account for special cases
+                if re.search(r'#[EB]OS', line):
+                    if pos:
+                        poss.append(pos)
+                        pos = []
+                    outPOS.write("\n")
                 elif len(columns[2])>0:
                     wr(columns, 0, 1, 3, -1)
-                    #print columns[0], columns[1]
                 elif len(columns[7])>0:
                     if re.search(r'([a-z]|--)', columns[7]):
                         wr(columns, 0, 1, 6, -1)
-                        #print columns[0], columns[1]
                     elif re.search(r'(OA|HD|CJ|MO|NK|DA|PM|RC|OC|SB|MNR|PG|AG)', columns[7]):
                     ### to avoid tags of grammatical function that are not POS tags
                         wr(columns, 0, 1, 5, -1)
-                        #print columns[0], columns[1]
                     else:
                         wr(columns, 0, 1, 7, -1)
-                        #print columns[0], columns[1]
-                elif len(columns[6]) > 0:              
+                elif len(columns[6]) > 0:
                     if re.search(r'[a-z]', columns[6]):
                         wr(columns, 0, 1, 5, -1)
-                        #print columns[0], columns[1]
                     elif re.match(r'--', columns[6]):
                         wr(columns, 0, 1, 5, -1)
-                        #print columns[0], columns[1]
                     else:
                         wr(columns, 0, 1, 6, -1)
-                        #print columns[0], columns[1]
                 elif len(columns[5]) > 0:
                     wr(columns, 0, 1, 5, -1)
-                    #print columns[0], columns[1]
                 else:
                     wr(columns, 0, 1, 7, -1)
-                    #print columns[0], columns[1]
-
-
             except IndexError:
                 pass
     inFile.close()
     outPOS.close()
-    
+    if pos: poss.append(pos)
+    return poss
 
-def getPhrases (sentence):
-    """extract phrases from treebank data"""
-    
+def createWordPhraseList(lines):
     ### make lists of words and phrases
     wordList=list()
     phraseList = list()
     
-    #print "\n"
-    
-    lines = sentence.split("\n") ### to get information of one word per line
     #print lines
     for line in lines:
         if len(line)>1:
@@ -145,11 +162,9 @@ def getPhrases (sentence):
                 try:
                     columns = line.split("\t")
                     #print columns
-                    num = columns[0] ### itemID
-                    item = columns[1] ### word or phrase
-                    motherID = columns[-1]
-                    POS = columns[2]
-                                       
+                    ### itemID, word or phrase, POS, motherID
+                    num, item, POS, motherID = columns
+                    
                     #print word
                     #print ID
 
@@ -171,19 +186,14 @@ def getPhrases (sentence):
                         phraseList[-1].append(item) ### phrase
                         phraseList[-1].append(POS)
                         phraseList[-1].append(motherID)
-                            
+                        
                 except IndexError:
                     pass
                 
                 if line == "\n":
                     continue
-
-   
-    #print wordList
-    #print '\n'
-    #print phraseList
-            
-
+    return wordList, phraseList
+def groupNodeElements(wordList, phraseList):
     ### Based on the wordList and the phraseList,
     ### group elemnts of the same mother node together
     ### mother node as the key, and daughters as the value
@@ -211,25 +221,26 @@ def getPhrases (sentence):
             phrases[motherID] = list()
             phrases[motherID].append(phrase[0])
 
-
+    return phrases
+def getPhrases (sentence):
+    """extract phrases from treebank data"""
+    wordList,phraseList = createWordPhraseList(sentence.split('\n'))
+    phrases = groupNodeElements(wordList, phraseList)
+    #print wordList
+    #print '\n'
+    #print phraseList
     ### change string format to number for further process
-    tree = dict()    
+    tree = dict()
     for key, value in phrases.items():
         if value == []:
             print "ERROR! Cannot handle empty tree."
             return ['ERROR']
         else:
-            try:                
-                k = int(key)
-                tree.has_key(k)
-                leaves = map(int, phrases[key])
-                tree[k]= leaves
+            try:
+                tree[int(key)]= map(int, value)
             except ValueError:
-                tree.has_key(key)
-                tree[key]= phrases[key]         
-
-            
-    return(tree)
+                tree[key] = value
+    return tree
 
 
 def flatten(tree):
@@ -296,45 +307,33 @@ def main():
     except IndexError:
         inputData = raw_input("Please give the name of input file:  " )
     
-    
-    IDFile = open (inputData+'.data', 'w') ### create a temp file with wordID added
-    
     sents = sentences(inputData) ### original treebank data
-    id_sents = []
-    for sentence in sents:
-        acc = []
-        ### a list of words in each sentence
-        for word in addWordID(sentence):
-            acc.append(word)
-            IDFile.write('\t'.join(map(str, word)) + '\n')
-        id_sents.append(acc)
-        IDFile.write('\n\n')
+    id_sents = addTreebankID(sents, inputData+'.data')
 
-    IDFile.close()
-    
     ##################################################
     ### get relevant data from the treebank data
-    POS(inputData+'.data', inputData+'.pos') 
-    return id_sents
+    clauses2 = POS(inputData+'.data', inputData+'.pos')
     ##################################################
     ### find DISCONTINUOUS nodes in each tree and output modified structures
     clauses = sentences(inputData+'.pos')
     treeData = sentences(inputData+'.data') ### to be changed and printed later
     #print treeData[0]
-    
-    modFile = open(inputData+'.out', 'w') ### if discontinuous nodes are found in certain trees,
-                                      ### their modified tree structure will be printed into a seperate file 
-
-    modAddFile = open(inputData+'Add.out', 'w')### add extra nodes while modify the structure
+    ### if discontinuous nodes are found in certain trees,
+    modFile = open(inputData+'.out', 'w') 
+    ### their modified tree structure will be printed into a seperate file 
+    ### add extra nodes while modify the structure
+    modAddFile = open(inputData+'Add.out', 'w')
 
 
 
     ### check structures sentence by sentence
     correction = 0 ### count how many sentences in the file involve discontinuity 
     for i in range(len(clauses)):
+    #for clause,tree in zip(clauses, treeData):
         phrases = getPhrases(clauses[i])
         tree = flatten(phrases)
         span = discontinuous(tree)
+        #span = discontinuous(flatten(getPhrases(clauses[i])))
         if len(span)>0: ### if there are discontinuous elements in the structure
             correction +=1
             try:                
@@ -478,6 +477,7 @@ def main():
     print "elapsed time = ", elapsedTime
     modFile.write('elapsed time = %s ' % elapsedTime)
     modAddFile.write('elapsed time = %s ' % elapsedTime)
+    return clauses,clauses2,treeData,id_sents
     
     sys.exit(0)        
     
