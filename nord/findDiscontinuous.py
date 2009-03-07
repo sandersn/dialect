@@ -13,7 +13,7 @@
 
 from __future__ import division
 import os, sys, string, re, pprint, time
-from util.lst import partition
+from util.lst import partition, findif
 
 def elapsed(startTime):
     """return the amount of time
@@ -136,41 +136,24 @@ def createWordPhraseList(lines):
     return wordList, phraseList
 
 def groupNodeElements(wordList, phraseList):
-    ### Based on the wordList and the phraseList,
-    ### group elemnts of the same mother node together
-    ### mother node as the key, and daughters as the value
-    phrases=dict() 
+    """ Based on the wordList and the phraseList,
+     group elemnts of the same mother node together mother node as the key,
+     and daughters as the value"""
+    phrases=dict()
     
-    for word in wordList: 
-        motherID = word[-1]
-        #print motherID
-        #phrases[word[-1]]=list()
-        phrases[motherID]=list()
-
-        for item in wordList:
-            if item[-1] ==motherID:
-                phrases[motherID].append(item[0])
-                
-    #print phrases
-    #print phraseList
+    for (_,_,_,motherID) in wordList:
+        phrases[motherID] = [id for id,_,_,itemMotherID in wordList
+                             if itemMotherID==motherID]
 
     ### check if certain phrases are daughters of another phrase
-    for phrase in phraseList:
-        motherID = phrase[-1]
-        if phrases.has_key(motherID):
-            phrases[motherID].append(phrase[0])
-        else:
-            phrases[motherID] = list()
-            phrases[motherID].append(phrase[0])
+    for (id,_,motherID) in phraseList:
+        phrases.setdefault(motherID, []).append(id)
 
     return phrases
 def getPhrases (sentence):
     """extract phrases from treebank data"""
     wordList,phraseList = createWordPhraseList(sentence)
     phrases = groupNodeElements(wordList, phraseList)
-    #print wordList
-    #print '\n'
-    #print phraseList
     ### change string format to number for further process
     tree = dict()
     for key, value in phrases.items():
@@ -189,55 +172,43 @@ def flatten(tree):
     """ take a tree structure and return its leaves into a list"""
 
     mothers = tree.keys()
-    daughters = tree.values()
-    #pprint.pprint(tree)
-    
     ### under each grandmom node, change each mother node with its daughters
-    i = 0
-    for node, leaves in tree.items():
-        for leaf in leaves:
-            if leaf >=500:
-                for i in range(len(leaves)):
-                    for mother in mothers:
-                        if mother == leaves[i]:
-                            tree[node].extend(tree[mother])
-                            leafIndex = tree[node].index(leaves[i])
-                            del tree[node][leafIndex]
-                    
-                i+=1
+    for node, daughters in tree.items():
+        for i,daughter in enumerate(daughters):
+            for mother in mothers:
+                if mother == daughters[i]:
+                    tree[node].extend(tree[mother])
+                    leafIndex = tree[node].index(daughters[i])
+                    del tree[node][leafIndex]
     return(tree)
-
-        
+def flatten2(tree):
+    flat = {}
+    def flattenNode(mother):
+        acc = []
+        for dot in tree[mother]:
+            if dot >= 500:
+                if dot not in flat:
+                    flattenNode(dot)
+                acc.extend(flat[dot])
+            else:
+                acc.append(dot)
+        flat[mother] = acc
+    for mother in tree:
+        if mother not in flat:
+            flattenNode(mother)
+    return flat
+def pairs(l):
+    return [(l[i],l[i+1]) for i in range(len(l)-1)]
 def discontinuous(span):
     """take a dictionary of tree structure and report discontinue nodes"""
     disList = []
-    i=0
-    for key, leaves in span.items():
-        leaves.sort()
-        
-        if len(leaves)==1:
-            #print key, 'single daughter', span[key]
-            continue
-        
-        elif len(leaves) > 1:
-            for i in range(len(leaves)):### make sure it loops over every pair in the list
-                try:
-                    if leaves[i+1]-leaves[i]<1:
-                       # print key, 'continue', leaves[i], leaves[i+1], span[key]
-                        i+=1
-                    elif leaves[i+1]-leaves[i]==1:
-                       # print key, 'continue', leaves[i], leaves[i+1], span[key]
-                        i+=1
-                    
-                    elif leaves[i+1]-leaves[i]>1:
-                       # print key, 'DISCONTINUE', leaves[i], leaves[i+1], span[key]
-                        disList.append((leaves[i],leaves[i]+1) ) ### the discontinuos point and the next word
-                        
-                        i+=1
-                except IndexError:
-                    pass
-    return disList 
-    
+    for leaves in span.values():
+        ### make sure it loops over every pair in the list
+        for start,next in pairs(sorted(leaves)):
+            if next - start > 1:
+                ### the discontinuos point and the next word
+                disList.append((start, start+1))
+    return disList
 
 def writeSentence(sentence, file, addFile):
     for columns in sentence:
@@ -288,7 +259,9 @@ def main():
             for s in span:
                 k = 0
                 discon = str(s[0]) ### the discontinous word
-                nextWord = str(s[1])
+                nextWord = str(s[1]) ### and its successor
+            oldMother = findif(lambda c: discon==c[0], tree)[-1]
+            newMother = findif(lambda c: nextWord==c[0], tree)[-1]
 
             for columns in tree:
 
@@ -311,7 +284,6 @@ def main():
                 if newMother != '0' and newMother > oldMother:
                     # WARNING: This case is not unit tested
                     # I guess I never raise all the way to the root?
-                    # maybe it's because I'm using ints now? (no)
                     if oldMother == 0:
                         for col in columns[1:-1]:
                             modFile.write('%s\t' % col) 
