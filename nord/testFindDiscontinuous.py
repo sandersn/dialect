@@ -14,7 +14,7 @@ class TestDisco(unittest.TestCase):
         test(sentences('input.txt'),
              ['\n#BOS\nfoo\tfoo1\tfoo2\tfoo3\tfoo4\tfoo5\tfoo6\tfoo7\nbar\tbar1\tbar2\tbar3\tbar4\tbar5\tbar6\tbar7\nbaz\tbaz1\tbaz2\tbaz3\tbaz4\tbaz5\tbaz6\tbaz7\tbaz8\n#EOS', '#BOS\nDas\t_\tDET\t_\t_\t_\t502\nBuch\t_\tN\t_\t_\t_\t502\nhabe\t_\tV\t_\t_\t_\t510\nich\t_\tPRON\t_\t_\t_\t501\nihm\t_\tPRON\t_\t_\t_\t502\ngegaben\t_\tPART\t510\n#501\t\t\t\t\t\tNP\t600\n#502\t\t\t\t\t\tNP\t510\n#510\t\t\t\t\t\tVP\t600\n#600\t\t\t\t\t\tS\t0\n#EOS', ''] )
     def testaddTreebankID(self):
-        test(addTreebankID(self.ss, 'input.txt'+'.data'),
+        test(addTreebankID(self.ss),
              map(addWordID, self.ss))
     def testaddWordID(self):
         test(map(addWordID, self.ss),
@@ -38,7 +38,7 @@ class TestDisco(unittest.TestCase):
                  , ['11', '#EOS']]
               , [['0', '']]])
     def testPOS(self):
-        poss = POS('input.txt.data')
+        poss = POS(addTreebankID(self.ss))
         test(poss,
              [[['2', 'foo', 'foo2', 'foo7']
                , ['3', 'bar', 'bar2', 'bar7']
@@ -92,11 +92,7 @@ class TestDisco(unittest.TestCase):
                  , 0: [600]} ])
     def testMain(self):
         sys.argv.append('input.txt')
-        tr,tr2 = main()
-        # test that the non-file-io forms after the file-io forms have been
-        # cleaned and transformed into a form that I *think* is correct
-        test(filter(None, map(deCSV, tr)), tr2)
-        #test(filter(None, map(deCSV, cl)), cl2)
+        main()
         test(open('input.txt.data').read(),
              '0\t\n1\t#BOS\n2\tfoo\tfoo1\tfoo2\tfoo3\tfoo4\tfoo5\tfoo6\tfoo7\n3\tbar\tbar1\tbar2\tbar3\tbar4\tbar5\tbar6\tbar7\n4\tbaz\tbaz1\tbaz2\tbaz3\tbaz4\tbaz5\tbaz6\tbaz7\tbaz8\n5\t#EOS\n\n\n0\t#BOS\n1\tDas\t_\tDET\t_\t_\t_\t502\n2\tBuch\t_\tN\t_\t_\t_\t502\n3\thabe\t_\tV\t_\t_\t_\t510\n4\tich\t_\tPRON\t_\t_\t_\t501\n5\tihm\t_\tPRON\t_\t_\t_\t502\n6\tgegaben\t_\tPART\t510\n7\t#501\t\t\t\t\t\tNP\t600\n8\t#502\t\t\t\t\t\tNP\t510\n9\t#510\t\t\t\t\t\tVP\t600\n10\t#600\t\t\t\t\t\tS\t0\n11\t#EOS\n\n\n0\t\n\n\n')
         test(open('input.txt.pos').read(),

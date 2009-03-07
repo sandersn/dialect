@@ -63,54 +63,39 @@ def sentences(fileName):
     sentences = re.split('\n{2,}', outText)
     
     return(sentences)
+def writeTreebank(sentences, fileName):
+    f = open(fileName, 'w')
+    for s in sentences:
+        for word in s:
+            f.write('\t'.join(map(str, word)) + '\n')
+        f.write('\n\n')
+    f.close()
 
-def addTreebankID(sents, fileName):
+def addTreebankID(sents):
     "original treebank data * IDed treebank output filename"
-    IDFile = open (fileName, 'w') ### create a temp file with wordID added
-    
-    id_sents = []
-    for sentence in sents:
-        acc = []
-        ### a list of words in each sentence
-        for word in addWordID(sentence):
-            acc.append(word)
-            IDFile.write('\t'.join(map(str, word)) + '\n')
-        id_sents.append(acc)
-        IDFile.write('\n\n')
-
-    IDFile.close()
-
-    return id_sents
+    return map(addWordID, sents)
 def addWordID(sentence):
     """str -> [[int,str...]] -- return a list of data of each sentence
         in treebank file with wordID added  """
     #return [[i]+word for i,word in enumerate(deCSV(sentence))]
     return [[str(i)]+line.split('\t') for i,line in enumerate(sentence.split('\n'))]
 
-def writePOS(poss, outFileName): # TODO: Not done and not bug-compatible either
+def writePOS(poss, outFileName):
     outPOS = open(outFileName, 'w')
     outPOS.write('\n\n\n\n\n'.join(map(reCSV, poss)))
     outPOS.close()
-def POS(fileName):
-    """read in a file of tree structure and returns a file
-    with a list of wordID, word, POS and motherID"""
-    
-    inFile = open(fileName, 'r')
+def POS(treebank):
+    """[[[str]]]->[[[str]]] -- remove all fields from the treebank but
+    wordID, word, POS and motherID"""
     poss = []
     pos = []
     def collect(columns, *ns):
         pos.append([columns[n] for n in ns])
-    for line in inFile:
-        line = line.rstrip('\r\n')
-        columns = line.split('\t')
-
-        try: ### check which column the POS tag is in
-            ### it occurrence in relation to the 2nd / 7th columns
-            ### is more regular the rest is to account for special cases
-            if re.search(r'#[EB]OS', line):
-                if pos:
-                    poss.append(pos)
-                    pos = []
+    for sentence in treebank:
+        pos = []
+        for columns in sentence:
+            if len(columns) < 3: # empty and #BOS/#EOS
+                pass
             elif len(columns[2])>0:
                 collect(columns, 0, 1, 3, -1)
             elif len(columns[7])>0:
@@ -132,10 +117,7 @@ def POS(fileName):
                 collect(columns, 0, 1, 5, -1)
             else:
                 collect(columns, 0, 1, 7, -1)
-        except IndexError:
-            pass
-    inFile.close()
-    if pos: poss.append(pos)
+        if pos: poss.append(pos)
     return poss
 
 def isWord(item):
@@ -274,19 +256,16 @@ def main():
         inputData = raw_input("Please give the name of input file:  " )
     
     sents = sentences(inputData) ### original treebank data
-    id_sents = addTreebankID(sents, inputData+'.data')
-    #TODO: 1. rename id_sents to treeData
-    # 2. add writeTreeBank and stop addTreeBankID from writing inputData.data
-    # 3. change POS to accept treeData instead of reading inputData.data
+    treeData = addTreebankID(sents)
+    writeTreebank(treeData, inputData+'.data')
 
     ##################################################
     ### get relevant data from the treebank data
-    clauses = POS(inputData+'.data')
+    clauses = POS(treeData)
     writePOS(clauses, inputData+'.pos')
     ##################################################
     ### find DISCONTINUOUS nodes in each tree and output modified structures
-    treeData = sentences(inputData+'.data') ### to be changed and printed later
-    #print treeData[0]
+    ### to be changed and printed later
     ### if discontinuous nodes are found in certain trees,
     modFile = open(inputData+'.out', 'w') 
     ### their modified tree structure will be printed into a seperate file 
@@ -297,7 +276,7 @@ def main():
 
     ### check structures sentence by sentence
     correction = 0 ### count how many sentences in the file involve discontinuity 
-    for clause,tree in zip(clauses, id_sents):
+    for clause,tree in zip(clauses, treeData):
         span = discontinuous(flatten(getPhrases(clause)))
         if len(span) < 1:
             ### for sentences that do not have any discontinuous elements
@@ -425,9 +404,8 @@ def main():
     print "elapsed time = ", elapsedTime
 ##     modFile.write('elapsed time = %s ' % elapsedTime)
 ##     modAddFile.write('elapsed time = %s ' % elapsedTime)
-    return treeData,id_sents
     
-    sys.exit(0)
+    return
     
 if __name__ == "__main__":
     main()
