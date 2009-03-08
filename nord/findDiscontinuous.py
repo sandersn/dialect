@@ -215,7 +215,7 @@ def writeSentence(sentence, file, addFile):
         writeWord(columns[1:], file)
         writeWord(columns[1:], addFile)
 def writeWord(word, file):
-    file.write('\t'.join(word) + '\n')
+    file.write('\t'.join(map(str, word)) + '\n')
 
 ########################
 def main():
@@ -255,118 +255,107 @@ def main():
             continue
         ### if there are discontinuous elements in the structure
         correction +=1
-        try:
-            for s in span:
-                k = 0
-                discon = str(s[0]) ### the discontinous word
-                nextWord = str(s[1]) ### and its successor
-            oldMother = findif(lambda c: discon==c[0], tree)[-1]
-            newMother = findif(lambda c: nextWord==c[0], tree)[-1]
+        for s in span:
+            k = 0
+            discon = str(s[0]) ### the discontinous word
+            nextWord = str(s[1]) ### and its successor
+        oldMother = int(findif(lambda c: discon==c[0], tree)[-1])
+        newMother = int(findif(lambda c: nextWord==c[0], tree)[-1])
 
-            for columns in tree:
+        addNode = ('60%s' % k) ### to be used later as added node
+                               ### add nodes in each sentence starts from 600
+        #print addNode
+        k+=1
 
-                #print columns
-                if columns[0]==discon:
-                    oldMother = columns[-1]
-                    #print type(oldMother)
-                if columns[0]==nextWord:
-                    newMother = columns[-1]
-                    #print type(newMother)
+        for columns in tree:
 
-            addNode = ('60%s' % k) ### to be used later as added node
-                                   ### add nodes in each sentence starts from 600
-            #print addNode
-            k+=1
+            ### node raising 
+            if newMother != 0 and newMother > oldMother:
+                # WARNING: This case is not unit tested
+                # I guess I never raise all the way to the root?
+                print 'untested branch 1 : nonroot newMother > oldMother'
+                if oldMother == 0:
+                    for col in columns[1:-1]:
+                        modFile.write('%s\t' % col) 
+                        modAddFile.write('%s\t' % col)
+                    modFile.write(columns[-1])
+                    modFile.write('\n')
+                    modAddFile.write(columns[-1])
+                    modAddFile.write('\n')
 
-            for columns in tree:
+                elif re.search(str(oldMother), columns[1]):
+                    for col in columns[1:-1]:
+                        modFile.write('%s\t' % col)
+                        modAddFile.write('%s\t' % col)
+                    modFile.write(newMother)
+                    modFile.write('\n')
+                    modAddFile.write(addNode)
+                    modAddFile.write('\n')
 
-                ### node raising 
-                if newMother != '0' and newMother > oldMother:
+                    ### a new entry for added node
+                    modAddFile.write('#%s\t' % addNode)
+                    for col in columns[2:-1]:
+                        modAddFile.write('%s\t' % col)
+                    modAddFile.write('%s\t@%s' % (newMother, columns[-1]))
+                    ### old information on node preserved
+                    modAddFile.write('\n')                            
+
+                else:
+                    for col in columns[1:-1]:
+                        modFile.write('%s\t' % col)
+                        modAddFile.write('%s\t' % col)
+                    modFile.write(columns[-1])
+                    modFile.write('\n')
+                    modAddFile.write(columns[-1])
+                    modAddFile.write('\n')
+
+            elif newMother == 0:
+                # WARNING: This case is not unit tested
+                # I guess I never raise all the way to the root?
+                # maybe it's because I'm using ints now? (no)
+                print 'nontested branch 2: root'
+                modAddFile.write('ddddd')
+                if discon == columns[0]:
+                    for col in columns[1:-1]:
+                        modFile.write('%s\t' % col)
+                        modAddFile.write('%s\t' % col)
+                    modFile.write(newMother)
+                    modFile.write('\n')
+                    modAddFile.write(addNode)
+                    modAddFile.write('\n')
+
+                    ### a new entry for added node
+                    modAddFile.write('#%s\t' % addNode)
+                    for col in columns[2:-1]:
+                        modAddFile.write('%s\t' % col)
+                    modAddFile.write('%s\t@%s' % (newMother, columns[-1]))
+                    ### old information on node preserved
+                    modAddFile.write('\n')
+
+                else:
                     # WARNING: This case is not unit tested
-                    # I guess I never raise all the way to the root?
-                    if oldMother == 0:
-                        for col in columns[1:-1]:
-                            modFile.write('%s\t' % col) 
-                            modAddFile.write('%s\t' % col)
-                        modFile.write(columns[-1])
-                        modFile.write('\n')
-                        modAddFile.write(columns[-1])
-                        modAddFile.write('\n')
+                    for col in columns[1:-1]:
+                        modFile.write('%s\t' % col)
+                        modAddFile.write('%s\t' % col)
+                    modFile.write(columns[-1])
+                    modFile.write('\n')
+                    modAddFile.write(columns[-1])
+                    modAddFile.write('\n')
 
-                    elif re.search(oldMother, columns[1]):
-                        for col in columns[1:-1]:
-                            modFile.write('%s\t' % col)
-                            modAddFile.write('%s\t' % col)
-                        modFile.write(newMother)
-                        modFile.write('\n')
-                        modAddFile.write(addNode)
-                        modAddFile.write('\n')
+            ### raise the node of the next word
+            elif newMother != 0 and newMother < oldMother:
+                if nextWord == columns[0]:
+                    writeWord(columns[1:-1] + [oldMother], modFile)
+                    writeWord(columns[1:-1] + [addNode], modAddFile)
+                    ### a new entry for added node
+                    writeWord(["#" + addNode] +
+                               columns[2:-1] +
+                               [oldMother, "@%s" % newMother],
+                              modAddFile)
 
-                        ### a new entry for added node
-                        modAddFile.write('#%s\t' % addNode)
-                        for col in columns[2:-1]:
-                            modAddFile.write('%s\t' % col)
-                        modAddFile.write('%s\t@%s' % (newMother, columns[-1]))
-                        ### old information on node preserved
-                        modAddFile.write('\n')                            
-
-                    else:
-                        for col in columns[1:-1]:
-                            modFile.write('%s\t' % col)
-                            modAddFile.write('%s\t' % col)
-                        modFile.write(columns[-1])
-                        modFile.write('\n')
-                        modAddFile.write(columns[-1])
-                        modAddFile.write('\n')
-
-                elif newMother == '0':
-                    # WARNING: This case is not unit tested
-                    # I guess I never raise all the way to the root?
-                    # maybe it's because I'm using ints now? (no)
-                    modAddFile.write('ddddd')
-                    if discon == columns[0]:
-                        for col in columns[1:-1]:
-                            modFile.write('%s\t' % col)
-                            modAddFile.write('%s\t' % col)
-                        modFile.write(newMother)
-                        modFile.write('\n')
-                        modAddFile.write(addNode)
-                        modAddFile.write('\n')
-
-                        ### a new entry for added node
-                        modAddFile.write('#%s\t' % addNode)
-                        for col in columns[2:-1]:
-                            modAddFile.write('%s\t' % col)
-                        modAddFile.write('%s\t@%s' % (newMother, columns[-1]))
-                        ### old information on node preserved
-                        modAddFile.write('\n')
-
-                    else:
-                        # WARNING: This case is not unit tested
-                        for col in columns[1:-1]:
-                            modFile.write('%s\t' % col)
-                            modAddFile.write('%s\t' % col)
-                        modFile.write(columns[-1])
-                        modFile.write('\n')
-                        modAddFile.write(columns[-1])
-                        modAddFile.write('\n')
-
-                ### raise the node of the next word
-                elif newMother != '0' and newMother < oldMother:
-                    if nextWord == columns[0]:
-                        writeWord(columns[1:-1] + [oldMother], modFile)
-                        writeWord(columns[1:-1] + [addNode], modAddFile)
-                        ### a new entry for added node
-                        writeWord(["#" + addNode] +
-                                   columns[2:-1] +
-                                   [oldMother, "@" + newMother],
-                                  modAddFile)
-
-                    else:
-                        writeWord(columns[1:], modFile)
-                        writeWord(columns[1:], modAddFile)
-        except TypeError:
-            pass
+                else:
+                    writeWord(columns[1:], modFile)
+                    writeWord(columns[1:], modAddFile)
             
 
     percentage = correction/len(clauses)*100

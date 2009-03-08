@@ -1,0 +1,23 @@
+
+2	foo	foo2	7
+3	bar	bar2	7
+4	baz	baz2	8
+
+
+
+
+1	Das	DET	502
+2	Buch	N	502
+3	habe	V	510
+4	ich	PRON	501
+5	ihm	PRON	502
+6	gegaben	PART	510
+7	#501	NP	555
+8	#502	NP	510
+9	#510	VP	555
+10	#555	S	0
+
+
+
+
+

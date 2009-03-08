@@ -10,8 +10,8 @@ habe	_	V	_	_	_	510
 ich	_	PRON	_	_	_	501
 ihm	_	PRON	_	_	_	502
 gegaben	_	PART	510
-#501						NP	600
+#501						NP	555
 #502						NP	510
-#510						VP	600
-#600						S	0
+#510						VP	555
+#555						S	0
 #EOS
