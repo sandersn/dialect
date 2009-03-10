@@ -1,0 +1,27 @@
+#BOS 2 0 1090228530 1 %% @SB2AV@
+Konzernchefs		Konzernchef		NN	Nom.Pl.Masc	SB	502
+lehnen			lehnen			VVFIN	3.Pl.Pres.Ind	HD	502
+den			der			ART	Acc.Sg.Masc	NK	500
+Milliardär		Milliardär		NN	Acc.Sg.Masc	NK	500
+als			als			APPR	--		AC	501
+US-Präsidenten		US-Präsident		NN	Acc.Sg.Masc	NK	501
+ab			ab			PTKVZ	--		SVP	502
+/			--			$(	--		--	0
+#500			--			NP	--		OA	502
+#501			--			PP	--		MO	502
+#502			--			S	--		--	0
+#EOS 2
+#BOS 3 0 1057217459 1 %% @SB2AV@
+Texaner			Texaner			NN	Nom.Sg.Masc	SB	503
+gibt			geben			VVFIN	3.Sg.Pres.Ind	HD	503
+nur			nur			ADV	--		MO	500
+vage			vage			ADJA	Pos.Acc.Sg.Fem	HD	500
+Auskunft		Auskunft		NN	Acc.Sg.Fem	NK	502
+über			über			APPR	--		AC	501
+seine			sein			PPOSAT	Acc.Sg.Fem	NK	501
+Wirtschaftspolitik	Wirtschaftspolitik	NN	Acc.Sg.Fem	NK	501
+#500			--			AP	--		NK	502
+#501			--			PP	--		MNR	502
+#502			--			NP	--		OA	503
+#503			--			S	--		--	0
+#EOS 3
