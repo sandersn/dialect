@@ -84,6 +84,12 @@ class TestDisco(unittest.TestCase):
                  , 555: [501, 510]
                  , 0: [555]} ])
     def testFlatten(self):
+        test(map(flatten2, self.treebank),
+             [{}, {0: set([3,6,1,2,5,4])
+                   , 555: set([3,6,1,2,5,4])
+                   , 502: set([1,2,5])
+                   , 510: set([3,6,1,2,5])
+                   , 501: set([4])}])
         test(map(flatten, self.treebank),
              [{8: [4], 7: [2, 3]}
               , {0: [510, 4]
@@ -91,18 +97,11 @@ class TestDisco(unittest.TestCase):
                  , 502: [1, 2, 5]
                  , 510: [3, 6, 1, 2, 5]
                  , 501: [4]}])
-        test(map(flatten2, self.treebank),
-             [{8: [4], 7: [2, 3]}
-              , {0: [3,6,1,2,5,4]
-                 , 555: [3,6,1,2,5,4]
-                 , 502: [1,2,5]
-                 , 510: [3,6,1,2,5]
-                 , 501: [4]}])
     def testDiscontinuous(self):
+        test(set(discontinuous(flatten2(self.treebank[1]))),
+             set([(2,3), (3,4)]))
         test(map(discontinuous, map(flatten, self.treebank)),
              [[], [(4, 5), (4, 5), (2, 3), (3, 4)]])
-        test(map(discontinuous, map(flatten2, self.treebank)),
-             [[], [(2, 3), (3, 4)]])
     def testMain(self):
         sys.argv.append('input.txt')
         main()

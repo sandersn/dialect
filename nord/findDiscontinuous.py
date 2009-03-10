@@ -181,21 +181,18 @@ def flatten(tree):
                     leafIndex = tree[node].index(daughters[i])
                     del tree[node][leafIndex]
     return(tree)
+def unions(sets):
+    return reduce(set.union, sets)
 def flatten2(tree):
     flat = {}
     def flattenNode(mother):
-        acc = []
-        for dot in tree[mother]:
-            if dot >= 500:
-                if dot not in flat:
-                    flattenNode(dot)
-                acc.extend(flat[dot])
-            else:
-                acc.append(dot)
-        flat[mother] = acc
-    for mother in tree:
-        if mother not in flat:
-            flattenNode(mother)
+        if mother==0 or mother >= 500:
+            flat[mother] = unions(map(flattenNode, tree[mother]))
+            return flat[mother]
+        else:
+            return set([mother])
+    if 0 in tree:
+        flattenNode(0)
     return flat
 def pairs(l):
     return [(l[i],l[i+1]) for i in range(len(l)-1)]
