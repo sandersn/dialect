@@ -36,3 +36,36 @@ attr1 attribute = verbatim . head . showattr attribute
 run = return.buildSentences.sentences.getContent.
         xmlParse "SDshort.tiger.xml"=<<readFile "SDshort.tiger.xml"
 main = print=<<run
+------- yet another uncrosser ------------
+uncross (Node a kids) = Node a (uncross' kids)
+uncross l = l
+uncross' :: [Siblings] -> [Siblings] -- but uncrossed
+uncross' [] = []
+uncross' (Leaf a : siblings) = Leaf a : uncross' siblings
+uncross' (Node a kids : siblings) = uncross'' (takeWhile continuous (pairs kids))
+    where uncross'' (co,[]) = co : uncross' siblings
+          uncross'' (co,disco) = co : uncross' (insert siblings disco)
+-- OK the problem is that insert might need to drop disco down a couple of levels into siblings
+-- in other words, the first step is the check what siblings disco belongs IN or AFTER
+-- then you may have to insert down, ie repeat the insert for the chosen sibling's kids
+-- ... told you there might be a lot of consing!
+insert siblings disco = let (before,actual:after) = splitBy ((lhs disco) >) siblings in
+    if rhs disco > lhs actual then -- or something like this
+       before ++ actual : disco ++ after -- um..you get the idea
+    else
+       before ++ (insert (kids actual) disco : after) -- whoo CONS!
+       -- also this recursive step should do some uncrossing of before and after, right?
+
+{- The idea is that you start at the leftmost kid of a Node.
+   You take as much as is continuous and you cons that onto the rest of the siblings+disco
+   after that has all been uncrossed.
+   co : uncross (insert disco siblings)
+   except that uncross has to take additional arguments?
+   also some uncrossings may have to burrow arbitrarily deep. I'm not sure of the limit yet.
+   Anyway you'd have to do it either way, bottom-up or top-down, so at least top-down it's
+   easier to maintain pointers to it all even if there is a lot of consing involved.
+
+   actually now that I sleep on it, I'm not sure about arbitrary deepness. I think that's
+   needed only if you want to try Wolfgang's bottom-up style. Adriane Boyd's split style
+   just attaches the disco part as a sibling to the co part I think.
+-}

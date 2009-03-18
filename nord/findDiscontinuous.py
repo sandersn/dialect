@@ -284,9 +284,9 @@ def main():
                     for col in columns[1:-1]:
                         modFile.write('%s\t' % col)
                         modAddFile.write('%s\t' % col)
-                    modFile.write(newMother)
+                    modFile.write(str(newMother))
                     modFile.write('\n')
-                    modAddFile.write(addNode)
+                    modAddFile.write(str(addNode))
                     modAddFile.write('\n')
 
                     ### a new entry for added node
