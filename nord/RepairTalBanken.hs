@@ -4,6 +4,10 @@ import Text.XML.HaXml.Types
 type Id = Integer -- "s1_1" or "s1_501"
 data FlatNode a = FlatNode a Id [Id] deriving (Eq, Show, Read)
 data Tree a = Leaf a | Node a [Tree a] deriving (Eq, Show, Read)
+dat (Leaf a) = a
+dat (Node a _) = a
+children (Leaf _) = []
+children (Node _ kids) = kids
 type TalbankenInput = Map.Map Id (FlatNode String)
 
 -- xml reading ok --
@@ -37,14 +41,36 @@ run = return.buildSentences.sentences.getContent.
         xmlParse "SDshort.tiger.xml"=<<readFile "SDshort.tiger.xml"
 main = print=<<run
 ------- yet another uncrosser ------------
-uncross (Node a kids) = Node a (uncross' kids)
-uncross l = l
-uncross' :: [Siblings] -> [Siblings] -- but uncrossed
+example = Node ("S", 555)
+          [Node ("VP",510)
+           [Node ("NP",502)
+            [Leaf ("DET",0), Leaf ("N",1), Leaf ("PRON",4)]
+           , Leaf ("V",2)
+           , Leaf ("PART",5)]
+          , Node ("NP",501) [Leaf ("PRON",3)]]
+sexample = spanTree example
+spanTree :: Tree (String, Integer) -> Tree (Integer, Integer)
+spanTree (Leaf (_,i)) = Leaf (i,i+1)
+spanTree (Node _ kids) = Node (minimum starts, maximum ends) trees
+    where trees = map spanTree kids
+          starts = map (fst . dat) trees
+          ends = map (snd . dat) trees
+uncross' :: [Tree (Integer,Integer)] -> [Tree (Integer,Integer)]
 uncross' [] = []
 uncross' (Leaf a : siblings) = Leaf a : uncross' siblings
-uncross' (Node a kids : siblings) = uncross'' (takeWhile continuous (pairs kids))
-    where uncross'' (co,[]) = co : uncross' siblings
-          uncross'' (co,disco) = co : uncross' (insert siblings disco)
+uncross' (Node a kids : siblings) = uncross''.both depair.span continuous.pairs
+                                    $ kids
+    where uncross'' (co,[]) = co ++ uncross' siblings
+          uncross'' (co,disco) = co ++ uncross' (insert siblings disco)
+pairs l = zip l (tail l)
+both f (x,y) = (f x, f y)
+continuous (t, t') = snd (dat t) == fst (dat t')
+depair l = (fst $ head l) : map snd l
+insert = (++) -- insert has to stick disco in siblings somewhere and then uncross
+         -- it all. Not necessarily in that order.
+{-uncross (Node a kids) = Node a (uncross' kids)
+uncross l = l
+uncross' :: [Siblings] -> [Siblings] -- but uncrossed
 -- OK the problem is that insert might need to drop disco down a couple of levels into siblings
 -- in other words, the first step is the check what siblings disco belongs IN or AFTER
 -- then you may have to insert down, ie repeat the insert for the chosen sibling's kids
@@ -53,7 +79,7 @@ insert siblings disco = let (before,actual:after) = splitBy ((lhs disco) >) sibl
     if rhs disco > lhs actual then -- or something like this
        before ++ actual : disco ++ after -- um..you get the idea
     else
-       before ++ (insert (kids actual) disco : after) -- whoo CONS!
+       before ++ (insert (kids actual) disco : after) -- whoo CONS! -}
        -- also this recursive step should do some uncrossing of before and after, right?
 
 {- The idea is that you start at the leftmost kid of a Node.

@@ -65,14 +65,14 @@ public class TreeconvGui extends AbstractGui implements ActionListener {
     private JComboBox           informatF;
     private JTextField          fromF;
     private JTextField          toF;
-    private String[]            informats = {"export", "brackets", "brackets-indent"};
+    private String[]            informats = {"export", "brackets", "brackets-indent", "tiger-xml"};
 
     // private JTabbedPane outputmodepane;
 
     private File                outfile;
     private JTextField          outfileF;
     private JComboBox           outformatF;
-    private String[]            outformats = {"export", "brackets", "brackets-indent", "terminals", "none"};
+    private String[]            outformats = {"export", "brackets", "brackets-indent", "tiger-xml", "terminals", "none"};
     private GuiDialog           outfD;
     private JCheckBox           out_nopunctB;
     private JCheckBox           out_vrootB;

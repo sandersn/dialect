@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.SwingUtilities;
+import javax.xml.parsers.ParserConfigurationException;
 
 import de.tuebingen.rparse.tree.TreeException;
 import de.tuebingen.rparse.tree.TreebankProcessor;
@@ -88,12 +89,15 @@ public class Treeconv {
             } catch (TreeException e) {
                 System.err.println("Tree transformation problem: "
                         + e.getMessage());
+            } catch (ParserConfigurationException e) {
+                System.err.println("Could not configure XML parser: "
+                        + e.getMessage());
             }
         }
     }
 
     public synchronized static void doTransform(CommandLineOptions op)
-            throws IOException, UnknownFormatException, TreeException {
+            throws IOException, UnknownFormatException, TreeException, ParserConfigurationException {
         String intreebank = op.getVal("c");
         String informat = op.getVal("i");
         String outtreebank = op.getVal("t");
