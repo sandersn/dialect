@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+\usepackage{acl07}
+\begin{document}
+\title{Comparison of Phonological and Syntactic Distance Measures}
+
+\maketitle
+
+This abstract presents a comparison of phonology and syntax distances
+in dialectometry, using computational methods as a
+basis. Computational methods have come to dominate dialectometry, but
+they are limited in focus compared to previous work; most have
+explored phonological distance only, while earlier methods integrated
+phonological, lexical, and syntactic data.
+
+However, recent methods are mathematically sophisticated, capable of
+identifying fine gradients. The purpose of this work is to integrate
+phonological and syntactic data in the way that early dialectology
+did, but using the computational methods that have previously only
+been used to analyze one area of linguistics at a time.
+
+To do this, I measured phonological distance using the Survey of
+English Dialects (SED) \cite{orton63} interview data for phonology,
+and the International Corpus of English (ICE) \cite{nelson02} speech
+data for syntax. I used Levenshtein distance \cite{lev65} with
+phonological features \cite{nerbonne97} for phonological distance, and
+a permutation test based on Kessler's $R$ \cite{kessler01} for
+syntactic distance \cite{nerbonne06}. I compared the two results over
+the nine Government Office Regions of England and compared the
+correlation and clustering of the results.
+
+The comparison shows how phonology and syntax contribute to dialect
+boundaries, and whether these boundaries reinforce each other. In
+addition, new dialect areas may be discernible in the syntactic
+distance results, because this is the first computational syntactic
+analysis of British English dialects, to my knowledge.
+
+\section{Methods}
+\subsection{Phonological Distance}
+Levenshtein distance, also known as string edit distance, is a dynamic
+programming method that counts the number of changes between two
+strings. The number of changes found is the Levenshtein distance. I
+used a simplified version of the experiment carried out by
+\newcite{shackleton07}; less statistical analysis but the same feature
+set and filtering of relevant segments.
+% TODO: Wording sucks
+
+Levenshtein distance can be extended to calculate featural
+differences; that is, subsegmental differences
+\cite{heeringa04}. According to Heeringa, in
+the general case this does not yield a significant improvement, but
+Shackleton's feature set is tailored to capture important dialectal
+differences in British English, so he thinks that it useful in this
+case. % this possible contradiction shows weakness! must gloss over!
+
+\subsection{Syntactic Distance}
+Syntax distance was calculated using the method of
+\newcite{nerbonne06}. This method uses a simple measure of distance,
+R, introducted by \newcite{kessler01}. On its own, R is too simple to
+give statistically significant results; Nerbonne improves it by
+normalising for differences in corpus size and average sentence
+length. Then a permutation test is run to determine whether the
+normalised R is significant.
+
+The permutation test repeatedly compares the original R between the two corpora
+with the R between a shuffled split of the two corpora. Shuffling the
+corpora destroys any differences between the two, so the R of the
+shuffled split should be lower than the original. If this is the case
+95\% of the time, the original R is statistically significant.
+
+In addition to trigrams as input features, I calculated leaf-ancestor
+paths for the corpus sentences. Leaf-ancestor paths were designed by
+\newcite{sampson00} for parser evalution, but provide a better look at
+upper tree structure than trigrams so. Leaf-ancestor paths trace each
+terminal through each parent up to the root. For example,
+N-NP-PP-VP-S might be the leaf-ancestor path of an object of a preposition.
+% TODO: Incomplete and a little awkward
+\section{Experiment}
+
+The permutation test over R for syntactic distance requires fairly
+large data sets. In order to create these data sets, the International
+Corpus of English Great Britain was divided into nine sub-corpora
+corresponding to the English Government Office Regions
+\cite{nelson02}. The Survey of English Dialects (SED) provided phonological
+data and was divided into the same nine sub-corpora
+\cite{orton63}. The 55-word subset of the SED developed
+by Shackleton was used in order to focus on variation known to occur
+in England.
+
+Two fully connected graphs of the nine English regions were created,
+the first with edges containing statistical significance information
+from the permutation test over R, and the second with edges containing
+Levenshtein distance. This graph was analysed in a number of ways,
+specifically with hierarchical bottom-up agglomerative clustering.
+
+\section{Results}
+Levenshtein distance produces a clear North/South cluster, replicating
+previous linguistic results. Sub-clusters, such as that of London, the
+South and East England, are also consistent with existing linguistic
+knowledge.
+
+In contrast, the result of clustering R distance is not so clear; a
+North/South distinction appears here too, but with some membership
+that differs from expectations informed by classical dialectology. For
+example, the Northwest clusters with the Southwest.
+
+There are several possible reasons for this mismatch in expectations
+compared to previous dialectological results: among them are a
+disparity in the ability of the two distance measures to extract
+signal from noise, the 40-year difference in corpus creation, or the lack of a
+traditional syntactic survey in dialectology against which to compare
+this distance measure.
+% wow this is pretty verbose and stupid
+
+\bibliographystyle{acl}
+\bibliography{central}
+\end{document}
