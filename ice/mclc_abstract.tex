@@ -1,5 +1,5 @@
 \documentclass[11pt,letterpaper]{article}
-\pdfpagewidth=\paperwidth 
+\pdfpagewidth=\paperwidth
 \pdfpageheight=\paperheight
 \usepackage{times}
 \usepackage{acl07}
@@ -52,9 +52,9 @@ Syntax distance was calculated using the method of
 \newcite{nerbonne06}. They used a simple measure of distance,
 $R$, introduced by \newcite{kessler01}. On its own, $R$ may give
 incorrect results because of differences in corpus size and average
-sentence length; Nerbonne \& Wiersma normalise $R$ to account for
+sentence length; Nerbonne \& Wiersma normalize $R$ to account for
 these differences. Then a permutation test is run to determine whether the
-normalised $R$ is significant.
+normalized $R$ is significant.
 
 The permutation test repeatedly compares the original $R$ between the
 two corpora with the $R$ between a shuffled split of the two
@@ -66,7 +66,7 @@ statistically significant.
 Nerbonne \& Wiersma use trigrams to capture syntactic structure, while
 \newcite{sanders07} also uses leaf-ancestor
 paths. Leaf-ancestor paths were designed by
-\newcite{sampson00} for parser evalution. A leaf-ancestor path
+\newcite{sampson00} for parser evaluation. A leaf-ancestor path
 consists of the path of nodes from each leaf up to the root of the
 sentence. For example,
 N-NP-PP-VP-S might be the leaf-ancestor path of an object of a preposition.
@@ -85,7 +85,7 @@ England.
 Two fully connected graphs of the nine English regions were created,
 the first with edges containing information
 from the permutation test over $R$, and the second with edges containing
-Levenshtein distance. Each graph was analysed by clustering it
+Levenshtein distance. Each graph was analyzed by clustering it
 hierarchically; the edge distances of the two graphs were also
 checked for statistically significant correlation.
 
