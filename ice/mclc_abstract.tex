@@ -23,7 +23,7 @@ and the International Corpus of English Great Britain (ICE-GB) \cite{nelson02} s
 data for syntax. I used Levenshtein distance \cite{lev65} with
 phonological features \cite{nerbonne97} for phonological distance, and
 a permutation test based on Kessler's $R$ \cite{kessler01} for
-syntactic distance. I compared the two results over
+syntactic distance. I measured the two distances between
 the nine Government Office Regions of England and compared the
 correlation and clustering of the results.
 
@@ -37,15 +37,14 @@ analysis of British English dialects, to my knowledge.
 \subsection{Phonological Distance}
 Levenshtein distance, also known as string edit distance, is a dynamic
 programming method that counts the number of changes between two
-strings. I used a simplified version of the experiment carried out by
-\newcite{shackleton07}; I used the same feature set and 55-word subset of
-the corpus. However, I did not do any of the extensive statistical
-analysis that Shackleton did.
-
-In addition, Levenshtein distance can be extended to calculate featural
-differences; that is, subsegmental differences
-\cite{heeringa04}. Shackleton designed a feature set for the SED that
-captures important dialectal differences in British English.
+strings. In addition, Levenshtein distance can be extended to
+calculate featural differences; that is, to use subsegmental
+differences to give differing distances between individual segments
+\cite{heeringa04}. For this, I used the feature set that
+\newcite{shackleton07} designed for his phonological analysis of the
+SED. I continued with a simplified version of his experiment, using
+the same 55-word subset of the SED; however, I did not replicate any of
+the extensive statistical analysis of his experiment.
 
 \subsection{Syntactic Distance}
 Syntax distance was calculated using the method of
@@ -58,18 +57,19 @@ normalized $R$ is significant.
 
 The permutation test repeatedly compares the original $R$ between the
 two corpora with the $R$ between a shuffled split of the two
-corpora. Shuffling the corpora destroys any differences between the
+corpora. Shuffling the corpora should destroy any differences between the
 two, so the $R$ of the shuffled split should be lower than the
 original. If this is the case 95\% of the time, the original $R$ is
-statistically significant.
+statistically significant for $p < 0.05$.
 
 Nerbonne \& Wiersma use trigrams to capture syntactic structure, while
 \newcite{sanders07} also uses leaf-ancestor
 paths. Leaf-ancestor paths were designed by
-\newcite{sampson00} for parser evaluation. A leaf-ancestor path
-consists of the path of nodes from each leaf up to the root of the
+\newcite{sampson00} for parser evaluation: they
+consist of the path of nodes from each leaf up to the root of the
 sentence. For example,
-N-NP-PP-VP-S might be the leaf-ancestor path of an object of a preposition.
+N-NP-VP-S might be the leaf-ancestor path of the subject of a
+sentence, while N-NP-PP-VP-S might be the object of a preposition.
 
 \section{Experiment}
 
@@ -91,22 +91,24 @@ checked for statistically significant correlation.
 
 \section{Results}
 Clustering phonological distance produces a clear North/South division, replicating
-previous linguistic results. Sub-clusters, such as that of London, the
+previous linguistic analyses. Sub-clusters, such as that of London, the
 South and East England, are also consistent with existing linguistic
 knowledge. In contrast, the result of clustering syntactic distance is not so clear; a
-North/South distinction appears here too, but, for example, the
+North/South distinction appears here too, but with some unexpected
+differences; for example, the
 Northwest region clusters with the Southwest region. More importantly,
-phonological and syntactic distances between regions do not
-significantly correlate.
+there is no significant correlation between the inter-region
+phonological distances and syntactic distances.
 
-There are several possible reasons for this mismatch. The two distance
-measures may find different dialect boundaries based on differences
-between syntax and phonology. The boundaries may have shifted during
-the 40 years between the collection of the SED and the collection of
-the ICE-GB. Or one or both methods may be measuring the wrong
-thing. Further work is needed, both with British English and with
-other corpora, to improve our understanding of syntax distance with
-respect to other methods of dialectometry.
+There are several possible reasons for this lack of correlation. The
+two distance measures may find different dialect boundaries based on
+differences between syntax and phonology. Dialect boundaries may have
+shifted during the 40 years between the collection of the SED and the
+collection of the ICE-GB. One or both methods may be measuring the
+wrong thing. Further work is needed, both with British English and
+with other corpora, to resolve these questions and improve our
+understanding of syntax distance with respect to other methods of
+dialectometry.
 
 \bibliographystyle{acl}
 \bibliography{central}
