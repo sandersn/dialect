@@ -441,15 +441,57 @@ dependency parsing.
 
 \subsubsection{Parsing}
 
+Part-of-speech tagging and parsing will be needed for the Swedish dialect
+data in the SweDiaSyn. This corpus transcribed to standard Swedish
+orthography, but will need to be POS tagged and parsed, both using
+phrase structures and dependencies.
+
+The Tags 'n' Trigrams (T'n'T) tagger will be used for tagging. The POS
+annotations from Talbanken05 will be used as the training
+corpus. Because of the non-standard pronunciations, speech in the
+SweDiaSyn is transcribed both to standard Swedish orthography and to an
+orthographic transcription of the original speech. The standard
+orthography will be used for POS tagging since the experiment focusses
+on syntax, not phonology or the lexicon.
+
+After POS tagging, the sentences will be parsed by a parser trained
+on the standard Swedish of Talbanken05. Before training, the trees of
+Talbanken will be cleaned. Some are discontinuous and many contain
+disfluencies; both will to be removed before training the parser. With
+disfluencies removed, discontinuities may be removable by a simple
+strategy, such as uncrossing only at the root level. Otherwise, a
+strategy similar to Adriane Boyd's splits will be needed.
+
+Collin's parser will be trained on standard
+Swedish, again using Talbanken05. This will provide a constituency
+parser. Collin's parser is a statistical context-free grammar parser
+that \ldots.
+
+Dependency parsing will proceed similarly to constituency parsing;
+the dependency structures of Talbanken05 will be cleaned and
+normalised, then used to train a parser that will then parse the
+sentences of SweDiaSyn.
+
 TODO:Explain the method of parsing dependencies and
 constituencies. Since I will be using existing tools, I just need to
 choose one for each method, summarise it and point to the author's
 papers.
 
+TODO: Find out how much crossing occurs in Swedish corpora, and how
+much of it is from interruptions and self-corrections.
+
 \begin{enumerate}
-\item Train constituency parser on Swedish treebank 1.
-\item Train dependency parser on Swedish treebank 2.
-\item Obviously I need the names of these treebanks and parsers ok.
+\item Train constituency parser on Talbanken05's constituency trees.
+\item Some crossing occurs in Swedish.
+\item Constituency trees will require of cleaning to get rid of this.
+\item First step: remove disfluencies.
+\item Second step: uncross top-level punctuation-like things.
+\item Third step (if needed): try splitting things apart like Adriane Boyd.
+\item Train the parser.
+\item Parse the sentences from Nordisk dialekterna.
+\item Cleanup? Probably. Conversion to something anyway.
+\item Train dependency parser on Talbanken05's dependency trees.
+\item Probably there will be some pre-processing needed here too.
 \end{enumerate}
 
 \subsubsection{Permutation test}
@@ -513,7 +555,7 @@ correlations more than 95\% of the time.
 
 TODO: This section should describe the previous experiments in more
 detail. Specifically, input data IN DETAIL. (The method has has
-already been described.)
+already been described.) Also, the writing is not very good.
 
 \namecite{nerbonne06} were the first to use the syntactic
 distance measure described above. They analysed two corpora, both of
@@ -532,14 +574,14 @@ indicative of longer sentences. In any case, this experiment did not
 use leaf-ancestor paths, so trigrams were used. Leaf-ancestor paths
 should help by directly representing internal tree complexity.
 
-Subsequent work by Sanders (CITE: ACL07, qual) expanded on the
-Norwegian experiment in two ways. First, it introduced leaf-ancestor
-paths as an alternative feature type. Second, it tested the distance
-method on a larger set of corpora: Government Office Regions of
-England, as well as Scotland and Wales. This was a total of 11
-corpora. Each was smaller than the Norwegian L2 corpora, which proved
-to be problematic for some combations of features and permutation test
-parameters.
+Subsequent work by \namecite{sanders07} and \namecite{sanders08b}
+expanded on the Norwegian experiment in two ways. First, it introduced
+leaf-ancestor paths as an alternative feature type. Second, it tested
+the distance method on a larger set of corpora: Government Office
+Regions of England, as well as Scotland and Wales. This was a total of
+11 corpora. Each was smaller than the Norwegian L2 corpora, which
+proved to be problematic for some combations of features and
+permutation test parameters.
 
 Despite the smaller region-based corpora, significant differences
 resulted between quite a few regions. Furthermore, I showed that
@@ -552,7 +594,7 @@ features of dialects is an interesting question, I will not
 investigate it further here, focussing exclusively on syntactic
 distance.
 
-\subsection{Nodalida, Nordisk dialecter}
+\subsection{SweDiaSyn, Nordisk dialecter}
 
 TODO: Same here as in Previous Experiments. Data in detail, as soon as
 I know what the corpus is like.
@@ -560,59 +602,69 @@ I know what the corpus is like.
 Also, which treebanks to train on. That should be pretty easy to find
 since there is probably only one main one of each type for Swedish.
 
-\section{Dialectometry}
+\begin{enumerate}
+\item Train on Talbanken05
+\item Constituency parsed version was prepared according to the
+  uncrossing method above.
+\item Dependency parsed version was prepared, hopefully nothing
+  special required.
+\item Use the Swedish section of SweDiaSyn.
+\end{enumerate}
 
-Dialectometry is the quantitative linguistic study of differences
-between languages. It is a subset of dialectology, which looks for
-boundaries between languages. However, unlike classic dialectology, it
-does not look for strict boundaries (in the form of isogloss bundles)
-between languages based on boundaries specified by multiple
-variables. Instead, dialectometry first defines a distance measure
-that combines information from multiple variables. The result
-specifies gradient boundaries, not absolute boundaries.
+% OLD %
+% \section{Dialectometry}
 
-Dialectology is related to sociolinguistics--the two often work with
-the same data. But the questions are different: sociolinguistics asks
-Why (and What) while dialectometry asks How Much (and What).
-In other words, sociolinguistics analyses the conditions that cause
-differences between languages, such as geographic separation, social
-separation, code-switching or social climbing. For dialectometry, it
-does not matter which dimension is used; the only concern is correlating
-the linguistic differences with the areas specified by the
-sociological variable. Historically, geographic separation is the most
-usual application, but others are certainly possible and some have
-been investigated (Sanders, Gooskens, another of John's students)
+% Dialectometry is the quantitative linguistic study of differences
+% between languages. It is a subset of dialectology, which looks for
+% boundaries between languages. However, unlike classic dialectology, it
+% does not look for strict boundaries (in the form of isogloss bundles)
+% between languages based on boundaries specified by multiple
+% variables. Instead, dialectometry first defines a distance measure
+% that combines information from multiple variables. The result
+% specifies gradient boundaries, not absolute boundaries.
 
-\section{Previous Work}
+% Dialectology is related to sociolinguistics--the two often work with
+% the same data. But the questions are different: sociolinguistics asks
+% Why (and What) while dialectometry asks How Much (and What).
+% In other words, sociolinguistics analyses the conditions that cause
+% differences between languages, such as geographic separation, social
+% separation, code-switching or social climbing. For dialectometry, it
+% does not matter which dimension is used; the only concern is correlating
+% the linguistic differences with the areas specified by the
+% sociological variable. Historically, geographic separation is the most
+% usual application, but others are certainly possible and some have
+% been investigated (Sanders, Gooskens, another of John's students)
 
-Results were inconclusive for British dialects when comparing the
-syntactic measure with a well-known phonological measure, Levenshtein
-distance. I will address this in several ways, deepening and
-complicating the study in the process.
+% \section{Previous Work}
 
-First, a change of corpus. This
-has two improvements: more data, and better data. In the ICE, nobody
-really talked that much, and everybody was in London College at the
-time, so even if they were born out in the country, they were trying
-to sound Proper. The Scandinavian Dialect Corpus
-(Nordisk dialektkorpus) is recorded mostly on location, in traditional
-dialectology style, old people spread somewhat evenly throughout the
-country.
+% Results were inconclusive for British dialects when comparing the
+% syntactic measure with a well-known phonological measure, Levenshtein
+% distance. I will address this in several ways, deepening and
+% complicating the study in the process.
 
-Second, an expansion in methods. In the previous work on the ICE
-corpus, only trigrams and leaf-ancestor paths are used as a source of
-features for the statistical classifier. Only leaf-ancestor paths are
-sensitive enough to give significant results. With more data, more
-methods should be sensitive enough to produce sensible
-results. Therefore, in addition to constituent-based leaf-ancestor
-paths, a similar measure will be developed for dependency parses.
+% First, a change of corpus. This
+% has two improvements: more data, and better data. In the ICE, nobody
+% really talked that much, and everybody was in London College at the
+% time, so even if they were born out in the country, they were trying
+% to sound Proper. The Scandinavian Dialect Corpus
+% (Nordisk dialektkorpus) is recorded mostly on location, in traditional
+% dialectology style, old people spread somewhat evenly throughout the
+% country.
 
-This will require some additional preparation relative to experiments
-run on the ICE, which is already parsed by a constituent grammar. The
-unparsed Scandinavian Dialect Corpus will have to be parsed by
-machine. But this provides an opportunity to use multiple parsing
-methods. There exist Swedish treebanks parsed by both constituent parsers and
-dependency parsers.
+% Second, an expansion in methods. In the previous work on the ICE
+% corpus, only trigrams and leaf-ancestor paths are used as a source of
+% features for the statistical classifier. Only leaf-ancestor paths are
+% sensitive enough to give significant results. With more data, more
+% methods should be sensitive enough to produce sensible
+% results. Therefore, in addition to constituent-based leaf-ancestor
+% paths, a similar measure will be developed for dependency parses.
+
+% This will require some additional preparation relative to experiments
+% run on the ICE, which is already parsed by a constituent grammar. The
+% unparsed Scandinavian Dialect Corpus will have to be parsed by
+% machine. But this provides an opportunity to use multiple parsing
+% methods. There exist Swedish treebanks parsed by both constituent parsers and
+% dependency parsers.
 
 \bibliographystyle{robbib}
 \bibliography{central}
