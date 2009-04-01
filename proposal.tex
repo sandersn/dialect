@@ -439,6 +439,7 @@ significance compared to POS trigram features.
 TODO:Come up with and explain a method of extracting paths from
 dependency parsing.
 
+% TODO : This needs to be moved. Up, probably.
 \subsubsection{Parsing}
 
 Part-of-speech tagging and parsing will be needed for the Swedish dialect
@@ -557,29 +558,28 @@ TODO: This section should describe the previous experiments in more
 detail. Specifically, input data IN DETAIL. (The method has has
 already been described.) Also, the writing is not very good.
 
-\namecite{nerbonne06} were the first to use the syntactic
-distance measure described above. They analysed two corpora, both of
-Norwegian L2 speakers of English. The first corpus was speakers who
-learned English after childhood and the second was speakers who learned
-English as children. Nerbonne \& Wiersma found a significant different
-between the two corpora. The trigrams that contributed most to the
-difference were longer (?) in the younger corpus and shorter in the
-older corpus. They analysed this as a difference in completeness of
-learning; the younger L2 learners of English learned the complex
-structures of English more fully.
-
-Wait, longer? That doesn't make sense--they're trigrams; maybe it was more
-complementising POSes or something. Anyway, something that was
-indicative of longer sentences. In any case, this experiment did not
-use leaf-ancestor paths, so trigrams were used. Leaf-ancestor paths
-should help by directly representing internal tree complexity.
+\namecite{nerbonne06} were the first to use the syntactic distance
+measure described above. They analysed two corpora, both of Norwegian
+L2 speakers of English. The first corpus was gathered from speakers
+who learned English after childhood and the second was gathered from
+speakers who learned English as children. Nerbonne \& Wiersma found a
+significant difference between the two corpora. The trigrams that
+contributed most to the difference were those in the older corpus that
+are unexpected in English. For example, the trigram COP-ADJ-N/COM is
+not common in English because a noun phrase following a copula
+typically begins with a determiner. Other trigrams indicate
+hypercorrection on the part of the older speakers; they appear in the
+younger corpus but not as often. Nerbonne \& Wiersma analysed this as
+interference from Finnish; the younger learners of English learned it
+more completely with less interference from Finnish.
 
 Subsequent work by \namecite{sanders07} and \namecite{sanders08b}
 expanded on the Norwegian experiment in two ways. First, it introduced
 leaf-ancestor paths as an alternative feature type. Second, it tested
 the distance method on a larger set of corpora: Government Office
-Regions of England, as well as Scotland and Wales. This was a total of
-11 corpora. Each was smaller than the Norwegian L2 corpora, which
+Regions of England, as well as Scotland and Wales, for a total of
+11 corpora. Each was smaller than the Norwegian L2 corpora, so the
+experiment parameters had to be adjusted to which
 proved to be problematic for some combations of features and
 permutation test parameters.
 

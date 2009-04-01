@@ -66,17 +66,18 @@ def divide():
     cat.generate('ns')
     cat.generate('nsrandom')
 
+target = "all"
 # run the (possibly correct?) distance measure
-if 'distance':
+if target=='distance':
     distance()
 # if needed, regenerate compressed files
-elif not 'regen':
+elif target=='regen':
     extract.generate('sspeaker-londonscotlandshuffle.csv')
     extract.generate('sspeaker-region.csv')
     # Note: filtering speakers by birthplace/education is still done ooband
     # by using sspeaker-*.csv
     # though see extract.shufflelondonscotland for an example
-else:
+elif target=='all':
     params = cross(['1000'],
                    ['500','1000'],
                    ['r','r_sq'],
@@ -84,10 +85,3 @@ else:
                    ['ns', 'nsrandom', 'gor'])
     each(blade, params)
     # hielo.count('res-11-%s-%s-%s-%s.txt', params)
-
-# run analysis. (maybe using R or something)
-# R does correlations. R is awesome at correlating things.
-# TODO: Do this somehow. See hielo.py for now.
-# TODO: Uh, decide WHICH analyses to run. Correlations are cool. I like them
-# but maybe just a comparison of which distances are significant is enough.
-# or perhaps a clustering would be cool too

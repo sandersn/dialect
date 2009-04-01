@@ -10,6 +10,7 @@
 //#include "hash.h"
 //#include "hielo_out.cpp"
 #include "params.h"
+#define SIGNIFICANCE ITERATIONS / 20
 namespace __gnu_cxx { // culled from the internet.
   template<> // just wraps hash<char *>, which is entirely logical
   struct hash<std::string> { // and should have already been done
@@ -187,7 +188,7 @@ double r_sq(const sample& c) {
 /**** Diverging outer implementations in this section.
  Yes it should be a separate file but I don't want to mess with CPP.
  More than I am. Maybe a header file wouldn't be so bad. ***/
-int normaliseall(double total_r, size_t total_types,
+bool normaliseall(double total_r, size_t total_types,
                  const dialect& a, const dialect& b) {
   // this next may be a bad idea without the ability to delete b
   // In Python and Caml I assumed the GC ate b before long.
@@ -200,32 +201,34 @@ int normaliseall(double total_r, size_t total_types,
     if(perm_r > total_r) {
       cout << '-' << flush;
       gt++;
+      if(gt > SIGNIFICANCE) return false;
     } else
       cout << '.' << flush;
   }
   cout << endl;
-  return gt;
+  return true;
 }
-int normaliseshuffle(double total_r, const dialect& a, const dialect& b) {
+bool normaliseshuffle(double total_r, const dialect& a, const dialect& b) {
   int gt = 0;
   for(int i=0; i < ITERATIONS; i++) {
     pair<dialect,dialect> shuffled = shuffle(a, b);
     double shuffle_r = R_MEASURE(normalise(concat(shuffled.first), concat(shuffled.second), 5));
     cout << (total_r - shuffle_r) << ", " << flush;
     if(shuffle_r > total_r) gt++;
+    if(gt > SIGNIFICANCE) return false;
   }
   cout << endl;
-  return gt;
+  return true;
 }
 // = ((<=) r_total)
-int compare(const dialect& dialect_a, const dialect& dialect_b) {
+bool compare(const dialect& dialect_a, const dialect& dialect_b) {
   sample test = normalise(concat(dialect_a), concat(dialect_b), 5);
   double total_r = R_MEASURE(test); //R_MEASURE is one of r or r_sq
   cout << total_r << endl;
   return normaliseall(total_r, test.size(), dialect_a, dialect_b);
 }
 // = ((<=) r_total)
-int comparepermutation(const dialect& a, const dialect& b) {
+bool comparepermutation(const dialect& a, const dialect& b) {
   dialect both_ab(a);
   both_ab.insert(both_ab.end(), b.begin(), b.end());
   int gt = 0;
@@ -238,14 +241,15 @@ int comparepermutation(const dialect& a, const dialect& b) {
     if(perm_r > total_r) {
       cout << '-' << flush;
       gt++;
+      if(gt > ITERATIONS / 20) return false;
     } else
       cout << '.' << flush;
   }
   cout << endl;
-  return gt;
+  return true;
 }
 // = ((<=) r_total)
-int compareshuffle(const dialect& a, const dialect& b) {
+bool compareshuffle(const dialect& a, const dialect& b) {
   sample test = normalise(concat(a), concat(b), 5);
   double total_r = R_MEASURE(test); //R_MEASURE is one of r or r_sq
   //cout << total_r << endl;
@@ -324,7 +328,7 @@ pair<string, vector<vector<string> > > readfile(const char* filename) {
 }
 //bool gt1 (double f) { return f > 1; }
 //int ook () { return 1; }
-int main(int argv, char** argc) {
+int main(int argc, char** argv) {
   /*
   /// TEST
   entry test;
@@ -340,18 +344,19 @@ int main(int argv, char** argc) {
     cout << answer[i] << endl;
   }
   /// END TEST*/
-  if(argv==2) {
-    pair<string, vector<vector<string > > > l1 = readfile(argc[1]);
+  if(argc==2) {
+    pair<string, vector<vector<string > > > l1 = readfile(argv[1]);
     cout << "Control: " << l1.first << endl;
     cout << comparepermutation(l1.second, l1.second) << endl;
-  } else if (argv==3) {
-    pair<string, vector<vector<string > > > l1 = readfile(argc[1]);
-    pair<string, vector<vector<string > > > l2 = readfile(argc[2]);
+  } else if (argc==3) {
+    pair<string, vector<vector<string > > > l1 = readfile(argv[1]);
+    pair<string, vector<vector<string > > > l2 = readfile(argv[2]);
     cout << l1.first << endl;
     cout << l2.first << endl;
-    cout << average_r(l1.second, l2.second) << endl;
+    cout << comparepermutation(l1.second, l2.second) << endl;
+    //cout << average_r(l1.second, l2.second) << endl;
   } else {
-    cout << "Not enough arguments: " << argv << endl;
+    cout << "Not enough arguments: " << argc << endl;
     }
   return 0;
 }
