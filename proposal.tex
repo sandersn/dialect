@@ -4,16 +4,15 @@
 \usepackage{robbib}
 
 \author{Nathan Sanders, Indiana University \\ \tt{ncsander@indiana.edu}}
-\title{Syntax Distance in Dialectometry : A Convincing Dissertation
-  Proposal}
+\title{Syntax Distance for Dialectometry}
 \begin{document}
 \maketitle
 
-This proposal proposes to continue my existing line of research on
-dialect distance using syntactic features. My previous research has
-focussed on statistical measures as pioneered by Nerbonne \& Wiersma
-and extended their features to better capture complex syntactic
-structure.
+% This proposal proposes to continue my existing line of research on
+% dialect distance using syntactic features. My previous research has
+% focussed on statistical measures as pioneered by \namecite{nerbonne06}
+% and extended their features to better capture complex syntactic
+% structure.
 
 \section{Introduction}
 % Overview : Goal, Variables, Method
@@ -25,39 +24,27 @@ structure.
 %   :
 %   Experiment section as 'Corpus' section
 
-Entice a goat! Provoke a ruffian! Flatter a Swede! All in one game!
+% Entice a goat! Provoke a ruffian! Flatter a Swede! All in one game!
 
-Goal: To extend existing measurement methods. To measure them
-better. To measure them on more complete data.
+% Goal: To extend existing measurement methods. To measure them
+% better. To measure them on more complete data.
 
-Variables: Corpus from speakers of Swedish (and maybe other Nordisk
-dialekter), geographical distance, syntax distance from various
-measures.
+% \begin{enumerate}
+% \item The very start should be bulked up for accessibility. And
+%   different somethings.
+% \item And should flatter the Swedes. TODO
+% \end{enumerate}
 
-Contribution: Better syntax distance. A better understanding of syntax
-distance.
-
-Literature Review: Good here, but maybe more papers need to be
-described . Not sure how much I need; I don't want to add back in all
-the phonology stuff.
-
-\begin{enumerate}
-\item This dissertation is proposed to continue my existing line of research.
-\item And that line is\ldots
-\item Introduction, cut down from previous version DONE
-\item The very start should be bulked up for accessibility. And
-  different somethings.
-\item And should flatter the Swedes. TODO
-\end{enumerate}
-
-This (dissertation (proposal proposes) dissertation) study on syntax
-distance in dialectometry using computational methods as a basis. This
-is a continuation of my previous work (CITE qualifying paper) and
-earlier work by \namecite{nerbonne06}. And other work that I discover
-some time this month. Hopefully this month. Computational methods have
-come to dominate dialectometry, but they are limited in focus compared
-to previous work; most have explored phonological distance only, while
-earlier methods integrated phonological, lexical, and syntactic data.
+This dissertation will examine syntax distance in dialectometry using
+computational methods as a basis. It is a continuation of my previous
+work \cite{sanders07}, \cite{sanders08b} and earlier work by
+\namecite{nerbonne06}. Dialectometry has existed as a field since
+\namecite{seguy73}, which came into existence as a sub-field of
+dialectology, which has existed for much longer
+\cite{chambers92}. Computational methods have come to dominate
+dialectometry, but they are limited in focus compared to previous
+work; most have explored phonological distance only, while earlier
+methods integrated phonological, lexical, and syntactic data.
 
 However, the isogloss bundles that were the primary product of
 pre-computational methods do not adequately capture gradient
@@ -322,9 +309,7 @@ basically a dead-end.
 % end NEW
 
 \begin{enumerate}
-\item Also cut phonological approaches here.
-\item Reword intro paragraph. (maybe summarise phonology as another
-  paragraph after the current intro)
+\item Rewrite phonolgy paragraph.
 \item I should really check around to see if there is any new work out
   there. Surely there is. Course John is free to do whatever works and
   Wybo may have graduated or something. So there might not be any more
@@ -466,34 +451,18 @@ strategy similar to Adriane Boyd's splits will be needed.
 Collin's parser will be trained on standard
 Swedish, again using Talbanken05. This will provide a constituency
 parser. Collin's parser is a statistical context-free grammar parser
-that \ldots.
+that \ldots. (TODO:Finish this)
 
 Dependency parsing will proceed similarly to constituency parsing;
 the dependency structures of Talbanken05 will be cleaned and
 normalised, then used to train a parser that will then parse the
-sentences of SweDiaSyn.
-
-TODO:Explain the method of parsing dependencies and
-constituencies. Since I will be using existing tools, I just need to
-choose one for each method, summarise it and point to the author's
-papers.
+sentences of SweDiaSyn. MaltParser and the pre-trained Talbanken05
+model provided
+by Hall, Nilsson \& Nivre will be used for this
+purpose. (CITE:various MaltParser papers)
 
 TODO: Find out how much crossing occurs in Swedish corpora, and how
 much of it is from interruptions and self-corrections.
-
-\begin{enumerate}
-\item Train constituency parser on Talbanken05's constituency trees.
-\item Some crossing occurs in Swedish.
-\item Constituency trees will require of cleaning to get rid of this.
-\item First step: remove disfluencies.
-\item Second step: uncross top-level punctuation-like things.
-\item Third step (if needed): try splitting things apart like Adriane Boyd.
-\item Train the parser.
-\item Parse the sentences from Nordisk dialekterna.
-\item Cleanup? Probably. Conversion to something anyway.
-\item Train dependency parser on Talbanken05's dependency trees.
-\item Probably there will be some pre-processing needed here too.
-\end{enumerate}
 
 \subsubsection{Permutation test}
 \label{permutationtest}
@@ -552,11 +521,34 @@ correlations more than 95\% of the time.
 
 \subsection{Corpora}
 
+The two corpora used in this experiment are SweDiaSyn (CITE), part of
+the ScanDiaSyn (CITE). SweDiaSyn is a transcription of SweDia 2000
+(CITE) collected between 1998 and 2000 from 97 locations in Sweden and
+10 in Finland. Each location had 12 interviewees: three 30-minutes
+interviews for every combination of old/young and male/female.
+However, the SweDiaSyn transcriptions do not yet include all of SweDia
+2000; the completed transcriptions currently focus on older
+speakers. There are two types of transcription: the one used in this
+project is simply standard Swedish orthography, with glosses for words
+not in standard Swedish. The other transcription, not used here, is
+orthographic for dialects similar to standard Swedish and phonetic for
+dialects different from standard Swedish.
+
+TODO:Writing is too dense.
+TODO:Exact amount of data, preferably in sentences. There's only 5 MB
+or so.
+TODO: I can't find a paper overview of SweDia 2000, just the web site.
+
+Talbanken05 is a modernised version of Talbanken76, a Swedish treebank of
+roughly 300,000 words \cite{nivre06}. The treebank consists of written
+and spoken Swedish. The original treebank was annotated according to a
+custom scheme called MAMBA; Talbanken05 updates this to include phrase
+structure annotation and dependency annotation using the standard
+annotation schemes TIGER-XML and Malt-XML.
+
 \subsection{Previous Experiments}
 
-TODO: This section should describe the previous experiments in more
-detail. Specifically, input data IN DETAIL. (The method has has
-already been described.) Also, the writing is not very good.
+TODO: This section could still be a little longer.
 
 \namecite{nerbonne06} were the first to use the syntactic distance
 measure described above. They analysed two corpora, both of Norwegian
@@ -579,92 +571,28 @@ leaf-ancestor paths as an alternative feature type. Second, it tested
 the distance method on a larger set of corpora: Government Office
 Regions of England, as well as Scotland and Wales, for a total of
 11 corpora. Each was smaller than the Norwegian L2 corpora, so the
-experiment parameters had to be adjusted to which
-proved to be problematic for some combations of features and
-permutation test parameters.
+permutation test parameters had to be adjusted for some feature
+combinations.
 
-Despite the smaller region-based corpora, significant differences
-resulted between quite a few regions. Furthermore, I showed that
-syntactic distance does not correlate with phonological distance, as
-measured by this permutation test on R and Levenshtein distance. This
-could be a result of an erroneous distanc measures, or a mismatch on
-the actual boundaries specified by phonological features and syntactic
-features. Although the agreement between phonological and syntactic
-features of dialects is an interesting question, I will not
-investigate it further here, focussing exclusively on syntactic
-distance.
+The distances between regions were clustered using hierarchical
+agglomerative clustering. The resulting tree showed a North/South
+distinction with some unexpected differences from previously
+hypothesised dialect boundaries; for example, the
+Northwest region clustered with the Southwest region. This contrasted
+with the clustered phonological distances also produced in
+\namecite{sanders08b}. In that experiment,
+there was no significant correlation between the inter-region
+phonological distances and syntactic distances.
 
-\subsection{SweDiaSyn, Nordisk dialecter}
-
-TODO: Same here as in Previous Experiments. Data in detail, as soon as
-I know what the corpus is like.
-
-Also, which treebanks to train on. That should be pretty easy to find
-since there is probably only one main one of each type for Swedish.
-
-\begin{enumerate}
-\item Train on Talbanken05
-\item Constituency parsed version was prepared according to the
-  uncrossing method above.
-\item Dependency parsed version was prepared, hopefully nothing
-  special required.
-\item Use the Swedish section of SweDiaSyn.
-\end{enumerate}
-
-% OLD %
-% \section{Dialectometry}
-
-% Dialectometry is the quantitative linguistic study of differences
-% between languages. It is a subset of dialectology, which looks for
-% boundaries between languages. However, unlike classic dialectology, it
-% does not look for strict boundaries (in the form of isogloss bundles)
-% between languages based on boundaries specified by multiple
-% variables. Instead, dialectometry first defines a distance measure
-% that combines information from multiple variables. The result
-% specifies gradient boundaries, not absolute boundaries.
-
-% Dialectology is related to sociolinguistics--the two often work with
-% the same data. But the questions are different: sociolinguistics asks
-% Why (and What) while dialectometry asks How Much (and What).
-% In other words, sociolinguistics analyses the conditions that cause
-% differences between languages, such as geographic separation, social
-% separation, code-switching or social climbing. For dialectometry, it
-% does not matter which dimension is used; the only concern is correlating
-% the linguistic differences with the areas specified by the
-% sociological variable. Historically, geographic separation is the most
-% usual application, but others are certainly possible and some have
-% been investigated (Sanders, Gooskens, another of John's students)
-
-% \section{Previous Work}
-
-% Results were inconclusive for British dialects when comparing the
-% syntactic measure with a well-known phonological measure, Levenshtein
-% distance. I will address this in several ways, deepening and
-% complicating the study in the process.
-
-% First, a change of corpus. This
-% has two improvements: more data, and better data. In the ICE, nobody
-% really talked that much, and everybody was in London College at the
-% time, so even if they were born out in the country, they were trying
-% to sound Proper. The Scandinavian Dialect Corpus
-% (Nordisk dialektkorpus) is recorded mostly on location, in traditional
-% dialectology style, old people spread somewhat evenly throughout the
-% country.
-
-% Second, an expansion in methods. In the previous work on the ICE
-% corpus, only trigrams and leaf-ancestor paths are used as a source of
-% features for the statistical classifier. Only leaf-ancestor paths are
-% sensitive enough to give significant results. With more data, more
-% methods should be sensitive enough to produce sensible
-% results. Therefore, in addition to constituent-based leaf-ancestor
-% paths, a similar measure will be developed for dependency parses.
-
-% This will require some additional preparation relative to experiments
-% run on the ICE, which is already parsed by a constituent grammar. The
-% unparsed Scandinavian Dialect Corpus will have to be parsed by
-% machine. But this provides an opportunity to use multiple parsing
-% methods. There exist Swedish treebanks parsed by both constituent parsers and
-% dependency parsers.
+There are several possible reasons for this lack of correlation. The
+two distance measures may find different dialect boundaries based on
+differences between syntax and phonology. Dialect boundaries may have
+shifted during the 40 years between the collection of the SED and the
+collection of the ICE-GB. One or both methods may be measuring the
+wrong thing. However, I will not investigate the relation between
+phonology and syntax in this paper. The focus will remain on results
+of computational syntax distance as compared to traditional syntactic
+dialectology.
 
 \bibliographystyle{robbib}
 \bibliography{central}
