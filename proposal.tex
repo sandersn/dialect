@@ -1,11 +1,12 @@
 \documentclass[11pt]{article}
-%\usepackage{setspace}
+% \usepackage{setspace}
 \usepackage[all]{xy}
 \usepackage{robbib}
 
 \author{Nathan Sanders, Indiana University \\ \tt{ncsander@indiana.edu}}
 \title{Syntax Distance for Dialectometry}
 \begin{document}
+% \doublespacing
 \maketitle
 
 % This proposal proposes to continue my existing line of research on
@@ -89,11 +90,13 @@ currently focusses on older speakers.
 
 Other research is being conducted on SweDiaSyn. Results from traditional
 syntactical dialectology will provide a comparison with those from
-computational dialectology presented in this dissertation. (TODO:
-Cite)
+computational dialectology presented in this dissertation.
+% TODO: Cite Rosenkvist? I can't find anything in English and the
+% Swedish titles don't seem to be especially indicative of use of
+% SweDiaSyn. Maybe I will have to contact him directly.
 
 
-\section{Early Methods}
+\section{Previous Work}
 
 \subsection{S\'eguy}
 
@@ -301,7 +304,7 @@ therefore
   \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
   facilitate the presentation.
 
-\section{Computational Methods}
+\section{Methods}
 
 It is at this point that the two types of analysis, phonological and
 syntactic, diverge. Although Goebl's techniques are general enough to
@@ -446,15 +449,37 @@ significant results.
 % Another idea is supertags rather than leaf-ancestor paths. This is
 % quite similar but might work better.
 
-TODO:Come up with and explain a method of extracting paths from
-dependency parsing.
+For dependency annotations, it is easy to adapt leaf-ancestor paths to
+leaf-head paths. Here, each leaf is associated with a leaf-head path,
+the path from the leaf to the head of the sentence via the
+intermediate heads. For example, the same sentence, ``The dog barks'',
+produces the following leaf-head paths.
+
+\begin{itemize}
+\item root-V-N-Det-the
+\item root-V-N-dog
+\item root-V-barks
+\end{itemize}
+
+The biggest difference is in the relative length of the paths: long
+leaf-ancestor paths indicate deep nesting of structure. Length is a
+weaker indicator of deep structure for leaf-head
+paths; sometimes a difference in length indicates only a difference in
+centrality to the sentence. % or something, this is still kind of
+                            % wrong
+
+\[\xymatrix{
+& & root \\
+NP  \ar@/^2pc/[rr] & DET\ar@/_/[l] & V \ar@{.>}[u]
+}
+\]
 
 % TODO : This needs to be moved. Up, probably.
 \subsubsection{Parsing}
 
 In order to extract the features used in the previous section from
-Swedish dialect corpus SweDiaSyn, or in fact any unparsed corpus,
-Part-of-speech tagging and parsing will be needed.
+the Swedish dialect corpus SweDiaSyn, or in fact any unparsed corpus,
+part-of-speech tagging and parsing will be needed.
 The SweDiaSyn is transcribed to standard Swedish
 orthography, but will need to be POS tagged and parsed, both for
 phrase structures and dependencies.
@@ -550,8 +575,13 @@ the time.
 \subsection{Corpora}
 
 The dialect corpus used in this dissertation will be SweDiaSyn, the
-Swedish part of
-the ScanDiaSyn (CITE). SweDiaSyn is a transcription of SweDia 2000
+Swedish part of the ScanDiaSyn.
+% (CITE SweDiaSyn and ScanDiaSyn,
+% except that they don't seem to have any references)
+% Here is a citation for ScanDiaSyn if I could track it down and
+% translate it
+% Vangsnes, Øystein A. 2007. ScanDiaSyn: Prosjektparaplyen Nordisk dialektsyntaks. In T. Arboe (ed.), Nordisk dialektologi og sociolingvistik, Peter Skautrup Centeret for Jysk Dialektforskning, Århus Universitet. 54-72.
+SweDiaSyn is a transcription of SweDia 2000
 \cite{bruce99} collected between 1998 and 2000 from 97 locations in Sweden and
 10 in Finland. Each location had 12 interviewees: three 30-minute
 interviews for each of older male, older female, younger male and
@@ -563,10 +593,6 @@ sites, an average of 749 sentences per site. The sites may need to be
 grouped by province in order to detect significant differences;
 previous work on British English used Government Office Regions with
 at least 850 sentences per region.
-
-% Here is a citation for ScanDiaSyn if I could track it down and
-% translate it
-% Vangsnes, Øystein A. 2007. ScanDiaSyn: Prosjektparaplyen Nordisk dialektsyntaks. In T. Arboe (ed.), Nordisk dialektologi og sociolingvistik, Peter Skautrup Centeret for Jysk Dialektforskning, Århus Universitet. 54-72.
 
  There are two types of transcription: 
 standard Swedish orthography, with glosses for words
