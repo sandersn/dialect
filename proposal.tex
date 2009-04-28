@@ -16,6 +16,66 @@
 % structure.
 
 \section{Introduction}
+Dude! I am so literal it is not even funny. I should get a job
+programming ok.
+
+\subsection{Problems}
+
+\begin{itemize}
+\item There is no generally accepted syntax measure in dialectometry.
+\item There is no generally accepted syntax measure that works on
+  large, unstructured corpora that are common in computational linguistics.
+\item R is a syntax measure, but we don't know how well it works.
+\item Previous experiments have tried to look at syntax distance with
+  respect to existing dialectometry but have failed in one way or another.
+\item \namecite{nerbonne06} compared only two populations, and not
+  typical dialect populations.
+\item Spruit (2005) compares syntax using a small dialectology corpus
+  of syntactic features, analysed by Goebl's generic distance
+  measures.
+\item \namecite{sanders08b} compares syntax and phonology of typical
+  dialect populations.
+\item But the phonology and syntax corpora differ substantially.
+\item The informants for the syntax corpus, ICE-GB, are not well distributed across
+  England.
+\end{itemize}
+
+\subsection{Questions}
+\begin{itemize}
+\item Is R sufficient?
+  \begin{itemize}
+  \item If not, what should replace it?
+  \item In other words, is there some other measure that can compare
+    arbitrary large corpora without reducing to R?
+    \item Have shortcomings/ambiguities/lack of correlation in the
+      results of previous studies been a result of R or other factors?
+  \end{itemize}
+\item Do different features improve results?
+  \begin{itemize}
+  \item POS trigrams
+  \item POS trigrams with backoff (not likely, but possible)
+  \item leaf-ancestor paths
+  \item dependencies
+  \item supertags
+  \end{itemize}
+\item Is dialectometry on syntax even possible? Worthwhile? What about
+  dialectology as a whole?
+\end{itemize}
+\subsection{Hypothesis}
+In some styles, this comes between the literature review and the
+experiment proposal. I'm not sure about this paper, though; Sandra
+wants a better separation between `done' and `to do', but I'm not sure
+this is the way to do it.
+
+A syntax corpus collected with dialectology in purposes will provide
+more syntactic features than a general-purpose corpus. R will perform
+better, as would any syntactic distanc measure.
+
+A corpus that can be used for both phonological and syntactic purposes
+will provide better correlation between phonology and syntax distance
+measures.
+
+\subsection{Previous}
 % Overview : Goal, Variables, Method
 %   Contribution
 % Literature Review
@@ -25,17 +85,13 @@
 %   :
 %   Experiment section as 'Corpus' section
 
-% Entice a goat! Provoke a ruffian! Flatter a Swede! All in one game!
-
 % Goal: To extend existing measurement methods. To measure them
 % better. To measure them on more complete data.
 
-% \begin{enumerate}
-% \item The very start should be bulked up for accessibility. And
-%   different somethings.
-% \item And should flatter the Swedes. TODO Henrik Rosenkvist seems to
+% TODO Henrik Rosenkvist seems to
 % be the main guy interested in syntactic analysis of dialect distance
-% \end{enumerate}
+% TODO Add citations of some of Marco Rene Spruit's classic/Goebl
+% stuff
 
 This dissertation will examine syntax distance in dialectometry using
 computational methods as a basis. It is a continuation of my previous
