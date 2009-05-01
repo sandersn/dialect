@@ -92,6 +92,10 @@ to determine whether $R$ is useful, but there are a lot of other
 variables preventing one from knowing what causes the lack of
 correlation.
 
+If $R$ is a sufficient syntax distance measure, then the question
+becomes: what parameters perform best? Specifically, which features
+are best? A number of possibilities
+
 \begin{itemize}
 \item Is R sufficient?
   \begin{itemize}
@@ -242,29 +246,30 @@ corpus, there is so
 much individual variation that only major dialect boundaries can
 be captured this way.
 
-S\'eguy reversed the process. He first combined the survey data in a
-consistent way to get
+S\'eguy reverses the process. He first combines survey data to get
 a numeric score between each site. Then he posited dialect boundaries
 where large distances resulted between sites. The difference is
-important, because a single numeric score is simpler to
-analyze than hundreds of individual boundaries. The outcome is that
-much more subtle dialect boundaries are visible this way; where before
+important, because a single numeric score is easier to
+analyze than hundreds of individual boundaries.
+Much more subtle dialect boundaries are visible this way; where before
 one saw only a jumble of conflicting boundary lines, now one sees
 smaller, but consistent, numerical differences separating regions. {Dialectometry
   enables classification of gradient dialect boundaries, since now one
 can distinguish weak and strong boundaries. Previously, weak
 boundaries were too uncertain.}
 
-S\'eguy's method of combination was simple both
+However, S\'eguy's method of combination is simple both
 linguistically and mathematically. When comparing two sites, any
-difference for a particular question would be counted as 1. Only identical
-responses counted as a distance of 0. Words were not analyzed
-phonologically, sentences were not analysed syntactically, and
-responses were not weighted by their relative amount
-of variation. Finally, only geographically adjacent sites were
+difference in a response is counted as 1. Only identical
+responses count as a distance of 0. Words are not analyzed
+phonologically, nor are responses weighted by their relative amount
+of variation. Finally, only geographically adjacent sites are
 compared. This is a reasonable restriction, but later studies were
 able to lift it because of the availability of greater computational
-power. Work following S\'eguy's would improve on both aspects.
+power. Work following S\'eguy's improves on both aspects. In
+particular, Hans Goebl developed dialectometry models that are
+more mathematically sophisticated.
+
 \subsection{Goebl}
 
 Hans Goebl emerged as a leader in the field of dialectometry,
@@ -411,7 +416,7 @@ therefore
   \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
   facilitate the presentation.
 
-\section{Methods}
+\section{Statistical Methods} % Computational? Mathematical?
 
 It is at this point that the two types of analysis, phonological and
 syntactic, diverge. Although Goebl's techniques are general enough to
