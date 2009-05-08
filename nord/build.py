@@ -24,7 +24,7 @@ import os
 regions = [['', '', ''],
            ['', '', '', '', ''],
            ['', '']]
-tbpath = '/Volumes/Corpora/Data/sv/Talbanken05/FPS/'
+tbpath = '/Volumes/Data/Corpora/sv/Talbanken05/FPS/'
 talbanken = [tbpath + 'SD.tiger.xml',
              tbpath + "P.tiger.xml",
              tbpath + "IB.tiger.xml",
