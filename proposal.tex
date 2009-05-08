@@ -93,55 +93,72 @@ needed.
 \subsection{Questions}
 
 The state of syntax measures in dialectometry described above leads to
-several research questions. The most important: Is $R$ a sufficient
-measure of syntax distance? If not, what should replace it? It is
-difficult (for me, maybe not for you) to imagine a statistical measure
-of syntax that does not reduce to $R$.
+several research questions. The primary question is whether $R$ is a
+sufficient measure of syntax distance. Specifically, have the
+ambiguous results of previous research been a shortcoming of $R$, a
+disagreement between corpora, or a disagreement between syntactic and
+phonological dialect boundaries? This research will eliminate the
+corpus variability in \namecite{sanders08b} that confuses those
+results.
+% If this research eliminates the other causes as an explanation, a new
+% syntactic distance measure will need to be developed and tested.
 
-The first questions leads to a second: have the shortcomings of the
-previous studies been caused by $R$ or by other factors? In
-particular, \namecite{sanders08b} has most of the elements necessary
-to determine whether $R$ is useful, but there are a lot of other
-variables preventing one from knowing what causes the lack of
-correlation.
+A secondary question, relevant once $R$ is established as a useful
+syntax distance measure, is what features provide the best
+results. Previous work has shown that leaf-ancestor paths provide a
+small advantage over part-of-speech trigrams, presumably by capturing
+syntactic structure higher in the parse tree. Additional possible
+feature sets include variations on the previously investigated
+trigrams and leaf-ancestor paths: various kinds of backoff, such
+as coarser node tags or bigrams. Other ways of capturing syntactic
+structure may be useful too, such as dependency parses or
+supertags. (Should CITE at least supertags because I think they are
+not universally understood)
 
-If $R$ is a sufficient syntax distance measure, then the question
-becomes: what parameters perform best? Specifically, which features
-are best? A number of possibilities
+% \begin{itemize}
+% \item Is R sufficient?
+%   \begin{itemize}
+%   \item If not, what should replace it?
+%   \item In other words, is there some other measure that can compare
+%     arbitrary large corpora without reducing to R?
+%     \item Have shortcomings/ambiguities/lack of correlation in the
+%       results of previous studies been a result of R or other factors?
+%   \end{itemize}
+% \item Do different features improve results?
+%   \begin{itemize}
+%   \item POS trigrams
+%   \item POS trigrams with backoff (not likely, but possible)
+%   \item leaf-ancestor paths
+%   \item dependencies
+%   \item supertags
+%   \end{itemize}
+% \item Is dialectometry on syntax even possible? Worthwhile? What about
+%   dialectology as a whole?
+% \end{itemize}
 
-\begin{itemize}
-\item Is R sufficient?
-  \begin{itemize}
-  \item If not, what should replace it?
-  \item In other words, is there some other measure that can compare
-    arbitrary large corpora without reducing to R?
-    \item Have shortcomings/ambiguities/lack of correlation in the
-      results of previous studies been a result of R or other factors?
-  \end{itemize}
-\item Do different features improve results?
-  \begin{itemize}
-  \item POS trigrams
-  \item POS trigrams with backoff (not likely, but possible)
-  \item leaf-ancestor paths
-  \item dependencies
-  \item supertags
-  \end{itemize}
-\item Is dialectometry on syntax even possible? Worthwhile? What about
-  dialectology as a whole?
-\end{itemize}
 \subsection{Hypothesis}
 In some styles, this comes between the literature review and the
 experiment proposal. I'm not sure about this paper, though; Sandra
 wants a better separation between `done' and `to do', but I'm not sure
 this is the way to do it.
 
-A syntax corpus collected with dialectology in purposes will provide
-more syntactic features than a general-purpose corpus. R will perform
-better, as would any syntactic distanc measure.
+Given a syntactically annotated corpus collected for dialectology, R
+will produce accurate syntax distances between subcorpora. Properties
+important to dialectology, such as wide geographic coverage and
+variety in the sociological variables of informants, will provide
+better results than corpora without these properties.
 
-A corpus that can be used for both phonological and syntactic purposes
-will provide better correlation between phonology and syntax distance
-measures.
+Given certain features, R will produce more accurate syntax distances
+for a given set of subcorpora. These features can be discovered by
+comparing their performance on a fixed corpus.
+
+A phonology corpus and syntax corpus based on the same data will
+provide better correlation between phonology and syntax distance
+measures than a phonology corpus and syntax corpus based on separate
+sets of data. This type of corpus will provide the best opportunity to
+discover whether phonological and syntactic dialect boundaries
+correlate. (Or perhaps whether phonological and syntactic dialect
+measures correlate? I'm not sure of this yet)
 
 \subsection{Previous}
 % Overview : Goal, Variables, Method
