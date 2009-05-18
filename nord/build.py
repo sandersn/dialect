@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 0. Manually make a list of which files go with which regions.
    All steps below operate over regions.
@@ -17,18 +18,84 @@ SCons, in Python, replaces make and allows extensibility in Python.
 Of course there's rake too
 
 ghc --make only rebuilds as needed, so that at least is pretty fast
-TODO:Install cabal and thence Text.XML.HaXml on jones
-TODO:Figure out how to cons on sentence dividers in TrainPosTalbanken
+TODO:Write test code to make sure SweDiaSyn files can be opened.
+     I don't trust these funny Swedish characters!
 """
 import os
 regions = [['', '', ''],
            ['', '', '', '', ''],
            ['', '']]
 tbpath = '/Volumes/Data/Corpora/sv/Talbanken05/FPS/'
+swpath = '/Volumes/Corpora/Data/sv/SweDiaSyn/Korrekturläst/'
 talbanken = [tbpath + 'SD.tiger.xml',
              tbpath + "P.tiger.xml",
              tbpath + "IB.tiger.xml",
              tbpath + "G.tiger.xml"]
+swediaRegions = [
+  'Ankarsrum',
+  'Anundsjo',
+  'Arjeplog',
+  'Arsunda',
+  'Asby',
+  'Bara',
+  'Bengtsfors',
+  'Boda',
+  'Bredsatra',
+  'Faro',
+  'Floby',
+  'Fole',
+  'Frillesas',
+  'Indal',
+  'Jamshog',
+  'Köla',
+  'Leksand',
+  'Loderup',
+  'Nederlulea',
+  'Norra Rorum',
+  'Orust',
+  'Ossjo',
+  'Overkalix',
+  'Segerstad',
+  'Skinnskatteberg',
+  'Sorunda',
+  'Sproge',
+  'StAnna',
+  'Torsås',
+  'Torso',
+  'Torsö',
+  'Vaxtorp',
+  'Viby',
+  'Villberga',
+]
+swediaRegionsEjkorrekturlast = [
+  'Löderup',
+  'Pite',
+  'anu',
+  'ara',
+  'arjeplog',
+  'ars',
+  'aspås',
+  'bara',
+  'broby',
+  'burtråsk',
+  'delsbo',
+  'gråsö',
+  'ind',
+  'lod',
+  'nederkalix',
+  'nysåtra',
+  'oka',
+  'ors',
+  'pit',
+  'sar',
+  'sårna',
+  'sorsele',
+  'toh',
+  'vindeln',
+]
+# TODO: Mail those Listserv guys AGAIN. Geez! C'mon!
+# TODO: Insert the correct latin1 characters. I hope the Swedish chars are in there
+
 
 def each(f, l):
     for x in l: f(x)
@@ -49,4 +116,9 @@ def blade(files):
     # 4. Tag SweDiaSyn
     for region in regions:
         os.system('tnt talbanken %s.t >%s.tag' % (region,region))
-blade(None) # each(blade, regions.values())
+#blade(None) # each(blade, regions.values())
+# TEST:
+print len(swediaRegions)
+for path in swediaRegions:
+    f = open(swPath + path)
+    f.close()
