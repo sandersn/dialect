@@ -20,13 +20,15 @@ Of course there's rake too
 ghc --make only rebuilds as needed, so that at least is pretty fast
 TODO:Write test code to make sure SweDiaSyn files can be opened.
      I don't trust these funny Swedish characters!
+TODO: Mail those Listserv guys AGAIN. Geez! C'mon!
+TODO: Insert the correct utf-8 combining characters.
 """
 import os
 regions = [['', '', ''],
            ['', '', '', '', ''],
            ['', '']]
 tbpath = '/Volumes/Data/Corpora/sv/Talbanken05/FPS/'
-swpath = '/Volumes/Corpora/Data/sv/SweDiaSyn/Korrekturläst/'
+swpath = '/Volumes/Corpora/Data/sv/SweDiaSyn/Korrekturläst/'
 talbanken = [tbpath + 'SD.tiger.xml',
              tbpath + "P.tiger.xml",
              tbpath + "IB.tiger.xml",
@@ -47,7 +49,7 @@ swediaRegions = [
   'Frillesas',
   'Indal',
   'Jamshog',
-  'Köla',
+  'Köla',
   'Leksand',
   'Loderup',
   'Nederlulea',
@@ -60,41 +62,39 @@ swediaRegions = [
   'Sorunda',
   'Sproge',
   'StAnna',
-  'Torsås',
+  'Torsås',
   'Torso',
-  'Torsö',
+  'Torsö',
   'Vaxtorp',
   'Viby',
   'Villberga',
 ]
 swediaRegionsEjkorrekturlast = [
-  'Löderup',
+  'Löderup',
   'Pite',
   'anu',
   'ara',
   'arjeplog',
   'ars',
-  'aspås',
+  'aspås',
   'bara',
   'broby',
-  'burtråsk',
+  'burtråsk',
   'delsbo',
-  'gråsö',
+  'gråsö',
   'ind',
   'lod',
   'nederkalix',
-  'nysåtra',
+  'nysåtra',
   'oka',
   'ors',
   'pit',
   'sar',
-  'sårna',
+  'sårna',
   'sorsele',
   'toh',
   'vindeln',
 ]
-# TODO: Mail those Listserv guys AGAIN. Geez! C'mon!
-# TODO: Insert the correct latin1 characters. I hope the Swedish chars are in there
 
 
 def each(f, l):
@@ -120,5 +120,5 @@ def blade(files):
 # TEST:
 print len(swediaRegions)
 for path in swediaRegions:
-    f = open(swPath + path)
+    f = open(swpath + path)
     f.close()
