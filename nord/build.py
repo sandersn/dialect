@@ -28,7 +28,7 @@ regions = [['', '', ''],
            ['', '', '', '', ''],
            ['', '']]
 tbpath = '/Volumes/Data/Corpora/sv/Talbanken05/FPS/'
-swpath = '/Volumes/Corpora/Data/sv/SweDiaSyn/Korrekturläst/'
+swpath = '/Volumes/Data/Corpora/sv/SweDiaSyn/Korrekturläst/'
 talbanken = [tbpath + 'SD.tiger.xml',
              tbpath + "P.tiger.xml",
              tbpath + "IB.tiger.xml",
@@ -118,7 +118,28 @@ def blade(files):
         os.system('tnt talbanken %s.t >%s.tag' % (region,region))
 #blade(None) # each(blade, regions.values())
 # TEST:
-print len(swediaRegions)
-for path in swediaRegions:
-    f = open(swpath + path)
-    f.close()
+def fromkeys(l, cons):
+    d = {}
+    for x in l:
+        d[x] = cons()
+    return d
+def find(f, l):
+    for x in l:
+        if f(x):
+            return x
+    else:
+        return None
+print(len(swediaRegions))
+corpora = fromkeys(swediaRegions, list)
+for corpus in os.listdir(swpath):
+    r = find(corpus.startswith, swediaRegions)
+    if r:
+        corpora[r].append(corpus)
+    elif corpus.startswith('.'):
+        pass
+    else:
+        print('corpus', corpus, 'not found')
+for region,files in corpora.items():
+    print(region.encode('utf8'))
+    for f in files:
+        print('\t', f.encode('utf8'))
