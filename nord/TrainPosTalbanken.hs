@@ -15,7 +15,7 @@ attr' attribute c@(CElem (Elem _ as _)) = verbatim$head$show' attribute
 getContent (Document _ _ e _) = CElem e
 getTerminals xml = map (tag "s" /> tag "graph" /> tag "terminals" /> tag "t")
                        (tag "corpus" /> tag "body" /> tag "s" $ xml)
-getAttrs = concatMap ((("#", "#") :) . map pair)
+getAttrs = concatMap (((".", ".") :) . map pair)
     where pair elem = (attr' "word" elem, replace ' ' '_' $ attr' "pos" elem)
 readPOS filename = return.getAttrs.getTerminals.getContent.xmlParse filename
              =<< readFile filename
