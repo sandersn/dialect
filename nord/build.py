@@ -22,7 +22,6 @@ ghc --make only rebuilds as needed, so that at least is pretty fast
 """
 import os
 from util.lst import each
-from itertools import chain
 import swedia
 tbpath = '/Volumes/Data/Corpora/sv/Talbanken05/FPS/'
 swpath = '/Volumes/Data/Corpora/sv/SweDiaSyn/Korrekturläst/'
@@ -99,10 +98,10 @@ def sys(cmd):
     if result: raise Error("Something went wrong")
 def blade(files):
     # 1. Extract POS tags from Talbanken
-    os.system('ghc --make TrainPosTalbanken')
-    os.system('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(talbanken),))
+    sys('ghc --make TrainPosTalbanken')
+    sys('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(talbanken),))
     # 2. Train with TnT
-    os.system('tnt-para talbanken.tt')
+    sys('tnt-para talbanken.tt')
     # 3. Extract SweDiaSyn words into TnT format
     # TODO: Test this next
     swedia.extractTnt(swpath, swediaRegions)
@@ -110,9 +109,8 @@ def blade(files):
     # TODO: Not done
     # 4. Tag SweDiaSyn
     for region in regions:
-        os.system('tnt talbanken %s.t >%s.tag' % (region,region))
-#blade(None) # each(blade, regions.values())
-# TEST:
-print(len(swediaRegions))
+        sys('tnt talbanken %s.t >%s.tag' % (region,region))
+if __name__=="__main__":
+    blade(None) # each(blade, regions.values())
 # TODO: Add stop words in swedia.read, things like pauses, etc
 # TODO: Add execfile to python3.0 startup sequence, at least in emacs
