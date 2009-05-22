@@ -28,9 +28,9 @@ def extractTnt(path, regions):
     for region,files in groupCorpora(path, regions).items():
         t = '\n'.join(filter(isne('\x15'),
                              concat(concat(map(read(path), files)))))
-        open(region + '.t', 'w', encoding='utf-8').write(t)
+        open(region + '.t', 'w', encoding='latin1').write(t)
 def sharedtopwords(talbanken, regions):
-    "NB talbanken.tt uses latin1, *.t uses utf-8"
+    "NB talbanken.tt uses latin1, *.t also now uses latin1"
     talwords = [fst(line.split()) for line in s.splitlines() if line[0] != ' ']
     talvocab = set(talwords)
     talcount = dct.count(talwords)
