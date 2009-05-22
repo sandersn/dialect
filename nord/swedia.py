@@ -1,4 +1,4 @@
-from util.lst import splitby, each, concat
+from util.lst import splitby, each, concat, fst, snd
 from util.txt import between
 from util.fnc import negate, curry, isne
 from util.cl import findif
@@ -26,13 +26,28 @@ def groupCorpora(path, regions):
     return corpora
 def extractTnt(path, regions):
     for region,files in groupCorpora(path, regions).items():
-        # TODO : Filter line-ending ^U ('\x15')
         t = '\n'.join(filter(isne('\x15'),
                              concat(concat(map(read(path), files)))))
         open(region + '.t', 'w', encoding='utf-8').write(t)
-# To get a list stop words, maybe try:
-# set(readall(concat(regions.values())) - set(open('talbanken.tt'))
-# this is not ideal of course, but it should definitely tell us if umlauts
-# are represented differently
+def sharedtopwords(talbanken, regions):
+    "NB talbanken.tt uses latin1, *.t uses utf-8"
+    talwords = [fst(line.split()) for line in s.splitlines() if line[0] != ' ']
+    talvocab = set(talwords)
+    talcount = dct.count(talwords)
+    swewords = [w for r in regions for w in r.splitlines()]
+    swevocab = set(swewords)
+    swecount = dct.count(swewords)
+    unsharedTokensTal = sum(talcount[w] for w in sharedVocab)
+    unsharedTokensSwe = sum(swecount[w] for w in sharedVocab)
+    print(len(talvocab))
+    print(len(swevocab))
+    print(len(swevocab & talvocab))
+    print(len(swevocab - talvocab))
+    print(len(talvocab - swevocab)
+          + len(swevocab - talvocab)
+          + len(swevocab & talvocab))
+    print(unsharedTokensTal)
+    print(unsharedTokensSwe)
+    print(len(talwords) + len(swewords) - unsharedTokensTal - unsharedTokensSwe)
 if __name__=="__main__":
     each(print, read('TestOM_1sp.cha'))
