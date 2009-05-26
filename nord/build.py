@@ -33,6 +33,7 @@ def tagPos():
 def tagDep():
     # 5. Post-process tagged SweDiaSyn to CoNLL format (or other)
     # 6. Dependency parse SweDiaSyn
+    run('java -jar malt-1.2/malt.jar -f swedia.opt')
     return
 def tagCfg():
     # 7. Post-process tagged SweDiaSyn to ?? format for Berkeley parser.
