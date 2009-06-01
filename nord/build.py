@@ -57,3 +57,5 @@ if __name__=="__main__":
     blade(build,
           sys.argv[1:] if sys.argv[1:] else 'extractPos tagPos'.split())
 # TODO: Remove (or normalise to Talbanken) pauses in swedia.extractTxt
+# They look like - <first second> - also there's some funny [/] and [/-]
+
