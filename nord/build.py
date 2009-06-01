@@ -19,7 +19,7 @@ def run(cmd):
 def extractPos():
     # 1. Extract POS tags from Talbanken
     run('ghc --make TrainPosTalbanken')
-    run('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(paths.talbanken),))
+    run('TrainPosTalbanken %s >talbanken.tt' % (' '.join(paths.talbanken),))
 def tagPos():
     # 2. Train TnT on Talbanken
     run('tnt-para talbanken.tt')
@@ -29,12 +29,16 @@ def tagPos():
     swedia.extractTnt(paths.swpath, paths.swediaRegions)
     # 4. Tag SweDiaSyn
     for region in swediaRegions:
-        sys('tnt talbanken %s.t >%s.tag' % (region,region))
+        run('tnt talbanken %s.t >%s.tag' % (region,region))
 def tagDep():
-    # 5. Post-process tagged SweDiaSyn to CoNLL format (or other)
-    # 6. Dependency parse SweDiaSyn
-    run('java -jar malt-1.2/malt.jar -f swedia.opt')
-    return
+    for region in swediaRegions:
+        # 5. Post-process tagged SweDiaSyn to CoNLL format
+        run('ghc --make ConvertTagsToConll')
+        run('ConvertTagsToConll %s.tag >%s.conll' % (region,region))
+        # 6. Dependency parse SweDiaSyn
+        # TODO: This must eventually depend on a config file, not command line
+        # options
+        run('java -Xmx256M -jar malt-1.2/malt.jar -c swemalt -i %s.conll -o %s.dep.conll -m parse' % (region, region))
 def tagCfg():
     # 7. Post-process tagged SweDiaSyn to ?? format for Berkeley parser.
     # - this requires uncrossing! probably!
