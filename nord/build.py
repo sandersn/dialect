@@ -18,7 +18,7 @@ def run(cmd):
 def trainPos():
     # 1. Train on POS tags from Talbanken
     run('ghc --make TrainPosTalbanken')
-    run('TrainPosTalbanken %s >talbanken.tmp.tt' % (' '.join(paths.talbanken),))
+    run('./TrainPosTalbanken %s >talbanken.tmp.tt' % (' '.join(paths.talbanken),))
     inf = open('talbanken.tmp.tt', encoding='latin1')
     outf = open('talbanken.tt', 'w', encoding='utf-8')
     for line in inf:
@@ -35,14 +35,16 @@ def tagPos():
     for region in paths.swediaRegions:
         run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
 def tagDep():
-    for region in swediaRegions:
+    run('ghc --make ConvertTagsToConll')
+    for region in paths.swediaRegions:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
-        run('ghc --make ConvertTagsToConll')
-        run("ConvertTagsToConll '%s.tag' >'%s.conll'" % (region,region))
+        run("./ConvertTagsToConll '%s.tag' >'%s.conll'" % (region,region))
         # 6. Dependency parse SweDiaSyn
         # TODO: This must eventually depend on a config file, not command line
         # options
-        run("java -Xmx256M -jar malt-1.2/malt.jar -c swemalt -i '%s.conll' -o '%s.dep.conll' -m parse" % (region, region))
+        os.chdir('malt-1.2')
+        run("java -Xmx256M -jar malt.jar -c swemalt -i '../%s.conll' -o '../%s.dep.conll' -m parse" % (region, region))
+        os.chdir('..')
 def trainCfg():
     # n. Convert Talbanken to PTB (single-line?) for training (with uncrossing?!)
     # Several are supported, guess I'll have to read the GrammarTrainer code
