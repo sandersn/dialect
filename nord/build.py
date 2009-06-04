@@ -19,7 +19,7 @@ def extractTalbanken():
     # 1. Train on POS tags from Talbanken
     # the explicit linker paths are needed to avoid MacPort's borken iconv
     # which is apparently just a giant series of macros?
-    run('ghc --make TrainPosTalbanken')
+    run('ghc --make -L/usr/lib -L/opt/local/lib TrainPosTalbanken')
     run('ghc --make -L/usr/lib -L/opt/local/lib --make RepairTalbanken')
     run('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(paths.talbanken),))
     run('./RepairTalbanken %s >talbanken.mrg' % (' '.join(paths.talbanken),))
@@ -40,14 +40,14 @@ def tagDep():
         # TODO: This must eventually depend on a config file, not command line
         # options
         os.chdir('malt-1.2')
-        run("java -Xmx256M -jar malt.jar -c swemalt -i '../%s.conll' -o '../%s.dep.conll' -m parse" % (region, region))
+        run("java -Xmx512M -jar malt.jar -c swemalt -i '../%s.conll' -o '../%s.dep.conll' -m parse" % (region, region))
         os.chdir('..')
 def trainCfg():
     # n. Convert Talbanken to PTB (single-line?) for training (with uncrossing?!)
     # Several are supported, guess I'll have to read the GrammarTrainer code
     # n+1. Train using GrammarTrainer
     # TODO: There are more options:  -SMcycles 5 (6 cycles overfits)
-    run('java -cp berkeleyParser.jar edu.berkeley.nlp.PCFGLA.GrammarTrainer -path talbanken.mrg -out talbanken.gr -treebank SINGLEFILE')
+    run('java -Xmx512M -cp berkeleyParser.jar edu.berkeley.nlp.PCFGLA.GrammarTrainer -path talbanken.mrg -out talbanken.gr -treebank SINGLEFILE')
 def tagCfg():
     # 7. Post-process tagged SweDiaSyn to ?? format for Berkeley parser.
     # - this requires uncrossing! probably!
@@ -55,7 +55,7 @@ def tagCfg():
     # may be able to use nltk for this
     # 8. Constituency parse with Berkeley parser
     for region in swediaRegions:
-        run('jar -jar berkeleyParser.jar -gr talbanken.gr <%s.mrg >%s.cfg')
+        run('jar -Xms512M -jar berkeleyParser.jar -gr talbanken.gr <%s.mrg >%s.cfg')
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # Steal this from ice/build.py
