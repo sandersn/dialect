@@ -1,63 +1,69 @@
 import qualified Data.Map as Map
-import Text.XML.HaXml (tag, (/>), txt, elm, attr, xmlParse, verbatim, showattr)
+import Text.XML.HaXml (tag, (/>), xmlParse)
 import Text.XML.HaXml.Types
+import Util
+import Data.List (intercalate)
 type Id = Integer -- "s1_1" or "s1_501"
-data FlatNode a = FlatNode a Id [Id] deriving (Eq, Show, Read)
-data Tree a = Leaf a | Node a [Tree a] deriving (Eq, Show, Read)
-dat (Leaf a) = a
+data FlatNode = FlatNode { cat :: String,
+                           word :: String,
+                           id :: Id,
+                           kids::[Id] } deriving (Eq, Show, Read)
+data Tree a = Leaf a a | Node a [Tree a] deriving (Eq, Show, Read)
+dat (Leaf a _) = a
 dat (Node a _) = a
-children (Leaf _) = []
+children (Leaf _ _) = []
 children (Node _ kids) = kids
-type TalbankenInput = Map.Map Id (FlatNode String)
+type TalbankenInput = Map.Map Id FlatNode
 
 -- xml reading ok --
-sentences = tag "corpus" /> tag "body" /> tag "s"
+sentences = tagpath ["corpus", "body", "s"]
 buildSentences :: [Content] -> [Tree String]
 buildSentences = map (uncurry buildTree . buildMap)
-buildMap :: Content -> (Id, Map.Map Id (FlatNode String))
+buildMap :: Content -> (Id, Map.Map Id FlatNode)
 buildMap s =
   (root, Map.fromList (map termentry terms ++ map nontermentry nonterms))
     where root = attrId "root" . head . (tag "s" /> tag "graph") $ s
-          terms = tag "s" /> tag "graph" /> tag "terminals" /> tag "t" $ s
-          nonterms = tag "s" /> tag "graph" /> tag "nonterminals" /> tag "nt" $ s
+          terms = tagpath ["s", "graph", "terminals", "t"] s
+          nonterms = tagpath ["s", "graph", "nonterminals", "nt"] s
           termentry elem =
               let id = attrId "id" elem in
-              (id, FlatNode (attr1 "pos" elem) id [])
+              (id, FlatNode (attr' "pos" elem)
+                            (utf8FromLatin1 (attr' "word" elem)) id [])
           nontermentry elem =
               let id = attrId "id" elem in
-              (id, FlatNode (attr1 "cat" elem) id (kids elem))
+              (id, FlatNode (attr' "cat" elem) "" id (kids elem))
           kids = map (attrId "idref") . (tag "nt" /> tag "edge")
-buildTree :: Id -> Map.Map Id (FlatNode String) -> Tree String
+buildTree :: Id -> Map.Map Id FlatNode -> Tree String
 buildTree root flat = build (lookup root)
-    where build (FlatNode s id []) = Leaf s
-          build (FlatNode s id kids) = Node s (map (build . lookup) kids)
+    where build (FlatNode s word id []) = Leaf s word
+          build (FlatNode s "" id kids) = Node s (map (build . lookup) kids)
           lookup = (flat Map.!)
 parseId :: String -> (String, Integer)
 parseId s = (takeWhile (/='_') s, read . tail . dropWhile (/='_') $ s)
-attrId a = snd . parseId . attr1 a
-getContent (Document _ _ e _) = CElem e
-attr1 attribute = verbatim . head . showattr attribute
-run = return.buildSentences.sentences.getContent.
-        xmlParse "SDshort.tiger.xml"=<<readFile "SDshort.tiger.xml"
-main = print=<<run
+attrId a = snd . parseId . attr' a
+run filename = withFile filename $
+    xmlParse filename & getContent & sentences & buildSentences
+ptb (Leaf pos word) = "(" ++ pos ++ " " ++ word ++ ")"
+ptb (Node a kids) = "(" ++ a ++ " " ++ intercalate " " (map ptb kids) ++ ")"
+main = multiFilePrinter run ptb
 ------- yet another uncrosser ------------
 example = Node ("S", 555)
           [Node ("VP",510)
            [Node ("NP",502)
-            [Leaf ("DET",0), Leaf ("N",1), Leaf ("PRON",4)]
-           , Leaf ("V",2)
-           , Leaf ("PART",5)]
-          , Node ("NP",501) [Leaf ("PRON",3)]]
+            [Leaf ("DET",0) ("Das",0), Leaf ("N",1) ("Buch",1), Leaf ("PRON",4) ("ihm",4)]
+           , Leaf ("V",2) ("gegeben",2)
+           , Leaf ("PART",5) ("habe",5)]
+          , Node ("NP",501) [Leaf ("PRON",3) ("ich",3)]]
 sexample = spanTree example
 spanTree :: Tree (String, Integer) -> Tree (Integer, Integer)
-spanTree (Leaf (_,i)) = Leaf (i,i+1)
+spanTree (Leaf (_,i) _) = Leaf (i,i+1) (i,i+1)
 spanTree (Node _ kids) = Node (minimum starts, maximum ends) trees
     where trees = map spanTree kids
           starts = map (fst . dat) trees
           ends = map (snd . dat) trees
 uncross' :: [Tree (Integer,Integer)] -> [Tree (Integer,Integer)]
 uncross' [] = []
-uncross' (Leaf a : siblings) = Leaf a : uncross' siblings
+uncross' (Leaf a w : siblings) = Leaf a w : uncross' siblings
 uncross' (Node a kids : siblings) = uncross''.both depair.span continuous.pairs
                                     $ kids
     where uncross'' (co,[]) = co ++ uncross' siblings
