@@ -32,7 +32,7 @@ def tagPos():
     for region in paths.swediaRegions:
         run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
 def tagDep():
-    run('ghc --make ConvertTagsToConll')
+    run('ghc --make -L/usr/lib -L/opt/local/lib ConvertTagsToConll')
     for region in paths.swediaRegions:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
         run("./ConvertTagsToConll '%s.tag' >'%s.conll'" % (region,region))
