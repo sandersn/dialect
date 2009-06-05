@@ -27,8 +27,8 @@ buildMap s =
           nonterms = tagpath ["s", "graph", "nonterminals", "nt"] s
           termentry elem =
               let id = attrId "id" elem in
-              (id, FlatNode (attr' "pos" elem)
-                            (utf8FromLatin1 (attr' "word" elem)) id [])
+              (id, FlatNode (replace ' ' '_' $ attr' "pos" elem)
+                            (utf8FromLatin1 $ attr' "word" elem) id [])
           nontermentry elem =
               let id = attrId "id" elem in
               (id, FlatNode (attr' "cat" elem) "" id (kids elem))
