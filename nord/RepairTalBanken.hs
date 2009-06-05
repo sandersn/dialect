@@ -18,7 +18,8 @@ type TalbankenInput = Map.Map Id FlatNode
 -- xml reading ok --
 sentences = tagpath ["corpus", "body", "s"]
 buildSentences :: [Content] -> [Tree String]
-buildSentences = map (uncurry buildTree . buildMap)
+-- buildSentences = map (uncurry buildTree . filter wellformed . buildMap)
+buildSentences = map buildTree . filter wellformed . map buildMap
 buildMap :: Content -> (Id, Map.Map Id FlatNode)
 buildMap s =
   (root, Map.fromList (map termentry terms ++ map nontermentry nonterms))
@@ -34,8 +35,8 @@ buildMap s =
           ptbSafe "(" = "LParen"
           ptbSafe ")" = "RParen"
           ptbSafe s = utf8FromLatin1 s
-buildTree :: Id -> Map.Map Id FlatNode -> Tree String
-buildTree root flat = build (lookup root)
+wellformed (root,flat) = cat (flat Map.! root) == "ROOT"
+buildTree (root,flat) = build (lookup root)
     where build (FlatNode s word id []) = Leaf s word
           build (FlatNode s "" id kids) = Node s (map (build . lookup) kids)
           lookup = (flat Map.!)
