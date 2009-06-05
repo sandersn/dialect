@@ -22,17 +22,18 @@ buildSentences = map (uncurry buildTree . buildMap)
 buildMap :: Content -> (Id, Map.Map Id FlatNode)
 buildMap s =
   (root, Map.fromList (map termentry terms ++ map nontermentry nonterms))
-    where root = attrId "root" . head . (tag "s" /> tag "graph") $ s
+    where root = attrId "root" $ head $ tagpath ["s", "graph"] $ s
           terms = tagpath ["s", "graph", "terminals", "t"] s
           nonterms = tagpath ["s", "graph", "nonterminals", "nt"] s
-          termentry elem =
-              let id = attrId "id" elem in
-              (id, FlatNode (replace ' ' '_' $ attr' "pos" elem)
-                            (utf8FromLatin1 $ attr' "word" elem) id [])
-          nontermentry elem =
-              let id = attrId "id" elem in
-              (id, FlatNode (attr' "cat" elem) "" id (kids elem))
-          kids = map (attrId "idref") . (tag "nt" /> tag "edge")
+          termentry elem = (id, FlatNode (replace ' ' '_' $ attr' "pos" elem)
+                                         (ptbSafe $ attr' "word" elem) id [])
+              where id = attrId "id" elem
+          nontermentry elem = (id, FlatNode (attr' "cat" elem) "" id (kids elem))
+              where id = attrId "id" elem
+          kids = map (attrId "idref") . tagpath ["nt", "edge"]
+          ptbSafe "(" = "LParen"
+          ptbSafe ")" = "RParen"
+          ptbSafe s = utf8FromLatin1 s
 buildTree :: Id -> Map.Map Id FlatNode -> Tree String
 buildTree root flat = build (lookup root)
     where build (FlatNode s word id []) = Leaf s word
