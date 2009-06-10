@@ -30,8 +30,8 @@ Its primary goal is to characterise the linguistic features that
 separate two language varieties. Dialectometry is a subfield of
 dialectology that uses mathematically sophisticated methods to extract
 and combine linguistic features. In recent years especially it has
-been associated with computational linguistic work. Most work in
-computational dialectometry has focussed on phonology, starting with
+been associated with computational linguistic work, most of which
+has focussed on phonology, starting with
 \namecite{kessler95}, followed by \namecite{nerbonne97} and
 \namecite{nerbonne01}. \namecite{heeringa04} provides a comprehensive
 review of phonological distance in dialectometry as well as some new
@@ -40,19 +40,20 @@ methods.
 %\subsection{Problems}
 
 Syntax is a relatively undeveloped area in dialectometry. This
-dissertation will address some holes in syntactic dialectometry. The
-biggest lack in syntactic dialectometry is that there is no generally
-accepted syntax measure. In phonology, Levenshtein distance is widely
-accepted as the standard against which new phonological distance
-measures are measured, and it has been shown to agree well with
-linguistic analyses from dialectology \cite{heeringa04}. There is no
-equivalent for syntax.
+dissertation will address holes in the syntactic dialectometry
+literature. The biggest lack is the absence of a generally accepted
+syntax measure. In contrast, Levenshtein distance is widely accepted
+as the standard phonological distance against which new distance
+measures are compared. It is supported by a large body of literature
+that shows it to be consistent for many languages and to detect the
+same linguistic features analysed by dialectologists
+\cite{heeringa04}. There is no equivalent to Levenshtein distance for syntax.
 
-Additionally, analysis of syntactic data poses different challenges
+Analysis of syntactic data poses different challenges
 than that of phonological data. Most available phonological data is from
 small-scale, carefully collected dialectology corpora. Some such
 data is available for syntax; for example \namecite{spruit08} analysed
-the Syntactic atlas of the Dutch dialects (TODO:Cite) using the content-agnostic
+the Syntactic Atlas of the Dutch Dialects \cite{barbiers05} using the content-agnostic
 methods developed by \namecite{goebl06}. However, for most
 languages, large, unstructured syntactic corpora are the norm;
 extraction of individual syntactic features from carefully elicited
@@ -379,20 +380,22 @@ therefore
 
 \subsection{Hypotheses}
 
-The previous work described above lead to resarch questions, which in
+The previous work described above leads to research questions, which in
 turn lead to the four hypotheses given below.
 
 Hypothesis 1: $R$ will agree substantially with the results of dialectology with respect
 to syntax. This will be tested by extracting the highly ranked features
 that $R$ uses for classification. The features should be the same as
-those analysed by dialectologists. This is totally what happened with
-Levenshtein distance and phonology in dialectology.
+those analysed by dialectologists. Hypothesis 1 is a syntactic
+parallel of Levenshtein distance with phonology.
 
 Hypothesis 2: Given a syntactically annotated corpus collected for dialectology, $R$
 will produce accurate syntax distances between subcorpora. Properties
 important to dialectology, such as wide geographic coverage and
 variety in the sociological variables of informants, will provide
-better results than corpora without these properties.
+better results than corpora without these properties. Hypothesis 2 is
+an analogy to Gooskens' work on Norwegian as well as intuitions from
+computational linguistics.
 
 Hypothesis 3: Given certain features, $R$ will produce more accurate syntax distances
 for a given set of subcorpora. These features can be discovered by

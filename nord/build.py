@@ -19,8 +19,8 @@ def extractTalbanken():
     # 1. Train on POS tags from Talbanken
     # the explicit linker paths are needed to avoid MacPort's borken iconv
     # which is apparently just a giant series of macros?
-    run('ghc --make -L/usr/lib -L/opt/local/lib TrainPosTalbanken')
-    run('ghc --make -L/usr/lib -L/opt/local/lib --make RepairTalbanken')
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib TrainPosTalbanken')
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib --make RepairTalbanken')
     run('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(paths.talbanken),))
     run('./RepairTalbanken %s >talbanken.mrg' % (' '.join(paths.talbanken),))
 def tagPos():
@@ -32,7 +32,7 @@ def tagPos():
     for region in paths.swediaRegions:
         run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
 def tagDep():
-    run('ghc --make -L/usr/lib -L/opt/local/lib ConvertTagsToConll')
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib ConvertTagsToConll')
     for region in paths.swediaRegions:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
         run("./ConvertTagsToConll '%s.tag' >'%s.conll'" % (region,region))

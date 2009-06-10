@@ -18,7 +18,6 @@ type TalbankenInput = Map.Map Id FlatNode
 -- xml reading ok --
 sentences = tagpath ["corpus", "body", "s"]
 buildSentences :: [Content] -> [Tree String]
--- buildSentences = map (uncurry buildTree . filter wellformed . buildMap)
 buildSentences = map buildTree . filter wellformed . map buildMap
 buildMap :: Content -> (Id, Map.Map Id FlatNode)
 buildMap s =
