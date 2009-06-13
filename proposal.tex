@@ -61,30 +61,30 @@ sentences is not possible. This means that a syntactic measure for
 dialectometry must be able to extract features from an unstructured
 corpus, which in turn implies a statistical method. % probabilistic ?
 
-One such method has been proposed by \namecite{nerbonne06}, a simple
-statistical measure called $R$, based on work by
+One such method, a simple statistical measure called $R$,
+has been proposed by \namecite{nerbonne06} based on work by
 \namecite{kessler01}. At present, however, $R$ has not been adequately
 shown to detect dialect differences. A small body of work suggests
-that it detects dialect differences, but as yet there has not been
+that it does, but as yet there has not been
 a satisfying correlation of its results with phonology or, as with
 phonological distance, with existing results from the dialectelogy
 literature on syntax.
 
 Nerbonne \& Wiersma's first paper used $R$ for syntax distance
-\cite{nerbonne06}. Their experiment compared two generations of
-Norwegian L2 speakers of English. Nerbonne and Wiersma used $R$ from
-\namecite{kessler01}, together with a test for statistical
-significance. They used part-of-speech trigrams as features for input
-to $R$. They found that the two generations were significantly
+together with a test for statistical significance\cite{nerbonne06}.
+Their experiment compared two generations of
+Norwegian L2 speakers of English, with part-of-speech trigrams as input features.
+They found that the two generations were significantly
 different, although they had to normalise the trigram counts to
 account for differences in sentence length and complexity. However,
-showing that two generations are significantly different with respect
-to $R$ does not necessarily imply that the same will be true for two
-other language varieties. Specifically, two generations of L2 speakers
-is not necessarily the same as two different dialects.
+showing that two generations of speakers are significantly different with respect
+to $R$ does not necessarily imply that the same will be true for other
+types of language varieties. Specifically, for this dissertation, the
+success of $R$ on generational differences does not imply success on
+dialect differences.
 
 \namecite{sanders08b} addresses this problem by measuring $R$ between
-the Government Office Regions of England, using the International
+the nine Government Office Regions of England, using the International
 Corpus of English Great Britain \cite{nelson02}. Speakers were classified by
 birthplace. Sanders also introduced Sampson's leaf-ancestor paths as
 features \cite{sampson00}. Sanders found statistically
@@ -93,7 +93,7 @@ leaf-ancestor paths as features. However, $R$'s distances were not
 significantly correlated with Levenshtein distances. Nor did Sanders
 show any qualitative similarities between known syntactic dialect
 features and the high-ranked features used by $R$ in producing its
-distance. It is not clear whether the significant $R$ distances
+distance. As a result, it is not clear whether the significant $R$ distances
 correlate with dialectometric phonological distance or with known
 features found by dialectologists.
 % TODO: Might explain some more problems with my research.
@@ -123,17 +123,16 @@ features found by dialectologists.
 \subsection{Questions}
 
 The state of syntax measures in dialectometry described above leaves
-several research questions remaining. The most important is whether $R$ is a
-good measure of syntax distance. Specifically, have the
+several research questions remaining. The most important is whether
+$R$ is a good measure of syntax distance. Specifically, have the
 ambiguous results of previous research been a shortcoming of $R$, a
 disagreement between corpora, or a disagreement between syntactic and
 phonological dialect boundaries? This research will eliminate the
-corpus variability in \namecite{sanders08b} that confuses those
-results. In addition to determining whether $R$ is internally
-consistent, it is not yet clear whether it agrees with traditional
-dialectology results for syntax. $R$'s features will need to be
-extracted and ranked, then compared to the syntactic dialect features
-analysed by linguists.
+corpus variability in \namecite{sanders08b} that resulted in these
+confounding factors. Besides the issue of internal consistency, it is
+not yet clear whether $R$ agrees with traditional dialectology results
+for syntax. Its features will need to be extracted and ranked, then
+compared to the syntactic dialect features found by dialectologists.
 % If this research eliminates the other causes as an explanation, a new
 % syntactic distance measure will need to be developed and tested.
 
@@ -149,10 +148,15 @@ structure may be useful too, such as dependency parses or
 supertags. (Should CITE at least supertags because I think they are
 not universally understood)
 
-A third question is whether syntactic distance agrees with
-phonological distance. Unlike agreement with traditional dialectology,
+A third question is whether $R$ agrees with
+phonological distances measures like Levenshtein distance.
+Unlike agreement with traditional dialectology,
 there is no a priori reason to expect agreement between phonology and
-syntax in delineating dialect boundaries.
+syntax in delineating dialect boundaries. However, agreement with
+phonological distance would be further evidence for the utility of $R$
+as a syntactic distance measure.
+Disagreement would be cause to investigate the differences in feature
+weights. (Or something)
 
 % Overview : Goal, Variables, Method
 %   Contribution
