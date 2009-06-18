@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 0. Manually make a list of which files go with which regions.
+(Regions are based on filename right now)
 
 Notes:
 SCons, in Python, replaces make and allows extensibility in Python.
-Of course there's rake too
 """
 import os
 import sys
@@ -19,6 +19,7 @@ def extractTalbanken():
     # 1. Train on POS tags from Talbanken
     # the explicit linker paths are needed to avoid MacPort's borken iconv
     # which is apparently just a giant series of macros?
+    # 1.1 Also Convert Talbanken to PTB for training (TODO:with uncrossing?!)
     run('ghc -O2 --make -L/usr/lib -L/opt/local/lib TrainPosTalbanken')
     run('ghc -O2 --make -L/usr/lib -L/opt/local/lib --make RepairTalbanken')
     run('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(paths.talbanken),))
@@ -40,22 +41,21 @@ def tagDep():
         # TODO: This must eventually depend on a config file, not command line
         # options
         os.chdir('malt-1.2')
-        run("java -Xmx512M -jar malt.jar -c swemalt -i '../%s.conll' -o '../%s.dep.conll' -m parse" % (region, region))
+        run("java -Xmx512m -jar malt.jar -c swemalt -i '../%s.conll' -o '../%s.dep.conll' -m parse" % (region, region))
         os.chdir('..')
 def trainCfg():
-    # n. Convert Talbanken to PTB (single-line?) for training (with uncrossing?!)
-    # Several are supported, guess I'll have to read the GrammarTrainer code
-    # n+1. Train using GrammarTrainer
+    # 7. Train CFG using GrammarTrainer
     # TODO: There are more options:  -SMcycles 5 (6 cycles overfits)
-    run('java -Xmx512M -cp berkeleyParser.jar edu.berkeley.nlp.PCFGLA.GrammarTrainer -path talbanken.mrg -out talbanken.gr -treebank SINGLEFILE')
+    run('java -Xmx1024m -cp berkeleyParser.jar '
+        'edu.berkeley.nlp.PCFGLA.GrammarTrainer -path talbanken.mrg '
+        '-out talbanken.gr -treebank SINGLEFILE')
 def tagCfg():
-    # 7. Post-process tagged SweDiaSyn to ?? format for Berkeley parser.
-    # - this requires uncrossing! probably!
-    # PTB tokenised, one per line (PTB is s-exps basically) (extension .mrg?)
-    # may be able to use nltk for this
-    # 8. Constituency parse with Berkeley parser
-    for region in swediaRegions:
-        run('jar -Xms512M -jar berkeleyParser.jar -gr talbanken.gr <%s.mrg >%s.cfg')
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib ConvertTagsToTxt')
+    for region in paths.swediaRegions:
+        # 8.0 Post-process tagged SweDiaSyn to sentence-per-line format
+        run("./ConvertTagsToTxt '%s.tag' >'%s.txt'" % (region,region))
+        # 8. Constituency parse with Berkeley parser
+        run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # Steal this from ice/build.py
