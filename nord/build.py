@@ -57,6 +57,21 @@ def tagCfg():
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def syntaxDist():
+    rs = zip(paths.swediaRegions,
+             ((sexp_state.runsexp(line[1:-1]) for line in open(region+'.txt'))
+              for region in paths.swediaRegions))
+    extract.generate_nord(rs)
+    def gen_nord_example(regions):
+        # NOTE: I think tinify also needs to change to take {str:[Tree]} instead
+        # of {str:[[Tree]]} because swedia is not organised by speaker. So,
+        # line 1 should just be
+        # items = sorted(dct.count(concat(regions.values())).items(), key=snd)
+        for region, data in tinify(readcorpus(path.trigrams, regions)).items():
+            write(region, data, region+'-trigram.dat')
+        for region, data in tinify(readcorpus(path.paths, regions)).items():
+            write(region, data, region+'-path.dat')
+    def readcorpus_nord_example(extractor, regions):
+        return dct.map(cur(map)(extractor), regions)
     # 9. Run icectrl.out with various parameter settings.
     # Steal this from ice/build.py
     return
@@ -70,4 +85,6 @@ if __name__=="__main__":
           sys.argv[1:] if sys.argv[1:] else 'extractTalbanken tagPos'.split())
 # TODO: Remove (or normalise to Talbanken) pauses in swedia.extractTxt
 # They look like - <first second> - also there's some funny [/] and [/-]
+# TODO: Cut off last couple of characters from each word for POS tagging?
+# TODO: pass -O2 to gcc too, duh!
 
