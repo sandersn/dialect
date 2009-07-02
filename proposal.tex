@@ -37,7 +37,66 @@ has focussed on phonology, starting with
 review of phonological distance in dialectometry as well as some new
 methods.
 
-%\subsection{Problems}
+And now for a diversion on phonology. Dialectometry has focussed on
+phonology, while syntax has remained relatively undeveloped. The
+reason for the focus on phonology is that it (1) is simpler to measure
+with high precision and (2) contains more dialect difference
+information. The lexicon also contains many dialect differences, but
+does not have a simple high-precision distance measure.
+String alignment, Levenshtein distance, is a
+well-understood algorithm used in many fields. It is symbolic, and its
+intermediate data structures are fairly easy to interpret. I believe
+there is also more dialect difference at the phonological level
+(actually, that there is less difference at the syntactic level), so
+the best results will be initially found there.
+
+Actually I should re-order the previous paragraph to refer to `more
+differences' first, then Levenshtein distance. I think the theory
+proposed is interesting but needs lot of backup. This will require
+going back to those papers I read in Ken's class and then building
+from there.
+
+One reason I believe phonology to contain more differences is
+that the literature discusses many more pronunciation
+characteristics. Although it is possible that only phonologists become
+dialectologists, it is more likely that dialectologists discuss what
+they find. Second, and completely unjustified, is my theory of dialect
+differences (and in fact language change as a whole) as a series of
+random changes caused by the production apparatus. Some changes are
+perceptable by some people. Some of these perceived changes are taken
+to be socially important and are imitated, so that a change spreads
+and eventually is regularised. In this theory, phonological changes
+spread more easily because of the underlying theory that phonology is
+more susceptible to variation in production. Therefore, dialects
+should have more phonological variation. Note that this theory does
+not account for all sources of variation; lexical differences also
+arise from differing environments with different physical components.
+
+Although there are probably as many lexical differences between
+dialects as phonological differences, there is no high-precision
+measure here. Instead, Goebl's Weighted Identity Value (WIV) represents the
+state of the art. WIV is more complex mathematically than Levenshtein
+distance, and takes whole words as input. The problem is that there is
+no obvious way to decompose words to gain additional information. In
+contrast, phonological words have an obvious decomposition into
+segments and segments into phonological features.
+
+Previously, the state of the art for syntax has also been Goebl's WIV
+but at a level even worse than the lexicon: specific pre-defined
+features. This limits a computational method by requiring the
+dialectologist do some analysis first to find syntactic dialect
+markers. This is a bootstrapping step that would better be
+avoided. However, it points toward a better way for syntax: unlike words,
+sentences are complex and decomposition is easy. Unlike phonology, the
+right way is not {\it obvious}, but decomposition methods are easy to
+come up with. If a useful sentence decomposition can be specified,
+then perhaps a more useful aggregate measurement method can also be
+specified, one that takes into account properties of syntax similar to
+the way that Levenshtein distance does when specified with edit
+functions that are weighted according to phonological feature
+differences.
+
+% \subsection{Problems}
 
 Syntax is a relatively undeveloped area in dialectometry. This
 dissertation will continue the development of a syntactic dialectometry
@@ -96,7 +155,31 @@ features and the high-ranked features used by $R$ in producing its
 distance. As a result, it is not clear whether the significant $R$ distances
 correlate with dialectometric phonological distance or with known
 features found by dialectologists.
-% TODO: Might explain some more problems with my research.
+
+% NOTE: This is a copy of stuff I've said elsewhere and should be
+% integrated there instead of having its own paragraph. The problem is
+% that Sandra didn't find it obvious enough, not that it wasn't there
+% at all. So I need to use her terminology and then expand my existing
+% text.
+Additional problems: phonology is 1-dimensional, with one obvious way
+to decompose words into segments and segments into feature. Syntax is
+2-dimensional. The best decomposition is not so obvious, although
+decompositions are easy to specify. Additionally, the decomposition
+must take several more factors into account in order to make sure that
+the features it produces are useful and comparable to each other. And
+those features are \ldots
+
+Additionally, Levenshtein distance can operate well on traditionally
+small, focussed dialect corpora. This simple means of combining
+differences, combined with the simplicity of decomposing phonological
+data, contrasts strongly with syntax data. In fact, small, focussed
+dialect corpora are not well-suited to syntax work, not only because
+traditional dialectology methods are not well-suited to the unknown
+features of syntactic dialect variation (they must collect small
+amounts of data, so the much larger search space of syntactic
+variation does not allow significant differences to emerge), but also
+because there are existing syntactically annotated corpora that are
+not carefully collected dialect interviews.
 
 %%% Leftover previous introduction %%%
 % % TODO Henrik Rosenkvist seems to
@@ -116,9 +199,6 @@ features found by dialectologists.
 % Other research is being conducted on SweDiaSyn. Results from traditional
 % syntactical dialectology will provide a comparison with those from
 % computational dialectology presented in this dissertation.
-% % TODO: Cite Rosenkvist? I can't find anything in English and the
-% % Swedish titles don't seem to be especially indicative of use of
-% % SweDiaSyn. Maybe I will have to contact him directly.
 
 \subsection{Questions}
 
@@ -133,12 +213,17 @@ confounding factors. Besides the issue of internal consistency, it is
 not yet clear whether $R$ agrees with traditional dialectology results
 for syntax. Its features will need to be enumerated and ranked, then
 compared to the syntactic dialect features found by dialectologists.
-% If this research eliminates the other causes as an explanation, a new
-% syntactic distance measure will need to be developed and tested.
 
 Furthermore, if $R$ is found to be a bad measure of syntax distance,
 this research will propose and evaluate alternative syntactic distance
-measures.
+measures. Specifically, $R$ is one way to aggregate features that are
+created by decomposing sentences. It treats features as atomic, not
+using any internal information. As such, it is not much different than
+Goebl's WIV. This may not be a problem if the decomposition methods
+used to generate features adequately capture dialect differences in
+independent, atomic features. If dialect differences cannot be
+captured by independent, atomic features, then a more complex method
+of combination may be needed to replace $R$.
 
 A secondary question, relevant once $R$ is established as a useful
 syntax distance measure, is what features provide the best
