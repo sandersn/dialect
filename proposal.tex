@@ -37,24 +37,35 @@ has focussed on phonology, starting with
 review of phonological distance in dialectometry as well as some new
 methods.
 
-And now for a diversion on phonology. Dialectometry has focussed on
-phonology, while syntax has remained relatively undeveloped. The
-reason for the focus on phonology is that it (1) is simpler to measure
-with high precision and (2) contains more dialect difference
-information. The lexicon also contains many dialect differences, but
-does not have a simple high-precision distance measure.
-String alignment, Levenshtein distance, is a
-well-understood algorithm used in many fields. It is symbolic, and its
-intermediate data structures are fairly easy to interpret. I believe
+In dialectometry, a distance measure can be defined in two parts:
+first, a method of decomposing the linguistic data into minimal,
+linguistically meaningful features, and second, a method of combining
+the features in a mathematically and linguistically sound way. With
+respect to distance measures, dialectometry has focussed on phonology,
+while syntax has remained relatively undeveloped. An important force
+behind the focus on phonology is that simple methods are easily
+defined both for linguistic decomposition and mathematical
+combination. Words decompose to segments and segments, if necessary,
+further decompose to phonological features. This decomposition is not
+terribly controversial and, significantly, is the primary obvious one
+(modulo features tiers).  For combination, string alignment,
+Levenshtein distance, is a well-understood algorithm used in many
+fields. It is simple mathematically, and has the additional advantage
+that its intermediate data structures are fairly easy to interpret
+linguistically (aka symbolically).
+
+I believe that a second driving force is that
 there is also more dialect difference at the phonological level
 (actually, that there is less difference at the syntactic level), so
 the best results will be initially found there.
-
-Actually I should re-order the previous paragraph to refer to `more
-differences' first, then Levenshtein distance. I think the theory
-proposed is interesting but needs lot of backup. This will require
-going back to those papers I read in Ken's class and then building
-from there.
+In addition, [I believe that] phonology contains more dialect
+difference information than syntax. While the lexicon also contains
+many dialect differences, lexical items do not have an obvious
+decomposition. Actually I should re-order the previous paragraph to
+refer to `more differences' first, then Levenshtein distance. I think
+the theory proposed is interesting but needs lot of backup. This will
+require going back to those papers I read in Ken's class and then
+building from there.
 
 One reason I believe phonology to contain more differences is
 that the literature discusses many more pronunciation
@@ -200,50 +211,6 @@ not carefully collected dialect interviews.
 % syntactical dialectology will provide a comparison with those from
 % computational dialectology presented in this dissertation.
 
-\subsection{Questions}
-
-The state of syntax measures in dialectometry described above leaves
-several research questions remaining. The most important is whether
-$R$ is a good measure of syntax distance. Specifically, have the
-ambiguous results of previous research been a shortcoming of $R$, a
-disagreement between corpora, or a disagreement between syntactic and
-phonological dialect boundaries? This research will eliminate the
-corpus variability in \namecite{sanders08b} that resulted in these
-confounding factors. Besides the issue of internal consistency, it is
-not yet clear whether $R$ agrees with traditional dialectology results
-for syntax. Its features will need to be enumerated and ranked, then
-compared to the syntactic dialect features found by dialectologists.
-
-Furthermore, if $R$ is found to be a bad measure of syntax distance,
-this research will propose and evaluate alternative syntactic distance
-measures. Specifically, $R$ is one way to aggregate features that are
-created by decomposing sentences. It treats features as atomic, not
-using any internal information. As such, it is not much different than
-Goebl's WIV. This may not be a problem if the decomposition methods
-used to generate features adequately capture dialect differences in
-independent, atomic features. If dialect differences cannot be
-captured by independent, atomic features, then a more complex method
-of combination may be needed to replace $R$.
-
-A secondary question, relevant once $R$ is established as a useful
-syntax distance measure, is what features provide the best
-results. Previous work has shown that leaf-ancestor paths provide a
-small advantage over part-of-speech trigrams, presumably by capturing
-syntactic structure higher in the parse tree. Additional possible
-feature sets include variations on the previously investigated
-trigrams and leaf-ancestor paths: various kinds of backoff, such
-as coarser node tags or bigrams. Other ways of capturing syntactic
-structure may be useful too, such as dependency parses or
-supertags. (Should CITE at least supertags because I think they are
-not universally understood)
-
-A third question is whether $R$ agrees with
-phonological distances measures like Levenshtein distance.
-Unlike agreement with traditional dialectology,
-there is no {\it a priori} reason to expect agreement between phonology and
-syntax in delineating dialect boundaries. However, agreement with
-phonological distance would be further evidence for the utility of $R$
-as a syntactic distance measure.
 
 % Overview : Goal, Variables, Method
 %   Contribution
@@ -686,10 +653,54 @@ phonology and syntax in this dissertation. The focus will remain on results
 of computational syntax distance as compared to traditional syntactic
 dialectology.
 
-\section{Hypotheses}
+\section{Questions and Hypotheses}
 
-The previous work described above leads to research questions, which in
-turn lead to the four hypotheses given below.
+\subsection{Questions}
+
+The state of syntax measures in dialectometry described above leaves
+several research questions remaining. The most important is whether
+$R$ is a good measure of syntax distance. Specifically, have the
+ambiguous results of previous research been a shortcoming of $R$, a
+disagreement between corpora, or a disagreement between syntactic and
+phonological dialect boundaries? This research will eliminate the
+corpus variability in \namecite{sanders08b} that resulted in these
+confounding factors. Besides the issue of internal consistency, it is
+not yet clear whether $R$ agrees with traditional dialectology results
+for syntax. Its features will need to be enumerated and ranked, then
+compared to the syntactic dialect features found by dialectologists.
+
+Furthermore, if $R$ is found to be a bad measure of syntax distance,
+this research will propose and evaluate alternative syntactic distance
+measures. Specifically, $R$ is one way to aggregate features that are
+created by decomposing sentences. It treats features as atomic, not
+using any internal information. As such, it is not much different than
+Goebl's WIV. This may not be a problem if the decomposition methods
+used to generate features adequately capture dialect differences in
+independent, atomic features. If dialect differences cannot be
+captured by independent, atomic features, then a more complex method
+of combination may be needed to replace $R$.
+
+A secondary question, relevant once $R$ is established as a useful
+syntax distance measure, is what features provide the best
+results. Previous work has shown that leaf-ancestor paths provide a
+small advantage over part-of-speech trigrams, presumably by capturing
+syntactic structure higher in the parse tree. Additional possible
+feature sets include variations on the previously investigated
+trigrams and leaf-ancestor paths: various kinds of backoff, such
+as coarser node tags or bigrams. Other ways of capturing syntactic
+structure may be useful too, such as dependency parses or
+supertags. (Should CITE at least supertags because I think they are
+not universally understood)
+
+A third question is whether $R$ agrees with
+phonological distances measures like Levenshtein distance.
+Unlike agreement with traditional dialectology,
+there is no {\it a priori} reason to expect agreement between phonology and
+syntax in delineating dialect boundaries. However, agreement with
+phonological distance would be further evidence for the utility of $R$
+as a syntactic distance measure.
+
+\subsection{Hypotheses}
 
 Hypothesis 1: $R$ will agree substantially with the results of
 syntactic dialectology. This will be tested by comparing $R$'s results
