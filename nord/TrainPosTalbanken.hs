@@ -1,7 +1,7 @@
 import Text.XML.HaXml (xmlParse)
 import Util
-getTerminals xml = map (tagpath ["s", "graph", "terminals", "t"])
-                       (tagpath ["corpus", "body", "s"] xml)
+getTerminals = map (tagpath ["s", "graph", "terminals", "t"]) .
+               tagpath ["corpus", "body", "s"]
 getAttrs = concatMap (((".", "IP") :) . map pair)
     where pair elem = (utf8FromLatin1 $ attr' "word" elem,
                        replace ' ' '_' $ attr' "pos" elem)
