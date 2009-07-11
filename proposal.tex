@@ -80,139 +80,81 @@ syntactic measures have remained undeveloped. The most important
 reason for this focus is that it is easier to define a distance
 measure on phonology. In phonology, words decompose to segments and,
 if necessary, segments further decompose to phonological
-features. This decomposition is straightforward and based on Chomsky
-and Halle (1968) (TODO:Cite this, I can't believe it's not in my
-bibtex file). For combination, string alignment, or Levenshtein
+features. This decomposition is straightforward and based on
+\namecite{chomsky68}. For combination, string alignment, or Levenshtein
 distance \cite{lev65}, is a well-understood algorithm used for
 measuring changes between any two sequences of characters taken from a
 common alphabet. Levenshtein distance is simple mathematically, and
 has the additional advantage that its intermediate data structures are
-fairly easy to interpret linguistically.
+easy to interpret linguistically.
 
-\begin{equation}
-d(F_S,F_T) = \sum_{s,t \in S, T} lev(F_S,F_T)
-\label{d-example-phonology}
-\end{equation}
+A secondary reason for dialectometry's focus on phonology is that it
+is inherited from dialectology at large (TODO:Cite?). This might be
+solely to due to the history of dialectology as a field, but it is
+likely that more phonological than syntactic differences exist between
+dialects. This is probably due to historically greater standardisation
+of syntax via the written form of language; phonological
+dialect features are less likely to be stigamatised and suppressed by a
+standard diaect than syntactic ones (TODO:Cite, probably
+Trudgill and Chambers something like '98, maybe where they talk about
+what aspects of dialects are noticed and stigmatised). Whatever the reason, much
+less dialectology work on syntax is available for comparison with new
+dialectometry results.
 
-\begin{figure}
-\[\xymatrix{
-  & S = \textrm{corpus} \ar@{>}[dl] \ar@{>}[d] \ar@{>}[dr] &\\
-  \ldots & \textrm{[k\~an]} \ar@{>}[d] & \ldots \ar@{>}[d] \\
-  &s = \textrm{[k] [\~a] [n]} \ar@{>}[d]\ar@/_7pc/[ddd]  &
-  t = \ldots\ar@{>}[d] \ar@/^7pc/[dddl] \\
-  &s_0 = \left[ + cons \ldots \right] \ar@{>}[d] & t_0 = \ldots\ar@{>}[dl]  \\
-  & d(s_0, t_0)  \ar@{>}[d] & \\
-  & lev(s, t) \ar@{>}[d] & \\
-  & \sum_{S \times S} & \\
-} \]
-\label{phonology-distance-measure-model}
-\caption{Phonology Distance Measure Model}
-\end{figure}
+\subsection{Problems}
 
-\begin{figure}
-\[\xymatrix{
-  & S = \textrm{corpus} \ar@{>}[dl] \ar@{>}[d] \ar@{>}[dr] &\\
-  \ldots & \textrm{[k\~an]} \ar@{>}[d] & \ldots \ar@{>}[d] \\
-  &s = \textrm{[k] [\~a] [n]} \ar@{>}[d]\ar@/_7pc/[ddd]  &
-  t = \ldots\ar@{>}[d] \ar@/^7pc/[dddl] \\
-  &s_0 = \left[ + cons \ldots \right] \ar@{>}[d] & t_0 = \ldots\ar@{>}[dl]  \\
-  & d(s_0, t_0)  \ar@{>}[d] & \\
-  & lev(s, t) \ar@{>}[d] & \\
-  & \sum_{S \times S} & \\
-} \]
-\label{syntax-distance-measure-model}
-\caption{Syntax Distance Measure Model}
-\end{figure}
+Syntax is a relatively undeveloped area in dialectometry.
+Currently, the literature lacks a generally accepted syntax measure.
+The previous section introduced the reasons for this deficiency.
+Unfortunately, trying to approach the problem by copying phonology
+does not work very well. The real problem is that there are fewer
+differences to be found in syntax, and they occur less often (TODO:
+Back this up either with reasoning or citation). But traditionally,
+dialectology has worked with fairly small corpora. This suffices for
+phonology, for which it is easy to extract good features and there are
+many consistent differences. However, it is not possible (TODO: Weasel
+a bit) to extract good enough features on such a small corpus.
 
-A second reason behind dialectometry's neglect of syntax is that
-dialectology at large tends to focus on phonology.
-This might be solely to due to the history of
-dialectology as a field, but it is more likely that more phonological differences
-exist between dialects than syntactic differences. Whatever the
-reason, there is much less work to compare with results of syntactic
-dialectometry, and much less inspiration to be had from the
-literature. Note that lexical dialectometry suffers from the first
-problem: no good, accepted method of decomposition; but not the
-second: lexical analysis is simple in dialectology and there has been
-a fair amount of it.
+There are two approaches that have been proposed to remedy this. The
+first, proposed by \namecite{spruit08} for analysing the Syntactic
+Atlas of the Dutch Dialects \cite{barbiers05}, is to use manual
+feature extraction so that only the most salient features are
+used. Then a sophisticated method of combination such as Goebl's
+Weighted Identity Value (WIV), described below and by
+\namecite{goebl06}, can be used to produce a distance. WIV is more
+complex mathematically than Levenshtein distance, and takes any kind
+of item as input.  The main problem with this is that manual feature
+extraction is not feasible in knowledge-poor or time-constrained
+environments. It is also subject to bias from the
+dialectologist. Since the best manual features are those that capture
+the difference between two dialects, the best-known features are most
+likely to become the best manual features.
 
-I believe that a second driving force is that
-there is also more dialect difference at the phonological level
-(actually, that there is less difference at the syntactic level), so
-the best results will be initially found there.
-In addition, [I believe that] phonology contains more dialect
-difference information than syntax. While the lexicon also contains
-many dialect differences, lexical items do not have an obvious
-decomposition. Actually I should re-order the previous paragraph to
-refer to `more differences' first, then Levenshtein distance. I think
-the theory proposed is interesting but needs lot of backup. This will
-require going back to those papers I read in Ken's class and then
-building from there.
+Besides this problem, it ignores two important aspects of the problem:
+first, syntactic structure IS easily decomposable. Second, many large
+syntactic corpora exist that would be impossible to analyse using only
+manual features. Given a good classifier, it should be possible to
+propose enough features and then automatically winnow them down to the
+best-performing ones.
 
-One reason I believe phonology to contain more differences is
-that the literature discusses many more pronunciation
-characteristics. Although it is possible that only phonologists become
-dialectologists, it is more likely that dialectologists discuss what
-they find. Second, and completely unjustified, is my theory of dialect
-differences (and in fact language change as a whole) as a series of
-random changes caused by the production apparatus. Some changes are
-perceptable by some people. Some of these perceived changes are taken
-to be socially important and are imitated, so that a change spreads
-and eventually is regularised. In this theory, phonological changes
-spread more easily because of the underlying theory that phonology is
-more susceptible to variation in production. Therefore, dialects
-should have more phonological variation. Note that this theory does
-not account for all sources of variation; lexical differences also
-arise from differing environments with different physical components.
+In short, although a good solution to the syntax distance problem is
+not {\it obvious} from syntactic structure and large syntactically
+annotated corpora, a good solution can be extracted {\it
+  automatically} by trying many different decomposition methods and evaluating
+them automatically.
 
-Although there are probably as many lexical differences between
-dialects as phonological differences, there is no high-precision
-measure here. Instead, Goebl's Weighted Identity Value (WIV) represents the
-state of the art. WIV is more complex mathematically than Levenshtein
-distance, and takes whole words as input. The problem is that there is
-no obvious way to decompose words to gain additional information. In
-contrast, phonological words have an obvious decomposition into
-segments and segments into phonological features.
+In addition, the large corpora will enable
+discovery of many types of differences, not just ones that have been
+discovered previously by dialectologists.
 
-Before Nerbonne \& Wiersma's measure, the state of the art for syntax
-distance was Goebl's WIV, but only over specific pre-defined
-features. WIV is a sophisticated means of composition, helpful for
-small corpora, but manually extracted features are deficient compared
-to automatic extraction of features. It is limited by requiring preliminary
-dialectologic analysis in order to find syntactic dialect
-markers. Manual dialectologic analysis nullifies the entire point
-of dialectometry---it is impoverished and encodes human bias directly.
+Even more, perhaps it will be possible to define a better method of
+combination which takes syntactic information into account. Um, this
+is really baseless speculation, but WIV isn't that good and R isn't
+either. A learning classifier MIGHT do better but WHO KNOWS. Not me,
+yet, that's for sure.
 
-However, syntactic structures are not difficult to decompose. Unlike
-phonology, the right way is not {\it obvious}, but decomposition
-methods are easy to come up with. If a useful sentence decomposition
-can be specified, then perhaps a more useful aggregate measurement
-method can also be specified, one that takes into account properties
-of syntax similar to the way that Levenshtein distance does when
-specified with edit functions that are weighted according to
-phonological feature differences.
-
-A third problem, related to the second, is that there is comparatively
-little dialectology published about syntax.
-% \subsection{Problems}
-
-Syntax is a relatively undeveloped area in dialectometry. This
-dissertation will continue the development of a syntactic dialectometry
-literature. The biggest deficiency in the literature is the absence of a generally accepted
-syntax measure. In contrast, Levenshtein distance is widely accepted
-as the standard phonological distance against which new distance
-measures are compared. It is supported by a large body of literature
-that shows it to be consistent for many languages and to detect the
-same linguistic features analysed by dialectologists
-\cite{heeringa04}. There is no equivalent to Levenshtein distance for syntax.
-
-Analysis of syntactic data poses different challenges
-than that of phonological data. Most available phonological data is from
-small-scale, carefully collected dialectology corpora. Some such
-data is available for syntax; for example, \namecite{spruit08} analysed
-the Syntactic Atlas of the Dutch Dialects \cite{barbiers05} using the content-agnostic
-methods developed by \namecite{goebl06}. However, for most
-languages, large, unstructured syntactic corpora are the norm;
+% TODO: Old but some useful stuff could be folded in probably
+However, for most languages, large, unstructured syntactic corpora are the norm;
 extraction of individual syntactic features from carefully elicited
 sentences is not possible. This means that a syntactic measure for
 dialectometry must be able to extract features from an unstructured
@@ -766,6 +708,7 @@ used to generate features adequately capture dialect differences in
 independent, atomic features. If dialect differences cannot be
 captured by independent, atomic features, then a more complex method
 of combination may be needed to replace $R$.
+% TODO: WIV, also Kullbeck-Leibler Divergence could work.
 
 A secondary question, relevant once $R$ is established as a useful
 syntax distance measure, is what features provide the best
