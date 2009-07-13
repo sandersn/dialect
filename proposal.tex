@@ -92,10 +92,10 @@ A secondary reason for dialectometry's focus on phonology is that it
 is inherited from dialectology at large (TODO:Cite?). This might be
 solely to due to the history of dialectology as a field, but it is
 likely that more phonological than syntactic differences exist between
-dialects. This is probably due to historically greater standardisation
-of syntax via the written form of language; phonological
-dialect features are less likely to be stigamatised and suppressed by a
-standard diaect than syntactic ones (TODO:Cite, probably
+dialects, due to historically greater standardisation
+of syntax via the written form of language. Phonological
+dialect features are less likely to be stigmatised and suppressed by a
+standard dialect than syntactic ones (TODO:Cite, probably
 Trudgill and Chambers something like '98, maybe where they talk about
 what aspects of dialects are noticed and stigmatised). Whatever the reason, much
 less dialectology work on syntax is available for comparison with new
@@ -103,62 +103,46 @@ dialectometry results.
 
 \subsection{Problems}
 
-Syntax is a relatively undeveloped area in dialectometry.
-Currently, the literature lacks a generally accepted syntax measure.
-The previous section introduced the reasons for this deficiency.
-Unfortunately, trying to approach the problem by copying phonology
-does not work very well. The real problem is that there are fewer
-differences to be found in syntax, and they occur less often (TODO:
-Back this up either with reasoning or citation). But traditionally,
-dialectology has worked with fairly small corpora. This suffices for
-phonology, for which it is easy to extract good features and there are
-many consistent differences. However, it is not possible (TODO: Weasel
-a bit) to extract good enough features on such a small corpus.
+Because of the preceding two reasons, syntax is a relatively
+undeveloped area in dialectometry. Currently, the literature lacks a
+generally accepted syntax measure. Unfortunately, approaching the
+problem by copying phonology is not a good solution; there are real
+differences between syntax and phonology that mean phonological
+approaches do not apply. For one, there are fewer differences to be
+found in syntax, and they occur more sparsely. (TODO: Back this up either
+with reasoning or citation). However, dialectology has traditionally
+worked with fairly small corpora. This suffices for phonology, because
+it is easy to extract good features and there are many
+consistent differences. For syntax, though, it is not possible (TODO: Weasel a
+bit) to identify reliable features in small corpora.
 
 There are two approaches that have been proposed to remedy this. The
 first, proposed by \namecite{spruit08} for analysing the Syntactic
-Atlas of the Dutch Dialects \cite{barbiers05}, is to use manual
-feature extraction so that only the most salient features are
-used. Then a sophisticated method of combination such as Goebl's
-Weighted Identity Value (WIV), described below and by
-\namecite{goebl06}, can be used to produce a distance. WIV is more
-complex mathematically than Levenshtein distance, and takes any kind
-of item as input.  The main problem with this is that manual feature
+Atlas of the Dutch Dialects \cite{barbiers05}, is to continue using
+small dialectology corpora and manually extract features so that only
+the most salient features are used. Then a sophisticated method of
+combination such as Goebl's Weighted Identity Value (WIV), described
+below and by \namecite{goebl06}, can be used to produce a
+distance. WIV is more complex mathematically than Levenshtein
+distance, and operates on any linguistic item. However, manual feature
 extraction is not feasible in knowledge-poor or time-constrained
 environments. It is also subject to bias from the
 dialectologist. Since the best manual features are those that capture
 the difference between two dialects, the best-known features are most
 likely to become the best manual features.
 
-Besides this problem, it ignores two important aspects of the problem:
-first, syntactic structure IS easily decomposable. Second, many large
-syntactic corpora exist that would be impossible to analyse using only
-manual features. Given a good classifier, it should be possible to
-propose enough features and then automatically winnow them down to the
-best-performing ones.
-
-In short, although a good solution to the syntax distance problem is
-not {\it obvious} from syntactic structure and large syntactically
-annotated corpora, a good solution can be extracted {\it
-  automatically} by trying many different decomposition methods and evaluating
-them automatically.
-
-In addition, the large corpora will enable
-discovery of many types of differences, not just ones that have been
-discovered previously by dialectologists.
-
-Even more, perhaps it will be possible to define a better method of
-combination which takes syntactic information into account. Um, this
-is really baseless speculation, but WIV isn't that good and R isn't
-either. A learning classifier MIGHT do better but WHO KNOWS. Not me,
-yet, that's for sure.
-
-% TODO: Old but some useful stuff could be folded in probably
-However, for most languages, large, unstructured syntactic corpora are the norm;
-extraction of individual syntactic features from carefully elicited
-sentences is not possible. This means that a syntactic measure for
-dialectometry must be able to extract features from an unstructured
-corpus, which in turn implies a statistical method. % probabilistic ?
+This approach ignores two important aspects of the problem of syntax
+distance. First, syntactic structure is easily decomposed into
+features; the problem is that the most relevant features, and the best
+decomposition, are not obvious. Second, large syntactic corpora are
+available, where extraction of individual syntactic features from
+carefully elicited sentences is not possible. However, combining these
+two facts cancels the problems of both: large corpora should provide
+enough evidence to properly rank automatically extracted features so
+that the best syntactic decomposition can be identified.
+% (traditional dialectology must collect small
+% amounts of data, so the much larger search space of syntactic
+% variation does not allow significant differences to emerge)
 
 One such method, a simple statistical measure called $R$,
 has been proposed by \namecite{nerbonne06} based on work by
@@ -208,18 +192,6 @@ decompositions are easy to specify. Additionally, the decomposition
 must take several more factors into account in order to make sure that
 the features it produces are useful and comparable to each other. And
 those features are \ldots
-
-Additionally, Levenshtein distance can operate well on traditionally
-small, focussed dialect corpora. This simple means of combining
-differences, combined with the simplicity of decomposing phonological
-data, contrasts strongly with syntax data. In fact, small, focussed
-dialect corpora are not well-suited to syntax work, not only because
-traditional dialectology methods are not well-suited to the unknown
-features of syntactic dialect variation (they must collect small
-amounts of data, so the much larger search space of syntactic
-variation does not allow significant differences to emerge), but also
-because there are existing syntactically annotated corpora that are
-not carefully collected dialect interviews.
 
 %%% Leftover previous introduction %%%
 % % TODO Henrik Rosenkvist seems to
