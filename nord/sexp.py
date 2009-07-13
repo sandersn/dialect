@@ -1,4 +1,5 @@
 def sexp(s):
+    if s=='()': return None
     stack = [[]]
     a = ''
     for c in s:

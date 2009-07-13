@@ -64,11 +64,11 @@ def bracketpaths(paths):
         first = edge(path, firsts, hapax)
         last = edge(path, lasts, hapax)
         if first != -1:
-            return mapi(Eq.get,path[:first+1])+["["]+mapi(Eq.get,path[first+1:])
+            return list(mapi(Eq.get,path[:first+1]))+["["]+list(mapi(Eq.get,path[first+1:]))
         elif last != -1:
-            return mapi(Eq.get,path[:last])+["]"]+mapi(Eq.get,path[last:])
+            return list(mapi(Eq.get,path[:last]))+["]"]+list(mapi(Eq.get,path[last:]))
         else:
-            return mapi(Eq.get, path)
+            return list(mapi(Eq.get, path))
     def bracket2(path):
         (first1,first2) = edge2(path, firsts)
         (last1,last2) = edge2(path, lasts)

@@ -10,16 +10,10 @@ from util import dct
 from path import mapi, trigrams, paths
 #check(str, [[str]], str, None)
 def write(name, region, fname):
-    open(fname,'w').write(name + "\n" +
+    open(fname,'w', encoding='utf-8').write(name + "\n" +
                           "\n***\n".join("\n".join(sent) for sent in region))
 #check([(str, [object])], None)
-def generate(sentences):
+def generate(region, sentences):
+    sentences = [s for s in sentences if s]
     write(region, mapi(trigrams, sentences), region+'-trigram.dat')
     write(region, mapi(paths, sentences), region+'-path.dat')
-def gen2iterable(genfunc):
-    def wrapper(*args, **kwargs):
-        class _iterable(object):
-            def __iter__(self):
-                return genfunc(*args, **kwargs)
-        return _iterable()
-    return wrapper

@@ -13,6 +13,8 @@ import swedia
 import paths
 import extract
 from sexp import sexp
+import cgitb
+cgitb.enable(format='text')
 
 def run(cmd):
     result = os.system(cmd)
@@ -60,7 +62,7 @@ def tagCfg():
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def genPaths():
     for region in paths.swediaRegions:
-        ss = [sexp(line[1:-1]) for line in open(region+'.txt')]
+        ss = [sexp(line[1:-2]) for line in open(region+'.mrg')]
         extract.generate(region, ss)
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
