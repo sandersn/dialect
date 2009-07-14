@@ -42,59 +42,40 @@ def trigrams(tree):
 # NOTE: type path = str, but is [str] internally
 #typecheck((str, [object]), [str])
 def paths(tree):
-    #typecheck((str,[object]), [Eq], [[Eq]])
-    def makepaths(tree, path):
-        (head, children) = tree
-        path = path + [Eq(head)]
-        if children:
-            return mapn(lambda child: makepaths(child, path), children)
-        else:
-            return [path]
     return mapi('-'.join, bracketpaths(makepaths(tree, [])))
+#typecheck((str,[object]), [Eq], [[Eq]])
+def makepaths(tree, path):
+    (head, children) = tree
+    path = path + [Eq(head)]
+    if children:
+        return mapn(lambda child: makepaths(child, path), children)
+    else:
+        return [path]
 #typecheck([[Eq]], [[str]])
 def bracketpaths(paths):
     "add brackets to disambiguate paths (and remove Eq wrapper)"
-    spans = dct.count(concat(paths))
-    hapax = set(node for (node,n) in spans.items() if n==1)
-    #spans = set(node for (node,n) in dct.count(concat(paths)).items() if n>1)
+    spans = set(node for (node,n) in dct.count(concat(paths)).items() if n>1)
     firsts = dict((node,findif(elem(node),paths)[-1]) for node in spans)
     lasts = dict((node,findif(elem(node),reversed(paths))[-1]) for node in spans)
     #typecheck([Eq], [str])
     def bracket(path):
-        first = edge(path, firsts, hapax)
-        last = edge(path, lasts, hapax)
-        if first != -1:
-            return list(mapi(Eq.get,path[:first+1]))+["["]+list(mapi(Eq.get,path[first+1:]))
-        elif last != -1:
-            return list(mapi(Eq.get,path[:last]))+["]"]+list(mapi(Eq.get,path[last:]))
-        else:
-            return list(mapi(Eq.get, path))
-    def bracket2(path):
-        (first1,first2) = edge2(path, firsts)
-        (last1,last2) = edge2(path, lasts)
-        if first1: # maybe first2
-            return mapi(Eq.get, first1+first2[0]+["["]+first2[1:])
-        elif last2: # maybe last1
-            return mapi(Eq.get, last1+["["]+last2)
+        (first1,first2) = map(list, edge(path, firsts))
+        (last1,last2) = map(list, edge(path, lasts))
+        if first2:
+            return mapi(Eq.get, first1+[first2[0], Eq("[")]+first2[1:])
+        elif last2:
+            return mapi(Eq.get, last1+[Eq("]")]+last2)
         else:
             return mapi(Eq.get, path)
     return mapi(bracket, paths)
-#typecheck([Eq], {Eq:Eq}, set, int)
-def edge(path, edges, hapax):
-    "find the index of the highest node that receives a bracket, -1 if none"
-    highest = -1
-    for i,node in reversed(list(enumerate(path))):
-        #if edges.get(node,Eq(None))==path[-1]:
-        if edges[node]==path[-1] and node not in hapax:
-            highest = i
-    return highest
-def edge2(path, edges):
-    def edgemost(x):
+#typecheck([Eq], {Eq:Eq}, set)
+def edge(path, edges):
+    def edgemost(node):
         return edges.get(node,None)==path[-1]
-    return span(edgemost, reversed(path))
-def span(f, l):
-    for i,x in enumerate(l):
-        if not f(x):
-            return (l[:i],l[i:])
-    else:
-        return (l, [])
+    return backspan(edgemost, path)
+def backspan(f, l):
+    lowest = len(l)
+    for i,x in reversed(list(enumerate(l))):
+        if f(x):
+            lowest = i
+    return (l[:lowest], l[lowest:])

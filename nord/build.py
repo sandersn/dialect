@@ -61,9 +61,12 @@ def tagCfg():
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def genPaths():
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib Path')
     for region in paths.swediaRegions:
-        ss = [sexp(line[1:-2]) for line in open(region+'.mrg')]
-        extract.generate(region, ss)
+        run("./Path '%s.mrg' t >'%s'" % (region,region))
+        run("./Path '%s.mrg' p >'%s'" % (region,region))
+        extract.generate(region,
+                         [sexp(line[1:-2]) for line in open(region+'.mrg')])
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # Steal this from ice/build.py

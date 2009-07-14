@@ -4,20 +4,29 @@ import Codec.Text.IConv (convert)
 import Text.XML.HaXml (tag, (/>), txt, elm, attr, xmlParse, verbatim, showattr,
                       literal, find)
 import Text.XML.HaXml.Types
+import Data.List (group,sort)
 import Maybe (fromMaybe)
 import System (getArgs)
+import Control.Arrow ((&&&))
+{--- lst ---}
+count :: (Ord a) => [a] -> [(a, Int)]
+count = map (head &&& length) . group . sort
+window n l = win l (length l)
+  where win l len | n > len = []
+                  | otherwise = take n l : win (tail l) (len - 1)
 replace _ _ [] = []
 replace src dst (x:xs) = (if src == x then dst else x) : replace src dst xs
 -- if you need Pythonesque groupBy, get Data.List.Split from Hackage and do:
 -- groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
+{--- fs ---}
 withFile filename f = return . f =<< readFile filename -- see also System.IO
 withFileLines filename f = return . f . lines =<< readFile filename
 multiFilePrinter read show =
     getArgs >>= mapM read >>= concat & mapM_ (show & putStrLn)
--- F# esque --
+{--- fnc (F# esque) ---}
 f & g = g . f -- also called >>> in Control.Arrow
 x |> f = f x
---- XML and encoding. Ugh --
+{--- xml and encoding. Ugh --}
 tagpath = foldr1 (/>) . map tag
 utf8FromLatin1 = B.pack & convert "LATIN1" "UTF-8" & B.unpack
 attr' attribute c@(CElem (Elem _ as _)) = verbatim$head$show' attribute
