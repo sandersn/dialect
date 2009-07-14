@@ -11,7 +11,6 @@ import sys
 from util.lst import each
 import swedia
 import paths
-import extract
 from sexp import sexp
 import cgitb
 cgitb.enable(format='text')
@@ -65,8 +64,6 @@ def genPaths():
     for region in paths.swediaRegions:
         run("./Path '%s.mrg' t >'%s'" % (region,region))
         run("./Path '%s.mrg' p >'%s'" % (region,region))
-        extract.generate(region,
-                         [sexp(line[1:-2]) for line in open(region+'.mrg')])
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # Steal this from ice/build.py
