@@ -12,6 +12,7 @@ from util.lst import each
 import swedia
 import paths
 from sexp import sexp
+import hielo
 import cgitb
 cgitb.enable(format='text')
 
@@ -67,15 +68,23 @@ def genPaths():
         run("./Path '%s.mrg' p >'%s'" % (region,region))
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
-    # Steal this from ice/build.py
+    # TODO: Only does paths right now, no trigrams or dependency-paths
+    out= 'dist-100-1000-r-path-interview.txt'
+    print 'Starting', outputname, '...'
+    hielo.regions['swedia'] = tuple(paths.swediaRegions)
+    open ('swedia-distance.sh','w').write(hielo.gensh(out, 'path', 'swedia'))
+    try: # delete previous run (since swedia-distance.sh appends to the file)
+        os.remove(outputname)
+    except OSError:
+        pass # don't complain for the first run when there is no output file
     params = open('params.h','w')
-    params.write('#define ITERATIONS 1000\n')
+    params.write('#define ITERATIONS 100\n')
     params.write('#define SAMPLES 1000\n')
     params.write('#define R_MEASURE r')
     params.close()
 
     os.system('g++ -o ctrl.out params.h icectrl.cpp')
-    os.system('nice -n 6 nohup bash ice-distance.sh >>nohup.out')
+    os.system('nice -n 6 nohup bash swedia-distance.sh >>nohup.out')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)
