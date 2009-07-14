@@ -22,7 +22,8 @@ def extractTalbanken():
     # 1. Train on POS tags from Talbanken
     # the explicit linker paths are needed to avoid MacPort's borken iconv
     # which is apparently just a giant series of macros?
-    # 1.1 Also Convert Talbanken to PTB for training (TODO:with uncrossing?!)
+    # 1.1 Also Convert Talbanken to PTB for training
+    # (TODO:with uncrossing?!)
     run('ghc -O2 --make -L/usr/lib -L/opt/local/lib TrainPosTalbanken')
     run('ghc -O2 --make -L/usr/lib -L/opt/local/lib --make RepairTalbanken')
     run('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(paths.talbanken),))
@@ -67,7 +68,14 @@ def genPaths():
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # Steal this from ice/build.py
-    return
+    params = open('params.h','w')
+    params.write('#define ITERATIONS 1000\n')
+    params.write('#define SAMPLES 1000\n')
+    params.write('#define R_MEASURE r')
+    params.close()
+
+    os.system('g++ -o ctrl.out params.h icectrl.cpp')
+    os.system('nice -n 6 nohup bash ice-distance.sh >>nohup.out')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

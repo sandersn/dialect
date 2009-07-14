@@ -1,4 +1,4 @@
-import Sexp -- imports : 8 vs 4
+import Sexp
 import Util (count, window, (&), withFileLines)
 import Data.List (intercalate,find)
 import Data.Maybe (fromJust)
@@ -7,20 +7,19 @@ import qualified Data.Map as Map
 import System
 main = do
     [region, target] <- getArgs
-    s <- withFileLines "Boda.mrg" (extract target (if target=="t"
-                                                   then (trigrams & filter(/=[]))
-                                                   else paths))
+    s <- withFileLines "Boda.mrg"
+                       (extract target (if target=="t" then trigrams else paths))
     putStr s
 extract region target = map (tail & init & runsexp)
                         & filter (/=Leaf "()")
                         & map (target & intercalate "\n")
                         & intercalate "\n***\n"
-                        & ("Boda\n"++)
---- util : 4 vs 9
+                        & ((region++"\n")++)
+{-- trigrams --}
 leaves (Leaf head) = [head]
 leaves (Tree head kids) = concatMap leaves kids
-trigrams = leaves & window 3 & map (intercalate "-")
---- trigrams : 3 vs 8
+trigrams = leaves & window 3 & map (intercalate "-") & filter (/="")
+{--- leaf-ancestor paths --}
 paths = makepaths & bracketpaths & map (map fst & intercalate "-")
 makepaths tree = evalState (makepaths' [] tree) 0
   where makepaths' path (Leaf s) = incWith (\ i -> return [(s,i):path])
@@ -40,7 +39,7 @@ bracketpaths paths = map (bracket . reverse) paths
                       (last1, []) -> last1
 edge path edges = break foundNode path
   where foundNode node = node `Map.member` edges && edges Map.! node == last path
-{--- DEBUG ---} --- paths : 19 vs 27; total : 34 vs 50
+{--- DEBUG ---}
 sent = runsexp " (A (B p q) (B r s)) "
 sent' = runsexp "(A (B p q r s))"
 ps = makepaths sent
