@@ -3,6 +3,7 @@ from util.lst import group, cross, concat
 from util import dct
 from util.txt import chomp
 from paths import swediaRegions
+import os
 ### util ###
 def typecheck(*args):
     def wrapper(f):
