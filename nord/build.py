@@ -11,7 +11,6 @@ import sys
 from util.lst import each
 import swedia
 import paths
-from sexp import sexp
 import norte
 import cgitb
 cgitb.enable(format='text')
@@ -26,7 +25,7 @@ def extractTalbanken():
     # 1.1 Also Convert Talbanken to PTB for training
     # (TODO:with uncrossing?!)
     run('ghc -O2 --make -L/usr/lib -L/opt/local/lib TrainPosTalbanken')
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib --make RepairTalbanken')
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib RepairTalbanken')
     run('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(paths.talbanken),))
     run('./RepairTalbanken %s >talbanken.mrg' % (' '.join(paths.talbanken),))
 def tagPos():
@@ -69,22 +68,9 @@ def genPaths():
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths
-    out= 'dist-100-1000-r-path-interview.txt'
-    print('Starting', out, '...')
-    norte.regions['swedia'] = tuple(paths.swediaRegions)
-    open ('swedia-distance.sh','w',encoding='utf-8').write(norte.gensh(out, 'path', 'swedia'))
-    try: # delete previous run (since swedia-distance.sh appends to the file)
-        os.remove(out)
-    except OSError:
-        pass # don't complain for the first run when there is no output file
-    params = open('params.h','w')
-    params.write('#define ITERATIONS 100\n')
-    params.write('#define SAMPLES 1000\n')
-    params.write('#define R_MEASURE r')
-    params.close()
-
-    os.system('g++ -o ctrl.out params.h icectrl.cpp')
-    os.system('nice -n 6 nohup bash swedia-distance.sh >>nohup.out')
+    norte.run('path')
+    norte.run('trigram')
+##     norte.run('dep')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

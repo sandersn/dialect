@@ -2,30 +2,44 @@ from __future__ import division
 from util.lst import group, cross, concat
 from util import dct
 from util.txt import chomp
-#from typecheck import typecheck
+from paths import swediaRegions
+### util ###
 def typecheck(*args):
     def wrapper(f):
         return f
     return wrapper
-regions = {'gor':('East', 'WestMidlands', 'EastMidlands', "London",
-               "Southeast", "Southwest", "Northeast", "Northwest",
-               "Scotland", "Wales", "Yorkshire"),
-           'ns': ('London', 'Scotland'),
-           'nsrandom':('Ldonon', 'Stolcnad')}
 def pairwise(l):
     return [(x,y) for i,x in enumerate(l) for y in l[i+1:]]
-def gensh(outname, suffix, division):
+### runner ###
+def run(feature):
+    out = 'dist-100-1000-r-%s-interview.txt' % (feature,)
+    print('Starting', out, '...')
+    open ('swedia-distance.sh','w',encoding='utf-8').write(gensh(out, feature))
+    try: # delete previous run (since swedia-distance.sh appends to the file)
+        os.remove(out)
+    except OSError:
+        pass # don't complain for the first run when there is no output file
+    params = open('params.h','w')
+    params.write('#define ITERATIONS 100\n')
+    params.write('#define SAMPLES 1000\n')
+    params.write('#define R_MEASURE r')
+    params.close()
+
+    os.system('g++ -o ctrl.out params.h icectrl.cpp')
+    os.system('nice -n 6 nohup bash swedia-distance.sh >>nohup.out')
+def gensh(outname, suffix):
     sh = '#!/bin/bash\n'
     suffix = '-' + suffix + '.dat'
-    return sh + '\n\n'.join('''echo Starting %(n1)s %(n2)s ...
-nice -n 6 ./ctrl.out %(n1)s%(suf)s %(n2)s%(suf)s >>%(out)s'''
+    return sh + '\n\n'.join("""echo Starting %(n1)s %(n2)s ...
+nice -n 6 ./ctrl.out '%(n1)s%(suf)s' '%(n2)s%(suf)s' >>'%(out)s'"""
                               % dict(n1=name1,n2=name2,suf=suffix,out=outname)
-                            for name1,name2 in pairwise(regions[division]))
+                            for name1,name2 in pairwise(swediaRegions))
 def norm(s):
     if s.endswith("_tiny\n"):
         return chomp(s)[:-5]
     else:
         return chomp(s)
+### analysis ###
 @typecheck(str, [(str,str,str)])
 def clean(outname):
     return [(norm(src),norm(dst),sig)
