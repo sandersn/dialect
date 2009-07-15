@@ -8,7 +8,6 @@ SCons, in Python, replaces make and allows extensibility in Python.
 """
 import os
 import sys
-from util.lst import each
 import swedia
 import paths
 import norte
@@ -24,10 +23,11 @@ def extractTalbanken():
     # which is apparently just a giant series of macros?
     # 1.1 Also Convert Talbanken to PTB for training
     # (TODO:with uncrossing?!)
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib TrainPosTalbanken')
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib RepairTalbanken')
-    run('./TrainPosTalbanken %s >talbanken.tt' % (' '.join(paths.talbanken),))
-    run('./RepairTalbanken %s >talbanken.mrg' % (' '.join(paths.talbanken),))
+    alltalbanken = ' '.join(paths.talbanken)
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib ConvertTalbankenToTags')
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib ConvertTalbankenToPTB')
+    run('./ConvertTalbankenToTags %s >talbanken.tt' % (alltalbanken,))
+    run('./ConvertTalbankenToPTB %s >talbanken.mrg' % (alltalbanken,))
 def tagPos():
     # 2. Train TnT on Talbanken POS tags
     run('tnt-para talbanken.tt')
@@ -60,11 +60,12 @@ def tagCfg():
         run("./ConvertTagsToTxt '%s.tag' >'%s.txt'" % (region,region))
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
-def genPaths():
+def genFeatures():
     run('ghc -O2 --make -L/usr/lib -L/opt/local/lib Path')
     for region in paths.swediaRegions:
-        run("./Path '%s.mrg' t >'%s'" % (region,region))
-        run("./Path '%s.mrg' p >'%s'" % (region,region))
+        run("./Path '%s.mrg' t >'%s-trigram.dat'" % (region,region))
+        run("./Path '%s.mrg' p >'%s-path.dat'" % (region,region))
+        run("./DepPath '%s.dep.conll' >'%s-dep.dat'" % (region,region))
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths

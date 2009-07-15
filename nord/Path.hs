@@ -7,8 +7,8 @@ import qualified Data.Map as Map
 import System
 main = do
     [region, target] <- getArgs
-    s <- withFileLines "Boda.mrg"
-                       (extract target (if target=="t" then trigrams else paths))
+    s <- withFileLines region
+                       (extract region (if target=="t" then trigrams else paths))
     putStr s
 extract region target = map (tail & init & runsexp)
                         & filter (/=Leaf "()")
