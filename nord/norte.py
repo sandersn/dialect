@@ -1,9 +1,12 @@
 from __future__ import division
 from util.lst import group, cross, concat
 from util import dct
-from util.text import chomp
+from util.txt import chomp
 #from typecheck import typecheck
-def typecheck(f): return f
+def typecheck(*args):
+    def wrapper(f):
+        return f
+    return wrapper
 regions = {'gor':('East', 'WestMidlands', 'EastMidlands', "London",
                "Southeast", "Southwest", "Northeast", "Northwest",
                "Scotland", "Wales", "Yorkshire"),

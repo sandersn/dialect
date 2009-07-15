@@ -19,7 +19,10 @@ def splitby(f, l, first=False):
     outer = []
     it = iter(l)
     if first:
-        acc = [it.next()]
+        try:
+            acc = [it.next()]
+        except StopIteration:
+            return []
     else:
         acc = []
     for x in it:
@@ -49,7 +52,7 @@ def sentences(lines):
         return [(clean(lines[0]),
                  parseloop(lines[1:], n=n+1) if lines[1:] else [])
                 for lines in splitby(lambda line:n==indent(line), lines, True)]
-    return dct.collapse(splitby(elem('<sent>'), lines, first=True),
+    return dct.collapse(filter(None, splitby(elem('<sent>'), lines, first=True)),
                         pipe(car, speaker_code),
                         pipe(cdr, cur(filter, useful), parseloop, car))
 #@typecheck(str, int, {str:[(str,str)]})

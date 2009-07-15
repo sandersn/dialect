@@ -12,7 +12,7 @@ from util.lst import each
 import swedia
 import paths
 from sexp import sexp
-import hielo
+import norte
 import cgitb
 cgitb.enable(format='text')
 
@@ -70,11 +70,11 @@ def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths
     out= 'dist-100-1000-r-path-interview.txt'
-    print 'Starting', outputname, '...'
-    hielo.regions['swedia'] = tuple(paths.swediaRegions)
-    open ('swedia-distance.sh','w').write(hielo.gensh(out, 'path', 'swedia'))
+    print('Starting', out, '...')
+    norte.regions['swedia'] = tuple(paths.swediaRegions)
+    open ('swedia-distance.sh','w',encoding='utf-8').write(norte.gensh(out, 'path', 'swedia'))
     try: # delete previous run (since swedia-distance.sh appends to the file)
-        os.remove(outputname)
+        os.remove(out)
     except OSError:
         pass # don't complain for the first run when there is no output file
     params = open('params.h','w')
