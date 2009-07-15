@@ -5,6 +5,7 @@ import Text.XML.HaXml (tag, (/>), txt, elm, attr, xmlParse, verbatim, showattr,
                       literal, find)
 import Text.XML.HaXml.Types
 import Data.List (group,sort)
+import Data.List.Split (split, dropFinalBlank, keepDelimsR, whenElt)
 import Maybe (fromMaybe)
 import System (getArgs)
 import Control.Arrow ((&&&))
@@ -16,14 +17,15 @@ window n l = win l (length l)
                   | otherwise = take n l : win (tail l) (len - 1)
 replace _ _ [] = []
 replace src dst (x:xs) = (if src == x then dst else x) : replace src dst xs
--- if you need Pythonesque groupBy, get Data.List.Split from Hackage and do:
--- groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
+groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
 {--- fs ---}
 withFile filename f = return . f =<< readFile filename -- see also System.IO
-withFileLines filename f = return . f . lines =<< readFile filename
+withFileLines f filename = return . f . lines =<< readFile filename
 multiFilePrinter read show =
     getArgs >>= mapM read >>= concat & mapM_ (show & putStrLn)
 {--- fnc (F# esque) ---}
+infixl 9 &
+infixl 0 |>
 f & g = g . f -- also called >>> in Control.Arrow
 x |> f = f x
 {--- xml and encoding. Ugh --}

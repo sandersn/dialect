@@ -62,6 +62,7 @@ def tagCfg():
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def genFeatures():
     run('ghc -O2 --make -L/usr/lib -L/opt/local/lib Path')
+    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib DepPath')
     for region in paths.swediaRegions:
         run("./Path '%s.mrg' t >'%s-trigram.dat'" % (region,region))
         run("./Path '%s.mrg' p >'%s-path.dat'" % (region,region))

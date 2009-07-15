@@ -3,16 +3,7 @@ import Text.XML.HaXml (tag, (/>), xmlParse)
 import Text.XML.HaXml.Types
 import Util
 import Data.List (intercalate)
-type Id = Integer -- "s1_1" or "s1_501"
-data FlatNode = FlatNode { cat :: String,
-                           word :: String,
-                           id :: Id,
-                           kids::[Id] } deriving (Eq, Show, Read)
-data Tree a = Leaf a a | Node a [Tree a] deriving (Eq, Show, Read)
-dat (Leaf a _) = a
-dat (Node a _) = a
-children (Leaf _ _) = []
-children (Node _ kids) = kids
+import Talbanken
 type TalbankenInput = Map.Map Id FlatNode
 -- xml reading ok --
 sentences = tagpath ["corpus", "body", "s"]
