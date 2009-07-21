@@ -72,7 +72,7 @@ def syntaxDist():
     # TODO: Only does paths right now, no trigrams or dependency-paths
     norte.run('path')
     norte.run('trigram')
-##     norte.run('dep')
+    norte.run('dep')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)
