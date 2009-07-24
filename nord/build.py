@@ -84,5 +84,3 @@ if __name__=="__main__":
 # TODO: Remove (or normalise to Talbanken) pauses in swedia.extractTxt
 # They look like - <first second> - also there's some funny [/] and [/-]
 # TODO: Cut off last couple of characters from each word for POS tagging?
-# TODO: pass -O2 to gcc too, duh!
-

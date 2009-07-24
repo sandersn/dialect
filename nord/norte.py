@@ -26,7 +26,7 @@ def run(feature):
     params.write('#define R_MEASURE r')
     params.close()
 
-    os.system('g++ -o ctrl.out params.h icectrl.cpp')
+    os.system('g++ -O2 -o ctrl.out params.h icectrl.cpp')
     os.system('nice -n 6 nohup bash swedia-distance.sh >>nohup.out')
 def gensh(outname, suffix):
     sh = '#!/bin/bash\n'

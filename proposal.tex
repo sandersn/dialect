@@ -729,44 +729,42 @@ Swedish part of the ScanDiaSyn.
 % Here is a citation for ScanDiaSyn if I could track it down and
 % translate it
 % Vangsnes, Øystein A. 2007. ScanDiaSyn: Prosjektparaplyen Nordisk dialektsyntaks. In T. Arboe (ed.), Nordisk dialektologi og sociolingvistik, Peter Skautrup Centeret for Jysk Dialektforskning, Århus Universitet. 54-72.
-SweDiaSyn is a transcription of SweDia 2000
-\cite{bruce99} collected between 1998 and 2000 from 97 locations in Sweden and
-10 in Finland. Each location had 12 interviewees: three 30-minute
-interviews for each of older male, older female, younger male and
-younger female.
+SweDiaSyn is a transcription of SweDia 2000 \cite{bruce99} collected
+between 1998 and 2000 from 97 locations in Sweden and 10 in
+Finland. Each location had 12 interviewees: three 30-minute interviews
+for each of older male, older female, younger male and younger female.
 However, the SweDiaSyn transcriptions do not yet include all of SweDia
 2000; the completed transcriptions currently focus on older
-speakers. Currently there are 36713 sentences of dialect speech and 49
+speakers. Currently there are 36713 sentences of dialect speech over 49
 sites, an average of 749 sentences per site. The sites may need to be
 grouped by province in order to detect significant differences;
 previous work on British English used Government Office Regions with
 at least 850 sentences per region.
 
- There are two types of transcription: 
+In the SweDiaSyn, there are two types of transcription:
 standard Swedish orthography, with glosses for words
 not in standard Swedish, and a phonetic transcription for dialects
-that differ greatly from standard Swedish. For this dissertation, only
-the orthographic/gloss transcription will be used, since phonological
-information cannot be easily used in this syntax distance project.
+that differ greatly from standard Swedish. For this dissertation,
+the orthographic/gloss transcription will be used so that lexical
+items will be comparable across dialects.
 
-Since SweDiaSyn consists of lexical items only, Talbanken05 will be
-used to train a POS tagging and a parser. Talbanken05 is a modernised version of Talbanken76, a Swedish treebank of
-roughly 300,000 words \cite{nivre06}. The treebank consists of written
-and spoken Swedish. The original treebank was annotated according to a
-custom scheme called MAMBA; Talbanken05 updates this to include phrase
+Because SweDiaSyn consists of untagged lexical items, Talbanken05 will be
+used to train a POS tagger and a parser. Talbanken05 is an updated
+version of Talbanken76, a Swedish treebank of roughly 300,000 words
+\cite{nivre06}. The treebank consists of written and spoken
+Swedish. The original treebank was annotated according to a custom
+scheme called MAMBA; Talbanken05 updates this to include phrase
 structure annotation and dependency annotation using the standard
 annotation schemes TIGER-XML and Malt-XML.
 
 \subsection{Parsing}
 
-In order to extract the features used in the previous section from
-the Swedish dialect corpus SweDiaSyn, or in fact any unparsed corpus,
-part-of-speech tagging and parsing will be needed.
-The SweDiaSyn is transcribed to standard Swedish
-orthography, but will need to be POS tagged and parsed, both for
-phrase structures and dependencies.
+In order to identify the features needed for building the language
+models described above, SweDiaSyn will need to be POS tagged and
+parsed. In this case, both phrase-structure parsing and dependency
+parsing will be needed.
 
-The Tags 'n' Trigrams (T'n'T) tagger will be used for tagging, with
+The Tags 'n' Trigrams (T'n'T) tagger \cite{brants00} will be used for tagging, with
 the POS annotations from Talbanken05 used as training.
 After POS tagging, the sentences will be cleaned in preparation for
 parsing. Cleaning phrase structure annotations consists of removing
@@ -775,25 +773,19 @@ restarts, which may be reparable by a simple top-level strategy. If
 more complicated uncrossing is needed, a strategy similar to the split
 constituents proposed by \namecite{boyd07} may be needed.
 
-For constituent parsing, Collin's parser will be trained on standard
-Swedish, again using Talbanken05. Collin's parser is a probabilistic
-context-free grammar parser that is fully lexicalised; every
-non-terminal is associated with the lexical item of its head
-\cite{collins99}.
-% Generation
-% occurs in a top-down, head-first manner (not sure about this).
-% (TODO: These two descriptions could probably be a LOT longer and
-% more complete. It's a pretty short summary right now.)
+For constituent parsing, The Berkeley parser \cite{petrov08} will be
+trained on standard Swedish, again from Talbanken05. The Berkeley
+parser has shown good performance on languages other than English,
+which is not common for phrase-structure parser.
+% TODO: CITE The paper that shows this.
 
 For dependency parsing, MaltParser will be used with the existing
 Swedish model trained on Talbanken05 by Hall, Nilsson and
 Nivre. MaltParser is an inductive dependency parser that uses a
 machine learning algorithm to guide the parser at choice points
-\cite{nivre06b}.
-Dependency parsing will proceed similarly to constituency parsing;
-the dependency structures of Talbanken05 will be cleaned and
-normalised, then used to train a parser that will then parse the
-sentences of SweDiaSyn.
+\cite{nivre06b}.  Dependency parsing will proceed similarly to
+constituency parsing; the dependency structures of Talbanken05 will be
+cleaned and normalised, then used to train a parser.
 
 % TODO: Find out how much crossing occurs in Swedish corpora, and how
 % much of it is from interruptions and self-corrections.
