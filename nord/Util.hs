@@ -4,14 +4,15 @@ import Codec.Text.IConv (convert)
 import Text.XML.HaXml (tag, (/>), txt, elm, attr, xmlParse, verbatim, showattr,
                       literal, find)
 import Text.XML.HaXml.Types
-import Data.List (group,sort)
+import Data.List (group, sort, foldl')
 import Data.List.Split (split, dropFinalBlank, keepDelimsR, whenElt)
+import qualified Data.Map as Map
 import Maybe (fromMaybe)
 import System (getArgs)
 import Control.Arrow ((&&&))
 {--- lst ---}
-count :: (Ord a) => [a] -> [(a, Int)]
-count = map (head &&& length) . group . sort
+count :: (Ord a) => [a] -> Map.Map a Int
+count l = foldl' (\ m x -> Map.insertWith' (+) x 1 m) Map.empty l
 window n l = win l (length l)
   where win l len | n > len = []
                   | otherwise = take n l : win (tail l) (len - 1)
