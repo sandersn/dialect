@@ -1,8 +1,11 @@
-\documentclass[11pt]{article}
+\documentclass[11pt,letterpaper]{article}
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+\usepackage{times}
 \usepackage[all]{xy}
 \usepackage{robbib}
-\author{Nathan Sanders, Indiana University \\ \tt{ncsander@indiana.edu}}
-\title{Syntax Distance for Dialectometry : A Two Page Prospectus}
+\author{Nathan Sanders, Indiana University}
+\title{Syntax Distance for Dialectometry}
 \begin{document}
 \maketitle
 
@@ -12,229 +15,87 @@ work \cite{sanders07}, \cite{sanders08b} and earlier work by
 \namecite{nerbonne06}, the first computational measure of syntax
 distance. Dialectometry has existed as a field since
 \namecite{seguy73} and is a sub-field of dialectology
-\cite{chambers92}; recently, computational methods have come to
+\cite{chambers98}; recently, computational methods have come to
 dominate dialectometry, but they are limited in focus compared to
 previous work; most have explored phonological distance only, while
 earlier methods integrated phonological, lexical, and syntactic data.
 
-Dialectology is the study of linguistic variation. % in space / over
-% distance / other variables.
-Its goal is to characterise the linguistic features that
-separate two language varieties. Dialectometry is a subfield of
-dialectology that uses mathematically sophisticated methods to extract
-and combine linguistic features. In recent years it has
-been associated with computational linguistic work, most of which
-has focussed on phonology, starting with
-\namecite{kessler95}, followed by \namecite{nerbonne97} and
-\namecite{nerbonne01}. \namecite{heeringa04} provides a comprehensive
-review of phonological distance in dialectometry as well as some new
-methods.
+Dialectology is the study of linguistic variation.
+Its goal is to characterize the linguistic features that separate two
+language varieties. Dialectometry is a subfield of dialectology that
+uses mathematically sophisticated methods to extract and combine
+linguistic features. In recent years it has been associated with
+computational linguistic work, most of which has focused on
+phonology, starting with \namecite{kessler95} and treated most
+comprehensively by \namecite{heeringa04}.
 
 In dialectometry, a distance measure can be defined in two parts:
 first, a method of decomposing the linguistic data into minimal,
 linguistically meaningful features, and second, a method of combining
-the features in a mathematically and linguistically sound way. Figure
-\ref{abstract-distance-measure-model} gives an overview of how the
-model works. Input consists of two corpora; each item in each corpus
-is decomposed into a set of features extracted by $f(s)$. The
-resulting corpora are then compared by $d(S,T)$, which combines the
-corpora into a single number: the distance.
+the features in a mathematically and linguistically sound way.
+Dialectometry has focused on phonological distance measures, while
+syntactic measures have remained undeveloped. One reason is that a
+phonological measure is easier to define; words decompose to segments
+and then to phonological features \cite{chomsky68}. For combination, Levenshtein
+distance \cite{lev65} is a well-understood algorithm used for
+measuring changes between any two sequences.
 
-\begin{figure}
-\[\xymatrix@C=1pc{
- \textrm{Corpus} \ar@{>}[d]|{f(s)} &
-  S = s_o,s_1,\ldots
-  \ar@{>}[d] % \ar@<2ex>[d] \ar@<-2ex>[d]
-  &&
-  T = t_o,t_1,\ldots
-  \ar@{>}[d] % \ar@<2ex>[d] \ar@<-2ex>[d]
-  \\
- *\txt{Decomposition} \ar@{>}[d]|{d(S,T)} &
- *{\begin{array}{c}
-     \left[ + f_o, +f_1 \ldots \right], \\
-     \left[ - f_o, +f_1 \ldots \right], \\
-     \ldots \\ \end{array}}
- \ar@{>}[dr]
- &&
- *{\begin{array}{c}
-     \left[ + f_o, -f_1 \ldots \right], \\
-     \left[ + f_o, -f_1 \ldots \right], \\
-     \ldots \\ \end{array}}
- \ar@{>}[dl]  \\
- \textrm{Combination} &
- & \textrm{Distance} & \\
-} \]
-\label{abstract-distance-measure-model}
-\caption{Abstract Distance Measure Model : $f + d$}
-\end{figure}
-
-Dialectometry has focussed on phonological distance measures, while
-syntactic measures have remained undeveloped. The most important
-reason for this focus is that it is easier to define a distance
-measure on phonology. In phonology, words decompose to segments and,
-if necessary, segments further decompose to phonological
-features. This decomposition is straightforward and based on
-\namecite{chomsky68}. For combination, string alignment, or Levenshtein
-distance \cite{lev65}, is a well-understood algorithm used for
-measuring changes between any two sequences of characters taken from a
-common alphabet. Levenshtein distance is simple mathematically, and
-has the additional advantage that its intermediate data structures are
-easy to interpret linguistically.
-
-A secondary reason for dialectometry's focus on phonology is that it
-is inherited from dialectology at large
-% (TODO:Cite?).
-This might be solely to due to the history of dialectology as a field, but it is
-likely that more phonological than syntactic differences exist between
-dialects, due to historically greater standardisation
-of syntax via the written form of language. Phonological
-dialect features are less likely to be stigmatised and suppressed by a
-standard dialect than syntactic ones.
-% (TODO:Cite, probably
-% Trudgill and Chambers something like '98, maybe where they talk about
-% what aspects of dialects are noticed and stigmatised).
-Whatever the reason, much less dialectology work on syntax is
-available for comparison with new dialectometry results.
-
-\subsection{Problems}
-
-Because of the preceding two reasons, syntax is a relatively
-undeveloped area in dialectometry. Currently, the literature lacks a
+In contrast to phonology, the dialectometry literature lacks a
 generally accepted syntax measure. Unfortunately, approaching the
-problem by copying phonology is not a good solution; there are real
-differences between syntax and phonology that mean phonological
-approaches do not apply. For example, there are fewer differences to be
-found in syntax, and they occur more sparsely.
-% (TODO: Back this up either with reasoning or citation).
-However, dialectology has traditionally worked with fairly small
-corpora. This suffices for phonology, because
-it is easy to extract good features and there are many
-consistent differences between corpora. For syntax, though, it is not possible
-% (TODO: Weasel a bit)
-to identify reliable features in small corpora.
+problem by copying phonology is not a good solution.  For example,
+dialectology has traditionally worked with fairly small corpora. This
+suffices for phonology, because it is easy to automatically extract features
+and there are many consistent differences between corpora. For syntax,
+though, it is not possible to automatically identify reliable features in small corpora.
 
 There are two approaches that have been proposed to remedy this. The
-first, proposed by \namecite{spruit08} for analysing the Syntactic
+first, proposed by \namecite{spruit08} for analyzing the Syntactic
 Atlas of the Dutch Dialects \cite{barbiers05}, is to continue using
 small dialectology corpora and manually extract features so that only
 the most salient features are used. Then a sophisticated method of
-combination such as Goebl's Weighted Identity Value (WIV), described
-below and by \namecite{goebl06}, can be used to produce a
-distance. WIV is more complex mathematically than Levenshtein
-distance, and operates on any linguistic item. However, manual feature
-extraction is not feasible in knowledge-poor or time-constrained
-environments. It is also subject to bias from the
-dialectologist. Since the best manual features are those that capture
-the difference between two dialects, the best-known features are most
-likely to become the best manual features.
+combination such as Goebl's Weighted Identity Value (WIV)
+\namecite{goebl06}, can be used to produce a distance. WIV is more
+complex mathematically than Levenshtein distance, and operates on any
+linguistic data. However, manual feature extraction is not feasible in
+knowledge-poor or time-constrained environments. It is also subject to
+bias from the dialectologist.
 
-This approach ignores two important aspects of the problem of syntax
-distance. First, syntactic structure is easily decomposed into
-features; the problem is that the most relevant features, and the best
-decomposition, are not obvious. Second, large syntactic corpora are
-available for many languages, such that extraction of specific
-syntactic features from carefully elicited sentences is not
-possible. However, the drawbacks of these two aspect cancel each other:
-large corpora should provide enough evidence to properly rank
-automatically extracted features.
-% (traditional dialectology must collect small
-% amounts of data, so the much larger search space of syntactic
-% variation does not allow significant differences to emerge)
-
-One such method, a simple statistical measure called $R$,
+A second approach is to define a distance measure using the specific
+properties of syntactic data. Syntactic structure is easily decomposed
+into many kinds of features, and large syntactic corpora are available
+for many languages. Together, these properties mean that large corpora
+should provide enough evidence to rank automatically extracted
+features. One such method, a simple statistical measure called $R$,
 has been proposed by \namecite{nerbonne06} based on work by
 \namecite{kessler01}. At present, however, $R$ has not been adequately
 shown to detect dialect differences. A small body of work suggests
-that it does, but as yet there has not been
-a satisfying correlation of its results with phonology or, as with
-phonological distance, with existing results from the dialectelogy
-literature on syntax.
+that it does, but to date there has not been a satisfying correlation
+of its results with existing results from the dialectology literature
+on syntax.
 
 Nerbonne \& Wiersma's first paper used $R$ for syntax distance
 together with a test for statistical significance\cite{nerbonne06}.
-Their experiment compared two generations of
-Norwegian L2 speakers of English, with part-of-speech trigrams as input features.
-They found that the two generations were significantly
-different, although they had to normalise the trigram counts to
-account for differences in sentence length and complexity. However,
-showing that two generations of speakers are significantly different with respect
-to $R$ does not necessarily imply that the same will be true for other
-types of language varieties. Specifically, for this dissertation, the
-success of $R$ on generational differences does not imply success on
-dialect differences.
+Their experiment compared two generations of Norwegian L2 speakers of
+English, with part-of-speech trigrams as input features.  They found
+that the two generations were significantly different. However,
+showing that two generations of speakers are significantly different
+with respect to $R$ does not necessarily imply that the same will be
+true for other types of language varieties. Specifically, for this
+dissertation, the success of $R$ on generational differences does not
+imply success on dialect differences.
 
 \namecite{sanders08b} addressed this problem by measuring $R$ between
 the nine Government Office Regions of England, using the International
-Corpus of English Great Britain \cite{nelson02}. Speakers were classified by
-birthplace. Sanders also introduced Sampson's leaf-ancestor paths as
-features \cite{sampson00}. Sanders found statistically
-significant differences between most corpora, using both trigrams and
+Corpus of English Great Britain \cite{nelson02}. Speakers were
+classified by birthplace. Sanders found statistically significant
+differences between most corpora, using both trigrams and
 leaf-ancestor paths as features. However, $R$'s distances were not
 significantly correlated with Levenshtein distances. Nor did Sanders
 show any qualitative similarities between known syntactic dialect
 features and the high-ranked features used by $R$ in producing its
-distance. As a result, it is not clear whether the significant $R$ distances
-correlate with dialectometric phonological distance or with known
-features found by dialectologists.
-This proposal proposes to continue my existing line of research on
-dialect distance using syntactic features. My previous research has
-focussed on statistical measures as pioneered by Nerbonne \& Wiersma
-and extended their features to better capture complex syntactic
-structure.
-
-\section{Dialectometry}
-
-Dialectometry is the quantitative linguistic study of differences
-between languages. It is a subset of dialectology, which looks for
-boundaries between languages. However, unlike classic dialectology, it
-does not look for strict boundaries (in the form of isogloss bundles)
-between languages based on boundaries specified by multiple
-variables. Instead, dialectometry first defines a distance measure
-that combines information from multiple variables. The result
-specifies gradient boundaries, not absolute boundaries.
-
-Dialectology is related to sociolinguistics--the two often work with
-the same data. But the questions are different: sociolinguistics asks
-Why (and What) while dialectometry asks How Much (and What).
-In other words, sociolinguistics analyses the conditions that cause
-differences between languages, such as geographic separation, social
-separation, code-switching or social climbing. For dialectometry, it
-does not matter which dimension is used; the only concern is correlating
-the linguistic differences with the areas specified by the
-sociological variable. Historically, geographic separation is the most
-usual application, but others are certainly possible and some have
-been investigated (Sanders, Gooskens, another of John's students)
-
-\section{Previous Work}
-
-Results were inconclusive for British dialects when comparing the
-syntactic measure with a well-known phonological measure, Levenshtein
-distance. I will address this in several ways, deepening and
-complicating the study in the process.
-
-First, a change of corpus. This
-has two improvements: more data, and better data. In the ICE, nobody
-really talked that much, and everybody was in London College at the
-time, so even if they were born out in the country, they were trying
-to sound Proper. The Scandinavian Dialect Corpus
-(Nordisk dialektkorpus) is recorded mostly on location, in traditional
-dialectology style, old people spread somewhat evenly throughout the
-country.
-
-Second, an expansion in methods. In the previous work on the ICE
-corpus, only trigrams and leaf-ancestor paths are used as a source of
-features for the statistical classifier. Only leaf-ancestor paths are
-sensitive enough to give significant results. With more data, more
-methods should be sensitive enough to produce sensible
-results. Therefore, in addition to constituent-based leaf-ancestor
-paths, a similar measure will be developed for dependency parses.
-
-This will require some additional preparation relative to experiments
-run on the ICE, which is already parsed by a constituent grammar. The
-unparsed Scandinavian Dialect Corpus will have to be parsed by
-machine. But this provides an opportunity to use multiple parsing
-methods. There exist Swedish treebanks parsed by both constituent parsers and
-dependency parsers.
+distance. As a result, it is not clear whether the significant $R$
+distances correlate with dialectometric phonological distance or with
+known features found by dialectologists.
 
 \bibliographystyle{robbib}
 \bibliography{central}
@@ -247,7 +108,7 @@ dependency parsers.
 E-mail to Steve
 
 Hi Steve, would you be willing to be part of my
-dissertation committee. Sandra recommended that I have another member
+dissertation committee? Sandra recommended that I have another member
 from linguistics who can give perspective from formal syntax,
 since I will be working with computational syntax without much
 background in formal syntax.
@@ -259,17 +120,7 @@ you the current draft of the proposal if you want.
 
 E-mail to Alicia
 
-Hi Alicia. I just wanted to make sure that all the paperwork went
-through and that everything is set for me to show up on the 17th. I do
-have a question: will I only get the address I'm moving to 3
-beforehand?
-At this point I'm planning my move by pinpointing Microsoft as the
-destination. :) Since I'm leaving 3 days before I arrive, I guess I'll
-look for a hotel with Wi-Fi on the first day. Since I won't be too far
-gone in to the American Wasteland, I suppose that won't be too hard.
 
 E-mail to Markus
 
-E-mail to Debra and Madeleine? (need Debra's schedule first)
-
-E-mail to new secretary to get form
+E-mail to Debra/Justin/Rashid pri aikido@indiana.edu

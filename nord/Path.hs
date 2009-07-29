@@ -10,25 +10,25 @@ main = do
     s <- withFileLines (extract region (if target=="t" then trigrams else paths))
                        region
     putStr s
-extract region target = map (tail & init & runsexp)
-                        & filter (/=Leaf "()")
+extract region target = map (tail & tail & init & runsexp)
+                        & filter (/=Node "()" [])
                         & map (target & intercalate "\n")
                         & intercalate "\n***\n"
                         & ((region++"\n")++)
 {-- trigrams --}
-leaves (Leaf head) = [head]
-leaves (Tree head kids) = concatMap leaves kids
+leaves (Node head []) = [head]
+leaves (Node head kids) = concatMap leaves kids
 trigrams = leaves & window 3 & map (intercalate "-") & filter (/="")
 {--- leaf-ancestor paths --}
 paths = makepaths & bracketpaths & map (map fst & intercalate "-")
 gensym x f = do i <- get; put $ succ i; f (x,i)
 runGensym f = evalState f 0
 makepaths = runGensym . makepaths' []
-  where makepaths' path (Leaf s) = gensym s (\ node -> return $ [node:path])
-        makepaths' path (Tree s kids) = gensym s $ (\ node ->
+  where makepaths' path (Node s []) = gensym s (\ node -> return $ [node:path])
+        makepaths' path (Node s kids) = gensym s $ (\ node ->
           mapM (makepaths' (node:path)) kids >>= concat & return)
 bracketpaths paths = map (bracket . reverse) paths
-  where nodes = count (concat paths) |> Map.filter (>1)
+  where nodes = count (concat paths) |> Map.filter (>1) --also filters singletons
         edgeLeaf paths node _ = find (elem node) paths |> fromJust |> head
         bracket path = case edge path (Map.mapWithKey (edgeLeaf paths) nodes) of
           (first1,f2:first2) -> first1 ++ f2 : ("[",0) : first2
