@@ -29,36 +29,20 @@ computational linguistic work, most of which has focused on
 phonology, starting with \namecite{kessler95} and treated most
 comprehensively by \namecite{heeringa04}.
 
+% MERGE
 In dialectometry, a distance measure can be defined in two parts:
 first, a method of decomposing the linguistic data into minimal,
 linguistically meaningful features, and second, a method of combining
 the features in a mathematically and linguistically sound way.
 Dialectometry has focused on phonological distance measures, while
-syntactic measures have remained undeveloped. One reason is that a
-phonological measure is easier to define; words decompose to segments
-and then to phonological features \cite{chomsky68}. For combination, Levenshtein
-distance \cite{lev65} is a well-understood algorithm used for
-measuring changes between any two sequences.
+syntactic measures have remained undeveloped. Unfortunately,
+approaching the problem by copying phonology is not a good solution.
+Dialectology has traditionally worked with fairly small
+corpora, which suffices for phonology, because it is easy to
+automatically extract features. For syntax, though, it is not possible to
+automatically identify reliable features in small corpora.
 
-In contrast to phonology, the dialectometry literature lacks a
-generally accepted syntax measure. Unfortunately, approaching the
-problem by copying phonology is not a good solution.  For example,
-dialectology has traditionally worked with fairly small corpora. This
-suffices for phonology, because it is easy to automatically extract features
-and there are many consistent differences between corpora. For syntax,
-though, it is not possible to automatically identify reliable features in small corpora.
-
-There are two approaches that have been proposed to remedy this. The
-first, proposed by \namecite{spruit08} for analyzing the Syntactic
-Atlas of the Dutch Dialects \cite{barbiers05}, is to continue using
-small dialectology corpora and manually extract features so that only
-the most salient features are used. Then a sophisticated method of
-combination such as Goebl's Weighted Identity Value (WIV)
-\namecite{goebl06}, can be used to produce a distance. WIV is more
-complex mathematically than Levenshtein distance, and operates on any
-linguistic data. However, manual feature extraction is not feasible in
-knowledge-poor or time-constrained environments. It is also subject to
-bias from the dialectologist.
+% KEEP SOME: (but summarise more?)
 
 A second approach is to define a distance measure using the specific
 properties of syntactic data. Syntactic structure is easily decomposed
@@ -73,6 +57,7 @@ that it does, but to date there has not been a satisfying correlation
 of its results with existing results from the dialectology literature
 on syntax.
 
+% MERGE 2
 Nerbonne \& Wiersma's first paper used $R$ for syntax distance
 together with a test for statistical significance\cite{nerbonne06}.
 Their experiment compared two generations of Norwegian L2 speakers of
@@ -96,6 +81,8 @@ features and the high-ranked features used by $R$ in producing its
 distance. As a result, it is not clear whether the significant $R$
 distances correlate with dialectometric phonological distance or with
 known features found by dialectologists.
+
+% SUMMARISE Hypotheses here
 
 \bibliographystyle{robbib}
 \bibliography{central}
