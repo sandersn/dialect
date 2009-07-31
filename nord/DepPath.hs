@@ -3,7 +3,7 @@ import qualified Data.Map as Map
 import Data.List (intercalate)
 import Data.List.Split (splitOn,endBy)
 import System (getArgs)
-import Talbanken
+import Talbanken (FlatNode(..))
 main = getArgs >>= head & withFileLines f >>= putStr
   where f = endBy [""] & map deps & intercalate "\n***\n"
 deps = buildMap & buildRelations & intercalate "\n"
