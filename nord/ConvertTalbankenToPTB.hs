@@ -4,6 +4,8 @@ import Text.XML.HaXml.Types
 import Util
 import Data.List (intercalate)
 import Talbanken
+import Codec.Binary.UTF8.String (encodeString)
+
 type TalbankenInput = Map.Map Id FlatNode
 -- xml reading ok --
 sentences = tagpath ["corpus", "body", "s"]
@@ -23,7 +25,7 @@ buildMap s =
           kids = map (attrId "idref") . tagpath ["nt", "edge"]
           ptbSafe "(" = "LParen"
           ptbSafe ")" = "RParen"
-          ptbSafe s = utf8FromLatin1 s
+          ptbSafe s = encodeString s
 wellformed (root,flat) = cat (flat Map.! root) == "ROOT"
 buildTree (root,flat) = build (lookup root)
     where build (FlatNode s word id []) = Leaf s word

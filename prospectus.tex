@@ -42,47 +42,93 @@ corpora, which suffices for phonology, because it is easy to
 automatically extract features. For syntax, though, it is not possible to
 automatically identify reliable features in small corpora.
 
-% KEEP SOME: (but summarise more?)
-
-A second approach is to define a distance measure using the specific
+A better approach is to define a distance measure using the specific
 properties of syntactic data. Syntactic structure is easily decomposed
-into many kinds of features, and large syntactic corpora are available
+into a variety of features, and large syntactic corpora are available
 for many languages. Together, these properties mean that large corpora
 should provide enough evidence to rank automatically extracted
-features. One such method, a simple statistical measure called $R$,
-has been proposed by \namecite{nerbonne06} based on work by
-\namecite{kessler01}. At present, however, $R$ has not been adequately
-shown to detect dialect differences. A small body of work suggests
-that it does, but to date there has not been a satisfying correlation
-of its results with existing results from the dialectology literature
-on syntax.
+features. Based on work by \namecite{kessler01}, \namecite{nerbonne06}
+proposed simple measure called $R$ together with a test for
+statistical significance. At present, however, $R$ has not been
+adequately shown to detect dialect differences. A small body of work
+suggests that it does, but to date there has not been a satisfying
+correlation of its results with existing results from the dialectology
+literature on syntax. For example, \namecite{nerbonne06} found
+differences between two generations of L2 English speakers, and I
+found differences between most regions of England \cite{sanders08b}.
 
-% MERGE 2
-Nerbonne \& Wiersma's first paper used $R$ for syntax distance
-together with a test for statistical significance\cite{nerbonne06}.
-Their experiment compared two generations of Norwegian L2 speakers of
-English, with part-of-speech trigrams as input features.  They found
-that the two generations were significantly different. However,
-showing that two generations of speakers are significantly different
-with respect to $R$ does not necessarily imply that the same will be
-true for other types of language varieties. Specifically, for this
-dissertation, the success of $R$ on generational differences does not
-imply success on dialect differences.
+% SUMMARISE Questions/Hypotheses here
 
-\namecite{sanders08b} addressed this problem by measuring $R$ between
-the nine Government Office Regions of England, using the International
-Corpus of English Great Britain \cite{nelson02}. Speakers were
-classified by birthplace. Sanders found statistically significant
-differences between most corpora, using both trigrams and
-leaf-ancestor paths as features. However, $R$'s distances were not
-significantly correlated with Levenshtein distances. Nor did Sanders
-show any qualitative similarities between known syntactic dialect
-features and the high-ranked features used by $R$ in producing its
-distance. As a result, it is not clear whether the significant $R$
-distances correlate with dialectometric phonological distance or with
-known features found by dialectologists.
+Therefore, the most important question for this
+proposal is whether $R$ is a good measure of syntax
+distance. Specifically, have the ambiguous results of previous
+research been a shortcoming of $R$, differences between phonological
+and syntactic corpora, or differences between phonological and
+syntactic dialect boundaries? This research will eliminate the corpus
+variability in \namecite{sanders08b} that resulted in these
+confounding factors. Besides the issue of internal consistency, it is
+not yet clear whether $R$ agrees with traditional dialectology results
+for syntax. The syntactic features it ranks highest will need to be
+enumerated, then compared to the syntactic dialect features found by
+dialectologists.
 
-% SUMMARISE Hypotheses here
+Besides $R$, this dissertation will propose and evaluate alternative
+syntactic distance measures. Specifically, $R$ is one way to aggregate
+features that are created by decomposing sentences. It treats features
+as atomic, not using any internal information. As such, it is not much
+different than Goebl's WIV. This may not be a problem if the
+decomposition methods used to generate features adequately capture
+dialect differences in independent, atomic features. If dialect
+differences cannot be captured by independent, atomic features, then a
+more syntax-specific method of combination will be needed
+instead.
+% TODO: WIV, also Kullbeck-Leibler Divergence could work.
+% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
+% neural net
+
+Two secondary questions become relevant once a useful syntax distance
+measure is established. First is what features provide the best
+results. My previous work has shown that leaf-ancestor paths provide a
+small advantage over part-of-speech trigrams, presumably by capturing
+syntactic structure higher in the parse tree. Additional feature sets
+will be evaluated to find additional ways to represent syntactic
+information. Another question is whether $R$ agrees with phonological
+distance measures like Levenshtein distance.  Unlike agreement with
+traditional dialectology, there is no {\it a priori} reason to expect
+agreement between phonology and syntax in delineating dialect
+boundaries.
+
+
+\subsection{Hypotheses}
+
+Hypothesis 1: The features found by dialectologists will agree with
+the highly ranked features used by $R$ for classification.  This will
+be tested by comparing $R$'s results to the syntactic dialectology
+literature. First, and most obviously, the broad regions accepted by
+dialectology will be reproduced by the classifier. For example, my
+previous research on British English reproduced the well-known
+North-South distinction. In addition, $R$ will agree substantially with the
+between-region differences of syntactic dialectology--where
+dialectologists find differences between regions, $R$ should find a
+significant difference as well. What's more, the specifics of the
+difference from dialectology should be reflected in the high-ranked
+features used by $R$ to distinguish that region from others.
+
+Hypothesis 2: $R$ will produce more accurate syntax distances for some
+features than others. The best features can be discovered by
+comparing performance of a number of different feature sets on a fixed
+corpus. In addition, combinations of the most successful features will
+produce even better performance. (as measured \ldots how?)
+
+Hypothesis 3: A phonology corpus and syntax corpus based on the same
+corpus will provide better correlation between phonology and syntax
+distance measures than a phonology corpus and syntax corpus based on
+separate corpora. This type of corpus will provide the best
+opportunity to discover whether phonological and syntactic dialect
+boundaries correlate. This hypothesis will be tested by comparing results to
+previous work on separate corpora.
+% (Or perhaps whether phonological and syntactic dialect
+% measures correlate? I'm not sure of this yet)
 
 \bibliographystyle{robbib}
 \bibliography{central}
@@ -105,9 +151,19 @@ currently using a Swedish dialect corpus collected from
 interviews. I've attached to two-page prospectus and I can also send
 you the current draft of the proposal if you want.
 
-E-mail to Alicia
-
-
 E-mail to Markus
+Hi Markus, would you be willing to be part of my dissertation committee?
+Since I am doing computational syntax, you are a logical member.
 
-E-mail to Debra/Justin/Rashid pri aikido@indiana.edu
+The current title of my dissertation proposal is Syntax Distance for
+Dialectometry. I've attached the prospectus and I can also send you
+the current draft of the proposal if you want.
+
+E-mail to Mike
+Hi Mike, I am forming my dissertation committee. Would you be willing
+to continue on? I am continuing the syntax distance work from my first
+qualifying paper.
+
+The current title of my dissertation proposal is Syntax Distance for
+Dialectometry. I've attached the prospectus and I can also send you
+the current draft of the proposal if you want.

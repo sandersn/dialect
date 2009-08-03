@@ -24,8 +24,8 @@ def extractTalbanken():
     # 1.1 Also Convert Talbanken to PTB for training
     # (TODO:with uncrossing?!)
     alltalbanken = ' '.join(paths.talbanken)
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib ConvertTalbankenToTags')
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib ConvertTalbankenToPTB')
+    run('ghc -O2 --make ConvertTalbankenToTags')
+    run('ghc -O2 --make ConvertTalbankenToPTB')
     run('./ConvertTalbankenToTags %s >talbanken.tt' % (alltalbanken,))
     run('./ConvertTalbankenToPTB %s >talbanken.mrg' % (alltalbanken,))
 def tagPos():
@@ -37,7 +37,7 @@ def tagPos():
     for region in paths.swediaRegions:
         run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
 def tagDep():
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib ConvertTagsToConll')
+    run('ghc -O2 --make ConvertTagsToConll')
     for region in paths.swediaRegions:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
         run("./ConvertTagsToConll '%s.tag' >'%s.conll'" % (region,region))
@@ -54,15 +54,15 @@ def trainCfg():
         'edu.berkeley.nlp.PCFGLA.GrammarTrainer -path talbanken.mrg '
         '-out talbanken.gr -treebank SINGLEFILE')
 def tagCfg():
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib ConvertTagsToTxt')
+    run('ghc -O2 --make ConvertTagsToTxt')
     for region in paths.swediaRegions:
         # 8.0 Post-process tagged SweDiaSyn to sentence-per-line format
         run("./ConvertTagsToTxt '%s.tag' >'%s.txt'" % (region,region))
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def genFeatures():
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib Path')
-    run('ghc -O2 --make -L/usr/lib -L/opt/local/lib DepPath')
+    run('ghc -O2 --make Path')
+    run('ghc -O2 --make DepPath')
     for region in paths.swediaRegions:
         run("./Path '%s.mrg' t >'%s-trigram.dat'" % (region,region))
         run("./Path '%s.mrg' p >'%s-path.dat'" % (region,region))

@@ -668,7 +668,10 @@ Goebl's WIV. This may not be a problem if the decomposition methods
 used to generate features adequately capture dialect differences in
 independent, atomic features. If dialect differences cannot be
 captured by independent, atomic features, then a more syntax-specific
-method of combination will be needed instead.
+method of combination will be needed instead. Alternatively, a more
+complex statistical measure may be useful, taking the basic of
+direction of $R$ and increasing its sensitivity. Kullbeck-Leibler
+divergence, though not syntax specific, TODO: XXX.
 % TODO: WIV, also Kullbeck-Leibler Divergence could work.
 % Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
 % neural net
@@ -680,9 +683,12 @@ small advantage over part-of-speech trigrams, presumably by capturing
 syntactic structure higher in the parse tree. Additional possible
 feature sets include variations on the previously investigated
 trigrams and leaf-ancestor paths: various kinds of backoff, such
-as coarser node tags or bigrams. Other ways of capturing syntactic
-structure may be useful too, such as features extracted from
-dependency parses
+as coarser node tags or bigrams. Features from dependency parses may
+be useful, too, in bringing non-local dependencies that can be
+captured neither by trigrams nor leaf-ancestor paths. Another
+possibility is supertags (TODO:CITE) which are similar to
+leaf-ancestor paths but include more context from the upper structure
+of a syntax tree.
 % or supertags. (Should CITE at least supertags because I think they are
 % not universally understood)
 
@@ -696,17 +702,24 @@ measure.
 
 \subsection{Hypotheses}
 
-Hypothesis 1: The features found by dialectologists should agree with
+Hypothesis 1: The features found by dialectologists will agree with
 the highly ranked features used by $R$ for classification.  This will
 be tested by comparing $R$'s results to the syntactic dialectology
-literature. In addition, $R$ will agree substantially with the
+literature. First, and most obviously, the broad regions accepted by
+dialectology will be reproduced by the classifier. For example, my
+previous research on British English reproduced the well-known
+North-South distinction. In addition, $R$ will agree substantially with the
 between-region differences of syntactic dialectology--where
 dialectologists find differences between regions, $R$ should find a
-significant difference as well.
+significant difference as well. What's more, the specifics of the
+difference from dialectology should be reflected in the high-ranked
+features used by $R$ to distinguish that region from others.
 
 Hypothesis 2: $R$ will produce more accurate syntax distances for some
 features than others. The best features can be discovered by
-comparing performance of a number of different feature sets on a fixed corpus.
+comparing performance of a number of different feature sets on a fixed
+corpus. In addition, combinations of the most successful features will
+produce even better performance. (as measured \ldots how?)
 
 Hypothesis 3: A phonology corpus and syntax corpus based on the same
 corpus will provide better correlation between phonology and syntax
@@ -731,15 +744,15 @@ Swedish part of the ScanDiaSyn.
 % Vangsnes, Øystein A. 2007. ScanDiaSyn: Prosjektparaplyen Nordisk dialektsyntaks. In T. Arboe (ed.), Nordisk dialektologi og sociolingvistik, Peter Skautrup Centeret for Jysk Dialektforskning, Århus Universitet. 54-72.
 SweDiaSyn is a transcription of SweDia 2000 \cite{bruce99} collected
 between 1998 and 2000 from 97 locations in Sweden and 10 in
-Finland. Each location had 12 interviewees: three 30-minute interviews
+Finland. Each location has 12 interviewees: three 30-minute interviews
 for each of older male, older female, younger male and younger female.
 However, the SweDiaSyn transcriptions do not yet include all of SweDia
 2000; the completed transcriptions currently focus on older
-speakers. Currently there are 36713 sentences of dialect speech over 49
-sites, an average of 749 sentences per site. The sites may need to be
-grouped by province in order to detect significant differences;
-previous work on British English used Government Office Regions with
-at least 850 sentences per region.
+speakers. Currently there are 36713 sentences of transcribed speech
+from 49 sites, an average of 749 sentences per site. In order to
+detect significant differences, the sites may need to be grouped by
+province; previous work on British English used Government Office
+Regions with at least 850 sentences per region.
 
 In the SweDiaSyn, there are two types of transcription:
 standard Swedish orthography, with glosses for words
@@ -749,13 +762,13 @@ the orthographic/gloss transcription will be used so that lexical
 items will be comparable across dialects.
 
 Because SweDiaSyn consists of untagged lexical items, Talbanken05 will be
-used to train a POS tagger and a parser. Talbanken05 is an updated
+used to train a POS tagger and parsers. Talbanken05 is an updated
 version of Talbanken76, a Swedish treebank of roughly 300,000 words
 \cite{nivre06}. The treebank consists of written and spoken
 Swedish. The original treebank was annotated according to a custom
 scheme called MAMBA; Talbanken05 updates this to include phrase
 structure annotation and dependency annotation using the standard
-annotation schemes TIGER-XML and Malt-XML.
+annotation formats TIGER-XML and Malt-XML.
 
 \subsection{Parsing}
 
@@ -776,7 +789,7 @@ constituents proposed by \namecite{boyd07} may be needed.
 For constituent parsing, The Berkeley parser \cite{petrov08} will be
 trained on standard Swedish, again from Talbanken05. The Berkeley
 parser has shown good performance on languages other than English,
-which is not common for phrase-structure parser.
+which is not common for phrase-structure parsers.
 % TODO: CITE The paper that shows this.
 
 For dependency parsing, MaltParser will be used with the existing

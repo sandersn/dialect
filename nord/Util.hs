@@ -1,6 +1,4 @@
 module Util where
-import qualified Data.ByteString.Lazy.Char8 as B
-import Codec.Text.IConv (convert)
 import Text.XML.HaXml (tag, (/>), txt, elm, attr, xmlParse, verbatim, showattr,
                       literal, find)
 import Text.XML.HaXml.Types
@@ -31,7 +29,6 @@ f & g = g . f -- also called >>> in Control.Arrow
 x |> f = f x
 {--- xml and encoding. Ugh --}
 tagpath = foldr1 (/>) . map tag
-utf8FromLatin1 = B.pack & convert "LATIN1" "UTF-8" & B.unpack
 attr' attribute c@(CElem (Elem _ as _)) = verbatim$head$show' attribute
     where show' attribute = literal (value (lookfor attribute as)) c
           lookfor x = fromMaybe (error "missing attr") . lookup x
