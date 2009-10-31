@@ -37,51 +37,51 @@ the features in a mathematically and linguistically sound way.
 Dialectometry has focused on phonological distance measures, while
 syntactic measures have remained undeveloped. Unfortunately,
 approaching the problem by copying phonology is not a good solution.
-Dialectology has traditionally worked with fairly small
-corpora, which suffices for phonology, because it is easy to
-automatically extract features. For syntax, though, it is not possible to
-automatically identify reliable features in small corpora.
+Dialectology has traditionally worked with small corpora, which
+suffices for phonology, because reliable features are easy to
+automatically extract. For syntax, though, it is not possible to automatically
+identify reliable features in small corpora.
 
-A better approach is to define a distance measure using the specific
+A better approach is to define a distance measure that matches the specific
 properties of syntactic data. Syntactic structure is easily decomposed
 into a variety of features, and large syntactic corpora are available
 for many languages. Together, these properties mean that large corpora
 should provide enough evidence to rank automatically extracted
 features. Based on work by \namecite{kessler01}, \namecite{nerbonne06}
-proposed simple measure called $R$ together with a test for
+proposed a simple measure called $R$ together with a test for
 statistical significance. At present, however, $R$ has not been
 adequately shown to detect dialect differences. A small body of work
 suggests that it does, but to date there has not been a satisfying
 correlation of its results with existing results from the dialectology
-literature on syntax. For example, \namecite{nerbonne06} found
+literature on syntax. \namecite{nerbonne06} found
 differences between two generations of L2 English speakers, and I
-found differences between most regions of England \cite{sanders08b}.
+found differences between most regions of England
+\cite{sanders08b}, but neither result corresponded with
+existing dialectology in more than the general outline.
 
 % SUMMARISE Questions/Hypotheses here
 
-Therefore, the most important question for this
-proposal is whether $R$ is a good measure of syntax
-distance. Specifically, have the ambiguous results of previous
-research been a shortcoming of $R$, differences between phonological
-and syntactic corpora, or differences between phonological and
-syntactic dialect boundaries? This research will eliminate the corpus
-variability in \namecite{sanders08b} that resulted in these
-confounding factors. Besides the issue of internal consistency, it is
-not yet clear whether $R$ agrees with traditional dialectology results
-for syntax. The syntactic features it ranks highest will need to be
+Therefore, the most important question this dissertation will address
+is whether $R$ is a good measure of syntax distance. Specifically,
+have the ambiguous results of previous research been a shortcoming of
+$R$, differences between phonological and syntactic corpora, or
+differences between phonological and syntactic dialect boundaries?
+This research will eliminate the corpus variability in
+\namecite{sanders08b} that resulted in these confounding factors. Then
+to determine whether $R$ agrees with traditional dialectology results
+for syntax, the syntactic features it ranks highest will be
 enumerated, then compared to the syntactic dialect features found by
 dialectologists.
 
 Besides $R$, this dissertation will propose and evaluate alternative
-syntactic distance measures. Specifically, $R$ is one way to aggregate
-features that are created by decomposing sentences. It treats features
+syntactic distance measures. Specifically, $R$ treats features
 as atomic, not using any internal information. As such, it is not much
 different than Goebl's WIV. This may not be a problem if the
 decomposition methods used to generate features adequately capture
-dialect differences in independent, atomic features. If dialect
-differences cannot be captured by independent, atomic features, then a
-more syntax-specific method of combination will be needed
-instead.
+dialect differences in independent, atomic features. However, since I
+plan to investigate features from both constituent and dependency
+representations of syntax, a more context-aware method of combination
+may be better than independent features.
 % TODO: WIV, also Kullbeck-Leibler Divergence could work.
 % Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
 % neural net
@@ -99,37 +99,6 @@ agreement between phonology and syntax in delineating dialect
 boundaries.
 
 
-\subsection{Hypotheses}
-
-Hypothesis 1: The features found by dialectologists will agree with
-the highly ranked features used by $R$ for classification.  This will
-be tested by comparing $R$'s results to the syntactic dialectology
-literature. First, and most obviously, the broad regions accepted by
-dialectology will be reproduced by the classifier. For example, my
-previous research on British English reproduced the well-known
-North-South distinction. In addition, $R$ will agree substantially with the
-between-region differences of syntactic dialectology--where
-dialectologists find differences between regions, $R$ should find a
-significant difference as well. What's more, the specifics of the
-difference from dialectology should be reflected in the high-ranked
-features used by $R$ to distinguish that region from others.
-
-Hypothesis 2: $R$ will produce more accurate syntax distances for some
-features than others. The best features can be discovered by
-comparing performance of a number of different feature sets on a fixed
-corpus. In addition, combinations of the most successful features will
-produce even better performance. (as measured \ldots how?)
-
-Hypothesis 3: A phonology corpus and syntax corpus based on the same
-corpus will provide better correlation between phonology and syntax
-distance measures than a phonology corpus and syntax corpus based on
-separate corpora. This type of corpus will provide the best
-opportunity to discover whether phonological and syntactic dialect
-boundaries correlate. This hypothesis will be tested by comparing results to
-previous work on separate corpora.
-% (Or perhaps whether phonological and syntactic dialect
-% measures correlate? I'm not sure of this yet)
-
 \bibliographystyle{robbib}
 \bibliography{central}
 \end{document}
@@ -137,33 +106,3 @@ previous work on separate corpora.
 %%% mode: latex
 %%% TeX-master: t
 %%% End: 
-
-E-mail to Steve
-
-Hi Steve, would you be willing to be part of my
-dissertation committee? Sandra recommended that I have another member
-from linguistics who can give perspective from formal syntax,
-since I will be working with computational syntax without much
-background in formal syntax.
-
-My proposed dissertation topic is syntax distance for dialectometry,
-currently using a Swedish dialect corpus collected from
-interviews. I've attached to two-page prospectus and I can also send
-you the current draft of the proposal if you want.
-
-E-mail to Markus
-Hi Markus, would you be willing to be part of my dissertation committee?
-Since I am doing computational syntax, you are a logical member.
-
-The current title of my dissertation proposal is Syntax Distance for
-Dialectometry. I've attached the prospectus and I can also send you
-the current draft of the proposal if you want.
-
-E-mail to Mike
-Hi Mike, I am forming my dissertation committee. Would you be willing
-to continue on? I am continuing the syntax distance work from my first
-qualifying paper.
-
-The current title of my dissertation proposal is Syntax Distance for
-Dialectometry. I've attached the prospectus and I can also send you
-the current draft of the proposal if you want.

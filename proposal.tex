@@ -12,6 +12,11 @@
 % TODO: rewrite specific references to parsers to either back off to
 % genericities or mention Berkeley parser instead of Collins parser.
 
+% TODO: TnT has a 'mark unknown words' option.
+% Pass lexical items to Berkeley parser (or make sure both training and test are t
+% he same)
+% check whether Berkeley parser has POS-tagging option
+
 \section{Introduction}
 This dissertation will examine syntax distance in dialectometry using
 computational methods as a basis. It is a continuation of my previous
@@ -586,10 +591,10 @@ weaker indicator of deep structure for leaf-head
 paths; sometimes a difference in length indicates only a difference in
 centrality to the sentence. % or something, this is still kind of
                             % wrong
-
 \[\xymatrix{
 & & root \\
-NP  \ar@/^2pc/[rr] & DET\ar@/_/[l] & V \ar@{.>}[u]
+DET \ar@/^/[r] & NP\ar@/^/[r] & V \ar@{.>}[u] \\
+The & dog & barks
 }
 \]
 
