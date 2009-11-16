@@ -24,7 +24,7 @@ work \cite{sanders07}, \cite{sanders08b} and earlier work by
 \namecite{nerbonne06}, the first computational measure of syntax
 distance. Dialectometry has existed as a field since
 \namecite{seguy73} and is a sub-field of dialectology
-\cite{chambers98}; recently, computational methods have come to
+\cite{chambers92}; recently, computational methods have come to
 dominate dialectometry, but they are limited in focus compared to
 previous work; most have explored phonological distance only, while
 earlier methods integrated phonological, lexical, and syntactic data.
@@ -692,11 +692,9 @@ trigrams and leaf-ancestor paths: various kinds of backoff, such
 as bigram or coarser node tags. Features from dependency parses may
 be useful, too, in bringing non-local dependencies that can be
 captured neither by trigrams nor leaf-ancestor paths. Another
-possibility is supertags (TODO:CITE) which are similar to
+possibility is supertags, as described by \namecite{joshi94}, which are similar to
 leaf-ancestor paths but include more context from the upper structure
 of a syntax tree.
-% or supertags. (Should CITE at least supertags because I think they are
-% not universally understood)
 
 A third question is whether $R$ agrees with phonological distance
 measures like Levenshtein distance.  Unlike agreement with traditional
@@ -723,16 +721,12 @@ reflected in the high-ranked features used by $R$ to distinguish that
 region from others.
 
 Hypothesis 2: The best features for $R$ will produce the most accurate
-syntax distances. These features can be discovered by
-comparing performance of a number of different feature sets on a fixed
-corpus. In addition, combinations of successful features will
-produce even better performance.
-% What? That doesn't make sense; they aren't the most successful
-% features if they can be combined to get MORE successful features.
-The quality of a set of features can
-be measured by its sensitivity---the number of significant distances
-it finds---and the relevance of the highly ranked features $R$
-produces.
+syntax distances. These features can be discovered by comparing
+performance of a number of different feature sets on a fixed
+corpus. In addition, combinations of successful features will produce
+even better performance.  The quality of a set of features can be
+measured by its sensitivity---the number of significant distances it
+finds---and the relevance of the highly ranked features $R$ produces.
 % TODO: Should really define relevance, eg relevance wrt dialectology
 
 Hypothesis 3: A phonology corpus and syntax corpus based on the same
