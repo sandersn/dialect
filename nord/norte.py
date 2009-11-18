@@ -2,7 +2,7 @@ from __future__ import division
 from util.lst import group, cross, concat
 from util import dct
 from util.txt import chomp
-from paths import swediaRegions
+from consts import swediaSites
 import os
 ### util ###
 def typecheck(*args):
@@ -34,7 +34,7 @@ def gensh(outname, suffix):
     return sh + '\n\n'.join("""echo Starting %(n1)s %(n2)s ...
 nice -n 6 ./ctrl.out '%(n1)s%(suf)s' '%(n2)s%(suf)s' >>'%(out)s'"""
                               % dict(n1=name1,n2=name2,suf=suffix,out=outname)
-                            for name1,name2 in pairwise(swediaRegions))
+                            for name1,name2 in pairwise(swediaSites))
 def norm(s):
     if s.endswith("_tiny\n"):
         return chomp(s)[:-5]

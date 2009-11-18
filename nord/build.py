@@ -9,7 +9,7 @@ SCons, in Python, replaces make and allows extensibility in Python.
 import os
 import sys
 import swedia
-import paths
+import consts
 import norte
 import cgitb
 cgitb.enable(format='text')
@@ -23,7 +23,7 @@ def extractTalbanken():
     # which is apparently just a giant series of macros?
     # 1.1 Also Convert Talbanken to PTB for training
     # (TODO:with uncrossing?!)
-    alltalbanken = ' '.join(paths.talbanken)
+    alltalbanken = ' '.join(consts.talbanken)
     run('ghc -O2 --make ConvertTalbankenToTags')
     run('ghc -O2 --make ConvertTalbankenToPTB')
     run('./ConvertTalbankenToTags %s >talbanken.tt' % (alltalbanken,))
@@ -32,13 +32,13 @@ def tagPos():
     # 2. Train TnT on Talbanken POS tags
     run('tnt-para talbanken.tt')
     # 3. Extract SweDiaSyn words into TnT format
-    swedia.extractTnt(paths.swpath, paths.swediaRegions)
+    swedia.extractTnt(consts.swpath, consts.swediaSites)
     # 4. Tag SweDiaSyn
-    for region in paths.swediaRegions:
+    for region in consts.swediaSites:
         run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
 def tagDep():
     run('ghc -O2 --make ConvertTagsToConll')
-    for region in paths.swediaRegions:
+    for region in consts.swediaSites:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
         run("./ConvertTagsToConll '%s.tag' >'%s.conll'" % (region,region))
         # 6. Dependency parse SweDiaSyn
@@ -55,7 +55,7 @@ def trainCfg():
         '-out talbanken.gr -treebank SINGLEFILE')
 def tagCfg():
     run('ghc -O2 --make ConvertTagsToTxt')
-    for region in paths.swediaRegions:
+    for region in consts.swediaSites:
         # 8.0 Post-process tagged SweDiaSyn to sentence-per-line format
         run("./ConvertTagsToTxt '%s.tag' >'%s.txt'" % (region,region))
         # 8. Constituency parse with Berkeley parser
@@ -63,7 +63,7 @@ def tagCfg():
 def genFeatures():
     run('ghc -O2 --make Path')
     run('ghc -O2 --make DepPath')
-    for region in paths.swediaRegions:
+    for region in consts.swediaSites:
         run("./Path '%s.mrg' t >'%s-trigram.dat'" % (region,region))
         run("./Path '%s.mrg' p >'%s-path.dat'" % (region,region))
         run("./DepPath '%s.dep.conll' >'%s-dep.dat'" % (region,region))
