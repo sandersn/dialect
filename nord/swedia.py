@@ -7,8 +7,9 @@ from itertools import dropwhile, chain
 import os
 # Types are invading this code. It's stupid but I can't help it.
 # I don't want to port this code to Haskell so it's going into the comments.
-# type sites = [str]
-# type regions = {str:[str]}
+# type path = str
+# type sites = [path]
+# type regions = {str:[path]}
 
 def newline(line):
     return line.startswith("*")
@@ -23,15 +24,15 @@ def read(path, filename):
     sents = (' '.join(sent) for sent in sents if not sent[0].startswith("*INT:"))
     return [between(sent, ":", "%").split() for sent in sents]
 def groupedSites(path, sites):
-    "path*[site] -> {site:[path]}"
+    "path*[site] -> {site:[filename]}"
     corpora = dct.collapse(filter(visible, os.listdir(path)),
                            keymap=lambda f: findif(f.startswith, sites))
     if None in corpora:
-        print ("Missing:", corpora[None])
+        # print ("Missing:", corpora[None])
         del corpora[None]
     return corpora
 def groupedRegions(path, regions):
-    "path*{region:[site]} -> {region:[path]}"
+    "path*{region:[site]} -> {region:[filename]}"
     return dct.map(pipe(cur(groupedSites)(path), dict.values, concat),
                    regions)
 def extractTnt(path, sites):
@@ -60,12 +61,22 @@ def sharedtopwords(talbanken, regions):
     print(unsharedTokensSwe)
     print(len(talwords) + len(swewords) - unsharedTokensTal - unsharedTokensSwe)
 lap = pipe(map, list) # Python 3 sucks
+lilter = pipe(filter, list)
 # (iterators as imperative laziness are at fault here)
-def corpusSize(path, regions, grouper):
-    numbers = dct.map(lambda files:lap(pipe(read(path), len), files),
-                      grouper(path, regions))
-    ssums = sorted(dct.map(sum, numbers).items(), key=snd)
-    for region, total in ssums:
+def corpusSize(path, regions):
+    "path*{region:[filename]}"
+    numbers = dct.map(lambda files:lap(pipe(read(path), len), files), regions)
+    return sorted(dct.map(sum, numbers).items(), key=snd)
+def printCorpusSize(path, regions):
+    for region, total in corpusSize(path, regions):
         print(region, ":\t", total, '\t', numbers[region])
+def swediaProvinceSize():
+    "Example use of corpusSize"
+    corpusSize(consts.swpath,
+               groupedRegions(consts.swpath, consts.swediaProvinces))
+def swediaSiteSize():
+    "Another example use"
+    corpusSize(consts.swpath,
+               groupedSites(consts.swpath, consts.swediaSites))
 if __name__=="__main__":
     each(print, read('TestOM_1sp.cha'))
