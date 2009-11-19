@@ -24,7 +24,7 @@ work \cite{sanders07}, \cite{sanders08b} and earlier work by
 \namecite{nerbonne06}, the first computational measure of syntax
 distance. Dialectometry has existed as a field since
 \namecite{seguy73} and is a sub-field of dialectology
-\cite{chambers92}; recently, computational methods have come to
+\cite{chambers98}; recently, computational methods have come to
 dominate dialectometry, but they are limited in focus compared to
 previous work; most have explored phonological distance only, while
 earlier methods integrated phonological, lexical, and syntactic data.
@@ -760,11 +760,18 @@ Finland. Each location has 12 interviewees: three 30-minute interviews
 for each of older male, older female, younger male and younger female.
 However, the SweDiaSyn transcriptions do not yet include all of SweDia
 2000; the completed transcriptions currently focus on older
-speakers. Currently there are 36713 sentences of transcribed speech
-from 49 sites, an average of 749 sentences per site. In order to
-detect significant differences, the sites may need to be grouped by
-province; previous work on British English used Government Office
-Regions with at least 850 sentences per region.
+speakers.
+
+Currently there are 36,713 sentences of transcribed speech
+from 49 sites, an average of 749 sentences per site.
+However, the sites range from 110 to 1780 sentences because some sites
+have fewer complete transcriptions than others. In order to detect
+significant differences, the sites may need to be grouped by county,
+traditional province or EU region; previous work on British English
+used EU Government Office Regions with at least 850 sentences per
+region. For example, grouping the Swedish corpora into the 25 provinces
+boosts the average sentences per province to 1254, excluding provinces
+with no transcriptions.
 
 In the SweDiaSyn, there are two types of transcription:
 standard Swedish orthography, with glosses for words
@@ -773,21 +780,44 @@ that differ greatly from standard Swedish. For this dissertation,
 the orthographic/gloss transcription will be used so that lexical
 items will be comparable across dialects.
 
-Because SweDiaSyn consists of untagged lexical items, Talbanken05 will be
-used to train a POS tagger and parsers. Talbanken05 is an updated
-version of Talbanken76, a Swedish treebank of roughly 300,000 words
-\cite{nivre06}. The treebank consists of written and spoken
-Swedish. The original treebank was annotated according to a custom
-scheme called MAMBA; Talbanken05 updates this to include phrase
-structure annotation and dependency annotation using the standard
-annotation formats TIGER-XML and Malt-XML.
+\subsubsection{Talbanken}
+
+Because SweDiaSyn consists of untagged lexical items, Talbanken05 will
+be used to train a POS tagger and parsers. Talbanken05 is a treebank
+of written and transcribed spoken Swedish, roughly 3000,000 words in
+size. It is an updated version of Talbanken76 \cite{nivre06};
+Talbanken76's trees are annotated following a custom scheme called
+MAMBA; Talbanken05 adds phrase structure annotation
+and dependency annotation using the standard annotation formats
+TIGER-XML and Malt-XML.
+
+Talbanken's sources are X and Y and Z. It attempts to provide a
+valid sample of the Swedish language, both spoken and written. The
+spoken section is transcribed from conversation, interviews and
+debates, and the written section is taken from high school essays and
+professional prose (TODO:I could probably cite
+Jan Einarsson. 1976. Talbankens skriftspraakskonkordans. Lund
+University: Department of Scandinavian Languages (and
+talspraakskonkordans) IF I could legitimately claim that I got the
+information from there\ldots{} but of course I got it from
+spraakbanken.gu.se/om/eng/index.html actually.
+
+Talbanken is annotated syntactically and lexically. The lexical
+annotation is for morphology and part-of-speech. The syntactic
+annotation is for constituency and grammatical function of
+internal nodes.
+% TODO: Yeah, the rest of this is pretty cursory. I should add more
+% detail all over. At least, I think I should. I can't remember what
+% Sandra told me, for some reason I think she mentioned that I should
+% not give so much detail? I think I am misremembering.
 
 \subsection{Parsing}
 
 In order to identify the features needed for building the language
 models described above, SweDiaSyn will need to be POS tagged and
-parsed. In this case, both phrase-structure parsing and dependency
-parsing will be needed.
+parsed. For this dissertation, both phrase-structure parsing and dependency
+parsing will be needed to provide their respective features to the
+classifier.
 
 The Tags 'n' Trigrams (T'n'T) tagger \cite{brants00} will be used for tagging, with
 the POS annotations from Talbanken05 used as training.
@@ -802,7 +832,7 @@ For constituent parsing, The Berkeley parser \cite{petrov08} will be
 trained on standard Swedish, again from Talbanken05. The Berkeley
 parser has shown good performance on languages other than English,
 which is not common for phrase-structure parsers.
-% TODO: CITE The paper that shows this.
+% TODO: CITE The paper that shows this. Also EXPLAIN it.
 
 For dependency parsing, MaltParser will be used with the existing
 Swedish model trained on Talbanken05 by Hall, Nilsson and
