@@ -526,6 +526,7 @@ permutation test is needed for that.
 % comparable measure, however.
 
 \subsubsection{Language models}
+\label{syntactic-features}
 Part-of-speech (POS) trigrams are quite easy to obtain from a syntactically
 annotated corpus. \namecite{nerbonne06} argue that POS trigrams
 can accurately represent at least the important parts of syntax,
@@ -646,49 +647,45 @@ phonology and syntax in this dissertation. The focus will remain on results
 of computational syntax distance as compared to traditional syntactic
 dialectology.
 
-\section{Questions and Hypotheses}
-
-\subsection{Questions}
-% OK, reorganise this section as follows:
-% 1. Merge questions and hypotheses. Put a punchy statement of each
-% hypothesis up front, I guess, then follow up with some explanation
-% of the question. Or maybe the opposite of that.
-% Re-arrange the methods section to mirror the hypotheses. ie,
-% Hypothesis 1: First I will do this, this, this and this. Next:
-% Hypothesis 2: first two same as H1, then I will do this.
-
+\section{Hypotheses}
+% TODO: Rewrite and merge the following question/hypothesis paragraph pairs
+% H1 - organisation is all wrong still
 The state of syntax measures in dialectometry described above leaves
-several research questions remaining. The most important for this
+several research questions unresolved. The most important for this
 proposal is whether $R$ is a good measure of syntax
 distance. Specifically, have the ambiguous results of previous
 research been a shortcoming of $R$, differences between phonological
 and syntactic corpora, or differences between phonological and
-syntactic dialect boundaries? This research will eliminate the corpus
-variability in \namecite{sanders08b} that resulted in these
-confounding factors. Besides the issue of internal consistency, it is
+syntactic dialect boundaries?
+
+To investigate this, I propose Hypothesis 1: The features found by dialectologists will agree with
+the highly ranked features used by $R$ for classification. I will test Hypothesis
+1 by comparing $R$'s results to the syntactic
+dialectology literature on Swedish. First, and most obviously, the broad regions
+of Sweden accepted by dialectology will be reproduced by the classifier. For
+example, my previous research on British English reproduced the
+well-known North England-South England distinction.
+This research will eliminate the corpus
+variability in that research \cite{sanders08b} that resulted in the
+confounding factors mentioned above.
+
+Besides the issue of internal consistency, it is
 not yet clear whether $R$ agrees with traditional dialectology results
-for syntax. The syntactic features it ranks highest should be
+for syntax.
+The syntactic features it ranks highest must be
 enumerated, then compared to the syntactic dialect features found by
 dialectologists.
 
-If $R$ is found to be a bad measure of syntax distance, this research
-will propose and evaluate alternative syntactic distance
-measures. Specifically, $R$ is one way to aggregate features that are
-created by decomposing sentences. It treats features as atomic, not
-using any information specific to syntax. As such, $R$ is not much
-different than Goebl's WIV. This may not be a problem if the
-decomposition methods used to generate features adequately capture
-dialect differences in independent, atomic features. If dialect
-differences cannot be captured by independent, atomic features, then a
-more syntax-specific method of combination will be needed
-instead. Alternatively, a more complex statistical measure may be
-useful, taking the basic idea of $R$ and increasing its
-sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
-provides a dissimilarity that is intuitively similar to distance.
-% TODO: WIV, also Kullbeck-Leibler Divergence could work.
-% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
-% neural net
+According to hypothesis H1A, $R$
+will agree substantially with the between-region differences of
+syntactic dialectology--where dialectologists find differences between
+regions, $R$ should find a significant difference as well.
+What's
+more, the features found by dialectologists should be
+reflected in the high-ranked features used by $R$.
 
+%H2 - Dad didn't understand that this is other features to be fed into
+%R not replacement of R entire.
 A secondary question, relevant once a useful
 syntax distance measure is established, is what features provide the best
 results. Previous work has shown that leaf-ancestor paths provide a
@@ -703,57 +700,96 @@ possibility is supertags, as described by \namecite{joshi94}, which are similar 
 leaf-ancestor paths but include more context from the upper structure
 of a syntax tree.
 
+Therefore, the second hypothesis to be investigated is that the best
+features for $R$ will produce the most accurate syntax
+distances. These features can be discovered by comparing performance
+of a number of different feature sets on a fixed corpus. In addition,
+combinations of successful features will produce even better
+performance.
+% This sentence is either redundant or should appear earlier.
+The quality of a set of features can be
+measured by its sensitivity---the number of significant distances it
+finds---and the similarity of the highly ranked features $R$ produces
+to those found by dialectologists.
+
+% H3
 A third question is whether $R$ agrees with phonological distance
-measures like Levenshtein distance.  Unlike agreement with traditional
+measures like Levenshtein distance. Unlike agreement with traditional
 dialectology, there is no {\it a priori} reason to expect agreement
 between phonology and syntax in delineating dialect
 boundaries. However, agreement with phonological distance would be
 further evidence for the utility of $R$ as a syntactic distance
 measure.
 
-\subsection{Hypotheses}
+Therefore, the third hypothesis to be investigated is whether a
+phonology corpus and syntax corpus constructed from the same data will
+provide better correlation between phonology and syntax distance
+measures than a phonology corpus and syntax corpus drawn from
+different data sources. I will test this hypothesis by comparing
+results to my previous work on British English phonological and
+syntactic corpora; there, no significant correlation was found between
+the regions extracted from the two corpora. If significant correlation
+is found by using the same set of data for both measures, it indicates
+that boundaries do coincide but that the agreement is weak enough to
+be lost when using corpora collected from different populations.
 
-Hypothesis 1: The features found by dialectologists will agree with
-the highly ranked features used by $R$ for classification.  Hypothesis
-1 will be tested by comparing $R$'s results to the syntactic
-dialectology literature. First, and most obviously, the broad regions
-accepted by dialectology will be reproduced by the classifier. For
-example, my previous research on British English reproduced the
-well-known North England-South England distinction. In addition, $R$
-will agree substantially with the between-region differences of
-syntactic dialectology--where dialectologists find differences between
-regions, $R$ should find a significant difference as well. What's
-more, the specifics of the difference from dialectology should be
-reflected in the high-ranked features used by $R$ to distinguish that
-region from others.
-
-Hypothesis 2: The best features for $R$ will produce the most accurate
-syntax distances. These features can be discovered by comparing
-performance of a number of different feature sets on a fixed
-corpus. In addition, combinations of successful features will produce
-even better performance.  The quality of a set of features can be
-measured by its sensitivity---the number of significant distances it
-finds---and the relevance of the highly ranked features $R$ produces.
-% TODO: Should really define relevance, eg relevance wrt dialectology
-
-Hypothesis 3: A phonology corpus and syntax corpus based on the same
-corpus will provide better correlation between phonology and syntax
-distance measures than a phonology corpus and syntax corpus based on
-separate corpora. This type of corpus will provide the best
-opportunity to discover whether phonological and syntactic dialect
-boundaries correlate. Hypothesis 3 will be tested by comparing results to
-my previous work on separate corpora. There, no significant
-correlation was found between phonological distance and syntactic
-distance. If significant correlation is found by using the same
-corpus for both measures, it indicates that boundaries do coincide but that the
-agreement is weak enough to be lost when using corpora collected from
-different populations of the same dialects.
-% (or different times/social groups)
+% Like H1B here, seriously
+% I'm not sure how to integrate this into the rest of the hypotheses
+% Maybe it should go after H2 in which I describe alternative
+% features, since it's an alternative to the combination of features
+If $R$ is found to be a bad measure of syntax distance, this research
+will propose and evaluate alternative syntactic distance
+measures. Specifically, $R$ is one way to aggregate features that are
+created by decomposing sentences. It treats features as atomic, and
+does not manipulate them in any syntax-specific ways. As such, $R$ is not much
+different than Goebl's WIV. This may not be a problem if the
+decomposition methods used to generate features adequately capture
+dialect differences in independent, atomic features. If dialect
+differences cannot be captured by independent, atomic features, then a
+more syntax-specific method of combining features will be needed
+instead. Alternatively, a more complex statistical measure may be
+useful, taking the basic idea of $R$ and increasing its
+sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
+provides a dissimilarity that is intuitively similar to distance.
 
 \section{Methods}
+% Label each with section number
+To investigate the first (main) hypothesis, I need a dialect corpus
+that can be syntactically annotated (\ref{syntactically-annotated-corpora}),
+preferably automatically. This
+will require a syntactically annotated training corpus
+(\ref{syntactically-annotated-training}) and a
+parser (\ref{parsers}). Syntactic features must be extracted
+(\ref{syntactic-features}), distances between
+regions produced (\ref{nerbonne06}) and tested for significance
+(\ref{permutationtest}), and the results
+clustered (\ref{cluster-analysis}) to determine which dialect regions are found by the
+corpus. Finally, the most highly ranked features used to produce the
+dialect distances must be enumerated (?.?).
 
-\subsection{Corpora}
+To investigate hypothesis 2, I need a framework for combining features
+(?.?) and backing off sparse features (?.?). I also need a way to
+generate new features based on other theories of syntax (?.?).
 
+If the distance measure $R$ doesn't provide any significant distances
+with any combination of features, I will need a different distance
+measure. I don't have one of these, but there are quite some
+possibility, like Kullbeck-Leibler divergence or maximum (?) entropy
+(maybe it was relative entropy or just normal-kind entropy).
+% TODO: WIV, also Kullbeck-Leibler Divergence could work.
+% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
+% neural net
+
+To investigate hypothesis 3, I need a phonological corpus and a method
+for calculating phonological dialect distance, then a methd to compare
+phonological clusters with syntactic clusters. See my qualifying paper
+(Sanders 2008) for details.
+
+\subsection{Corpora} % This is not a good subsection for the new organisation
+\label{syntactically-annotated-corpora}
+To investigate hypothesis 1, I need a dialect corpus, one that will
+contain more differences than the ICE-GB. For this I will use \ldots
+:
 The dialect corpus used in this dissertation will be SweDiaSyn, the
 Swedish part of the ScanDiaSyn.
 % (CITE SweDiaSyn and ScanDiaSyn,
@@ -769,6 +805,11 @@ However, the SweDiaSyn transcriptions do not yet include all of SweDia
 2000; the completed transcriptions currently focus on older
 speakers.
 
+In order to investigate hypothesis 1 by sorting the speakers into
+various groups, then letting the computer cluster those groups into
+larger clusters. The larger clusters should match linguist
+expectations.
+:
 Currently there are 36,713 sentences of transcribed speech
 from 49 sites, an average of 749 sentences per site.
 However, the sites range from 110 to 1780 sentences because some sites
@@ -780,6 +821,8 @@ region. For example, grouping the Swedish corpora into the 25 provinces
 boosts the average sentences per province to 1254, excluding provinces
 with no transcriptions.
 
+% TODO: Probably switch the second sentence to be first? It's the more
+% important but might completely depend on details in the first.
 In the SweDiaSyn, there are two types of transcription:
 standard Swedish orthography, with glosses for words
 not in standard Swedish, and a phonetic transcription for dialects
@@ -788,7 +831,21 @@ the orthographic/gloss transcription will be used so that lexical
 items will be comparable across dialects.
 
 \subsubsection{Talbanken}
-
+\label{syntactically-annotated-training}
+In order to investigate hypothesis 1, I will need to produce features
+to give to the classifier. These features should reflect the syntax of
+the speech of the interviewees. Following Nerbonne and Wiersma 2006, I
+will start with parts of speech, then add the leaf-ancestor paths that
+I tried on the ICE-GB, and finally add dependency-ancestor paths that
+are new. Probably one sentence more each on tagging, dependency and
+constituency parsing.
+(NOTE: Insert paragraphs on tagging and dependency and constituency
+parsing before Talbanken discussion)
+:
+In order to investigate hypothesis 1, I will need a training corpus of
+Swedish to train these various parsers. Part of speech tagging will
+also be needed to run the dependency and constituency parsers.
+:
 Because SweDiaSyn consists of untagged lexical items, Talbanken05 will
 be used to train a POS tagger and parsers. Talbanken05 is a treebank
 of written and transcribed spoken Swedish, roughly 3000,000 words in
@@ -819,7 +876,7 @@ internal nodes.
 % not give so much detail? I think I am misremembering.
 
 \subsection{Parsing}
-
+\label{parsers}
 In order to identify the features needed for building the language
 models described above, SweDiaSyn will need to be POS tagged and
 parsed. For this dissertation, both phrase-structure parsing and dependency
@@ -854,6 +911,10 @@ cleaned and normalised, then used to train a parser.
 
 \subsection{Permutation test}
 \label{permutationtest}
+
+In order to investigate hypothesis 1, I'll need a way to tell whether
+two corpora are significantly different, and what makes them
+different. A permutation test does this.
 
 A permutation test detects whether two corpora are significantly
 different. It does this on the basis of the $R$ measure described in
@@ -894,6 +955,10 @@ occurs based on the token counts of the two corpora combined.
 % this next subsection might need to be changed or deleted
 \subsection{Cluster Analysis}
 \label{cluster-analysis}
+In order to investigate hypothesis 1, I will need to find the clusters
+that the distance measure forms of the regions. I will use binary
+hierarchical bottom-up clustering to do this.
+
 The results of the two distance methods can be compared using
 binary hierarchical clustering. The resulting dendrogram allows the two
 methods to be compared visually.
@@ -907,6 +972,30 @@ permuted repeatedly and at each step correlated with the other
 set. The original correlation is significant if the permuted
 correlation is lower than the original correlation more than 95\% of
 the time.
+
+\subsection{Everything for Hypotheses 2 and 3}
+In order to investigate hypothesis 2, I will need a framework for
+combining feature and backing off sparse features. There is some math
+for this that I need to look up in Manning and Schutze or maybe
+Jurafsky and Martin.
+
+I also need a way to generate new features. Maybe other syntactic
+theories like supertagging would be useful. I already said this
+somewhere.
+
+If the distance measure $R$ doesn't provide any significant distances
+with any combination of features, I will need a different distance
+measure. I don't have one of these, but there are quite some
+possibility, like Kullbeck-Leibler divergence or maximum (?) entropy
+(maybe it was relative entropy or just normal-kind entropy).
+% TODO: WIV, also Kullbeck-Leibler Divergence could work.
+% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
+% neural net
+
+How to compare phonological distance with syntactic distance (3). How
+to um, DO phonological distance. That's like a whole qualifying paper
+on its own. Well, not really, but half of one at least. Maybe a
+dissertation chapter in direst need ok.
 
 \bibliographystyle{robbib}
 \bibliography{central}
