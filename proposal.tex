@@ -658,37 +658,29 @@ research been a shortcoming of $R$, differences between phonological
 and syntactic corpora, or differences between phonological and
 syntactic dialect boundaries?
 
-To investigate this, I propose Hypothesis 1: The features found by dialectologists will agree with
-the highly ranked features used by $R$ for classification. I will test Hypothesis
-1 by comparing $R$'s results to the syntactic
-dialectology literature on Swedish. First, and most obviously, the broad regions
-of Sweden accepted by dialectology will be reproduced by the classifier. For
-example, my previous research on British English reproduced the
-well-known North England-South England distinction.
-This research will eliminate the corpus
-variability in that research \cite{sanders08b} that resulted in the
-confounding factors mentioned above.
+To investigate this, I propose Hypothesis 1: The features found by
+dialectologists will agree with the highly ranked features used by $R$
+for classification. I will test Hypothesis 1 by comparing $R$'s
+results to the syntactic dialectology literature on Swedish. First,
+and most obviously, the broad regions of Sweden accepted by
+dialectology will be reproduced by the classifier. For example, my
+previous research on British English reproduced the well-known North
+England-South England distinction.  This research will eliminate the
+corpus variability in that research \cite{sanders08b} that resulted in
+the confounding factors mentioned above.
 
 Besides the issue of internal consistency, it is
 not yet clear whether $R$ agrees with traditional dialectology results
-for syntax.
-The syntactic features it ranks highest must be
-enumerated, then compared to the syntactic dialect features found by
-dialectologists.
-
-According to hypothesis H1A, $R$
-will agree substantially with the between-region differences of
-syntactic dialectology--where dialectologists find differences between
-regions, $R$ should find a significant difference as well.
-What's
-more, the features found by dialectologists should be
-reflected in the high-ranked features used by $R$.
+for syntax---the geographical demarcation of dialect regions.
+Therefore, I propose Hypothesis 1B: The regions found by
+dialectologists will agree substantially with the regions found by $R$.
 
 %H2 - Dad didn't understand that this is other features to be fed into
 %R not replacement of R entire.
 A secondary question, relevant once a useful
-syntax distance measure is established, is what features provide the best
-results. Previous work has shown that leaf-ancestor paths provide a
+syntax distance measure is established, is what input features cause
+$R$ to produce the best results.
+Previous work has shown that leaf-ancestor paths provide a
 small advantage over part-of-speech trigrams, presumably by capturing
 syntactic structure higher in the parse tree. Additional possible
 feature sets include variations on the previously investigated
@@ -700,8 +692,8 @@ possibility is supertags, as described by \namecite{joshi94}, which are similar 
 leaf-ancestor paths but include more context from the upper structure
 of a syntax tree.
 
-Therefore, the second hypothesis to be investigated is that the best
-features for $R$ will produce the most accurate syntax
+Therefore, Hypothesis 2 is: Better input features
+for $R$ will produce more accurate syntax
 distances. These features can be discovered by comparing performance
 of a number of different feature sets on a fixed corpus. In addition,
 combinations of successful features will produce even better
@@ -721,23 +713,23 @@ boundaries. However, agreement with phonological distance would be
 further evidence for the utility of $R$ as a syntactic distance
 measure.
 
-Therefore, the third hypothesis to be investigated is whether a
-phonology corpus and syntax corpus constructed from the same data will
-provide better correlation between phonology and syntax distance
-measures than a phonology corpus and syntax corpus drawn from
-different data sources. I will test this hypothesis by comparing
-results to my previous work on British English phonological and
-syntactic corpora; there, no significant correlation was found between
-the regions extracted from the two corpora. If significant correlation
-is found by using the same set of data for both measures, it indicates
-that boundaries do coincide but that the agreement is weak enough to
+Therefore, Hypothesis 3 is: a phonology corpus and syntax corpus
+constructed from the same data will provide better correlation between
+phonology and syntax distance measures than a phonology corpus and
+syntax corpus drawn from different data sources. I will test this
+hypothesis by comparing results to my previous work on British English
+phonological and syntactic corpora; there, no significant correlation
+was found between the regions extracted from the two corpora drawn
+from different data. If significant correlation is found by using the
+same set of data for both corpora, it indicates that phonology and
+syntax boundaries do coincide but that the agreement is weak enough to
 be lost when using corpora collected from different populations.
 
 % Like H1B here, seriously
 % I'm not sure how to integrate this into the rest of the hypotheses
 % Maybe it should go after H2 in which I describe alternative
 % features, since it's an alternative to the combination of features
-If $R$ is found to be a bad measure of syntax distance, this research
+Finally, if $R$ is found to be a bad measure of syntax distance, this research
 will propose and evaluate alternative syntactic distance
 measures. Specifically, $R$ is one way to aggregate features that are
 created by decomposing sentences. It treats features as atomic, and
@@ -753,7 +745,7 @@ sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
 provides a dissimilarity that is intuitively similar to distance.
 
 \section{Methods}
-% Label each with section number
+
 To investigate the first hypothesis, I need a dialect corpus that can
 be syntactically annotated (\ref{syntactically-annotated-corpus}),
 preferably automatically. This will require a syntactically annotated
@@ -767,15 +759,17 @@ are found by the corpus. Finally, the most highly ranked features used
 to produce the dialect distances must be enumerated
 (\ref{feature-ranking}).
 
-To investigate the second hypothesis, I need a method to combine features
-(?.?) and back off sparse features (?.?). I also need a way to
-generate new features based on other theories of syntax (?.?).
+To investigate the second hypothesis, I need a method to combine
+different types of features (\ref{combine-feature-sets}) and back off
+sparse features (\ref{feature-backoff}). I also need a way to generate
+new features based on other theories of syntax
+(\ref{alternate-feature-sets}).
 
 If the distance measure $R$ doesn't provide any significant distances
 with any combination of features, I will need a different distance
 measure. I don't have one of these, but there are quite a few
-possibilities; Kullbeck-Leibler divergence or maximum (?) entropy
-among them.
+possibilities; Kullbeck-Leibler divergence is one example
+(\ref{kl-divergence}).
 % (maybe it was relative entropy or just normal-kind entropy).
 % TODO: WIV, also Kullbeck-Leibler Divergence could work.
 % Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
@@ -783,8 +777,9 @@ among them.
 
 To investigate the third hypothesis, I need a phonological corpus and a method
 for calculating phonological dialect distance, then a methd to compare
-phonological clusters with syntactic clusters. See my qualifying paper
-(Sanders 2008) for details.
+phonological clusters with syntactic clusters
+(\ref{phonological-distance}). See my qualifying paper
+\cite{sanders08b} for details.
 
 \subsection{SweDiaSyn} % This is not a good subsection for the new organisation
 \label{syntactically-annotated-corpus}
@@ -805,11 +800,6 @@ However, the SweDiaSyn transcriptions do not yet include all of SweDia
 2000; the completed transcriptions currently focus on older
 speakers.
 
-In order to investigate hypothesis 1 by sorting the speakers into
-various groups, then letting the computer cluster those groups into
-larger clusters. The larger clusters should match linguist
-expectations.
-:
 Currently there are 36,713 sentences of transcribed speech
 from 49 sites, an average of 749 sentences per site.
 However, the sites range from 110 to 1780 sentences because some sites
@@ -845,16 +835,16 @@ structure annotation and dependency annotation using the standard
 annotation formats TIGER-XML and Malt-XML.
 
 % TODO: Should I keep this? It depends on how much detail I want.
-Talbanken's sources are X and Y and Z. It attempts to provide a
-valid sample of the Swedish language, both spoken and written. The
-spoken section is transcribed from conversation, interviews and
-debates, and the written section is taken from high school essays and
-professional prose (TODO:I could probably cite
-Jan Einarsson. 1976. Talbankens skriftspraakskonkordans. Lund
-University: Department of Scandinavian Languages (and
-talspraakskonkordans) IF I could legitimately claim that I got the
-information from there\ldots{} but of course I got it from
-spraakbanken.gu.se/om/eng/index.html actually.
+% Talbanken's sources are X and Y and Z. It attempts to provide a
+% valid sample of the Swedish language, both spoken and written. The
+% spoken section is transcribed from conversation, interviews and
+% debates, and the written section is taken from high school essays and
+% professional prose (TODO:I could probably cite
+% Jan Einarsson. 1976. Talbankens skriftspraakskonkordans. Lund
+% University: Department of Scandinavian Languages (and
+% talspraakskonkordans) IF I could legitimately claim that I got the
+% information from there\ldots{} but of course I got it from
+% spraakbanken.gu.se/om/eng/index.html actually.
 
 Talbanken is annotated syntactically and lexically. The lexical
 annotation is for morphology and part-of-speech. The syntactic
@@ -989,29 +979,37 @@ provinces or counties.
 %Note: All this is speculative. I have no code for this and I'm pretty
 %sure the all-pairs average solution is not quite right
 
-\subsection{Everything for Hypotheses 2 and 3}
+\subsection{Combining Feature Sets}
+\label{combine-feature-sets}
+TODO
+
 In order to investigate hypothesis 2, I will need a framework for
-combining feature and backing off sparse features. There is some math
-for this that I need to look up in Manning and Schutze or maybe
-Jurafsky and Martin.
+combining features.
+% There is some math for this that I need to look up in Manning and
+% Schutze or maybe Jurafsky and Martin.
 
-I also need a way to generate new features. Maybe other syntactic
-theories like supertagging would be useful. I already said this
-somewhere.
+\subsection{Feature Backoff}
+\label{feature-backoff}
+TODO
 
-If the distance measure $R$ doesn't provide any significant distances
-with any combination of features, I will need a different distance
-measure. I don't have one of these, but there are quite some
-possibility, like Kullbeck-Leibler divergence or maximum (?) entropy
-(maybe it was relative entropy or just normal-kind entropy).
-% TODO: WIV, also Kullbeck-Leibler Divergence could work.
-% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
-% neural net
+In order to investigate hypothesis 2, I will need a framework for
+backing off sparse features.
 
-How to compare phonological distance with syntactic distance (3). How
-to um, DO phonological distance. That's like a whole qualifying paper
-on its own. Well, not really, but half of one at least. Maybe a
-dissertation chapter in direst need ok.
+\subsection{Alternate Feature Sets}
+\label{alternate-feature-sets}
+For hypothesis 2, I will need a way to generate new types of
+features. For example, input from other syntactic theories might
+lead to supertag features \cite{joshi94}.
+
+TODO
+\subsection{Kullbeck-Leibler Divergence}
+\label{kl-divergence}
+TODO
+
+\subsection{}
+\label{phonological-distance}
+TODO: This is a very large topic and might not be appropriate to
+include in its entirety here.
 
 \bibliographystyle{robbib}
 \bibliography{central}
