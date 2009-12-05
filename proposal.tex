@@ -745,7 +745,6 @@ sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
 provides a dissimilarity that is intuitively similar to distance.
 
 \section{Methods}
-
 To investigate the first hypothesis, I need a dialect corpus that can
 be syntactically annotated (\ref{syntactically-annotated-corpus}),
 preferably automatically. This will require a syntactically annotated
@@ -981,30 +980,51 @@ provinces or counties.
 
 \subsection{Combining Feature Sets}
 \label{combine-feature-sets}
-TODO
 
-In order to investigate hypothesis 2, I will need a framework for
-combining features.
-% There is some math for this that I need to look up in Manning and
-% Schutze or maybe Jurafsky and Martin.
+In order to investigate hypothesis 2, I will need a method for
+combining features of different types. The most obvious approach should work, dumping
+them all into the same bucket, because they are just weights and
+features of the same type {\it already} contain redundant information. If
+this turns out to be insufficient, I will find a more complex and
+sound way to combine features.
 
 \subsection{Feature Backoff}
 \label{feature-backoff}
 TODO
+% If I can't find a certain frequency of trigrams then backoff to
+% bigram
+% Thorsten Brants - deleted interpolation
+% -- but you have to estimate them empirically using held out data
+%
+% check Jurafsky & Martin under 'smoothing'
 
+% Martin Volk inter-type backoff (if X type information isn't
+% available, then use Y type instead) (2000, 2001 or 2002)
+% Scaling Up ...; Exploiting the WWW ...; Combining Unsupervised ...;
 In order to investigate hypothesis 2, I will need a framework for
 backing off sparse features.
 
 \subsection{Alternate Feature Sets}
 \label{alternate-feature-sets}
+% Extended feature sets instead of completely basing them on another
+% syntactic theory. In other words, maybe generate additional context
+% for leaf-ancestor paths, but it need not be based on CCG, just on
+% ad-hoc context widening. That I make up eh.
 For hypothesis 2, I will need a way to generate new types of
-features. For example, input from other syntactic theories might
-lead to supertag features \cite{joshi94}.
+features. One obvious way to do this is to include more contextual
+information. For example, supertags \cite{joshi94} are similar to
+leaf-ancestor paths, but include more tree context around the
+head. Something similar based in constituents is possible for
+leaf-ancestors;
+TODO: Outline a real idea here.
 
-TODO
-\subsection{Kullbeck-Leibler Divergence}
+\subsection{Alternate Distance Measures}
 \label{kl-divergence}
+KL or something in that family.
+Also WIV I guess
 TODO
+% Make sure the KL divergence couldn't go to infinity
+% Jensen-Shannon doesn't have the problem according to some thesis
 
 \subsection{}
 \label{phonological-distance}
