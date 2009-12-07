@@ -776,8 +776,7 @@ possibilities; Kullbeck-Leibler divergence is one example
 
 To investigate the third hypothesis, I need a phonological corpus and a method
 for calculating phonological dialect distance, then a methd to compare
-phonological clusters with syntactic clusters
-(\ref{phonological-distance}). See my qualifying paper
+phonological clusters with syntactic clusters. See my qualifying paper
 \cite{sanders08b} for details.
 
 \subsection{SweDiaSyn} % This is not a good subsection for the new organisation
@@ -968,8 +967,9 @@ comparisons; each feature's normalised weight is equal to its
 importance in determining the distance between the two regions.
 The most important features of a between two sets of regions can be obtained by
 averaging the importance of each feature between all (first-set,
-second-set) region pairs. (There is a nice equation lurking in here
-somewhere that I may want to avoid nonetheless.) This second, more
+second-set) region pairs. This second, more
+% (There is a nice equation lurking in here
+% somewhere that I may want to avoid nonetheless.)
 complicated, feature extraction is needed to relate the results from
 my distance measures with the features that dialectologists discuss
 relative to large areas of Sweden, ones larger than individual
@@ -982,11 +982,11 @@ provinces or counties.
 \label{combine-feature-sets}
 
 In order to investigate hypothesis 2, I will need a method for
-combining features of different types. The most obvious approach should work, dumping
-them all into the same bucket, because they are just weights and
-features of the same type {\it already} contain redundant information. If
-this turns out to be insufficient, I will find a more complex and
-sound way to combine features.
+combining features of different types. The most obvious approach
+should work, dumping them all into the same bucket, because they are
+just weights and features of the same type {\it already} contain
+redundant information. If this turns out to be insufficient, I will
+find a more complex and sound way to combine features.
 
 \subsection{Feature Backoff}
 \label{feature-backoff}
@@ -1002,7 +1002,21 @@ TODO
 % available, then use Y type instead) (2000, 2001 or 2002)
 % Scaling Up ...; Exploiting the WWW ...; Combining Unsupervised ...;
 In order to investigate hypothesis 2, I will need a framework for
-backing off sparse features.
+backing off sparse features. For inter-type backoff I will use deleted
+interpolation (or something equally simple).
+
+For intra-type backoff I will use an (ad-hoc?) ranked rule set similar
+to Martin Volk's system for verb attachment. He used XX reliability
+for ranking quality of rules; I will use number of significant region
+differences for ranking: the most reliable feature type will be the
+one that produces the highest number of significant inter-region
+distances when tested using just that one type of feature. Volk also
+trained something using NEGRA for supervised training.
+
+To summarise, if one combination of feature types can't produce a
+significant difference, the next one will be tried. The ranking will
+be the linear combination (the sum) (or maybe the average?) of the
+individual feature types used for that combination.
 
 \subsection{Alternate Feature Sets}
 \label{alternate-feature-sets}
@@ -1015,8 +1029,10 @@ features. One obvious way to do this is to include more contextual
 information. For example, supertags \cite{joshi94} are similar to
 leaf-ancestor paths, but include more tree context around the
 head. Something similar based in constituents is possible for
-leaf-ancestors;
-TODO: Outline a real idea here.
+leaf-ancestors; dependency paths already include such ``upper
+context'' in the form of lexicalised nodes, but each node could be
+enriched with surrounding lexical information, creating bigrams or
+trigrams of each node.
 
 \subsection{Alternate Distance Measures}
 \label{kl-divergence}
@@ -1026,10 +1042,6 @@ TODO
 % Make sure the KL divergence couldn't go to infinity
 % Jensen-Shannon doesn't have the problem according to some thesis
 
-\subsection{}
-\label{phonological-distance}
-TODO: This is a very large topic and might not be appropriate to
-include in its entirety here.
 
 \bibliographystyle{robbib}
 \bibliography{central}
