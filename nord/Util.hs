@@ -11,12 +11,17 @@ import Control.Arrow ((&&&))
 {--- lst ---}
 count :: (Ord a) => [a] -> Map.Map a Int
 count l = foldl' (\ m x -> Map.insertWith' (+) x 1 m) Map.empty l
+collapse :: (Ord k) => [a] -> (a -> k) -> Map.Map k [a]
+collapse l f = Map.fromListWith (++) $ zip (map f l) (map list l)
+-- this version might be faster because it's strict
+-- collapse l f = foldl' (\ m x -> Map.insertWith' (++) (f x) [x] m) Map.empty l
 window n l = win l (length l)
   where win l len | n > len = []
                   | otherwise = take n l : win (tail l) (len - 1)
 replace _ _ [] = []
 replace src dst (x:xs) = (if src == x then dst else x) : replace src dst xs
 groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
+list = (:[])
 {--- fs ---}
 withFile filename f = return . f =<< readFile filename -- see also System.IO
 withFileLines f filename = return . f . lines =<< readFile filename

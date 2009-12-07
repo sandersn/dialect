@@ -769,13 +769,9 @@ with any combination of features, I will need a different distance
 measure. I don't have one of these, but there are quite a few
 possibilities; Kullbeck-Leibler divergence is one example
 (\ref{kl-divergence}).
-% (maybe it was relative entropy or just normal-kind entropy).
-% TODO: WIV, also Kullbeck-Leibler Divergence could work.
-% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
-% neural net
 
 To investigate the third hypothesis, I need a phonological corpus and a method
-for calculating phonological dialect distance, then a methd to compare
+for calculating phonological dialect distance, then a method to compare
 phonological clusters with syntactic clusters. See my qualifying paper
 \cite{sanders08b} for details.
 
@@ -1036,11 +1032,30 @@ trigrams of each node.
 
 \subsection{Alternate Distance Measures}
 \label{kl-divergence}
-KL or something in that family.
-Also WIV I guess
-TODO
+In the case that $R$ does not reach statistical significance, I will
+need to experiment with similar
+but more complicated distance measures, in the chance
+that one will be more sensitive. A good first option is
+Kullbeck-Leibler divergence, or relative entropy, which is described
+in . Besides this, several close variants of relative entropy exist, such as
+Jenson-Shannon divergence, that lift various restrictions from the
+input distributions.
+
+Another possibility is a return to Goebl's Weighted Identity Value;
+this classifier is similar in some ways to $R$, but has not been
+tested with large corpora, to my knowledge at least.
+
+More exotic classifiers are of course possible, although currently I
+have not investigated them. Examples are k-nearest
+neighbour classification or neural nets.
+% (maybe it was relative entropy or just normal-kind entropy).
+% TODO: WIV, also Kullbeck-Leibler Divergence could work.
+% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
+% neural net
+
 % Make sure the KL divergence couldn't go to infinity
-% Jensen-Shannon doesn't have the problem according to some thesis
+% Jensen-Shannon lifts a couple of restrictions though I think the
+% input still has to be a probability distribution
 
 
 \bibliographystyle{robbib}
