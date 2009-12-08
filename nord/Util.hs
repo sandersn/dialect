@@ -3,7 +3,7 @@ import Text.XML.HaXml (tag, (/>), txt, elm, attr, xmlParse, verbatim, showattr,
                       literal, find)
 import Text.XML.HaXml.Types
 import Data.List (group, sort, foldl')
-import Data.List.Split (split, dropFinalBlank, keepDelimsR, whenElt)
+import Data.List.Split (split, dropFinalBlank, keepDelimsR, keepDelimsL, whenElt)
 import qualified Data.Map as Map
 import Maybe (fromMaybe)
 import System (getArgs)
@@ -21,6 +21,7 @@ window n l = win l (length l)
 replace _ _ [] = []
 replace src dst (x:xs) = (if src == x then dst else x) : replace src dst xs
 groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
+splitBy f = split $ dropFinalBlank $ keepDelimsL $ whenElt f
 list = (:[])
 {--- fs ---}
 withFile filename f = return . f =<< readFile filename -- see also System.IO
