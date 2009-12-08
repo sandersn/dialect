@@ -977,16 +977,23 @@ provinces or counties.
 \subsection{Combining Feature Sets}
 \label{combine-feature-sets}
 
+% maybe use 'kind of feature' instead of 'type of feature'. it's fuzzier
 In order to investigate hypothesis 2, I will need a method for
-combining features of different types. The most obvious approach
-should work, dumping them all into the same bucket, because they are
-just weights and features of the same type {\it already} contain
-redundant information. If this turns out to be insufficient, I will
-find a more complex and sound way to combine features.
+combining features of different types. Here, the obvious approach
+of combining feature types linearly should suffice. For example, within a single
+type of feature, such as POS tag or leaf-ancestor path,
+there is already redundant information about lexical items and tree
+structure, so combining the two does not mean that the two need to be
+balanced in terms of sharing probability space.
+% TODO: Last sentence still sucks
+% TODO: Notes from last presentation:
+% TnT has a 'mark unknown words' option.
+% Pass lexical items to Berkeley parser (or make sure both training and test are t
+% he same)
+% check whether Berkeley parser has POS-tagging option
 
 \subsection{Feature Backoff}
 \label{feature-backoff}
-TODO
 % If I can't find a certain frequency of trigrams then backoff to
 % bigram
 % Thorsten Brants - deleted interpolation
@@ -998,21 +1005,28 @@ TODO
 % available, then use Y type instead) (2000, 2001 or 2002)
 % Scaling Up ...; Exploiting the WWW ...; Combining Unsupervised ...;
 In order to investigate hypothesis 2, I will need a framework for
-backing off sparse features. For inter-type backoff I will use deleted
-interpolation (or something equally simple).
+backing off sparse features. For backoff within a single type of
+feature, I will use deleted interpolation (or something equally
+simple).
+TODO
 
-For intra-type backoff I will use an (ad-hoc?) ranked rule set similar
-to Martin Volk's system for verb attachment. He used XX reliability
-for ranking quality of rules; I will use number of significant region
-differences for ranking: the most reliable feature type will be the
-one that produces the highest number of significant inter-region
-distances when tested using just that one type of feature. Volk also
-trained something using NEGRA for supervised training.
+For backoff between types of features, I will use ranked combinations
+of feature sets, based to Martin Volk's system (TODO:CITE) for verb
+attachment. Volk used XX reliability for ranking quality of combined
+feature types; I will use number of significant region differences for
+ranking: the most reliable feature type will be the one that produces
+the highest number of significant distances between
+regions. Combinations of feature types will be ranked by averaging the
+number of significant distances that the constituent feature types
+obtain.
+
+Volk also trained something using NEGRA for supervised training.
+Do I need to talk about training the backoff here? I'm not sure what
+the confidence threshold for each feature-type set is.
 
 To summarise, if one combination of feature types can't produce a
-significant difference, the next one will be tried. The ranking will
-be the linear combination (the sum) (or maybe the average?) of the
-individual feature types used for that combination.
+significant difference (OR does not reach the confidence threshold),
+the next one will be tried.
 
 \subsection{Alternate Feature Sets}
 \label{alternate-feature-sets}
