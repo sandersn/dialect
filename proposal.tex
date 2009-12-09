@@ -803,14 +803,15 @@ items will be comparable across dialects.
 
 Because the first hypothesis requires a syntactically annotated
 corpus, and because SweDiaSyn consists of untagged lexical items,
-Talbanken05, an already syntactically-annotated corpus, will be used
-to train a POS tagger and parsers to be used to annotate SweDiaSyn.
-Talbanken05 is a treebank of written and transcribed spoken Swedish,
-roughly 3000,000 words in size. It is an updated version of
-Talbanken76 \cite{nivre06}; Talbanken76's trees are annotated
-following a custom scheme called MAMBA; Talbanken05 adds phrase
-structure annotation and dependency annotation using the standard
-annotation formats TIGER-XML and Malt-XML.
+Talbanken05, a syntactically-annotated corpus, will be used to train a
+POS tagger and parsers to be used to annotate SweDiaSyn.  Talbanken05
+is a treebank of written and transcribed spoken Swedish, roughly
+300,000 words in size. It is an updated version of Talbanken76
+\cite{nivre06}; Talbanken76's trees are annotated following a custom
+scheme called MAMBA; Talbanken05 adds phrase structure annotation and
+dependency annotation using the standard annotation formats TIGER-XML
+and Malt-XML.  In addition to syntactic annotation, Talbanken is
+lexically annotated for morphology and part-of-speech.
 
 % TODO: Should I keep this? It depends on how much detail I want.
 % Talbanken's sources are X and Y and Z. It attempts to provide a
@@ -823,11 +824,6 @@ annotation formats TIGER-XML and Malt-XML.
 % talspraakskonkordans) IF I could legitimately claim that I got the
 % information from there\ldots{} but of course I got it from
 % spraakbanken.gu.se/om/eng/index.html actually.
-
-Talbanken is annotated syntactically and lexically. The lexical
-annotation is for morphology and part-of-speech. The syntactic
-annotation is for constituency and grammatical function of
-internal nodes.
 
 \subsection{Parsing}
 \label{parsers}
@@ -845,22 +841,23 @@ internal nodes.
 % :
 In order to extract the features used to build the language models
 described in the previous methods, SweDiaSyn will need to be POS
-tagged and parsed. For this dissertation, both phrase-structure
-parsing and dependency features will be provided to the classifier.
+tagged and parsed. For this dissertation, both constituency
+and dependency features will be provided to the classifier.
 
 The Tags 'n' Trigrams (T'n'T) tagger \cite{brants00} will be used for tagging, with
 the POS annotations from Talbanken05 used as training.
-After POS tagging, the sentences will be cleaned in preparation for
-parsing. Cleaning phrase structure annotations consists of removing
+After POS tagging, the Talbanken sentences will be cleaned in order to
+be usable for training the parsers.
+Cleaning Talbanken's constituency annotations consists of removing
 discontinuities of various types, especially disfluencies and
 restarts, which may be reparable by a simple top-level strategy. If
 more complicated uncrossing is needed, a strategy similar to the split
 constituents proposed by \namecite{boyd07} may be needed.
 
-For constituent parsing, The Berkeley parser \cite{petrov08} will be
+For constituency parsing, The Berkeley parser \cite{petrov08} will be
 trained on standard Swedish, again from Talbanken05. The Berkeley
 parser has shown good performance on languages other than English,
-which is not common for phrase-structure parsers.
+which is not common for constituency parsers.
 % TODO: CITE The paper that shows this. Also EXPLAIN it.
 
 For dependency parsing, MaltParser will be used with the existing
