@@ -1,7 +1,11 @@
 -- -*- coding: utf-8 -*-
+module Consts where
 import Data.Map as Map
+import Char (chr)
+umlaut = chr 0xCC : chr 0x88 : ""
+ring = chr 0xCC : chr 0x8A : ""
 tbpath = "/Volumes/Data/Corpora/sv/Talbanken05/FPS/"
-swpath = "/Volumes/Data/Corpora/sv/SweDiaSyn/Korrekturläst/"
+swpath = "/Volumes/Data/Corpora/sv/SweDiaSyn/Korrekturla\204\136st/"
 talbanken = [tbpath ++ "SD.tiger.xml",
              tbpath ++ "P.tiger.xml",
              tbpath ++ "IB.tiger.xml",
@@ -85,7 +89,7 @@ swediaSites = [
   "Frillesas",
   "Indal",
   "Jamshog",
-  "Köla",
+  "Ko"++umlaut++"la",
   "Leksand", -- WARNING: One filename is typoed "Leksand " not "Leksand"
   "Loderup",
   "Nederlulea",
@@ -98,7 +102,7 @@ swediaSites = [
   "Sorunda",
   "Sproge",
   "StAnna",
-  "Torsås",
+  "Torsa"++ring++"s",
   "Torso",
   --"Torsö",
   "Vaxtorp",

@@ -4,6 +4,7 @@ import Data.Maybe (fromJust)
 import Util ((|>), (&), collapse, withFileLines, splitBy)
 import Directory (getDirectoryContents)
 import qualified Data.Map as Map
+import qualified Consts
 
 newline ('*':_) = True
 newline _ = False
@@ -16,8 +17,11 @@ readSwedia path filename = withFileLines splitter (path++filename)
                    splitBy newline &
                    filter (head & (`isPrefixOf` "*INT:") & not) &
                    map (intercalate " " & between ':' '%' & splitOn " ")
-groupedSites paths sites = collapse (filter visible paths)
-                                   (\ f -> fromJust $ find (isPrefixOf f) sites)
+groupedSites paths sites = collapse (filter visible paths) keymap
+                                   -- (\ f -> fromJust $ find (isPrefixOf f) sites)
+  where fromJustErr f (Just sitename) = sitename
+        fromJustErr f Nothing = error ("find inte: " ++ f ++ "(" ++ show paths ++ ")")
+        keymap f = fromJustErr f $ find (isPrefixOf f) sites
 getGroupedSites path sites =
   getDirectoryContents path >>= groupedSites sites & return
 groupedRegions paths = Map.map (groupedSites paths & Map.elems & concat)
@@ -26,3 +30,4 @@ extractTnt path sites =
     mapM (readSwedia path) files >>=
     concat & concat & filter (/="\15") & intercalate "\n" &
     writeFile (region ++ ".t"))
+main = extractTnt Consts.swpath Consts.swediaSites >>= print
