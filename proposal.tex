@@ -746,14 +746,13 @@ to produce the dialect distances must be enumerated
 To investigate the second hypothesis, I need a method to combine
 different types of features (\ref{combine-feature-sets}) and back off
 sparse features (\ref{feature-backoff}). I also need a way to generate
-new features based on other theories of syntax
+new features that include more information about context
 (\ref{alternate-feature-sets}).
 
 If the distance measure $R$ doesn't provide any significant distances
-with any combination of features, I will need a different distance
-measure. I don't have one of these, but there are quite a few
-possibilities; Kullbeck-Leibler divergence is one example
-(\ref{kl-divergence}).
+with any combination of features, I will experiment with different distance
+measures. For this, there are quite a few possibilities;
+Kullbeck-Leibler divergence is one example (\ref{kl-divergence}).
 
 To investigate the third hypothesis, I need a phonological corpus and a method
 for calculating phonological dialect distance, then a method to compare
