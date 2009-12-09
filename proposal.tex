@@ -601,8 +601,6 @@ The & dog & barks
 
 \subsection{Previous Experiments}
 
-% TODO: This section could still be a little longer.
-
 \namecite{nerbonne06} were the first to use the syntactic distance
 measure described above. They analysed two corpora, both of Norwegian
 L2 speakers of English. The first corpus was gathered from speakers
@@ -658,41 +656,32 @@ research been a shortcoming of $R$, differences between phonological
 and syntactic corpora, or differences between phonological and
 syntactic dialect boundaries?
 
-To investigate this, I propose Hypothesis 1: The features found by
+To investigate this, I propose Hypothesis 1: the features found by
 dialectologists will agree with the highly ranked features used by $R$
 for classification. I will test Hypothesis 1 by comparing $R$'s
-results to the syntactic dialectology literature on Swedish. First,
-and most obviously, the broad regions of Sweden accepted by
+results to the syntactic dialectology literature on Swedish. According
+to the hypothesis, the broad regions of Sweden accepted by
 dialectology will be reproduced by the classifier. For example, my
 previous research on British English reproduced the well-known North
-England-South England distinction.  This research will eliminate the
+England-South England dialect regions. However, this research will eliminate the
 corpus variability in that research \cite{sanders08b} that resulted in
-the confounding factors mentioned above.
-
-Besides the issue of internal consistency, it is
-not yet clear whether $R$ agrees with traditional dialectology results
-for syntax---the geographical demarcation of dialect regions.
-Therefore, I propose Hypothesis 1B: The regions found by
-dialectologists will agree substantially with the regions found by $R$.
+the confounding factors mentioned above, meaning that more precise
+regions should be detectable as well.
 
 %H2 - Dad didn't understand that this is other features to be fed into
 %R not replacement of R entire.
-A secondary question, relevant once a useful
-syntax distance measure is established, is what input features cause
-$R$ to produce the best results.
-Previous work has shown that leaf-ancestor paths provide a
+A secondary question, relevant once a useful syntax distance measure
+is established, is what input features cause $R$ to produce the best
+results.  Previous work has shown that leaf-ancestor paths provide a
 small advantage over part-of-speech trigrams, presumably by capturing
 syntactic structure higher in the parse tree. Additional possible
 feature sets include variations on the previously investigated
-trigrams and leaf-ancestor paths: various kinds of backoff, such
-as bigram or coarser node tags. Features from dependency parses may
-be useful, too, in bringing non-local dependencies that can be
-captured neither by trigrams nor leaf-ancestor paths. Another
-possibility is supertags, as described by \namecite{joshi94}, which are similar to
-leaf-ancestor paths but include more context from the upper structure
-of a syntax tree.
+trigrams and leaf-ancestor paths, along with various kinds of backoff,
+for example, to bigrams or coarser node tags. Features from dependency
+parses may be useful, too, in capturing non-local dependencies that
+can be captured neither by trigrams nor leaf-ancestor paths.
 
-Therefore, Hypothesis 2 is: Better input features
+Therefore, I propose Hypothesis 2: better input features
 for $R$ will produce more accurate syntax
 distances. These features can be discovered by comparing performance
 of a number of different feature sets on a fixed corpus. In addition,
@@ -710,10 +699,10 @@ measures like Levenshtein distance. Unlike agreement with traditional
 dialectology, there is no {\it a priori} reason to expect agreement
 between phonology and syntax in delineating dialect
 boundaries. However, agreement with phonological distance would be
-further evidence for the utility of $R$ as a syntactic distance
+further evidence for the suitability of $R$ as a syntactic distance
 measure.
 
-Therefore, Hypothesis 3 is: a phonology corpus and syntax corpus
+Therefore, I propose Hypothesis 3: a phonology corpus and syntax corpus
 constructed from the same data will provide better correlation between
 phonology and syntax distance measures than a phonology corpus and
 syntax corpus drawn from different data sources. I will test this
@@ -725,16 +714,12 @@ same set of data for both corpora, it indicates that phonology and
 syntax boundaries do coincide but that the agreement is weak enough to
 be lost when using corpora collected from different populations.
 
-% Like H1B here, seriously
-% I'm not sure how to integrate this into the rest of the hypotheses
-% Maybe it should go after H2 in which I describe alternative
-% features, since it's an alternative to the combination of features
-Finally, if $R$ is found to be a bad measure of syntax distance, this research
-will propose and evaluate alternative syntactic distance
+Finally, if $R$ is found to be a bad measure of syntax distance, this
+dissertation will propose and evaluate alternative syntactic distance
 measures. Specifically, $R$ is one way to aggregate features that are
 created by decomposing sentences. It treats features as atomic, and
-does not manipulate them in any syntax-specific ways. As such, $R$ is not much
-different than Goebl's WIV. This may not be a problem if the
+does not manipulate them in any syntax-specific ways. As such, $R$ is
+not much different than Goebl's WIV. This may not be a problem if the
 decomposition methods used to generate features adequately capture
 dialect differences in independent, atomic features. If dialect
 differences cannot be captured by independent, atomic features, then a
@@ -997,70 +982,58 @@ balanced in terms of sharing probability space.
 % If I can't find a certain frequency of trigrams then backoff to
 % bigram
 % Thorsten Brants - deleted interpolation
-% -- but you have to estimate them empirically using held out data
-%
-% check Jurafsky & Martin under 'smoothing'
 
 % Martin Volk inter-type backoff (if X type information isn't
 % available, then use Y type instead) (2000, 2001 or 2002)
 % Scaling Up ...; Exploiting the WWW ...; Combining Unsupervised ...;
 In order to investigate hypothesis 2, I will need a framework for
 backing off sparse features. For backoff within a single type of
-feature, I will use deleted interpolation (or something equally
-simple).
-TODO
+feature, I will use deleted interpolation \cite{jurafskymartin}. Training for the trigram, bigram and unigram counts will
+come from the Talbanken.
 
 For backoff between types of features, I will use ranked combinations
-of feature sets, based to Martin Volk's system (TODO:CITE) for verb
-attachment. Volk used XX reliability for ranking quality of combined
-feature types; I will use number of significant region differences for
-ranking: the most reliable feature type will be the one that produces
-the highest number of significant distances between
-regions. Combinations of feature types will be ranked by averaging the
-number of significant distances that the constituent feature types
-obtain.
-
-Volk also trained something using NEGRA for supervised training.
-Do I need to talk about training the backoff here? I'm not sure what
-the confidence threshold for each feature-type set is.
-
-To summarise, if one combination of feature types can't produce a
-significant difference (OR does not reach the confidence threshold),
-the next one will be tried.
+of feature sets, based to Martin Volk's system \cite{volk02} for verb
+attachment. Volk used an a priori reliability measure for ranking
+quality of combined feature types; I will use number of significant
+region differences for ranking: the most reliable feature type will be
+the one that produces the highest number of significant distances
+between regions. Combinations of feature types will be ranked by
+averaging the number of significant distances that the constituent
+feature types obtain. If the distance measure, using highest ranked set of
+features, can't find a significant difference, the classifier will
+fall back to the next highest-ranked set of features.
+% Last sentence is muddly like PS2-rendered swamp water.
 
 \subsection{Alternate Feature Sets}
 \label{alternate-feature-sets}
-% Extended feature sets instead of completely basing them on another
-% syntactic theory. In other words, maybe generate additional context
-% for leaf-ancestor paths, but it need not be based on CCG, just on
-% ad-hoc context widening. That I make up eh.
 For hypothesis 2, I will need a way to generate new types of
 features. One obvious way to do this is to include more contextual
 information. For example, supertags \cite{joshi94} are similar to
 leaf-ancestor paths, but include more tree context around the
-head. Something similar based in constituents is possible for
-leaf-ancestors; dependency paths already include such ``upper
-context'' in the form of lexicalised nodes, but each node could be
-enriched with surrounding lexical information, creating bigrams or
-trigrams of each node.
+head. A similar extension of context is possible for
+leaf-ancestor paths; dependency paths already include left and right
+context as they trace the heads to the root, but each head could be
+enriched with bigram or trigram information, which would add
+information for dependency paths involved in nonlocal dependencies.
 
 \subsection{Alternate Distance Measures}
 \label{kl-divergence}
 In the case that $R$ does not reach statistical significance, I will
-need to experiment with similar
-but more complicated distance measures, in the chance
-that one will be more sensitive. A good first option is
+need to experiment with similar but more complicated distance measures
+to find a more sensitive one. The first choice at this point is
 Kullbeck-Leibler divergence, or relative entropy, which is described
-in . Besides this, several close variants of relative entropy exist, such as
-Jenson-Shannon divergence, that lift various restrictions from the
-input distributions.
+in \namecite{manningschutze}. Besides this, several variants of
+relative entropy exist, such as Jenson-Shannon divergence \cite{lin91}, that lift
+various restrictions from the input distributions.
 
 Another possibility is a return to Goebl's Weighted Identity Value;
 this classifier is similar in some ways to $R$, but has not been
-tested with large corpora, to my knowledge at least.
+tested with large corpora, to my knowledge at least. (THis is not
+particularly useful and I don't belive that WIV would actually be
+good, so I should probably just drop this.)
 
-More exotic classifiers are of course possible, although currently I
-have not investigated them. Examples are k-nearest
+More exotic classifiers are of course possible, although I
+have not investigated them yet. Examples are k-nearest
 neighbour classification or neural nets.
 % (maybe it was relative entropy or just normal-kind entropy).
 % TODO: WIV, also Kullbeck-Leibler Divergence could work.
