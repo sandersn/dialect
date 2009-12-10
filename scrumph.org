@@ -1,0 +1,64 @@
+* Scrumph : Internal Scrum
+** 2009/12/2
+   - I re-arranged hypotheses. I marked up the methods intro with
+     section numbers.
+  - I will rewrite the headings of the methods section. I will
+    re-arrange methods intro so the section numbers look less
+    stupid. I will mail Sandra to set up a time on Friday to talk
+    about the new methods sections.
+  - Hypotheses section still sucks pretty bad. There is a lot of noise
+    text left to be excised before giving a draft to Sandra.
+** 2009/12/3
+   - I rewrote the headings of the method sections. I re-arranged the
+     methods intro so that at least the section 3 references are in
+     order (though nested within section 5 references). I mailed
+     Sandra and set up a time around 1:30. Maybe earlier; I will
+     probably go to the reading group.
+   - I will write stubs for unfinished method sections. I will rewrite
+     the hypotheses section to remove the noise. I will clean up the
+     whole thing for noise and send a copy to Sandra.
+** 2009/12/4
+   - I wrote stubs for the unfinished method sections. I rewrote the
+     hypotheses sections to remove noise, along with the whole thing,
+     and sent a copy to Sandra.
+   - I will meet with Sandra to ask her about the appropriateness of
+     the new subsections. I will expand the ones that I keep as much
+     as I can, then do additional research to find out what to put in
+     the others.
+   - I have a ton of errands to run. Probably I should turn in my
+     Swedish book soon and try to find one that  actually has
+     linguists in mind.
+** 2009/12/7
+   - I met with Sandra, she gave me some advice. I did research on
+     kinds of backoff and wrote up a couple of the sections.
+   - I will finish research for alternate distance measures section,
+     write up all sections, and maybe start making them sound good.
+   - 
+** 2009/12/8
+   - I finished research alternate distance measures section and wrote
+     up all sections. None of them sound particularly good.
+   - I will make all sections sound good.
+   - Some of the section sstill need a little research and some
+     citation (textbooks, mainly, though)
+** 2009/12/9
+   - I made all the sections sound good, except for the last sentence
+     of each one. ugh. I added citations from the appropriate papers
+     where they were missing.
+   - I will double-check the last stupid-sounding sentences and
+     re-read the whole methods section, then send to Sandra. The rest
+     of the day I will work on converting to git (installing on
+     peregrin if needed), resolving unicode problems in Consts.hs and
+     investigate the lexicalisation of the Berkeley parser.
+** 2009/12/10
+   - I added more than I thought I'd have to to the proposal, then
+     sent it off to Sandra. I switched to the more reliable way of
+     storing non-standard diacritic sequences in Haskell in Consts.hs.
+   - I will start testing the build process with tagPos, because it
+     calls Swedia.extractTnt, which I'm working on. I will verify that
+     both the Python and Haskell versions reproduce all the relevant
+     words from the interviews.
+   - Lexicalisation of the Berkeley parser (trainCfg) is delayed until
+     testing tagPos and tagDep are tested.
+* TODO Analyse and make up todos based on notes from last talk
+* TODO Test each step of build.py to make sure it produces the correct output. Start with Swedia.hs I guess
+* TODO Compare output of Swedia.hs and swedia.py. Haskell port doesn't look right yet.

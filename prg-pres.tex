@@ -1,0 +1,255 @@
+\documentclass{beamer}
+
+\usetheme{Ilmenau}
+\usepackage[all]{xy}
+
+\title{Syntax Distance for Dialectometry \\ Progress Report : Parsing
+  Swedish Badly}
+\author{Nathan Sanders}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \frametitle{Welcome to Jones!}
+
+  \begin{itemize}
+  \item Try Haskell, a Very Nice Functional Language!
+  \item We have met the enemy and he is us.
+  \item  Who would win? Henry VIII or George III?
+  \item  Only the pure of heart can remove the sword from the stone.
+  \item With great powder comes great rapidity.
+  \item  640K should be enough for anyone.
+  \item A spoonful of sugar makes the medicine go down.
+  \item Try O'Caml, a Very Nice Functional Language!
+  \item Try Scala, a Very Nice Functional Language!
+  \item Try Nice, a Very Clean Functional Language!
+  \item Try Clean, a Very Nice Functional Language!
+  \item Try Nemerle, a Very Nice Functional Language!
+  \item Try Miranda\texttrademark, a Functional Language!
+  \item Try F\#, a Very Nice Functional Language!
+  \item Try Scheme, a Very Nice Functional Language!
+  \item Try Clojure, a Very Nice Functional Language!
+  \end{itemize}
+\end{frame}
+
+\frame{\titlepage}
+\section{Experiment}
+\begin{frame}
+  \frametitle{Experiment}
+  Find syntactic differences between dialects of Swedish
+  \begin{enumerate}
+  \item Corpus: Swediasyn, unparsed interviews transcribed and glossed
+    to standard Swedish
+  \item Training corpus: Talbanken, 300 Kwords of parsed spoken and
+    written Swedish from the late 70s.
+  \item Annotators: TnT, MaltParser and the Berkeley parser, all
+    trained on Talbanken.
+  \end{enumerate}
+\end{frame}
+\section{Prototype}
+\begin{frame}
+  \frametitle{Convert Talbanken}
+  From TIGER-XML, a flat XML representation in ISO-8859-1 (Latin1)
+ \begin{itemize}
+  \item To TnT POS (word --- tab --- POS)
+  \item To PTB (nested s-exps, which are kind of annoying to produce
+    from TIGER-XML)
+  \item Swediasyn is UTF-8, and all the Java-based parsers require it,
+    so Talbanken must be converted.
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Talbanken Example}
+\begin{verbatim}
+<body>
+ <s id="s1">
+  <graph root="s1_501">
+    <terminals>
+     <t id="s1_1" word="ja" pos="POPPHH"/>
+     <t id="s1_2" word="tycker" pos="VVPS"/> ...
+    </terminals>
+    <nonterminals>
+     <nt id="s1_503" cat="PP">
+      <edge label="PR" idref="s1_3"/>
+      <edge label="DT" idref="s1_4"/>
+      <edge label="HD" idref="s1_5"/>
+     </nt> ...
+    </nonterminals></graph></s></body>
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{TnT Example}
+\begin{verbatim}
+ja POPPHH
+tycker VVPS
+för PR
+(imagine f\:or above, pdflatex doesn't like UTF-8 either)
+min POXPHHGG
+del NN
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{PTB Example}
+\begin{verbatim}
+(ROOT (S
+ (POPPHH ja)
+ (VVPS tycker)
+ (PP (PR för) (POXPHHGG min) (NN del))
+ (S
+  (XP (UKAT att) (UKAT att))
+  (RJ &gt;&gt;)
+  (EHRJPU &gt;&gt;)
+  (POOP de)
+  (AVPS e)
+  (NP (P P (ABZA för) (ABZA mycke) (PR av))
+      (EN en)
+      (NN monolog)
+      (S (PORP som) (NNDDHH prästen) (VVPS håller))))))
+\end{verbatim}
+\end{frame}
+\begin{frame}
+  \frametitle{T'n'T}
+  \begin{itemize}
+  \item Training: No problems yet, default parameters
+  \item Classification: Low vocabulary overlap between Talbanken and
+    dialects of Swediasyn. (around 15\% unknown tokens, more for small
+    corpora)
+  \item There were more before converting Talbanken to UTF-8.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{MaltParser}
+  \begin{itemize}
+  \item Training: Already done and downloadable. Thanks Joakim!
+  \item Conversion: POS-tagged Swedia to ConLL is trivial because ConLL is a flat
+    format.
+  \item Classification: Default parameters, results don't appear to be very good.
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Example}
+\begin{columns}
+\column[c]{0.7\textwidth}
+\begin{tabular}{ccccc}
+1&       varit&     AVSN&      0&       ROOT\\
+2&       v\"aldigt&   AJ&        3&       AA  \\
+3&       intresserad&       AJ&        7&       SS\\
+4&       av&        PR&        3&       ET  \\
+5&       det&       PODP&      4&       PA  \\
+6&       h\"ar&       ID&        5&       HD  \\
+7&       \aa{}ka&       VVIV&      0&       ROOT\\
+8&       ikring&    PR&        0&       ROOT\\
+9&       och&       ++OC&      0&       ROOT\\
+10&      titta&     VVIV&      0&       ROOT\\
+11&      p\aa{}&        PR&        0&       ROOT\\
+12&      platser&   NN&        11&      PA  \\
+13&      .   &      IP&        1&       IP  \\
+\end{tabular}
+\column[c]{0.3\textwidth}
+\textit{Been interested in going around there and looking at
+places}. (translate.google.com)
+\end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Berkeley Parser}
+  \begin{itemize}
+  \item Training: Takes 2 GB. No more, no less. So I used
+    banks (Don't tell Josh).
+  \item Classification: Default parameters, I haven't looked at
+    results closely. Takes about 3 days, but less than 1 GB.
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Example}
+\begin{columns}
+\column[c]{0.6\textwidth}
+\begin{verbatim}
+(S (VVPS AVSN)
+   (VNDD AJ)
+   (VVIV AJ)
+   (CNP (NNDD PR)
+        (NNDD PODP)
+        (PN__HH ID)
+        (NNDDHHGG VVIV))
+   (VN__SS PR)
+   (VVPS ++OC)
+   (NP (NP (NN VVIV)
+           (PN__HH PR))
+       (PN__HH NN)
+       (ID IP)))
+\end{verbatim}
+\column[c]{0.4\textwidth}
+(varit AVN) \\
+(v\"a{}ldigt AJ) \\
+(intresserad AJ) \\
+(av PR) \\
+(det PODP) \\
+(h\"ar ID) \\
+(\aa{}ka VVIV) \\
+(ikring PR) \\
+(och ++OC) \\
+(titta VVIV) \\
+(p\aa{} PR) \\
+(platser NN)\\
+(. IP)
+\end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Features}
+  \begin{itemize}
+  \item Trigrams: Trivial, same as before.
+  \item Leaf-ancestors: Same as before, except now in Haskell.
+  \item Dependency paths: for each leaf, record the path to the root.
+ \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Leaf-Ancestor Paths}
+
+\begin{columns}
+\column[c]{0.5\textwidth}
+\[\xymatrix{
+  &&\textrm{S} \ar@{-}[dl] \ar@{-}[dr] &&\\
+  &\textrm{NP} \ar@{-}[d] \ar@{-}[dl] &&\textrm{VP} \ar@{-}[d]\\
+  \textrm{Det} \ar@{-}[d] & \textrm{N} \ar@{-}[d] && \textrm{V} \ar@{-}[d] \\
+\textrm{the}& \textrm{dog} && \textrm{barks}\\}
+\]
+\column[c]{0.5\textwidth}
+\begin{itemize}
+\item S-NP-Det-The
+\item S-NP-N-dog
+\item S-VP-V-barks
+\end{itemize}
+\end{columns}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Dependency Paths}
+
+\begin{columns}
+\column[c]{0.5\textwidth}
+\[\xymatrix{
+& & root \\
+DET \ar@/^/[r] & NP\ar@/^/[r] & V \ar@{.>}[u] \\
+The & dog & barks
+}
+\]
+\column[c]{0.5\textwidth}
+\begin{itemize}
+\item root-V-N-Det-the
+\item root-V-N-dog
+\item root-V-barks
+\end{itemize}
+\end{columns}
+
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Distance}
+ \begin{itemize}
+  \item g++ -O2
+  \item Same as before: \verb+r = map (uncurry (-) & abs) & sum+
+  \item Significance test is only 100 iterations, down from 1000.
+  \item May be ghc -O2 soon.
+ \end{itemize}
+\end{frame}
+\end{document}
