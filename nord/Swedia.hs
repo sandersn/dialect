@@ -17,11 +17,11 @@ readSwedia path filename = withFileLines splitter (path++filename)
                    splitBy newline &
                    filter (head & (`isPrefixOf` "*INT:") & not) &
                    map (intercalate " " & between ':' '%' & splitOn " ")
-groupedSites paths sites = collapse (filter visible paths) keymap
+groupedSites sites paths = collapse (filter visible paths) keymap
                                    -- (\ f -> fromJust $ find (isPrefixOf f) sites)
   where fromJustErr f (Just sitename) = sitename
         fromJustErr f Nothing = error ("find inte: " ++ f ++ "(" ++ show paths ++ ")")
-        keymap f = fromJustErr f $ find (isPrefixOf f) sites
+        keymap f = fromJustErr f $ find (`isPrefixOf` f) sites
 getGroupedSites path sites =
   getDirectoryContents path >>= groupedSites sites & return
 groupedRegions paths = Map.map (groupedSites paths & Map.elems & concat)

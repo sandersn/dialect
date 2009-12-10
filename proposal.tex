@@ -31,12 +31,12 @@ earlier methods integrated phonological, lexical, and syntactic data.
 
 Dialectology is the study of linguistic variation. % in space / over
 % distance / other variables.
-Its goal is to characterise the linguistic features that
+Its goal is to characterize the linguistic features that
 separate two language varieties. Dialectometry is a subfield of
 dialectology that uses mathematically sophisticated methods to extract
 and combine linguistic features. In recent years it has
 been associated with computational linguistic work, most of which
-has focussed on phonology, starting with
+has focused on phonology, starting with
 \namecite{kessler95}, followed by \namecite{nerbonne97} and
 \namecite{nerbonne01}. \namecite{heeringa04} provides a comprehensive
 review of phonological distance in dialectometry as well as some new
@@ -80,7 +80,7 @@ corpora into a single number: the distance.
 \caption{Abstract Distance Measure Model : $f + d$}
 \end{figure}
 
-Dialectometry has focussed on phonological distance measures, while
+Dialectometry has focused on phonological distance measures, while
 syntactic measures have remained undeveloped. The most important
 reason for this focus is that it is easier to define a distance
 measure on phonology. In phonology, words decompose to segments and,
@@ -98,13 +98,13 @@ is inherited from dialectology at large
 % (TODO:Cite?).
 This might be solely to due to the history of dialectology as a field, but it is
 likely that more phonological than syntactic differences exist between
-dialects, due to historically greater standardisation
+dialects, due to historically greater standardization
 of syntax via the written form of language. Phonological
-dialect features are less likely to be stigmatised and suppressed by a
+dialect features are less likely to be stigmatized and suppressed by a
 standard dialect than syntactic ones.
 % (TODO:Cite, probably
 % Trudgill and Chambers something like '98, maybe where they talk about
-% what aspects of dialects are noticed and stigmatised).
+% what aspects of dialects are noticed and stigmatized).
 Whatever the reason, much less dialectology work on syntax is
 available for comparison with new dialectometry results.
 
@@ -126,7 +126,7 @@ consistent differences between corpora. For syntax, though, it is not possible
 to identify reliable features in small corpora.
 
 There are two approaches that have been proposed to remedy this. The
-first, proposed by \namecite{spruit08} for analysing the Syntactic
+first, proposed by \namecite{spruit08} for analyzing the Syntactic
 Atlas of the Dutch Dialects \cite{barbiers05}, is to continue using
 small dialectology corpora and manually extract features so that only
 the most salient features are used. Then a sophisticated method of
@@ -159,7 +159,7 @@ has been proposed by \namecite{nerbonne06} based on work by
 shown to detect dialect differences. A small body of work suggests
 that it does, but as yet there has not been
 a satisfying correlation of its results with phonology or, as with
-phonological distance, with existing results from the dialectelogy
+phonological distance, with existing results from the dialectology
 literature on syntax.
 
 Nerbonne \& Wiersma's first paper used $R$ for syntax distance
@@ -167,7 +167,7 @@ together with a test for statistical significance\cite{nerbonne06}.
 Their experiment compared two generations of
 Norwegian L2 speakers of English, with part-of-speech trigrams as input features.
 They found that the two generations were significantly
-different, although they had to normalise the trigram counts to
+different, although they had to normalize the trigram counts to
 account for differences in sentence length and complexity. However,
 showing that two generations of speakers are significantly different with respect
 to $R$ does not necessarily imply that the same will be true for other
@@ -194,7 +194,7 @@ features found by dialectologists.
 % full of differing sentences. A secondary problem arises to make sure
 % that the 2-d-extracted features aren't skewed one way or another. I
 % guess I need to come up with a general justification for the
-% normalising and smoothing code from Nerbonne & Wiersma
+% normalizing and smoothing code from Nerbonne & Wiersma
 
 % Additional problems: phonology is 1-dimensional, with one obvious way
 % to decompose words into segments and segments into features. Syntax is
@@ -208,7 +208,7 @@ features found by dialectologists.
 % Overview : Goal, Variables, Method
 %   Contribution
 % Literature Review
-%   : (includng theoretical background)
+%   : (including theoretical background)
 %   Draw hypotheses from earlier studies
 % Method
 %   :
@@ -602,7 +602,7 @@ The & dog & barks
 \subsection{Previous Experiments}
 
 \namecite{nerbonne06} were the first to use the syntactic distance
-measure described above. They analysed two corpora, both of Norwegian
+measure described above. They analyzed two corpora, both of Norwegian
 L2 speakers of English. The first corpus was gathered from speakers
 who learned English after childhood and the second was gathered from
 speakers who learned English as children. Nerbonne \& Wiersma found a
@@ -612,7 +612,7 @@ are unexpected in English. For example, the trigram COP-ADJ-N/COM is
 not common in English because a noun phrase following a copula
 typically begins with a determiner. Other trigrams indicate
 hypercorrection on the part of the older speakers; they appear in the
-younger corpus but not as often. Nerbonne \& Wiersma analysed this as
+younger corpus but not as often. Nerbonne \& Wiersma analyzed this as
 interference from Finnish; the younger learners of English learned it
 more completely with less interference from Finnish.
 
@@ -628,7 +628,7 @@ combinations.
 The distances between regions were clustered using hierarchical
 agglomerative clustering, as described in section \ref{cluster-analysis}. The resulting tree showed a North/South
 distinction with some unexpected differences from previously
-hypothesised dialect boundaries; for example, the
+hypothesized dialect boundaries; for example, the
 Northwest region clustered with the Southwest region. This contrasted
 with the clustered phonological distances also produced in
 \namecite{sanders08b}. In that experiment,
@@ -647,7 +647,7 @@ dialectology.
 
 \section{Hypotheses}
 % TODO: Rewrite and merge the following question/hypothesis paragraph pairs
-% H1 - organisation is all wrong still
+% H1 - organization is all wrong still
 The state of syntax measures in dialectometry described above leaves
 several research questions unresolved. The most important for this
 proposal is whether $R$ is a good measure of syntax
@@ -659,14 +659,14 @@ syntactic dialect boundaries?
 To investigate this, I propose Hypothesis 1: the features found by
 dialectologists will agree with the highly ranked features used by $R$
 for classification. I will test Hypothesis 1 by comparing $R$'s
-results to the syntactic dialectology literature on Swedish. According
-to the hypothesis, the broad regions of Sweden accepted by
-dialectology will be reproduced by the classifier. For example, my
+results to the syntactic dialectology literature on Swedish. In
+addition, Hypothesis 1B states that the regions of Sweden accepted by
+dialectology will be reproduced by the $R$. For example, my
 previous research on British English reproduced the well-known North
 England-South England dialect regions. However, this research will eliminate the
 corpus variability in that research \cite{sanders08b} that resulted in
 the confounding factors mentioned above, meaning that more precise
-regions should be detectable as well.
+results, such as specific identifying features, should be detectable as well.
 
 %H2 - Dad didn't understand that this is other features to be fed into
 %R not replacement of R entire.
@@ -759,7 +759,7 @@ for calculating phonological dialect distance, then a method to compare
 phonological clusters with syntactic clusters. See my qualifying paper
 \cite{sanders08b} for details.
 
-\subsection{SweDiaSyn} % This is not a good subsection for the new organisation
+\subsection{SweDiaSyn} % This is not a good subsection for the new organization
 \label{syntactically-annotated-corpus}
 The first hypothesis requires a dialect corpus that can
 be syntactically annotated.
@@ -866,7 +866,7 @@ Nivre. MaltParser is an inductive dependency parser that uses a
 machine learning algorithm to guide the parser at choice points
 \cite{nivre06b}.  Dependency parsing will proceed similarly to
 constituency parsing; the dependency structures of Talbanken05 will be
-cleaned and normalised, then used to train a parser.
+cleaned and normalized, then used to train a parser.
 
 % TODO: Find out how much crossing occurs in Swedish corpora, and how
 % much of it is from interruptions and self-corrections.
@@ -887,20 +887,21 @@ between the samples of the original corpora than $R$ from the mixed
 corpus: any real differences will be randomly redistributed by the
 mixing process, lowering the mixed $R$. Repeating this comparison
 enough times will show if the difference is significant. Twenty times
-is the minimum needed to detect significance for $p < 0.5$
-significance; however, in the experiments, I will repeat the test 1000
-times.
+is the minimum needed to detect significance for $p < 0.05$
+significance; however, in the experiments, I will repeat the test 100
+times, enough to detect significance for $p < 0.01$.
 
-To see how this works, for example, assume that $R$ detects real differences between London
+To see how this works, for example, assume that $R$ detects real
+differences between the two British regions London
 and Scotland such that $R(\textrm{London},\textrm{Scotland}) =
 100$. The permutation test then mixes London and Scotland to
 create LSMixed and splits it into two pieces. Since the real
 differences are now mixed between the two shuffled corpora, we
-would expect $R(\textrm{LSMixed}_1, \textrm{LSMixed}_2) < 100$,
-perhaps around 90 or 95. This should be true at least 95\% of the time if the
-differences are significant.
+would expect $R(\textrm{LSMixed}_1, \textrm{LSMixed}_2) < 100$.
+This should be true at least 95\% of the time for the distance $100$
+to be significant.
 
-%% I don't think normalisation is important enough to mention if I
+%% I don't think normalization is important enough to mention if I
 %% have to add all the sections from the H2/H3.
 % \subsection{Normalization}
 % Afterward, the distance must be normalized to account for two things:
@@ -916,12 +917,12 @@ differences are significant.
 % occurs based on the token counts of the two corpora combined.
 
 % this next subsection might need to be changed or deleted
-\subsection{Cluster Analysis}
+\subsection{Cluster Analysis and Correlation}
 \label{cluster-analysis}
-The first hypothesis requires a clustering method to allow the inter-region
-distances to be compared. The dendrogram that binary hierarchical
-clustering produces a dendrogram that allows easy visual comparison of
-the most similar regions.
+The first hypothesis requires a clustering method to allow
+inter-region distances to be compared more easily. The dendrogram that
+binary hierarchical clustering produces allows easy visual comparison
+of the most similar regions.
 
 Correlation is also useful to find out how similar the two method's
 predictions are. Because of the connected nature of the inter-region
@@ -935,22 +936,23 @@ the time.
 
 \subsection{Feature Ranking}
 \label{feature-ranking}
+% TODO: THIS is hypothesis 1B and I left it out!
 Feature ranking is needed for the first hypothesis so that the results
 of $R$ can be compared qualitatively to the Swedish dialectology
 literature; $R$'s most important features should be similar to those
-discussed most by dialectologists when comparing regions.
-Feature ranking for $R$ is quite simple for one-to-one region
-comparisons; each feature's normalised weight is equal to its
-importance in determining the distance between the two regions.
-The most important features of a between two sets of regions can be obtained by
-averaging the importance of each feature between all (first-set,
-second-set) region pairs. This second, more
+discussed most by dialectologists when comparing regions. Feature
+ranking for $R$ is quite simple for one-to-one region comparisons;
+each feature's normalized weight is equal to its importance in
+determining the distance between the two regions. The most important
+features between two sets of regions can be obtained by averaging the
+importance of each feature between all (first-set, second-set) region
+pairs. This more
 % (There is a nice equation lurking in here
 % somewhere that I may want to avoid nonetheless.)
-complicated, feature extraction is needed to relate the results from
-my distance measures with the features that dialectologists discuss
-relative to large areas of Sweden, ones larger than individual
-provinces or counties.
+complicated technique is needed to relate the results from
+the computational distance measures with the features that
+dialectologists discuss relative to areas of Sweden larger than
+individual provinces or counties.
 
 %Note: All this is speculative. I have no code for this and I'm pretty
 %sure the all-pairs average solution is not quite right
@@ -964,8 +966,8 @@ combining features of different types. Here, the obvious approach
 of combining feature types linearly should suffice. For example, within a single
 type of feature, such as POS tag or leaf-ancestor path,
 there is already redundant information about lexical items and tree
-structure, so combining the two does not mean that the two need to be
-balanced in terms of sharing probability space.
+structure, so combining the two does not mean that additional
+redundancy needs to be taken into account.
 % TODO: Last sentence still sucks
 % TODO: Notes from last presentation:
 % TnT has a 'mark unknown words' option.
@@ -988,49 +990,48 @@ feature, I will use deleted interpolation \cite{jurafskymartin}. Training for th
 come from the Talbanken.
 
 For backoff between types of features, I will use ranked combinations
-of feature sets, based to Martin Volk's system \cite{volk02} for verb
-attachment. Volk used an a priori reliability measure for ranking
+of feature sets, based to Martin Volk's system for verb attachment
+\cite{volk02}. Volk used an a priori reliability measure for ranking
 quality of combined feature types; I will use number of significant
-region differences for ranking: the most reliable feature type will be
+region differences for ranking: the top-ranked feature type will be
 the one that produces the highest number of significant distances
 between regions. Combinations of feature types will be ranked by
 averaging the number of significant distances that the constituent
-feature types obtain. If the distance measure, using highest ranked set of
-features, can't find a significant difference, the classifier will
-fall back to the next highest-ranked set of features.
-% Last sentence is muddly like PS2-rendered swamp water.
+feature types produce. Then if the distance measure can't find a
+significant difference using highest ranked set of features, the
+classifier will fall back to the next highest-ranked set of features.
 
 \subsection{Alternate Feature Sets}
 \label{alternate-feature-sets}
 For hypothesis 2, I will need a way to generate new types of
-features. One obvious way to do this is to include more contextual
+features. One obvious way to do this is to modify existing feature
+types to include more contextual
 information. For example, supertags \cite{joshi94} are similar to
 leaf-ancestor paths, but include more tree context around the
-head. A similar extension of context is possible for
-leaf-ancestor paths; dependency paths already include left and right
-context as they trace the heads to the root, but each head could be
-enriched with bigram or trigram information, which would add
-information for dependency paths involved in nonlocal dependencies.
+head. Similarly, dependency paths could be expanded
+so that each node on the path includes lexical context, such as
+bigrams or trigrams.
 
 \subsection{Alternate Distance Measures}
 \label{kl-divergence}
 In the case that $R$ does not reach statistical significance, I will
 need to experiment with similar but more complicated distance measures
-to find a more sensitive one. The first choice at this point is
+to find a more sensitive one. The obvious choice at this point is
 Kullbeck-Leibler divergence, or relative entropy, which is described
-in \namecite{manningschutze}. Besides this, several variants of
+in \namecite{manningschutze}. Relative entropy is quite similar to $R$
+but more widely used in computational linguistics. Besides this, several variants of
 relative entropy exist, such as Jenson-Shannon divergence \cite{lin91}, that lift
 various restrictions from the input distributions.
 
-Another possibility is a return to Goebl's Weighted Identity Value;
-this classifier is similar in some ways to $R$, but has not been
-tested with large corpora, to my knowledge at least. (THis is not
-particularly useful and I don't belive that WIV would actually be
-good, so I should probably just drop this.)
+% Another possibility is a return to Goebl's Weighted Identity Value;
+% this classifier is similar in some ways to $R$, but has not been
+% tested with large corpora, to my knowledge at least. (This is not
+% particularly useful and I don't believe that WIV would actually be
+% good, so I should probably just drop this.)
 
 More exotic classifiers are of course possible, although I
 have not investigated them yet. Examples are k-nearest
-neighbour classification or neural nets.
+neighbor classification or neural nets.
 % (maybe it was relative entropy or just normal-kind entropy).
 % TODO: WIV, also Kullbeck-Leibler Divergence could work.
 % Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
