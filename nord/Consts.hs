@@ -21,13 +21,13 @@ swediaCounties = Map.fromList [ -- or I could just use the county code
     ("Ostergotland", ["Asby", "StAnna"]), -- Oestergoe
     ("Jonkoping", []), -- Joenkoe
     ("Kronoberg", []),
-    ("Kalmar", ["Ankarsrum", "Boda", "Bredsatra", "Segerstad", "Torsås"]),
+    ("Kalmar", ["Ankarsrum", "Boda", "Bredsatra", "Segerstad", "Torsa"++ring++"s"]),
     ("Gotland", ["Faro", "Fole", "Sproge"]),
     ("Blekinge", ["Jamshog"]),
     ("Skane", ["Norra Rorum", "Bara", "Loderup", "Ossjo"]), -- Sk@n
     ("Halland", ["Frillesas", "Vaxtorp"]),
     ("Vastra_Gotaland", ["Bengtsfors", "Floby", "Orust", "Torso"]), -- Vaestra Goetalan
-    ("Varmland", ["Köla"]), -- Vaer
+    ("Varmland", ["Ko"++umlaut++"la"]), -- Vaer
     ("Orebro", ["Viby"]), -- Oerebr
     ("Vastmanland", ["Skinnskatteberg"]), -- Vaestmanlan
     ("Dalarna", ["Leksand"]),
@@ -48,7 +48,7 @@ swediaProvinces = Map.fromList [ -- or I could just use the county code
     ("Gastrikland", ["Arsunda"]),
     ("Uppland", ["Villberga"]),
     ("Vastmanland", ["Skinnskatteberg"]),
-    ("Varmland", ["Köla"]),
+    ("Varmland", ["Ko"++umlaut++"la"]),
     ("Narke", ["Viby"]),
     ("Sodermanland", ["Sorunda"]),
     ("Dalsland", ["Bengtsfors"]),
@@ -56,7 +56,7 @@ swediaProvinces = Map.fromList [ -- or I could just use the county code
     ("Vastergotland", ["Torso", "Floby"]),
     ("Ostergotland", ["Asby", "StAnna"]),
     ("Halland", ["Frillesas", "Vaxtorp"]),
-    ("Smaland", ["Ankarsrum", "Torsås"]),
+    ("Smaland", ["Ankarsrum", "Torsa"++ring++"s"]),
     ("Oland", ["Boda", "Bredsatra", "Segerstad"]),
     ("Gotland", ["Faro", "Fole", "Sproge"]),
     ("Skane", ["Norra Rorum", "Ossjo", "Bara", "Loderup"]),
@@ -66,10 +66,10 @@ swediaRegions = Map.fromList [ -- (Riksomr@den)
     ("Stockholm", ["Sorunda"]),
     ("EastMiddle", ["Villberga", "Asby", "StAnna", "Viby", "Skinnskatteberg"]),
     ("South", ["Jamshog", "Norra Rorum", "Bara", "Loderup", "Ossjo"]),
-    ("NorthMiddle", ["Leksand", "Arsunda", "Köla"]),
+    ("NorthMiddle", ["Leksand", "Arsunda", "Ko"++umlaut++"la"]),
     ("MiddleNorrland", ["Anundsjo", "Indal"]),
     ("UpperNorrland", ["Arjeplog", "Nederlulea", "Overkalix"]),
-    ("Smaland", ["Ankarsrum", "Boda", "Bredsatra", "Segerstad", "Torsås",
+    ("Smaland", ["Ankarsrum", "Boda", "Bredsatra", "Segerstad", "Torsa"++ring++"s",
                "Faro", "Fole", "Sproge"]),
     ("West", ["Bengtsfors", "Floby", "Orust", "Torso", "Frillesas", "Vaxtorp"])
     ]
@@ -109,27 +109,29 @@ swediaSites = [
   "Viby",
   "Villberga"]
 swediaSitesEjkorrekturlast = [
-  "Löderup",
+  "Lo" ++ umlaut ++ "derup",
+  -- "Löderup",
   "Pite",
   "anu",
   "ara",
   "arjeplog",
   "ars",
-  "aspås",
+  "aspa"++ring++"s",
+  -- "aspås",
   "bara",
   "broby",
-  "burtråsk",
+  "burtra"++umlaut++"sk",
   "delsbo",
-  "gråsö",
+  "gra"++umlaut++"so"++umlaut,
   "ind",
   "lod",
   "nederkalix",
-  "nysåtra",
+  "nysa"++umlaut++"tra",
   "oka",
   "ors",
   "pit",
   "sar",
-  "sårna",
+  "sa"++umlaut++"rna",
   "sorsele",
   "toh",
   "vindeln"]
