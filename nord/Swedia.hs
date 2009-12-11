@@ -1,3 +1,4 @@
+module Swedia where
 import Data.List (isPrefixOf, find, intercalate)
 import Data.List.Split (split, dropDelims, whenElt, dropBlanks)
 import Data.Maybe (fromJust)

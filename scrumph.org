@@ -58,7 +58,14 @@
      both the Python and Haskell versions reproduce all the relevant
      words from the interviews.
    - Lexicalisation of the Berkeley parser (trainCfg) is delayed until
-     testing tagPos and tagDep are tested.
+     testing tagPos and tagDep are tested. Also I need to figure out
+     a programmatic way to verify the extractTnt output.
+** 2009/12/11
+   - I finished the switch to git with a massive cleanup and addition
+     of some overlooked files to source control. I fixed a couple of
+     bugs with Swedia.hs and then found a couple more that I missed.
+   - I need to write some tests for Swedia. But I also need to move on
+     to the other parts of the experiment.
+   - I should probably (re?)download HUnit and QuickCheck
 * TODO Analyse and make up todos based on notes from last talk
-* TODO Test each step of build.py to make sure it produces the correct output. Start with Swedia.hs I guess
-* TODO Compare output of Swedia.hs and swedia.py. Haskell port doesn't look right yet.
+* TODO Test each step of build.py to make sure it produces the correct output.
