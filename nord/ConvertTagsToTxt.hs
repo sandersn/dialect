@@ -1,6 +1,6 @@
 import System (getArgs)
 import Data.List (intercalate, isPrefixOf)
-import Util (withFile, withFileLines, (&), groupBy)
+import Util (withFileLines, (&), groupBy)
 tag line = line !! 0 /= '%'
 sentenceEnd line = line `isPrefixOf` ".\t\t"
 readPos = withFileLines

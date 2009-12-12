@@ -24,7 +24,7 @@ groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
 splitBy f = split $ dropInitBlank $ dropFinalBlank $ keepDelimsL $ whenElt f
 list = (:[])
 {--- fs ---}
-withFile filename f = return . f =<< readFile filename -- see also System.IO
+withFile f filename = return . f =<< readFile filename -- see also System.IO
 withFileLines f filename = return . f . lines =<< readFile filename
 multiFilePrinter read show =
     getArgs >>= mapM read >>= concat & mapM_ (show & putStrLn)
@@ -36,10 +36,10 @@ x |> f = f x
 {--- xml and encoding. Ugh --}
 tagpath = foldr1 (/>) . map tag
 attr' attribute c@(CElem (Elem _ as _)) = verbatim$head$show' attribute
-    where show' attribute = literal (value (lookfor attribute as)) c
-          lookfor x = fromMaybe (error "missing attr") . lookup x
-          value (AttValue list) = concatMap attr2str list
-          attr2str (Left x) = x
-          attr2str (Right (RefEntity entityref)) = "&" ++ entityref ++ ";"
-          attr2str (Right (RefChar charref)) = "&#" ++ show charref ++ ";"
+  where show' attribute = literal (value (lookfor attribute as)) c
+        lookfor x = fromMaybe (error "missing attr") . lookup x
+        value (AttValue list) = concatMap attr2str list
+        attr2str (Left x) = x
+        attr2str (Right (RefEntity entityref)) = "&" ++ entityref ++ ";"
+        attr2str (Right (RefChar charref)) = "&#" ++ show charref ++ ";"
 getContent (Document _ _ e _) = CElem e
