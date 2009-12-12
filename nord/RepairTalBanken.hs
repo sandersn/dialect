@@ -10,16 +10,16 @@ sexample = spanTree example
 spanTree :: Tree (String, Integer) -> Tree (Integer, Integer)
 spanTree (Leaf (_,i) _) = Leaf (i,i+1) (i,i+1)
 spanTree (Node _ kids) = Node (minimum starts, maximum ends) trees
-    where trees = map spanTree kids
-          starts = map (fst . dat) trees
-          ends = map (snd . dat) trees
+  where trees = map spanTree kids
+        starts = map (fst . dat) trees
+        ends = map (snd . dat) trees
 uncross' :: [Tree (Integer,Integer)] -> [Tree (Integer,Integer)]
 uncross' [] = []
 uncross' (Leaf a w : siblings) = Leaf a w : uncross' siblings
 uncross' (Node a kids : siblings) = uncross''.both depair.span continuous.pairs
                                     $ kids
-    where uncross'' (co,[]) = co ++ uncross' siblings
-          uncross'' (co,disco) = co ++ uncross' (insert siblings disco)
+  where uncross'' (co,[]) = co ++ uncross' siblings
+        uncross'' (co,disco) = co ++ uncross' (insert siblings disco)
 pairs l = zip l (tail l)
 both f (x,y) = (f x, f y)
 continuous (t, t') = snd (dat t) == fst (dat t')

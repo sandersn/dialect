@@ -4,8 +4,8 @@ import Util
 getTerminals = map (tagpath ["s", "graph", "terminals", "t"]) .
                tagpath ["corpus", "body", "s"]
 getAttrs = concatMap (((".", "IP") :) . map pair)
-    where pair elem = (encodeString $ attr' "word" elem,
-                       replace ' ' '_' $ attr' "pos" elem)
-readPOS filename = withFile filename $
-    xmlParse filename & getContent & getTerminals & getAttrs
+  where pair elem = (encodeString $ attr' "word" elem,
+                     replace ' ' '_' $ attr' "pos" elem)
+readPOS filename = withFile posOfXml filename
+  where posOfXml = xmlParse filename & getContent & getTerminals & getAttrs
 main = multiFilePrinter readPOS (\ (word,pos) -> word ++ " " ++ pos)
