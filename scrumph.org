@@ -67,5 +67,18 @@
    - I need to write some tests for Swedia. But I also need to move on
      to the other parts of the experiment.
    - I should probably (re?)download HUnit and QuickCheck
+** 2009/12/14
+   - I wrote some tests for Swedia. They aren't very good and I
+     haven't integrated them into any kind of build I updated HUnit
+     and QuickCheck to newest versions.
+   - I will make sure my entire experiment still builds. I will figure
+     out what test data to work with, either fake files or fake
+     literals or a real file/directory.
+   - Pretty soon I need to work on ConvertTalbankenToPTB so I can run
+     Berkeley results. Also I need to make sure banks can
+     build my entire experiment; it's a lot faster than jones and all
+     of my corpora are free so I might as well copy them over.
 * TODO Analyse and make up todos based on notes from last talk
 * TODO Test each step of build.py to make sure it produces the correct output.
+* TODO Make sure experiment still builds with module names given for all the scripts
+* TODO Edit peregrin's copy of viper-mode so that pPftFT all work right (=MY WAY :)

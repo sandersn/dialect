@@ -10,8 +10,8 @@ import qualified Data.Set as Set
 import qualified Consts
 -- between --
 betweens = ["between normal" ~: between 'a' 'c' "abc" ~=? "b" ]
-propBNotFound :: [Int] -> Int -> Int -> Property
-propBNotFound l a b = a `elem` l && not (b `elem` l) ==>
+-- propBNotFound :: [Int] -> Int -> Int -> Property
+propBNotFound l a b = (a :: Int) `elem` l && not (b `elem` l) ==>
                   between a b l == tail (dropWhile (/=a) l)
 propReconstruct :: [Int] -> Int -> Int -> Property
 propReconstruct l a b = a `elem` l ==>

@@ -29,10 +29,13 @@ def extractTalbanken():
     run('./ConvertTalbankenToTags %s >talbanken.tt' % (alltalbanken,))
     run('./ConvertTalbankenToPTB %s >talbanken.mrg' % (alltalbanken,))
 def tagPos():
+    # rm Swedia.o is needed because -main-is switch makes the linker dumber
+    run('rm Swedia.o')
+    run('ghc -O2 --make Swedia -main-is Swedia.main')
     # 2. Train TnT on Talbanken POS tags
     run('tnt-para talbanken.tt')
     # 3. Extract SweDiaSyn words into TnT format
-    swedia.extractTnt(consts.swpath, consts.swediaSites)
+    run('./Swedia')
     # 4. Tag SweDiaSyn
     for region in consts.swediaSites:
         run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
