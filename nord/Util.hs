@@ -9,8 +9,10 @@ import Maybe (fromMaybe)
 import System (getArgs)
 import Control.Arrow ((&&&))
 {--- lst ---}
-count :: (Ord a) => [a] -> Map.Map a Int
-count l = foldl' (\ m x -> Map.insertWith' (+) x 1 m) Map.empty l
+countBy f = filter f & length
+count x = filter (==x) & length
+histogram :: (Ord a) => [a] -> Map.Map a Int -- should be called histogram ?
+histogram l = foldl' (\ m x -> Map.insertWith' (+) x 1 m) Map.empty l
 collapse :: (Ord k) => (a -> k) -> [a] -> Map.Map k [a]
 collapse f l = Map.fromListWith (++) $ zip (map f l) (map list l)
 -- this version might be faster because it's strict
@@ -26,7 +28,7 @@ list = (:[])
 {--- fs ---}
 withFile f filename = return . f =<< readFile filename -- see also System.IO
 withFileLines f filename = return . f . lines =<< readFile filename
-multiFilePrinter read show =
+argsFilePrinter read show =
     getArgs >>= mapM read >>= concat & mapM_ (show & putStrLn)
 {--- fnc (F# esque) ---}
 infixl 9 &

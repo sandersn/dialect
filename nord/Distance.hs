@@ -1,5 +1,5 @@
 module Distance where
-import Util ((&), (|>), withFileLines, count)
+import Util ((&), (|>), withFileLines, histogram, countBy)
 import System (getArgs)
 import Random (randomR, getStdGen, StdGen, randomRs)
 import Data.List.Split (splitOn)
@@ -50,8 +50,6 @@ nRandomRs n bounds gen = (map fst pairs, snd $ last pairs)
   where pairs = take n $ genRandomRs bounds gen
         genRandomRs bounds gen = iterate (snd & randomR bounds) (0, gen)
 {--- utilities ---}
-histogram l = foldr (\ x m -> Map.insertWith (+) x 1 m) Map.empty l
 liftR2 f g h gen = let (res,gen') = g gen in
                     let (res',gen'') = h gen' in
                     (f res res', gen'')
-countBy f = length . filter f

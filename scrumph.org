@@ -85,7 +85,15 @@
      Convert..PTB code and some Talbanken files to remember how to get
      lexical items from the XML.
    - Need to set up connection to jones so I can test the build.
-* TODO Maybe should clean lexically more aggresively, esp punctuation
+** 2009/12/17
+   - I copied an example *.cha for testing. I wrote a skeleton for
+     testing Convert* code, downloaded an exmple *.tiger.xml, and
+     looked at the types to see which functions were pure vs impure.
+   - I will write some tests for ConvertTalbankenToPTB, and keep an
+     eye out for how to modify to include lexical items. I should test
+     the entire build today too, in the background.
+   - 
+* TODO Maybe should clean lexically more aggresively, esp punctuation (non .)
 * TODO Analyse and make up todos based on notes from last talk
 * TODO Test each step of build.py to make sure it produces the correct output.
 * TODO Make sure experiment still builds with module names given for all the scripts

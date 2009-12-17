@@ -1,5 +1,5 @@
 import Sexp
-import Util (count, window, (|>), (&), withFileLines)
+import Util (histogram, window, (|>), (&), withFileLines)
 import Data.List (intercalate,find)
 import Data.Maybe (fromJust)
 import Control.Monad.State.Lazy (State, get, put, evalState)
@@ -28,7 +28,7 @@ makepaths = runGensym . makepaths' []
         makepaths' path (Node s kids) = gensym s $ (\ node ->
           mapM (makepaths' (node:path)) kids >>= concat & return)
 bracketpaths paths = map (bracket . reverse) paths
-  where nodes = count (concat paths) |> Map.filter (>1) --also filters singletons
+  where nodes = histogram (concat paths) |> Map.filter (>1) --also filters singletons
         edgeLeaf paths node _ = find (elem node) paths |> fromJust |> head
         bracket path = case edge path (Map.mapWithKey (edgeLeaf paths) nodes) of
           (first1,f2:first2) -> first1 ++ f2 : ("[",0) : first2

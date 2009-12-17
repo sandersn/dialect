@@ -8,7 +8,7 @@ import Talbanken
 import Codec.Binary.UTF8.String (encodeString)
 
 type TalbankenInput = Map.Map Id FlatNode
--- xml reading ok --
+
 sentences = tagpath ["corpus", "body", "s"]
 buildSentences :: [Content] -> [Tree String]
 buildSentences = map buildTree . filter wellformed . map buildMap
@@ -24,7 +24,7 @@ buildMap s =
           nontermentry elem = (id, FlatNode (attr' "cat" elem) "" id (kids elem))
             where id = attrId "id" elem
           kids = map (attrId "idref") . tagpath ["nt", "edge"]
-          ptbSafe "(" = "LParen"
+          ptbSafe "(" = "LParen" -- should this be LRB/RRB?
           ptbSafe ")" = "RParen"
           ptbSafe s = encodeString s
 wellformed (root,flat) = cat (flat Map.! root) == "ROOT"
@@ -35,8 +35,8 @@ buildTree (root,flat) = build (lookup root)
 parseId :: String -> (String, Integer)
 parseId s = (takeWhile (/='_') s, read . tail . dropWhile (/='_') $ s)
 attrId a = snd . parseId . attr' a
-run filename = withFile posOfXml filename
-  where posOfXml = xmlParse filename & getContent & sentences & buildSentences
-ptb (Leaf pos word) = "(" ++ pos ++ " " ++ word ++ ")"
-ptb (Node a kids) = "(" ++ a ++ " " ++ intercalate " " (map ptb kids) ++ ")"
-main = multiFilePrinter run ptb
+parseTalbanken filename = withFile (posOfXml filename) filename
+posOfXml filename = xmlParse filename & getContent & sentences & buildSentences
+ptbShow (Leaf pos word) = "(" ++ pos ++ " " ++ word ++ ")"
+ptbShow (Node a kids) = "("++a ++" "++ intercalate " " (map ptbShow kids)++")"
+main = argsFilePrinter parseTalbanken ptbShow
