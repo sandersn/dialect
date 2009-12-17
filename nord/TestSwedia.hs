@@ -2,23 +2,52 @@ import Test.HUnit
 import Test.QuickCheck
 import Test.QuickCheck.Batch
 import Swedia
-import Data.List (isPrefixOf)
+import Data.List (intercalate, isPrefixOf)
 import Util
-import Char (chr)
+import Char (ord, chr, isSpace)
 import qualified Data.Map as Map
 import qualified Data.Set as Set
 import qualified Consts
+instance Arbitrary Char where
+  arbitrary = choose (0, 256) >>= chr & return
+  coarbitrary c = variant (ord c `rem` 4)
+-- TODO: Test Swedia.splitter ([String] -> [[String]])
 -- between --
-betweens = ["between normal" ~: between 'a' 'c' "abc" ~=? "b" ]
--- propBNotFound :: [Int] -> Int -> Int -> Property
+testBetween = ["between normal" ~: between 'a' 'c' "abc" ~=? "b" ]
 propBNotFound l a b = (a :: Int) `elem` l && not (b `elem` l) ==>
                   between a b l == tail (dropWhile (/=a) l)
-propReconstruct :: [Int] -> Int -> Int -> Property
-propReconstruct l a b = a `elem` l ==>
+propReconstruct l a b = (a :: Int) `elem` l ==>
                         (a : between a b l) `isPrefixOf` (dropWhile (/=a) l)
-propLength :: [Int] -> Int -> Int -> Property
-propLength l a b = a `elem` l ==> length l > length ( between a b l)
+propLength l a b = (a :: Int) `elem` l ==> length l > length (between a b l)
+-- newline/visible/trimsplit --
+propNewLine "" = newline "" == False
+propNewline s = (head s == '*') == (newline s)
+propVisible "" = visible "" == True
+propVisible s = (head s /= '.') == (visible s)
+-- trimsplit produces a list of strings with all the same characters,
+-- except whitespace, as the original string
+propTrimSplit s = (trimsplit s |> concat) == (filter (not . isSpace) s)
 -- groupedSites  --
+testGrouped = ["all sites are used" ~: Map.keys groups ~=? Consts.swediaSites
+              , "all files are used" ~:
+               Set.fromList (concat (Map.elems groups))
+               ~=? Set.fromList examplePaths]
+  where groups = groupedSites Consts.swediaSites examplePaths
+-- groupedRegions --
+propNoop l = (collapse (`rem` 3) l |> Map.elems |> concat |> Set.fromList)
+             == Set.fromList (l :: [Int])
+-- readSwedia/splitter --
+propSplitter lines =
+  all (\ line -> if '*' `elem` line then ':' `elem` line else True) lines
+        ==>
+  ((lines
+    |> dropWhile (not . newline)
+    |> filter (isPrefixOf "*INT" & not)
+    |> length)
+   == length (splitter lines))
+testReadSwedia :: String -> IO Bool
+testReadSwedia f =
+  readSwedia "./" f >>= head & take 3 & (==["jaha,", "jaha", "du"]) & return
 umlaut = chr 0xCC : chr 0x88 : ""
 ring = chr 0xCC : chr 0x8A : ""
 examplePaths = [ "AnkarsrumOM_1sp.cha"
@@ -123,16 +152,19 @@ examplePaths = [ "AnkarsrumOM_1sp.cha"
                , "VillbergaOM_1sp.cha"
                , "VillbergaOM_3sp.cha"
                , "VillbergaYM_3sp.cha" ]
-groupeds = ["all sites are used" ~: Map.keys groups ~=? Consts.swediaSites
-           , "all files are used" ~: Set.fromList (concat (Map.elems groups)) ~=? Set.fromList examplePaths]
-  where groups = groupedSites Consts.swediaSites examplePaths
 -- runner --
-tests = Test.HUnit.test (betweens ++ groupeds)
+tests = TestList ((assertionPredicate (testReadSwedia "Test.cha") ~? "first 3 words") :
+                  testBetween ++ testGrouped)
 testmain = do
   runTestTT tests
-  runTests "Between for now" TestOptions { no_of_tests = 100
+  runTests "Swedia utilities" TestOptions { no_of_tests = 100
                                          , length_of_tests = 1
                                          , debug_tests = False }
            [run propBNotFound
            , run propReconstruct
-           , run propLength]
+           , run propLength
+           , run propNewline
+           , run propVisible
+           , run propTrimSplit
+           , run propSplitter
+           , run propNoop]

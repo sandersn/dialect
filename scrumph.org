@@ -78,6 +78,14 @@
      Berkeley results. Also I need to make sure banks can
      build my entire experiment; it's a lot faster than jones and all
      of my corpora are free so I might as well copy them over.
+** 2009/12/16
+   - I checked that tagPos builds and got testing of swedia to run. I
+     did not figure out what test data to use.
+   - I will figure out what test data to work with. I will re-read
+     Convert..PTB code and some Talbanken files to remember how to get
+     lexical items from the XML.
+   - Need to set up connection to jones so I can test the build.
+* TODO Maybe should clean lexically more aggresively, esp punctuation
 * TODO Analyse and make up todos based on notes from last talk
 * TODO Test each step of build.py to make sure it produces the correct output.
 * TODO Make sure experiment still builds with module names given for all the scripts

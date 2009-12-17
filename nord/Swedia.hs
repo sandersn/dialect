@@ -16,15 +16,14 @@ between before after = dropWhile (/=before) & tail & takeWhile (/=after)
 trimsplit = split $ dropBlanks $ dropDelims $ whenElt isSpace
 
 readSwedia path filename = withFileLines splitter (path++filename)
-  where splitter = dropWhile (not . newline) &
-                   splitBy newline &
-                   filter (head & (isPrefixOf "*INT") & not) &
-                   map (intercalate " " & between ':' '\NAK' & trimsplit)
-groupedSites sites paths = collapse (filter visible paths) keymap
+splitter = dropWhile (not . newline) &
+           splitBy newline &
+           filter (head & (isPrefixOf "*INT") & not) &
+           map (intercalate " " & between ':' '\NAK' & trimsplit)
+groupedSites sites paths = collapse keymap (filter visible paths)
   where keymap f = fromJust $ find (`isPrefixOf` f) sites
 getGroupedSites path sites =
   getDirectoryContents path >>= groupedSites sites & return
-groupedRegions paths = Map.map (groupedSites paths & Map.elems & concat)
 extractTnt path sites =
  getGroupedSites path sites >>= Map.assocs & mapM_ (\ (region,files) ->
     mapM (readSwedia path) (reverse files) >>=

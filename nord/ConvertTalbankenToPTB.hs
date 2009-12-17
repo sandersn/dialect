@@ -1,3 +1,4 @@
+module ConvertTalbankenToPTB where
 import qualified Data.Map as Map
 import Text.XML.HaXml (tag, (/>), xmlParse)
 import Text.XML.HaXml.Types

@@ -25,7 +25,7 @@ def extractTalbanken():
     # (TODO:with uncrossing?!)
     alltalbanken = ' '.join(consts.talbanken)
     run('ghc -O2 --make ConvertTalbankenToTags')
-    run('ghc -O2 --make ConvertTalbankenToPTB')
+    run('ghc -O2 --make ConvertTalbankenToPTB -main-is ConvertTalbankenToPTB.main')
     run('./ConvertTalbankenToTags %s >talbanken.tt' % (alltalbanken,))
     run('./ConvertTalbankenToPTB %s >talbanken.mrg' % (alltalbanken,))
 def tagPos():
