@@ -97,4 +97,3 @@
 * TODO Analyse and make up todos based on notes from last talk
 * TODO Test each step of build.py to make sure it produces the correct output.
 * TODO Make sure experiment still builds with module names given for all the scripts
-* TODO Edit peregrin's copy of viper-mode so that pPftFT all work right (=MY WAY :)

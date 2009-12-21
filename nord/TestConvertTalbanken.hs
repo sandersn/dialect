@@ -9,8 +9,8 @@ import Char
 import Data.List (intercalate)
 import qualified Data.Map as Map
 import Text.XML.HaXml (xmlParse)
-
 -- import ConvertTalbankenToTags
+-- background instances for QuickCheck --
 instance Arbitrary Char where
   arbitrary = choose (0, 256) >>= chr & return
   coarbitrary c = variant (ord c `rem` 4)
@@ -42,6 +42,8 @@ size (Leaf _ _) = 1
 size (Node a kids) = 1 + (sum $ map size kids)
 concatData (Leaf pos word) = [pos,word]
 concatData (Node a kids) = a : concatMap concatData kids
+terminals (Leaf _ word) = [word]
+terminals (Node a kids) = concatMap terminals kids
 leaves (Leaf _ _) = 1
 leaves (Node _ kids) = sum $ map leaves kids
 nodes (Leaf _ _) = 0
@@ -52,6 +54,13 @@ kidsize (Node a kids) = (max 0 (length kids - 1)) + (sum $ map kidsize kids)
 propParens :: Tree String -> Bool
 propParens tree = length s == (concatData tree |> concat |> length) + leaves tree * 3 + nodes tree * 3 + kidsize tree
   where s = ptbShow tree
+propTerminals xml = all prop (zip (buildSentences ss) ss)
+  where ss = sentences $ getContent xml
+        prop (s,xml) = terminals s == map termentry (terms xml)
+        terms = tagpath ["s", "graph", "terminals", "t"]
+        termentry = attr' "word"
+testTerminals = TestCase $ assertBool "Keeps all words"
+                             (propTerminals $ xmlParse "foo" exampleXml)
 counterExample = Node "" [Leaf "" "",
                           Leaf "" "",
                           Node "" [Leaf "" "",
@@ -81,16 +90,22 @@ flatParse = xmlParse "foo" & getContent & sentences & map buildMap
 -- TODO: Test POS vs word placement for PTB format as read by Berkeley
 testExampleParse = [[Node "ROOT" [Leaf "foo" "one", Node "NN" [Leaf "foo" "two", Leaf "foo" "three"]]] ~=? posOfXml "foo" exampleXml,
                     [(501,Map.fromList [(0,FlatNode {cat = "foo", word = "one", Talbanken.id = 0, kids = []}),
-                                    (1,FlatNode {cat = "foo", word = "two", Talbanken.id = 1, kids = []}),
-                                    (2,FlatNode {cat = "foo", word = "three", Talbanken.id = 2, kids = []}),
-                                    (501,FlatNode {cat = "ROOT", word = "", Talbanken.id = 501, kids = [0,510]}),
-                                    (510,FlatNode {cat = "NN", word = "", Talbanken.id = 510, kids = [1,2]})])]
-
+                                        (1,FlatNode {cat = "foo", word = "two", Talbanken.id = 1, kids = []}),
+                                        (2,FlatNode {cat = "foo", word = "three", Talbanken.id = 2, kids = []}),
+                                        (501,FlatNode {cat = "ROOT", word = "", Talbanken.id = 501, kids = [0,510]}),
+                                        (510,FlatNode {cat = "NN", word = "", Talbanken.id = 510, kids = [1,2]})])]
                     ~=? flatParse exampleXml]
-tests = TestList (testEmptyLeaf:testExampleParse)
+-- TODO: What is the Haskell equivalent to assertThrows/assertRaises
+testWellFormed =
+  [TestCase $ assertBool "no root" (not $ wellformed (501,Map.fromList [(501, FlatNode {cat="NOT-ROOT", Talbanken.id=501, word="too",kids=[]})]))]
+                 -- ,"bad pointer" ~: assertErrors (wellformed (501,Map.empty))]
+propIds s = '_' `elem` s && (all isNumeric (tail $ dropWhile (/='_') s)) ==> (let (name,id) = parseId s in
+                               length name + length (show id) + 1 == length s)
+tests = TestList (testTerminals:testEmptyLeaf:testExampleParse++testWellFormed)
 testmain = do
   runTestTT tests
   runTests "PTB conversion (pure)" TestOptions {no_of_tests = 100,
                                                 length_of_tests = 1,
                                                 debug_tests = False }
-           [run propParens]
+           [run propIds]
+           -- , run propParens]
