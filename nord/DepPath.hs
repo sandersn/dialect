@@ -1,10 +1,11 @@
-import Util (withFileLines, (&), (|>), groupBy)
+import Util (withFileLines, (&), (|>), groupBy, argsFilePrinter, list)
 import qualified Data.Map as Map
 import Data.List (intercalate)
 import Data.List.Split (splitOn,endBy)
 import System (getArgs)
 import Talbanken (FlatNode(..))
-main = getArgs >>= head & withFileLines f >>= putStr
+main = argsFilePrinter (withFileLines f) list
+-- main = getArgs >>= head & withFileLines f >>= putStr
   where f = endBy [""] & map deps & intercalate "\n***\n"
 deps = buildMap & buildRelations & intercalate "\n"
 buildMap = map (splitOn "\t" & deconllise) & Map.fromList

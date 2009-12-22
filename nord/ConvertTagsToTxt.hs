@@ -1,9 +1,13 @@
-import System (getArgs)
 import Data.List (intercalate, isPrefixOf)
-import Util (withFileLines, (&), groupBy)
-tag line = line !! 0 /= '%'
+import Util (withFileLines, (&), groupBy, argsFilePrinter)
+import Data.List.Split (split, keepDelimsR, onSublist, dropFinalBlank)
+tag line = head line /= '%'
 sentenceEnd line = line `isPrefixOf` ".\t\t"
 readPos = withFileLines
-  (filter tag & groupBy sentenceEnd & map putTagsOnOneLine & intercalate "\n")
+  (filter tag & groupBy sentenceEnd & map putTagsOnOneLine)
 putTagsOnOneLine = map (words & (!!1)) & intercalate " "
-main = System.getArgs >>= head & readPos >>= putStr
+main = argsFilePrinter readWords id
+-- OR, input from .t: --
+readWords = withFileLines
+  (split (keepDelimsR $ dropFinalBlank $ onSublist ["."])
+   & map (intercalate " "))
