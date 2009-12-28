@@ -12,15 +12,26 @@ import swedia
 import consts
 import norte
 import cgitb
+from util.lst import partition
+import subprocess
 cgitb.enable(format='text')
 
+def multirun(n,tasks,files):
+    processes = [subprocess.Popen([tasks[i]], stdout=file(files[i],'w'))
+                 for i in range(n)]
+    i = n
+    while i < len(tasks):
+        subprocess.Popen(['sleep', '1']).wait()
+        processes, dones = partition(lambda p:p.poll() is None, processes)
+        for done in dones:
+            processes.append(subprocess.Popen([tasks[i]],
+                                              stdout=file(files[i], 'w')))
+            i += 1
 def run(cmd):
     result = os.system(cmd)
     if result: raise Exception("Error: '%s' returned code %d" % (cmd, result))
 def extractTalbanken():
     # 1. Train on POS tags from Talbanken
-    # the explicit linker paths are needed to avoid MacPort's borken iconv
-    # which is apparently just a giant series of macros?
     # 1.1 Also Convert Talbanken to PTB for training
     # (TODO:with uncrossing?!)
     alltalbanken = ' '.join(consts.talbanken)

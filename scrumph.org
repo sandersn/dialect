@@ -93,7 +93,33 @@
      eye out for how to modify to include lexical items. I should test
      the entire build today too, in the background.
    - 
+** 2009/12/28
+   - I wrote some tests, modified ConvertTagsToTxt to use lexical
+     items, and re-ran the Berkeley parser on this. Haven't got the
+     results yet.
+   - I guess I will test my lexical subset code for talbanken. Except
+     I don't have talbanken so I guess I'll just use some txt file.
+   - I need to check the parser results and start running R on them. I
+     need to get 
 * TODO Maybe should clean lexically more aggresively, esp punctuation (non .)
-* TODO Analyse and make up todos based on notes from last talk
+  Do this by
+  liftM2 Set.difference
+    (getDirectoryContents "." >>= wds ".t")
+    (getDirectoryContents "." >>= wds "talbanken*.???")
+    where wds ext = filter (isSuffixOf ext)
+                    & mapM (readFile & liftM words)
+                    & liftM (concat & Set.fromList)
+  swediaSet = set()
+  talbankenSet = set()
+  for f in os.dir("."):
+    if f.endswith(".t"):
+      swediaSet += wds(f)
+    elif f.endswith(".talbanken"):
+      talbankenSet += wds(f)
+  print talbankenSet - swediaSet
+  def wds(f):
+    return open(f).read().split()
+  and see what common noise shows up
 * TODO Test each step of build.py to make sure it produces the correct output.
 * TODO Make sure experiment still builds with module names given for all the scripts
+* TODO Copy everything over to banks and then switch to multi-run(6)
