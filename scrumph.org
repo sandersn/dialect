@@ -123,3 +123,4 @@
 * TODO Test each step of build.py to make sure it produces the correct output.
 * TODO Make sure experiment still builds with module names given for all the scripts
 * TODO Copy everything over to banks and then switch to multi-run(6)
+* TODO Find out how to do assertThrows in HUnit

@@ -16,6 +16,7 @@ buildMap :: Content -> (Id, Map.Map Id FlatNode)
 buildMap s =
   (root, Map.fromList (map termentry terms ++ map nontermentry nonterms))
     where root = attrId "root" $ head $ tagpath ["s", "graph"] $ s
+          -- for robustness, neither terms nor nonterms should be null
           terms = tagpath ["s", "graph", "terminals", "t"] s
           nonterms = tagpath ["s", "graph", "nonterminals", "nt"] s
           termentry elem = (id, FlatNode (replace ' ' '_' $ attr' "pos" elem)

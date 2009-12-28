@@ -1,3 +1,4 @@
+module ConvertTagsToTxt where
 import Data.List (intercalate, isPrefixOf)
 import Util (withFileLines, (&), groupBy, argsFilePrinter)
 import Data.List.Split (split, keepDelimsR, onSublist, dropFinalBlank)

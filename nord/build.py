@@ -35,7 +35,7 @@ def extractTalbanken():
     # 1.1 Also Convert Talbanken to PTB for training
     # (TODO:with uncrossing?!)
     alltalbanken = ' '.join(consts.talbanken)
-    run('ghc -O2 --make ConvertTalbankenToTags')
+    run('ghc -O2 --make ConvertTalbankenToTags -main-is ConvertTalbankenToTags.main')
     run('ghc -O2 --make ConvertTalbankenToPTB -main-is ConvertTalbankenToPTB.main')
     run('./ConvertTalbankenToTags %s >talbanken.tt' % (alltalbanken,))
     run('./ConvertTalbankenToPTB %s >talbanken.mrg' % (alltalbanken,))
@@ -68,7 +68,7 @@ def trainCfg():
         'edu.berkeley.nlp.PCFGLA.GrammarTrainer -path talbanken.mrg '
         '-out talbanken.gr -treebank SINGLEFILE')
 def tagCfg():
-    run('ghc -O2 --make ConvertTagsToTxt')
+    run('ghc -O2 --make ConvertTagsToTxt -main-is ConvertTagsToTxt.main')
     for region in consts.swediaSites:
         # 8.0 Post-process tagged SweDiaSyn to sentence-per-line format
         run("./ConvertTagsToTxt '%s.tag' >'%s.txt'" % (region,region))
