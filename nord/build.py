@@ -51,7 +51,7 @@ def tagPos():
     for region in consts.swediaSites:
         run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
 def tagDep():
-    run('ghc -O2 --make ConvertTagsToConll')
+    run('ghc -O2 --make ConvertTagsToConll -main-is ConvertTagsToConll.main')
     for region in consts.swediaSites:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
         run("./ConvertTagsToConll '%s.tag' >'%s.conll'" % (region,region))

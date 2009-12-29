@@ -18,6 +18,14 @@ def convertTalbanken():
         pass
     run('ghc --make TestConvertTalbanken')
     run('./TestConvertTalbanken')
+def convertTags():
+    try:
+        run('rm ConvertTagsToTxt.o')
+        run('rm ConvertTagsToConll.o')
+    except:
+        pass
+    run('ghc --make TestConvertTags')
+    run('./TestConvertTags')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

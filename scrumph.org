@@ -99,8 +99,16 @@
      results yet.
    - I guess I will test my lexical subset code for talbanken. Except
      I don't have talbanken so I guess I'll just use some txt file.
-   - I need to check the parser results and start running R on them. I
-     need to get 
+   - I need to check the parser results and start running R on them.
+   - Note: I fixed a critical (?) bug in ConvertTagsToTxt. Before
+     lexicalising, sentenceEnd was wrong, meaning that (groupBy
+     sentenceEnd) was wrong, meaning that everything was one long
+     sentence??
+** 2009/12/29
+   - I wrote a bunch of tests for ConvertTagsToTxt. Maybe others? I
+     can't remember.
+   - I will write more tests, mostly for ConvertTagsTo[Conll|Txt]
+   - I wish I knew how to lift all from Bool to QuickCheck Property.
 * TODO Maybe should clean lexically more aggresively, esp punctuation (non .)
   Do this by
   liftM2 Set.difference
