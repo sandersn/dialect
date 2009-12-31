@@ -26,6 +26,14 @@ def convertTags():
         pass
     run('ghc --make TestConvertTags')
     run('./TestConvertTags')
+def path():
+    try:
+        run('rm Path.o')
+        run('rm DepPath.o')
+    except:
+        pass
+    run('ghc --make TestPath')
+    run('./TestPath')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

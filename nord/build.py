@@ -75,8 +75,8 @@ def tagCfg():
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def genFeatures():
-    run('ghc -O2 --make Path')
-    run('ghc -O2 --make DepPath')
+    run('ghc -O2 --make Path -main-is Path.main')
+    run('ghc -O2 --make DepPath -main-is DepPath.main')
     for region in consts.swediaSites:
         run("./Path '%s.mrg' t >'%s-trigram.dat'" % (region,region))
         run("./Path '%s.mrg' p >'%s-path.dat'" % (region,region))

@@ -109,6 +109,13 @@
      can't remember.
    - I will write more tests, mostly for ConvertTagsTo[Conll|Txt]
    - I wish I knew how to lift all from Bool to QuickCheck Property.
+** 2009/12/30
+   - I wrote a bunch of tests for TestConvertTags. I got the skeleton
+     for TestPath up.
+   - I will write tests for DepPath. I might start planning my
+     dissertation chapter layout.
+   - I am blocked on testing Path and testing modifications to the
+     entire build; I need network access for that.
 * TODO Maybe should clean lexically more aggresively, esp punctuation (non .)
   Do this by
   liftM2 Set.difference
@@ -132,3 +139,5 @@
 * TODO Make sure experiment still builds with module names given for all the scripts
 * TODO Copy everything over to banks and then switch to multi-run(6)
 * TODO Find out how to do assertThrows in HUnit
+* TODO Remember to upgrade blog software
+* TODO Remember to port viper-mode changes to modern emacs (and upgrade peregrin's viper)

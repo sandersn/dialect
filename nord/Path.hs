@@ -1,3 +1,4 @@
+module Path where
 import Sexp
 import Util (histogram, window, (|>), (&), withFileLines)
 import Data.List (intercalate,find)
