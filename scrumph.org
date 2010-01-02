@@ -116,6 +116,30 @@
      dissertation chapter layout.
    - I am blocked on testing Path and testing modifications to the
      entire build; I need network access for that.
+* Plan
+** January
+*** Get results
+**** TODO Try lexicalised vs POS
+**** TODO Try lexical cleaning
+**** TODO Try different regions
+**** TODO Try different parameters to parsers
+**** TODO Try different distance measures
+**** TODO Move experiment to Banks
+*** Introduction
+**** Figure out how to structure latex chapters
+**** Introduction
+**** Hypotheses
+** February
+*** Revise Hypotheses
+*** Methods
+** March
+*** Results (I HOPE)
+** April
+*** Discussion
+** May
+*** Cleanup and Defence
+** June
+*** Slop/revisions
 * TODO Maybe should clean lexically more aggresively, esp punctuation (non .)
   Do this by
   liftM2 Set.difference
