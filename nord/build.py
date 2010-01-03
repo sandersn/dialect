@@ -60,7 +60,8 @@ def tagCfg():
     run('ghc -O2 --make ConvertTagsToTxt')
     for region in consts.swediaSites:
         # 8.0 Post-process tagged SweDiaSyn to sentence-per-line format
-        run("./ConvertTagsToTxt '%s.tag' >'%s.txt'" % (region,region))
+        # run("./ConvertTagsToTxt '%s.tag' >'%s.txt'" % (region,region))
+        run("./ConvertTagsToTxt '%s.t' >'%s.txt'" % (region,region))
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def genFeatures():
