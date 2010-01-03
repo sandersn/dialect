@@ -93,7 +93,75 @@
      eye out for how to modify to include lexical items. I should test
      the entire build today too, in the background.
    - 
+** 2009/12/28
+   - I wrote some tests, modified ConvertTagsToTxt to use lexical
+     items, and re-ran the Berkeley parser on this. Haven't got the
+     results yet.
+   - I guess I will test my lexical subset code for talbanken. Except
+     I don't have talbanken so I guess I'll just use some txt file.
+   - I need to check the parser results and start running R on them.
+   - Note: I fixed a critical (?) bug in ConvertTagsToTxt. Before
+     lexicalising, sentenceEnd was wrong, meaning that (groupBy
+     sentenceEnd) was wrong, meaning that everything was one long
+     sentence??
+** 2009/12/29
+   - I wrote a bunch of tests for ConvertTagsToTxt. Maybe others? I
+     can't remember.
+   - I will write more tests, mostly for ConvertTagsTo[Conll|Txt]
+   - I wish I knew how to lift all from Bool to QuickCheck Property.
+** 2009/12/30
+   - I wrote a bunch of tests for TestConvertTags. I got the skeleton
+     for TestPath up.
+   - I will write tests for DepPath. I might start planning my
+     dissertation chapter layout.
+   - I am blocked on testing Path and testing modifications to the
+     entire build; I need network access for that.
+* Plan
+** January
+*** Get results
+**** TODO Try lexicalised vs POS
+**** TODO Try lexical cleaning
+**** TODO Try different regions
+**** TODO Try different parameters to parsers
+**** TODO Try different distance measures
+**** TODO Move experiment to Banks
+*** Introduction
+**** Figure out how to structure latex chapters
+**** Introduction
+**** Hypotheses
+** February
+*** Revise Hypotheses
+*** Methods
+** March
+*** Results (I HOPE)
+** April
+*** Discussion
+** May
+*** Cleanup and Defence
+** June
+*** Slop/revisions
 * TODO Maybe should clean lexically more aggresively, esp punctuation (non .)
-* TODO Analyse and make up todos based on notes from last talk
+  Do this by
+  liftM2 Set.difference
+    (getDirectoryContents "." >>= wds ".t")
+    (getDirectoryContents "." >>= wds "talbanken*.???")
+    where wds ext = filter (isSuffixOf ext)
+                    & mapM (readFile & liftM words)
+                    & liftM (concat & Set.fromList)
+  swediaSet = set()
+  talbankenSet = set()
+  for f in os.dir("."):
+    if f.endswith(".t"):
+      swediaSet += wds(f)
+    elif f.endswith(".talbanken"):
+      talbankenSet += wds(f)
+  print talbankenSet - swediaSet
+  def wds(f):
+    return open(f).read().split()
+  and see what common noise shows up
 * TODO Test each step of build.py to make sure it produces the correct output.
 * TODO Make sure experiment still builds with module names given for all the scripts
+* TODO Copy everything over to banks and then switch to multi-run(6)
+* TODO Find out how to do assertThrows in HUnit
+* TODO Remember to upgrade blog software
+* TODO Remember to port viper-mode changes to modern emacs (and upgrade peregrin's viper)

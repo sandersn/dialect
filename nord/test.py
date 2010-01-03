@@ -13,10 +13,27 @@ def swedia():
 def convertTalbanken():
     try:
         run('rm ConvertTalbankenToPTB.o')
+        run('rm ConvertTalbankenToTags.o')
     except:
         pass
-    run('ghc --make TestConvertTalbanken -main-is Main.testmain')
+    run('ghc --make TestConvertTalbanken')
     run('./TestConvertTalbanken')
+def convertTags():
+    try:
+        run('rm ConvertTagsToTxt.o')
+        run('rm ConvertTagsToConll.o')
+    except:
+        pass
+    run('ghc --make TestConvertTags')
+    run('./TestConvertTags')
+def path():
+    try:
+        run('rm Path.o')
+        run('rm DepPath.o')
+    except:
+        pass
+    run('ghc --make TestPath')
+    run('./TestPath')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)
