@@ -11,8 +11,8 @@ main = do
     s <- withFileLines (extract region (if target=="t" then trigrams else paths))
                        region
     putStr s
-extract region target = map (tail & tail & init & runsexp)
-                        & filter (/=Node "()" [])
+extract region target = filter (/= "(())")
+                        & map (tail & tail & init & runsexp)
                         & map (target & intercalate "\n")
                         & intercalate "\n***\n"
                         & ((region++"\n")++)
