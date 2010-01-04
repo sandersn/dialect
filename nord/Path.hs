@@ -13,7 +13,7 @@ main = do
                        region
     putStr s
 extract region target = filter (/= "(())")
-                        & filter (not . (=~ "\\([a-z]+\\)"))
+                        & filter (not . (=~ "\\([^ ()]+\\)"))
                         & map (tail & tail & init & runsexp)
                         & map (target & intercalate "\n")
                         & intercalate "\n***\n"

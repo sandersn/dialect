@@ -116,6 +116,18 @@
      dissertation chapter layout.
    - I am blocked on testing Path and testing modifications to the
      entire build; I need network access for that.
+** 2010/01/04
+   - I wrote tests for DepPath and planned my dissertation writing
+     effort. It is below under *Plan.
+   - I will fix DepPath and research Latex chapters. I will rerun
+     everything from the top once I find out how long Yuyin's lopar
+     will run. (I should e-mail her). I might need to prioritise the
+     switch to banks.
+   - It appears that I am getting significant results and that I
+     didn't understand the output. '.' contributes to significance;
+     '*' does not. HOWEVER, I was getting significant results on
+     erroneous Dep formatted stuff, so who knows. This is like the 3rd
+     time this has happened ok.
 * Plan
 ** January
 *** Get results
