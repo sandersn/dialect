@@ -8,7 +8,6 @@ SCons, in Python, replaces make and allows extensibility in Python.
 """
 import os
 import sys
-import swedia
 import consts
 import norte
 import cgitb
