@@ -5,6 +5,7 @@ import Data.List (intercalate,find)
 import Data.Maybe (fromJust)
 import Control.Monad.State.Lazy (State, get, put, evalState)
 import qualified Data.Map as Map
+import Text.Regex.Posix ((=~))
 import System
 main = do
     [region, target] <- getArgs
@@ -12,6 +13,7 @@ main = do
                        region
     putStr s
 extract region target = filter (/= "(())")
+                        & filter (=~ "\\([a-z]+\\)")
                         & map (tail & tail & init & runsexp)
                         & map (target & intercalate "\n")
                         & intercalate "\n***\n"
