@@ -5,7 +5,8 @@ import Data.List (intercalate, intersperse)
 import Data.List.Split (splitOn,endBy)
 import System (getArgs)
 import Talbanken (FlatNode(..))
-main = argsFilePrinter (withFileLines process) Prelude.id
+main = argsFilePrinter namedProcessor Prelude.id
+  where namedProcessor name = withFileLines ((name:) . process) name
 process = endBy [""] & map deps & intersperse "***"
 deps = buildMap & buildRelations & intercalate "\n"
 buildMap = map (splitOn "\t" & deconllise) & fromList
