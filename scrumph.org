@@ -128,6 +128,17 @@
      '*' does not. HOWEVER, I was getting significant results on
      erroneous Dep formatted stuff, so who knows. This is like the 3rd
      time this has happened ok.
+** 2010/01/05
+   - I mostly fixed DepPath and downloaded the IU dissertation style
+     sheet (as of 1999, in the Math department). I was misreading the
+     output, and I am getting significant results! I am not sure what
+     the distances are, though. It's only printing '1' for all, which
+     I do not think is an average. I need to check the code again.
+   - Today I will only test only running the experiment on banks if I
+     have time. If I have still more time, I'll start figuring out how
+     to parellelise it using multi-run.
+   - Still need to make DepPath print the region name at the top of
+     the file.
 * Plan
 ** January
 *** Get results
@@ -153,6 +164,7 @@
 ** June
 *** Slop/revisions
 * TODO Maybe should clean lexically more aggresively, esp punctuation (non .)
+
   Do this by
   liftM2 Set.difference
     (getDirectoryContents "." >>= wds ".t")
@@ -171,9 +183,9 @@
   def wds(f):
     return open(f).read().split()
   and see what common noise shows up
-* TODO Test each step of build.py to make sure it produces the correct output.
-* TODO Make sure experiment still builds with module names given for all the scripts
+* TODO Fix DepPath.hs so that it puts the region name as the first line
 * TODO Copy everything over to banks and then switch to multi-run(6)
 * TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
+* TODO Remember to *backup* blog posts
 * TODO Remember to port viper-mode changes to modern emacs (and upgrade peregrin's viper)

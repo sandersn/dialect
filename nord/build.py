@@ -84,9 +84,9 @@ def genFeatures():
 def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths
-    norte.run('path')
-    norte.run('trigram')
-    norte.run('dep')
+    multirun(6, *norte.multirun('path'))
+    multirun(6, *norte.multirun('trigram'))
+    multirun(6, *norte.multirun('dep'))
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)
