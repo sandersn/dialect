@@ -29,7 +29,7 @@ def blade(args):
     params.write('#define SAMPLES %s\n' % samples)
     params.write('#define R_MEASURE %s\n' % r)
     params.close()
-    os.system('g++ -o ctrl.out params.h icectrl.cpp')
+    os.system('g++ -o ctrl.out params.h icesig.cpp')
     
     nohup = open('nohup.out','w')
     nohup.write('Running %s' % (suffix,))
@@ -58,7 +58,7 @@ def distance():
     params.write('#define R_MEASURE r')
     params.close()
 
-    os.system('g++ -o ctrl.out params.h icectrl.cpp')
+    os.system('g++ -o ctrl.out params.h icesig.cpp')
     os.system('nice -n 6 nohup bash ice-distance.sh >>nohup.out')
 def divide():
     """Most of the work that this did has been taken over by generating

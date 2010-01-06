@@ -84,7 +84,7 @@ def genFeatures():
         run("./Path '%s.mrg' p >'%s-path.dat'" % (region,region))
         run("./DepPath '%s.dep.conll' >'%s-dep.dat'" % (region,region))
 def syntaxDist():
-    # 9. Run icectrl.out with various parameter settings.
+    # 9. Run ctrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths
     multirun(6, *norte.multirun('path'))
     norte.combine('path')
