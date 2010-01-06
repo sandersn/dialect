@@ -1,9 +1,29 @@
 /////
 /// Extra R distance code not currently in use
 /////
-/**** Diverging outer implementations in this section.
- Yes it should be a separate file but I don't want to mess with CPP.
- More than I am. Maybe a header file wouldn't be so bad. ***/
+sample normalise_w_types(const strings& a, const strings& b,
+                 int iterations=5, size_t total_types=0) {
+  sample ab = countpaths(a,b);
+  double len_a = a.size();
+  double len_b = b.size();
+  double total_n = len_a + len_b;
+  double n;
+  if(!total_types) n = ab.size();
+  else n = total_types;
+  double ci, fa, fb, f;
+  for(int i = 0; i < iterations; i++) {
+    for(sample::iterator i = ab.begin(); i!=ab.end(); i++) {
+      ci = i->second.first + i->second.second;
+      fa = i->second.first / len_a;
+      fb = i->second.second / len_b;
+      f = fa + fb;
+      i->second.first = (ci * fa * 2.0 * n) / (f * total_n);
+      i->second.second = (ci * fb * 2.0 * n) / (f * total_n);
+    }
+  }
+  return ab;
+}
+
 bool normaliseall(double total_r, size_t total_types,
                  const dialect& a, const dialect& b) {
   // this next may be a bad idea without the ability to delete b
