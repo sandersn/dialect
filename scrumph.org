@@ -139,6 +139,14 @@
      to parellelise it using multi-run.
    - Still need to make DepPath print the region name at the top of
      the file.
+** 2010/01/06
+   - I got multi-run working and it is super fast. I also fixed
+     DepPath for real.
+   - Today I will (1) reorganise icectrl.cpp so that only the
+     currently used code is in the main file, and everthing else is in
+     an include file. I will also chop up my proposal into
+     dissertation chapters and paste the pieces in.
+   - Still need to re-run DepPath.
 * Plan
 ** January
 *** Get results
@@ -183,8 +191,6 @@
   def wds(f):
     return open(f).read().split()
   and see what common noise shows up
-* TODO Fix DepPath.hs so that it puts the region name as the first line
-* TODO Copy everything over to banks and then switch to multi-run(6)
 * TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
 * TODO Remember to *backup* blog posts

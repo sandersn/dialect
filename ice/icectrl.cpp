@@ -185,48 +185,7 @@ double r_sq(const sample& c) {
   }
   return total;
 }
-/**** Diverging outer implementations in this section.
- Yes it should be a separate file but I don't want to mess with CPP.
- More than I am. Maybe a header file wouldn't be so bad. ***/
-bool normaliseall(double total_r, size_t total_types,
-                 const dialect& a, const dialect& b) {
-  // this next may be a bad idea without the ability to delete b
-  // In Python and Caml I assumed the GC ate b before long.
-  dialect both_ab(a);
-  both_ab.insert(both_ab.end(), b.begin(), b.end()); //delete a; delete b; ??
-  int gt = 0;
-  for(int i=0; i < ITERATIONS; i++) {
-    double perm_r =
-      R_MEASURE(normalise_w_types(permutation(both_ab), permutation(both_ab), 5, total_types));
-    if(perm_r > total_r) {
-      cout << '-' << flush;
-      gt++;
-      if(gt > SIGNIFICANCE) return false;
-    } else
-      cout << '.' << flush;
-  }
-  cout << endl;
-  return true;
-}
-bool normaliseshuffle(double total_r, const dialect& a, const dialect& b) {
-  int gt = 0;
-  for(int i=0; i < ITERATIONS; i++) {
-    pair<dialect,dialect> shuffled = shuffle(a, b);
-    double shuffle_r = R_MEASURE(normalise(concat(shuffled.first), concat(shuffled.second), 5));
-    cout << (total_r - shuffle_r) << ", " << flush;
-    if(shuffle_r > total_r) gt++;
-    if(gt > SIGNIFICANCE) return false;
-  }
-  cout << endl;
-  return true;
-}
-// = ((<=) r_total)
-bool compare(const dialect& dialect_a, const dialect& dialect_b) {
-  sample test = normalise(concat(dialect_a), concat(dialect_b), 5);
-  double total_r = R_MEASURE(test); //R_MEASURE is one of r or r_sq
-  cout << total_r << endl;
-  return normaliseall(total_r, test.size(), dialect_a, dialect_b);
-}
+#include "iceextra.h"
 // = ((<=) r_total)
 bool comparepermutation(const dialect& a, const dialect& b) {
   dialect both_ab(a);
@@ -248,64 +207,6 @@ bool comparepermutation(const dialect& a, const dialect& b) {
   cout << endl;
   return true;
 }
-// = ((<=) r_total)
-bool compareshuffle(const dialect& a, const dialect& b) {
-  sample test = normalise(concat(a), concat(b), 5);
-  double total_r = R_MEASURE(test); //R_MEASURE is one of r or r_sq
-  //cout << total_r << endl;
-  return normaliseshuffle(total_r, a, b);
-}
-/// Find most interesting leaf-ancestor paths ///
-void insertByAbsSnd(list<pair<string, double> >& l,
-                 const pair<string, double>& entry) {
-  double key = abs(entry.second);
-  for(list<pair<string, double> >::iterator i = l.begin(); i != l.end(); i++) {
-    if(key > abs(i->second)) {
-      l.insert(i, entry);
-      return;
-    }
-  }
-  l.insert(l.end(), entry);
-}
-void max5(const entry& e) {
-  list<pair<string,double> > best;
-  entry::const_iterator j = e.begin();
-  double leastBest = j->second;
-  // of course there will always be at least 5 entries because
-  // there will always be either 500 or 1000
-  for(int i = 0; i < 5; i++, j++) {
-    insertByAbsSnd(best, make_pair(j->first, j->second));
-  }
-  for(; j!=e.end(); j++) {
-    if(abs(j->second) > leastBest) {
-      insertByAbsSnd(best, make_pair(j->first, j->second));
-      best.pop_back();
-      leastBest = abs(best.back().second);
-    }
-  }
-  for(list<pair<string,double> >::iterator i = best.begin(); i != best.end(); i++) {
-    cout << i->first << ' ' << i->second << '\t';
-  }
-  cout << endl;
-}
-// best5r = maxN 5 . Dict.map (abs . uncurry (-))
-void best5r(const sample& c) {
-  entry halfR;
-  for(sample::const_iterator i = c.begin(); i!=c.end(); i++) {
-    halfR[i->first] = i->second.first - i->second.second;
-  }
-  max5(halfR);
-}
-/// ///
-double average_r(const dialect& a, const dialect& b) {
-  double sum = 0.0;
-  for(int i = 0; i < 100; i++) {
-    sample normed = normalise(permutation(a), permutation(b), 5);
-    sum += R_MEASURE(normed);
-    best5r(normed);
-  }
-  return sum / 100.0;
-}
 /*** End diverging implementation section ***/
 pair<string, vector<vector<string> > > readfile(const char* filename) {
   ifstream f(filename);
@@ -326,8 +227,6 @@ pair<string, vector<vector<string> > > readfile(const char* filename) {
   sss.push_back(ss);
   return make_pair(lang, sss);
 }
-//bool gt1 (double f) { return f > 1; }
-//int ook () { return 1; }
 int main(int argc, char** argv) {
   /*
   /// TEST
@@ -360,4 +259,3 @@ int main(int argc, char** argv) {
     }
   return 0;
 }
-
