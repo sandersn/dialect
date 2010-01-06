@@ -195,3 +195,4 @@
 * TODO Remember to upgrade blog software
 * TODO Remember to *backup* blog posts
 * TODO Remember to port viper-mode changes to modern emacs (and upgrade peregrin's viper)
+* TODO Write some usable feature extraction code.

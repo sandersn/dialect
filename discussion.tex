@@ -3,3 +3,118 @@ Here I will have to compare everything to dialectology. This is mostly
 conducted in Swedish because I guess nobody outside Sweden will
 publish it? That's a sad state of affairs. It means I might have to
 learn Swedish for real.
+
+However, I can get some of the discussion from my first qualifying
+paper; the syntax distance method hasn't changed, it just works a lot
+better on a dialect corpus.
+
+\section{Compared to Previous Work}
+
+In previous work on British English, this method failed to find
+agreement between syntactic distance ($R$) and phonological distance
+(Levenshtein) distance---there was no
+significant correlation between the two methods. Although both showed
+something like a North/South distinction in Britain, its orientation was much more
+obvious from phonological distance. This lack of agreement was a
+preliminary answer to the question of whether multiple
+ways of measuring linguistic distance give the same results.
+
+However, there were at least five reasonable explanations for the difference
+between the two distance measures.
+% First, and
+% least satisfying, is the possibility that one of the distances is not
+% measuring what it is supposed to. Second, the corpora may not agree
+% because of the 40 year difference in age and differing collection
+% methodologies. Third, syntactic and phonological dialect markers may
+% not share the same boundaries.
+
+\begin{enumerate}
+\item One or both of the distances does not measure what it is supposed to.
+\item The two corpora may not agree on dialect boundaries because of
+  their 40-year difference in age.
+\item Place of birth, as recorded in the ICE, may not correlate well
+  with spoken dialect, especially given variations in speaker
+  education level and place of residence.
+\item Dialect boundaries may appear from systematic variation in
+  annotation practices rather than the speech.
+\item Syntactic and phonological dialect boundaries may be different.
+\end{enumerate}
+
+Of these, this dissertation addresses the second, third and fourth
+problems directly by using a single corpus, Swedia2000, annotated by a single
+person. (TODO: This may not be true for the phonological annotation.)
+By finding significant distances between all interview sites of
+Swedia2000, it also suggests that $R$ is measuring syntax
+distance. PROBABLY.
+
+The last is the most interesting because previous work will not have
+exposed this difference. Traditional dialectometry focuses on a strong
+agreement among a few features from each collection site. Because
+syntactic features are fewer in number than phonological ones, they
+are under-represented in this type of analysis. Unfortunately, this
+means that the syntactic contribution to isogloss bundles is
+correspondingly reduced. In addition, because of isogloss bundles'
+insensitivity to rare variations, syntactic features rarely contribute
+to isogloss bundles of successful dialect boundaries.
+% I really need to CITE this.
+
+In contrast, computational analysis, such as \cite{shackleton07},
+captures feature variation precisely using statistical analysis and
+sophisticated algorithms. The resulting analysis displays dialects as
+gradient phenomena, displaying much more complexity than the
+corresponding isogloss analysis. But current specialized computational
+methods only apply to phonology. Syntactic data cannot be analyzed
+without a syntax-specific method.
+
+This paper attempts to address that lack, and provide some first steps
+to show whether syntax and phonology assist each other in establishing
+dialects, or whether their dialect regions are unrelated. If they are not
+related, and syntactic gradients can be as weak as phonological ones,
+then some new dialect regions may become apparent that were not visible in
+previous phonology-only analyses.
+
+\subsection{Improvements on British Dialect Experiment}
+
+This dissertation improves on the British experiment in a number of
+ways. It addresses the obvious criticism that syntax distance on the
+ICE requires so much data that the results are no more informative
+syntax those of traditional dialectology---its precision lags
+phonological distance methods badly. However, $R$ works with much
+smaller corpora when run on Swedia2000. This shows that the problem
+with the British experiment is not the distance method, but the
+corpus, which fails to capture dialect differences. Most likely is
+that the interviewees, mostly in a college setting, actively tried to
+suppress dialect differences during the interview.
+
+Another problem with the current study is the 40-year difference in
+collection dates between the phonological corpus and the syntactic
+corpus. A recent phonological corpus would likely show the same sort
+of changes in the North/South divide that show up in the syntactic
+corpus. The British population became more mobile during the second
+half of the 20th century, and the SED survey explicitly attempted to capture
+the dialects that existed before this happened \cite{orton78}.
+It would also be nice to have data from the rest of the United Kingdom for
+comparison as well, or at least Scotland and Wales as with the ICE.
+
+
+% TODO: integrate this.
+% Alternatively, I could just look at the region pairs that fail to
+% achieve significance in the syntactic permutation test and check to
+% see if their phonological distance is lower than the other pairs. I
+% don't do this (yet).
+
+One interesting question is
+how phonological and syntactic distances correlate with geographic
+distance---\namecite{gooskens04a} shows that often the correlation is
+very good. This would also allow better visualization of dialect areas
+than a hierarchical dendrogram.
+
+\section{Future Work}
+
+Try all those smarter variants of $R$.
+
+Include the rest of Nodalida once it is done.
+
+\section{The End}
+
+This is the end of a Highly Impressive Dissertation.

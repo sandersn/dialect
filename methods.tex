@@ -3,3 +3,741 @@ It's all about R and running it on Swedish eh.
 
 There is a lot of background information, like other distance
 measures and the underlying math of the distance measure I did use.
+
+\section{Previous Work}
+
+\subsection{S\'eguy}
+
+Measurement of linguistic similarity has always been a part of
+linguistics. However, until \namecite{seguy73} dubbed a new set of
+approaches `dialectometry', these methods lagged behind the rest of
+linguistics in formality. S\'eguy's quantitative analysis
+of Gascogne French, while not aided by computer, was the predecessor
+of more powerful statistical methods that essentially required the use
+of computer as well as establishing the field's general dependence on
+well-crafted dialect surveys that divide incoming data along
+traditional linguistic boundaries: phonology, morphology, syntax, etc.
+This makes both collection and analysis easier, although it requires
+more work to combine separate analyses to produce a complete picture of dialect
+variation.
+
+The project to build the Atlas Linguistique et Ethnographique de la
+Gascogne, which S\'eguy directed, collected data in a dialect survey
+of Gascogne which asked speakers questions informed by different areas
+of linguistics. For example, the pronunciation of `dog' ({\it chien})
+was collected to measure phonological variation. It had two common
+variants and many other rare ones: [k\~an], [k\~a], as well as [ka],
+[ko], [kano], among others. These variants were, for the most part,
+% or hat "chapeau": SapEu, kapEt, kapEu (SapE, SapEl, kapEl
+known by linguists ahead of time, but their exact geographical
+distribution was not.
+
+The atlases, as eventually published, contained not only annotated
+maps, but some analyses as well. These analyses were what S\'eguy named
+dialectometry. Dialectometry differs from previous attempts to find
+dialect boundaries in the way it combines information from the
+dialect survey. Previously, dialectologists found isogloss
+boundaries for individual items. A dialect boundary was generated when
+enough individual isogloss boundaries coincided. However, for any real
+corpus, there is so
+much individual variation that only major dialect boundaries can
+be captured this way.
+
+S\'eguy reversed the process. He first combined survey data to get
+a numeric score between each site. Then he posited dialect boundaries
+where large distances resulted between sites. The difference is
+important, because a single numeric score is easier to
+analyze than hundreds of individual boundaries.
+Much more subtle dialect boundaries are visible this way; where before
+one saw only a jumble of conflicting boundary lines, now one sees
+smaller, but consistent, numerical differences separating regions. {Dialectometry
+  enables classification of gradient dialect boundaries, since now one
+can distinguish weak and strong boundaries. Previously, weak
+boundaries were too uncertain.}
+
+However, S\'eguy's method of combination is simple both
+linguistically and mathematically. When comparing two sites, any
+difference in a response is counted as 1. Only identical
+responses count as a distance of 0. Words are not analyzed
+phonologically, nor are responses weighted by their relative amount
+of variation. Finally, only geographically adjacent sites are
+compared. This is a reasonable restriction, but later studies were
+able to lift it because of the availability of greater computational
+power. Work following S\'eguy's improves on both aspects. In
+particular, Hans Goebl developed dialectometry models that are
+more mathematically sophisticated.
+
+\subsection{Goebl}
+
+Hans Goebl emerged as a leader in the field of dialectometry,
+formalizing the aims and methods of dialectometry. His primary
+contribution was development of various methods to combine individual
+distances into global distances and global distances into global clusters. These
+methods were more sophisticated mathematically than previous
+dialectometry and operated on any features extracted from the data. His
+analyses have used primarily the Atlas Linguistique de Fran\c{c}ais.
+
+\namecite{goebl06} provides a summary of his work. Most relevant for
+this paper are the measures Relative Identity Value and Weighted
+Identity Value. They are general methods that are the basis for nearly
+all subsequent fine-grained dialectometrical analyses. They have three
+important properties. First, they are independent of the source
+data. They can operate over any linguistic data for which they are
+given a feature set, such as the one proposed by \namecite{gersic71} for
+phonology. Second, they can compare data even for items that do not
+have identical feature sets, such as Ger\v{s}i\'c's $d$,
+which cannot compare consonants and vowels. Third, they can compare
+data sets that are missing some entries. This improves on S\'eguy's
+analysis by providing a principled way to handle missing survey
+responses.
+
+Relative Identity Value, when comparing any two items, counts the
+number of features which share the same value and then discounts
+(lowers) the importance of the result by the number of unshared
+features. The result is a single percentage that indicates
+relative similarity. Calculating this distance between all pairs
+of items in two regions produces a matrix which can be used for
+clustering or other purposes. Note that the presentation below splits
+Goebl's original equations into more manageable pieces; the high-level
+equation for Relative Identity Value is:
+
+\begin{equation}
+  \frac{\textrm{identical}_{jk}} {\textrm{identical}_{jk} - \textrm{unidentical}_{jk}}
+\label{riv}
+\end{equation}
+For some items being compared $j$ and $k$. In this case
+\textit{identical} is
+\begin{equation}
+  \textrm{identical}_{jk} = |f \in \textrm{\~N}_{jk} : f_j = f_k|
+\end{equation}
+where $\textrm{\~N}_{jk}$ is the set of features shared by  $j$ and
+$k$ and $f_j$ and $f_k$ are the value of some feature $f$ for $j$ and
+$k$ respectively. \textit{unidentical} is defined similarly, except
+that it counts all features N, not just the shared features
+$\textrm{\~N}_{jk}$.
+
+\begin{equation}
+  \textrm{unidentical}_{jk} = |f \in \textrm{N} : f_j \neq f_k|
+\end{equation}
+
+Weighted Identity Value is a refinement of Relative Identity
+Value. This measure defines some differences as more
+important than others. In particular, feature values that only occur
+in a few items give more information than feature values that appear
+in a large number of items. This
+idea shows up later in the normalization of syntax distance given by
+\namecite{nerbonne06}.
+
+The mathematical reasoning behind of this idea is fairly simple. Goebl
+is interested in feature values that occur in only a few items. If a
+feature has some value that is shared by all of the items, then all
+items belong to the same group. This feature value provides {\it no}
+useful information for distinguishing the items.  The situation
+improves if all but one item share the same value for a feature; at
+least there are now two groups, although the larger group is still not
+very informative.  The most information is available if each item
+being studied has a different value for a feature; the items fall
+trivially into singleton groups, one per item.
+
+Equation \ref{wiv-ident} implements this idea by discounting
+the \textit{identical} count from equation \ref{riv} by
+the amount of information that feature value conveys. The
+amount of information, as discussed above, is based on the number of
+items that share a particular value for a feature. If all items share
+the same value for some feature, then \textit{identical} will be discounted all the
+way to zero--the feature conveys no useful information.
+Weighted Identical Value's equation for \textit{identical} is
+therefore
+\begin{equation}
+  \textrm{identical} = \sum_f \left\{
+  \begin{array}{ll}
+    0 & \textrm{if} f_j \neq f_k \\
+    1 - \frac{\textrm{agree}f_{j}}{(Ni)w} & \textrm{if} f_j = f_k
+  \end{array} \right.
+\label{wiv-ident}
+\end{equation}
+
+\noindent{}The complete definition of Weighted Identity Value is
+\begin{equation} \sum_i \frac{\sum_f \left\{
+  \begin{array}{ll}
+    0 & \textrm{if} f_j \neq f_k \\
+    1 - \frac{\textrm{agree}f_j} {(Ni)w} & \textrm{if} f_j = f_k
+\end{array} \right.}
+  {\sum_f \left\{
+  \begin{array}{ll}
+    0 & \textrm{if} f_j \neq f_k \\
+    1 - \frac{\textrm{agree}f_j} {(Ni)w} & \textrm{if} f_j = f_k
+    \end{array} \right. - |f \in \textrm{N} : f_j \neq f_k|}
+  \label{wiv-full}
+  \end{equation}
+
+  \noindent{}where $\textrm{agree}f_{j}$ is the number of items that agree
+  with item $j$ on feature $f$ and $Ni$ is the total number of
+  items ($w$ is the weight, discussed below). Because of the
+  piecewise definition of \textit{identical}, this number is always at
+  least $1$ because $f_k$ agrees already with $f_j$.
+  This equation takes the count of shared features and weights
+  them by the size of the sharing group. The features that are shared
+  with a large number of other items get a larger fraction of the normal
+  count subtracted.
+
+  For example, let $j$ and $k$ be sets of productions for the
+  underlying English segment /s/. The allophones of /s/ vary mostly on the feature
+  \textit{voice}. Seeing an unvoiced [s] for /s/ is less ``surprising'' than
+  seeing a voiced [z], so the discounting process should
+  reflect this. For example, assume that an English corpus contains 2000
+  underlying /s/ segments. If 500 of them are realized as [z], the
+  discounting for \textit{voice} will be as follows:
+
+  \begin{equation}
+    \begin{array}{c}
+      identical_{/s/\to[z]} = 1 - 500/2000 = 1 - 0.25 = 0.75 \\
+      identical_{/s/\to[s]} = 1 - 1500/2000 = 1 - 0.75 = 0.25
+    \end{array}
+    \label{wiv-voice}
+  \end{equation}
+
+  Each time /s/ surfaces as [s], it only receives 1/4 of a point
+  toward the agreement score when it matches another [s]. When /s/
+  surfaces as [z], it receives three times as much for matching
+  another [z]: 3/4 points towards the agreement score. If the
+  alternation is even more weighted toward faithfulness, the ratio
+  changes even more; if /s/ surfaces as [z] only 1/10 of the time,
+  then [z] receives 9 times more value for matching than [s] does.
+
+  The final value, $w$, which is what gives the name ``weighted
+  identity value'' to this measure, provides a way to control how much
+  is discounted. A high $w$ will subtract more from uninteresting
+  groups, so that \textit{voice} might be worth less than
+  \textit{place} for /t/ because /t/'s allophones vary more over
+  \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
+  facilitate the presentation.
+
+\section{Statistical Methods} % Computational? Mathematical?
+
+It is at this point that the two types of analysis, phonological and
+syntactic, diverge. Although Goebl's techniques are general enough to
+operate over any set of features that can be extracted, better results
+can be obtained by specializing the general measures above to take
+advantage of properties of the input.  Specifically, the application
+of computational linguistics to dialectometry beginning in the 1990s
+introduced methods from other fields. These methods, while generally
+giving more accurate results quickly, are tied to the type of data on
+which they operate.
+
+% NEW
+Currently, the dominant phonological distance measure is Levenshtein
+distance. This distance is essentially the count of differing
+segments, although various refinements have been tried, such as
+inclusion of distinctive features or phonetic
+correlates. \namecite{heeringa04} gives an excellent analysis of the
+applications and variations of Levenshtein distance. While Levenshtein
+distance provides much information as a classifier, it is limited
+because it must have a word aligned corpus for comparison. A number of
+statistical methods have been proposed that remove this requirement
+such as \namecite{hinrichs07} and \namecite{sanders09}, but none have
+been as successful on existing dialect resources, which are small and
+are already word-aligned. New resources are not easy to develop
+because the statistical methods still rely on a phonetic transcription
+process.
+% end NEW
+
+% \begin{enumerate}
+% \item I should really check around to see if there is any new work out
+%   there. Surely there is. Course John is free to do whatever works and
+%   Wybo may have graduated or something. So there might not be any more
+%   work on it.
+% \item Explain leaf-ancestor paths, trigrams, dependency `paths' (to be
+%   invented).
+% \end{enumerate}
+
+\subsection{Syntactic Distance}
+
+Recently, computational dialectometry has expanded to analysis of
+syntax as well. The first work in this area was \quotecite{nerbonne06}
+analysis of Finnish L2 learners of English, followed by
+\quotecite{sanders07} analysis of British dialect areas. Syntax
+distance must be approached quite differently than phonological
+distance. Syntactic data is extractable from raw text, so it is much
+easier to build a syntactic corpus. But this implies an associated
+drop in manual linguistic processing of the data. As a result, the
+principle difference between present phonological and syntactic
+corpora is that phonology data is word-aligned, while syntax data is
+not sentence-aligned.
+
+\subsubsection{Nerbonne and Wiersma}
+\label{nerbonne06}
+
+Due to the lack of alignment between the
+larger corpora available for syntactic analysis, a statistical
+comparison of differences is more appropriate than the simple
+symbolic approach possible with the word-aligned corpora used in
+phonology. This statistical approach means that a syntactic distance
+measure will have to use counting as its basis.
+
+\namecite{nerbonne06} was an early method proposed for syntactic
+distance.  It models syntax by part-of-speech (POS) trigrams and uses
+differences between trigram type counts in a permutation test of
+significance. This method was extended by \namecite{sanders07}, who
+used \quotecite{sampson00} leaf-ancestor paths as an alternate basis
+for building the model.
+
+The heart of the measure is simple: the difference in type counts
+between the combined types of two corpora. \namecite{kessler01}
+originally proposed this measure, the {\sc Recurrence}
+metric ($R$):
+
+\begin{equation}
+R = \Sigma_i |c_{ai} - c_{bi}|
+\label{rmeasure}
+\end{equation}
+
+\noindent{}Given two corpora $a$ and $b$, $c_a$ and $c_b$ are the type
+counts. $i$ ranges over all types, so $c_{ai}$ and $c_{bi}$ are the
+type counts of corpora $a$ and $b$ for type $i$.  $R$ is designed to
+represent the amount of variation exhibited by the two corpora while
+the contribution of individual types remains transparent to aid later
+analysis.
+
+To account for differences in corpus size, sampling with replacement is
+used. In addition, the samples are normalized to account for
+differences in sentence length and complexity.  Unfortunately, even normalized, the
+measure doesn't indicate whether its results are significant; a
+permutation test is needed for that.
+
+% Other ideas include training a
+% model on one area and comparing the entropy (compression) of other
+% areas. At this point it's unclear whether this would provide a
+% comparable measure, however.
+
+\subsubsection{Language models}
+\label{syntactic-features}
+Part-of-speech (POS) trigrams are quite easy to obtain from a syntactically
+annotated corpus. \namecite{nerbonne06} argue that POS trigrams
+can accurately represent at least the important parts of syntax,
+similar to the way chunk parsing can capture the most important
+information about a sentence. POS trigrams can either be generated by
+a tagger as Nerbonne and Wiersma did, or taken from the leaves of
+the trees of a parsed corpus as \namecite{sanders07} did with the
+International Corpus of English.
+
+On the other hand, it might be better to directly represent the upper
+structure of trees. \quotecite{sampson00} leaf-ancestor paths provide
+one way to do this: for each leaf in the
+tree, leaf-ancestor paths produce the path from that leaf back to the
+root. Generation is
+simple as long as every sibling is unique. For example, the parse tree
+\[\xymatrix{
+  &&\textrm{S} \ar@{-}[dl] \ar@{-}[dr] &&\\
+  &\textrm{NP} \ar@{-}[d] \ar@{-}[dl] &&\textrm{VP} \ar@{-}[d]\\
+  \textrm{Det} \ar@{-}[d] & \textrm{N} \ar@{-}[d] && \textrm{V} \ar@{-}[d] \\
+\textrm{the}& \textrm{dog} && \textrm{barks}\\}
+\]
+creates the following leaf-ancestor paths:
+
+\begin{itemize}
+\item S-NP-Det-The
+\item S-NP-N-dog
+\item S-VP-V-barks
+\end{itemize}
+
+For identical siblings, brackets must be inserted in the path to
+disambiguate the first sibling from the second. The process is
+described in \namecite{sampson00} or \namecite{sanders07};
+in any case identical siblings are somewhat rare.
+
+Sampson originally developed leaf-ancestor paths as an improved
+measure of similarity between gold-standard and machine-parsed trees,
+to be used in evaluating parsers. The underlying idea of a collection of
+features that capture distance between trees transfers quite nicely to
+this application. \namecite{sanders07} replaced POS trigrams with
+leaf-ancestor paths for the ICE corpus and found improved results on
+smaller corpora than Nerbonne and Wiersma had tested. The additional
+precision that leaf-ancestor paths provide appears to aid in attaining
+significant results.
+
+% Another idea is supertags rather than leaf-ancestor paths. This is
+% quite similar but might work better.
+
+For dependency annotations, it is easy to adapt leaf-ancestor paths to
+leaf-head paths. Here, each leaf is associated with a leaf-head path,
+the path from the leaf to the head of the sentence via the
+intermediate heads. For example, the same sentence, ``The dog barks'',
+produces the following leaf-head paths.
+
+\begin{itemize}
+\item root-V-N-Det-the
+\item root-V-N-dog
+\item root-V-barks
+\end{itemize}
+
+The biggest difference is in the relative length of the paths: long
+leaf-ancestor paths indicate deep nesting of structure. Length is a
+weaker indicator of deep structure for leaf-head
+paths; sometimes a difference in length indicates only a difference in
+centrality to the sentence. % or something, this is still kind of
+                            % wrong
+\[\xymatrix{
+& & root \\
+DET \ar@/^/[r] & NP\ar@/^/[r] & V \ar@{.>}[u] \\
+The & dog & barks
+}
+\]
+
+\subsection{Previous Experiments}
+
+\namecite{nerbonne06} were the first to use the syntactic distance
+measure described above. They analyzed two corpora, both of Norwegian
+L2 speakers of English. The first corpus was gathered from speakers
+who learned English after childhood and the second was gathered from
+speakers who learned English as children. Nerbonne \& Wiersma found a
+significant difference between the two corpora. The trigrams that
+contributed most to the difference were those in the older corpus that
+are unexpected in English. For example, the trigram COP-ADJ-N/COM is
+not common in English because a noun phrase following a copula
+typically begins with a determiner. Other trigrams indicate
+hypercorrection on the part of the older speakers; they appear in the
+younger corpus but not as often. Nerbonne \& Wiersma analyzed this as
+interference from Finnish; the younger learners of English learned it
+more completely with less interference from Finnish.
+
+Subsequent work by \namecite{sanders07} and \namecite{sanders08b}
+expanded on the Norwegian experiment in two ways. First, it introduced
+leaf-ancestor paths as an alternative feature type. Second, it tested
+the distance method on a larger set of corpora: Government Office
+Regions of England, as well as Scotland and Wales, for a total of
+11 corpora. Each was smaller than the Norwegian L2 corpora, so the
+permutation test parameters had to be adjusted for some feature
+combinations.
+
+The distances between regions were clustered using hierarchical
+agglomerative clustering, as described in section \ref{cluster-analysis}. The resulting tree showed a North/South
+distinction with some unexpected differences from previously
+hypothesized dialect boundaries; for example, the
+Northwest region clustered with the Southwest region. This contrasted
+with the clustered phonological distances also produced in
+\namecite{sanders08b}. In that experiment,
+there was no significant correlation between the inter-region
+phonological distances and syntactic distances.
+
+There are several possible reasons for this lack of correlation. The
+two distance measures may find different dialect boundaries based on
+differences between syntax and phonology. Dialect boundaries may have
+shifted during the 40 years between the collection of the SED and the
+collection of the ICE-GB. One or both methods may be measuring the
+wrong thing. However, I will not investigate the relation between
+phonology and syntax in this dissertation. The focus will remain on results
+of computational syntax distance as compared to traditional syntactic
+dialectology.
+
+\section{Methods}
+To investigate the first hypothesis, I need a dialect corpus that can
+be syntactically annotated (\ref{syntactically-annotated-corpus}),
+preferably automatically. This will require a syntactically annotated
+training corpus (\ref{syntactically-annotated-training}) and a parser
+(\ref{parsers}). A distance measure must be defined for the regions
+within the dialect corpus (\ref{nerbonne06}), syntactic features must
+be extracted for the distance measures (\ref{syntactic-features}), and
+the results tested for significance (\ref{permutationtest}) and
+clustered (\ref{cluster-analysis}) to determine which dialect regions
+are found by the corpus. Finally, the most highly ranked features used
+to produce the dialect distances must be enumerated
+(\ref{feature-ranking}).
+
+To investigate the second hypothesis, I need a method to combine
+different types of features (\ref{combine-feature-sets}) and back off
+sparse features (\ref{feature-backoff}). I also need a way to generate
+new features that include more information about context
+(\ref{alternate-feature-sets}).
+
+If the distance measure $R$ doesn't provide any significant distances
+with any combination of features, I will experiment with different distance
+measures. For this, there are quite a few possibilities;
+Kullbeck-Leibler divergence is one example (\ref{kl-divergence}).
+
+To investigate the third hypothesis, I need a phonological corpus and a method
+for calculating phonological dialect distance, then a method to compare
+phonological clusters with syntactic clusters. See my qualifying paper
+\cite{sanders08b} for details.
+
+\subsection{SweDiaSyn} % This is not a good subsection for the new organization
+\label{syntactically-annotated-corpus}
+The first hypothesis requires a dialect corpus that can
+be syntactically annotated.
+The dialect corpus used in this dissertation will be SweDiaSyn, the
+Swedish part of the ScanDiaSyn.
+% (CITE SweDiaSyn and ScanDiaSyn,
+% except that they don't seem to have any references)
+% Here is a citation for ScanDiaSyn if I could track it down and
+% translate it
+% Vangsnes, Øystein A. 2007. ScanDiaSyn: Prosjektparaplyen Nordisk dialektsyntaks. In T. Arboe (ed.), Nordisk dialektologi og sociolingvistik, Peter Skautrup Centeret for Jysk Dialektforskning, Århus Universitet. 54-72.
+SweDiaSyn is a transcription of SweDia 2000 \cite{bruce99} collected
+between 1998 and 2000 from 97 locations in Sweden and 10 in
+Finland. Each location has 12 interviewees: three 30-minute interviews
+for each of older male, older female, younger male and younger female.
+However, the SweDiaSyn transcriptions do not yet include all of SweDia
+2000; the completed transcriptions currently focus on older
+speakers.
+
+Currently there are 36,713 sentences of transcribed speech
+from 49 sites, an average of 749 sentences per site.
+However, the sites range from 110 to 1780 sentences because some sites
+have fewer complete transcriptions than others. In order to detect
+significant differences, the sites may need to be grouped by county,
+traditional province or EU region; previous work on British English
+used EU Government Office Regions with at least 850 sentences per
+region. For example, grouping the Swedish corpora into the 25 provinces
+boosts the average sentences per province to 1254, excluding provinces
+with no transcriptions.
+
+% TODO: Probably switch the second sentence to be first? It's the more
+% important but might completely depend on details in the first.
+In the SweDiaSyn, there are two types of transcription:
+standard Swedish orthography, with glosses for words
+not in standard Swedish, and a phonetic transcription for dialects
+that differ greatly from standard Swedish. For this dissertation,
+the orthographic/gloss transcription will be used so that lexical
+items will be comparable across dialects.
+
+\subsection{Talbanken}
+\label{syntactically-annotated-training}
+
+Because the first hypothesis requires a syntactically annotated
+corpus, and because SweDiaSyn consists of untagged lexical items,
+Talbanken05, a syntactically-annotated corpus, will be used to train a
+POS tagger and parsers to be used to annotate SweDiaSyn.  Talbanken05
+is a treebank of written and transcribed spoken Swedish, roughly
+300,000 words in size. It is an updated version of Talbanken76
+\cite{nivre06}; Talbanken76's trees are annotated following a custom
+scheme called MAMBA; Talbanken05 adds phrase structure annotation and
+dependency annotation using the standard annotation formats TIGER-XML
+and Malt-XML.  In addition to syntactic annotation, Talbanken is
+lexically annotated for morphology and part-of-speech.
+
+% TODO: Should I keep this? It depends on how much detail I want.
+% Talbanken's sources are X and Y and Z. It attempts to provide a
+% valid sample of the Swedish language, both spoken and written. The
+% spoken section is transcribed from conversation, interviews and
+% debates, and the written section is taken from high school essays and
+% professional prose (TODO:I could probably cite
+% Jan Einarsson. 1976. Talbankens skriftspraakskonkordans. Lund
+% University: Department of Scandinavian Languages (and
+% talspraakskonkordans) IF I could legitimately claim that I got the
+% information from there\ldots{} but of course I got it from
+% spraakbanken.gu.se/om/eng/index.html actually.
+
+\subsection{Parsing}
+\label{parsers}
+%% Um, this seems useful, but I'm not sure why I put it here...
+%% TODO: Figure out what this is for and use it somewhere?
+% In order to investigate hypothesis 1, I will need to produce features
+% to give to the classifier. These features should reflect the syntax of
+% the speech of the interviewees. Following Nerbonne and Wiersma 2006, I
+% will start with parts of speech, then add the leaf-ancestor paths that
+% I tried on the ICE-GB, and finally add dependency-ancestor paths that
+% are new. Probably one sentence more each on tagging, dependency and
+% constituency parsing.
+% (NOTE: Insert paragraphs on tagging and dependency and constituency
+% parsing before Talbanken discussion)
+% :
+In order to extract the features used to build the language models
+described in the previous methods, SweDiaSyn will need to be POS
+tagged and parsed. For this dissertation, both constituency
+and dependency features will be provided to the classifier.
+
+The Tags 'n' Trigrams (T'n'T) tagger \cite{brants00} will be used for tagging, with
+the POS annotations from Talbanken05 used as training.
+After POS tagging, the Talbanken sentences will be cleaned in order to
+be usable for training the parsers.
+Cleaning Talbanken's constituency annotations consists of removing
+discontinuities of various types, especially disfluencies and
+restarts, which may be reparable by a simple top-level strategy. If
+more complicated uncrossing is needed, a strategy similar to the split
+constituents proposed by \namecite{boyd07} may be needed.
+
+For constituency parsing, The Berkeley parser \cite{petrov08} will be
+trained on standard Swedish, again from Talbanken05. The Berkeley
+parser has shown good performance on languages other than English,
+which is not common for constituency parsers.
+% TODO: CITE The paper that shows this. Also EXPLAIN it.
+
+For dependency parsing, MaltParser will be used with the existing
+Swedish model trained on Talbanken05 by Hall, Nilsson and
+Nivre. MaltParser is an inductive dependency parser that uses a
+machine learning algorithm to guide the parser at choice points
+\cite{nivre06b}.  Dependency parsing will proceed similarly to
+constituency parsing; the dependency structures of Talbanken05 will be
+cleaned and normalized, then used to train a parser.
+
+% TODO: Find out how much crossing occurs in Swedish corpora, and how
+% much of it is from interruptions and self-corrections.
+
+\subsection{Permutation test}
+\label{permutationtest}
+
+The first hypothesis requires that the distances produced by a
+distance measure be checked for significance; it is possible that
+there may not be enough data for two regions to adequately distinguish
+them from each other. A permutation test detects whether two corpora are
+significantly different on the basis of the $R$ measure
+described in section \ref{nerbonne06}. The test first calculates $R$
+between samples of the two corpora. Then the corpora are mixed
+together and $R$ is calculated between two samples drawn from the
+mixed corpus. If the two corpora are different, $R$ should be larger
+between the samples of the original corpora than $R$ from the mixed
+corpus: any real differences will be randomly redistributed by the
+mixing process, lowering the mixed $R$. Repeating this comparison
+enough times will show if the difference is significant. Twenty times
+is the minimum needed to detect significance for $p < 0.05$
+significance; however, in the experiments, I will repeat the test 100
+times, enough to detect significance for $p < 0.01$.
+
+To see how this works, for example, assume that $R$ detects real
+differences between the two British regions London
+and Scotland such that $R(\textrm{London},\textrm{Scotland}) =
+100$. The permutation test then mixes London and Scotland to
+create LSMixed and splits it into two pieces. Since the real
+differences are now mixed between the two shuffled corpora, we
+would expect $R(\textrm{LSMixed}_1, \textrm{LSMixed}_2) < 100$.
+This should be true at least 95\% of the time for the distance $100$
+to be significant.
+
+%% I don't think normalization is important enough to mention if I
+%% have to add all the sections from the H2/H3.
+% \subsection{Normalization}
+% Afterward, the distance must be normalized to account for two things:
+% the length of sentences in the corpus and the amount of variety in the
+% corpus. If sentence length differs too much between corpora, there
+% will be consistently lower token counts in one corpus, which would
+% cause a spuriously large $R$. In addition, if one corpus has less
+% variety than the other, it will have inflated type counts, because
+% more tokens will be allocated to fewer types. To avoid
+% this, all tokens are scaled by the average number of types per token
+% across both corpora: $2n/N$ where $n$ is the type count and $N$ is
+% the token count. The factor $2$ is necessary because the scaling
+% occurs based on the token counts of the two corpora combined.
+
+% this next subsection might need to be changed or deleted
+\subsection{Cluster Analysis and Correlation}
+\label{cluster-analysis}
+The first hypothesis requires a clustering method to allow
+inter-region distances to be compared more easily. The dendrogram that
+binary hierarchical clustering produces allows easy visual comparison
+of the most similar regions.
+
+Correlation is also useful to find out how similar the two method's
+predictions are. Because of the connected nature of the inter-region
+distances, Mantel's test is necessary to ensure that the correlation
+is significant. Mantel's test is a permutation test, much like the
+permutation test described for $R$. One distance result set is
+permuted repeatedly and at each step correlated with the other
+set. The original correlation is significant if the permuted
+correlation is lower than the original correlation more than 95\% of
+the time.
+
+\subsection{Feature Ranking}
+\label{feature-ranking}
+% TODO: THIS is hypothesis 1B and I left it out!
+Feature ranking is needed for the first hypothesis so that the results
+of $R$ can be compared qualitatively to the Swedish dialectology
+literature; $R$'s most important features should be similar to those
+discussed most by dialectologists when comparing regions. Feature
+ranking for $R$ is quite simple for one-to-one region comparisons;
+each feature's normalized weight is equal to its importance in
+determining the distance between the two regions. The most important
+features between two sets of regions can be obtained by averaging the
+importance of each feature between all (first-set, second-set) region
+pairs. This more
+% (There is a nice equation lurking in here
+% somewhere that I may want to avoid nonetheless.)
+complicated technique is needed to relate the results from
+the computational distance measures with the features that
+dialectologists discuss relative to areas of Sweden larger than
+individual provinces or counties.
+
+%Note: All this is speculative. I have no code for this and I'm pretty
+%sure the all-pairs average solution is not quite right
+
+\subsection{Combining Feature Sets}
+\label{combine-feature-sets}
+
+% maybe use 'kind of feature' instead of 'type of feature'. it's fuzzier
+In order to investigate hypothesis 2, I will need a method for
+combining features of different types. Here, the obvious approach
+of combining feature types linearly should suffice. For example, within a single
+type of feature, such as POS tag or leaf-ancestor path,
+there is already redundant information about lexical items and tree
+structure, so combining the two does not mean that additional
+redundancy needs to be taken into account.
+% TODO: Last sentence still sucks
+% TODO: Notes from last presentation:
+% TnT has a 'mark unknown words' option.
+% Pass lexical items to Berkeley parser (or make sure both training and test are t
+% he same)
+% check whether Berkeley parser has POS-tagging option
+
+\subsection{Feature Backoff}
+\label{feature-backoff}
+% If I can't find a certain frequency of trigrams then backoff to
+% bigram
+% Thorsten Brants - deleted interpolation
+
+% Martin Volk inter-type backoff (if X type information isn't
+% available, then use Y type instead) (2000, 2001 or 2002)
+% Scaling Up ...; Exploiting the WWW ...; Combining Unsupervised ...;
+In order to investigate hypothesis 2, I will need a framework for
+backing off sparse features. For backoff within a single type of
+feature, I will use deleted interpolation \cite{jurafskymartin}. Training for the trigram, bigram and unigram counts will
+come from the Talbanken.
+
+For backoff between types of features, I will use ranked combinations
+of feature sets, based to Martin Volk's system for verb attachment
+\cite{volk02}. Volk used an a priori reliability measure for ranking
+quality of combined feature types; I will use number of significant
+region differences for ranking: the top-ranked feature type will be
+the one that produces the highest number of significant distances
+between regions. Combinations of feature types will be ranked by
+averaging the number of significant distances that the constituent
+feature types produce. Then if the distance measure can't find a
+significant difference using highest ranked set of features, the
+classifier will fall back to the next highest-ranked set of features.
+
+\subsection{Alternate Feature Sets}
+\label{alternate-feature-sets}
+For hypothesis 2, I will need a way to generate new types of
+features. One obvious way to do this is to modify existing feature
+types to include more contextual
+information. For example, supertags \cite{joshi94} are similar to
+leaf-ancestor paths, but include more tree context around the
+head. Similarly, dependency paths could be expanded
+so that each node on the path includes lexical context, such as
+bigrams or trigrams.
+
+\subsection{Alternate Distance Measures}
+\label{kl-divergence}
+In the case that $R$ does not reach statistical significance, I will
+need to experiment with similar but more complicated distance measures
+to find a more sensitive one. The obvious choice at this point is
+Kullbeck-Leibler divergence, or relative entropy, which is described
+in \namecite{manningschutze}. Relative entropy is quite similar to $R$
+but more widely used in computational linguistics. Besides this, several variants of
+relative entropy exist, such as Jenson-Shannon divergence \cite{lin91}, that lift
+various restrictions from the input distributions.
+
+% Another possibility is a return to Goebl's Weighted Identity Value;
+% this classifier is similar in some ways to $R$, but has not been
+% tested with large corpora, to my knowledge at least. (This is not
+% particularly useful and I don't believe that WIV would actually be
+% good, so I should probably just drop this.)
+
+More exotic classifiers are of course possible, although I
+have not investigated them yet. Examples are k-nearest
+neighbor classification or neural nets.
+% (maybe it was relative entropy or just normal-kind entropy).
+% TODO: WIV, also Kullbeck-Leibler Divergence could work.
+% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
+% neural net
+
+% Make sure the KL divergence couldn't go to infinity
+% Jensen-Shannon lifts a couple of restrictions though I think the
+% input still has to be a probability distribution
