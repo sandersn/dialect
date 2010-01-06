@@ -4,6 +4,7 @@ from util import dct
 from util.txt import chomp
 from consts import swediaSites
 import os
+from codecs import open
 ### util ###
 def typecheck(*args):
     def wrapper(f):
@@ -20,14 +21,14 @@ def multirun(feature):
     params.close()
 
     os.system('g++ -O2 -o ctrl.out params.h icectrl.cpp')
-    def singlerun(fro, to):
-        suffix = '-' + suffix + '.dat'
-        os.system("nice -n 6 ./ctrl.out '%(fro)s%(suffix)s' '%(to)s%(suffix)s'"
-                  % locals())
+    suffix = '-' + feature + '.dat'
+    ctrl = "nice -n 6 ./ctrl.out".split()
     pairs = pairwise(swediaSites)
-    tasks = [lambda: singlerun(fro, to) for (fro,to) in pairs]
+    tasks = [ctrl + [sq(fro+suffix), sq(to+suffix)] for (fro,to) in pairs]
     files = ['dist-%s-%s-tmp.txt' % (fro,to) for (fro, to) in pairs]
     return (tasks,files)
+def sq(s):
+    return "'" + s + "'"
 def combine(feature):
     "Combine the disparate output files into one"
     out = 'dist-100-1000-r-%s-interview.txt' % (feature,)
@@ -35,8 +36,8 @@ def combine(feature):
     files = ['dist-%s-%s-tmp.txt' % (fro,to) for (fro,to) in pairs]
     outf = open(out, 'w')
     for file in files:
-        out.write(open(file).read())
-    out.close()
+        outf.write(open(file).read())
+    outf.close()
 def run(feature):
     out = 'dist-100-1000-r-%s-interview.txt' % (feature,)
     print('Starting', out, '...')

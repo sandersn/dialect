@@ -15,17 +15,19 @@ from util.lst import partition
 import subprocess
 cgitb.enable(format='text')
 
-def multirun(n,tasks,files):
-    processes = [subprocess.Popen([tasks[i]], stdout=file(files[i],'w'))
+def multirun(n, tasks, files):
+    processes = [subprocess.Popen(tasks[i], stdout=file(files[i],'w'))
                  for i in range(n)]
     i = n
-    while i < len(tasks):
+    while processes != []:
         subprocess.Popen(['sleep', '1']).wait()
         processes, dones = partition(lambda p:p.poll() is None, processes)
-        for done in dones:
-            processes.append(subprocess.Popen([tasks[i]],
-                                              stdout=file(files[i], 'w')))
-            i += 1
+        if i < len(tasks):
+            for _ in dones:
+                print("Starting", ' '.join(tasks[i]))
+                processes.append(subprocess.Popen(tasks[i],
+                                                  stdout=file(files[i], 'w')))
+                i += 1
 def run(cmd):
     result = os.system(cmd)
     if result: raise Exception("Error: '%s' returned code %d" % (cmd, result))
@@ -85,8 +87,11 @@ def syntaxDist():
     # 9. Run icectrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths
     multirun(6, *norte.multirun('path'))
+    norte.combine('path')
     multirun(6, *norte.multirun('trigram'))
+    norte.combine('trigram')
     multirun(6, *norte.multirun('dep'))
+    norte.combine('dep')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)
