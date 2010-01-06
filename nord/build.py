@@ -86,12 +86,21 @@ def genFeatures():
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths
-    multirun(6, *norte.multirun('path'))
-    norte.combine('path')
-    multirun(6, *norte.multirun('trigram'))
-    norte.combine('trigram')
-    multirun(6, *norte.multirun('dep'))
-    norte.combine('dep')
+    multirun(6, *norte.multirun('path', 'icedist.cpp', iterations=10))
+    norte.combine('path', 'dist')
+    multirun(6, *norte.multirun('trigram', 'icedist.cpp', iterations=10))
+    norte.combine('trigram', 'dist')
+    multirun(6, *norte.multirun('dep', 'icedist.cpp', iterations=10))
+    norte.combine('dep', 'dist')
+def syntaxSig():
+    # 9. Run ctrl.out with various parameter settings.
+    # TODO: Only does paths right now, no trigrams or dependency-paths
+    multirun(6, *norte.multirun('path', 'icesig.cpp'))
+    norte.combine('path', 'sig')
+    multirun(6, *norte.multirun('trigram', 'icesig.cpp'))
+    norte.combine('trigram', 'sig')
+    multirun(6, *norte.multirun('dep', 'icesig.cpp'))
+    norte.combine('dep', 'sig')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

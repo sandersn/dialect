@@ -123,3 +123,19 @@ double average_r(const dialect& a, const dialect& b) {
   }
   return sum / 100.0;
 }
+pair<double, double> r_avg_variance (const dialect& a, const dialect& b) {
+#define AVG_ITERATIONS 10
+  double sum = 0.0;
+  vector<double> rs(AVG_ITERATIONS);
+  for(int i = 0; i < AVG_ITERATIONS; i++) {
+    double r_value = R_MEASURE(normalise(permutation(a), permutation(b), 5));
+    sum += r_value;
+    rs.push_back(r_value);
+  }
+  double avg = sum / AVG_ITERATIONS;
+  double variance = 0.0;
+  for(int i = 0; i < AVG_ITERATIONS; i++) {
+    variance += sqr(rs[i] - avg);
+  }
+  return make_pair(sum / AVG_ITERATIONS, variance / AVG_ITERATIONS);
+}
