@@ -24,11 +24,9 @@ def multirun(feature, cpp, iterations=100):
     suffix = '-' + feature + '.dat'
     ctrl = "nice -n 6 ./ctrl.out".split()
     pairs = pairwise(swediaSites)
-    tasks = [ctrl + [sq(fro+suffix), sq(to+suffix)] for (fro,to) in pairs]
+    tasks = [ctrl + [fro+suffix, to+suffix] for (fro,to) in pairs]
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro, to) in pairs]
     return (tasks,files)
-def sq(s):
-    return "'" + s + "'"
 def combine(feature, type):
     "Combine the disparate output files into one"
     out = '%s-100-1000-r-%s-interview.txt' % (type,feature,)

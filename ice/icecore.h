@@ -184,6 +184,10 @@ bool comparepermutation(const dialect& a, const dialect& b) {
 
 pair<string, vector<vector<string> > > readfile(const char* filename) {
   ifstream f(filename);
+  if(!f) {
+    cout << filename << " is not found." << endl;
+    throw filename;
+  }
   string lang;
   getline(f,lang);
   vector<vector<string> > sss;

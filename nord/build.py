@@ -20,10 +20,10 @@ def multirun(n, tasks, files):
                  for i in range(n)]
     i = n
     while processes != []:
-        subprocess.Popen(['sleep', '1']).wait()
+        subprocess.Popen(['sleep', '0.25']).wait()
         processes, dones = partition(lambda p:p.poll() is None, processes)
-        if i < len(tasks):
-            for _ in dones:
+        for _ in dones:
+            if i < len(tasks):
                 print("Starting", ' '.join(tasks[i]))
                 processes.append(subprocess.Popen(tasks[i],
                                                   stdout=file(files[i], 'w')))
