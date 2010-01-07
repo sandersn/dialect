@@ -12,6 +12,8 @@ talbanken = [tbpath ++ "SD.tiger.xml",
              tbpath ++ "G.tiger.xml"]
 -- TODO: Fix "Leksand " typo
 -- "Leksand", WARNING: One filename is typoed "Leksand " not "Leksand"
+quoteSpace site | ' ' `elem` site = "\"" ++ site ++ "\""
+                | otherwise = site
 swediaCounties = Map.fromList [ -- or I could just use the county code
     ("Stockholm", ["Sorunda"]),
     ("Vasterbotten", []), -- Va

@@ -147,6 +147,22 @@
      an include file. I will also chop up my proposal into
      dissertation chapters and paste the pieces in.
    - Still need to re-run DepPath.
+** 2010/01/07
+   - I reorganise icectrl into 3 files, changed the name to icesig.cpp,
+     and added icedist.cpp. I dumped the distances and loaded them
+     into Excel. I pasted a bunch of proposal text into my
+     dissertation, plus some qual paper.
+   - I will dump R tables and generate histograms. I will download a
+     map from bing of Sweden and annotate it with pixel locations so I
+     can figure out the distances in order to have geographic distnace
+     matrix also.
+   - Later I also need to write C++ to dump the features comparing an
+     entire region to an entire other region. Then I can read them
+     with something decent like Python or Haskell and do some
+     analysis.
+     I should also paste some of the detailed methods from my qual
+     paper into the methods chapter. There is some detailed discussion
+     of R, normalisation and leaf-ancestor paths.
 * Plan
 ** January
 *** Get results
@@ -196,3 +212,5 @@
 * TODO Remember to *backup* blog posts
 * TODO Remember to port viper-mode changes to modern emacs (and upgrade peregrin's viper)
 * TODO Write some usable feature extraction code.
+* TODO Remember to run correlations
+* TODO Per-comparison variance is apparently borked.

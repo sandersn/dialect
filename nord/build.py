@@ -101,6 +101,35 @@ def syntaxSig():
     norte.combine('trigram', 'sig')
     multirun(6, *norte.multirun('dep', 'icesig.cpp'))
     norte.combine('dep', 'sig')
+def syntaxFeatures():
+    # 11. Dump a list of all features between each pair of sites.
+    # 11.1 Then analyse it.
+    pass
+def genAnalysis():
+    run('ghc -O2 --make FormatDistance')
+    # 10. Generate some analysis of the output
+    # 10.1 First a 2-D table (half-matrix) for Excel
+    run('./FormatDistance dist-100-1000-r-dep-interview.txt pairwise > dist-10-1000-r-dep-interview.csv')
+    run('./FormatDistance dist-100-1000-r-path-interview.txt pairwise > dist-10-1000-r-path-interview.csv')
+    run('./FormatDistance dist-100-1000-r-trigram-interview.txt pairwise > dist-10-1000-r-trigram-interview.csv')
+    # 10.2 Next a 2-D table (full/redundant-matrix) for R
+    run('./FormatDistance dist-100-1000-r-dep-interview.txt square > dist-10-1000-r-dep-interview-R.txt')
+    run('./FormatDistance dist-100-1000-r-path-interview.txt square > dist-10-1000-r-path-interview-R.txt')
+    run('./FormatDistance dist-100-1000-r-trigram-interview.txt square > dist-10-1000-r-trigram-interview-R.txt')
+    # 10.3 Here is the resulting R code. Cmd-S the resulting window after
+    # sizing it to a nice size.
+    # maybe there is an automated way to do this.
+    # > dep <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-dep-interview-R.txt", header=TRUE)
+    ## > path <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-path-interview-R.txt", header=TRUE)
+    ## > trigram <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-trigram-interview-R.txt", header=TRUE)
+    ## > plclust(hclust(as.dist(dep)), hang=-1, sub="", xlab="", ylab="Dependency")
+    ## > plclust(hclust(as.dist(path)), hang=-1, sub="", xlab="", ylab="Leaf-Ancestor Path")
+    ## > plclust(hclust(as.dist(dep)), hang=-1, sub="", xlab="", ylab="Dependency")
+    ## > plclust(hclust(as.dist(path)), hang=-1, sub="", xlab="", ylab="Leaf-Ancestor Path")
+    ## > plclust(hclust(as.dist(trigram)), hang=-1, sub="", xlab="", ylab="Trigram")
+    ## > plclust(hclust(as.dist(trigram), method="ward"), hang=-1, sub="", xlab="", ylab="Trigram")
+    ## > plclust(hclust(as.dist(path), method="ward"), hang=-1, sub="", xlab="", ylab="Leaf-Ancestor Path")
+    ## > plclust(hclust(as.dist(dep), method="ward"), hang=-1, sub="", xlab="", ylab="Dependency")
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

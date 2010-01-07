@@ -137,5 +137,5 @@ pair<double, double> r_avg_variance (const dialect& a, const dialect& b) {
   for(int i = 0; i < AVG_ITERATIONS; i++) {
     variance += sqr(rs[i] - avg);
   }
-  return make_pair(sum / AVG_ITERATIONS, variance / AVG_ITERATIONS);
+  return make_pair(avg, variance / AVG_ITERATIONS);
 }
