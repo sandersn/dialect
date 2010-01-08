@@ -87,11 +87,11 @@ def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths
     multirun(6, *norte.multirun('path', 'icedist.cpp', iterations=10))
-    norte.combine('path', 'dist')
+    norte.combine('path', 'dist', iterations=10)
     multirun(6, *norte.multirun('trigram', 'icedist.cpp', iterations=10))
-    norte.combine('trigram', 'dist')
+    norte.combine('trigram', 'dist', iterations=10)
     multirun(6, *norte.multirun('dep', 'icedist.cpp', iterations=10))
-    norte.combine('dep', 'dist')
+    norte.combine('dep', 'dist', iterations=10)
 def syntaxSig():
     # 9. Run ctrl.out with various parameter settings.
     # TODO: Only does paths right now, no trigrams or dependency-paths
@@ -107,29 +107,33 @@ def syntaxFeatures():
     pass
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
+    run('ghc -O2 --make CalculateGeoDistance')
+    run('./CalculateGeoDistance >dist-10-1000-geo-interview.txt')
     # 10. Generate some analysis of the output
     # 10.1 First a 2-D table (half-matrix) for Excel
-    run('./FormatDistance dist-100-1000-r-dep-interview.txt pairwise > dist-10-1000-r-dep-interview.csv')
-    run('./FormatDistance dist-100-1000-r-path-interview.txt pairwise > dist-10-1000-r-path-interview.csv')
-    run('./FormatDistance dist-100-1000-r-trigram-interview.txt pairwise > dist-10-1000-r-trigram-interview.csv')
+    run('./FormatDistance dist-10-1000-r-dep-interview.txt pairwise > dist-10-1000-r-dep-interview.csv')
+    run('./FormatDistance dist-10-1000-r-path-interview.txt pairwise > dist-10-1000-r-path-interview.csv')
+    run('./FormatDistance dist-10-1000-r-trigram-interview.txt pairwise > dist-10-1000-r-trigram-interview.csv')
+    run('./FormatDistance dist-10-1000-geo-interview.txt pairwise > dist-10-1000-geo-interview.csv')
     # 10.2 Next a 2-D table (full/redundant-matrix) for R
-    run('./FormatDistance dist-100-1000-r-dep-interview.txt square > dist-10-1000-r-dep-interview-R.txt')
-    run('./FormatDistance dist-100-1000-r-path-interview.txt square > dist-10-1000-r-path-interview-R.txt')
-    run('./FormatDistance dist-100-1000-r-trigram-interview.txt square > dist-10-1000-r-trigram-interview-R.txt')
+    run('./FormatDistance dist-10-1000-r-dep-interview.txt square > dist-10-1000-r-dep-interview-R.txt')
+    run('./FormatDistance dist-10-1000-r-path-interview.txt square > dist-10-1000-r-path-interview-R.txt')
+    run('./FormatDistance dist-10-1000-r-trigram-interview.txt square > dist-10-1000-r-trigram-interview-R.txt')
+    run('./FormatDistance dist-10-1000-geo-interview.txt square > dist-10-1000-geo-interview-R.txt')
     # 10.3 Here is the resulting R code. Cmd-S the resulting window after
     # sizing it to a nice size.
     # maybe there is an automated way to do this.
     # > dep <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-dep-interview-R.txt", header=TRUE)
     ## > path <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-path-interview-R.txt", header=TRUE)
     ## > trigram <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-trigram-interview-R.txt", header=TRUE)
-    ## > plclust(hclust(as.dist(dep)), hang=-1, sub="", xlab="", ylab="Dependency")
-    ## > plclust(hclust(as.dist(path)), hang=-1, sub="", xlab="", ylab="Leaf-Ancestor Path")
-    ## > plclust(hclust(as.dist(dep)), hang=-1, sub="", xlab="", ylab="Dependency")
-    ## > plclust(hclust(as.dist(path)), hang=-1, sub="", xlab="", ylab="Leaf-Ancestor Path")
-    ## > plclust(hclust(as.dist(trigram)), hang=-1, sub="", xlab="", ylab="Trigram")
+    ## > geo <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-geo-R.txt", header=TRUE)
     ## > plclust(hclust(as.dist(trigram), method="ward"), hang=-1, sub="", xlab="", ylab="Trigram")
     ## > plclust(hclust(as.dist(path), method="ward"), hang=-1, sub="", xlab="", ylab="Leaf-Ancestor Path")
     ## > plclust(hclust(as.dist(dep), method="ward"), hang=-1, sub="", xlab="", ylab="Dependency")
+    ## > plclust(hclust(as.dist(geo), method="ward"), hang=-1, sub="", xlab="", ylab="Geographical Distance")
+    ## source("/Users/zackman/Documents/dialect/montecarlo Mantel example.R")
+    ## cor(vectorise(geo), vectorise(dep)) (cross [geo,trigram,path,dep])
+    ## mantel(geo, dep, 33) (cross [geo,trigram,path,dep]
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

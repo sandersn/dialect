@@ -27,9 +27,9 @@ def multirun(feature, cpp, iterations=100):
     tasks = [ctrl + [fro+suffix, to+suffix] for (fro,to) in pairs]
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro, to) in pairs]
     return (tasks,files)
-def combine(feature, type):
+def combine(feature, type, iterations=100):
     "Combine the disparate output files into one"
-    out = '%s-100-1000-r-%s-interview.txt' % (type,feature,)
+    out = '%s-%s-1000-r-%s-interview.txt' % (type,iterations,feature,)
     pairs = pairwise(swediaSites)
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro,to) in pairs]
     outf = open(out, 'w')

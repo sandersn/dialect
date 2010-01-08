@@ -8,4 +8,59 @@ Distances vary somewhat between regions, as expected.
 Standard deviations are slightly higher for trigram features than for
 other feature types.
 
-TODO: Maps, clusters, globes, outhouses, \ldots
+There are 5 main clusters found by leaf-ancestor path and dependency
+path feature types. These clusters are also visible in the trigram
+clusters, but are not so clear.
+
+
+\begin{figure}
+  Jamshog, Ossjo, Tors\.as
+\label{cluster-a}
+\caption{Cluster A}
+\end{figure}
+
+\begin{figure}
+  Loderup, Norra Rorum, K\"ola, Boda, Frilles\.as, Villberga,
+  Breds\"atra
+\label{cluster-b}
+\caption{Cluster B}
+\end{figure}
+
+\begin{figure}
+  Viby, Bara, Sorunda, St Anna, Faro, Fole, Arjeplog, Torso
+\label{cluster-c}
+\caption{Cluster C}
+\end{figure}
+
+\begin{figure}
+  Ankarsrum, V\"axtorp, Bengtsfors, Floby, Segerstad, Sproge,
+  Skinnskatteberg
+\label{cluster-d}
+\caption{Cluster D}
+\end{figure}
+
+\begin{figure}
+  Nederluleu, Overkalix, Asby, Orust, Anundsj\"o, Arsunda, Indal,
+  Leksand
+\label{cluster-e}
+\caption{Cluster E}
+\end{figure}
+
+TODO: Maps, clusters, diagrams, globes, outhouses, \ldots
+\begin{table}
+\begin{tabular}{r|ccc}
+  & Trigram & Leaf-Ancestor & Dependency  \\ \hline
+  Geographic & -0.096 & 0.004 & 0.028 \\
+  Dependency & 0.782** & 0.896** & \\
+  Leaf-Ancestor & 0.969** & & \\
+\end{tabular} \\
+* $ p < 0.05$ \\
+** $ p < 0.01$ \\
+\label{correlation}
+\caption{Correlation}
+\end{table}
+
+Diagrams are taken from Wikipedia under the Creative Commons
+Attribution ShareAlike 3.0 Licence, and my modifications are released
+under the same licence. They are available separately in pdf and svg
+format at sandersn.com/Sverigekarta-Landskap-Swedia.pdf
