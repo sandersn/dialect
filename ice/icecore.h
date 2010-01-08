@@ -156,9 +156,6 @@ double r_sq(const sample& c) {
   }
   return total;
 }
-///////// extra code used to be here ///////
-// #include "iceextra.h"
-/////////
 
 // = ((<=) r_total)
 bool comparepermutation(const dialect& a, const dialect& b) {

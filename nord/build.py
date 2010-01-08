@@ -77,6 +77,7 @@ def tagCfg():
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def genFeatures():
+    # so I guess this is 10.0: generate features from annotations
     run('ghc -O2 --make Path -main-is Path.main')
     run('ghc -O2 --make DepPath -main-is DepPath.main')
     for region in consts.swediaSites:
@@ -85,32 +86,28 @@ def genFeatures():
         run("./DepPath '%s.dep.conll' >'%s-dep.dat'" % (region,region))
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
-    # TODO: Only does paths right now, no trigrams or dependency-paths
-    multirun(6, *norte.multirun('path', 'icedist.cpp', iterations=10))
-    norte.combine('path', 'dist', iterations=10)
-    multirun(6, *norte.multirun('trigram', 'icedist.cpp', iterations=10))
-    norte.combine('trigram', 'dist', iterations=10)
-    multirun(6, *norte.multirun('dep', 'icedist.cpp', iterations=10))
-    norte.combine('dep', 'dist', iterations=10)
+    for feature in ['path', 'feat', 'dep']:
+        multirun(6, *norte.icetasks(feature, 'icedist.cpp', iterations=10))
+        norte.combine(feature, 'dist', iterations=10)
 def syntaxSig():
-    # 9. Run ctrl.out with various parameter settings.
-    # TODO: Only does paths right now, no trigrams or dependency-paths
-    multirun(6, *norte.multirun('path', 'icesig.cpp'))
-    norte.combine('path', 'sig')
-    multirun(6, *norte.multirun('trigram', 'icesig.cpp'))
-    norte.combine('trigram', 'sig')
-    multirun(6, *norte.multirun('dep', 'icesig.cpp'))
-    norte.combine('dep', 'sig')
+    # 11. Run ctrl.out with various parameter settings.
+    for feature in ['path', 'feat', 'dep']:
+        multirun(6, *norte.icetasks(feature, 'icesig.cpp'))
+        norte.combine(feature, 'sig')
 def syntaxFeatures():
-    # 11. Dump a list of all features between each pair of sites.
-    # 11.1 Then analyse it.
-    pass
+    # 12. Dump a list of all features between each pair of sites.
+    for feature in ['path', 'feat', 'dep']:
+        multirun(6, *norte.icetasks(feature, 'icefeat.cpp'))
+        # 12.1 Then analyse it
+        # (code similar to FormatDistance / CalculateGeoDistance)
+        multirun(6, *norte.extracttasks())
+        norte.combine(feature, 'feat', iterations=5)
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
     run('./CalculateGeoDistance >dist-10-1000-geo-interview.txt')
-    # 10. Generate some analysis of the output
-    # 10.1 First a 2-D table (half-matrix) for Excel
+    # 13. Generate some analysis of the output
+    # 13.1 First a 2-D table (half-matrix) for Excel
     run('./FormatDistance dist-10-1000-r-dep-interview.txt pairwise > dist-10-1000-r-dep-interview.csv')
     run('./FormatDistance dist-10-1000-r-path-interview.txt pairwise > dist-10-1000-r-path-interview.csv')
     run('./FormatDistance dist-10-1000-r-trigram-interview.txt pairwise > dist-10-1000-r-trigram-interview.csv')

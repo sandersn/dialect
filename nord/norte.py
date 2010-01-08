@@ -13,7 +13,7 @@ def typecheck(*args):
 def pairwise(l):
     return [(x,y) for i,x in enumerate(l) for y in l[i+1:]]
 ### runner ###
-def multirun(feature, cpp, iterations=100):
+def icetasks(feature, cpp, iterations=100):
     params = open('params.h','w')
     params.write('#define ITERATIONS %s\n' % (iterations,))
     params.write('#define SAMPLES 1000\n')
@@ -22,10 +22,17 @@ def multirun(feature, cpp, iterations=100):
 
     os.system('g++ -O2 -o ctrl.out params.h ' + cpp)
     suffix = '-' + feature + '.dat'
-    ctrl = "nice -n 6 ./ctrl.out".split()
+    cmd = "nice -n 6 ./ctrl.out".split()
     pairs = pairwise(swediaSites)
-    tasks = [ctrl + [fro+suffix, to+suffix] for (fro,to) in pairs]
+    tasks = [cmd + [fro+suffix, to+suffix] for (fro,to) in pairs]
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro, to) in pairs]
+    return (tasks,files)
+def extracttasks():
+    pairs = pairwise(swediaSites)
+    cmd = "nice -n 6 ./RankFeatures".split()
+    # WARNING: Reusing the same file for I/O is not likely to work.
+    tasks = [cmd + ["%s-%s-tmp.txt" % pair] for pair in pairs]
+    files = ['%s-%s-tmp.txt' % pair for pair in pairs]
     return (tasks,files)
 def combine(feature, type, iterations=100):
     "Combine the disparate output files into one"

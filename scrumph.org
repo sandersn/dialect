@@ -163,6 +163,15 @@
      I should also paste some of the detailed methods from my qual
      paper into the methods chapter. There is some detailed discussion
      of R, normalisation and leaf-ancestor paths.
+** 2010/01/08
+   - I annotated a list of locations with their relative geographical
+     location. I dumped all data to R-format text tables. I generated
+     PDF cluster diagrams (Ward's method worked best).
+   - I will run the correlations and establish which are
+     significant. I will write them up. I will make a nice diagram for
+     visualising the clusters on the map of Sweden. I will write code
+     to dump the diffs between the features of each set.
+   - 
 * Plan
 ** January
 *** Get results
