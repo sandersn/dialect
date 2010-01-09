@@ -16,7 +16,7 @@ import subprocess
 cgitb.enable(format='text')
 
 def multirun(n, tasks, files):
-    processes = [subprocess.Popen(tasks[i], stdout=file(files[i],'w'))
+    processes = [subprocess.Popen(tasks[i], stdout=open(files[i],'w'))
                  for i in range(n)]
     i = n
     while processes != []:
@@ -26,7 +26,7 @@ def multirun(n, tasks, files):
             if i < len(tasks):
                 print("Starting", ' '.join(tasks[i]))
                 processes.append(subprocess.Popen(tasks[i],
-                                                  stdout=file(files[i], 'w')))
+                                                  stdout=open(files[i], 'w')))
                 i += 1
 def run(cmd):
     result = os.system(cmd)
@@ -100,7 +100,7 @@ def syntaxFeatures():
     for feature in ['path', 'feat', 'dep']:
         multirun(6, *norte.icetasks(feature, 'icefeat.cpp'))
         # 12.1 Then analyse it
-        run('/RankFeatures *-*.tmp >feat-5-1000-r-%s-interview.txt' % (feature,))
+        run('/RankFeatures *-*-tmp.txt >feat-5-1000-r-%s-interview.txt' % (feature,))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
