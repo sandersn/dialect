@@ -95,13 +95,12 @@ def syntaxSig():
         multirun(6, *norte.icetasks(feature, 'icesig.cpp'))
         norte.combine(feature, 'sig')
 def syntaxFeatures():
+    run('ghc -O2 --make RankFeatures')
     # 12. Dump a list of all features between each pair of sites.
     for feature in ['path', 'feat', 'dep']:
         multirun(6, *norte.icetasks(feature, 'icefeat.cpp'))
         # 12.1 Then analyse it
-        # (code similar to FormatDistance / CalculateGeoDistance)
-        multirun(6, *norte.extracttasks())
-        norte.combine(feature, 'feat', iterations=5)
+        run('/RankFeatures *-*.tmp >feat-5-1000-r-%s-interview.txt' % (feature,))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')

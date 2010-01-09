@@ -27,13 +27,6 @@ def icetasks(feature, cpp, iterations=100):
     tasks = [cmd + [fro+suffix, to+suffix] for (fro,to) in pairs]
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro, to) in pairs]
     return (tasks,files)
-def extracttasks():
-    pairs = pairwise(swediaSites)
-    cmd = "nice -n 6 ./RankFeatures".split()
-    # WARNING: Reusing the same file for I/O is not likely to work.
-    tasks = [cmd + ["%s-%s-tmp.txt" % pair] for pair in pairs]
-    files = ['%s-%s-tmp.txt' % pair for pair in pairs]
-    return (tasks,files)
 def combine(feature, type, iterations=100):
     "Combine the disparate output files into one"
     out = '%s-%s-1000-r-%s-interview.txt' % (type,iterations,feature,)
