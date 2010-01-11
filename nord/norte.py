@@ -35,8 +35,8 @@ def combine(feature, type, iterations=100):
 def combineFeatures(clusters, feature):
     suffix = '-' + feature + '.dat'
     for name,cluster in clusters.items():
-        outf = open('%s-%s.dat' % (name, feature), 'w')
-        outf.write(out + '-' + '-'.join(group) + '\n')
+        outf = open('%s-%s.dat' % (name, feature), 'w', encoding='utf-8')
+        outf.write(name + '-' + '-'.join(cluster) + '\n')
         for inf in cluster:
-            outf.writelines(list(open(inf + suffix))[1:])
+            outf.writelines(list(open(inf + suffix, encoding='utf-8'))[1:])
         outf.close()

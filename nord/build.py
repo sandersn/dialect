@@ -101,7 +101,7 @@ def syntaxFeatures():
     for feature in ['path', 'trigram', 'dep']:
         # 12.1 Make cluster files first
         norte.combineFeatures(consts.agreeClusters, feature)
-        multirun(6, *norte.icetasks(consts.agreeClusters.keys(),
+        multirun(6, *norte.icetasks(list(consts.agreeClusters.keys()),
                                     feature, 'icefeat.cpp'))
         # 12.2 Then analyse it
         run('./RankFeatures *-*-tmp.txt >feat-5-1000-r-%s-interview.txt' % (feature,))
