@@ -171,7 +171,23 @@
      significant. I will write them up. I will make a nice diagram for
      visualising the clusters on the map of Sweden. I will write code
      to dump the diffs between the features of each set.
-   - 
+   - Tomorrow I should start putting all the diagrams into the
+     dissertation.
+** 2010/01/11
+   - I ran correlations, found the significant ones and put them in a
+     Latex table. I downloaded OmniGraffle and marked up the SVG/PDF
+     map of Sweden from Wikipedia (available under CC GPL-Like
+     licence). I wrote the code to dump per-feature diffs in C++. Then
+     I wrote some Haskell code that reads in each file and (currently)
+     prints the header plus the top and bottom 5 features. I ran it
+     but there are way too many features to look at.
+   - I will create a dict in consts of the Agree or Dep clusters,
+     write some code in Norte to concat files sans the header (which I
+     now think is a bad idea), then run the feature extraction on
+     them. This will make only 10 comparisons to look at instead of
+     528.
+   - Need To pay for Omnigraffle--find out how to get academic
+     discount
 * Plan
 ** January
 *** Get results
@@ -180,7 +196,7 @@
 **** TODO Try different regions
 **** TODO Try different parameters to parsers
 **** TODO Try different distance measures
-**** TODO Move experiment to Banks
+**** DONE Move experiment to Banks
 *** Introduction
 **** Figure out how to structure latex chapters
 **** Introduction
@@ -218,8 +234,5 @@
   and see what common noise shows up
 * TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
-* TODO Remember to *backup* blog posts
-* TODO Remember to port viper-mode changes to modern emacs (and upgrade peregrin's viper)
-* TODO Write some usable feature extraction code.
-* TODO Remember to run correlations
 * TODO Per-comparison variance is apparently borked.
+* TODO Pay for OmniGraffle

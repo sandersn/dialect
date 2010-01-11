@@ -8,6 +8,7 @@ import qualified Data.Map as Map
 import Maybe (fromMaybe)
 import System (getArgs)
 import Control.Arrow ((&&&))
+import Control.Monad ((>=>))
 {--- lst ---}
 countBy f = filter f & length
 count x = filter (==x) & length
@@ -26,10 +27,9 @@ groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
 splitBy f = split $ dropInitBlank $ dropFinalBlank $ keepDelimsL $ whenElt f
 list = (:[])
 {--- fs ---}
-withFile f filename = return . f =<< readFile filename -- see also System.IO
-withFileLines f filename = return . f . lines =<< readFile filename
-argsFilePrinter read show =
-    getArgs >>= mapM read >>= concat & mapM_ (show & putStrLn)
+withFile f = readFile >=> f & return -- see also System.IO
+withFileLines f = readFile >=> lines & f & return
+argsFilePrinter read show = mapM_ (read >=> mapM_ (show & putStrLn)) =<< getArgs
 {--- fnc (F# esque) ---}
 infixl 9 &
 infixl 0 |>
