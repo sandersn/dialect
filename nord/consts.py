@@ -70,6 +70,18 @@ swediaRegions = dict(
                'Faro', 'Fole', 'Sproge'],
     West = ['Bengtsfors', 'Floby', 'Orust', 'Torso', 'Frillesas', 'Vaxtorp'],
     )
+agreeClusters = dict(
+    # I suppose I could call them Mystery Central1 Central2 Exterior and North
+    clusterA = [ 'Jamshog', 'Ossjo', 'Torsås', ],
+    clusterB = [ 'Loderup', 'Norra Rorum', 'Köla', 'Boda',
+                 'Bredsatra', 'Villberga', 'Frillesas', ],
+    clusterC = [ 'Viby', 'Bara', 'Sorunda', 'StAnna', 'Arjeplog',
+                 'Faro', 'Fole', 'Torso', ],
+    clusterD = [ 'Ankarsrum', 'Vaxtorp', 'Bengtsfors', 'Floby',
+                 'Skinnskatteberg', 'Sproge', 'Segerstad', ],
+    clusterE = [ 'Anundsjo', 'Arsunda', 'Asby', 'Indal',
+                 'Leksand', 'Nederlulea', 'Orust', 'Overkalix', ]
+    )
 swediaSites = [
   'Ankarsrum',
   'Anundsjo',
