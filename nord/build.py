@@ -86,20 +86,24 @@ def genFeatures():
         run("./DepPath '%s.dep.conll' >'%s-dep.dat'" % (region,region))
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
-    for feature in ['path', 'feat', 'dep']:
-        multirun(6, *norte.icetasks(feature, 'icedist.cpp', iterations=10))
+    for feature in ['path', 'trigram', 'dep']:
+        multirun(6, *norte.icetasks(consts.swediaSites,
+                                    feature, 'icedist.cpp', iterations=10))
         norte.combine(feature, 'dist', iterations=10)
 def syntaxSig():
     # 11. Run ctrl.out with various parameter settings.
-    for feature in ['path', 'feat', 'dep']:
-        multirun(6, *norte.icetasks(feature, 'icesig.cpp'))
+    for feature in ['path', 'trigram', 'dep']:
+        multirun(6, *norte.icetasks(consts.swediaSites, feature, 'icesig.cpp'))
         norte.combine(feature, 'sig')
 def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
-    # 12. Dump a list of all features between each pair of sites.
-    for feature in ['path', 'feat', 'dep']:
-        multirun(6, *norte.icetasks(feature, 'icefeat.cpp'))
-        # 12.1 Then analyse it
+    # 12. Dump a list of all features between each pair of site clusters.
+    for feature in ['path', 'trigram', 'dep']:
+        # 12.1 Make cluster files first
+        norte.combineFeatures(consts.agreeClusters, feature)
+        multirun(6, *norte.icetasks(consts.agreeClusters.keys(),
+                                    feature, 'icefeat.cpp'))
+        # 12.2 Then analyse it
         run('./RankFeatures *-*-tmp.txt >feat-5-1000-r-%s-interview.txt' % (feature,))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
