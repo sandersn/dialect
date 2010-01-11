@@ -6,10 +6,6 @@ from consts import swediaSites
 import os
 from codecs import open
 ### util ###
-def typecheck(*args):
-    def wrapper(f):
-        return f
-    return wrapper
 def pairwise(l):
     return [(x,y) for i,x in enumerate(l) for y in l[i+1:]]
 ### runner ###
@@ -37,9 +33,10 @@ def combine(feature, type, iterations=100):
         outf.write(open(file).read())
     outf.close()
 def combineFeatures(clusters, feature):
+    suffix = '-' + feature + '.dat'
     for name,cluster in clusters.items():
         outf = open('%s-%s.dat' % (name, feature), 'w')
         outf.write(out + '-' + '-'.join(group) + '\n')
         for inf in cluster:
-            outf.writelines(list(open(inf))[1:])
+            outf.writelines(list(open(inf + suffix))[1:])
         outf.close()
