@@ -100,7 +100,7 @@ def syntaxFeatures():
     for feature in ['path', 'feat', 'dep']:
         multirun(6, *norte.icetasks(feature, 'icefeat.cpp'))
         # 12.1 Then analyse it
-        run('/RankFeatures *-*-tmp.txt >feat-5-1000-r-%s-interview.txt' % (feature,))
+        run('./RankFeatures *-*-tmp.txt >feat-5-1000-r-%s-interview.txt' % (feature,))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
