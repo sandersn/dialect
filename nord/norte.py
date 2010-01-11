@@ -38,8 +38,8 @@ def combine(feature, type, iterations=100):
     outf.close()
 def combineFeatures(clusters, feature):
     for name,cluster in clusters.items():
-        outf = open('%s-%s.dat' % (name, feature), 'w')
-        outf.write(out + '-' + '-'.join(group) + '\n')
+        outf = open('%s-%s.dat' % (name, feature), 'w', encoding='utf-8')
+        outf.write(name + '-' + '-'.join(cluster) + '\n')
         for inf in cluster:
-            outf.writelines(list(open(inf))[1:])
+            outf.writelines(list(open(inf, encoding='utf-8'))[1:])
         outf.close()
