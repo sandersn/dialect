@@ -305,6 +305,19 @@ differences in sentence length and complexity.  Unfortunately, even normalized, 
 measure doesn't indicate whether its results are significant; a
 permutation test is needed for that.
 
+\subsubsection{Normalization}
+The distance must be normalized for two kinds of variation:
+the length of sentences in the corpus and the amount of variety in the
+corpus. If sentence length differs too much between corpora, there
+will be consistently lower token counts in one corpus, which would
+cause a spuriously large $R$. In addition, if one corpus has less
+variety than the other, it will have inflated type counts, because
+more tokens will be allocated to fewer types. To avoid
+this, all tokens are scaled by the average number of types per token
+across both corpora: $2n/N$ where $n$ is the type count and $N$ is
+the token count. The additional factor $2$ is necessary because we are
+recombining the tokens from the two corpora.
+
 % Other ideas include training a
 % model on one area and comparing the entropy (compression) of other
 % areas. At this point it's unclear whether this would provide a
@@ -342,9 +355,100 @@ creates the following leaf-ancestor paths:
 \end{itemize}
 
 For identical siblings, brackets must be inserted in the path to
-disambiguate the first sibling from the second. The process is
-described in \namecite{sampson00} or \namecite{sanders07};
-in any case identical siblings are somewhat rare.
+disambiguate the first sibling from the second.
+There is one path for each word, and the root appears
+in all four. However, there can be ambiguities if some
+node happens to have identical siblings. Sampson gives the example
+of the two trees
+\[\xymatrix{
+  &&\textrm{A} \ar@{-}[dl] \ar@{-}[dr] &&&\\
+  &\textrm{B} \ar@{-}[d] \ar@{-}[dl] &&\textrm{B} \ar@{-}[d] \ar@{-}[dr] & \\
+  \textrm{p} & \textrm{q} && \textrm{r} & \textrm{s} \\
+}
+\]
+and
+\[\xymatrix{
+  &&\textrm{A} \ar@{-}[d] &&&\\
+  &&\textrm{B} \ar@{-}[dll] \ar@{-}[dl] \ar@{-}[dr] \ar@{-}[drr]&&& \\
+  \textrm{p} & \textrm{q} && \textrm{r} & \textrm{s} \\
+}
+\]
+which would both produce
+
+  \begin{itemize}
+  \item A-B-p
+  \item A-B-q
+  \item A-B-r
+  \item A-B-s
+  \end{itemize}
+
+  There is no way to tell from the paths which leaves belong to which
+  B node in the first tree, and there is no way to tell the paths of
+  the two trees apart despite their different structure. To avoid this
+  ambiguity, Sampson uses a bracketing system; brackets are inserted
+  at appropriate points to produce
+  \begin{itemize}
+  \item $[$A-B-p
+  \item A-B]-q
+  \item A-[B-r
+  \item A]-B-s
+  \end{itemize}
+and
+  \begin{itemize}
+  \item $[$A-B-p
+  \item A-B-q
+  \item A-B-r
+  \item A]-B-s
+  \end{itemize}
+
+Left and right brackets are inserted: at most one
+in every path. A left bracket is inserted in a path containing a leaf
+that is a leftmost sibling and a right bracket is inserted in a path
+containing a leaf that is a rightmost sibling. The bracket is inserted
+at the highest node for which the leaf is leftmost or rightmost.
+
+It is a good exercise to derive the bracketing of the previous two trees in deta
+il.
+In the first tree, with two B
+siblings, the first path is A-B-p. Since $p$ is a leftmost child,
+a left bracket must be inserted, at the root in this case. The
+resulting path is [A-B-p. The next leaf, $q$, is rightmost, so a right
+bracket must be inserted. The highest node for which it is rightmost
+is B, because the rightmost leaf of A is $s$. The resulting path is
+A-B]-q. Contrast this with the path for $q$ in the second tree; here $q$
+is not rightmost, so no bracket is inserted and the resulting path is
+A-B-q. $r$ is in almost the same position as $q$, but reversed: it is the
+leftmost, and the right B is the highest node for which it is the
+leftmost, producing A-[B-r. Finally, since $s$ is the rightmost leaf of
+the entire sentence, the right bracket appears after A: A]-B-s.
+
+At this point, the alert reader will have
+noticed that both a left bracket and right bracket can be inserted for
+a leaf with no siblings since it is both leftmost and rightmost. That is,
+a path with two brackets on the same node could be produced: A-[B]-c. Because
+of this redundancy, single children are
+excluded by the bracket markup algorithm. There is still
+no ambiguity between two single leaves and a single node with two
+leaves because only the second case will receive brackets.
+
+% See for yourself:
+% \[\xymatrix{
+%   &\textrm{A} \ar@{-}[dl] \ar@{-}[dr] &\\
+%   \textrm{B} \ar@{-}[d] &&\textrm{B} \ar@{-}[d] \\
+%   \textrm{p} && \textrm{q} \\
+% }
+% \]
+
+% \[\xymatrix{
+%   &\textrm{A} \ar@{-}[d] &\\
+%   &\textrm{B} \ar@{-}[dl] \ar@{-}[dr] & \\
+%   \textrm{p} && \textrm{q} \\
+% }
+% \]
+% \cite{sampson00} also gives a method for comparing paths to obtain an
+% individual path-to-path distance, but this is not necessary for the
+% permutation test, which treats paths as opaque symbols.
+
 
 Sampson originally developed leaf-ancestor paths as an improved
 measure of similarity between gold-standard and machine-parsed trees,
@@ -358,6 +462,9 @@ significant results.
 
 % Another idea is supertags rather than leaf-ancestor paths. This is
 % quite similar but might work better.
+\subsubsection{Leaf-Head Paths}
+% TODO: This section should probably have a lot more examples and maybe some
+% examples of other applications besides my experiment.
 
 For dependency annotations, it is easy to adapt leaf-ancestor paths to
 leaf-head paths. Here, each leaf is associated with a leaf-head path,
@@ -741,3 +848,8 @@ neighbor classification or neural nets.
 % Make sure the KL divergence couldn't go to infinity
 % Jensen-Shannon lifts a couple of restrictions though I think the
 % input still has to be a probability distribution
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "dissertation.tex"
+%%% End: 
