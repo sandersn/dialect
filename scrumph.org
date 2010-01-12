@@ -192,11 +192,18 @@
 ** January
 *** Get results
 **** TODO Try lexicalised vs POS
+     Even if I can't get POS parsing out of the Berkeley parser, I
+     should post-process the output to cut off the terminals. ALSO, I
+     should just use the raw output of TnT.
+     As is the features are just the raw trigrams of the interview,
+     not POS.
 **** TODO Try lexical cleaning
-**** TODO Try different regions
 **** TODO Try different parameters to parsers
-**** TODO Try different distance measures
 **** DONE Move experiment to Banks
+**** TODO Try different distance measures
+**** DONE Try different regions
+     the current ones are smallest and don't need the additional
+     precision
 *** Introduction
 **** Figure out how to structure latex chapters
 **** Introduction
