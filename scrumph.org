@@ -188,6 +188,30 @@
      528.
    - Need To pay for Omnigraffle--find out how to get academic
      discount
+** 2010/01/12
+   - I created a consts.py dict to map agree-clusters to sites, then
+     wrote some code in norte.py to produce cluster feature
+     analyses. Since I don't delete tmp files, RankFeatures extracts
+     every comparison: 528 + 10. I cut the last 10 out and pasted them
+     in results.tex. I also reformatted the Swedia cluster map to use
+     larger fonts and coloured dots.
+   - I will figure out a way to visualise and analyse the top feature
+     differences between clusters (maybe Excel?). I will format them
+     nicely in the results section. I will re-format the clusters so
+     that they fit the page. I will work on pasting some more methods
+     in and then look at the intro/hypotheses--I'm still not sure how
+     that should go.
+   - 
+** 2010/01/13
+   - I put the top 5 top/bottom features from each cluter in Excel and
+     wrote some short analysis on the strength of each cluster. I
+     reformatted clusters. I pasted in some more method detail from my
+     qual paper and wrote some more on the intro.
+   - I will download RuG-L04's newest version and get it to generate
+     nice diagrams. I will re-read my intro and figure out what goes
+     in between the introductory material and the hypotheses. Or after
+     them. I should look at Heeringa's thesis again.
+   - 
 * Plan
 ** January
 *** Get results

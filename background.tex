@@ -64,7 +64,8 @@ corpora into a single number: the distance.
 Dialectometry has focused on phonological distance measures, while
 syntactic measures have remained undeveloped. The most important
 reason for this focus is that it is easier to define a distance
-measure on phonology. In phonology, words decompose to segments and,
+measure on phonology. In phonology, it is easy to collect corpora
+consisting of identical word sets. Then these words decompose to segments and,
 if necessary, segments further decompose to phonological
 features. This decomposition is straightforward and based on
 \namecite{chomsky68}. For combination, string alignment, or Levenshtein
@@ -72,11 +73,13 @@ distance \cite{lev65}, is a well-understood algorithm used for
 measuring changes between any two sequences of characters taken from a
 common alphabet. Levenshtein distance is simple mathematically, and
 has the additional advantage that its intermediate data structures are
-easy to interpret linguistically.
+easy to interpret as linguistic features. These things are possible
+with syntactic distance: neither matched sentence collections nor
+straightfoward functions for decomposition and combinations.
 
 A secondary reason for dialectometry's focus on phonology is that it
-is inherited from dialectology at large
-% (TODO:Cite?).
+is inherited from dialectology's focus on phonology.
+% (TODO:Cite?)
 This might be solely to due to the history of dialectology as a field, but it is
 likely that more phonological than syntactic differences exist between
 dialects, due to historically greater standardization
@@ -114,34 +117,36 @@ the most salient features are used. Then a sophisticated method of
 combination such as Goebl's Weighted Identity Value (WIV), described
 below and by \namecite{goebl06}, can be used to produce a
 distance. WIV is more complex mathematically than Levenshtein
-distance, and operates on any linguistic item. However, manual feature
+distance, and operates on any type of linguistic feature. However, manual feature
 extraction is not feasible in knowledge-poor or time-constrained
 environments. It is also subject to bias from the
-dialectologist. Since the best manual features are those that capture
+dialectologist. Since the best manually extracted features are those that capture
 the difference between two dialects, the best-known features are most
-likely to become the best manual features.
+likely to become the best manual features, passing over the rarely
+occurring and obscure features that might actually be the best
+indicators of a particular dialect.
 
 This approach ignores two important aspects of the problem of syntax
 distance. First, syntactic structure is easily decomposed into
-features; the problem is that the most relevant features, and the best
-decomposition, are not obvious. Second, large syntactic corpora are
-available for many languages, such that extraction of specific
+features; the problem is not finding some decomposition, but finding
+the best decomposition. The most relevant features are not obvious.
+Second, large syntactic corpora are
+available for many languages. But with large corpora, extraction of specific
 syntactic features from carefully elicited sentences is not
-possible. However, the drawbacks of these two aspect cancel each other:
+possible. Fortunately, the drawbacks of these two aspects cancel each other:
 large corpora should provide enough evidence to properly rank
 automatically extracted features.
 % (traditional dialectology must collect small
 % amounts of data, so the much larger search space of syntactic
 % variation does not allow significant differences to emerge)
 
-One such method, a simple statistical measure called $R$,
-has been proposed by \namecite{nerbonne06} based on work by
+One such method, a simple statistical measure called $R$, has been
+proposed by \namecite{nerbonne06} based on work by
 \namecite{kessler01}. At present, however, $R$ has not been adequately
 shown to detect dialect differences. A small body of work suggests
-that it does, but as yet there has not been
-a satisfying correlation of its results with phonology or, as with
-phonological distance, with existing results from the dialectology
-literature on syntax.
+that it does, but as yet there has not been a satisfying correlation
+of its results with existing results from the dialectology literature
+on syntax.
 
 Nerbonne \& Wiersma's first paper used $R$ for syntax distance
 together with a test for statistical significance\cite{nerbonne06}.
@@ -281,3 +286,8 @@ instead. Alternatively, a more complex statistical measure may be
 useful, taking the basic idea of $R$ and increasing its
 sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
 provides a dissimilarity that is intuitively similar to distance.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "dissertation.tex"
+%%% End: 
