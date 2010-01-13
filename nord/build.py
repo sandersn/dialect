@@ -110,16 +110,11 @@ def genAnalysis():
     run('ghc -O2 --make CalculateGeoDistance')
     run('./CalculateGeoDistance >dist-10-1000-geo-interview.txt')
     # 13. Generate some analysis of the output
-    # 13.1 First a 2-D table (half-matrix) for Excel
-    run('./FormatDistance dist-10-1000-r-dep-interview.txt pairwise > dist-10-1000-r-dep-interview.csv')
-    run('./FormatDistance dist-10-1000-r-path-interview.txt pairwise > dist-10-1000-r-path-interview.csv')
-    run('./FormatDistance dist-10-1000-r-trigram-interview.txt pairwise > dist-10-1000-r-trigram-interview.csv')
-    run('./FormatDistance dist-10-1000-geo-interview.txt pairwise > dist-10-1000-geo-interview.csv')
-    # 10.2 Next a 2-D table (full/redundant-matrix) for R
-    run('./FormatDistance dist-10-1000-r-dep-interview.txt square > dist-10-1000-r-dep-interview-R.txt')
-    run('./FormatDistance dist-10-1000-r-path-interview.txt square > dist-10-1000-r-path-interview-R.txt')
-    run('./FormatDistance dist-10-1000-r-trigram-interview.txt square > dist-10-1000-r-trigram-interview-R.txt')
-    run('./FormatDistance dist-10-1000-geo-interview.txt square > dist-10-1000-geo-interview-R.txt')
+    for feature in ['path', 'trigram', 'dep', 'geo']:
+        # 13.1 First a 2-D table (half-matrix) for Excel
+        run('./FormatDistance dist-10-1000-r-%s-interview.txt pairwise > dist-10-1000-r-%s-interview.csv' % (feature, feature))
+        # 13.2 Next a 2-D table (full/redundant-matrix) for R
+        run('./FormatDistance dist-10-1000-r-%s-interview.txt square > dist-10-1000-r-%s-interview-R.txt' % (feature, feature))
     # 10.3 Here is the resulting R code. Cmd-S the resulting window after
     # sizing it to a nice size.
     # maybe there is an automated way to do this.
@@ -134,6 +129,16 @@ def genAnalysis():
     ## source("/Users/zackman/Documents/dialect/montecarlo Mantel example.R")
     ## cor(vectorise(geo), vectorise(dep)) (cross [geo,trigram,path,dep])
     ## mantel(geo, dep, 33) (cross [geo,trigram,path,dep]
+def genMaps():
+    run('ghc -O2 --make ConvertDistToL04')
+    for feature in ['path', 'trigram', 'dep']:
+        run('./ConvertDistToL04 dist-10-1000-r-%s-interview.txt >dist-10-1000-r-%s-interview.dif' % (feature, feature))
+        # -b margin and -c geographic-clipping.??? (hopefully neither needed)
+        run('RuG-L04/bin/mds -o mds-10-1000-r-%s-interview.vec 3 dist-10-1000-r-%s-interview.dif' % (feature, feature))
+        run('RuG-L04/bin/mapsetup -l interview.coo -p')
+        # TODO: Have to write Sverigekarta-Landskap.cfg
+        run('RuG-L04/bin/maprgb -o Sverigekarta-Landskap-mds-%s.eps Sverigekarta-Landskap.cfg mds-10-1000-r-%s-interview.vec' % (feature, feature))
+    run('Something to convert eps to pdf')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)
