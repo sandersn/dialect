@@ -13,7 +13,7 @@ import norte
 import cgitb
 from util.lst import partition
 import subprocess
-cgitb.enable(format='text')
+# cgitb.enable(format='text') # hurting more than it's helping right now
 
 def multirun(n, tasks, files):
     processes = [subprocess.Popen(tasks[i], stdout=open(files[i],'w'))
@@ -133,12 +133,21 @@ def genMaps():
     run('ghc -O2 --make ConvertDistToL04')
     for feature in ['path', 'trigram', 'dep']:
         run('./ConvertDistToL04 dist-10-1000-r-%s-interview.txt >dist-10-1000-r-%s-interview.dif' % (feature, feature))
-        # -b margin and -c geographic-clipping.??? (hopefully neither needed)
         run('RuG-L04/bin/mds -o mds-10-1000-r-%s-interview.vec 3 dist-10-1000-r-%s-interview.dif' % (feature, feature))
+        try:
+            run('rm out.trn') # mapsetup won't overwrite out.trn
+        except:
+            pass
         run('RuG-L04/bin/mapsetup -l interview.coo -p')
-        # TODO: Have to write Sverigekarta-Landskap.cfg
+        cfg = open('Sverigekarta-Landskap.cfg', 'w')
+        cfg.write('transform: out.trn\n')
+        cfg.write('labels: interview.labels\n')
+        cfg.write('coordinates: interview.coo\n')
+        cfg.write('clipping: sverige.clp\n')
+        #TODO: cfg.write(province borders???)
+        cfg.close()
         run('RuG-L04/bin/maprgb -o Sverigekarta-Landskap-mds-%s.eps Sverigekarta-Landskap.cfg mds-10-1000-r-%s-interview.vec' % (feature, feature))
-    run('Something to convert eps to pdf')
+    # run('Something to convert eps to pdf')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

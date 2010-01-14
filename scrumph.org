@@ -212,6 +212,15 @@
      in between the introductory material and the hypotheses. Or after
      them. I should look at Heeringa's thesis again.
    - 
+** 2010/01/14
+   - I downloaded and figured out L04's basics. I didn't reread my
+     intro. I don't have borders to my map, but I did include it
+     already in the dissertation.
+   - I will spend a couple of hours trying to add simple borders to
+     the L04 maps and then re-read my intro.
+   - I should upload a copy of dissertation.tex so that I can show
+     Sandra. Also I need to print an invoice and check that AFP still
+     works on jones.
 * Plan
 ** January
 *** Get results
