@@ -73,7 +73,8 @@ distance \cite{lev65}, is a well-understood algorithm used for
 measuring changes between any two sequences of characters taken from a
 common alphabet. Levenshtein distance is simple mathematically, and
 has the additional advantage that its intermediate data structures are
-easy to interpret as linguistic features. These things are possible
+easy to interpret as the linguistic processes of epenthesis, deletion and
+metathesis. These things are not possible
 with syntactic distance: neither matched sentence collections nor
 straightfoward functions for decomposition and combinations.
 
@@ -128,8 +129,8 @@ indicators of a particular dialect.
 
 This approach ignores two important aspects of the problem of syntax
 distance. First, syntactic structure is easily decomposed into
-features; the problem is not finding some decomposition, but finding
-the best decomposition. The most relevant features are not obvious.
+features; a decomposition function is easy to create, but it is not
+obvious which is the best.
 Second, large syntactic corpora are
 available for many languages. But with large corpora, extraction of specific
 syntactic features from carefully elicited sentences is not
@@ -140,31 +141,32 @@ automatically extracted features.
 % amounts of data, so the much larger search space of syntactic
 % variation does not allow significant differences to emerge)
 
-One such method, a simple statistical measure called $R$, has been
-proposed by \namecite{nerbonne06} based on work by
+One method of combination, a simple statistical measure called $R$,
+was proposed by \namecite{nerbonne06} based on work by
 \namecite{kessler01}. At present, however, $R$ has not been adequately
 shown to detect dialect differences. A small body of work suggests
 that it does, but as yet there has not been a satisfying correlation
 of its results with existing results from the dialectology literature
 on syntax.
 
-Nerbonne \& Wiersma's first paper used $R$ for syntax distance
+Nerbonne \& Wiersma's first paper used part-of-speech trigram features
+as a proxy for syntactic information and $R$ for syntax distance
 together with a test for statistical significance\cite{nerbonne06}.
-Their experiment compared two generations of
-Norwegian L2 speakers of English, with part-of-speech trigrams as input features.
-They found that the two generations were significantly
+Their experiment compared two generations of Norwegian L2 speakers of
+English.  They found that the two generations were significantly
 different, although they had to normalize the trigram counts to
 account for differences in sentence length and complexity. However,
-showing that two generations of speakers are significantly different with respect
-to $R$ does not necessarily imply that the same will be true for other
-types of language varieties. Specifically, for this dissertation, the
-success of $R$ on generational differences does not imply success on
-dialect differences.
+showing that two generations of speakers are significantly different
+with respect to $R$ does not necessarily imply that the same will be
+true for other types of language varieties. Specifically, for this
+dissertation, the success of $R$ on generational differences does not
+imply success on dialect differences.
 
 \namecite{sanders08b} addressed this problem by measuring $R$ between
 the nine Government Office Regions of England, using the International
 Corpus of English Great Britain \cite{nelson02}. Speakers were classified by
-birthplace. Sanders also introduced Sampson's leaf-ancestor paths as
+birthplace. Sanders also attempted to improve syntactic feature
+quality by introducing Sampson's leaf-ancestor paths as
 features \cite{sampson00}. Sanders found statistically
 significant differences between most corpora, using both trigrams and
 leaf-ancestor paths as features. However, $R$'s distances were not
@@ -286,6 +288,21 @@ instead. Alternatively, a more complex statistical measure may be
 useful, taking the basic idea of $R$ and increasing its
 sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
 provides a dissimilarity that is intuitively similar to distance.
+
+\section{Dissertation Overview}
+
+How I will solve these problems and test these hypotheses.
+
+Blah blah a few sentences on methods: $R$ and feature extraction and
+analysis blah blah.
+
+As regards to Swedish: I use the Swediasyn, Swedish section, to test
+the hypotheses on Swedish. [[Describes Swediasyn]]
+There has been some syntactic dialectology on
+Swedish. [[So far I know of a couple of papers by Rosenkvist.]] It is
+not clear whether syntactic features follow the same boundaries as
+other features. [[There isn't a whole lot of literature on any
+boundaries actually.]]
 
 %%% Local Variables: 
 %%% mode: latex

@@ -221,6 +221,8 @@
    - I should upload a copy of dissertation.tex so that I can show
      Sandra. Also I need to print an invoice and check that AFP still
      works on jones.
+     Also I should ask Sandra when /how much I should start sending on
+     to Henrik Rosenkvist.
 * Plan
 ** January
 *** Get results
