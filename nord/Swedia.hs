@@ -19,7 +19,7 @@ readSwedia path filename = withFileLines splitter (path++filename)
 splitter = dropWhile (not . newline) &
            splitBy newline &
            filter (head & (isPrefixOf "*INT") & not) &
-           map (intercalate " " & between ':' '\NAK' & trimsplit)
+           map (unwords & between ':' '\NAK' & trimsplit)
 groupedSites sites paths = collapse keymap (filter visible paths)
   where keymap f = fromJust $ find (`isPrefixOf` f) sites
 getGroupedSites path sites =
@@ -27,7 +27,7 @@ getGroupedSites path sites =
 extractTnt path sites =
  getGroupedSites path sites >>= Map.assocs & mapM_ (\ (region,files) ->
     mapM (readSwedia path) (reverse files) >>=
-    concat & concat & intercalate "\n" &
+    concat & concat & intercalate " " &
     writeFile (region ++ ".t"))
 -- (reverse files) is to remain compatible with Python output
 main = extractTnt Consts.swpath Consts.swediaSites >>= print

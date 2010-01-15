@@ -12,12 +12,14 @@ main = do
     s <- withFileLines (extract region (if target=="t" then trigrams else paths))
                        region
     putStr s
-extract region target = filter (/= "(())")
-                        & filter (not . (=~ "\\([^ ()]+\\)"))
-                        & map (tail & tail & init & runsexp)
-                        & map (target & intercalate "\n")
-                        & intercalate "\n***\n"
-                        & ((region++"\n")++)
+extract region target =
+  filter (/= "(())") -- this line may be unneeded because of
+  & filter (not . (=~ "\\([^ ()]+\\)")) -- this regex
+  & map (tail & tail & init & runsexp & trim & target & intercalate "\n")
+  & intercalate "\n***\n"
+  & ((region++"\n")++)
+trim (Node head [Node _ []]) = Node head []
+trim (Node head kids) = Node head (map trim kids)
 {-- trigrams --}
 leaves (Node head []) = [head]
 leaves (Node head kids) = concatMap leaves kids
