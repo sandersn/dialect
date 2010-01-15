@@ -223,6 +223,21 @@
      works on jones.
      Also I should ask Sandra when /how much I should start sending on
      to Henrik Rosenkvist.
+** 2010/01/15
+   - I got simple borders added to the MDS diagrams from L04. I
+     started an overview section at the end of the background
+     chapter. I tweaked the wording earlier in the chapter, but didn't
+     touch the hypotheses from the proposal.
+   - I will meet with Sandra to find out what I still need to do on
+     the proposal. I will also ask her about variations on the
+     results, general layout of the dissertation, organisation of the
+     first chapter (maybe) and when/how much results to send to
+     Henrik Rosenkvist.
+   - Still not sure what to do about hypotheses in the background
+     chapter.
+     Later today: create hypotheses separate chapter, generate
+     figures for POS run and see how good they are. Revise proposal
+     with Sandra's revisions.
 * Plan
 ** January
 *** Get results
@@ -277,4 +292,62 @@
 * TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
 * TODO Per-comparison variance is apparently borked.
-* TODO Pay for OmniGraffle
+ask Rosenkvist
+    (1) to look at results (start with cluster map+dep
+clusters I think)
+    (2) to recommend a starting point for dialects in Swedish, plus
+    current syntax papers in Swedish dialectology. 'His' page on Lunsd
+    Universitet is sadly missing links to his papers.
+
+ask local Swedish speaker to look over automatic annotation quality
+esp Berkeley parser and its POS tagging quality
+
+(maybe feed Joakim's parser POSs from the Berkely parses in order to
+make the comparison between dep and path fair.) (but this will
+decrease quality of)
+
+send around revised draft, ask to set up a meeting. Then prepare a
+10-15 minute overview of what I am planning to do and what I have done
+so far. They will read the draft and at the meeting decide whether I
+have taken the right amount of work. I will field questions if
+necessary.
+
+intro:
+Add examples of how easy it is chop syntax trees into features:
+    sheesh
+    dependency path/pos
+    dependency path/labels
+    supertags
+    trigrams/lexical
+    trigrams/pos
+    leaf-ancestor paths/lexical items
+    leaf-ancestor paths/no lexical
+    whole-tree checksum
+    any number of syntax-esque features used in CL like word count,
+    tree height, node count, internal parent-child pairs
+    all types of crazy crap and that's from 5 minutes of thinking.
+Provide evidence for why large corpora allow you to identify the best
+feature types
+
+Write self-citation in first person.
+
+section 3.1: 
+
+repeat that non-word-aligned corpora for syntax means that different
+methods are needed
+
+syntactically annotated corpora are also POS annotated (and usually
+morphosyntax)
+
+add justification for why it is better to represent the upper
+structure of the tree--statistical information from the upper part of
+the tree might not be useful? But I say it is, so here's why.
+
+move "If R is bad measure" up as hypothesis 2.
+
+explain why automatic annotation is required "preferably
+automatically". Manual annotatino is BETTER, but I can't do it and
+nobody else has done.
+
+
+try paths of dependency labels instead of POSs
