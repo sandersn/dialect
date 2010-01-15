@@ -7,8 +7,8 @@ import System (getArgs)
 import Talbanken (FlatNode(..))
 main = argsFilePrinter namedProcessor Prelude.id
   where namedProcessor name = withFileLines ((name:) . process) name
-process = endBy [""] & map deps & intersperse "***"
-deps = buildMap & buildRelations & intercalate "\n"
+process = endBy [""] & map deps & intersperse ["***"] & concat
+deps = buildMap & buildRelations
 buildMap = map (splitOn "\t" & deconllise) & fromList
 deconllise [id, w, _, pos, _, _, parentId, _, _, _] =
   (read id, FlatNode pos w (read id) [read parentId])

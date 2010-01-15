@@ -3,7 +3,6 @@ import qualified Data.Map as Map
 import Text.XML.HaXml (tag, (/>), xmlParse)
 import Text.XML.HaXml.Types
 import Util
-import Data.List (intercalate)
 import Talbanken
 import Codec.Binary.UTF8.String (encodeString)
 
@@ -39,5 +38,5 @@ attrId a = snd . parseId . attr' a
 parseTalbanken filename = withFile (posOfXml filename) filename
 posOfXml filename = xmlParse filename & getContent & sentences & buildSentences
 ptbShow (Leaf pos word) = "(" ++ pos ++ " " ++ word ++ ")"
-ptbShow (Node a kids) = "("++a ++" "++ intercalate " " (map ptbShow kids)++")"
+ptbShow (Node a kids) = "("++a ++" "++ unwords (map ptbShow kids)++")"
 main = argsFilePrinter parseTalbanken ptbShow
