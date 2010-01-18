@@ -14,12 +14,27 @@ dialectologists will agree with the highly ranked features used by $R$
 for classification. I will test Hypothesis 1 by comparing $R$'s
 results to the syntactic dialectology literature on Swedish. In
 addition, Hypothesis 1B states that the regions of Sweden accepted by
-dialectology will be reproduced by the $R$. For example, my
+dialectology will be reproduced by $R$. For example, my
 previous research on British English reproduced the well-known North
 England-South England dialect regions. However, this research will eliminate the
 corpus variability in that research \cite{sanders08b} that resulted in
 the confounding factors mentioned above, meaning that more precise
 results, such as specific identifying features, should be detectable as well.
+
+Finally, if $R$ is found to be a bad measure of syntax distance, this
+dissertation will propose and evaluate alternative syntactic distance
+measures. Specifically, $R$ is one way to aggregate features that are
+created by decomposing sentences. It treats features as atomic, and
+does not manipulate them in any syntax-specific ways. As such, $R$ is
+not much different than Goebl's WIV. This may not be a problem if the
+decomposition methods used to generate features adequately capture
+dialect differences in independent, atomic features. If dialect
+differences cannot be captured by independent, atomic features, then a
+more syntax-specific method of combining features will be needed
+instead. Alternatively, a more complex statistical measure may be
+useful, taking the basic idea of $R$ and increasing its
+sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
+provides a dissimilarity that is intuitively similar to distance.
 
 %H2 - Dad didn't understand that this is other features to be fed into
 %R not replacement of R entire.
@@ -66,21 +81,6 @@ from different data. If significant correlation is found by using the
 same set of data for both corpora, it indicates that phonology and
 syntax boundaries do coincide but that the agreement is weak enough to
 be lost when using corpora collected from different populations.
-
-Finally, if $R$ is found to be a bad measure of syntax distance, this
-dissertation will propose and evaluate alternative syntactic distance
-measures. Specifically, $R$ is one way to aggregate features that are
-created by decomposing sentences. It treats features as atomic, and
-does not manipulate them in any syntax-specific ways. As such, $R$ is
-not much different than Goebl's WIV. This may not be a problem if the
-decomposition methods used to generate features adequately capture
-dialect differences in independent, atomic features. If dialect
-differences cannot be captured by independent, atomic features, then a
-more syntax-specific method of combining features will be needed
-instead. Alternatively, a more complex statistical measure may be
-useful, taking the basic idea of $R$ and increasing its
-sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
-provides a dissimilarity that is intuitively similar to distance.
 
 %%% Local Variables: 
 %%% mode: latex
