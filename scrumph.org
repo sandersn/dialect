@@ -238,6 +238,19 @@
      Later today: create hypotheses separate chapter, generate
      figures for POS run and see how good they are. Revise proposal
      with Sandra's revisions.
+** 2010/01/18
+   - I met with Sandra and got the changes to make for the proposal,
+     plus advice of who to talk to, plus some suggestions for
+     dissertation layout and experimental paths.
+   - I will make the proposal revisions today. I will probably have
+     enough time to implement Sandra's redep idea too.
+   - I need to draft e-mails to Henrik Rosenkvist and Rex Sprouse
+     asking for (1) inspection of my results and Swedish syntactic
+     dialectology papers and (2) inspection of TnT/Berkeley/Malt's
+     annotation outputs.
+     I will probably need a better way to visualise them because he is
+     a german syntactician and may (may not?) have even worked with
+     dependencies. Actually this holds for Rosenkvist too...
 * Plan
 ** January
 *** Get results
@@ -302,7 +315,7 @@ clusters I think)
 ask local Swedish speaker to look over automatic annotation quality
 esp Berkeley parser and its POS tagging quality
 
-(maybe feed Joakim's parser POSs from the Berkely parses in order to
+(maybe feed Joakim's parser POSs from the Berkeley parses in order to
 make the comparison between dep and path fair.) (but this will
 decrease quality of)
 
