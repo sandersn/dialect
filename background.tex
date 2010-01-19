@@ -58,7 +58,7 @@ corpora into a single number: the distance.
  & \textrm{Distance} & \\
 } \]
 \label{abstract-distance-measure-model}
-\caption{Abstract Distance Measure Model : $f + d$}
+\caption{Abstract Distance Measure Model : $f \circ d$}
 \end{figure}
 
 Dialectometry has focused on phonological distance measures, while
@@ -81,7 +81,7 @@ straightfoward functions for decomposition and combinations.
 A secondary reason for dialectometry's focus on phonology is that it
 is inherited from dialectology's focus on phonology.
 % (TODO:Cite?)
-This might be solely to due to the history of dialectology as a field, but it is
+This might be solely due to the history of dialectology as a field, but it is
 likely that more phonological than syntactic differences exist between
 dialects, due to historically greater standardization
 of syntax via the written form of language. Phonological
@@ -127,27 +127,33 @@ likely to become the best manual features, passing over the rarely
 occurring and obscure features that might actually be the best
 indicators of a particular dialect.
 
-This approach ignores two important aspects of the problem of syntax
-distance. First, syntactic structure is easily decomposed into
-features; a decomposition function is easy to create, but it is not
-obvious which is the best.
-Second, large syntactic corpora are
-available for many languages. But with large corpora, extraction of specific
-syntactic features from carefully elicited sentences is not
-possible. Fortunately, the drawbacks of these two aspects cancel each other:
-large corpora should provide enough evidence to properly rank
-automatically extracted features.
-% (traditional dialectology must collect small
-% amounts of data, so the much larger search space of syntactic
-% variation does not allow significant differences to emerge)
+This approach ignores the specific properties of the syntax distance
+problem. It is easy to define features for syntactic structure. This
+proposal covers part-of-speech trigrams, leaf-ancestor paths, and
+dependency paths over nodes, but many variations on these features are
+possible, such as lexical trigrams, lexicalized leaf-ancestor paths,
+or dependency paths over dependency arc labels. Methods from other
+syntactic work in computational linguistics could apply too: supertags
+\cite{joshi94}, convolution kernels \cite{collins01} or any number of
+simpler features such as tree height, number of nodes, or number of
+words. The problem is not finding a feature set. The problem is
+finding a good feature set. Small corpora hamper this search by making
+statistical significance difficult to achieve, especially since
+syntactic dialect differences are expected to be less frequent than
+phonological ones. Fortunately, syntactic corpora are typically larger
+than phonological corpora because the annotation work is easier; much
+of the syntactic annotation can be generated automatically and then
+corrected manually.
 
-One method of combination, a simple statistical measure called $R$,
-was proposed by \namecite{nerbonne06} based on work by
-\namecite{kessler01}. At present, however, $R$ has not been adequately
-shown to detect dialect differences. A small body of work suggests
-that it does, but as yet there has not been a satisfying correlation
-of its results with existing results from the dialectology literature
-on syntax.
+Even with a feature set defined, a distance measure still requires a
+method of combining features. One such method, a simple statistical
+measure called $R$, has been proposed by \namecite{nerbonne06} based
+on work by \namecite{kessler01}. At present, however, $R$ has not been
+adequately shown to detect dialect differences. A small body of work
+suggests that it does, but as yet there has not been a satisfying
+correlation of its results with phonology or, as with phonological
+distance, with existing results from the dialectology literature on
+syntax.
 
 Nerbonne \& Wiersma's first paper used part-of-speech trigram features
 as a proxy for syntactic information and $R$ for syntax distance
@@ -162,15 +168,14 @@ true for other types of language varieties. Specifically, for this
 dissertation, the success of $R$ on generational differences does not
 imply success on dialect differences.
 
-\namecite{sanders08b} addressed this problem by measuring $R$ between
+I addressed this problem \cite{sanders08b} by measuring $R$ between
 the nine Government Office Regions of England, using the International
 Corpus of English Great Britain \cite{nelson02}. Speakers were classified by
-birthplace. Sanders also attempted to improve syntactic feature
-quality by introducing Sampson's leaf-ancestor paths as
-features \cite{sampson00}. Sanders found statistically
+birthplace. I also introduced Sampson's leaf-ancestor paths as
+features \cite{sampson00}. I found statistically
 significant differences between most corpora, using both trigrams and
 leaf-ancestor paths as features. However, $R$'s distances were not
-significantly correlated with Levenshtein distances. Nor did Sanders
+significantly correlated with Levenshtein distances. Nor did I
 show any qualitative similarities between known syntactic dialect
 features and the high-ranked features used by $R$ in producing its
 distance. As a result, it is not clear whether the significant $R$ distances
@@ -204,90 +209,6 @@ features found by dialectologists.
 
 % Goal: To extend existing measurement methods. To measure them
 % better. To measure them on more complete data.
-
-\section{Hypotheses}
-% TODO: Rewrite and merge the following question/hypothesis paragraph pairs
-% H1 - organization is all wrong still
-The state of syntax measures in dialectometry described above leaves
-several research questions unresolved. The most important for this
-proposal is whether $R$ is a good measure of syntax
-distance. Specifically, have the ambiguous results of previous
-research been a shortcoming of $R$, differences between phonological
-and syntactic corpora, or differences between phonological and
-syntactic dialect boundaries?
-
-To investigate this, I propose Hypothesis 1: the features found by
-dialectologists will agree with the highly ranked features used by $R$
-for classification. I will test Hypothesis 1 by comparing $R$'s
-results to the syntactic dialectology literature on Swedish. In
-addition, Hypothesis 1B states that the regions of Sweden accepted by
-dialectology will be reproduced by the $R$. For example, my
-previous research on British English reproduced the well-known North
-England-South England dialect regions. However, this research will eliminate the
-corpus variability in that research \cite{sanders08b} that resulted in
-the confounding factors mentioned above, meaning that more precise
-results, such as specific identifying features, should be detectable as well.
-
-%H2 - Dad didn't understand that this is other features to be fed into
-%R not replacement of R entire.
-A secondary question, relevant once a useful syntax distance measure
-is established, is what input features cause $R$ to produce the best
-results.  Previous work has shown that leaf-ancestor paths provide a
-small advantage over part-of-speech trigrams, presumably by capturing
-syntactic structure higher in the parse tree. Additional possible
-feature sets include variations on the previously investigated
-trigrams and leaf-ancestor paths, along with various kinds of backoff,
-for example, to bigrams or coarser node tags. Features from dependency
-parses may be useful, too, in capturing non-local dependencies that
-can be captured neither by trigrams nor leaf-ancestor paths.
-
-Therefore, I propose Hypothesis 2: better input features
-for $R$ will produce more accurate syntax
-distances. These features can be discovered by comparing performance
-of a number of different feature sets on a fixed corpus. In addition,
-combinations of successful features will produce even better
-performance.
-% This sentence is either redundant or should appear earlier.
-The quality of a set of features can be
-measured by its sensitivity---the number of significant distances it
-finds---and the similarity of the highly ranked features $R$ produces
-to those found by dialectologists.
-
-% H3
-A third question is whether $R$ agrees with phonological distance
-measures like Levenshtein distance. Unlike agreement with traditional
-dialectology, there is no {\it a priori} reason to expect agreement
-between phonology and syntax in delineating dialect
-boundaries. However, agreement with phonological distance would be
-further evidence for the suitability of $R$ as a syntactic distance
-measure.
-
-Therefore, I propose Hypothesis 3: a phonology corpus and syntax corpus
-constructed from the same data will provide better correlation between
-phonology and syntax distance measures than a phonology corpus and
-syntax corpus drawn from different data sources. I will test this
-hypothesis by comparing results to my previous work on British English
-phonological and syntactic corpora; there, no significant correlation
-was found between the regions extracted from the two corpora drawn
-from different data. If significant correlation is found by using the
-same set of data for both corpora, it indicates that phonology and
-syntax boundaries do coincide but that the agreement is weak enough to
-be lost when using corpora collected from different populations.
-
-Finally, if $R$ is found to be a bad measure of syntax distance, this
-dissertation will propose and evaluate alternative syntactic distance
-measures. Specifically, $R$ is one way to aggregate features that are
-created by decomposing sentences. It treats features as atomic, and
-does not manipulate them in any syntax-specific ways. As such, $R$ is
-not much different than Goebl's WIV. This may not be a problem if the
-decomposition methods used to generate features adequately capture
-dialect differences in independent, atomic features. If dialect
-differences cannot be captured by independent, atomic features, then a
-more syntax-specific method of combining features will be needed
-instead. Alternatively, a more complex statistical measure may be
-useful, taking the basic idea of $R$ and increasing its
-sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
-provides a dissimilarity that is intuitively similar to distance.
 
 \section{Dissertation Overview}
 
