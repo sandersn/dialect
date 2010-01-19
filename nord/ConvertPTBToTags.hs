@@ -7,4 +7,4 @@ depPos = filter (/= "(())")
          & concatMap (tail & tail & init & runsexp & wordPairs)
 wordPairs (Node pos [Node word []]) = [(pos, word)]
 wordPairs (Node _ kids) = concatMap wordPairs kids
-format (pos, word) = word ++ "\t\t" ++ pos
+format (pos, word) = word ++ "\t\t\t" ++ pos

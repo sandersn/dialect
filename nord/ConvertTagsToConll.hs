@@ -1,7 +1,8 @@
 module ConvertTagsToConll where
 import Data.List (intercalate, isPrefixOf)
 import Util (withFileLines, (&), groupBy, argsFilePrinter)
-import ConvertTagsToTxt (tag, sentenceEnd)
+tag line = head line /= '%'
+sentenceEnd line = ".\t\t" `isPrefixOf` line
 convertPos = filter tag & groupBy sentenceEnd
              & map (zipWith addColumns [1..]) & intercalate ["\n"]
 addColumns i = words & conllise i & intercalate "\t"
