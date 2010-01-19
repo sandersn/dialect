@@ -94,39 +94,50 @@ def genFeatures():
         run("./Path '%s.mrg' path >'%s-path.dat'" % (region,region))
         run("./DepPath '%s.dep.conll' >'%s-dep.dat'" % (region,region))
         run("./DepPath '%s.redep.conll' >'%s-redep.dat'" % (region,region))
+def variants():
+    return ((measure,feature)
+            for measure in ['r', 'kl', 'js']
+            for feature in ['path', 'trigram', 'dep', 'redep'])
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
-    for feature in ['path', 'trigram', 'dep', 'redep']:
+    for measure, feature in variants():
         multirun(6, *norte.icetasks(consts.swediaSites,
-                                    feature, 'icedist.cpp', iterations=10))
-        norte.combine(feature, 'dist', iterations=10)
+                                    feature, 'icedist.cpp',
+                                    measure=measure, iterations=10))
+        norte.combine(feature, 'dist', measure=measure, iterations=10)
 def syntaxSig():
     # 11. Run ctrl.out with various parameter settings.
-    for feature in ['path', 'trigram', 'dep', 'redep']:
-        multirun(6, *norte.icetasks(consts.swediaSites, feature, 'icesig.cpp'))
-        norte.combine(feature, 'sig')
+    for measure, feature in variants():
+        multirun(6, *norte.icetasks(consts.swediaSites,
+                                    feature, 'icesig.cpp', measure))
+        norte.combine(feature, 'sig', measure)
 def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
     # 12. Dump a list of all features between each pair of site clusters.
-    for feature in ['path', 'trigram', 'dep', 'redep']:
+    for measure, feature in variants:
         # 12.1 Make cluster files first
         norte.combineFeatures(consts.agreeClusters, feature)
         multirun(6, *norte.icetasks(list(consts.agreeClusters.keys()),
-                                    feature, 'icefeat.cpp'))
+                                    feature, 'icefeat.cpp', measure))
         # 12.2 Then analyse it
-        tmps = ' '.join(["%s-%s-tmp.txt" % pair
-                         for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
-        run('./RankFeatures %s >feat-5-1000-r-%s-interview.txt' % (tmps,feature))
+        tmps = ' '.join([
+            "%s-%s-tmp.txt" % pair
+            for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
+        run('./RankFeatures %s >feat-5-1000-%s-%s-interview.txt'
+            % (tmps,measure,feature))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
-    run('./CalculateGeoDistance >dist-10-1000-r-geo-interview.txt')
+    run('./CalculateGeoDistance >dist-10-1000-geo-interview.txt')
+    run('./FormatDistance dist-10-1000-geo-interview.txt pairwise > dist-10-1000-geo-interview.csv')
+    # 13.2 Next a 2-D table (full/redundant-matrix) for R
+    run('./FormatDistance dist-10-1000-geo-interview.txt square > dist-10-1000-geo-interview-R.txt')
     # 13. Generate some analysis of the output
-    for feature in ['path', 'trigram', 'dep', 'redep', 'geo']:
+    for measure, feature in variants():
         # 13.1 First a 2-D table (half-matrix) for Excel
-        run('./FormatDistance dist-10-1000-r-%s-interview.txt pairwise > dist-10-1000-r-%s-interview.csv' % (feature, feature))
+        run('./FormatDistance dist-10-1000-%s-%s-interview.txt pairwise > dist-10-1000-%s-%s-interview.csv' % (measure, feature, measure, feature))
         # 13.2 Next a 2-D table (full/redundant-matrix) for R
-        run('./FormatDistance dist-10-1000-r-%s-interview.txt square > dist-10-1000-r-%s-interview-R.txt' % (feature, feature))
+        run('./FormatDistance dist-10-1000-%s-%s-interview.txt square > dist-10-1000-%s-%s-interview-R.txt' % (measure, feature, measure, feature))
     # 10.3 Here is the resulting R code. Cmd-S the resulting window after
     # sizing it to a nice size.
     # maybe there is an automated way to do this.
@@ -143,9 +154,9 @@ def genAnalysis():
     ## mantel(geo, dep, 33) (cross [geo,trigram,path,dep]
 def genMaps():
     run('ghc -O2 --make ConvertDistToL04')
-    for feature in ['path', 'trigram', 'dep', 'redep']:
-        run('./ConvertDistToL04 dist-10-1000-r-%s-interview.txt >dist-10-1000-r-%s-interview.dif' % (feature, feature))
-        run('RuG-L04/bin/mds -o mds-10-1000-r-%s-interview.vec 3 dist-10-1000-r-%s-interview.dif' % (feature, feature))
+    for measure, feature in variants():
+        run('./ConvertDistToL04 dist-10-1000-%s-%s-interview.txt >dist-10-1000-%s-%s-interview.dif' % (measure, feature, measure, feature))
+        run('RuG-L04/bin/mds -o mds-10-1000-%s-%s-interview.vec 3 dist-10-1000-%s-%s-interview.dif' % (measure, feature, measure, feature))
         try:
             run('rm out.trn') # mapsetup won't overwrite out.trn
         except:
@@ -158,8 +169,8 @@ def genMaps():
         cfg.write('clipping: sverige.clp\n')
         #TODO: cfg.write(province borders???)
         cfg.close()
-        run('RuG-L04/bin/maprgb -o Sverigekarta-Landskap-mds-%s.eps Sverigekarta-Landskap.cfg mds-10-1000-r-%s-interview.vec' % (feature, feature))
-    # run('Something to convert eps to pdf')
+        run('RuG-L04/bin/maprgb -o Sverigekarta-Landskap-mds-%s-%s.eps Sverigekarta-Landskap.cfg mds-10-1000-%s-%s-interview.vec' % (measure, feature, measure, feature))
+        # run('Something to convert eps to pdf')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

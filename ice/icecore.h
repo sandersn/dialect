@@ -172,7 +172,6 @@ double kl(const sample& c) {
 double js(const sample& c) {
   double total = 0.0;
   for(sample::const_iterator i=c.begin(); i!=c.end(); i++) {
-    // assert i->second.second != 0;
     double middle = (i->second.first + i->second.second) / 2;
     total += i->second.first * log(i->second.first / middle) / 2;
     total += i->second.second * log(i->second.second / middle) / 2;
