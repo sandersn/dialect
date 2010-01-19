@@ -251,25 +251,31 @@
      I will probably need a better way to visualise them because he is
      a german syntactician and may (may not?) have even worked with
      dependencies. Actually this holds for Rosenkvist too...
+** 2010/01/19
+   - I made the proposal revisions. I implemented (badly/mostly) the
+     redep idea. It appears to be working.
+   - I will run redep. I will edit the later steps to account for
+     redep. I will mail my committee members. I will look at the
+     hypotheses chapter and figure out what to do with it.
+   - Still need to mail Rosenkvist and Sprouse.
 * Plan
 ** January
 *** Get results
-**** TODO Try lexicalised vs POS
-     Even if I can't get POS parsing out of the Berkeley parser, I
-     should post-process the output to cut off the terminals. ALSO, I
-     should just use the raw output of TnT.
-     As is the features are just the raw trigrams of the interview,
-     not POS.
+**** DONE Try lexicalised vs POS
+     Lexicalised doesn't work. The end.
+**** TODO Try paths of dependency labels instead of POSs
 **** TODO Try lexical cleaning
 **** TODO Try different parameters to parsers
 **** DONE Move experiment to Banks
 **** TODO Try different distance measures
+     This should be pretty simple. Right? Just different for loops.
+     Even C++ can't muck this up too much.
 **** DONE Try different regions
      the current ones are smallest and don't need the additional
      precision
 *** Introduction
-**** Figure out how to structure latex chapters
-**** Introduction
+**** DONE Figure out how to structure latex chapters
+**** DONE Introduction (for now...)
 **** Hypotheses
 ** February
 *** Revise Hypotheses
@@ -304,20 +310,15 @@
   and see what common noise shows up
 * TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
-* TODO Per-comparison variance is apparently borked.
 ask Rosenkvist
     (1) to look at results (start with cluster map+dep
 clusters I think)
     (2) to recommend a starting point for dialects in Swedish, plus
-    current syntax papers in Swedish dialectology. 'His' page on Lunsd
+    current syntax papers in Swedish dialectology. 'His' page on Lunds
     Universitet is sadly missing links to his papers.
 
 ask local Swedish speaker to look over automatic annotation quality
 esp Berkeley parser and its POS tagging quality
-
-(maybe feed Joakim's parser POSs from the Berkeley parses in order to
-make the comparison between dep and path fair.) (but this will
-decrease quality of)
 
 send around revised draft, ask to set up a meeting. Then prepare a
 10-15 minute overview of what I am planning to do and what I have done
@@ -325,42 +326,6 @@ so far. They will read the draft and at the meeting decide whether I
 have taken the right amount of work. I will field questions if
 necessary.
 
-intro:
-Add examples of how easy it is chop syntax trees into features:
-    sheesh
-    dependency path/pos
-    dependency path/labels
-    supertags
-    trigrams/lexical
-    trigrams/pos
-    leaf-ancestor paths/lexical items
-    leaf-ancestor paths/no lexical
-    whole-tree checksum
-    any number of syntax-esque features used in CL like word count,
-    tree height, node count, internal parent-child pairs
-    all types of crazy crap and that's from 5 minutes of thinking.
-Provide evidence for why large corpora allow you to identify the best
-feature types
-
-Write self-citation in first person.
-
-section 3.1: 
-
-repeat that non-word-aligned corpora for syntax means that different
-methods are needed
-
-syntactically annotated corpora are also POS annotated (and usually
-morphosyntax)
-
-add justification for why it is better to represent the upper
-structure of the tree--statistical information from the upper part of
-the tree might not be useful? But I say it is, so here's why.
-
-move "If R is bad measure" up as hypothesis 2.
-
-explain why automatic annotation is required "preferably
-automatically". Manual annotatino is BETTER, but I can't do it and
-nobody else has done.
-
-
-try paths of dependency labels instead of POSs
+* TODO Revise omnigraffle cluster maps
+* TODO Make a 10-15 progress presentation
+* TODO Res my bing end-of-internship presentation for Feb 2's CL meeting
