@@ -156,7 +156,29 @@ double r_sq(const sample& c) {
   }
   return total;
 }
+// this is actually KL symmetric divergence because it measures
+// KL(P||Q) + KL(Q||P)
+double kl(const sample& c) {
+  double total = 0.0;
+  for(sample::const_iterator i=c.begin(); i!=c.end(); i++) {
+    // assert i->second.first != 0 && i->second.second != 0;
+    total += i->second.first * log(i->second.first / i->second.second);
+    total += i->second.second * log(i->second.second / i->second.first);
+  }
+  return total;
+}
 
+// this is Jensen-Shannon divergence, which is based on KL divergence
+double js(const sample& c) {
+  double total = 0.0;
+  for(sample::const_iterator i=c.begin(); i!=c.end(); i++) {
+    // assert i->second.second != 0;
+    double middle = (i->second.first + i->second.second) / 2;
+    total += i->second.first * log(i->second.first / middle) / 2;
+    total += i->second.second * log(i->second.second / middle) / 2;
+  }
+  return total;
+}
 // = ((<=) r_total)
 bool comparepermutation(const dialect& a, const dialect& b) {
   dialect both_ab(a);
