@@ -7,9 +7,11 @@ import Control.Monad.State.Lazy (State, get, put, evalState)
 import qualified Data.Map as Map
 import Text.Regex.Posix ((=~))
 import System
+targets = [("trigram", trigrams)
+          ,("path", paths)]
 main = do
     [region, target] <- getArgs
-    s <- withFileLines (extract region (if target=="t" then trigrams else paths))
+    s <- withFileLines (extract region (fromJust (lookup target targets)))
                        region
     putStr s
 extract region target =

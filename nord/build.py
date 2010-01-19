@@ -51,16 +51,16 @@ def tagPos():
     # 4. Tag SweDiaSyn
     for region in consts.swediaSites:
         run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
-def tagDep():
+def tagDep(inext='tag', outext='dep'):
     run('ghc -O2 --make ConvertTagsToConll -main-is ConvertTagsToConll.main')
     for region in consts.swediaSites:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
-        run("./ConvertTagsToConll '%s.tag' >'%s.conll'" % (region,region))
+        run("./ConvertTagsToConll '%s.%s' >'%s.conll'" % (region,inext,region))
         # 6. Dependency parse SweDiaSyn
         # TODO: This must eventually depend on a config file, not command line
         # options
         os.chdir('malt-1.2')
-        run("java -Xmx512m -jar malt.jar -c swemalt -i '../%s.conll' -o '../%s.dep.conll' -m parse" % (region, region))
+        run("java -Xmx512m -jar malt.jar -c swemalt -i '../%s.conll' -o '../%s.%s.conll' -m parse" % (region,region,outext))
         os.chdir('..')
 def trainCfg():
     # 7. Train CFG using GrammarTrainer
@@ -76,14 +76,24 @@ def tagCfg():
         run("./ConvertTagsToTxt '%s.t' >'%s.txt'" % (region,region))
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
+def retagDep():
+    # 101.0 based on parts of speech by Berkeley parser,
+    run('ghc -O2 --make ConvertPTBToTags')
+    for region in consts.swediaSites:
+        # 101.1 extract just the parts of speech, dump them to .retag
+        run("./ConvertPTBToTags '%s.mrg' >'%s.retag'" % (region,region))
+    # 101.2 call tagDep with different parameters
+    tagDep(inext='retag', outext='redep')
+    # etc etc ... that is, just rerun everything else on the new 'redep' files
 def genFeatures():
     # so I guess this is 10.0: generate features from annotations
     run('ghc -O2 --make Path -main-is Path.main')
     run('ghc -O2 --make DepPath -main-is DepPath.main')
     for region in consts.swediaSites:
-        run("./Path '%s.mrg' t >'%s-trigram.dat'" % (region,region))
-        run("./Path '%s.mrg' p >'%s-path.dat'" % (region,region))
+        run("./Path '%s.mrg' trigram >'%s-trigram.dat'" % (region,region))
+        run("./Path '%s.mrg' path >'%s-path.dat'" % (region,region))
         run("./DepPath '%s.dep.conll' >'%s-dep.dat'" % (region,region))
+        run("./DepPath '%s.redep.conll' >'%s-redep.dat'" % (region,region))
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     for feature in ['path', 'trigram', 'dep']:
@@ -108,7 +118,7 @@ def syntaxFeatures():
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
-    run('./CalculateGeoDistance >dist-10-1000-geo-interview.txt')
+    run('./CalculateGeoDistance >dist-10-1000-r-geo-interview.txt')
     # 13. Generate some analysis of the output
     for feature in ['path', 'trigram', 'dep', 'geo']:
         # 13.1 First a 2-D table (half-matrix) for Excel
