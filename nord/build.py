@@ -96,19 +96,19 @@ def genFeatures():
         run("./DepPath '%s.redep.conll' >'%s-redep.dat'" % (region,region))
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
-    for feature in ['path', 'trigram', 'dep']:
+    for feature in ['path', 'trigram', 'dep', 'redep']:
         multirun(6, *norte.icetasks(consts.swediaSites,
                                     feature, 'icedist.cpp', iterations=10))
         norte.combine(feature, 'dist', iterations=10)
 def syntaxSig():
     # 11. Run ctrl.out with various parameter settings.
-    for feature in ['path', 'trigram', 'dep']:
+    for feature in ['path', 'trigram', 'dep', 'redep']:
         multirun(6, *norte.icetasks(consts.swediaSites, feature, 'icesig.cpp'))
         norte.combine(feature, 'sig')
 def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
     # 12. Dump a list of all features between each pair of site clusters.
-    for feature in ['path', 'trigram', 'dep']:
+    for feature in ['path', 'trigram', 'dep', 'redep']:
         # 12.1 Make cluster files first
         norte.combineFeatures(consts.agreeClusters, feature)
         multirun(6, *norte.icetasks(list(consts.agreeClusters.keys()),
@@ -122,7 +122,7 @@ def genAnalysis():
     run('ghc -O2 --make CalculateGeoDistance')
     run('./CalculateGeoDistance >dist-10-1000-r-geo-interview.txt')
     # 13. Generate some analysis of the output
-    for feature in ['path', 'trigram', 'dep', 'geo']:
+    for feature in ['path', 'trigram', 'dep', 'redep', 'geo']:
         # 13.1 First a 2-D table (half-matrix) for Excel
         run('./FormatDistance dist-10-1000-r-%s-interview.txt pairwise > dist-10-1000-r-%s-interview.csv' % (feature, feature))
         # 13.2 Next a 2-D table (full/redundant-matrix) for R
@@ -143,7 +143,7 @@ def genAnalysis():
     ## mantel(geo, dep, 33) (cross [geo,trigram,path,dep]
 def genMaps():
     run('ghc -O2 --make ConvertDistToL04')
-    for feature in ['path', 'trigram', 'dep']:
+    for feature in ['path', 'trigram', 'dep', 'redep']:
         run('./ConvertDistToL04 dist-10-1000-r-%s-interview.txt >dist-10-1000-r-%s-interview.dif' % (feature, feature))
         run('RuG-L04/bin/mds -o mds-10-1000-r-%s-interview.vec 3 dist-10-1000-r-%s-interview.dif' % (feature, feature))
         try:
