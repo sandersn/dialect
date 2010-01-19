@@ -104,7 +104,9 @@ def syntaxFeatures():
         multirun(6, *norte.icetasks(list(consts.agreeClusters.keys()),
                                     feature, 'icefeat.cpp'))
         # 12.2 Then analyse it
-        run('./RankFeatures *-*-tmp.txt >feat-5-1000-r-%s-interview.txt' % (feature,))
+        tmps = ' '.join(["%s-%s-tmp.txt" % pair
+                         for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
+        run('./RankFeatures %s >feat-5-1000-r-%s-interview.txt' % (tmps,feature))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
