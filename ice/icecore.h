@@ -162,7 +162,6 @@ double kl(const sample& c) {
   double total = 0.0;
   for(sample::const_iterator i=c.begin(); i!=c.end(); i++) {
     if(i->second.first != 0 && i->second.second != 0) {
-      // assert i->second.first != 0 && i->second.second != 0;
       total += i->second.first * log(i->second.first / i->second.second);
       total += i->second.second * log(i->second.second / i->second.first);
     }
@@ -174,8 +173,8 @@ double kl(const sample& c) {
 double js(const sample& c) {
   double total = 0.0;
   for(sample::const_iterator i=c.begin(); i!=c.end(); i++) {
-    double middle = (i->second.first + i->second.second) / 2;
-    if(middle != 0) {
+    if(i->second.first != 0 && i->second.second != 0) {
+      double middle = (i->second.first + i->second.second) / 2;
       total += i->second.first * log(i->second.first / middle) / 2;
       total += i->second.second * log(i->second.second / middle) / 2;
     }
