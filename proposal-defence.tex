@@ -1,0 +1,100 @@
+\documentclass{beamer}
+
+\usetheme{Ilmenau}
+\usepackage[all]{xy}
+
+\title{Syntax Distance for Dialectometry}
+\author{Nathan Sanders}
+\date{\today}
+
+\begin{document}
+\frame{\titlepage}
+\section{Overview}
+\begin{frame}
+  \frametitle{Contents}
+  \begin{itemize}
+  \item Overview
+  \item Principal Hypotheses
+  \item Analysis
+  \item Writing
+\end{itemize}
+\end{frame}
+
+\section{Overview}
+\begin{frame}
+  \frametitle{Overview}
+  \begin{itemize}
+ \item Define a syntactic distance measure and test it on a dialect corpus.
+ \item The distance measure tested is $R$ and the dialect corpus is
+  Swediasyn, the transcription of interviews from Swedia2000.
+  \end{itemize}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Distance Measure}
+  A distance measure consists of two parts: a method to produce input
+  features and a way to combine those features into a number. (A distance
+  is not necessary. A symmetric divergence will suffice.)
+\end{frame}
+\begin{frame}
+  \frametitle{Experiment}
+  Find syntactic differences between dialects of Swedish
+  \begin{enumerate}
+  \item Corpus: Swediasyn, unparsed interviews transcribed and glossed
+    to standard Swedish
+  \item Training corpus: Talbanken, 300 Kwords of parsed spoken and
+    written Swedish from the late 70s.
+  \item Annotators: TnT, MaltParser and the Berkeley parser, all
+    trained on Talbanken.
+  \end{enumerate}
+\end{frame}
+\begin{frame}
+  \frametitle{Schedule}
+  Need to be done by July 6. OK.
+\end{frame}
+
+\section{Analysis}
+\begin{frame}
+\frametitle{Analyzed}
+\begin{itemize}
+\item Distance (R)
+\item Alternate distances (KL divergence, JS divergence)
+\item Alternate features (dependency POS tags taken from Berkeley
+  parser)
+\item Significance
+\item 5 Most heavily weighted features for each comparison.
+\item Hierarchical clustering
+\item MDS (scaled to 3 dimensions (R,G,B))
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{To Analyze}
+\begin{itemize}
+\item Variations on parser parameters and input cleaning
+\item More alternate/combined features (esp dependency arc labels)
+\end{itemize}
+\end{frame}
+
+
+\section{Writing}
+\begin{frame}
+\frametitle{Written}
+\begin{itemize}
+\item Introduction
+\item Methods
+\item Questions (a little)
+\item Results (a little)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{To Write}
+\begin{itemize}
+\item Questions (most)
+\item Results (most)
+\item Discussion
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -11,6 +11,8 @@ process = endBy [""] & map deps & intersperse ["***"] & concat
 deps = buildMap & buildRelations
 buildMap = map (splitOn "\t" & deconllise) & fromList
 deconllise [id, w, _, pos, _, _, parentId, _, _, _] =
+-- to get arc label instead of POS, you will need
+-- [id, w, _, _, _, _, parentId, arc, _, _] = (..., FlatNode arc w ...)
   (read id, FlatNode pos w (read id) [read parentId])
 buildRelations flat =
   map (build & intercalate "-") [1..fromIntegral (size flat)]

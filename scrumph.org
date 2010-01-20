@@ -258,6 +258,20 @@
      redep. I will mail my committee members. I will look at the
      hypotheses chapter and figure out what to do with it.
    - Still need to mail Rosenkvist and Sprouse.
+** 2010/01/20
+   - I mailed my committee members. I wrote KL divergence and JS
+     divergence, and ran them along with redep after editing
+     build.py to account for 3x4 variations. I finished
+     generating r-redep figures. I did not look at the hypotheses chapter.
+   - I will continue mailing committee members to find out whether
+     next week or the week after that is good. I will make a
+     presentation of Work So Far and To Do, divided into
+     Analysis and Writing. I will outline a bing presentation for the
+     end of the month too.
+   - Remember to mail Rachel, take out the trash, and find a present
+     for Mom (and maybe Daniel)!
+     Still need to mail Rosenkvist and Sprouse.
+     Maybe should run r^2 too, now that I'm running all these others.
 * Plan
 ** January
 *** Get results
@@ -267,7 +281,7 @@
 **** TODO Try lexical cleaning
 **** TODO Try different parameters to parsers
 **** DONE Move experiment to Banks
-**** TODO Try different distance measures
+**** DONE Try different distance measures
      This should be pretty simple. Right? Just different for loops.
      Even C++ can't muck this up too much.
 **** DONE Try different regions
@@ -276,7 +290,7 @@
 *** Introduction
 **** DONE Figure out how to structure latex chapters
 **** DONE Introduction (for now...)
-**** Hypotheses
+**** TODO Hypotheses
 ** February
 *** Revise Hypotheses
 *** Methods
