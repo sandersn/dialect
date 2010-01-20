@@ -114,7 +114,7 @@ def syntaxSig():
 def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
     # 12. Dump a list of all features between each pair of site clusters.
-    for measure, feature in variants:
+    for measure, feature in variants():
         # 12.1 Make cluster files first
         norte.combineFeatures(consts.agreeClusters, feature)
         multirun(6, *norte.icetasks(list(consts.agreeClusters.keys()),
