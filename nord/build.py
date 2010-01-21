@@ -94,7 +94,7 @@ def genFeatures():
         run("./Path '%s.mrg' path >'%s-path.dat'" % (region,region))
         run("./DepPath '%s.dep.conll' node >'%s-dep.dat'" % (region,region))
         run("./DepPath '%s.redep.conll' node >'%s-redep.dat'" % (region,region))
-        run("./DepPath '%s.deparc.conll' arc >'%s-deparc.dat'" % (region,region))
+        run("./DepPath '%s.dep.conll' arc >'%s-deparc.dat'" % (region,region))
 def variants():
     return ((measure,feature)
             for measure in ['r', 'r_sq', 'kl', 'js']
