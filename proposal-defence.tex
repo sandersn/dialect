@@ -28,14 +28,45 @@
  \item The distance measure tested is $R$ and the dialect corpus is
   Swediasyn, the transcription of interviews from Swedia2000.
   \end{itemize}
-
 \end{frame}
+
 \begin{frame}
-  \frametitle{Distance Measure}
-  A distance measure consists of two parts: a method to produce input
+  \frametitle{Terms}
+  \begin{itemize}
+  \item Dialectology: Study of linguistic variation
+  \item Dialectometry: Quantitative analysis of linguistic variation,
+    recently dominated by computational methods.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Terms: Distance Measure}
+  A distance measure consists of two functions: a method to produce input
   features and a way to combine those features into a number. (A distance
   is not necessary. A symmetric divergence will suffice.)
 \end{frame}
+
+\begin{frame}
+  \frametitle{Features}
+  \begin{itemize}
+  \item Phonology decomposes word into segments or phonological features.
+  \item Syntax does not have a standard decomposition of sentences into features.
+  \item This dissertation tries several variations: trigrams,
+    leaf-ancestor paths, and dependency paths.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Distance Metric}
+  \begin{itemize}
+  \item Phonology typically uses Levenshtein distance, which requires
+    that the same words be elicited from all interviewees.
+  \item Syntax does not have a standard distance metric.
+  \item This dissertation tries several variations: primarily $R$ and $R^2$, but
+    also Kullbeck-Leibler divergence and Jensen-Shannon divergence.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
   \frametitle{Experiment}
   Find syntactic differences between dialects of Swedish
@@ -61,10 +92,10 @@
 \item Alternate distances (KL divergence, JS divergence)
 \item Alternate features (dependency POS tags taken from Berkeley
   parser)
-\item Significance
-\item 5 Most heavily weighted features for each comparison.
+\item Significance of each combination of distances and features.
+\item 5 most heavily weighted features for each comparison.
 \item Hierarchical clustering
-\item MDS (scaled to 3 dimensions (R,G,B))
+\item Multi-dimensional scaling
 \end{itemize}
 \end{frame}
 
@@ -72,7 +103,9 @@
 \frametitle{To Analyze}
 \begin{itemize}
 \item Variations on parser parameters and input cleaning
-\item More alternate/combined features (esp dependency arc labels)
+\item More alternate/combined features (particularly, dependency arc labels)
+\item Better ways to characterise the most important features of each
+  comparison.
 \end{itemize}
 \end{frame}
 
