@@ -92,12 +92,13 @@ def genFeatures():
     for region in consts.swediaSites:
         run("./Path '%s.mrg' trigram >'%s-trigram.dat'" % (region,region))
         run("./Path '%s.mrg' path >'%s-path.dat'" % (region,region))
-        run("./DepPath '%s.dep.conll' >'%s-dep.dat'" % (region,region))
-        run("./DepPath '%s.redep.conll' >'%s-redep.dat'" % (region,region))
+        run("./DepPath '%s.dep.conll' node >'%s-dep.dat'" % (region,region))
+        run("./DepPath '%s.redep.conll' node >'%s-redep.dat'" % (region,region))
+        run("./DepPath '%s.deparc.conll' arc >'%s-deparc.dat'" % (region,region))
 def variants():
     return ((measure,feature)
-            for measure in ['r', 'kl', 'js']
-            for feature in ['path', 'trigram', 'dep', 'redep'])
+            for measure in ['r', 'r_sq', 'kl', 'js']
+            for feature in ['path', 'trigram', 'dep', 'redep', 'deparc'])
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     for measure, feature in variants():

@@ -39,4 +39,4 @@ parseTalbanken filename = withFile (posOfXml filename) filename
 posOfXml filename = xmlParse filename & getContent & sentences & buildSentences
 ptbShow (Leaf pos word) = "(" ++ pos ++ " " ++ word ++ ")"
 ptbShow (Node a kids) = "("++a ++" "++ unwords (map ptbShow kids)++")"
-main = argsFilePrinter parseTalbanken ptbShow
+main = interactFiles parseTalbanken ptbShow

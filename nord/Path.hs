@@ -1,25 +1,20 @@
 module Path where
 import Sexp
-import Util (histogram, window, (|>), (&), withFileLines)
+import Util (histogram, window, (|>), (&), withFileLines, interactTargets)
 import Data.List (intercalate,find)
 import Data.Maybe (fromJust)
 import Control.Monad.State.Lazy (State, get, put, evalState)
 import qualified Data.Map as Map
 import Text.Regex.Posix ((=~))
 import System
-targets = [("trigram", trigrams)
-          ,("path", paths)]
-main = do
-    [region, target] <- getArgs
-    s <- withFileLines (extract region (fromJust (lookup target targets)))
-                       region
-    putStr s
+main = interactTargets [("trigram", trigrams) ,("path", paths)] process
+  where process t region = withFileLines (extract region t) region
 extract region target =
   filter (/= "(())") -- this line may be unneeded because of
   & filter (not . (=~ "\\([^ ()]+\\)")) -- this regex
-  & map (tail & tail & init & runsexp & trim & target & intercalate "\n")
-  & intercalate "\n***\n"
-  & ((region++"\n")++)
+  & map (tail & tail & init & runsexp & trim & target)
+  & intercalate ["***"]
+  & (region:)
 trim (Node head [Node _ []]) = Node head []
 trim (Node head kids) = Node head (map trim kids)
 {-- trigrams --}

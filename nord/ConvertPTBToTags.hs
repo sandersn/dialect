@@ -1,7 +1,7 @@
 import Util
 import Sexp
 import Text.Regex.Posix ((=~))
-main = argsFilePrinter (withFileLines depPos) format
+main = interactFiles (withFileLines depPos) format
 depPos = filter (/= "(())")
          & filter (not . (=~ "\\([^ ()]+\\)"))
          & concatMap (tail & tail & init & runsexp & wordPairs)

@@ -272,6 +272,14 @@
      for Mom (and maybe Daniel)!
      Still need to mail Rosenkvist and Sprouse.
      Maybe should run r^2 too, now that I'm running all these others.
+** 2010/01/21
+   - I mailed committee members some more. Looks like it will be in
+     the afternoon. I made a proposal defence presentation (draft) and
+     a bing presentation. Looks like I will give them the same day.
+   - Need to mail one last time. I will start composing a mail to
+     Rosenkvist. I will add r^2 and dependency arc labels and rerun everything
+     with them. I will start doing SOMETHING to questions.tex.
+   - Need to mail my Friendspeak partner too. Argh, Mail!
 * Plan
 ** January
 *** Get results

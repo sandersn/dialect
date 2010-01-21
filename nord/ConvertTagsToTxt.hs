@@ -1,6 +1,6 @@
 module ConvertTagsToTxt where
-import Util (withFileLines, (&), groupBy, argsFilePrinter)
+import Util (withFileLines, (&), groupBy, interactFiles)
 import Data.List.Split (split, keepDelimsR, onSublist, dropFinalBlank)
-main = argsFilePrinter (withFileLines convertWord) id
+main = interactFiles (withFileLines convertWord) id
 convertWord = split (keepDelimsR $ dropFinalBlank $ onSublist ["."])
               & map unwords

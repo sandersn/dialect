@@ -29,7 +29,14 @@ list = (:[])
 {--- fs ---}
 withFile f = readFile >=> f & return -- see also System.IO
 withFileLines f = readFile >=> lines & f & return
-argsFilePrinter read show = mapM_ (read >=> mapM_ (show & putStrLn)) =<< getArgs
+interactFiles read show = mapM_ (read >=> mapM_ (show & putStrLn)) =<< getArgs
+interactTargets targets f = do
+  [file, target] <- getArgs
+  let t = fromMaybe (error $ target
+                             ++ " is not a valid target in the list: "
+                             ++ show (map fst targets))
+                    (lookup target targets)
+  f t file >>= mapM_ putStrLn
 {--- fnc (F# esque) ---}
 infixl 9 &
 infixl 0 |>
