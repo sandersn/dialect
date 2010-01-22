@@ -82,6 +82,150 @@ same set of data for both corpora, it indicates that phonology and
 syntax boundaries do coincide but that the agreement is weak enough to
 be lost when using corpora collected from different populations.
 
+\section{Question 1 : Agreement with Dialectology}
+
+The first question is whether $R$ agrees with dialectology. This
+question can be asked in a couple of different ways. The first (and
+most difficult) is whether the features agree with the features
+discovered by (human) dialectologists.
+
+The others are whether boundaries agree, whether regions agree and
+whether distances agree. However, traditional dialectology doesn't
+produce distances much, and regions are usually only for particularly
+strong distinctions (and are often derived from a set of strong
+boundaries), so boundaries will be the most important of these
+three.
+
+Features is the most important for two reasons. First, it explains the
+most and is the easiest to disprove. Second, dialectology will
+produce the most instances of this; the others require a lot of work
+on abstraction from dialectologists and (frankly) there aren't a lot
+of Swedish syntactic dialectologists out there. I think there's two.
+
+\subsection{Features}
+
+We are looking for things like ``Swedish apparent cleft produces
+sentences like this''. Then convert the examples they give into the
+crappy formalism we use (implicitly), rip the sentence up into
+features and see if those features show up in the mentioned
+regions. If they do, how important are they? What features are more
+important than they are?
+
+There's probably one or two other things I should say about this. The
+above paragraph will probably expand to about three on its own,
+though.
+
+Post-script: The summary paragraph mentions leaf/dependency-path
+specific distances. I don't have any of those yet. And anyway it's
+likely you could just model them as derived features and dump them
+back together in with the original paths.
+
+Maybe there is a cool way to do this. I haven't thought about it
+enough.
+
+\subsection{Boundaries}
+
+Boundaries are what cause regions to emerge, and they are the
+principal output of dialectology's attempt to find isoglosses. So I
+would expect to find a lot of boundaries that overlap badly and don't
+really form good regions. In fact, there isn't a whole lot of
+difference between isogloss bundles and isoglosses for the purposes of
+this dissertation; they both compare as directly to the features I
+extract.
+
+So, uh, this is really just a different way to say the same thing as
+the Features section. I guess I should just stop talking now. (This
+section should probably go above regions.)
+
+\subsection{Regions}
+
+Regions is the most straightforward type of matching: just use MDS or
+clustering to get my results to show some kind of boundary, then check
+dialectology for a list of regions. See if and how well they match.
+
+The only complication is partial matches and weak boundaries;
+statistical boundaries necessarily vary in strength, so the cutoff for
+humans deciding there is a region here may differ from the cutoff they
+use when looking at statistical results. And of course partial matches
+just mean that it's less obvious how to evaluate objectively the
+quality of the match. Perhaps you can just use $km^2$ overlap. Cheesy
+but effective!
+
+Matching specific regions is important. For instance, J\"amtland
+appears to be reproduced by early results. Unfortunately, as is, there
+don't seem to be many other SUPER STRONG boundaries mentioned with
+things that aren't sister languages to Swedish instead of dialects
+(technically, although you could easily analyse them the same way if
+you want, but probably nobody is interviewing that way).
+
+\subsection{Distances}
+
+Since dialectology is qualitative, this necessarily is extremely
+rough; we are looking for statements like ``there are numerous
+differences between dialect X and Standard Swedish'' or ``dialect X is
+very distant (or nearly indistinguishable) from Standard Swedish''.
+
+To investigate this, I propose Hypothesis 1: the features found by
+dialectologists will agree with the highly ranked features used by $R$
+for classification. I will test Hypothesis 1 by comparing $R$'s
+results to the syntactic dialectology literature on Swedish. In
+addition, Hypothesis 1B states that the regions of Sweden accepted by
+dialectology will be reproduced by $R$. For example, my
+previous research on British English reproduced the well-known North
+England-South England dialect regions. However, this research will eliminate the
+corpus variability in that research \cite{sanders08b} that resulted in
+the confounding factors mentioned above, meaning that more precise
+results, such as specific identifying features, should be detectable as well.
+
+Finally, if $R$ is found to be a bad measure of syntax distance, this
+dissertation will propose and evaluate alternative syntactic distance
+measures. Specifically, $R$ is one way to aggregate features that are
+created by decomposing sentences. It treats features as atomic, and
+does not manipulate them in any syntax-specific ways. As such, $R$ is
+not much different than Goebl's WIV. This may not be a problem if the
+decomposition methods used to generate features adequately capture
+dialect differences in independent, atomic features. If dialect
+differences cannot be captured by independent, atomic features, then a
+more syntax-specific method of combining features will be needed
+instead. Alternatively, a more complex statistical measure may be
+useful, taking the basic idea of $R$ and increasing its
+sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
+provides a dissimilarity that is intuitively similar to distance.
+
+
+\section{Question 2: Best Features}
+
+% H2 - Dad didn't understand that this is other features to be fed into
+%R not replacement of R entire.
+A secondary question, relevant once a useful syntax distance measure
+is established, is what input features cause $R$ to produce the best
+results.  Previous work has shown that leaf-ancestor paths provide a
+small advantage over part-of-speech trigrams, presumably by capturing
+syntactic structure higher in the parse tree. Additional possible
+feature sets include variations on the previously investigated
+trigrams and leaf-ancestor paths, along with various kinds of backoff,
+for example, to bigrams or coarser node tags. Features from dependency
+parses may be useful, too, in capturing non-local dependencies that
+can be captured neither by trigrams nor leaf-ancestor paths.
+
+Therefore, I propose Hypothesis 2: better input features
+for $R$ will produce more accurate syntax
+distances. These features can be discovered by comparing performance
+of a number of different feature sets on a fixed corpus. In addition,
+combinations of successful features will produce even better
+performance.
+% This sentence is either redundant or should appear earlier.
+The quality of a set of features can be
+measured by its sensitivity---the number of significant distances it
+finds---and the similarity of the highly ranked features $R$ produces
+to those found by dialectologists.
+
+\subsection{Feature Quality}
+
+I need to find out what causes the variation in feature quality. (The
+current patterns are extremely odd.)
+
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "dissertation.tex"

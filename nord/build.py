@@ -96,6 +96,10 @@ def genFeatures():
         run("./DepPath '%s.redep.conll' node >'%s-redep.dat'" % (region,region))
         run("./DepPath '%s.dep.conll' arc >'%s-deparc.dat'" % (region,region))
         all = open('%s-all.dat' % region, 'w')
+        # The problem with this approach is that sampling is per-sentence.
+        # so you'll get 300 path sentences, 300 trigram sentences and 300 dep
+        # (on average). This is just going to be equivalent to lowering the
+        # sample size
         all.write(region + '\n')
         for feature in ['path', 'trigram', 'dep']:
             # TODO:Make sure that \n***\n doesn't write 1 too many newlines
