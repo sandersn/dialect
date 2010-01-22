@@ -115,14 +115,6 @@ There's probably one or two other things I should say about this. The
 above paragraph will probably expand to about three on its own,
 though.
 
-Post-script: The summary paragraph mentions leaf/dependency-path
-specific distances. I don't have any of those yet. And anyway it's
-likely you could just model them as derived features and dump them
-back together in with the original paths.
-
-Maybe there is a cool way to do this. I haven't thought about it
-enough.
-
 \subsection{Boundaries}
 
 Boundaries are what cause regions to emerge, and they are the
@@ -165,65 +157,143 @@ rough; we are looking for statements like ``there are numerous
 differences between dialect X and Standard Swedish'' or ``dialect X is
 very distant (or nearly indistinguishable) from Standard Swedish''.
 
-To investigate this, I propose Hypothesis 1: the features found by
-dialectologists will agree with the highly ranked features used by $R$
-for classification. I will test Hypothesis 1 by comparing $R$'s
-results to the syntactic dialectology literature on Swedish. In
-addition, Hypothesis 1B states that the regions of Sweden accepted by
-dialectology will be reproduced by $R$. For example, my
-previous research on British English reproduced the well-known North
-England-South England dialect regions. However, this research will eliminate the
-corpus variability in that research \cite{sanders08b} that resulted in
-the confounding factors mentioned above, meaning that more precise
-results, such as specific identifying features, should be detectable as well.
+\subsection{Alternate Distance Measures}
 
-Finally, if $R$ is found to be a bad measure of syntax distance, this
-dissertation will propose and evaluate alternative syntactic distance
-measures. Specifically, $R$ is one way to aggregate features that are
-created by decomposing sentences. It treats features as atomic, and
-does not manipulate them in any syntax-specific ways. As such, $R$ is
-not much different than Goebl's WIV. This may not be a problem if the
-decomposition methods used to generate features adequately capture
-dialect differences in independent, atomic features. If dialect
-differences cannot be captured by independent, atomic features, then a
-more syntax-specific method of combining features will be needed
-instead. Alternatively, a more complex statistical measure may be
-useful, taking the basic idea of $R$ and increasing its
-sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
-provides a dissimilarity that is intuitively similar to distance.
+$R$ is the simplest measure. But there are others. However, R appears to
+be the best, at least most consistently, over the largest variety of
+features. In any case, $R$ is the more important question since a
+distance measure is harder to change than a feature set. This isn't
+true at the code level, but at the conceptual level, feature
+sets are a lot easier to specify (copy from the proposal the 10
+examples I came up with in 5 minutes).
 
+So. Alternate distance measures. There are two directions worth
+exploring: more complicated statistical measures, and more syntax
+specific measures. There are more of the first and they fit more
+naturally with the available data. But syntax specific measures would
+be pretty cool. The problem is that most statistical syntax specific
+measures can also be modelled as different feature sets, while keeping
+the measure the same (more on features below).
+
+Complicated measures are all around. WIV is one, although not really
+designed for large data sets. But there are many others, like relative
+entropy (Kullbeck-Leibler divergence?) and its variants
+(Jenson-Shannon divergence). Probably you get could something out of
+mutual information or something. I'd have to check the equation and
+some commentary on it. Basically, any statistical measure of
+divergence is suitable, and there don't seem to be a shortage of
+those. I bet I could check Wikipedia to get a giant list that some cog
+sci guys sat down and made.
+
+\subsubsection{Syntax-specific distance measures}
+
+Syntax-specific measures are harder. They have to somehow incorporate
+syntax in the measure itself, in a way that can't be extracted and
+reified as features for a generic measure. But this is hard for
+statistical measures because syntax doesn't have much specific about
+it; you have input divided into sentences, and each sentence having an
+associated tree, and that's about it. Unlike phonology, you don't get
+aligned words that you could use to compare the structures (trees)
+directly. You don't get a well-specified several-layer model like you
+do from Chomsky-Halle/Kiparsky-Archangeli.
+
+Working by analogy from phonology, word order is equivalent to segment
+order. If you want more precision than words (or better, trigrams),
+model leaf-ancestor paths (and others) as bags of features for each
+word. Then define a distance measure between these bags of features.
+
+The problem with this is that, unless sentences are aligned (which
+they aren't), then you'll have to compare all sentences to all
+sentences. In that case any real differences will be lost in the noise
+of high-distance sentences for which zero or one words match. Maybe
+you could only look at sentences whose words match more than some
+threshold and then compare the syntax features for each word.
+
+\subsubsection{Important note on terms}
+
+Note: divergence is a dissimilarity that is not necessarily
+symmetric. Dissimilarity is a distance that is not necessarily
+following the triangle inequality. I think, I should probably make
+sure I'm not missing a property. Here, a ``distance measure'' really
+only needs to be a dissimilarity.
 
 \section{Question 2: Best Features}
 
-% H2 - Dad didn't understand that this is other features to be fed into
-%R not replacement of R entire.
-A secondary question, relevant once a useful syntax distance measure
-is established, is what input features cause $R$ to produce the best
-results.  Previous work has shown that leaf-ancestor paths provide a
-small advantage over part-of-speech trigrams, presumably by capturing
-syntactic structure higher in the parse tree. Additional possible
-feature sets include variations on the previously investigated
-trigrams and leaf-ancestor paths, along with various kinds of backoff,
-for example, to bigrams or coarser node tags. Features from dependency
-parses may be useful, too, in capturing non-local dependencies that
-can be captured neither by trigrams nor leaf-ancestor paths.
+Since the total question of this dissertation is whether syntax
+distance can be made to work for dialectology, we must remember that
+this is a two part question. The most important part is whether a
+distance measure like $R$ can be found that works with arbitrary
+features extracted from a large unaligned corpus. Once this is
+established (dealt with in the previous section), the question shifts to what are
+the best features.
 
-Therefore, I propose Hypothesis 2: better input features
-for $R$ will produce more accurate syntax
-distances. These features can be discovered by comparing performance
-of a number of different feature sets on a fixed corpus. In addition,
-combinations of successful features will produce even better
-performance.
-% This sentence is either redundant or should appear earlier.
-The quality of a set of features can be
-measured by its sensitivity---the number of significant distances it
-finds---and the similarity of the highly ranked features $R$ produces
-to those found by dialectologists.
+This is an easier question, because feature sets are easier to dream
+up. They are easier to combine (although I haven't done so yet.)
+They are easier to tweak slightly for a great improvement in
+results. The real problem with variation of feature sets is that there
+no standard from syntax that can be easily adapted to
+dialectometry. Phonology has order (mentioned above) and distinctive
+features.
 
-\subsection{Feature Quality}
+Previous work has shown that leaf-ancestor paths own a small advantage
+over trigrams, and dependency paths seem to own advantages for
+different measures than leaf-ancestor paths. So this question breaks
+down into two pieces. How do you propose new feature sets, and how do
+you tell the good ones?
 
-I need to find out what causes the variation in feature quality. (The
-current patterns are extremely odd.)
+\subsection{Proposing Feature Sets}
+
+New feature sets are pretty easy to propose. Basically, chop up the
+tree or dependency graph in some way, or condense the information down
+in some way.  Trigrams take only the leaves, three at a
+time. Leaf-ancestor paths take vertical slices of the tree. Dependency
+paths take ``vertical'' slices of the graph (either arcs or nodes;
+though arcs don't really work).
+
+More lossy ways of dividing the parse might also be useful;
+convolution kernels sum the differences between two trees. Oh wait, so
+that wouldn't work. But something similar might. Maybe. Besides
+convolution kernels, there are methods that try to identify the most
+important features of the sentence manually. For example, the first or
+last $n$ words in the sentence, words surrounding the predicate. Or
+even lossier things like sentence length or tree height or number of
+internal nodes, which captures the relative syntactic complexity of a
+sentence.
+
+Each of these has its advantages and disadvantages; leaf-ancestor
+paths are good at capturing upper (hidden) structure. On the other
+hand, dependency paths capture similar information but with more
+emphasis on long-distance relations between words. Convolution
+kernel-esque thing that I define tries to sum up the whole sentence in
+a single symbol/number, as do tree height and node count. Other
+specific features like first $n$ words intend to capture some aspect
+of processing that will be reflected in real differences between
+dialects.
+
+\subsection{Evaluating Feature Sets}
+
+The ideal feature set provides distances that match closely to the
+real dialect differences between regions. Since these are not
+precisely know, a number of proxies are necessary. One important proxy
+is geographical distance; although there is no {\it a priori} reason
+for geographical distance to match dialect distance, the dialectology
+literature overwhelmingly shows that it does. Other proxies are
+specific boundary features (mentioned above, for evaluating distance
+measure). Also phonological distance.
+
+Also, statistical significance. This is important but doesn't tell you
+if you have a {\it good} set of features, only if you have a {\it bad}
+set.
+
+\subsection{Total Quality}
+
+Total quality of the syntax distance is the multiple of distance measure
+and feature set. Current results show inconsistency between measures
+and sets; some combinations of measure and feature set work well, but
+changing one makes it perform badly. In other words, one feature set
+does not perform overwhelmingly better than the others; each feature
+set has at least one measure for which it performs badly. (The
+current patterns are odd.)
 
 
 %%% Local Variables: 

@@ -280,12 +280,22 @@
      Rosenkvist. I will add r^2 and dependency arc labels and rerun everything
      with them. I will start doing SOMETHING to questions.tex.
    - Need to mail my Friendspeak partner too. Argh, Mail!
+** 2010/01/22
+   - I mailed Rosenkvist. I wrote a couple of pages of stuff for the
+     first question. I added r^2 and dependency arc labels and reran
+     everything. I made a little chart of significances. They are not
+     consistent. I did not mail the committee members.
+   - I will mail Rex Sprouse. Include an example sentence to get
+     him interested. I will mail my committee members. I will write a
+     couple of pages for the second hypothesis and a couple for
+     alternate measures.
+   - 
 * Plan
 ** January
 *** Get results
 **** DONE Try lexicalised vs POS
      Lexicalised doesn't work. The end.
-**** TODO Try paths of dependency labels instead of POSs
+**** DONE Try paths of dependency labels instead of POSs
 **** TODO Try lexical cleaning
 **** TODO Try different parameters to parsers
 **** DONE Move experiment to Banks
@@ -297,13 +307,21 @@
      precision
 *** Introduction
 **** DONE Figure out how to structure latex chapters
-**** DONE Introduction (for now...)
+**** TODO Introduction
+     Need to write the overview of the dissertation. Need about a page
+     here explaining what each chapter is.
 **** TODO Hypotheses
+     Pretty good rough draft, needs a lot of work to be presentable.
 ** February
 *** Revise Hypotheses
+**** TODO Get Sandra (and others?) to look over it and critique.
+     It probably isn't nearly what is needed.
+*** Start Analysis
+**** TODO Read up on Swedish [syntactic] dialectology
+**** TODO Work with Rosenkvist to find out how my results compare to it
 *** Methods
 ** March
-*** Results (I HOPE)
+*** Results
 ** April
 *** Discussion
 ** May
@@ -332,12 +350,6 @@
   and see what common noise shows up
 * TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
-ask Rosenkvist
-    (1) to look at results (start with cluster map+dep
-clusters I think)
-    (2) to recommend a starting point for dialects in Swedish, plus
-    current syntax papers in Swedish dialectology. 'His' page on Lunds
-    Universitet is sadly missing links to his papers.
 
 ask local Swedish speaker to look over automatic annotation quality
 esp Berkeley parser and its POS tagging quality
@@ -351,3 +363,6 @@ necessary.
 * TODO Revise omnigraffle cluster maps
 * TODO Make a 10-15 progress presentation
 * TODO Res my bing end-of-internship presentation for Feb 2's CL meeting
+* TODO Figure out how to properly combine features
+* TODO Make a nicely formatted example sentence from each feature type
+  To send to Rex Sprouse or the native Swedish speaker
