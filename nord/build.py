@@ -95,10 +95,17 @@ def genFeatures():
         run("./DepPath '%s.dep.conll' node >'%s-dep.dat'" % (region,region))
         run("./DepPath '%s.redep.conll' node >'%s-redep.dat'" % (region,region))
         run("./DepPath '%s.dep.conll' arc >'%s-deparc.dat'" % (region,region))
+        all = open('%s-all.dat' % region, 'w')
+        all.write(region + '\n')
+        for feature in ['path', 'trigram', 'dep']:
+            # TODO:Make sure that \n***\n doesn't write 1 too many newlines
+            all.writelines(open('%s-%s.dat' % (region,feature)).readlines()[1:])
+            all.write('\n***\n')
+        all.close()
 def variants():
     return ((measure,feature)
             for measure in ['r', 'r_sq', 'kl', 'js']
-            for feature in ['path', 'trigram', 'dep', 'redep', 'deparc'])
+            for feature in ['path', 'trigram', 'dep', 'redep', 'deparc', 'all'])
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     for measure, feature in variants():
@@ -163,14 +170,14 @@ def genMaps():
         except:
             pass
         run('RuG-L04/bin/mapsetup -l interview.coo -p')
-        cfg = open('Sverigekarta-Landskap.cfg', 'w')
+        cfg = open('Sverigekarta.cfg', 'w')
         cfg.write('transform: out.trn\n')
         cfg.write('labels: interview.labels\n')
         cfg.write('coordinates: interview.coo\n')
         cfg.write('clipping: sverige.clp\n')
         #TODO: cfg.write(province borders???)
         cfg.close()
-        run('RuG-L04/bin/maprgb -o Sverigekarta-Landskap-mds-%s-%s.eps Sverigekarta-Landskap.cfg mds-10-1000-%s-%s-interview.vec' % (measure, feature, measure, feature))
+        run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s.eps Sverigekarta.cfg mds-10-1000-%s-%s-interview.vec' % (measure, feature, measure, feature))
         # run('Something to convert eps to pdf')
 def blade(runner, targets):
     for target in targets:
