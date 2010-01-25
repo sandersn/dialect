@@ -97,7 +97,7 @@ def genFeatures():
         run("./ConvertMaltToFeature '%s.dep.conll' arc >'%s-deparc.dat'" % (region,region))
         run("./ConvertTagsToFeature '%s.tag' unigram >'%s-unigram.dat'" % (region,region))
         run("./ConvertTagsToFeature '%s.tag' trigram >'%s-trigram.dat'" % (region,region))
-        all = open('%s-all.dat' % region, 'w')
+        all = open('%s-all.dat' % region, 'w', encoding='utf-8')
         # The problem with this approach is that sampling is per-sentence.
         # so you'll get 300 path sentences, 300 trigram sentences and 300 dep
         # (on average). This is just going to be equivalent to lowering the
