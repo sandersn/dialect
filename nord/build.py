@@ -10,10 +10,14 @@ import os
 import sys
 import consts
 import norte
-import cgitb
+# import cgitb
 from util.lst import partition
 import subprocess
 # cgitb.enable(format='text') # hurting more than it's helping right now
+
+MEASURES = ['r', 'r_sq', 'kl', 'js']
+FEATURES = ['path', 'trigram', 'dep', 'unigram', 'retrigram', 'redep', 'deparc']
+# 'all' is not a feature because it's done wrong currently
 
 def multirun(n, tasks, files):
     processes = [subprocess.Popen(tasks[i], stdout=open(files[i],'w'))
@@ -109,11 +113,7 @@ def genFeatures():
             all.write('\n***\n')
         all.close()
 def variants():
-    return ((measure,feature)
-            for measure in ['r', 'r_sq', 'kl', 'js']
-            for feature in ['path', 'trigram', 'dep', 'unigram',
-                            'retrigram', 'redep', 'deparc']) #, 'all'
-            # 'all' is out because it's wrong currently
+    return ((measure,feature) for measure in MEASURES for feature in FEATURES)
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     for measure, feature in variants():
@@ -154,9 +154,22 @@ def genAnalysis():
         run('./FormatDistance dist-10-1000-%s-%s-interview.txt pairwise > dist-10-1000-%s-%s-interview.csv' % (measure, feature, measure, feature))
         # 13.2 Next a 2-D table (full/redundant-matrix) for R
         run('./FormatDistance dist-10-1000-%s-%s-interview.txt square > dist-10-1000-%s-%s-interview-R.txt' % (measure, feature, measure, feature))
-    # 10.3 Here is the resulting R code. Cmd-S the resulting window after
+    # 13.3 make a CSV of significances
+    run('grep -c 0 sig*.txt >sigtmp.txt')
+    sigs = dict(line.strip().split(':') for line in open('sigtmp.txt'))
+    outf = open('sig-10-1000-interview.csv', 'w')
+    outf.write(',' + ','.join(FEATURES) + '\n')
+    for measure in MEASURES:
+        outf.write(measure + ',')
+        outf.write(','.join(
+            sigs['sig-100-1000-%s-%s-interview.txt' % (measure, feature)]
+            for feature in FEATURES))
+        outf.write('\n')
+    outf.close()
+    # 13.4 Here is the resulting R code. Cmd-S the resulting window after
     # sizing it to a nice size.
-    # maybe there is an automated way to do this.
+    # TODO: I have to learn more R scripting in order to automate this.
+    # the 'nice size' is :
     # > dep <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-dep-interview-R.txt", header=TRUE)
     ## > path <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-path-interview-R.txt", header=TRUE)
     ## > trigram <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-trigram-interview-R.txt", header=TRUE)
@@ -166,8 +179,8 @@ def genAnalysis():
     ## > plclust(hclust(as.dist(dep), method="ward"), hang=-1, sub="", xlab="", ylab="Dependency")
     ## > plclust(hclust(as.dist(geo), method="ward"), hang=-1, sub="", xlab="", ylab="Geographical Distance")
     ## source("/Users/zackman/Documents/dialect/montecarlo Mantel example.R")
-    ## cor(vectorise(geo), vectorise(dep)) (cross [geo,trigram,path,dep])
-    ## mantel(geo, dep, 33) (cross [geo,trigram,path,dep]
+    ## cor(vectorise(geo), vectorise(dep)) (pairwise [geo,trigram,path,dep])
+    ## mantel(geo, dep, 33) (pairwise [geo,trigram,path,dep]
 def genMaps():
     run('ghc -O2 --make ConvertDistToL04')
     for measure, feature in variants():
@@ -187,6 +200,7 @@ def genMaps():
         cfg.close()
         run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s.eps Sverigekarta.cfg mds-10-1000-%s-%s-interview.vec' % (measure, feature, measure, feature))
         # run('Something to convert eps to pdf')
+    run('mv *eps ..')
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)
