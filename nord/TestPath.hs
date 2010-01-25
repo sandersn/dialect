@@ -1,8 +1,8 @@
 import Test.HUnit
 import Test.QuickCheck
 import Test.QuickCheck.Batch
--- import Path hiding (main) -- NLP.PennTreebank not installed on peregrin
-import DepPath hiding (main)
+-- import ConvertBerkeleyToFeature hiding (main) -- NLP.PennTreebank not installed on peregrin
+import ConvertMaltToFeature hiding (main)
 import Util
 import Talbanken (FlatNode(..))
 import Char

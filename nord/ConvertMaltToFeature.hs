@@ -1,4 +1,4 @@
-module DepPath where
+module ConvertMaltToFeature where
 import Util (withFileLines, (&), (|>), groupBy, interactTargets, list)
 import Data.Map ((!), fromList, size)
 import Data.List (intercalate)

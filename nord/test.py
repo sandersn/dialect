@@ -20,7 +20,7 @@ def convertTalbanken():
     run('./TestConvertTalbanken')
 def convertTags():
     try:
-        run('rm ConvertTagsToTxt.o')
+        run('rm ConvertTntToTxt.o')
         run('rm ConvertTagsToConll.o')
     except:
         pass
@@ -28,8 +28,8 @@ def convertTags():
     run('./TestConvertTags')
 def path():
     try:
-        run('rm Path.o')
-        run('rm DepPath.o')
+        run('rm ConvertBerkeleyToFeature.o')
+        run('rm ConvertMaltToFeature.o')
     except:
         pass
     run('ghc --make TestPath')

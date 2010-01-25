@@ -7,7 +7,7 @@ import Control.Monad.State.Lazy (State, get, put, evalState)
 import qualified Data.Map as Map
 import Text.Regex.Posix ((=~))
 import System
-main = interactTargets [("trigram", trigrams) ,("path", paths)] process
+main = interactTargets [("trigram", trigrams), ("path", paths)] process
   where process t region = withFileLines (extract region t) region
 extract region target =
   filter (/= "(())") -- this line may be unneeded because of

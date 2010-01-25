@@ -69,11 +69,10 @@ def trainCfg():
         'edu.berkeley.nlp.PCFGLA.GrammarTrainer -path talbanken.mrg '
         '-out talbanken.gr -treebank SINGLEFILE')
 def tagCfg():
-    run('ghc -O2 --make ConvertTagsToTxt -main-is ConvertTagsToTxt.main')
+    run('ghc -O2 --make ConvertTntToTxt -main-is ConvertTntToTxt.main')
     for region in consts.swediaSites:
         # 8.0 Post-process tagged SweDiaSyn to sentence-per-line format
-        # run("./ConvertTagsToTxt '%s.tag' >'%s.txt'" % (region,region))
-        run("./ConvertTagsToTxt '%s.t' >'%s.txt'" % (region,region))
+        run("./ConvertTntToTxt '%s.t' >'%s.txt'" % (region,region))
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def retagDep():
@@ -87,14 +86,17 @@ def retagDep():
     # etc etc ... that is, just rerun everything else on the new 'redep' files
 def genFeatures():
     # so I guess this is 10.0: generate features from annotations
-    run('ghc -O2 --make Path -main-is Path.main')
-    run('ghc -O2 --make DepPath -main-is DepPath.main')
+    run('ghc -O2 --make ConvertBerkeleyToFeature -main-is ConvertBerkeleyToFeature.main')
+    run('ghc -O2 --make ConvertMaltToFeature -main-is ConvertMaltToFeature.main')
+    run('ghc -O2 --make ConvertTagsToFeature')
     for region in consts.swediaSites:
-        run("./Path '%s.mrg' trigram >'%s-trigram.dat'" % (region,region))
-        run("./Path '%s.mrg' path >'%s-path.dat'" % (region,region))
-        run("./DepPath '%s.dep.conll' node >'%s-dep.dat'" % (region,region))
-        run("./DepPath '%s.redep.conll' node >'%s-redep.dat'" % (region,region))
-        run("./DepPath '%s.dep.conll' arc >'%s-deparc.dat'" % (region,region))
+        run("./ConvertBerkeleyToFeature '%s.mrg' trigram >'%s-retrigram.dat'" % (region,region))
+        run("./ConvertBerkeleyToFeature '%s.mrg' path >'%s-path.dat'" % (region,region))
+        run("./ConvertMaltToFeature '%s.dep.conll' node >'%s-dep.dat'" % (region,region))
+        run("./ConvertMaltToFeature '%s.redep.conll' node >'%s-redep.dat'" % (region,region))
+        run("./ConvertMaltToFeature '%s.dep.conll' arc >'%s-deparc.dat'" % (region,region))
+        run("./ConvertTagsToFeature '%s.tag' unigram >'%s-unigram.dat'" % (region,region))
+        run("./ConvertTagsToFeature '%s.tag' trigram >'%s-trigram.dat'" % (region,region))
         all = open('%s-all.dat' % region, 'w')
         # The problem with this approach is that sampling is per-sentence.
         # so you'll get 300 path sentences, 300 trigram sentences and 300 dep
@@ -109,7 +111,9 @@ def genFeatures():
 def variants():
     return ((measure,feature)
             for measure in ['r', 'r_sq', 'kl', 'js']
-            for feature in ['path', 'trigram', 'dep', 'redep', 'deparc', 'all'])
+            for feature in ['path', 'trigram', 'dep', 'unigram',
+                            'retrigram', 'redep', 'deparc']) #, 'all'
+            # 'all' is out because it's wrong currently
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     for measure, feature in variants():
