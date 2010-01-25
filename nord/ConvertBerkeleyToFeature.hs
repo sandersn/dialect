@@ -1,4 +1,4 @@
-module Path where
+module ConvertBerkeleyToFeature where
 import Sexp
 import Util (histogram, window, (|>), (&), withFileLines, interactTargets)
 import Data.List (intercalate,find)
