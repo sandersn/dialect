@@ -1,11 +1,77 @@
 \chapter{Results}
 
 \section{Significant Distances}
-All distances are significant using all three feature types for all
-interview sites.
+
+There is some variation in the number of distances that are
+significant for each combination of distance measure and feature
+set. The numbers are given in tables \ref{significances} and
+\ref{significances-percent}. The second, table
+\ref{significances-percent}, gives the significances as percentages of
+the total number of distances measured, $528 = 33 * (33 - 1) / 2$, and
+bolds numbers above 5\%.
+
+Specifically, looking at the tables above, one can draw the following
+six conclusions:
 
 \begin{table}
-\begin{tabular}{r|ccc}
+\begin{tabular}{l|rrrr}
+  & $R$ & $R^2$ & KL & JS  \\ \hline
+  Leaf-Ancestor                             & 0 & 7 & 5& 6 \\
+  Trigram                                      & 0 & 0 & 86 & 99 \\
+  Dependency                                & 0 & 13 & 1 & 2 \\
+  Unigram                                      & 11 & 17 & 2 & 2 \\
+  Trigram, From Berkeley Parser      & 0 & 0 & 92 & 105 \\
+  Dependency, From Berkeley Parser & 0 & 6 & 0 & 0 \\
+  Dependency, Arc Labels                & 69 & 80 & 51 & 46 \\
+\end{tabular} \\
+\label{significances}
+\caption{Number of significant distances across Measure and Feature
+  Set}
+\end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrr}
+  & $R$ & $R^2$ & KL & JS  \\ \hline
+  Leaf-Ancestor                    & 0 & 1.33 & 0.95 & 1.14 \\
+  Trigram                            & 0 & 0 & {\bf 16.29} & {\bf 18.75} \\
+  Dependency                       & 0 & 2.46 & 0.19 & 0.38 \\
+  Unigram                             & 2.08 & 3.22 & 0.38 & 0.38\\
+  Trigram, From Berkeley Parser& 0 & 0 & {\bf 17.42} & {\bf 19.89} \\
+  Dependency, From Berkeley Parser & 0 & 1.14 & 0 & 0 \\
+  Dependency, Arc Labels
+  & {\bf 13.07} & {\bf 15.15} & {\bf 9.66} & {\bf 8.71} \\
+\end{tabular} \\
+\label{significances-percent}
+\caption{Percent of significant distances across Measure and Feature
+  Set}
+\end{table}
+
+
+
+\begin{enumerate}
+\item Dependencies using arc labels is not a good feature.
+\item Kullbeck-Leibler and Jensen-Shannon divergences
+do not provide good results given trigram features.
+\item Kullbeck-Leibler and Jensen-Shannon divergences provide their
+  best results with dependency features.
+\item However, on unigram features, which were included as a control,
+  Kullbeck-Leibler and Jensen-Shannon divergences do almost as well as with
+  dependency features.
+\item In contrast, $R^2$ gives its best performance for trigram
+  features.
+\item $R$ provides the best results across all feature sets
+  overall. The exceptions are unigram and dependencies with arc
+  labels, but these feature sets perform poorly overall.
+\end{enumerate}
+
+These are not particularly coherent conclusions to draw. Further
+analysis is needed to identify the cause of the variation. Regardless,
+because of $R$'s consistency, it will be used exclusively for the
+remaining results. Dependencies with arc labels will also be omitted
+from the rest of the analysis and discussion.
+
+\begin{table}
+\begin{tabular}{r|lll}
   & Trigram & Leaf-Ancestor & Dependency  \\ \hline
   Geographic & -0.010 & 0.004 & 0.028 \\
   Dependency & 0.917** & 0.958** & \\
@@ -564,6 +630,12 @@ AJ 903.61
 POOP 1495.66
 ABZA 1756.18
 \subsection{Multi-Dimensional Scaling}
+
+This shows very similar results to the hierarchical clustering. A
+few strongly different regions appear in the south, there is a bad
+around Stockholm, and North Sweden (Norrland) groups together with a
+couple of more southern regions outside the Stockholm region.
+
 \begin{figure}
   \includegraphics[width=0.9\textwidth]{Sverigekarta-Landskap-mds-dep}
   \label{mds-dep}

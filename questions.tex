@@ -61,108 +61,196 @@ measured by its sensitivity---the number of significant distances it
 finds---and the similarity of the highly ranked features $R$ produces
 to those found by dialectologists.
 
-% H3
-A third question is whether $R$ agrees with phonological distance
-measures like Levenshtein distance. Unlike agreement with traditional
-dialectology, there is no {\it a priori} reason to expect agreement
-between phonology and syntax in delineating dialect
-boundaries. However, agreement with phonological distance would be
-further evidence for the suitability of $R$ as a syntactic distance
-measure.
-
-Therefore, I propose Hypothesis 3: a phonology corpus and syntax corpus
-constructed from the same data will provide better correlation between
-phonology and syntax distance measures than a phonology corpus and
-syntax corpus drawn from different data sources. I will test this
-hypothesis by comparing results to my previous work on British English
-phonological and syntactic corpora; there, no significant correlation
-was found between the regions extracted from the two corpora drawn
-from different data. If significant correlation is found by using the
-same set of data for both corpora, it indicates that phonology and
-syntax boundaries do coincide but that the agreement is weak enough to
-be lost when using corpora collected from different populations.
-
 \section{Question 1 : Agreement with Dialectology}
 
-The first question is whether $R$ agrees with dialectology. This
-question can be asked in a couple of different ways. The first (and
-most difficult) is whether the features agree with the features
-discovered by (human) dialectologists.
+At a high level, the first question is whether $R$, as a measure from
+dialectometry, agrees with dialectology. On closer inspection, this
+question covers a number of more specific questions, each dealing with
+a specific comparison to dialectology. The first is whether the
+features that $R$ counts most important are the same as the features
+discussed in the dialectology literature. The other questions are
+whether boundaries, regions and distances found by $R$ agree with
+dialectology.
 
-The others are whether boundaries agree, whether regions agree and
-whether distances agree. However, traditional dialectology doesn't
-produce distances much, and regions are usually only for particularly
-strong distinctions (and are often derived from a set of strong
-boundaries), so boundaries will be the most important of these
-three.
+Feature agreement is the most important and most difficult
+question. It is the most important for two reasons. First, it offers
+the most precise explanation and is the easiest to disprove. Second,
+dialectology starts with individual features, so the most work for
+comparison is available at the feature level.
 
-Features is the most important for two reasons. First, it explains the
-most and is the easiest to disprove. Second, dialectology will
-produce the most instances of this; the others require a lot of work
-on abstraction from dialectologists and (frankly) there aren't a lot
-of Swedish syntactic dialectologists out there. I think there's two.
+\subsection{Dialectology}
+
+Definition of terms from dialectology is appropriate here, along with
+an explanation of how they fit together. The basic unit in
+dialectology is the feature, which corresponds to a feature given to
+$R$. During analysis, the linguist may suspect that a feature is
+characteristic of a particular region, but more information, usually
+from a survey, is needed to make certain.
+
+Given a survey or other source of geographical mapping information, a
+boundary for a feature can be delineated. This boundary is called an
+isogloss. With the right information, isoglosses are usually simple to
+determine. One complicated case has a few occurrences of a feature
+variant stranded in the middle of the other variant. This complicates
+the geometry of the isogloss.
+
+If a number of isoglosses coincide, they form an isogloss bundle,
+which separates one region from another. Isogloss bundles are simple
+in theory, but in practise they are difficult to find because
+isoglosses rarely coincide perfectly. In practise, undisputed isogloss
+bundles only occur between well-known dialects, such as the
+boundaries between Low and High German or Northern and Southern
+English of England. In cases where more precision is required, there
+is not usually a sufficient number of coincident isoglosses. Even
+though there may be plenty of isoglosses in the area, isoglosses so
+rarely coincide that only a few may be construed as forming an
+isogloss boundary.
+
+Dialectology does not have a clear equivalent to dialectometry's
+distance. The closest analogue is size of isogloss bundle; to reflect
+this, dialect maps typically indicate size of isogloss bundle by
+thickness of boundary line. Additionally, some regions are known to differ from
+others much more than the rest of the regions. This usually mirrors
+isogloss bundles, surfacing in the literature as a list of well-known
+dialect features of a region.
 
 \subsection{Features}
 
-We are looking for things like ``Swedish apparent cleft produces
-sentences like this''. Then convert the examples they give into the
-crappy formalism we use (implicitly), rip the sentence up into
-features and see if those features show up in the mentioned
-regions. If they do, how important are they? What features are more
-important than they are?
+To match the features of dialectology to the features that $R$ uses to
+produce a distance, I first need to find discussion of Swedish dialect
+features in the dialectology literature. For example,
+\namecite{rosenkvist07} discusses the South-Swedish apparent
+cleft. This feature is best analysed as a single feature; Rosenkvist
+mentions that it occurs in southern and central Swedish and not
+northern Swedish, but does not give a more precise location than
+``Svealand and G\"otaland''. So we will compare this feature directly
+to features found in any part of the corpus.
 
-There's probably one or two other things I should say about this. The
-above paragraph will probably expand to about three on its own,
-though.
+Next I convert the feature to the formalism used for annotation.
+Typically this requires conversion of a minimalist structure to a
+simpler structure based on a phrase-structure grammar. This produces a
+skeleton parse or parse fragment. Then the skeletal structure can be
+broken into features in the same way that parses of corpus sentences
+are. Once converted, the feature should appearch in the list of
+important features for regions in southern Sweden.
 
-\subsection{Boundaries}
+In the apparent cleft example, the apparent cleft is realised as an
+additional use of the word {\it som}, ordinarily a
+complementiser. Typically, the next step is to identify the minimalist
+structure for this, but Rosenkvist's 2007 paper does not yet provide
+this analysis. Although there is no structure to translate to a
+phrase-structure skeleton, his analysis provides enough clues to
+produce some features directly. Trigrams are easiest; he mentions that
+his corpus search used the strings {\it det \"ar som} (``It is that'')
+and {\it det \"ar bara som} ``It's just that''. These words only
+part-of-speech annotation to be trigram features. Dependency
+paths can also use these parts of speech for the local dependencies
+between {\it det,\"ar} and {\it som}. Rosenkvist also mentions
+some syntactic properties of apparent clefts that are useful for
+specifying dependency path features: the subject of the {\it
+  som}-clause must be a pronoun, so we should expect to see
+dependency paths of the form {\it ROOT-som-PRON} in the regions that
+have the apparent cleft.
 
-Boundaries are what cause regions to emerge, and they are the
-principal output of dialectology's attempt to find isoglosses. So I
-would expect to find a lot of boundaries that overlap badly and don't
-really form good regions. In fact, there isn't a whole lot of
-difference between isogloss bundles and isoglosses for the purposes of
-this dissertation; they both compare as directly to the features I
-extract.
+Once dialectometric features have been specified from some linguistic
+analysis, the analysis consists of the following questions: in what
+regions do these features appear? Do these regions match the expected
+distribution (if any) from the linguistic analysis? How much do
+the features contribute to distance from other regions? If there are
+other features that contribute more, what are they?
 
-So, uh, this is really just a different way to say the same thing as
-the Features section. I guess I should just stop talking now. (This
-section should probably go above regions.)
+TODO: Finish example by using structure from papers on the apparent
+cleft (if it exists) in English and Japanese.
 
-\subsection{Regions}
+\subsection{Isogloss Boundaries}
 
-Regions is the most straightforward type of matching: just use MDS or
-clustering to get my results to show some kind of boundary, then check
-dialectology for a list of regions. See if and how well they match.
+Isogloss boundaries are intermediate in complexity between features unspecified
+for location and regions demarcated by isogloss bundles. For the
+purposes of this dissertation, however, there is not much difference
+between a feature with some documented locations and an isogloss
+boundary. An isogloss makes the regions of interest clearer, but it is
+a difference in degree and not in quality. The real difference in
+analysis occurs when dialectology has identified an isogloss bundle.
 
-The only complication is partial matches and weak boundaries;
-statistical boundaries necessarily vary in strength, so the cutoff for
-humans deciding there is a region here may differ from the cutoff they
-use when looking at statistical results. And of course partial matches
-just mean that it's less obvious how to evaluate objectively the
-quality of the match. Perhaps you can just use $km^2$ overlap. Cheesy
-but effective!
+\subsection{Isogloss Bundles}
 
-Matching specific regions is important. For instance, J\"amtland
-appears to be reproduced by early results. Unfortunately, as is, there
-don't seem to be many other SUPER STRONG boundaries mentioned with
-things that aren't sister languages to Swedish instead of dialects
-(technically, although you could easily analyse them the same way if
-you want, but probably nobody is interviewing that way).
+Isogloss bundles compare straightforwardly to dialectometry, insofar as
+dialectometric methods produce regions. There are two primary ways for
+identifying regions from these methods: hierarchical clustering and
+multi-dimensional scaling. Neither method is perfect; as with isogloss
+bundles, some human input is still needed to determine whether an
+inter-region boundary truly exists at some point.
+
+Hierarchical clustering
+produces well-delineated regions, at the cost of some
+uncertainty---the results tend to vary quite a bit from feature set to
+feature set. Only clusters that persist between results from multiple
+feature sets should be considered valid.
+
+In contrast, multi-dimensional scaling (MDS) is a straightforward
+mathematical transformation of the high-dimensional space created by
+measuring distances between all regions in the corpus. Although MDS
+does not produce spurious information, its results are often hard to
+analyse because it produces boundaries of varying strength. Very
+different regions stand out, but similar regions appear similar even
+if they contain some differences. This similarity can make it
+difficult to decide whether an area should be considered one region or
+two.
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth]{Sverigekarta-Landskap-Swedia}
+  \label{agree-clusters-small}
+  \caption{Swedia, Clusters Common to All 3 Methods}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{Sverigekarta-Landskap-mds-dep}
+  \label{mds-dep-small}
+  \caption{Swedia, Multi-Dimensional Scaling of Depedency Path Distance}
+\end{figure}
+
+Once both dialectologic and dialectometric regions have been
+identified, comparison is straightforward. Each region can be checked
+for overlap---regions with a greater overlap area are better matches.
+
+The real problem in identifying regions is that there has not been
+enough dialectology work on Swedish syntax yet: numerous identified
+isogloss bundles are indicative of a well understood area of
+dialectology. In Swedish syntax, few regions are well-known and
+well-documented enough to have isogloss bundles. It is possible that
+dialectometry will lead the way in providing answers in this
+area.
 
 \subsection{Distances}
 
-Since dialectology is qualitative, this necessarily is extremely
-rough; we are looking for statements like ``there are numerous
-differences between dialect X and Standard Swedish'' or ``dialect X is
-very distant (or nearly indistinguishable) from Standard Swedish''.
+Although comparing distances from dialectometry to qualitative
+research in dialectology is possible, it is unlikely to be useful in
+this dissertation because of the previously mentioned lack of
+developed Swedish dialectology in syntax. When it is possible,
+one either looks for differences in size of isogloss bundle, or (more
+weakly) statements like ``in general, Southern
+Swedish is syntactically identical to Standard Swedish''
+\cite{rosenkvist07} or ``there are numerous differences between
+dialect X and the standard language''.
 
-\subsection{Alternate Distance Measures}
+\section{Alternate Distance Measures}
 
-$R$ is the simplest measure. But there are others. However, R appears to
-be the best, at least most consistently, over the largest variety of
-features. In any case, $R$ is the more important question since a
-distance measure is harder to change than a feature set. This isn't
+Of the measures considered in this dissertation, $R$ is the
+simplest---it's the sum of difference in feature counts. It is almost
+the simplest statistical measure possible, given no knowledge of the
+features to be used. Despite this, R appears to perform better, or
+at least more consistently, than other measures that have been tested
+in this dissertation. It gives significant results across a larger
+variety of feature sets than more complicated measures do.
+
+The question of measure is more important than feature set because
+measures are harder to construct than feature sets, and even harder to
+combine compared to feature sets. However, the distance measures
+tested so far do not have a greater effect on significance also have a
+greater effect on significance.
+
+
+This isn't
 true at the code level, but at the conceptual level, feature
 sets are a lot easier to specify (copy from the proposal the 10
 examples I came up with in 5 minutes).
@@ -185,7 +273,7 @@ divergence is suitable, and there don't seem to be a shortage of
 those. I bet I could check Wikipedia to get a giant list that some cog
 sci guys sat down and made.
 
-\subsubsection{Syntax-specific distance measures}
+\subsection{Syntax-specific distance measures}
 
 Syntax-specific measures are harder. They have to somehow incorporate
 syntax in the measure itself, in a way that can't be extracted and
@@ -209,7 +297,7 @@ of high-distance sentences for which zero or one words match. Maybe
 you could only look at sentences whose words match more than some
 threshold and then compare the syntax features for each word.
 
-\subsubsection{Important note on terms}
+\subsection{Important note on terms}
 
 Note: divergence is a dissimilarity that is not necessarily
 symmetric. Dissimilarity is a distance that is not necessarily
