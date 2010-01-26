@@ -166,21 +166,11 @@ def genAnalysis():
             for feature in FEATURES))
         outf.write('\n')
     outf.close()
-    # 13.4 Here is the resulting R code. Cmd-S the resulting window after
-    # sizing it to a nice size.
-    # TODO: I have to learn more R scripting in order to automate this.
-    # the 'nice size' is :
-    # > dep <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-dep-interview-R.txt", header=TRUE)
-    ## > path <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-path-interview-R.txt", header=TRUE)
-    ## > trigram <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-r-trigram-interview-R.txt", header=TRUE)
-    ## > geo <- read.table("/Users/zackman/Documents/dialect/nord/dist-10-1000-geo-R.txt", header=TRUE)
-    ## > plclust(hclust(as.dist(trigram), method="ward"), hang=-1, sub="", xlab="", ylab="Trigram")
-    ## > plclust(hclust(as.dist(path), method="ward"), hang=-1, sub="", xlab="", ylab="Leaf-Ancestor Path")
-    ## > plclust(hclust(as.dist(dep), method="ward"), hang=-1, sub="", xlab="", ylab="Dependency")
-    ## > plclust(hclust(as.dist(geo), method="ward"), hang=-1, sub="", xlab="", ylab="Geographical Distance")
-    ## source("/Users/zackman/Documents/dialect/montecarlo Mantel example.R")
-    ## cor(vectorise(geo), vectorise(dep)) (pairwise [geo,trigram,path,dep])
-    ## mantel(geo, dep, 33) (pairwise [geo,trigram,path,dep]
+    # 13.4 Run correlations AND hierarchical cluster figures
+    # TODO: Still have to rotate to portrait after generation
+    # TODO: Should generate pairwise comparisons between all feature types
+    #   for each measure. But it doesn't yet.
+    run('R CMD BATCH genAnalysis.R')
 def genMaps():
     run('ghc -O2 --make ConvertDistToL04')
     for measure, feature in variants():

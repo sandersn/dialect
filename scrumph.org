@@ -290,6 +290,28 @@
      couple of pages for the second hypothesis and a couple for
      alternate measures.
    - 
+** 2010/01/25
+   - I wrote a few pages for the second hypothesis and some more for
+     alternate measures. I made some diagrams for constituency and
+     dependency parses and I don't need Rex's help to see how bad they
+     are.
+   - I will implement real trigrams and call the current retrigram. I
+     will implement unigram/reunigram for comparison. I will filter
+     the http://uit.no/scandiasyn/bib2003 list down to Swedish ones. I
+     will bug my committee to finalise the proposal defence.
+   - I should also reply to Henrik.
+** 2010/01/26
+   - I implemented real trigrams and unigrams and re-ran everything.
+     I filtered the uit.no
+     list down to Swedish ones (probably). I wrote an R script that
+     does some of the correlation/significance/figure work for me. I
+     wrote a status e-mail to Sandra.
+   - I will work a whole bunch on Questions and maybe a little on the
+     intro (although the summary is pretty hard to write until the
+     rest is written). I will look over the proposal defence again and
+     see if anything more occurs to me.
+   - Still need to track down those articles and start reading
+     them. Should also reply to Henrik soon. Not sure what to say.
 * Plan
 ** January
 *** Get results
