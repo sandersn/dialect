@@ -16,8 +16,7 @@ import subprocess
 # cgitb.enable(format='text') # hurting more than it's helping right now
 
 MEASURES = ['r', 'r_sq', 'kl', 'js']
-FEATURES = ['path', 'trigram', 'dep', 'unigram', 'retrigram', 'redep', 'deparc']
-# 'all' is not a feature because it's done wrong currently
+FEATURES = ['path', 'trigram', 'dep', 'unigram', 'retrigram', 'redep', 'deparc', 'all']
 
 def multirun(n, tasks, files):
     processes = [subprocess.Popen(tasks[i], stdout=open(files[i],'w'))
