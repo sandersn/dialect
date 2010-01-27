@@ -249,71 +249,126 @@ combine compared to feature sets. However, the distance measures
 tested so far do not have a greater effect on significance also have a
 greater effect on significance.
 
+TODO: The introduction and justification here are worthless. Their
+statements are false or irrelevant. So maybe this section as a whole
+is worthless.
 
-This isn't
-true at the code level, but at the conceptual level, feature
-sets are a lot easier to specify (copy from the proposal the 10
-examples I came up with in 5 minutes).
+There are basically two directions to explore when creating an
+distance measure to replace $R$. The first direction is to address
+$R$'s simplicity by finding a more complex measure. The second
+direction is to address $R$'s ignorance of syntax by finding a measure
+with specific knowledge of syntax. The first direction is easier,
+given the statistical bent of the corpus used here and the number of
+statistical measures commonly used in computational
+linguistics. A number of these measures are described in the Methods
+chapter after the description of $R$.
+Additionally, the statistical framework is powerful
+enough that most syntax-specific knowledge can be represented in terms
+of features instead of integrated into the distance measure's
+algorithm.
 
-So. Alternate distance measures. There are two directions worth
-exploring: more complicated statistical measures, and more syntax
-specific measures. There are more of the first and they fit more
-naturally with the available data. But syntax specific measures would
-be pretty cool. The problem is that most statistical syntax specific
-measures can also be modelled as different feature sets, while keeping
-the measure the same (more on features below).
+TODO: ``Statistical'' is not quite the right word here.
 
-Complicated measures are all around. WIV is one, although not really
-designed for large data sets. But there are many others, like relative
-entropy (Kullbeck-Leibler divergence?) and its variants
-(Jenson-Shannon divergence). Probably you get could something out of
-mutual information or something. I'd have to check the equation and
-some commentary on it. Basically, any statistical measure of
-divergence is suitable, and there don't seem to be a shortage of
-those. I bet I could check Wikipedia to get a giant list that some cog
-sci guys sat down and made.
+Indeed, it is so difficult to think of syntax-specific algorithms that
+none are presented in this dissertation. However, a number of more
+complicated statistical measures are presented and some are tested. Goebl's
+Weighted Identity Value (originally, Gewichteter Identit\"atswert) is
+the earliest to be used in dialectometry, but others such as
+Kullback-Leibler divergence and its variants are a good fit because of
+their similarity to $R$.
 
 \subsection{Syntax-specific distance measures}
 
-Syntax-specific measures are harder. They have to somehow incorporate
-syntax in the measure itself, in a way that can't be extracted and
-reified as features for a generic measure. But this is hard for
-statistical measures because syntax doesn't have much specific about
-it; you have input divided into sentences, and each sentence having an
-associated tree, and that's about it. Unlike phonology, you don't get
-aligned words that you could use to compare the structures (trees)
-directly. You don't get a well-specified several-layer model like you
-do from Chomsky-Halle/Kiparsky-Archangeli.
+As mentioned above, syntax-specific measures are more difficult to
+specify---they must somehow incorporate knowledge of syntax in the
+measure itself, in such a way that cannot be reified as features that
+could then be processed by a generic statistical measure. This is
+difficult when working with syntactic corpora; the amount of
+information about each sentence is much lower than the amount of
+information about each word in a traditional dialectology corpus of
+phonology. Specifically, there is no alignment between sentences, nor is
+there a predefined list of sentences to be elicited. In addition,
+there is no well-accepted model equivalent the one set out by
+\namecite{chomsky68}, which can be further augmented by later work in
+phonology, such as \quotecite{goldsmith76} autosegmental
+phonology. Dialectology work on phonology has relaxed these
+assumptions, but switching to statistical analysis of unordered
+corpora \cite{sanders06} and \cite{hinrichs07} has not
+been as successful as abandoning distinctive features \cite{heeringa04}.
 
-Working by analogy from phonology, word order is equivalent to segment
-order. If you want more precision than words (or better, trigrams),
-model leaf-ancestor paths (and others) as bags of features for each
-word. Then define a distance measure between these bags of features.
+The hidden structure available for syntax is the parse---whether this
+is a constituent parse, dependency parse or some variant of shallow
+parse. Working by analogy from phonology, segments have hidden
+structure in the form of distinctive features. Segment order in
+phonology corresponds to word order in syntax. Unfortunately, as just
+mentioned, the analogy does not extend to corpus order. However, there
+is one piece of information that is not available to phonology (at
+least pre-autosegmental phonology): the upper structure is
+connected. For the current set of experiments, the upper structure is
+processed, divided and assigned as features attached to an individual
+word in the form of leaf-ancestor paths or dependency paths. This
+approach allows the features to be given to $R$ and treated as if they
+are independent, which is of course not true.
 
-The problem with this is that, unless sentences are aligned (which
-they aren't), then you'll have to compare all sentences to all
-sentences. In that case any real differences will be lost in the noise
-of high-distance sentences for which zero or one words match. Maybe
-you could only look at sentences whose words match more than some
-threshold and then compare the syntax features for each word.
+However, even taking advantage of this connected upper structure only
+provides additional features per sentence. These features can be
+profitably added to the others when using a statistical measure, but
+they do not require a new measure.
 
 \subsection{Important note on terms}
 
-Note: divergence is a dissimilarity that is not necessarily
-symmetric. Dissimilarity is a distance that is not necessarily
-following the triangle inequality. I think, I should probably make
-sure I'm not missing a property. Here, a ``distance measure'' really
-only needs to be a dissimilarity.
+In the preceding section, there are several terms related to distance
+in use. In order from least restrictive to most restrictive, they are
+`divergence', `dissimilarity' and `distance'. In this dissertation, a
+`measure' is any of these three functions. A divergence is a measure
+that is not required to be either symmetric or to satisfy the triangle
+inequality. A dissimilarity is symmetric, but is not required to
+satisfy the triangle inequality. A distance satisfies both
+properties. For this dissertation, the measure only needs to be a
+dissimilarity; a true distance is not needed.
+
+All three kinds of functions must always return positive numbers, and
+only return 0 for corpora that are equal.  A symmetric function
+returns the same number whether measuring from point X to point Y or
+from point Y to point X. The triangle inequality means that distance
+from point X to point Y plus point Y to point Z is at least as long as
+travelling straight from point X to point Z.  If this is true, it
+means that the function is measuring the same thing between all
+corpora and therefore that the shortest path between two points can be
+shortened by substituting a path with fewer intermediate
+points. Equations
+\ref{distance-properties-positive}-\ref{distance-properties-triangle}
+list the properties formally.
+
+\begin{equation}
+  d(x,y) \ge 0
+  \label{distance-properties-positive}
+\end{equation}
+
+\begin{equation}
+ d(x,y) = 0 \textrm{ iff } x=y
+\end{equation}
+
+\begin{equation}
+  d(x,y) = d(y,x)
+\end{equation}
+
+\begin{equation}
+  d(x,y) + d(y,z) \ge d(x,z)
+\label{distance-properties-triangle}
+\end{equation}
 
 \section{Question 2: Best Features}
 
-Since the total question of this dissertation is whether syntax
-distance can be made to work for dialectology, we must remember that
-this is a two part question. The most important part is whether a
-distance measure like $R$ can be found that works with arbitrary
-features extracted from a large unaligned corpus. Once this is
-established (dealt with in the previous section), the question shifts to what are
-the best features.
+The second question of this dissertation reflects the fact that the
+overall question of syntax distance for dialectometry has two
+parts. The first question deals with whether a distance measure like
+$R$ can be found that works with features extracted from a
+large unaligned corpus. Therefore, the second question deals with the
+feature sets used as input: how to specify them, how to generate them,
+and how to evaluate them.
+
+TODO:DONE to here
 
 This is an easier question, because feature sets are easier to dream
 up. They are easier to combine (although I haven't done so yet.)

@@ -312,6 +312,16 @@
      see if anything more occurs to me.
    - Still need to track down those articles and start reading
      them. Should also reply to Henrik soon. Not sure what to say.
+** 2010/01/27
+   - I wrote second draft on the first question and sstarted alternate
+     measures. I looked at the proposal defence for like 20 seconds. I
+     added some results instead of . I read a little more about R.
+   - I will finish Questions with the Features question and finishing
+     Alternate Measures. I will try to learn a bit more about R so I
+     can finish automating the significance tests. I will look more at
+     the proposal defence.
+   - I should STILL mail Rosenkvist and start reading those
+     papers. (besides the apparent cleft one)
 * Plan
 ** January
 *** Get results
