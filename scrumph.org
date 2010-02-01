@@ -322,6 +322,36 @@
      the proposal defence.
    - I should STILL mail Rosenkvist and start reading those
      papers. (besides the apparent cleft one)
+** 2010/01/28
+   - I finished Alternate Measures and Distance Terminology (with real
+     math!). I started a little on Question 2. I wrote a script to
+     properly create 'all' features and reran sigs/dists. I finished
+     automating the R correlations (though I may need to revise it, it
+     works now). I didn't look at the proposal defence.
+   - I will finish question 2 of the questions.tex. I will re-run
+     genAnalysis and genMaps to include the All feature set.
+   - Yeah yeah, mail Rosenkvist. Tomorrow I will revise bing
+     presentation and defence presentation.
+** 2010/01/29
+   - I almost finished question 2. I re-ran genAnalysis and
+     genMaps. (I wrote a bunch on Chu-Liu-Edmonds too...)
+   - I will finish question 2 (hopefully almost done), send a draft
+     off to Sungkyoung, and move on to revising the defence
+     presentation, especially the Questions part (now that I
+     understand it better).
+   - I think I need to say to Rosenkvist something like, I don't have
+     a good write-up of the features yet and am still producing
+     results. If you are interested, I can send you an update in a few
+     weeks. Also thank you for the paper links. If I have trouble
+     finding some I may ask you how to obtain them. So far your papers
+     have been useful, especially the SSAC one.
+** 2010/02/01
+   - I did stuff.
+   - I will practise my defence presentation. I will copy the
+     presentation (and the bing one) to jones. I will read Therese's
+     paper and the dissertation she linked. (I will also work on taxes
+     and finishing the CLE example).
+   - 
 * Plan
 ** January
 *** Get results
@@ -351,6 +381,7 @@
 *** Start Analysis
 **** TODO Read up on Swedish [syntactic] dialectology
 **** TODO Work with Rosenkvist to find out how my results compare to it
+     Started, need to tell him how I'm working and get some papers.
 *** Methods
 ** March
 *** Results
@@ -391,10 +422,3 @@ send around revised draft, ask to set up a meeting. Then prepare a
 so far. They will read the draft and at the meeting decide whether I
 have taken the right amount of work. I will field questions if
 necessary.
-
-* TODO Revise omnigraffle cluster maps
-* TODO Make a 10-15 progress presentation
-* TODO Res my bing end-of-internship presentation for Feb 2's CL meeting
-* TODO Figure out how to properly combine features
-* TODO Make a nicely formatted example sentence from each feature type
-  To send to Rex Sprouse or the native Swedish speaker
