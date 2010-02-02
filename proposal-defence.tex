@@ -2,6 +2,7 @@
 
 \usetheme{Ilmenau}
 \usepackage[all]{xy}
+\usepackage{graphicx}
 
 \title{Syntax Distance for Dialectometry}
 \author{Nathan Sanders}
@@ -9,14 +10,12 @@
 
 \begin{document}
 \frame{\titlepage}
-\section{Overview}
+\section{Contents}
 \begin{frame}
   \frametitle{Contents}
   \begin{itemize}
-  \item Overview
-  \item Principal Hypotheses
-  \item Analysis
-  \item Writing
+ \item Overview
+  \item Progress
 \end{itemize}
 \end{frame}
 
@@ -24,10 +23,10 @@
 \begin{frame}
   \frametitle{Overview}
   \begin{itemize}
- \item Define a syntactic distance measure and test it on a dialect corpus.
- \item The distance measure tested is $R$ and the dialect corpus is
-  Swediasyn, the transcription of interviews from Swedia2000.
-  \end{itemize}
+ \item Define syntactic distance in two parts: distance measure and
+   feature set.
+ \item Test the distance on a dialect corpus, Swediasyn.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -41,9 +40,37 @@
 
 \begin{frame}
   \frametitle{Terms: Distance Measure}
-  A distance measure consists of two functions: a method to produce input
-  features and a way to combine those features into a number. (A distance
-  is not necessary. A symmetric divergence will suffice.)
+  A distance measure consists of two functions:
+  \begin{enumerate}
+  \item $f : $ corpus $\to$ features
+  \item $d : $ (features, features) $\to$ distance
+  \end{enumerate}
+  Then the distance measure is
+ \[ m(c_1,c_2) = d(f(c_1), f(c_2)) \]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Terms: Distance}
+  \begin{enumerate}
+  \item Divergence: only equals 0 for two equal corpora; always
+    positive
+  \item Dissimilarity: a divergence that is symmetric
+  \item Distance: a dissimilarity that satisfies the triangle
+    inequality
+  \end{enumerate}
+  Dialectometry only requires a dissimilarity. For the rest of the talk,
+  I use `distance' to mean `dissimilarity'.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Distance Measure}
+  \begin{itemize}
+  \item Phonology typically uses Levenshtein distance, which requires
+    that the same words be elicited from all interviewees.
+  \item Syntax does not have a standard distance measure.
+  \item This dissertation tries several variations: $R$ / $R^2$ and
+   Kullbeck-Leibler and Jensen-Shannon divergence.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -51,21 +78,24 @@
   \begin{itemize}
   \item Phonology decomposes word into segments or distinctive features.
   \item Syntax does not have a standard decomposition of sentences into features.
-  \item This dissertation tries several variations: trigrams,
+  \item This dissertation tries several variations on trigrams,
     leaf-ancestor paths, and dependency paths.
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Distance Metric}
-  \begin{itemize}
-  \item Phonology typically uses Levenshtein distance, which requires
-    that the same words be elicited from all interviewees.
-  \item Syntax does not have a standard distance metric.
-  \item This dissertation tries several variations: primarily $R$ and $R^2$, but
-    also Kullbeck-Leibler divergence and Jensen-Shannon divergence.
-  \end{itemize}
+  \frametitle{Questions}
+  \begin{enumerate}
+  \item Does $R$ reproduce the results of dialectology?
+  \item (If $R$ doesn't, does any other distance measure?)
+  \item What features produce the results that best match
+    dialectology?
+ \end{enumerate}
+ NOT: Does syntactic dialectometry reproduce the results of
+ phonological dialectometry?
 \end{frame}
+
+\section{Progress}
 
 \begin{frame}
   \frametitle{Experiment}
@@ -79,54 +109,46 @@
     trained on Talbanken.
   \end{enumerate}
 \end{frame}
-\begin{frame}
-  \frametitle{Schedule}
-  Need to be done by July 6. OK.
-\end{frame}
 
-\section{Analysis}
 \begin{frame}
-\frametitle{Analyzed}
+\frametitle{Progress So Far}
 \begin{itemize}
-\item Distance (R)
-\item Alternate distances (KL divergence, JS divergence)
-\item Alternate features (dependency POS tags taken from Berkeley
-  parser)
-\item Significance of each combination of distances and features.
+\item Distance ($R$)
+\item Alternate distances ($R^2$, KL divergence, JS divergence)
+\item Alternate features (POS tags taken from Berkeley parser,
+  unigrams, dependencies with arc labels instead of node labels)
+\item Statistical significance of each combination of distances and features.
 \item 5 most heavily weighted features for each comparison.
-\item Hierarchical clustering
-\item Multi-dimensional scaling
+\item Hierarchical clustering.
+\item Multi-dimensional scaling.
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \includegraphics [width=0.6\textwidth]{dist-10-1000-r-dep-interview-clusterward} %
+\end{frame}
+\begin{frame}
+  \includegraphics[width=0.6\textwidth]{Sverigekarta-Landskap-mds-dep}
+\end{frame}
 \begin{frame}
 \frametitle{To Analyze}
 \begin{itemize}
-\item Variations on parser parameters and input cleaning
-\item More alternate/combined features (particularly, dependency arc labels)
+\item Tweaking parser parameters and input cleaning.
 \item Better ways to characterise the most important features of each
   comparison.
+\item Comparison to dialectology literature.
 \end{itemize}
 \end{frame}
 
 
-\section{Writing}
 \begin{frame}
-\frametitle{Written}
+\frametitle{Progress So Far // To Write}
 \begin{itemize}
-\item Introduction
-\item Methods
-\item Questions (a little)
-\item Results (a little)
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{To Write}
-\begin{itemize}
-\item Questions (most)
-\item Results (most)
-\item Discussion
+\item Introduction (half // revision and overview)
+\item Questions (most // revision)
+\item Methods (most // updated methods)
+\item Results (some figures // final analysis and more figures)
+\item Discussion (none // comparison to dialectology)
 \end{itemize}
 \end{frame}
 
