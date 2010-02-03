@@ -16,7 +16,10 @@ import subprocess
 # cgitb.enable(format='text') # hurting more than it's helping right now
 
 MEASURES = ['r', 'r_sq', 'kl', 'js']
-FEATURES = ['path', 'trigram', 'dep', 'unigram', 'retrigram', 'redep', 'deparc', 'all']
+FEATURES = ['path', 'trigram', 'dep', 'psg', 'grand',
+            'unigram',
+            'retrigram', 'redep', 'deparc',
+            'all']
 
 def multirun(n, tasks, files):
     processes = [subprocess.Popen(tasks[i], stdout=open(files[i],'w'))
@@ -96,6 +99,8 @@ def genFeatures():
     for region in consts.swediaSites:
         run("./ConvertBerkeleyToFeature '%s.mrg' trigram >'%s-retrigram.dat'" % (region,region))
         run("./ConvertBerkeleyToFeature '%s.mrg' path >'%s-path.dat'" % (region,region))
+        run("./ConvertBerkeleyToFeature '%s.mrg' psg >'%s-psg.dat'" % (region,region))
+        run("./ConvertBerkeleyToFeature '%s.mrg' grand >'%s-grand.dat'" % (region,region))
         run("./ConvertMaltToFeature '%s.dep.conll' node >'%s-dep.dat'" % (region,region))
         run("./ConvertMaltToFeature '%s.redep.conll' node >'%s-redep.dat'" % (region,region))
         run("./ConvertMaltToFeature '%s.dep.conll' arc >'%s-deparc.dat'" % (region,region))
