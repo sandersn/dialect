@@ -9,11 +9,11 @@ from codecs import open
 def pairwise(l):
     return [(x,y) for i,x in enumerate(l) for y in l[i+1:]]
 ### runner ###
-def icetasks(regions, feature, cpp, iterations=100):
+def icetasks(regions, feature, cpp, measure, iterations=100):
     params = open('params.h','w')
     params.write('#define ITERATIONS %s\n' % (iterations,))
     params.write('#define SAMPLES 1000\n')
-    params.write('#define R_MEASURE r')
+    params.write('#define R_MEASURE %s' % (measure,))
     params.close()
 
     os.system('g++ -O2 -o ctrl.out params.h ' + cpp)
@@ -23,9 +23,9 @@ def icetasks(regions, feature, cpp, iterations=100):
     tasks = [cmd + [fro+suffix, to+suffix] for (fro,to) in pairs]
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro, to) in pairs]
     return (tasks,files)
-def combine(feature, type, iterations=100):
+def combine(feature, type, measure, iterations=100):
     "Combine the disparate output files into one"
-    out = '%s-%s-1000-r-%s-interview.txt' % (type,iterations,feature,)
+    out = '%s-%s-1000-%s-%s-interview.txt' % (type,iterations,measure,feature,)
     pairs = pairwise(swediaSites)
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro,to) in pairs]
     outf = open(out, 'w')

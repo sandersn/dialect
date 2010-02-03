@@ -238,31 +238,167 @@
      Later today: create hypotheses separate chapter, generate
      figures for POS run and see how good they are. Revise proposal
      with Sandra's revisions.
+** 2010/01/18
+   - I met with Sandra and got the changes to make for the proposal,
+     plus advice of who to talk to, plus some suggestions for
+     dissertation layout and experimental paths.
+   - I will make the proposal revisions today. I will probably have
+     enough time to implement Sandra's redep idea too.
+   - I need to draft e-mails to Henrik Rosenkvist and Rex Sprouse
+     asking for (1) inspection of my results and Swedish syntactic
+     dialectology papers and (2) inspection of TnT/Berkeley/Malt's
+     annotation outputs.
+     I will probably need a better way to visualise them because he is
+     a german syntactician and may (may not?) have even worked with
+     dependencies. Actually this holds for Rosenkvist too...
+** 2010/01/19
+   - I made the proposal revisions. I implemented (badly/mostly) the
+     redep idea. It appears to be working.
+   - I will run redep. I will edit the later steps to account for
+     redep. I will mail my committee members. I will look at the
+     hypotheses chapter and figure out what to do with it.
+   - Still need to mail Rosenkvist and Sprouse.
+** 2010/01/20
+   - I mailed my committee members. I wrote KL divergence and JS
+     divergence, and ran them along with redep after editing
+     build.py to account for 3x4 variations. I finished
+     generating r-redep figures. I did not look at the hypotheses chapter.
+   - I will continue mailing committee members to find out whether
+     next week or the week after that is good. I will make a
+     presentation of Work So Far and To Do, divided into
+     Analysis and Writing. I will outline a bing presentation for the
+     end of the month too.
+   - Remember to mail Rachel, take out the trash, and find a present
+     for Mom (and maybe Daniel)!
+     Still need to mail Rosenkvist and Sprouse.
+     Maybe should run r^2 too, now that I'm running all these others.
+** 2010/01/21
+   - I mailed committee members some more. Looks like it will be in
+     the afternoon. I made a proposal defence presentation (draft) and
+     a bing presentation. Looks like I will give them the same day.
+   - Need to mail one last time. I will start composing a mail to
+     Rosenkvist. I will add r^2 and dependency arc labels and rerun everything
+     with them. I will start doing SOMETHING to questions.tex.
+   - Need to mail my Friendspeak partner too. Argh, Mail!
+** 2010/01/22
+   - I mailed Rosenkvist. I wrote a couple of pages of stuff for the
+     first question. I added r^2 and dependency arc labels and reran
+     everything. I made a little chart of significances. They are not
+     consistent. I did not mail the committee members.
+   - I will mail Rex Sprouse. Include an example sentence to get
+     him interested. I will mail my committee members. I will write a
+     couple of pages for the second hypothesis and a couple for
+     alternate measures.
+   - 
+** 2010/01/25
+   - I wrote a few pages for the second hypothesis and some more for
+     alternate measures. I made some diagrams for constituency and
+     dependency parses and I don't need Rex's help to see how bad they
+     are.
+   - I will implement real trigrams and call the current retrigram. I
+     will implement unigram/reunigram for comparison. I will filter
+     the http://uit.no/scandiasyn/bib2003 list down to Swedish ones. I
+     will bug my committee to finalise the proposal defence.
+   - I should also reply to Henrik.
+** 2010/01/26
+   - I implemented real trigrams and unigrams and re-ran everything.
+     I filtered the uit.no
+     list down to Swedish ones (probably). I wrote an R script that
+     does some of the correlation/significance/figure work for me. I
+     wrote a status e-mail to Sandra.
+   - I will work a whole bunch on Questions and maybe a little on the
+     intro (although the summary is pretty hard to write until the
+     rest is written). I will look over the proposal defence again and
+     see if anything more occurs to me.
+   - Still need to track down those articles and start reading
+     them. Should also reply to Henrik soon. Not sure what to say.
+** 2010/01/27
+   - I wrote second draft on the first question and sstarted alternate
+     measures. I looked at the proposal defence for like 20 seconds. I
+     added some results instead of . I read a little more about R.
+   - I will finish Questions with the Features question and finishing
+     Alternate Measures. I will try to learn a bit more about R so I
+     can finish automating the significance tests. I will look more at
+     the proposal defence.
+   - I should STILL mail Rosenkvist and start reading those
+     papers. (besides the apparent cleft one)
+** 2010/01/28
+   - I finished Alternate Measures and Distance Terminology (with real
+     math!). I started a little on Question 2. I wrote a script to
+     properly create 'all' features and reran sigs/dists. I finished
+     automating the R correlations (though I may need to revise it, it
+     works now). I didn't look at the proposal defence.
+   - I will finish question 2 of the questions.tex. I will re-run
+     genAnalysis and genMaps to include the All feature set.
+   - Yeah yeah, mail Rosenkvist. Tomorrow I will revise bing
+     presentation and defence presentation.
+** 2010/01/29
+   - I almost finished question 2. I re-ran genAnalysis and
+     genMaps. (I wrote a bunch on Chu-Liu-Edmonds too...)
+   - I will finish question 2 (hopefully almost done), send a draft
+     off to Sungkyoung, and move on to revising the defence
+     presentation, especially the Questions part (now that I
+     understand it better).
+   - I think I need to say to Rosenkvist something like, I don't have
+     a good write-up of the features yet and am still producing
+     results. If you are interested, I can send you an update in a few
+     weeks. Also thank you for the paper links. If I have trouble
+     finding some I may ask you how to obtain them. So far your papers
+     have been useful, especially the SSAC one.
+** 2010/02/01
+   - I basically finished question 2 and revised the defence
+     presetation.
+   - I will practise my defence presentation. I will copy the
+     presentation (and the bing one) to jones. I will read Therese's
+     paper and the dissertation she linked. (I will also work on taxes
+     and finishing the CLE example).
+   - 
+** 2010/02/02
+   - I mailed Therese back. I practised my defence presentation. I
+     read the Groningen work but not yet Schaeffler's dissertation.
+   - I will give my presentation, I will read Schaeffler's dissertation.
+   - 
+** 2010/02/03
+   - I gave my presentation. I skimmed Schaeffler, should go back and
+     read the second half more closely soon.
+   - I will attend the parsing group and get more suggestions. I will
+     order the suggestions from the defence and the group and figure
+     out which to do.
+   - I already implemented two more feature set suggestions so I
+     should run those today while I am figuring out what to do.
 * Plan
 ** January
 *** Get results
-**** TODO Try lexicalised vs POS
-     Even if I can't get POS parsing out of the Berkeley parser, I
-     should post-process the output to cut off the terminals. ALSO, I
-     should just use the raw output of TnT.
-     As is the features are just the raw trigrams of the interview,
-     not POS.
+**** DONE Try lexicalised vs POS
+     Lexicalised doesn't work. The end.
+**** DONE Try paths of dependency labels instead of POSs
 **** TODO Try lexical cleaning
 **** TODO Try different parameters to parsers
 **** DONE Move experiment to Banks
-**** TODO Try different distance measures
+**** DONE Try different distance measures
+     This should be pretty simple. Right? Just different for loops.
+     Even C++ can't muck this up too much.
 **** DONE Try different regions
      the current ones are smallest and don't need the additional
      precision
 *** Introduction
-**** Figure out how to structure latex chapters
-**** Introduction
-**** Hypotheses
+**** DONE Figure out how to structure latex chapters
+**** TODO Introduction
+     Need to write the overview of the dissertation. Need about a page
+     here explaining what each chapter is.
+**** TODO Hypotheses
+     Pretty good rough draft, needs a lot of work to be presentable.
 ** February
 *** Revise Hypotheses
+**** TODO Get Sandra (and others?) to look over it and critique.
+     It probably isn't nearly what is needed.
+*** Start Analysis
+**** TODO Read up on Swedish [syntactic] dialectology
+**** TODO Work with Rosenkvist to find out how my results compare to it
+     Started, need to tell him how I'm working and get some papers.
 *** Methods
 ** March
-*** Results (I HOPE)
+*** Results
 ** April
 *** Discussion
 ** May
@@ -291,68 +427,11 @@
   and see what common noise shows up
 * TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
-* TODO Per-comparison variance is apparently borked.
-ask Rosenkvist
-    (1) to look at results (start with cluster map+dep
-clusters I think)
-    (2) to recommend a starting point for dialects in Swedish, plus
-    current syntax papers in Swedish dialectology. 'His' page on Lunsd
-    Universitet is sadly missing links to his papers.
 
 ask local Swedish speaker to look over automatic annotation quality
 esp Berkeley parser and its POS tagging quality
 
-(maybe feed Joakim's parser POSs from the Berkely parses in order to
-make the comparison between dep and path fair.) (but this will
-decrease quality of)
-
-send around revised draft, ask to set up a meeting. Then prepare a
-10-15 minute overview of what I am planning to do and what I have done
-so far. They will read the draft and at the meeting decide whether I
-have taken the right amount of work. I will field questions if
-necessary.
-
-intro:
-Add examples of how easy it is chop syntax trees into features:
-    sheesh
-    dependency path/pos
-    dependency path/labels
-    supertags
-    trigrams/lexical
-    trigrams/pos
-    leaf-ancestor paths/lexical items
-    leaf-ancestor paths/no lexical
-    whole-tree checksum
-    any number of syntax-esque features used in CL like word count,
-    tree height, node count, internal parent-child pairs
-    all types of crazy crap and that's from 5 minutes of thinking.
-Provide evidence for why large corpora allow you to identify the best
-feature types
-
-Write self-citation in first person.
-
-section 3.1: 
-
-repeat that non-word-aligned corpora for syntax means that different
-methods are needed
-
-syntactically annotated corpora are also POS annotated (and usually
-morphosyntax)
-
-add justification for why it is better to represent the upper
-structure of the tree--statistical information from the upper part of
-the tree might not be useful? But I say it is, so here's why.
-
-move "If R is bad measure" up as hypothesis 2.
-
-explain why automatic annotation is required "preferably
-automatically". Manual annotatino is BETTER, but I can't do it and
-nobody else has done.
-
-
-try paths of dependency labels instead of POSs
-
--------------
+* Notes from defence and parsing group
 maybe cutting out information aboove the comp in neste clauses would help sparse data 
 do the diachonricno differences reflected in subgroups in hierarchical cluster
 divergences for psychological 
@@ -371,3 +450,5 @@ Collins and Koo -- parse reranking (around 2005)
 Thomas Zastrow -- GPS/GIS system for dialectology
 check internal consistency? I think one of Nerbonne's students does
 this. Or Schaeffler
+=======
+>>>>>>> c479c776094fbf0e62a8c6cef9e143f78398f886

@@ -2,7 +2,7 @@ import Test.HUnit
 import Test.QuickCheck
 import Test.QuickCheck.Batch
 import ConvertTagsToConll hiding (main)
-import ConvertTagsToTxt hiding (main)
+import ConvertTntToTxt hiding (main)
 import Util
 import Char
 instance Arbitrary Char where
@@ -25,12 +25,12 @@ offset f ls | f (last ls) = 0
             | otherwise = 1
 propFilterTag ls = all ((>1) . length . words) ls ==>
   length ls - countBy tag ls + offset sentenceEnd ls
-  == (length $ ConvertTagsToTxt.convertPos ls)
+  == (length $ ConvertTntToTxt.convertPos ls)
 propGroupBy ls = all ((>1) . length . words) ls ==>
   countBy sentenceEnd ls + offset sentenceEnd ls
-  == length (ConvertTagsToTxt.convertPos ls)
+  == length (ConvertTntToTxt.convertPos ls)
 propAllWordLength ls = all ((>1) . length . words) ls ==>
-  length ls == sum (map (length . words) (ConvertTagsToTxt.convertPos ls))
+  length ls == sum (map (length . words) (ConvertTntToTxt.convertPos ls))
 
 propSentenceCount ls =
   count "." ls + offset (==".") ls == length (convertWord ls)

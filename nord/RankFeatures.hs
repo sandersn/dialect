@@ -2,7 +2,7 @@ import Util
 import Data.List (sort, sortBy)
 import Data.List.Split (splitEvery)
 import Data.Ord (comparing)
-main = argsFilePrinter (withFileLines rank) id
+main = interactFiles (withFileLines rank) id
 rank lines =
   splitEvery 2 diffs |> map tupleise |> leftright |> map format |> (header++)
   where (header,diffs) = splitAt 2 lines

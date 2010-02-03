@@ -1,23 +1,23 @@
-module Path where
+module ConvertBerkeleyToFeature where
 import Sexp
-import Util (histogram, window, (|>), (&), withFileLines)
+import Util
 import Data.List (intercalate,find)
 import Data.Maybe (fromJust)
 import Control.Monad.State.Lazy (State, get, put, evalState)
 import qualified Data.Map as Map
 import Text.Regex.Posix ((=~))
 import System
-main = do
-    [region, target] <- getArgs
-    s <- withFileLines (extract region (if target=="t" then trigrams else paths))
-                       region
-    putStr s
+main = interactTargets [("trigram", trigrams)
+                       , ("path", paths)
+                       , ("psg", psgs)
+                       , ("grand", grand)] process
+  where process t region = withFileLines (extract region t) region
 extract region target =
   filter (/= "(())") -- this line may be unneeded because of
   & filter (not . (=~ "\\([^ ()]+\\)")) -- this regex
-  & map (tail & tail & init & runsexp & trim & target & intercalate "\n")
-  & intercalate "\n***\n"
-  & ((region++"\n")++)
+  & map (tail & tail & init & runsexp & trim & target)
+  & intercalate ["***"]
+  & (region:)
 trim (Node head [Node _ []]) = Node head []
 trim (Node head kids) = Node head (map trim kids)
 {-- trigrams --}
@@ -43,6 +43,19 @@ bracketpaths paths = map (bracket . reverse) paths
               (last1, []) -> last1
 edge path edges = break foundNode path
   where foundNode node = node `Map.member` edges && edges Map.! node == last path
+{-- psgs --}
+rules (Node _ []) = []
+rules n@(Node _ kids) = n : concatMap rules kids
+showRule (Node a kids) = a ++ "->" ++ intercalate "-" (map rootLabel kids)
+psgs = rules & map showRule
+{-- supertags --}
+supertags (Node a kids) =
+  map (Node a . list . f) kids ++ concatMap supertags kids
+  where f (Node a kids) = Node a (map labeled kids)
+        labeled (Node a _) = Node a []
+showSupertag (Node a []) = a
+showSupertag (Node a [kid]) = a ++ "." ++ showRule kid
+grand = supertags & map showSupertag
 {--- DEBUG ---}
 sent = runsexp " (A (B p q) (B r s)) "
 sent' = runsexp "(A (B p q r s))"

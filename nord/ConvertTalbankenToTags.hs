@@ -9,4 +9,4 @@ getAttrs = concatMap (((".", "IP") :) . map pair)
                      replace ' ' '_' $ attr' "pos" elem)
 readPOS filename = withFile (posOfXml filename) filename
 posOfXml filename = xmlParse filename & getContent & getTerminals & getAttrs
-main = argsFilePrinter readPOS (\ (word,pos) -> word ++ " " ++ pos)
+main = interactFiles readPOS (\ (word,pos) -> word ++ " " ++ pos)
