@@ -432,23 +432,37 @@ ask local Swedish speaker to look over automatic annotation quality
 esp Berkeley parser and its POS tagging quality
 
 * Notes from defence and parsing group
-maybe cutting out information aboove the comp in neste clauses would help sparse data 
-do the diachonricno differences reflected in subgroups in hierarchical cluster
-divergences for psychological 
-apply to householder fund for paying a swedish undergrad to annotate
-some of the dialect sentences.
-supertags again?
-
-householder fund. check to see how to get money from them
-
-Kari Gade (Gaade?), swedish
-
-tnt marks words that are unknown, then get the native speaker to tag
-something. might even get rex to do this.
-
-Collins and Koo -- parse reranking (around 2005)
-Thomas Zastrow -- GPS/GIS system for dialectology
-check internal consistency? I think one of Nerbonne's students does
-this. Or Schaeffler
-=======
->>>>>>> c479c776094fbf0e62a8c6cef9e143f78398f886
+** feature sets
+*** TODO Cut everything above nested S for leaf-ancestor paths
+    This should help focus on intra-sentence grammar, not the
+    frequency and type of embedded clauses (though this might also be
+    interesting, normal leaf-ancestor paths would help with this.)
+*** TODO Just normal phrase-structure rules
+    They were not cool enough for me before. But they are easy so why not.
+*** TODO Phrase-structure rules, plus grandparent
+    used by Collins and Koo -- parse reranking (around 2005)
+** parsing
+*** TODO Get TnT to mark unknown words
+    See what they are, then see if a human annotator could fill them
+    in (in a reasonable time) (or Rex, if there aren't many and it
+    would be easy)
+** Swedish
+*** TODO Find out how householder fund words.
+    How to get money from it?
+    Pay a swedish undergrad to annotate either dialect sentences or
+    parts of speech
+*** TODO Check to see if Kari Gaade (Gade?) is Swedish? She does syntax?
+** Analysis
+*** TODO Read about how Thomas Zastrow does GPS/GIS systems for dialectology
+*** TODO Check on internal consistency in one of the papers I read recently.
+    It would be nice if I have enough data.
+    I think it was Schaeffler's dissertation, but it might be
+    Therese's paper. Or maybe Jelena and John's survey paper? Not
+    sure. Maybe even the 06 correlation paper
+*** Do subgroups in a dendrogram reflect diachronic subgroups?
+    It would be good
+*** Divergences might actually be preferable for psychological reality
+    But I think they mess with a bunch of the existing assumptions
+    about how to analyse the data. eg mds and hierarchical clusters
+    both go away or else get a lot more complicated. I'm not sure
+    which.
