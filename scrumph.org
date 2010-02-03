@@ -351,3 +351,23 @@ nobody else has done.
 
 
 try paths of dependency labels instead of POSs
+
+-------------
+maybe cutting out information aboove the comp in neste clauses would help sparse data 
+do the diachonricno differences reflected in subgroups in hierarchical cluster
+divergences for psychological 
+apply to householder fund for paying a swedish undergrad to annotate
+some of the dialect sentences.
+supertags again?
+
+householder fund. check to see how to get money from them
+
+Kari Gade (Gaade?), swedish
+
+tnt marks words that are unknown, then get the native speaker to tag
+something. might even get rex to do this.
+
+Collins and Koo -- parse reranking (around 2005)
+Thomas Zastrow -- GPS/GIS system for dialectology
+check internal consistency? I think one of Nerbonne's students does
+this. Or Schaeffler
