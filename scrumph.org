@@ -346,12 +346,26 @@
      finding some I may ask you how to obtain them. So far your papers
      have been useful, especially the SSAC one.
 ** 2010/02/01
-   - I did stuff.
+   - I basically finished question 2 and revised the defence
+     presetation.
    - I will practise my defence presentation. I will copy the
      presentation (and the bing one) to jones. I will read Therese's
      paper and the dissertation she linked. (I will also work on taxes
      and finishing the CLE example).
    - 
+** 2010/02/02
+   - I mailed Therese back. I practised my defence presentation. I
+     read the Groningen work but not yet Schaeffler's dissertation.
+   - I will give my presentation, I will read Schaeffler's dissertation.
+   - 
+** 2010/02/03
+   - I gave my presentation. I skimmed Schaeffler, should go back and
+     read the second half more closely soon.
+   - I will attend the parsing group and get more suggestions. I will
+     order the suggestions from the defence and the group and figure
+     out which to do.
+   - I already implemented two more feature set suggestions so I
+     should run those today while I am figuring out what to do.
 * Plan
 ** January
 *** Get results
