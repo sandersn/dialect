@@ -446,6 +446,7 @@ esp Berkeley parser and its POS tagging quality
     See what they are, then see if a human annotator could fill them
     in (in a reasonable time) (or Rex, if there aren't many and it
     would be easy)
+*** TODO Ask Henrik for updated corpus
 ** Swedish
 *** TODO Find out how householder fund words.
     How to get money from it?
@@ -459,8 +460,11 @@ esp Berkeley parser and its POS tagging quality
     I think it was Schaeffler's dissertation, but it might be
     Therese's paper. Or maybe Jelena and John's survey paper? Not
     sure. Maybe even the 06 correlation paper
+*** TODO Find out how to do agreement dendrograms (or have a program do them for me)
+*** TODO Ask Therese for improved eps outline of Sweden
 *** Do subgroups in a dendrogram reflect diachronic subgroups?
-    It would be good
+    It would be cool, but I think the subgroups are too unstable to be
+    real
 *** Divergences might actually be preferable for psychological reality
     But I think they mess with a bunch of the existing assumptions
     about how to analyse the data. eg mds and hierarchical clusters
