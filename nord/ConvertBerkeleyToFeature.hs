@@ -2,7 +2,7 @@ module ConvertBerkeleyToFeature where
 import Sexp
 import Util
 import Data.List (intercalate,find)
-import Data.Maybe (fromJust)
+import Data.Maybe (fromJust, mapMaybe)
 import Control.Monad.State.Lazy (State, get, put, evalState)
 import qualified Data.Map as Map
 import Text.Regex.Posix ((=~))
@@ -50,12 +50,12 @@ showRule (Node a kids) = a ++ "->" ++ intercalate "-" (map rootLabel kids)
 psgs = rules & map showRule
 {-- supertags --}
 supertags (Node a kids) =
-  map (Node a . list . f) kids ++ concatMap supertags kids
-  where f (Node a kids) = Node a (map labeled kids)
+  map (Node a . list) (mapMaybe f kids) ++ concatMap supertags kids
+  where f (Node a []) = Nothing
+        f (Node a kids) =  Just $ Node a (map labeled kids)
         labeled (Node a _) = Node a []
-showSupertag (Node a []) = a
 showSupertag (Node a [kid]) = a ++ "." ++ showRule kid
-grand = supertags & map showSupertag
+grand = list & Node "" & supertags & map showSupertag
 {--- DEBUG ---}
 sent = runsexp " (A (B p q) (B r s)) "
 sent' = runsexp "(A (B p q r s))"
