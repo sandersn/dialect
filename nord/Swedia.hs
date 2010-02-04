@@ -1,5 +1,5 @@
 module Swedia where
-import Data.List (isPrefixOf, find, intercalate)
+import Data.List (isPrefixOf, isSuffixOf, find, intercalate)
 import Data.List.Split (split, dropDelims, whenElt, dropBlanks)
 import Data.Maybe (fromJust)
 import Util
@@ -7,6 +7,7 @@ import Directory (getDirectoryContents)
 import qualified Data.Map as Map
 import qualified Consts
 import Char (isSpace)
+import Control.Monad (liftM2)
 
 stoplist = ["#", "[/-]", "##", "[/]", "eh", "+...", "###"
            , "xxx", "[//]", "[?]", "+/."]
@@ -27,14 +28,18 @@ readSwedia path filename = withFileLines splitter (path++filename)
   where splitter = dropWhile (not . newline) &
                    splitBy newline &
                    filter (head & (isPrefixOf "*INT") & not) &
-                   map (unwords & between ':' '\NAK' & trimsplit
+                   map (unwords & between ':' '\NAK' & trimsplit & deStutter
                         & filter (not . (`elem` stoplist)) & map decomma)
         decomma w | last w == ',' = init w
                   | otherwise = w
         newline ('*':_) = True
         newline _ = False
+deStutter ws =
+  case find (((=='<') . head)) ws of
+    Nothing -> ws
+    _ -> takeWhile (not . (=='<') . head) ws
+         ++ deStutter ((dropWhile (not . (">[/]" `isSuffixOf`)) ws) |> tail)
 {-- utils --}
 trimsplit = split $ dropBlanks $ dropDelims $ whenElt isSpace
-anyF fs x = foldr (\ f b -> b || f x) False fs
-allF fs x = foldr (\ f b -> b && f x) True fs
-
+f <&&> g = liftM2 (&&) f g
+f <||> g = liftM2 (||) f g
