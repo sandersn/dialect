@@ -78,7 +78,7 @@ swediaRegions = Map.fromList [ -- (Riksomr@den)
 swediaSites = [
   "Ankarsrum",
   "Anundsjo",
-  "Arjeplog",
+  -- "Arjeplog",
   "Arsunda",
   "Asby",
   "Bara",
@@ -94,11 +94,11 @@ swediaSites = [
   "Ko"++umlaut++"la",
   "Leksand", -- WARNING: One filename is typoed "Leksand " not "Leksand"
   "Loderup",
-  "Nederlulea",
+  -- "Nederlulea",
   "Norra Rorum",
   "Orust",
   "Ossjo",
-  "Overkalix",
+  -- "Overkalix",
   "Segerstad",
   "Skinnskatteberg",
   "Sorunda",

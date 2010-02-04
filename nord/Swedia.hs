@@ -8,26 +8,26 @@ import qualified Data.Map as Map
 import qualified Consts
 import Char (isSpace)
 
-newline ('*':_) = True
-newline _ = False
-visible ('.':_) = False
-visible _  = True
-between before after = dropWhile (/=before) & tail & takeWhile (/=after)
-trimsplit = split $ dropBlanks $ dropDelims $ whenElt isSpace
-
-readSwedia path filename = withFileLines splitter (path++filename)
-splitter = dropWhile (not . newline) &
-           splitBy newline &
-           filter (head & (isPrefixOf "*INT") & not) &
-           map (unwords & between ':' '\NAK' & trimsplit)
-groupedSites sites paths = collapse keymap (filter visible paths)
-  where keymap f = fromJust $ find (`isPrefixOf` f) sites
-getGroupedSites path sites =
-  getDirectoryContents path >>= groupedSites sites & return
+main = extractTnt Consts.swpath Consts.swediaSites >>= print
 extractTnt path sites =
  getGroupedSites path sites >>= Map.assocs & mapM_ (\ (region,files) ->
     mapM (readSwedia path) (reverse files) >>=
     concat & concat & intercalate "\n" &
     writeFile (region ++ ".t"))
 -- (reverse files) is to remain compatible with Python output
-main = extractTnt Consts.swpath Consts.swediaSites >>= print
+getGroupedSites path sites =
+  getDirectoryContents path >>= groupedSites sites & return
+  where groupedSites sites paths = collapse keymap (filter glossed paths)
+        keymap f = fromJust $ find (`isPrefixOf` f) sites
+        glossed filename = dropWhile (/='.') filename == ".cha"
+readSwedia path filename = withFileLines splitter (path++filename)
+  where splitter = dropWhile (not . newline) &
+                   splitBy newline &
+                   filter (head & (isPrefixOf "*INT") & not) &
+                   map (unwords & between ':' '\NAK' & trimsplit)
+        newline ('*':_) = True
+        newline _ = False
+{-- utils --}
+between before after = dropWhile (/=before) & tail & takeWhile (/=after)
+trimsplit = split $ dropBlanks $ dropDelims $ whenElt isSpace
+

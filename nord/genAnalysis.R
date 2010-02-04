@@ -20,7 +20,8 @@ for (measure in measures) {
             hang=-1, sub="", xlab="", ylab=paste(measure, feature, sep='-'))
     dev.off()
     cat(paste("cor:", cor(vectorise(geo), vectorise(t)), '\n'))
-    cat(paste("sig:", mantel(geo, t, 33), '\n'))
+    # cat(paste("sig:", mantel(geo, t, 33), '\n'))
+    cat(paste("sig:", mantel(geo, t, 30), '\n'))
   }
 # I don't know R's zip, so I will just use indexing even if it is slow
 # which it's not, R's lists are actually untyped vectors not conses
@@ -28,7 +29,8 @@ for (measure in measures) {
   for(i in 1:(length(ts)-1)) {
     for(j in (i+1):length(ts)) {
       cat(paste(cor(vectorise(ts[[i]]), vectorise(ts[[j]])), '(',
-                mantel(ts[[i]], ts[[j]], 33), '),', sep=''))
+                # mantel(ts[[i]], ts[[j]], 33), '),', sep=''))
+                mantel(ts[[i]], ts[[j]], 30), '),', sep=''))
     }
     cat('\n')
   }
