@@ -11,6 +11,7 @@ import Control.Monad (liftM2)
 
 stoplist = ["#", "[/-]", "##", "[/]", "eh", "+...", "###"
            , "xxx", "[//]", "[?]", "+/."]
+stutterlist = [">[/]", ">[//]", ">[/-]", ">[?]", ">[///]", ">"]
 
 main = extractTnt Consts.swpath Consts.swediaSites >>= print
 extractTnt path sites =
@@ -34,11 +35,11 @@ readSwedia path filename = withFileLines splitter (path++filename)
                   | otherwise = w
         newline ('*':_) = True
         newline _ = False
+endStutter w = any (`isSuffixOf` w) (stutterlist ++ map (++",") stutterlist)
 deStutter ws =
-  case find (((=='<') . head)) ws of
-    Nothing -> ws
-    _ -> takeWhile (not . (=='<') . head) ws
-         ++ deStutter ((dropWhile (not . (">[/]" `isSuffixOf`)) ws) |> tail)
+  case break ((=='<') . head) ws of
+    (ws,[]) -> ws
+    (ws,aft) -> ws ++ deStutter ((dropWhile (not . endStutter) aft) |> tail)
 {-- utils --}
 trimsplit = split $ dropBlanks $ dropDelims $ whenElt isSpace
 f <&&> g = liftM2 (&&) f g
