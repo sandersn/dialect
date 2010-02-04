@@ -31,6 +31,7 @@ readSwedia path filename = withFileLines splitter (path++filename)
                    filter (head & (isPrefixOf "*INT") & not) &
                    map (unwords & between ':' '\NAK' & trimsplit & deStutter
                         & filter (not . (`elem` stoplist)) & map decomma)
+        decomma "," = ","
         decomma w | last w == ',' = init w
                   | otherwise = w
         newline ('*':_) = True
