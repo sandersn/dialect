@@ -27,7 +27,7 @@ getGroupedSites path sites =
 extractTnt path sites =
  getGroupedSites path sites >>= Map.assocs & mapM_ (\ (region,files) ->
     mapM (readSwedia path) (reverse files) >>=
-    concat & concat & intercalate " " &
+    concat & concat & intercalate "\n" &
     writeFile (region ++ ".t"))
 -- (reverse files) is to remain compatible with Python output
 main = extractTnt Consts.swpath Consts.swediaSites >>= print
