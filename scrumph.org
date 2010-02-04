@@ -366,6 +366,17 @@
      out which to do.
    - I already implemented two more feature set suggestions so I
      should run those today while I am figuring out what to do.
+** 2010/02/04
+   - I attended parsing group and got more suggestions. I ordered
+     suggestions and figured out some to do. I found out that I was
+     included some unglossed transcriptions in my tagging input. I
+     re-ran dist/sig for the new feature sets.
+   - I will work on fixing TnT's unknown words. I will e-mail Henrik
+     about SOMETHING. I will read a Swedish dialectology paper. I will
+     find out about requesting money from the Householder Fund. I will
+     re-run the analysis/map generation for the new features.
+   - Reprioritise mails to Henrik since the 3 northern sites went
+     away. I wrote a draft a few days ago. Also mails to other people.
 * Plan
 ** January
 *** Get results

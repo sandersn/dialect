@@ -21,6 +21,7 @@ collapse' f l = foldl' (\ m x -> Map.insertWith' (++) (f x) [x] m) Map.empty l
 window n l = win l (length l)
   where win l len | n > len = []
                   | otherwise = take n l : win (tail l) (len - 1)
+between before after = dropWhile (/=before) & tail & takeWhile (/=after)
 replace _ _ [] = []
 replace src dst (x:xs) = (if src == x then dst else x) : replace src dst xs
 groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f

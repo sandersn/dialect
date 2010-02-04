@@ -2,11 +2,14 @@ module Swedia where
 import Data.List (isPrefixOf, find, intercalate)
 import Data.List.Split (split, dropDelims, whenElt, dropBlanks)
 import Data.Maybe (fromJust)
-import Util ((|>), (&), collapse, withFileLines, splitBy)
+import Util
 import Directory (getDirectoryContents)
 import qualified Data.Map as Map
 import qualified Consts
 import Char (isSpace)
+
+stoplist = ["#", "[/-]", "##", "[/]", "eh", "+...", "###"
+           , "xxx", "[//]", "[?]", "+/."]
 
 main = extractTnt Consts.swpath Consts.swediaSites >>= print
 extractTnt path sites =
@@ -24,10 +27,14 @@ readSwedia path filename = withFileLines splitter (path++filename)
   where splitter = dropWhile (not . newline) &
                    splitBy newline &
                    filter (head & (isPrefixOf "*INT") & not) &
-                   map (unwords & between ':' '\NAK' & trimsplit)
+                   map (unwords & between ':' '\NAK' & trimsplit
+                        & filter (not . (`elem` stoplist)) & map decomma)
+        decomma w | last w == ',' = init w
+                  | otherwise = w
         newline ('*':_) = True
         newline _ = False
 {-- utils --}
-between before after = dropWhile (/=before) & tail & takeWhile (/=after)
 trimsplit = split $ dropBlanks $ dropDelims $ whenElt isSpace
+anyF fs x = foldr (\ f b -> b || f x) False fs
+allF fs x = foldr (\ f b -> b && f x) True fs
 
