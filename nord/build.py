@@ -56,7 +56,7 @@ def tagPos():
     run('./Swedia')
     # 4. Tag SweDiaSyn
     for region in consts.swediaSites:
-        run("tnt talbanken '%s.t' >'%s.tag'" % (region,region))
+        run("tnt -m talbanken '%s.t' >'%s.tag'" % (region,region))
 def tagDep(inext='tag', outext='dep'):
     run('ghc -O2 --make ConvertTagsToConll -main-is ConvertTagsToConll.main')
     for region in consts.swediaSites:
