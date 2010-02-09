@@ -47,8 +47,6 @@ def extractTalbanken():
     run('./ConvertTalbankenToTags %s >talbanken.tt' % (alltalbanken,))
     run('./ConvertTalbankenToPTB %s >talbanken.mrg' % (alltalbanken,))
 def tagPos():
-    # rm Swedia.o is needed because -main-is switch makes the linker dumber
-    run('rm Swedia.o')
     run('ghc -O2 --make Swedia -main-is Swedia.main')
     # 2. Train TnT on Talbanken POS tags
     run('tnt-para talbanken.tt')

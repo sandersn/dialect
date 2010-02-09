@@ -23,7 +23,7 @@ buildMap s =
           -- for robustness, neither terms nor nonterms should be null
           terms = tagpath ["s", "graph", "terminals", "t"] s
           nonterms = tagpath ["s", "graph", "nonterminals", "nt"] s
-          termentry elem = (id, FlatNode (replace ' ' '_' $ attr' "pos" elem)
+          termentry elem = (id, FlatNode (take 2 $ attr' "pos" elem)
                                          (ptbSafe $ attr' "word" elem) id [])
             where id = attrId "id" elem
           nontermentry elem = (id, FlatNode (attr' "cat" elem) "" id (kids elem))
