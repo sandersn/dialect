@@ -377,6 +377,24 @@
      re-run the analysis/map generation for the new features.
    - Reprioritise mails to Henrik since the 3 northern sites went
      away. I wrote a draft a few days ago. Also mails to other people.
+** 2010/02/08
+   - I improved parts of speech. I e-mailed Henrik. I read another
+     paper by Wybo. I don't know yet if I'll need Swedish help for
+     annotation. So far it seems easy enough with a dictionary.
+   - I will look at the dependency parses. I will finish tagging the
+     top 200 words. I will re-read the Berkeley parser documentation
+     to find out about unlexicalised parsing.
+   - Should also reply to Therese soon, and ask Margaret about
+     Householder Fund tomorrow. I need to update/check The Plan too.
+** 2010/02/09
+   - I looked at the dependency parses. I finished translating the top
+     200 words. (This doesn't mean they're properly tagged, much less
+     added to the training.) I did not read the Berkeley parser
+     documentation. Instead I played with MaltParser to try to get a
+     good parse.
+   - I will figure out how to fix the MaltParser parses. I will re-run
+     everything. I will start reading about the Berkeley parser options.
+   - Shoudl mail Therese too eh.
 * Plan
 ** January
 *** Get results
@@ -397,7 +415,7 @@
 **** TODO Introduction
      Need to write the overview of the dissertation. Need about a page
      here explaining what each chapter is.
-**** TODO Hypotheses
+**** DONE Hypotheses
      Pretty good rough draft, needs a lot of work to be presentable.
 ** February
 *** Revise Hypotheses
@@ -416,28 +434,13 @@
 *** Cleanup and Defence
 ** June
 *** Slop/revisions
-* TODO Maybe should clean lexically more aggresively, esp punctuation (non .)
-
-  Do this by
-  liftM2 Set.difference
-    (getDirectoryContents "." >>= wds ".t")
-    (getDirectoryContents "." >>= wds "talbanken*.???")
-    where wds ext = filter (isSuffixOf ext)
-                    & mapM (readFile & liftM words)
-                    & liftM (concat & Set.fromList)
-  swediaSet = set()
-  talbankenSet = set()
-  for f in os.dir("."):
-    if f.endswith(".t"):
-      swediaSet += wds(f)
-    elif f.endswith(".talbanken"):
-      talbankenSet += wds(f)
-  print talbankenSet - swediaSet
-  def wds(f):
-    return open(f).read().split()
-  and see what common noise shows up
 * TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
+* Open PDFs: prokic-nerbonne-clustering-2009 (for agreement dendrograms)
+  WyboWiersma-2009-Automatically Extracting-Typical-Syntactic-Differences.pdf
+  (for mysterious 3rd normalisation step)
+  Schaeffler-2005 (dissertation) (basically done I guess)
+  leinonen2008 (for references to Wess\'en (1969)'s traditional dialects)
 
 ask local Swedish speaker to look over automatic annotation quality
 esp Berkeley parser and its POS tagging quality
@@ -448,22 +451,13 @@ esp Berkeley parser and its POS tagging quality
     This should help focus on intra-sentence grammar, not the
     frequency and type of embedded clauses (though this might also be
     interesting, normal leaf-ancestor paths would help with this.)
-*** TODO Just normal phrase-structure rules
-    They were not cool enough for me before. But they are easy so why not.
-*** TODO Phrase-structure rules, plus grandparent
+*** Phrase-structure rules, plus grandparent:
     used by Collins and Koo -- parse reranking (around 2005)
-** parsing
-*** TODO Get TnT to mark unknown words
-    See what they are, then see if a human annotator could fill them
-    in (in a reasonable time) (or Rex, if there aren't many and it
-    would be easy)
-*** TODO Ask Henrik for updated corpus
 ** Swedish
-*** TODO Find out how householder fund words.
+*** TODO Find out how householder fund works.
     How to get money from it?
     Pay a swedish undergrad to annotate either dialect sentences or
     parts of speech
-*** TODO Check to see if Kari Gaade (Gade?) is Swedish? She does syntax?
 ** Analysis
 *** TODO Read about how Thomas Zastrow does GPS/GIS systems for dialectology
 *** TODO Check on internal consistency in one of the papers I read recently.
