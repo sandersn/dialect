@@ -5,9 +5,11 @@ talbanken = [tbpath + 'SD.tiger.xml',
              tbpath + "P.tiger.xml",
              tbpath + "IB.tiger.xml",
              tbpath + "G.tiger.xml"]
-# TODO: Add swediaCounties
-# TODO: Add swediaProvinces
-# TODO: Add swediaRegions (Riksomr@den)
+measures = ['r', 'r_sq', 'kl', 'js']
+features = ['path', 'trigram', 'dep', 'psg', 'grand',
+            'unigram',
+            'retrigram', 'redep', 'deparc',
+            'all']
 # TODO: Fix 'Leksand ' typo
 swediaCounties = dict( # or I could just use the county code
     Stockholm = ['Sorunda'],
@@ -72,15 +74,17 @@ swediaRegions = dict(
     )
 agreeClusters = dict(
     # I suppose I could call them Mystery Central1 Central2 Exterior and North
+    # cluster D is slop (moved between groups with deps vs paths)
     clusterA = [ 'Jamshog', 'Ossjo', 'Torsås', ],
     clusterB = [ 'Loderup', 'Norra Rorum', 'Köla', 'Boda',
-                 'Bredsatra', 'Villberga', 'Frillesas', ],
-    clusterC = [ 'Viby', 'Bara', 'Sorunda', 'StAnna', 'Arjeplog',
-                 'Faro', 'Fole', 'Torso', ],
-    clusterD = [ 'Ankarsrum', 'Vaxtorp', 'Bengtsfors', 'Floby',
-                 'Skinnskatteberg', 'Sproge', 'Segerstad', ],
-    clusterE = [ 'Anundsjo', 'Arsunda', 'Asby', 'Indal',
-                 'Leksand', 'Nederlulea', 'Orust', 'Overkalix', ]
+                 'Bredsatra', 'Villberga', 'Frillesas', 'Viby',
+                 'Fole', 'Bara', 'StAnna', 'Sorunda',
+                 'Torso', ],
+    clusterC = [ 'Anundsjo', 'Arsunda', 'Asby',
+                 'Orust', 'Indal', 'Leksand', 
+                 'Vaxtorp', 'Bengtsfors', 'Floby',
+                 'Sproge', 'Segerstad'],
+    clusterD = [ 'Faro', 'Ankarsrum',  'Skinnskatteberg',],
     )
 swediaSites = [
   'Ankarsrum',

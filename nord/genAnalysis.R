@@ -4,8 +4,8 @@ sink('nord/dist-10-1000-correlations-interview-R.txt')
 
 geo <- read.table("nord/dist-10-1000-geo-interview-R.txt", header=TRUE)
 measures <- c('r', 'r_sq', 'kl', 'js')
-features <- c('path', 'trigram', 'dep',
-              'unigram', 'retrigram', 'redep', 'deparc')
+features <- c('path', 'trigram', 'dep', 'psg', 'grand',
+              'unigram', 'retrigram', 'redep', 'deparc', 'all')
 for (measure in measures) {
   ts <- list()
   for(feature in features) {

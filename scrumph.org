@@ -395,6 +395,19 @@
    - I will figure out how to fix the MaltParser parses. I will re-run
      everything. I will start reading about the Berkeley parser options.
    - Shoudl mail Therese too eh.
+** 2010/02/10
+   - I figured out how to fix the MaltParser parsing. I started
+     re-running everything. I read about the Berkeley parser but the
+     documentation is mostly incomplete. Something about unknown words
+     falling back to a text file, though.
+   - I will waste most of today re-running dist/sig and piddling
+     around. I need to count the number of fine vs coarse POS tags. I
+     need to cluster things in path/dep common clusters, then look at
+     the best tags to tell apart the clusters.
+   - Upcoming: need to rewrite first section of Questions. Need to
+     mail Therese. Tomorrow I need to ask Margaret about Householder
+     fund. I also need to
+     finish the refactoring move of MEASURES and FEATURES to consts.py
 * Plan
 ** January
 *** Get results

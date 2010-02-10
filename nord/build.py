@@ -15,12 +15,6 @@ from util.lst import partition
 import subprocess
 # cgitb.enable(format='text') # hurting more than it's helping right now
 
-MEASURES = ['r', 'r_sq', 'kl', 'js']
-FEATURES = ['path', 'trigram', 'dep', 'psg', 'grand',
-            'unigram',
-            'retrigram', 'redep', 'deparc',
-            'all']
-
 def multirun(n, tasks, files):
     processes = [subprocess.Popen(tasks[i], stdout=open(files[i],'w'))
                  for i in range(n)]
@@ -107,7 +101,9 @@ def genFeatures():
         run("./CombineFeatures '%s-path.dat' '%s-dep.dat' '%s-trigram.dat' >'%s-all.dat'" % ((region,) * 4))
 
 def variants():
-    return ((measure,feature) for measure in MEASURES for feature in FEATURES)
+    return ((measure,feature)
+            for measure in consts.measures
+            for feature in consts.features)
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     for measure, feature in variants():
@@ -152,12 +148,12 @@ def genAnalysis():
     run('grep -c 0 sig*.txt >sigtmp.txt')
     sigs = dict(line.strip().split(':') for line in open('sigtmp.txt'))
     outf = open('sig-10-1000-interview.csv', 'w')
-    outf.write(',' + ','.join(FEATURES) + '\n')
-    for measure in MEASURES:
+    outf.write(',' + ','.join(consts.features) + '\n')
+    for measure in consts.measures:
         outf.write(measure + ',')
         outf.write(','.join(
             sigs['sig-100-1000-%s-%s-interview.txt' % (measure, feature)]
-            for feature in FEATURES))
+            for feature in consts.features))
         outf.write('\n')
     outf.close()
     # 13.4 Run correlations AND hierarchical cluster figures
