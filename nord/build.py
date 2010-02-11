@@ -53,7 +53,7 @@ def tagDep(inext='tag', outext='dep'):
     run('ghc -O2 --make ConvertTagsToConll -main-is ConvertTagsToConll.main')
     for region in consts.swediaSites:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
-        run("./ConvertTagsToConll '%s.%s' >'%s.conll'" % (region,inext,region))
+        run("./ConvertTagsToConll malt '%s.%s' >'%s.conll'" % (region,inext,region))
         # 6. Dependency parse SweDiaSyn
         # TODO: This must eventually depend on a config file, not command line
         # options
@@ -67,12 +67,12 @@ def trainCfg():
         'edu.berkeley.nlp.PCFGLA.GrammarTrainer -path talbanken.mrg '
         '-out talbanken.gr -treebank SINGLEFILE')
 def tagCfg():
-    run('ghc -O2 --make ConvertTntToTxt -main-is ConvertTntToTxt.main')
+    run('ghc -O2 --make ConvertTagsToConll -main-is ConvertTagsToConll.main')
     for region in consts.swediaSites:
         # 8.0 Post-process tagged SweDiaSyn to sentence-per-line format
-        run("./ConvertTntToTxt '%s.t' >'%s.txt'" % (region,region))
+        run("./ConvertTagsToConll berkeley '%s.tag' >'%s.txt'" % (region,region))
         # 8. Constituency parse with Berkeley parser
-        run("java -Xmx1G -jar berkeleyParser.jar -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
+        run("java -Xmx1G -jar berkeleyParser.jar -useGoldPOS -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def retagDep():
     # 101.0 based on parts of speech by Berkeley parser,
     run('ghc -O2 --make ConvertPTBToTags')

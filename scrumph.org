@@ -408,6 +408,18 @@
      mail Therese. Tomorrow I need to ask Margaret about Householder
      fund. I also need to
      finish the refactoring move of MEASURES and FEATURES to consts.py
+** 2010/02/11
+   - I re-ran everything, included syntaxFeatures, because I decided
+     only to use BIG-THREE clusters (plus slop) and redid consts.py
+     accordingly. dep features are
+     better, but still questionable. Maybe I need more normalisation.
+   - I will force Berkeley parser to -useGoldPOS. I will test move of
+     MEASURES/FEATURES to consts.py. I will write e-mails. I will ask
+     Jan about Householder award. I will analyse the most important
+     tags. I will write up a list of tips for the undocumented parts
+     of the Berkeley parser (ie how to make sure grammatical functions
+     are used, their incorrect Conll parser, and -useGoldPOS)
+   - 
 * Plan
 ** January
 *** Get results
