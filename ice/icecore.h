@@ -190,7 +190,7 @@ double cos(const sample& c) {
     b_sq += i->second.second * i->second.second;
     total += i->second.first * i->second.second;
   }
-  return 1 - total / (sqrt(a_sq) + sqrt(b_sq));
+  return 1 - total / (sqrt(a_sq) * sqrt(b_sq));
 }
 // = ((<=) r_total)
 bool comparepermutation(const dialect& a, const dialect& b) {
