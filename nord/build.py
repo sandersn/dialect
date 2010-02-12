@@ -53,7 +53,7 @@ def tagDep(inext='tag', outext='dep'):
     run('ghc -O2 --make ConvertTagsToConll -main-is ConvertTagsToConll.main')
     for region in consts.swediaSites:
         # 5. Post-process tagged SweDiaSyn to CoNLL format
-        run("./ConvertTagsToConll malt '%s.%s' >'%s.conll'" % (region,inext,region))
+        run("./ConvertTagsToConll '%s.%s' malt >'%s.conll'" % (region,inext,region))
         # 6. Dependency parse SweDiaSyn
         # TODO: This must eventually depend on a config file, not command line
         # options
@@ -70,7 +70,7 @@ def tagCfg():
     run('ghc -O2 --make ConvertTagsToConll -main-is ConvertTagsToConll.main')
     for region in consts.swediaSites:
         # 8.0 Post-process tagged SweDiaSyn to sentence-per-line format
-        run("./ConvertTagsToConll berkeley '%s.tag' >'%s.txt'" % (region,region))
+        run("./ConvertTagsToConll '%s.tag' berkeley >'%s.txt'" % (region,region))
         # 8. Constituency parse with Berkeley parser
         run("java -Xmx1G -jar berkeleyParser.jar -useGoldPOS -gr talbanken.gr <'%s.txt' >'%s.mrg'" % (region,region))
 def retagDep():
