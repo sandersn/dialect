@@ -1,0 +1,332 @@
+:{
+[("Ankarsrum.tag",   7724.0),
+  ("Anundsjo.tag",   11913.0),
+  ("Arsunda.tag",    8949.0),
+  ("Asby.tag",    7187.0),
+  ("Bara.tag",   10740.0),
+  ("Bengtsfors.tag",    7439.0),
+  ("Boda.tag",   17441.0),
+  ("Bredsatra.tag",    6954.0),
+  ("Faro.tag",    8276.0),
+  ("Floby.tag",    6408.0),
+  ("Fole.tag",    9936.0),
+  ("Frillesas.tag",    9650.0),
+  ("Indal.tag",   13106.0),
+  ("Jamshog.tag",    8677.0),
+  ("Ko\314\210la.tag",   10149.0),
+  ("Leksand.tag",   10692.0),
+  ("Loderup.tag",    7866.0),
+  ("Norra Rorum.tag",    9176.0),
+  ("Orust.tag",   11425.0),
+  ("Ossjo.tag",   12291.0),
+  ("Segerstad.tag",    9762.0),
+  ("Skinnskatteberg.tag",    9545.0),
+  ("Sorunda.tag",   11160.0),
+  ("Sproge.tag",    4415.0),
+  ("StAnna.tag",   13172.0),
+  ("Torsa\314\212s.tag",    9233.0),
+  ("Torso.tag",   15593.0),
+  ("Vaxtorp.tag",   11369.0),
+  ("Viby.tag",    6750.0),
+  ("Villberga.tag",   11495.0)]
+:}
+
+:{
+[("Ankarsrum.tag",652.0),
+ ("Anundsjo.tag",939.0),
+ ("Arsunda.tag",667.0),
+ ("Asby.tag",581.0),
+ ("Bara.tag",836.0),
+ ("Bengtsfors.tag",487.0),
+ ("Boda.tag",1245.0),
+ ("Bredsatra.tag",440.0),
+ ("Faro.tag",547.0),
+ ("Floby.tag",458.0),
+ ("Fole.tag",647.0),
+ ("Frillesas.tag",564.0),
+ ("Indal.tag",924.0),
+ ("Jamshog.tag",542.0),
+ ("Ko\314\210la.tag",760.0),
+ ("Leksand.tag",802.0),
+ ("Loderup.tag",577.0),
+ ("Norra Rorum.tag",643.0),
+ ("Orust.tag",930.0),
+ ("Ossjo.tag",794.0),
+ ("Segerstad.tag",548.0),
+ ("Skinnskatteberg.tag",591.0),
+ ("Sorunda.tag",772.0),
+ ("Sproge.tag",271.0),
+ ("StAnna.tag",837.0),
+ ("Torsa\314\212s.tag",649.0),
+ ("Torso.tag",1107.0),
+ ("Vaxtorp.tag",877.0),
+ ("Viby.tag",440.0),
+ ("Villberga.tag",788.0)]
+:}
+
+:{
+[("Ankarsrum.tag",8.44)
+,("Anundsjo.tag",7.882)
+,("Arsunda.tag",7.45)
+,("Asby.tag",8.08)
+,("Bara.tag",7.78)
+,("Bengtsfors.tag",6.5465)
+,("Boda.tag",7.138)
+,("Bredsatra.tag",6.327)
+,("Faro.tag",6.60)
+,("Floby.tag",7.147)
+,("Fole.tag",6.51)
+,("Frillesas.tag",5.84)
+,("Indal.tag",7.05)
+,("Jamshog.tag",6.246)
+,("Ko\314\210la.tag",7.488)
+,("Leksand.tag",7.50)
+,("Loderup.tag",7.335)
+,("Norra Rorum.tag",7.007)
+,("Orust.tag",8.14)
+,("Ossjo.tag",6.46)
+,("Segerstad.tag",5.61)
+,("Skinnskatteberg.tag",6.19)
+,("Sorunda.tag",6.917)
+,("Sproge.tag",6.138)
+,("StAnna.tag",6.354)
+,("Torsa\314\212s.tag",7.029)
+,("Torso.tag",7.099)
+,("Vaxtorp.tag",7.71)
+,("Viby.tag",6.5185)
+,("Villberga.tag",6.855)]
+:}
+
+:{
+[("Ankarsrum.tag",8.441222164681512e-2)
+,("Orust.tag",8.140043763676148e-2)
+,("Asby.tag",8.084040628913315e-2)
+,("Anundsjo.tag",7.882145555275749e-2)
+,("Bara.tag",7.783985102420857e-2)
+,("Vaxtorp.tag",7.713959011346644e-2)
+,("Leksand.tag",7.500935278713057e-2)
+,("Ko\314\210la.tag",7.488422504680264e-2)
+,("Arsunda.tag",7.453346742652811e-2)
+,("Loderup.tag",7.33536740401729e-2)
+,("Floby.tag",7.147315855181023e-2)
+,("Boda.tag",7.138352158706496e-2)
+,("Torso.tag",7.099339447187841e-2)
+,("Indal.tag",7.050206012513352e-2)
+,("Torsa\314\212s.tag",7.029134625798765e-2)
+,("Norra Rorum.tag",7.007410636442894e-2)
+,("Sorunda.tag",6.917562724014337e-2)
+,("Villberga.tag",6.855154414963027e-2)
+,("Faro.tag",6.609473175447075e-2)
+,("Bengtsfors.tag",6.546578841242102e-2)
+,("Viby.tag",6.518518518518518e-2)
+,("Fole.tag",6.511674718196457e-2)
+,("Ossjo.tag",6.460011390448296e-2)
+,("StAnna.tag",6.354388095961129e-2)
+,("Bredsatra.tag",6.32729364394593e-2)
+,("Jamshog.tag",6.246398524835773e-2)
+,("Skinnskatteberg.tag",6.1917234154007336e-2)
+,("Sproge.tag",6.1381653454133635e-2)
+,("Frillesas.tag",5.844559585492228e-2)
+,("Segerstad.tag",5.61360376971932e-2)]
+:}
+
+[("skogen",156) forest/the woods (lit the forest)
+,("jobbade",147) worked
+,("eh",111) -interjection-
+,("s\195\165d\195\164r",104) (s\.ad\"ar) like that
+,("jobbigt",63) hard (difficult)
+,("kilometer",59) kilometer
+,("kor",52) cows
+,("dialekt",44) dialect
+,("tjugofem",42) twenty-five
+,("bror",41) brother
+,("la@d",40) Box? lad? not sure
+,("nn",39) an anonymised name
+,("barnbarn",37) grandchild (grandchildren?)
+,("\195\164h",37) -interjection-
+,("dialekten",36) the dialect
+,("g\195\165rdar",36) farms
+,("mormor",33) grandmother
+,("buss",32) buss
+,("xxx",32) something else anonymised
+,("sprang",31) ran
+,("tittade",31) 'were looking' not sure what tense this is
+,("Tors\195\182",30) Tors\"o
+,("g\195\165rdarna",30) the farms
+,("h\195\182",30) -interjection-
+,("jad\195\165",29) a Yes. (??)
+,("morfar",29) grandfather
+,("[:",28) punctuation (??)
+,("\195\182n",28) island
+,("blommor",27) flowers
+,("bonde",27) farmer (peasant)
+,("h\195\165llt",27) hold (not sure of tense)
+,("klarade",27) made/had/survived (past verb anyway)
+,("hembygdsf\195\182reningen",26) history society
+,("skidor",26) skis
+,("s\195\165lde",26) sold
+,("farsan",25) Dad
+,("hann",25) had (maybe 'could' ?)
+,("Indal",24) Indal
+,("cykla",23) [bi]cycle (bare(?) verb)
+,("j\195\164rnv\195\164gen",23) railway line
+,("plockade",23) picked
+,("\195\182land",23) \"oland
+,("Grillby",22) Grillby
+,("duktig",22) good (able, efficient, capable, clever, smart, )
+,("j\195\164tteroligt",22) fun (adj? adv? doesn't look like a noun)
+,("ladug\195\165rden",22) barn (lit cowshed)
+,("socken",22) parish
+,("Enk\195\182ping",21) Enk\"oping
+,("b\195\182nder",21) farmers / peasants
+,("fiska",21) fish (v, seems to be present or bare)
+,("hugger",21) chop/cut (v, seems to be present)
+,("kompisar",21) buddies
+,("br\195\182der",20) brothers
+,("b\195\165tar",20) boats
+,("fotboll",20) football
+,("lantbrukare",20) farmers
+,("morsan",20) Mom
+,("nittio",20) ninety
+,("s\195\164g",20) saw
+,("\195\133rsunda",20) \"Arsunda
+,("\195\164lg",20) elk/moose (singular)
+,("\195\182vertog",20) [over]took
+,("bron",19) bridge
+,("fastlandet",19) [the] Mainland
+,("h\195\182ns",19) chicken (singular)
+,("oh",19) -interjection-
+,("trettiofem",19) thirty-five
+,("amerika",18) America
+,("cyklade",18) bicycled
+,("fyrtiofem",18) forty-five
+,("h\195\164starna",18) the horses
+,("h\195\182gg",18) stabbed
+,("lumpen",18) military service
+,("pojk",18) boy
+,("sjuttiofem",18) seventy-five
+,("spannm\195\165l",18) grain/cereals (is this count noun or not?)
+,("\195\165ttio",18) eight
+,("backen",17) hill
+,("femtiosex",17) fifty-six
+,("h\195\182rdudu",17) (not in dictionary) "The place we live is not like other h\"ordudu."
+,("lagom",17) moderate
+,("lastade",17) loaded
+,("sextiofem",17) sixty-fix
+,("s\195\182ndag",17) Sunday
+,("torp",17) cottage
+,("Sandviken",16) Sandviken
+,("Viby",16) Viby
+,("nitton",16) nineteen
+,("sk\195\164rg\195\165rden",16) Archipelago
+,("sk\195\165ne",16) Sk\.ane
+,("vintrarna",16) the winters
+,("\195\182ssj\195\182",16) \"ossj\"o
+,("Dalarna",15) Dalarna
+,("[///]",15) hey I thought I got rid of all these!
+,("h\195\164lsade",15) greeted/visited
+,("ledig",15) avail? "left in the summer" "vacant" "spare" adj: easy/free/unoccupiedvacant/spare;; adv: out/pat
+,("l\195\182derups",15) L\"oderup's
+,("sjuttiotalet",15) seventies
+,("stockholm",15) Stockholm
+,("tjugonio",15) twenty-nine
+,("\195\150land",15) \.Aland
+,("\195\164lven",15) the river
+,("N:s",14)
+,("bank",14) bank (or 'banking'...)
+,("bio",14) movie (movies?)
+,("golvet",14) floor
+,("gr\195\164s",14) grass
+,("h\195\164sten",14) the horse/the fall (autumn)
+,("klippa",14) cut (present)
+,("korna",14) the cows
+,("nittonhundra",14) nineteen hundred
+,("sn\195\164ll",14) kind/nice
+,("tomt",14) lot, noun I guess "lot of fish" "camped on their lot"
+,("trettiotalet",14) thirties
+,("S\195\182derk\195\182ping",13) S\"oderk\"oping
+,("[=",13) -punctuation-
+,("bj\195\182rn",13) the bear. I guess?
+,("byarna",13) the villages
+,("danser",13) dances
+,("kvart",13) quarter, as in "quarter to/past three" (kvart i tre/tre kvart)
+,("l\195\182derup",13) l\"oderup
+,("r\195\165djur",13) deer
+,("r\195\182rum",13) R\"orum
+,("skoj",13) fun
+,("sov",13) slept
+,("tr\195\164den",13) trees
+,("tr\195\164dg\195\165rden",13) garden
+,("tunnland",13) acres
+,("\195\150sterf\195\164rnebo",13) \"Osterf\"arnebo
+,("\195\165h",13) -interjection-
+,("Gudmundstj\195\164rn",12) Gudmundstj\"arn
+,("cykel",12) [bi]cycle
+,("folkskola",12) [public] elementary school
+,("hurdant",12) what kind
+,("ikring",12) around (prep)
+,("jajamensan",12) yup
+,("korset",12) the Cross
+,("kusten",12) the coast
+,("lastbil",12) truck
+,("litegrann",12) a little [bit] (wiki claims it's an adverb, but it's a noun here...)
+,("lugnare",12) calmer
+,("l\195\164rarinna",12) teacher (fem)
+,("mj\195\182lken",12) the milk
+,("odlar",12) grow
+,("original",12) (an) original, n
+,("orkade",12) dried (v-past)
+,("reste",12) rose (v-past)
+,("rikssvenska",12) Standard Swedish
+,("sk\195\164rg\195\165rd",12) island/archipelago
+,("stugan",12) the house/hut
+,("timmer",12) timber
+,("tomten",12) plot/lot (of land)
+,("uppvuxen",12) brought up (v-past)
+,("verkstad",12) workshop
+,("ystad",12) Ystad
+,("\195\164lgar",12) (masses of) mooses
+,("\195\164lgen",12) the moose
+,("\195\165ttiofem",12) eighty-five
+,("Bengtsfors",11) Bengtsfors
+,("K\195\182la",11) K\"ola
+,("Leksand",11) Leksand
+,("Visby",11) Visby
+,("arrenderade",11) leased (v-past)
+,("artonhundra",11) nineteenth
+,("bada",11) swim/bathe (v-bare?)
+,("baka",11) bake (v-bare?)
+,("drev",11) drove (probably)
+,("elektriker",11) electrician
+,("fredag",11) friday
+,("gris",11) pig
+,("hamnade",11) ended up/landed/arrived (v-past)
+,("himla",11) celestial (adj)
+,("jakt",11) hunting (n)
+,("katt",11) cat
+,("kroppkakor",11) dumplings
+,("lasta",11) unload (v-bare)
+,("lund",11) Lund
+,("nittiofem",11) ninety-five
+,("plugga",11) study (v-bare)
+,("prova",11) try (v-bare)
+,("rolig",11) fun/funny (adj)
+,("skickade",11) sent (v-past)
+,("svampar",11) fungi (n-pl)
+,("tjugotv\195\165",11) twenty-two
+,("trehundra",11) three hundred
+,("trettionio",11) thirty-nine
+,("tr\195\164ffades",11) met/hit (v-past)
+,("tr\195\182ska",11) thresh/thrash (v-bare)
+,("turister",11) tourists
+,("vintrar",11) winters
+,("\195\150stansj\195\182",11) \"Ostansj\"o
+,("\195\164ngelholm",11) \"Angelholm
+,("\195\182",11) -interjection-
+,("\195\182stra",11) east[ern] (adj)
+,("Floby",10) Floby
+,("Nore",10) Nore
+,("Torup",10) Torup
+,("Villberga",10) Villberga
+,("bandy",10) Bandy .. a sport apparently
+,("betor",10)] beets
