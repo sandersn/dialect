@@ -31,6 +31,38 @@ def multirun(n, tasks, files):
 def run(cmd):
     result = os.system(cmd)
     if result: raise Exception("Error: '%s' returned code %d" % (cmd, result))
+def stage1(): # jones
+    # run all the first taggers/extracters
+    extractTalbanken()
+    tagPos()
+    tagDep()
+def stage2(): # banks
+    # train berkeleyParser on banks
+    # first copy talbanken.mrg to banks
+    run('scp ncsander@jones.ling.indiana.edu:Documents/dialect/nord/talbanken.mrg ./')
+    trainCfg()
+def stage3():
+    # generate features on jones
+    run('scp ncsander@cl.indiana.edu:Documents/dialect/nord/talbanken.gr ./')
+    tagCfg()
+    genFeatures()
+def stage4():
+    # syntax distance/sig on banks
+    run('scp ncsander@jones.ling.indiana.edu:Documents/dialect/nord/*.dat ./')
+    syntaxDist()
+    syntaxSig()
+def stage5():
+    # extract most important features on jones
+    run('scp ncsander@cl.indiana.edu:Documents/dialect/nord/dist*.txt ./')
+    run('scp ncsander@cl.indiana.edu:Documents/dialect/nord/sig*.txt ./')
+    syntaxFeatures()
+def stage6():
+    # generate analysis and maps on flenser
+    run('scp ncsander@cl.indiana.edu:Documents/dialect/nord/dist*.txt ./')
+    run('scp ncsander@cl.indiana.edu:Documents/dialect/nord/sig*.txt ./')
+    run('scp ncsander@jones.indiana.edu:Documents/dialect/nord/feat*.txt ./')
+    genMaps()
+    genAnalysis()
 def extractTalbanken():
     # 1. Train on POS tags from Talbanken
     # 1.1 Also Convert Talbanken to PTB for training

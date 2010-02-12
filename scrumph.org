@@ -420,6 +420,20 @@
      of the Berkeley parser (ie how to make sure grammatical functions
      are used, their incorrect Conll parser, and -useGoldPOS)
    - 
+** 2010/02/12
+   - I forced Berkeley to -useGoldPOS and wrote code to generate its
+     fake Conll representation. I looked at the features but couldn't
+     come up with anything conclusive except that the big groups have
+     pretty generic, pretty important features. I wrote a tip list for
+     the Berkeley parser.
+   - I will write cosine similarity, add it and remove
+     redep/rearc. Then I will regenerate .dats and rerun
+     syntaxDist/sig/features and then genAnalysis/maps. I will add
+     entire stages to build.py to make running everything easier (even
+     if it IS distributed haphazardly across 3 machines). I will reply
+     to Jan and Sandra about the Householder award
+   - Ask Jan about hourly wage. Need to compare just the furthest site
+     (J\"amshog) to everything else and see what I get.
 * Plan
 ** January
 *** Get results
