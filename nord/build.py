@@ -60,7 +60,7 @@ def stage6():
     # generate analysis and maps on flenser
     run('scp ncsander@cl.indiana.edu:Documents/dialect/nord/dist*.txt ./')
     run('scp ncsander@cl.indiana.edu:Documents/dialect/nord/sig*.txt ./')
-    run('scp ncsander@jones.indiana.edu:Documents/dialect/nord/feat*.txt ./')
+    run('scp ncsander@jones.ling.indiana.edu:Documents/dialect/nord/feat*.txt ./')
     genMaps()
     genAnalysis()
 def extractTalbanken():
