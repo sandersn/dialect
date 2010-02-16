@@ -446,7 +446,21 @@
      less (no?) first person. I will hunt down the Swedish syntax
      references. I will write a plan for paying Swedish students and
      send it to Sandra for checking.
-   - Still should compare J\"amshog to every other site.
+   - Still should compare J\"amshog to every other site. (Also mail
+     Jiaan, Che-Hui, Deborah and maybe the other MS recruiter I talked
+     to)
+** 2010/02/16
+   - I rewrote the first third of the questions chapter. I re-read
+     Wybo's 2008 paper. I should cite it, but it still doesn't look
+     like I need the 3rd normalisation because I don't sample
+     per-speaker before sampling per-sentence. I did not write a
+     plan or hunt down any new Swedish papers.
+   - I will find the (possibly) relevant papers and download or figure
+     out how to get paper copies. I will write up a proposal for
+     paying Swedish students.
+   - I should probably do some other stuff but I'm not sure
+     what. Maybe compare Jamshog. Also read up on consensus
+     dendrograms.
 * Plan
 ** January
 *** Get results
@@ -497,16 +511,37 @@
 ask local Swedish speaker to look over automatic annotation quality
 esp Berkeley parser and its POS tagging quality
 
+Proposal:
+
+Pay 2 native speakers of Swedish for 5 hours of annotation. The
+annotators will annotate sentences from the SwediaSyn that have been
+selected based on the presence of unknown words. The annotators will
+receive 1 hour of training on part-of-speech annotation, then spend 4
+hours annotating. The annotators will be paid $10/hour.
+
+This annotation is necessary because my dissertation uses the Talbank
+for training automatic annotators, such as parsers and a
+part-of-speech tagger. However, the Talbank's vocabulary does not
+cover daily life very well; its focus is on business. Therefore, a
+number of common words, such as familial relations, are
+under-represented in the training. This causes problems for the
+automatic annotators when run on interview data from the
+SwediaSyn. Training the automatic annotators on manually annotated
+sentences containing words not found in the Talbank will allow them to
+identify these words in the interview data.
+
+The total cost is $100: $50 for each annotator at $10/hour.
+
 * Notes from defence and parsing group
 ** feature sets
 *** TODO Cut everything above nested S for leaf-ancestor paths
     This should help focus on intra-sentence grammar, not the
     frequency and type of embedded clauses (though this might also be
     interesting, normal leaf-ancestor paths would help with this.)
-*** Phrase-structure rules, plus grandparent:
+*** DONE Phrase-structure rules, plus grandparent:
     used by Collins and Koo -- parse reranking (around 2005)
 ** Swedish
-*** TODO Find out how householder fund works.
+*** DONE Find out how householder fund works.
     How to get money from it?
     Pay a swedish undergrad to annotate either dialect sentences or
     parts of speech
@@ -518,7 +553,7 @@ esp Berkeley parser and its POS tagging quality
     Therese's paper. Or maybe Jelena and John's survey paper? Not
     sure. Maybe even the 06 correlation paper
 *** TODO Find out how to do agreement dendrograms (or have a program do them for me)
-*** TODO Ask Therese for improved eps outline of Sweden
+*** DONE Ask Therese for improved eps outline of Sweden
 *** Do subgroups in a dendrogram reflect diachronic subgroups?
     It would be cool, but I think the subgroups are too unstable to be
     real

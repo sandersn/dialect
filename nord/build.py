@@ -163,6 +163,22 @@ def syntaxFeatures():
             for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
         run('./RankFeatures %s >feat-5-1000-%s-%s-interview.txt'
             % (tmps,measure,feature))
+def syntaxFeaturesSimple():
+    for measure,feature in variants():
+        params = open('params.h','w')
+        params.write('#define ITERATIONS 1000\n')
+        params.write('#define SAMPLES 1000\n')
+        params.write('#define R_MEASURE %s' % (measure,))
+        params.close()
+        run('g++ -O2 -o ctrl.out params.h icefeat.cpp')
+
+        for site in set(consts.swediaSites) - set(["Jamshog"]):
+            run('./ctrl.out Jamshog-%s.dat %s-%.dat > tmp-Jamshog-%s.txt'
+                % (feature, site, feature, site))
+        tmps = ' '.join('tmp-Jamshog-%s.txt' % (site,)
+                        for site in set(consts.swediaSites) - set(["Jamshog"]))
+        run('./RankFeatures %s >feat-5-1000-%s-%s-jamshog.txt'
+            % (tmps,measure,feature))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
