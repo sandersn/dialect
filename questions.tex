@@ -1,63 +1,76 @@
 \chapter{Questions}
-% make this longer and more repititiuos
+% TODO: rewrite to avoid overuse of important.
+% TODO: Hey! This is a good idea. I should do it! It's not trivial but
+% shouldn't be hard.
+% along with
+% various kinds of backoff, for example, to bigrams or coarser node
+% tags.
 The state of syntax measures in dialectometry described above leaves
-several research questions unresolved. The most important for this
-proposal is whether $R$ is a good measure of syntax
-distance. Specifically, have the ambiguous results of previous
-research been a shortcoming of $R$, differences between phonological
-and syntactic corpora, or differences between phonological and
-syntactic dialect boundaries?
+several research questions unresolved. It is not yet clear whether $R$
+is a good measure of syntax distance. Previous results have shown that
+it can obtain significant distances, but has either failed to do so
+reliably, as in my work on British English \cite{sanders08b}, or has
+not compared traditional dialect areas, as in
+\namecite{nerbonne06}. $R$, and statistical methods as a whole, still
+need to show that they can contribute to dialectometry's study of
+syntax.
 
-To investigate this, I propose Hypothesis 1: the features found by
-dialectologists will agree with the highly ranked features used by $R$
-for classification. I will test Hypothesis 1 by comparing $R$'s
-results to the syntactic dialectology literature on Swedish. In
-addition, Hypothesis 1B states that the regions of Sweden accepted by
-dialectology will be reproduced by $R$. For example, my
+This leads to the first question: will the features found by
+dialectologists agree with the highly ranked features used by $R$ for
+classification? I will investigate this question by comparing $R$'s
+results to the syntactic dialectology literature on Swedish. A
+secondary, but related question is whether the regions of Sweden
+accepted by dialectology will be reproduced by $R$. For example, my
 previous research on British English reproduced the well-known North
-England-South England dialect regions. However, this research will eliminate the
-corpus variability in that research \cite{sanders08b} that resulted in
-the confounding factors mentioned above, meaning that more precise
-results, such as specific identifying features, should be detectable as well.
+England-South England dialect regions. However, this dissertation
+eliminates the corpus variability in that research
+\cite{sanders08b}. With a corpus collected collected for the purpose
+of dialect research, and with a phonological corpus transcribed from the
+same interviews, more precise comparisons should be possible, both
+between regions and between syntax and phonology.
 
-Finally, if $R$ is found to be a bad measure of syntax distance, this
-dissertation will propose and evaluate alternative syntactic distance
-measures. Specifically, $R$ is one way to aggregate features that are
-created by decomposing sentences. It treats features as atomic, and
-does not manipulate them in any syntax-specific ways. As such, $R$ is
-not much different than Goebl's WIV. This may not be a problem if the
-decomposition methods used to generate features adequately capture
-dialect differences in independent, atomic features. If dialect
-differences cannot be captured by independent, atomic features, then a
-more syntax-specific method of combining features will be needed
-instead. Alternatively, a more complex statistical measure may be
-useful, taking the basic idea of $R$ and increasing its
-sensitivity. For example, Kullbeck-Leibler divergence, like $R$,
-provides a dissimilarity that is intuitively similar to distance.
+Additionally, if $R$ is found to be a bad measure of syntax distance,
+this dissertation evaluates a number of alternative
+measures, such as Kullbeck-Leibler divergence and cosine
+dissimilarity. $R$ is one way to aggregate features that are created
+by decomposing sentences. It treats features as atomic, and does not
+manipulate them in any syntax-specific ways. As such, $R$ differs from
+Goebl's WIV only in being designed for larger feature sets and
+larger corpora. Both assume that independent, atomic features derived
+from a sentence can adequately capture dialect differences. If this is
+not the case, then a more syntax-specific measure will be needed.
 
 A secondary question, relevant once a useful syntax distance measure
 is established, is what input features cause $R$ to produce the best
-results.  Previous work has shown that leaf-ancestor paths provide a
-small advantage over part-of-speech trigrams, presumably by capturing
-syntactic structure higher in the parse tree. Additional possible
-feature sets include variations on the previously investigated
-trigrams and leaf-ancestor paths, along with various kinds of backoff,
-for example, to bigrams or coarser node tags. Features from dependency
-parses may be useful, too, in capturing non-local dependencies that
-can be captured neither by trigrams nor leaf-ancestor paths.
+results. Choice of feature set is at least as important as choice of
+distance measure. Feature set My previous work on British English showed that
+leaf-ancestor paths provide a small advantage over part-of-speech (POS)
+trigrams, presumably by capturing syntactic structure higher in the
+parse tree. And, whereas development of a statistical distance measure
+is difficult, new feature sets can be developed relatively quickly.
+% on average, each committee meeting results in 2.1 new feature sets
+% being proposed, and only 0.7 new distance measures.
+In this dissertation, I evaluate several sets besides POS trigrams and
+leaf-ancestor paths, such as phrase structure rules, dependency paths,
+and lexical trigrams. I also evaluate variants of these feature sets,
+for example varying the POS tagger or POS tag set. I also evaluate
+combined feature sets.
 
-% add more here so it dosn't sound tautological
-Therefore, I propose Hypothesis 2: better input features
-for $R$ will produce more accurate syntax
-distances. These features can be discovered by comparing performance
-of a number of different feature sets on a fixed corpus. In addition,
-combinations of successful features will produce even better
-performance.
-% This sentence is either redundant or should appear earlier.
-The quality of a set of features can be
-measured by its sensitivity---the number of significant distances it
-finds---and the similarity of the highly ranked features $R$ produces
-to those found by dialectologists.
+Feature sets can be evaluated by comparing performance of different
+feature sets on a fixed corpus and with a fixed distance
+measure. Here, performance is measured using the same criteria as for
+distance measures: the number of significant distances between regions
+and the similarity of the results to those found by dialectologists.
+
+A final question is whether the syntactic dialectometry practised here
+agrees with phonological dialectometry on the same corpus. Unlike the
+previous questions, which use agreement between syntactic
+dialectometry and dialectology, there is no {\it a priori} reason to
+expect syntax/phonology agreement; it is quite possible that
+phonological features create one set of boundaries while syntactic
+feature create another set. However, agreement between the two would
+be further evidence for that $R$ succeeds in establishing syntactic
+dialectometry.
 
 \section{Question 1 : Agreement with Dialectology}
 
@@ -142,7 +155,7 @@ this analysis. Although there is no structure to translate to a
 phrase-structure skeleton, his analysis provides enough clues to
 produce some features directly. Trigrams are easiest; he mentions that
 his corpus search used the strings {\it det \"ar som} (``It is that'')
-and {\it det \"ar bara som} ``It's just that''. These words only
+and {\it det \"ar bara som} ``It's just that''. These words only need
 part-of-speech annotation to be trigram features. Dependency
 paths can also use these parts of speech for the local dependencies
 between {\it det,\"ar} and {\it som}. Rosenkvist also mentions
@@ -159,8 +172,8 @@ distribution (if any) from the linguistic analysis? How much do
 the features contribute to distance from other regions? If there are
 other features that contribute more, what are they?
 
-TODO: Finish example by using structure from papers on the apparent
-cleft (if it exists) in English and Japanese.
+% TODO: Finish example by using structure from papers on the apparent
+% cleft (if it exists) in English and Japanese.
 
 \subsection{Isogloss Boundaries}
 %add connective sentences! or pharagraph!
@@ -440,7 +453,7 @@ probably \cite{heeringa04}, \cite{kondrak02}, and others).
 % rewrite to avoid overuse of important.
 Statistical significance is also important. Although significance does not
 necessarily indicate a good set of features, a lack of statistical
-significance indicates that the feature set does allow the distance
+significance indicates that the feature set does not allow the distance
 measure to find valid distances.
 
 Finally, although it is not covered in this dissertation, agreement

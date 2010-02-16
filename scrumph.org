@@ -433,7 +433,20 @@
      if it IS distributed haphazardly across 3 machines). I will reply
      to Jan and Sandra about the Householder award
    - Ask Jan about hourly wage. Need to compare just the furthest site
-     (J\"amshog) to everything else and see what I get.
+     (J\"amshog) to everything else and see what I get. Make a budget
+     based on 9-10 $/h
+** 2010/02/15
+   - I wrote cosine similarity. I removed redep and deparc. I
+     regenerated features and reran my syntax distances and
+     analysis. I grouped build.py's functions into per-machine stages
+     and set up SSH so that the correct files can be copied by
+     build.py (password is stored on the machine). I replied to Jan
+     and Sandra but not with a proposal yet.
+   - I will reword the intro to the questions chapter. Lengthier and
+     less (no?) first person. I will hunt down the Swedish syntax
+     references. I will write a plan for paying Swedish students and
+     send it to Sandra for checking.
+   - Still should compare J\"amshog to every other site.
 * Plan
 ** January
 *** Get results
