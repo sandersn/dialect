@@ -173,9 +173,9 @@ def syntaxFeaturesSimple():
         run('g++ -O2 -o ctrl.out params.h icefeat.cpp')
 
         for site in set(consts.swediaSites) - set(["Jamshog"]):
-            run('./ctrl.out Jamshog-%s.dat %s-%.dat > tmp-Jamshog-%s.txt'
+            run("./ctrl.out Jamshog-%s.dat '%s-%s.dat' > 'tmp-Jamshog-%s.txt'"
                 % (feature, site, feature, site))
-        tmps = ' '.join('tmp-Jamshog-%s.txt' % (site,)
+        tmps = ' '.join("'tmp-Jamshog-%s.txt'" % (site,)
                         for site in set(consts.swediaSites) - set(["Jamshog"]))
         run('./RankFeatures %s >feat-5-1000-%s-%s-jamshog.txt'
             % (tmps,measure,feature))
