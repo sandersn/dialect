@@ -461,6 +461,17 @@
    - I should probably do some other stuff but I'm not sure
      what. Maybe compare Jamshog. Also read up on consensus
      dendrograms.
+** 2010/02/17
+   - I found as many relevant papers as I could. A couple are only available
+     on paper, one is in the library so I need to recall it. I wrote up
+     a proposal for Swedish annotation and sent it to Stuart.
+   - I will get people to look at the Jamshog features. I will get suggestions
+     on how to train annotators. I will see if anyone else knows about
+     consensus trees, and if not, go back to reading web pages on them.
+   - LSA-style whole-feature-space optimisation? Not sure this has the
+     right shape. Also check out Emms paper on comparing trees?
+     Try old version TIMBL+old version MaltParser for training w/o SVMs.
+     Or at least PCA if not LSA.
 * Plan
 ** January
 *** Get results
