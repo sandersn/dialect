@@ -100,8 +100,6 @@ sample zip_ref (entry& h, entry& h2) {
    }
    return h3;
 }
-sample countpaths(const strings& a, const strings& b) {
-}
 sample normalise(const strings& a, const strings& b,
                  int iterations=5, size_t total_types=0) {
   entry tmp1 = count(a); // Because zip_ref takes entry&, not const entry&,
@@ -109,8 +107,6 @@ sample normalise(const strings& a, const strings& b,
   sample ab = zip_ref(tmp1, tmp2); // that's what Bjarne Stroustrup said anyway
   double tokens_a = a.size();
   double tokens_b = b.size();
-  double types_a = tmp1.size();
-  double types_b = tmp2.size();
   double tokens = tokens_a + tokens_b;
   double types = tmp1.size() + tmp2.size();
   double ci, fa, fb, f;
