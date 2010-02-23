@@ -16,10 +16,17 @@ for (measure in measures) {
                           measure, feature, "interview-R.txt", sep='-'),
                     header=TRUE)
     ts <- c(ts, list(t))
+    hcl <- hclust(as.dist(t), method="ward")
+    cat(paste("Cluster: "))
+    cat(paste(measure, feature, sep=' '))
+    cat(' ')
+    for(i in hcl$merge) {
+      cat(i); cat(" ")
+    }
+    cat("\n")
     pdf(file=paste("dist-10-1000", measure, feature, "clusterward.pdf", sep='-'),
         width=9.014, height=6.931)
-    plclust(hclust(as.dist(t), method="ward"),
-            hang=-1, sub="", xlab="", ylab=paste(measure, feature, sep='-'))
+    plclust(hcl, hang=-1, sub="", xlab="", ylab=paste(measure, feature, sep='-'))
     dev.off()
     cat(paste("cor:", cor(vectorise(geo), vectorise(t)), '\n'))
     # cat(paste("sig:", mantel(geo, t, 33), '\n'))

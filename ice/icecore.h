@@ -85,21 +85,6 @@ template <class T> vector<T> permutation(const vector<vector<T> >& dialect) {
   }
   return acc;
 }
-template <class T>
-pair<vector<T>,vector<T> > shuffle(const vector<T>& a, const vector<T>& b) {
-  vector<T> ab;
-  static Urand uni((unsigned)time(0));
-  ab.insert(ab.end(), a.begin(), a.end());
-  ab.insert(ab.end(), b.begin(), b.end());
-  for(int i = 0; i < ab.size(); i++) {
-    T tmp = ab[i];
-    int j = uni.next(ab.size());
-    ab[i] = ab[j];
-    ab[j] = tmp;
-  }
-  return make_pair(vector<T>(ab.begin(), ab.begin()+a.size()),
-                   vector<T>(ab.begin()+a.size(), ab.end()));
-}
 sample zip_ref (entry& h, entry& h2) {
   // I can't get these to be const entry&; apparently there is some
   // trouble with mixing iterator types in the h2[i->first] and h[i->first]
@@ -116,24 +101,27 @@ sample zip_ref (entry& h, entry& h2) {
    return h3;
 }
 sample countpaths(const strings& a, const strings& b) {
-  entry tmp1 = count(a); // Because zip_ref takes entry&, not const entry&,
-  entry tmp2 = count(b); // I have to provide real l-values to zip_ref
-  return zip_ref(tmp1, tmp2); // that's what Bjarne Stroustrup said anyway
 }
 sample normalise(const strings& a, const strings& b,
                  int iterations=5, size_t total_types=0) {
-  sample ab = countpaths(a,b);
-  double len_a = a.size();
-  double len_b = b.size();
+  entry tmp1 = count(a); // Because zip_ref takes entry&, not const entry&,
+  entry tmp2 = count(b); // I have to provide real l-values to zip_ref
+  sample ab = zip_ref(tmp1, tmp2); // that's what Bjarne Stroustrup said anyway
+  double tokens_a = a.size();
+  double tokens_b = b.size();
+  double types_a = tmp1.size();
+  double types_b = tmp2.size();
+  double tokens = tokens_a + tokens_b;
+  double types = tmp1.size() + tmp2.size();
   double ci, fa, fb, f;
   for(int i = 0; i < iterations; i++) {
     for(sample::iterator i = ab.begin(); i!=ab.end(); i++) {
       ci = i->second.first + i->second.second;
-      fa = i->second.first / len_a;
-      fb = i->second.second / len_b;
+      fa = i->second.first / tokens_a;
+      fb = i->second.second / tokens_b;
       f = fa + fb;
-      i->second.first = ci * fa / f;
-      i->second.second = ci * fb / f;
+      i->second.first = (ci * fa / f) * 2 * types / tokens;
+      i->second.second = (ci * fb / f) * 2 * types / tokens;
     }
   }
   return ab;

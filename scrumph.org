@@ -472,6 +472,28 @@
      right shape. Also check out Emms paper on comparing trees?
      Try old version TIMBL+old version MaltParser for training w/o SVMs.
      Or at least PCA if not LSA.
+** 2010/02/18
+   - blah. I kind of did it.
+   - I will add stubs to methods.tex. to remind myself: PCA, LSA, alternate
+     training for timbl+malt, alternate params for berkeley
+     training. there is only one that I see for berkeley (viterbi) and
+     it's for parsing but whatever. Anyway, I'll need a Big Red
+     account for timbl+malt. Also write Sandra to ask her about
+     training annotators? Maybe. Of course there's a lot of other
+     things I've already added like phrase-structure rules and KL
+     divergence.
+** 2010/02/22
+   - I added stubs for everything. I spent a LOT of time trying to
+     read a C++ implementation of consensus trees before finally
+     re-implementing them myself in Haskell by reading a paper with a
+     two-sentence description. I got a Big Red account but Sandra
+     didn't send me the binaries yet.
+   - I will write Sandra and Ariel reminding them. I will write Rex
+     asking him about who to contact in the German department. I will
+     write a reader/writer so my consensus tree code can talk to R (or
+     maybe port it to R--gulp). LSA and Malt+Timbl
+   - I should probably blog the consensus trees now that I can  and
+     finish my ICE post.
 * Plan
 ** January
 *** Get results
@@ -524,24 +546,30 @@ esp Berkeley parser and its POS tagging quality
 
 Proposal:
 
-Pay 2 native speakers of Swedish for 5 hours of annotation. The
+Pay 2 native speakers of Swedish for 10 hours of annotation each. The
 annotators will annotate sentences from the SwediaSyn that have been
-selected based on the presence of unknown words. The annotators will
-receive 1 hour of training on part-of-speech annotation, then spend 4
-hours annotating. The annotators will be paid $10/hour.
+selected based on the presence of unknown words. Each sentence will be
+annotated with parts of speech and a constituency parse. The
+annotators will receive 2 hours of training on part-of-speech and
+syntactic annotation, then spend 8 hours annotating. The annotators
+will be paid $10/hour.
 
-This annotation is necessary because my dissertation uses the Talbank
+This annotation is necessary because my dissertation uses Talbanken
 for training automatic annotators, such as parsers and a
-part-of-speech tagger. However, the Talbank's vocabulary does not
-cover daily life very well; its focus is on business. Therefore, a
-number of common words, such as familial relations, are
-under-represented in the training. This causes problems for the
-automatic annotators when run on interview data from the
-SwediaSyn. Training the automatic annotators on manually annotated
+part-of-speech tagger. Talbanken is a corpus of written and spoken
+Swedish collected in the 1970s. Each sentence is annotated with a
+phrase-structure parse, and later versions also provide a dependency
+parse for each sentence. However, Talbanken's vocabulary does not
+cover daily life very well; its main source is newspapers, and its
+focus is on business. Therefore, a number of common words, such as
+familial relations, are under-represented in the training. This causes
+problems for the automatic annotators when run on interview data from
+the SwediaSyn, a dialect corpus collected around the turn of the
+century. Training the automatic annotators on manually annotated
 sentences containing words not found in the Talbank will allow them to
 identify these words in the interview data.
 
-The total cost is $100: $50 for each annotator at $10/hour.
+The total budget is $200: $100 for each annotator at $10/hour.
 
 * Notes from defence and parsing group
 ** feature sets
