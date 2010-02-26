@@ -494,6 +494,35 @@
      maybe port it to R--gulp). LSA and Malt+Timbl
    - I should probably blog the consensus trees now that I can  and
      finish my ICE post.
+** 2010/02/23
+   - I wrote Sandra and Rex. I didn't write Ariel. I got a reader for
+     R's consensus trees working, but the algorithm crashes.
+   - blah
+   - 
+** 2010/02/24
+   - I got the files from Sandra. I I updated her on my promblems but
+     she was feeling pretty sick and didn't give any ideas. I fixed
+     the consensus tree algorithm.
+   - I will output consensus trees to qtree. I will get Big Red
+     started on Malt+Timbl
+   - LSA program
+** 2010/02/25
+   - I output consensus trees via qutree. I got Big Red started. malt
+     doesn't work.
+   - I will get malt working. I will investigate academic-style
+     LSA-style programs.
+   - Bother I forgot that old-malt trained on old-timbl needs
+     old-timbl around for parsing too. So I will have to port that
+     part of build.py over to whatever crappy Python Big Red has.
+     Yup. 2.3.3. What. A surprise. Matches GCC 3.3.3 perfectly.
+** 2010/02/26
+   - I got malt working. I investigated academic-style LSA programs
+     and couldn't find any. They are all commercial, so I am trying to
+     get a faster knock-off to run instead. Probably gives garbage but whatever.
+   - I will rerun the timbl-trained dependencies as redep (along with
+     re-adding deparc). I will get random semantic vectors running.
+   - Register with ACL 2010 demo reviewer site. Publish Consensus.hs
+     post.
 * Plan
 ** January
 *** Get results

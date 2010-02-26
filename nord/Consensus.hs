@@ -11,16 +11,16 @@ root tree = Node "ROOT" [Leaf "s0", tree]
 leaf (Leaf _) = True
 leaf (Node _ []) = True -- irregularities in buildRank, oh well
 leaf _ = False
-spans (Leaf a) = Map.singleton a $ Set.singleton a
-spans (Node a kids) = Map.insert a (Set.unions $ Map.elems kidsmap) $ kidsmap
-  where kidsmap = Map.unions $ map spans kids
 
-majority trees = trees |> concatMap (Map.elems . spans)
-                       |> sort |> group
-                       |> filter (length & (>m))
-                       |> map head
-                       |> sortBy (comparing (negate . Set.size))
-                       |> Data.List.groupBy ((==) `on` Set.size)
+spans (Leaf a) = Set.singleton $ Set.singleton a
+spans (Node _ kids) = Set.insert (Set.unions $ Set.toList kidspans) kidspans
+  where kidspans = Set.unions $ map spans kids
+majority trees = trees |> map (spans & Set.toList & histogram)
+                        |> Map.unionsWith (+)
+                        |> Map.filter (>m)
+                        |> Map.keys
+                        |> sortBy (comparing (negate . Set.size))
+                        |> Data.List.groupBy ((==) `on` Set.size)
   where m = floor (fromIntegral (length trees) / 2)
 -- functional --
 buildRank span [] = ([],[])

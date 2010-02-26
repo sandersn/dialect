@@ -6,7 +6,7 @@ geo <- read.table("nord/dist-10-1000-geo-interview-R.txt", header=TRUE)
 measures <- c('r', 'r_sq', 'kl', 'js', 'cos')
 features <- c('path', 'trigram', 'dep', 'psg', 'grand',
               'unigram',
-              # 'retrigram', 'redep', 'deparc',
+              'redep', 'deparc',
               'all')
 for (measure in measures) {
   ts <- list()

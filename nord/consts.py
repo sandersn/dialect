@@ -8,9 +8,7 @@ talbanken = [tbpath + 'SD.tiger.xml',
 measures = ['r', 'r_sq', 'kl', 'js', 'cos']
 features = ['path', 'trigram', 'dep', 'psg', 'grand',
             'unigram',
-            # These are outdated when using goldPOS for Berkeley
-            # (and deparc just sucks)
-            # 'retrigram', 'redep', 'deparc',
+            'redep', 'deparc',
             'all']
 # TODO: Fix 'Leksand ' typo
 swediaCounties = dict( # or I could just use the county code
