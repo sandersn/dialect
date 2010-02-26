@@ -8,6 +8,9 @@ import Util
 import Consts
 data Tree a = Leaf a | Node a [Tree a] deriving (Show)
 root tree = Node "ROOT" [Leaf "s0", tree]
+leaf (Leaf _) = True
+leaf (Node _ []) = True -- irregularities in buildRank, oh well
+leaf _ = False
 spans (Leaf a) = Map.singleton a $ Set.singleton a
 spans (Node a kids) = Map.insert a (Set.unions $ Map.elems kidsmap) $ kidsmap
   where kidsmap = Map.unions $ map spans kids
@@ -20,8 +23,7 @@ majority trees = trees |> concatMap (Map.elems . spans)
                        |> Data.List.groupBy ((==) `on` Set.size)
   where m = floor (fromIntegral (length trees) / 2)
 -- functional --
-buildRank span [] | Set.null span = ([],[])
-                  | otherwise = ([],[])-- error ("Didn't find all children: " ++ show span)
+buildRank span [] = ([],[])
 buildRank span (rank:ranks) | Set.null span = ([],rank:ranks)
 buildRank span (rank:ranks) =
   (kids++kids',if rest==[] then rests else rest:rests)
@@ -38,26 +40,36 @@ buildTree span ranks = (Node span kids', rest')
                                        (node : kids, rest'))
                 ([],rest) kids
 -- imperative --
-buildRank' span = do
-  state <- get
-  if Set.null span
-    then if state==[]
-           then return []
-           else error ("Didn't find all children: " ++ show span)
+buildRank' span = ifM (return . (==[]) =<< get)
+  (return [])
+  (do (kids,rest) <- return . partition (`Set.isSubsetOf` span) =<< pop
+      kids' <- buildRank' (span `Set.difference` Set.unions kids)
+      when (rest /= []) $
+           push rest
+      return (kids++kids'))
+  {- nullp <- get >>= (==[])
+  if nullp
+    then return []
     else do
       (kids,rest) <- return . partition (`Set.isSubsetOf` span) =<< pop
       kids' <- buildRank' (span `Set.difference` Set.unions kids)
       when (rest /= []) $
         push rest
-      return (kids++kids')
-buildTree' span = do
-  rest <- get
+      return (kids++kids') -}
+ifM cond seq alt = do
+  b <- cond
+  if b then seq else alt
+buildTree' span = ifM (return . (==[]) =<< get)
+  (return (Leaf span))
+  (buildRank' span >>= (foldM (\ l -> buildTree' >=> (:l) & return) []
+                        >=> Node (Set.empty) & return))
+  {- rest <- get
   if rest==[]
     then return (Leaf span)
     else do
       kids <- buildRank' span
       kids' <- foldM (\ l kid -> buildTree' kid >>= (:l) & return) [] kids
-      return (Node span kids')
+      return (Node span kids')-}
 consensus trees = evalState (buildTree' span) ranks
   where ([span]:ranks) = majority (map root trees)
 -- utils --
@@ -74,7 +86,13 @@ ts = [t1,t2,t3]
 -- reader --
 main = do
   sigs <- withFileLines findSigs "sig-10-1000-interview.csv"
-  interactFiles (withFileLines (makeConsensusTree sigs & list)) show
+  interactFiles (withFileLines (makeConsensusTree sigs & list)) qtree
+qtree (Leaf a) = Set.findMax a
+qtree (Node a []) = Set.findMax a
+qtree (Node a kids) = "[. {" ++ left ++ "} " ++ right ++ " ]"
+  where (leaves,nodes) = partition leaf kids
+        left = intercalate "\\\\" (map qtree leaves)
+        right = unwords (map qtree nodes)
 findSigs =
   tail
   & map (replace ',' ' ' & words & tail
