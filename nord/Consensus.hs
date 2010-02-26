@@ -21,7 +21,7 @@ majority trees = trees |> concatMap (Map.elems . spans)
   where m = floor (fromIntegral (length trees) / 2)
 -- functional --
 buildRank span [] | Set.null span = ([],[])
-                  | otherwise = error ("Didn't find all children: " ++ show span)
+                  | otherwise = ([],[])-- error ("Didn't find all children: " ++ show span)
 buildRank span (rank:ranks) | Set.null span = ([],rank:ranks)
 buildRank span (rank:ranks) =
   (kids++kids',if rest==[] then rests else rest:rests)
