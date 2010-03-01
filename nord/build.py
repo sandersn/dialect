@@ -165,11 +165,7 @@ def syntaxFeatures():
             % (tmps,measure,feature))
 def syntaxFeaturesSimple():
     for measure,feature in variants():
-        params = open('params.h','w')
-        params.write('#define ITERATIONS 1000\n')
-        params.write('#define SAMPLES 1000\n')
-        params.write('#define R_MEASURE %s' % (measure,))
-        params.close()
+        norte.writeparams(1000, 1000, measure, False)
         run('g++ -O2 -o ctrl.out params.h icefeat.cpp')
 
         for site in set(consts.swediaSites) - set(["Jamshog"]):

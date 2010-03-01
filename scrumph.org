@@ -536,9 +536,11 @@
    - Still need to reply to Rex. And Hashim. And mail Ross. (and
      Therese and Henrik?) I will try another set of parameters for
      Malt+Timbl training. I will alter icecore to allow full-corpus
-     comparisons, using #ifdef. I will add these other methods to the
+     comparisons, using #ifdef. I will look at the first set of
+     Malt+Timbl results. I will add these other methods to the
      subsections in methods.tex and start writing them up.
-   - A lot of mail!
+   - A lot of mail! Try that C++ Mersenne twister from the consensus
+     tree code too.
 * Plan
 ** January
 *** Get results
