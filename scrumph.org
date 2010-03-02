@@ -541,6 +541,17 @@
      subsections in methods.tex and start writing them up.
    - A lot of mail! Try that C++ Mersenne twister from the consensus
      tree code too.
+** 2010/03/02
+   - I started another Timbl run. Hasn't finished yet. I ran a
+     full-corpus run. Haven't looked at the numbers yet
+   - I will alter build.py/norte.py/genAnalysis.R to handle fullcorpus
+     (use the 'interview' slot since I'm never going to do larger a
+     priori groupings)
+     (Consensus.hs needs updated too because it's so hardcoded). I
+     will work on methods.tex.
+   - I wrote some e-mail! Still need to mail Therese and
+     Henrik. Probably ask Sandra what is a good delay for this to be
+     polite.
 * Plan
 ** January
 *** Get results

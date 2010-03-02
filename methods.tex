@@ -1,11 +1,16 @@
 \chapter{Methods}
-It's all about R and running it on Swedish eh.
 
 There is a lot of background information, like other distance
 measures and the underlying math of the distance measure I did use.
 
-TODO: Grab explanation of normalisation step from ice.pdf
-TODO: Update from git to get Josh's comments on how he misunderstood MDS.
+TODO: This is badly organised; half of it is historical background
+(that I don't *really* use) and half of it is stuff I actually use. But the dividing line
+is in the wrong place; R and leaf-ancestor paths are presented as
+history.
+
+Probably I should break the first half into a background chapter and move it much
+earlier in the dissertation. It might even be appropriate in the first
+chapter, except that should be mostly an introduction I think.
 
 \section{Previous Work}
 
@@ -311,17 +316,88 @@ measure doesn't indicate whether its results are significant; a
 permutation test is needed for that.
 
 \subsubsection{Normalization}
-The distance must be normalized for two kinds of variation:
-the length of sentences in the corpus and the amount of variety in the
-corpus. If sentence length differs too much between corpora, there
-will be consistently lower token counts in one corpus, which would
-cause a spuriously large $R$. In addition, if one corpus has less
-variety than the other, it will have inflated type counts, because
-more tokens will be allocated to fewer types. To avoid
-this, all tokens are scaled by the average number of types per token
-across both corpora: $2n/N$ where $n$ is the type count and $N$ is
-the token count. The additional factor $2$ is necessary because we are
-recombining the tokens from the two corpora.
+
+With the paths of each sentence generated from the corpus, then sorted
+by type into vectors, we now try to determine
+whether the paths of one region occur in significantly different
+numbers from the paths of another region. To do this, we calculate some
+measure to characterize the difference between two vectors as a single
+number. \namecite{kessler01} creates a simple measure called the
+{\sc Recurrence} metric ($R$ hereafter), which
+is simply the sum of absolute differences of all path token counts
+$c_{ai}$ from the first corpus $A$ and $c_{bi}$ from the second corpus
+$B$.
+\[ R = \Sigma_i |c_{ai} - \bar{c_i}| \textrm{ where } \bar{c_i} = \frac{c_{ai} + c_{bi}}{2}\]
+However, to find out if the value of $R$ is significant, we
+must use a permutation test with a Monte Carlo technique described by
+\namecite{good95}, following
+closely the same usage by \namecite{nerbonne06}. The intuition behind
+the technique is to compare the $R$ of the two corpora with the $R$ of
+two random subsets of the combined corpora. If the random subsets' $R$s
+are greater than the $R$ of the two actual corpora more than $p$ percent
+of the time, then we can reject the null hypothesis that the two were
+are actually drawn from the same corpus: that is, we can assume that
+the two corpora are different.
+
+However, before the $R$ values can be compared, the path counts in the
+random subsets must
+be normalized since not all paths will occur in every subset, and
+average sentence length will differ, causing relative path frequency
+to vary. There are two normalizations that must occur: normalization
+with respect to sentence length, and
+normalization with respect to other paths within a subset.
+
+The first stage of normalization normalizes the counts for each path
+within the pair of vectors $a$ and $b$. The purpose is to neutralize the
+difference in sentence length, in which longer sentences with more
+words cause paths to be relatively less frequent.
+Each count is converted to a frequency $f$ \[f=\frac{c}{N} \] where
+$c$ is either $c_{ai}$ or $c_{bi}$ from above and $N$ is the length of the
+containing vector $a$ or $b$. This produces two frequencies, $f_{ai}$ and
+$f_{bi}$.Then the frequency is scaled
+back up to a redistributed count by the equation
+\[\forall j \in a,b : c'_{ji} = \frac{f_{ji}(c_{ai}+c_{bi})}{f_{ai}+f_{bi}}\]
+This will redistribute the total of a pair from $a$ and $b$ based on
+their relative frequencies. In other words, the total of each path
+type $c_{ai} + c_{bi}$ will remain the same, but the values of
+$c_{ai}$ and $c_{bi}$ will be balanced by their frequency
+within their respective vectors.
+
+For example, assume that the two corpora have 10 sentences each, with
+a corpus $a$ with only 40 words and another, $b$, with 100 words. This
+results in $N_a = 40$ and $N_b = 100$. Assume also that there is a
+path $i$ that occurs in both: $c_{ai} = 8$ in  $a$ and $c_{bi} = 10$ in
+$b$. This means that the relative frequencies are $f_{ai} = 8/40 = 0.2$
+and $f_{bi} = 10/100 = 0.1$. The first normalization will redistribute the
+total count (18) according to relative size of the frequencies. So
+\[c_{ai}' = \frac{0.2(18)}{0.2+0.1} = 3.6 / 0.3 = 12\] and
+\[c_{bi}' = \frac{0.1(18)}{0.2+0.1} = 1.8 / 0.3 = 6\]
+Now that 8 has been scaled to 12 and 10 to 6, the effect of sentence length
+has been neutralized. This reflects the intuition that something that
+occurs 8 of 40 times is more important than something that occurs 10
+of 100 times.
+
+% this is the (*2n) / N bit
+The second normalization normalizes all values in both
+permutations with respect to each other. This is simple: find the
+average number of times each path appears, then divide each scaled
+count by it. This produces numbers whose average is 1.0 and whose
+values are multiples of the amount that they are greater than the average.
+The average path
+count is $N / 2n$, where $N$ is the number of path tokens in
+both the permutations and $n$ is the number of path types. Division by
+two is necessary since we are multiplying counts from a single permutation by
+token counts from both permutations. Each type entry in the
+vector now becomes \[\forall j \in a,b : s_{ji} = \frac{2nc_{ji}'}{N}\]
+
+Starting from the previous example, this second normalization first
+finds the average. Assuming 5 unique paths (types) for $a$ and 30 for
+$b$ gives \[n = 5 + 30 = 35\] and
+\[N = N_a + N_b = 40 + 100 = 140\]
+Therefore, the average path type has $140 / 2(35) = 2$
+tokens in $a$ and $b$ respectively. Dividing $c_{ai}'$ and $c_{bi}'$ by this average gives $s_{ai} = 6$
+and $s_{bi} = 3$. In other words, $s_{ai}$ has 6 times more tokens
+than the average path type.
 
 % Other ideas include training a
 % model on one area and comparing the entropy (compression) of other
@@ -488,8 +564,14 @@ The biggest difference is in the relative length of the paths: long
 leaf-ancestor paths indicate deep nesting of structure. Length is a
 weaker indicator of deep structure for leaf-head
 paths; sometimes a difference in length indicates only a difference in
-centrality to the sentence. % or something, this is still kind of
-                            % wrong
+centrality to the sentence. % or something, this is still kind of % wrong
+
+In addition, leaf-head paths capture long-distance
+context nicely, like enhanced trigrams. Not as much upper structure,
+unless you have a deeply embedded sentence, in which case you can
+see that the outer verb, etc, mimic the upper structure of a
+leaf-ancestor path. Ultimately, leaf-head paths are just pretty cool.
+
 \[\xymatrix{
 & & root \\
 DET \ar@/^/[r] & NP\ar@/^/[r] & V \ar@{.>}[u] \\
@@ -733,26 +815,124 @@ to be significant.
 % occurs based on the token counts of the two corpora combined.
 
 % this next subsection might need to be changed or deleted
-\subsection{Cluster Analysis and Correlation}
+\subsection{Cluster Analysis}
 \label{cluster-analysis}
 The first hypothesis requires a clustering method to allow
 inter-region distances to be compared more easily. The dendrogram that
 binary hierarchical clustering produces allows easy visual comparison
 of the most similar regions.
 
-Correlation is also useful to find out how similar the two method's
-predictions are. Because of the connected nature of the inter-region
-distances, Mantel's test is necessary to ensure that the correlation
-is significant. Mantel's test is a permutation test, much like the
-permutation test described for $R$. One distance result set is
-permuted repeatedly and at each step correlated with the other
+% TODO: This is wrong but it's a start
+
+A clustering algorithm provides understanding of which regions group
+together. There are a variety of clustering algorithms, but
+hierarchical clustering is the most appropriate method for this
+problem because it does not specify the number of groups ahead of
+time. Other clustering algorithms such as k-means or expectation
+maximisation require the number of expected
+clusters to be given. Hierarchical clustering creates its clusters implicitly by
+grouping items using a binary merge operation. The merge is repeated
+until a tree with a single root is formed. The implicit clusters can
+be extracted by looking at which speakers share the same subtree, as
+well as looking for large differences in internal node heights connecting subtrees.
+
+The initial step for any clustering algorithm is to find distances
+between all pairs of regions as described above.
+These distances between all pairs of regions result in a set of
+high-dimensional spatial relationships. While they could be analyzed
+as such, such high-dimensional distances are difficult to
+visualize. The job of a clustering algorithm is to reduce
+the dimensionality and create a useful visualization of the relative
+positions of the speakers. Hierarchical clustering does this by
+creating a tree---if there are similarities between the speakers, it
+should be obvious by looking at the tree.
+
+There are some complications, however. Because the clustering
+algorithm repeatedly merges speakers, it is
+not always clear what the best clusters are. For example,
+\namecite{clopper04} used a similar clustering algorithm on perceptual
+dialect data from American English speakers and found two distinct
+North/South clusters for most features. These clusters had less
+defined sub-clusters as well: the Western speakers of American English
+usually grouped with the North cluster but slightly separated from the
+other dialects in the North cluster. Of course as the sub-clusters
+become smaller, they usually become less distinctive because the
+distances are smaller. Ultimately, human judgment is necessary to
+determine what is a cluster and what is not. The clustering algorithm
+itself is nothing but binary merges---there may even be only one
+cluster if all speakers are evenly distributed around a single center.
+
+\subsubsection{Bottom-up hierarchical clustering}
+
+With hierarchical clustering defined, ``bottom-up'' now needs a
+definition. As in any tree-building problem, the two obvious ways one
+can build a tree are top-down and bottom-up. Bottom-up clustering
+works in the following way. First, each speaker is put into its own
+group. Then the algorithm determines the distance between each pair of
+groups. The closest two groups are merged into a single group and the
+process is repeated until a single root group is created. This process
+is bottom-up because it creates the terminal nodes of the tree first
+and builds up the internal structure of the cluster tree from there.
+
+To find the two closest groups, Ward's method is used
+\cite{ward63}. At each merge step, this method evaluates every
+possible binary merge. Each merge is given a score that
+minimises the square of the distances between regions in the new
+group. The best merge at that point is added, its child groups are
+removed, and the process repeats until a singly rooted tree is
+created. For $n$ regions, this takes $n-1$ iterations, because at each
+step, two groups are merged.
+
+\begin{figure}
+  \[ \sum_{i=1}^n d_i^2 - \frac{1}{n}\bigg(\sum_{i=1}^n d_i\bigg)^2 \]
+  \label{wards-equation}
+  \caption{Ward's Objective Function}
+\end{figure}
+
+Ward's method is more complicated than some other common clustering
+methods, but it usually finds small, round clusters, making it worth
+the extra computer time necessary.  In contrast,
+single-link distance, for example, compares only the two closest
+elements of the two members of a possible merge. This is faster, but
+is susceptible to creating thin, oval groups---even though the bulk of
+a group may be distant, a single outlier usually leads to a bad
+grouping, which recursively leads to further outliers.
+
+\subsection{Correlation}
+
+Correlation is interesting on two levels. First, it is useful to find
+out how well the results from various measures and feature sets
+correlate. Second, it is useful to find out how well the results agree
+with outside authorities. In particular, correlation with geographical
+distance is strong circumstantial evidence that a distance measure is
+doing its job. However, comparison to other work on the same corpus,
+such as phonological dialectometry \cite{leinonen08}, is also
+informative since it is possible that phonological distance matches
+syntactic distance.
+
+However, the significance from Pearson's $R$, the usual measure of
+correlation, is overestimated for inter-region distances because of
+the way that all regions connect to all other regions. A large part of
+the significance found by Pearson's $R$ would arise from the massively
+overlapping information in the distances between fully connected
+regions. Mantel's test provides tests Pearson's $R$ for significance
+between inter-connected sites \cite{mantel67}. Mantel's test much like
+the permutation test for significance described above.  It first finds
+the correlation between two sets of distances.  One distance result
+set is permuted repeatedly and at each step correlated with the other
 set. The original correlation is significant if the permuted
 correlation is lower than the original correlation more than 95\% of
 the time.
 
-\subsubsection{MDS}
+\subsection{Multi-dimensional scaling}
 
-It's a kind of magic.
+Multi-dimensional scaling (MDS) is an alternate approach to collapse the
+high-dimensional distances to something easily interpretable. Instead
+of creating a tree, multi-dimensional scaling scales the
+high-dimensional data directly down to 3 dimensions, which can
+then be represented using (R,G,B) colour triples.
+
+How does it do this? I'm not really sure. I bet it's very impressive.
 
 \subsubsection{PCA}
 
