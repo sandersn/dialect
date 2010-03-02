@@ -9,8 +9,8 @@ from codecs import open
 def pairwise(l):
     return [(x,y) for i,x in enumerate(l) for y in l[i+1:]]
 ### runner ###
-def icetasks(regions, feature, cpp, measure, iterations=100):
-    writeparams(iterations, 1000, measure, True)
+def icetasks(regions, feature, cpp, measure, sample, iterations=100):
+    writeparams(iterations, sample, measure)
 
     os.system('g++ -O2 -o ctrl.out params.h ' + cpp)
     suffix = '-' + feature + '.dat'
@@ -19,17 +19,20 @@ def icetasks(regions, feature, cpp, measure, iterations=100):
     tasks = [cmd + [fro+suffix, to+suffix] for (fro,to) in pairs]
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro, to) in pairs]
     return (tasks,files)
-def writeparams(iterations=100, samples=1000, measure='r', fullcorpus=False):
+def writeparams(iterations=100, sample=1000, measure='r'):
     params = open('params.h','w')
     params.write('#define ITERATIONS %s\n' % (iterations,))
-    params.write('#define SAMPLES 1000\n')
-    params.write('#define R_MEASURE %s\n' % (measure,))
-    if fullcorpus:
+    if sample=='full':
         params.write('#define FULLCORPUS\n')
+        params.write('#define SAMPLES 0\n')
+    else:
+        params.write('#define SAMPLES %s\n' % (sample,))
+    params.write('#define R_MEASURE %s\n' % (measure,))
     params.close()
-def combine(feature, type, measure, iterations=100):
+def combine(feature, type, measure, sample, iterations=100):
     "Combine the disparate output files into one"
-    out = '%s-%s-1000-%s-%s-interview.txt' % (type,iterations,measure,feature,)
+    out = '%s-%s-%s-%s-%s-interview.txt' %
+          (type,iterations,sample,measure,feature,)
     pairs = pairwise(swediaSites)
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro,to) in pairs]
     outf = open(out, 'w')
