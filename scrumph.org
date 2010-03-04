@@ -552,6 +552,14 @@
    - I wrote some e-mail! Still need to mail Therese and
      Henrik. Probably ask Sandra what is a good delay for this to be
      polite.
+** 2010/03/04
+   - I did what I said I would on Wednesday. Plus a meeting with
+     parsing group. Got plenty of suggestions, stored on paper.
+   - I will clean up dissertation.tex for Sandra. I will get full/1000
+     variations both running (tonight). I will get geo/travel analysis
+     working.
+   - MaltEval is what I want for Malt+Timbl hold-out w/Talbanken. Also
+     having troubles with recruiting Swedish speakers.
 * Plan
 ** January
 *** Get results
@@ -640,6 +648,14 @@ identify these words in the interview data.
 
 The total budget is $200: $100 for each annotator at $10/hour.
 
+* How to get travel distances rather than straight distances (from Bing)
+  key is
+  AuexsVqUAV7QT1qWjMsLyyJcnAd82hQScKM06xR_M1H4qGOH_DeAFZleMO7BbBue
+  make a web ref project that points to:
+  http://dev.virtualearth.net/webservices/v1/routeservice/routeservice.svc
+  Then copy the example below and excise the for loop
+  http://msdn.microsoft.com/en-us/library/cc981072.aspx
+  instead print routeResponse.Result.Summary.Length (I think)
 * Notes from defence and parsing group
 ** feature sets
 *** TODO Cut everything above nested S for leaf-ancestor paths

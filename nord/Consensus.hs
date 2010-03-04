@@ -2,7 +2,6 @@ import qualified Data.Set as Set
 import qualified Data.Map as Map
 import Data.List
 import Data.Ord (comparing)
-import Data.Function (on)
 import Control.Monad.State
 import Control.Arrow (first, second)
 import Util

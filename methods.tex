@@ -4,13 +4,14 @@ There is a lot of background information, like other distance
 measures and the underlying math of the distance measure I did use.
 
 TODO: This is badly organised; half of it is historical background
-(that I don't *really* use) and half of it is stuff I actually use. But the dividing line
+(ie things I build on but don't actually use) and half of it is stuff
+I actually use (or extend). But the dividing line
 is in the wrong place; R and leaf-ancestor paths are presented as
-history.
+history but are actually used in my code.
 
-Probably I should break the first half into a background chapter and move it much
+Probably I should break the first half into a background chapter and move it
 earlier in the dissertation. It might even be appropriate in the first
-chapter, except that should be mostly an introduction I think.
+chapter, except that should be a short introduction I think.
 
 \section{Previous Work}
 
@@ -932,11 +933,18 @@ of creating a tree, multi-dimensional scaling scales the
 high-dimensional data directly down to 3 dimensions, which can
 then be represented using (R,G,B) colour triples.
 
-How does it do this? I'm not really sure. I bet it's very impressive.
+It does this using Kruskal's method (CITE Kruskal). Kruskal's method
+is \ldots uh \ldots described by L04 I guess.
 
 \subsubsection{PCA}
 
-I think L04 does it for me. Probably.
+I think L04 does it for me. Probably. (The L04 tutorial also mentions
+another method that I can't remember the name of.)
+
+http://www.mathpsyc.uni-bonn.de/doc/delbeke/delbeke.htm says that
+metric MDS is a special case of PCA anyway. Not sure whether I'm doing
+metric MDS (though I guess so) because I don't know if my analysis is
+unique on the interval level (or ratio/absolute level).
 
 \subsubsection{Consensus Trees}
 

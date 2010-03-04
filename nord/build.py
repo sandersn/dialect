@@ -179,8 +179,10 @@ def genAnalysis():
     run('ghc -O2 --make CalculateGeoDistance')
     run('./CalculateGeoDistance >dist-10-1000-geo-interview.txt')
     run('./FormatDistance dist-10-1000-geo-interview.txt pairwise > dist-10-1000-geo-interview.csv')
+    run('./FormatDistance dist-10-1000-travel-interview.txt pairwise > dist-10-1000-travel-interview.csv')
     # 13.2 Next a 2-D table (full/redundant-matrix) for R
     run('./FormatDistance dist-10-1000-geo-interview.txt square > dist-10-1000-geo-interview-R.txt')
+    run('./FormatDistance dist-10-1000-travel-interview.txt square > dist-10-1000-travel-interview-R.txt')
     # 13. Generate some analysis of the output
     for variant in variants:
         # 13.1 First a 2-D table (half-matrix) for Excel
