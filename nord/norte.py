@@ -31,8 +31,8 @@ def writeparams(iterations=100, sample=1000, measure='r'):
     params.close()
 def combine(feature, type, measure, sample, iterations=100):
     "Combine the disparate output files into one"
-    out = '%s-%s-%s-%s-%s-interview.txt' %
-          (type,iterations,sample,measure,feature,)
+    out = ('%s-%s-%s-%s-%s-interview.txt' %
+           (type,iterations,sample,measure,feature,))
     pairs = pairwise(swediaSites)
     files = ['%s-%s-tmp.txt' % (fro,to) for (fro,to) in pairs]
     outf = open(out, 'w')
