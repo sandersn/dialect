@@ -12,7 +12,7 @@ import Control.Monad ((>=>))
 {--- lst ---}
 countBy f = filter f & length
 count x = filter (==x) & length
-histogram :: (Ord a) => [a] -> Map.Map a Int -- should be called histogram ?
+histogram :: (Ord a) => [a] -> Map.Map a Int
 histogram l = foldl' (\ m x -> Map.insertWith' (+) x 1 m) Map.empty l
 collapse :: (Ord k) => (a -> k) -> [a] -> Map.Map k [a]
 collapse f l = Map.fromListWith (++) $ zip (map f l) (map list l)

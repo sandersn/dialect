@@ -520,9 +520,46 @@
      and couldn't find any. They are all commercial, so I am trying to
      get a faster knock-off to run instead. Probably gives garbage but whatever.
    - I will rerun the timbl-trained dependencies as redep (along with
-     re-adding deparc). I will get random semantic vectors running.
+     re-adding deparc). I will get random semantic vectors running. I
+     will read about Timbl's options and decide on what to vary.
    - Register with ACL 2010 demo reviewer site. Publish Consensus.hs
-     post.
+     post. Also I need to reply to Rex and Hashim and bug somebody
+     ELSE at Microsoft. (and Therese and Henrik? argh!)
+   - Tomorrow: I definitely have to write e-mail. I also need to take
+     a look at the most recent round of results in Excel like.
+** 2010/03/01
+   - I re-ran everything from timbl on down. Haven't looked at the
+     results. I figured out how to get semantic vectors working
+     (untested). But the theory doesn't look appropriate. I will ask
+     about it on Wednesday. I reviewed the ACL demos on Saturday
+     (first draft, on peregrin).
+   - Still need to reply to Rex. And Hashim. And mail Ross. (and
+     Therese and Henrik?) I will try another set of parameters for
+     Malt+Timbl training. I will alter icecore to allow full-corpus
+     comparisons, using #ifdef. I will look at the first set of
+     Malt+Timbl results. I will add these other methods to the
+     subsections in methods.tex and start writing them up.
+   - A lot of mail! Try that C++ Mersenne twister from the consensus
+     tree code too.
+** 2010/03/02
+   - I started another Timbl run. Hasn't finished yet. I ran a
+     full-corpus run. Haven't looked at the numbers yet
+   - I will alter build.py/norte.py/genAnalysis.R to handle fullcorpus
+     (use the 'interview' slot since I'm never going to do larger a
+     priori groupings)
+     (Consensus.hs needs updated too because it's so hardcoded). I
+     will work on methods.tex.
+   - I wrote some e-mail! Still need to mail Therese and
+     Henrik. Probably ask Sandra what is a good delay for this to be
+     polite.
+** 2010/03/04
+   - I did what I said I would on Wednesday. Plus a meeting with
+     parsing group. Got plenty of suggestions, stored on paper.
+   - I will clean up dissertation.tex for Sandra. I will get full/1000
+     variations both running (tonight). I will get geo/travel analysis
+     working.
+   - MaltEval is what I want for Malt+Timbl hold-out w/Talbanken. Also
+     having troubles with recruiting Swedish speakers.
 * Plan
 ** January
 *** Get results
@@ -562,16 +599,27 @@
 *** Cleanup and Defence
 ** June
 *** Slop/revisions
-* TODO Find out how to do assertThrows in HUnit
 * TODO Remember to upgrade blog software
-* Open PDFs: prokic-nerbonne-clustering-2009 (for agreement dendrograms)
-  WyboWiersma-2009-Automatically Extracting-Typical-Syntactic-Differences.pdf
-  (for mysterious 3rd normalisation step)
-  Schaeffler-2005 (dissertation) (basically done I guess)
-  leinonen2008 (for references to Wess\'en (1969)'s traditional dialects)
 
 ask local Swedish speaker to look over automatic annotation quality
 esp Berkeley parser and its POS tagging quality
+
+* How to run SemanticVector
+** To retrieve document-document similarity:
+   > cd ...\lucene-2.9.2
+   > java -cp lucene-core-2.9.2.jar:lucene-demos-2.9.2.jar:semanticvectors-1.26.jar pitt.search.semanticvectors.CompareTerms -queryvectorfile docvectors.bin -searchvectorfile termvectors.bin -matchcase /Users/zackman/Downloads/lucene-2.9.2/src/demo/org/apache/lucene/demo/HTMLDocument.java /Users/zackman/Downloads/lucene-2.9.2/src/demo/org/apache/lucene/demo/html/Test.java
+
+   Note -searchvectorfile doesn't seem to make a difference
+   here. (Both termvectors.bin and docvectors.bin give the same
+   number) Perhaps we are not hitting it.
+** To retrieve important features for a document:
+   > cd ...\lucene-2.9.2
+   > java -cp lucene-core-2.9.2.jar:lucene-demos-2.9.2.jar:semanticvectors-1.26.jar pitt.search.semanticvectors.Search -queryvectorfile docvectors.bin -searchvectorfile termvectors.bin -matchcase /Users/zackman/Downloads/lucene-2.9.2/src/demo/org/apache/lucene/demo/HTMLDocument.java
+** To train with my features
+   This is Java! Inherit from org.apache.lucene.analysis.Analyzer
+   override TokenStream tokenStream(String fieldName, Reader reader)
+   (override Bork bork(Borker borker, AbstractBorkCreator borkborkbork))
+   oh wait you don't need override in Java I think
 
 Proposal:
 
@@ -600,6 +648,14 @@ identify these words in the interview data.
 
 The total budget is $200: $100 for each annotator at $10/hour.
 
+* How to get travel distances rather than straight distances (from Bing)
+  key is
+  AuexsVqUAV7QT1qWjMsLyyJcnAd82hQScKM06xR_M1H4qGOH_DeAFZleMO7BbBue
+  make a web ref project that points to:
+  http://dev.virtualearth.net/webservices/v1/routeservice/routeservice.svc
+  Then copy the example below and excise the for loop
+  http://msdn.microsoft.com/en-us/library/cc981072.aspx
+  instead print routeResponse.Result.Summary.Length (I think)
 * Notes from defence and parsing group
 ** feature sets
 *** TODO Cut everything above nested S for leaf-ancestor paths

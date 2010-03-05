@@ -10,6 +10,7 @@ features = ['path', 'trigram', 'dep', 'psg', 'grand',
             'unigram',
             'redep', 'deparc',
             'all']
+sample = ['1000', 'full']
 # TODO: Fix 'Leksand ' typo
 swediaCounties = dict( # or I could just use the county code
     Stockholm = ['Sorunda'],

@@ -5,13 +5,11 @@ import Data.List (intercalate)
 import Data.List.Split (splitOn,endBy)
 import System (getArgs)
 import Talbanken (FlatNode(..))
-deconllise [id, w, _, pos, _, _, parentId, _, _, _] =
-  (read id, FlatNode pos w (read id) [read parentId])
-deconllise' [id, w, _, _, _, _, parentId, arc, _, _] =
-  (read id, FlatNode arc w (read id) [read parentId])
+deconllise i line@[id, w, _, pos, _, _, parentId, arc, _, _] =
+  (read id, FlatNode (line !! i) w (read id) [read parentId])
 
-main = interactTargets [("node",deconllise), ("arc",deconllise')] namedProcessor
-  where namedProcessor target name = withFileLines (process target name) name
+main = interactTargets [("node",deconllise 3), ("arc",deconllise 7)] processor
+  where processor target name = withFileLines (process target name) name
 process target name = endBy [""] & map deps & intercalate ["***"] & (name:)
   where deps = buildMap & buildRelations
         buildMap = map (splitOn "\t" & target) & fromList

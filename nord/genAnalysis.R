@@ -3,6 +3,7 @@ source('montecarlo Mantel example.R')
 sink('nord/dist-10-1000-correlations-interview-R.txt')
 
 geo <- read.table("nord/dist-10-1000-geo-interview-R.txt", header=TRUE)
+travel <- read.table("nord/dist-10-1000-travel-interview-R.txt", header=TRUE)
 measures <- c('r', 'r_sq', 'kl', 'js', 'cos')
 features <- c('path', 'trigram', 'dep', 'psg', 'grand',
               'unigram',
@@ -31,6 +32,8 @@ for (measure in measures) {
     cat(paste("cor:", cor(vectorise(geo), vectorise(t)), '\n'))
     # cat(paste("sig:", mantel(geo, t, 33), '\n'))
     cat(paste("sig:", mantel(geo, t, 30), '\n'))
+    cat(paste("cortravel:", cor(vectorise(travel), vectorise(t)), '\n'))
+    cat(paste("sigtravel:", mantel(travel, t, 30), '\n'))
   }
 # I don't know R's zip, so I will just use indexing even if it is slow
 # which it's not, R's lists are actually untyped vectors not conses

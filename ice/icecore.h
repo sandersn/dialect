@@ -85,6 +85,26 @@ template <class T> vector<T> permutation(const vector<vector<T> >& dialect) {
   }
   return acc;
 }
+// = concat
+template <class T> vector<T> flatten (const vector<vector<T> >& dialect,
+                                      int start, int offset) {
+  vector<T> acc;
+  for(int i = start; i < start + offset; i++) {
+    vector<T> tmp = dialect[i];
+    acc.insert(acc.end(), tmp.begin(), tmp.end());
+  }
+  return acc;
+}
+template <class T> void shuffle(vector<T>& l) {
+  static Urand uni((unsigned)time(0));
+
+  for(int i = l.size() - 1; i > -1; i--) {
+    int j = uni.next(i+1);
+    T& tmp = l[j];
+    l[j] = l[i];
+    l[i] = tmp;
+  }
+}
 sample zip_ref (entry& h, entry& h2) {
   // I can't get these to be const entry&; apparently there is some
   // trouble with mixing iterator types in the h2[i->first] and h[i->first]
@@ -182,11 +202,22 @@ bool comparepermutation(const dialect& a, const dialect& b) {
   both_ab.insert(both_ab.end(), b.begin(), b.end());
   int gt = 0;
   for(int i=0; i < ITERATIONS; i++) {
+#ifdef FULLCORPUS
+    sample total = normalise(flatten(a,0,a.size()), flatten(b,0,b.size()), 5);
+#else
     sample total = normalise(permutation(a), permutation(b), 5);
+#endif
     double total_r = R_MEASURE(total);
-    size_t total_types = total.size();
+    // size_t total_types = total.size();
+#ifdef FULLCORPUS
+    shuffle(both_ab);
+    double perm_r =
+      R_MEASURE(normalise(flatten(both_ab, 0, a.size()),
+                          flatten(both_ab, a.size(), b.size()), 5));
+#else
     double perm_r =
       R_MEASURE(normalise(permutation(both_ab), permutation(both_ab), 5));
+#endif
     if(perm_r > total_r) {
       cout << '-' << flush;
       gt++;

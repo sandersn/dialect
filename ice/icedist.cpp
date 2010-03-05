@@ -5,7 +5,12 @@ pair<double, double> r_avg_variance (const dialect& a, const dialect& b) {
   double sum = 0.0;
   vector<double> rs(AVG_ITERATIONS);
   for(int i = 0; i < AVG_ITERATIONS; i++) {
+#ifdef FULLCORPUS
+    double r_value = R_MEASURE(normalise(flatten(a, 0, a.size()),
+                                         flatten(b, 0, b.size()), 5));
+#else
     double r_value = R_MEASURE(normalise(permutation(a), permutation(b), 5));
+#endif
     sum += r_value;
     rs.push_back(r_value);
   }
