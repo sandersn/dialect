@@ -188,7 +188,7 @@ def genAnalysis():
         # 13.1 First a 2-D table (half-matrix) for Excel
         run('./FormatDistance dist-10-%s-%s-%s-interview.txt pairwise > dist-10-%s-%s-%s-interview.csv' % (variant * 2))
         # 13.2 Next a 2-D table (full/redundant-matrix) for R
-        run('./FormatDistance dist-10-1000-%s-%s-interview.txt square > dist-10-1000-%s-%s-interview-R.txt' % (variant * 2))
+        run('./FormatDistance dist-10-%s-%s-%s-interview.txt square > dist-10-%s-%s-%s-interview-R.txt' % (variant * 2))
     # 13.3 make a CSV of significances
     for sample in consts.sample:
         run('grep -c 0 sig*.txt >sigtmp.txt')

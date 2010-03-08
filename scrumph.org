@@ -560,6 +560,26 @@
      working.
    - MaltEval is what I want for Malt+Timbl hold-out w/Talbanken. Also
      having troubles with recruiting Swedish speakers.
+** 2010/03/05
+   - I cleaned up dissertation.tex. I got full/1000 variations
+     running. I got geo/travel analysis working.
+   - I will read Up On Malteval. I will learn about MDS (Kruskal
+     1694). I will check to see if any of my measures satisfy the
+     triangle inequality. It would be cool if they did but very
+     unlikely.
+   - Still bad troubles recruiting Swedish speakers.
+** 2010/03/08
+   - I read about MaltEval and it looks very easy. I read Kruskal's
+     papers abotu MDS and I can explain it at two levels of detail. (ie
+     with or without equations.) I checked to see how often I violate
+     the triangle inequality (about 3k of 27k 3-point combos). I asked
+     Don about Swedish speakers.
+   - I will mail Don about Swedish speakers. I will mail Sandra about
+     same. I will start the ten-fold cross validation of different
+     Malt+Timbl settings. It will take a long time. I will start
+     writing about MDS.
+   - Also need to mail Ross again and reply to Therese and that
+     Russian guy.
 * Plan
 ** January
 *** Get results

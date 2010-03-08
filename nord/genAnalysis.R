@@ -1,4 +1,4 @@
-setwd('/Users/ncsander/Documents/dialect/')
+setwd('/Users/zackman/Documents/dialect/')
 source('montecarlo Mantel example.R')
 sink('nord/dist-10-1000-correlations-interview-R.txt')
 
