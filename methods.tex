@@ -906,6 +906,72 @@ is susceptible to creating thin, oval groups---even though the bulk of
 a group may be distant, a single outlier usually leads to a bad
 grouping, which recursively leads to further outliers.
 
+\subsubsection{Consensus Trees}
+
+A weakness of cluster dendrograms is that small variations in
+distances can cause large changes in the cluster membership of
+sites. Consensus trees circumvent this weakness by combining the
+results of multiple related dendrograms. Only the clusters that occur
+in the majority of dendrograms appear in the consensus tree.
+
+Consensus trees can be constructed by an algorithm with three primary
+steps. First, the algorithm finds the spans of every internal
+node in every tree. That is, each non-terminal node $N$ is replaced
+with the terminal nodes $w_i \ldots w_j$ that it dominates. Second,
+the algorithm counts span types and retains only the spans that occur
+in a majority of dendrograms. For example, if there are $9$
+dendrograms, the consensus tree will contain only spans that occur in
+$5$ or more of them. Third, the spans are reconstructed into a single
+tree. Nodes that no longer have a direct parent are added to a higher
+ancestor.
+
+TODO: Paste in the diagrams I made for the web site (or mimic them with
+qtree, probably would fit better).
+
+TODO:Can't find a good citation for this. The trail goes back to 1989
+to some software but it obviously existed before then. I should start
+from the biology paper I downloaded.
+
+\subsection{Multi-dimensional scaling}
+
+Multi-dimensional scaling (MDS) is an alternate approach to making the
+high-dimensional dissimilarities more easily interpretable. Instead
+of creating a tree, multi-dimensional scaling reduces the
+high-dimensional dissimilarities to 3 dimensions, which can
+then be represented using (Red,Green,Blue) colour triples. When
+painted on a map, these colours provide a nice visualisation of
+the regions that similar sites form as well as how sharp the boundaries are
+with other regions.
+
+MDS of dissimilarities uses \quotecite{kruskal64a} method. It reduces
+$m$ dissimilarities to an $n$ dimensional space by distorting the
+individual dissimilarities by the minimum amount needed to convert
+them into distances in $n$ dimensions. Since dissimilarities do not
+satisify the triangle inequality, this means finding the minimum
+amount all dissimilarities need to change in order to satisfy it,
+making them distances.
+
+Kruskal calls this measure of distortion Stress.  An initial stress is
+obtained by sorting the dissimilarities by size and measuring how far
+each dissimilarity would have to change in order for all to satisfy
+the triangle inequality. This initial stress is reduced by a process
+of gradient descent as described in \cite{kruskal64b}.
+
+\subsubsection{PCA}
+
+Principal Components Analysis (PCA) is useful in conjuction with MDS
+because the 3 (or so) dimensions that MDS produces can be correlated
+with features. Then the features can be
+
+TODO: Research this and get the details of the math.
+Pretty sure that L04 does it for me. Probably. (The L04 tutorial also mentions
+another method that I can't remember the name of.)
+
+http://www.mathpsyc.uni-bonn.de/doc/delbeke/delbeke.htm says that
+metric MDS is a special case of PCA anyway. Not sure whether I'm doing
+metric MDS (though I guess so) because I don't know if my analysis is
+unique on the interval level (or ratio/absolute level).
+
 \subsection{Correlation}
 
 Correlation is interesting on two levels. First, it is useful to find
@@ -924,7 +990,7 @@ the way that all regions connect to all other regions. A large part of
 the significance found by Pearson's $R$ would arise from the massively
 overlapping information in the distances between fully connected
 regions. Mantel's test provides tests Pearson's $R$ for significance
-between inter-connected sites \cite{mantel67}. Mantel's test much like
+between inter-connected sites \cite{mantel67}. Mantel's test is much like
 the permutation test for significance described above.  It first finds
 the correlation between two sets of distances.  One distance result
 set is permuted repeatedly and at each step correlated with the other
@@ -932,28 +998,6 @@ set. The original correlation is significant if the permuted
 correlation is lower than the original correlation more than 95\% of
 the time.
 
-\subsection{Multi-dimensional scaling}
-
-Multi-dimensional scaling (MDS) is an alternate approach to collapse the
-high-dimensional distances to something easily interpretable. Instead
-of creating a tree, multi-dimensional scaling scales the
-high-dimensional data directly down to 3 dimensions, which can
-then be represented using (R,G,B) colour triples.
-
-It does this using Kruskal's method (CITE Kruskal). Kruskal's method
-is \ldots uh \ldots described by L04 I guess.
-
-\subsubsection{PCA}
-
-I think L04 does it for me. Probably. (The L04 tutorial also mentions
-another method that I can't remember the name of.)
-
-http://www.mathpsyc.uni-bonn.de/doc/delbeke/delbeke.htm says that
-metric MDS is a special case of PCA anyway. Not sure whether I'm doing
-metric MDS (though I guess so) because I don't know if my analysis is
-unique on the interval level (or ratio/absolute level).
-
-\subsubsection{Consensus Trees}
 
 \subsection{Feature Ranking}
 \label{feature-ranking}
