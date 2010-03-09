@@ -580,6 +580,11 @@
      writing about MDS.
    - Also need to mail Ross again and reply to Therese and that
      Russian guy.
+** 2010/03/09
+   - I mailed Don and Sandra. I started 10-fold cross-validation. I
+     wrote about MDS and a little about consensus trees.
+   - I will mostly work on diagrams and explanation for clustering.
+   - Still Swedish problems, reply to Therese and Russian guy etc etc.
 * Plan
 ** January
 *** Get results

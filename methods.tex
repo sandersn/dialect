@@ -828,9 +828,14 @@ to be significant.
 The first hypothesis requires a clustering method to allow
 inter-region distances to be compared more easily. The dendrogram that
 binary hierarchical clustering produces allows easy visual comparison
-of the most similar regions.
+of the most similar regions. An example is given in figure
+\ref{example-dendrogram}.
 
-% TODO: This is wrong but it's a start
+\begin{figure}
+  \Tree[. [. [. A B ] C ] [. D E ] ]
+  \label{example-dendrogram}
+  \caption{Hierarchical Cluster Dendogram}
+\end{figure}
 
 A clustering algorithm provides understanding of which regions group
 together. There are a variety of clustering algorithms, but
@@ -856,19 +861,17 @@ creating a tree---if there are similarities between the speakers, it
 should be obvious by looking at the tree.
 
 There are some complications, however. Because the clustering
-algorithm repeatedly merges speakers, it is
-not always clear what the best clusters are. For example,
+algorithm is nothing but repeated merges, it is
+not always clear at what level the best clusters are formed. For example,
 \namecite{clopper04} used a similar clustering algorithm on perceptual
 dialect data from American English speakers and found two distinct
-North/South clusters for most features. These clusters had less
+North/South clusters for most features. These two clusters had less
 defined sub-clusters as well: the Western speakers of American English
 usually grouped with the North cluster but slightly separated from the
 other dialects in the North cluster. Of course as the sub-clusters
 become smaller, they usually become less distinctive because the
 distances are smaller. Ultimately, human judgment is necessary to
-determine what is a cluster and what is not. The clustering algorithm
-itself is nothing but binary merges---there may even be only one
-cluster if all speakers are evenly distributed around a single center.
+determine what is a cluster and what is not.
 
 \subsubsection{Bottom-up hierarchical clustering}
 
@@ -882,29 +885,138 @@ process is repeated until a single root group is created. This process
 is bottom-up because it creates the terminal nodes of the tree first
 and builds up the internal structure of the cluster tree from there.
 
-To find the two closest groups, Ward's method is used
-\cite{ward63}. At each merge step, this method evaluates every
-possible binary merge. Each merge is given a score that
-minimises the square of the distances between regions in the new
-group. The best merge at that point is added, its child groups are
-removed, and the process repeats until a singly rooted tree is
-created. For $n$ regions, this takes $n-1$ iterations, because at each
-step, two groups are merged.
+For example, figures \ref{hierarchical-cluster-1} through
+\ref{hierarchical-cluster-5} show the sequence of merges need to
+produce the dendrogram in figure \ref{example-dendrogram}. On the
+first step A and B are merged (figure \ref{hierarchical-cluster-2}),
+followed by D and E (figure \ref{hierarchical-cluster-3}). Then C
+merges with the A-B cluster (figure
+\ref{hierarchical-cluster-4}). Finally the A-B-C cluster and the D-E
+cluster merge to form a single tree (figure
+\ref{hierarchical-cluster-5}).
 
 \begin{figure}
-  \[ \sum_{i=1}^n d_i^2 - \frac{1}{n}\bigg(\sum_{i=1}^n d_i\bigg)^2 \]
-  \label{wards-equation}
-  \caption{Ward's Objective Function}
+  \includegraphics[width=0.46\textwidth]{hierarchical-cluster-1}
+ \caption{Sites Before Clustering}
+  \label{hierarchical-cluster-1}
 \end{figure}
 
-Ward's method is more complicated than some other common clustering
-methods, but it usually finds small, round clusters, making it worth
-the extra computer time necessary.  In contrast,
-single-link distance, for example, compares only the two closest
-elements of the two members of a possible merge. This is faster, but
-is susceptible to creating thin, oval groups---even though the bulk of
-a group may be distant, a single outlier usually leads to a bad
-grouping, which recursively leads to further outliers.
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{hierarchical-cluster-2}
+ \caption{Sites After A-B Merge}
+  \label{hierarchical-cluster-2}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{hierarchical-cluster-3}
+ \caption{Sites After D-E Merge}
+  \label{hierarchical-cluster-3}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.65\textwidth]{hierarchical-cluster-4}
+ \caption{Sites After A-B-C Merge}
+  \label{hierarchical-cluster-4}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.65\textwidth]{hierarchical-cluster-5}
+ \caption{Sites After Clustering}
+  \label{hierarchical-cluster-5}
+\end{figure}
+
+To find the two closest groups, \quotecite{ward63} method is used. At
+each merge step, this method evaluates every possible binary
+merge. Each merge is given a score that minimises some objective
+function---for example, the average of distances between regions in
+the new group. The best merge replaces its children and the process
+repeats until a singly rooted tree is created. For $n$ regions, this
+takes $n-1$ iterations, because at each step, two groups are merged.
+
+\begin{table}
+  \begin{tabular}{c|cccc}
+    & B & C & D & E \\ \hline
+    A & 10 & 20 & 40 & 50 \\
+    B & & 20 & 50 & 40 \\
+    C &&& 30 & 30\\
+    D &&&& 12\\
+  \end{tabular}
+ \caption{Example distances}
+  \label{cluster-distances}
+\end{table}
+
+For example, using the distances in table \ref{cluster-distances} for
+the five example regions, the first merge is trivial since each region
+starts in its own singleton tree (figure \ref{ward-cluster-1}): the
+distance between A and B, 10, is the minimum and thus the best. This
+produces the forest in figure \ref{ward-cluster-2}.
+
+\begin{figure}
+  \Tree[. A ]
+  \Tree[. B ]
+  \Tree[. C ]
+  \Tree[. D ]
+  \Tree[. E ]
+ \caption{Ward's method, before clustering}
+  \label{ward-cluster-1}
+\end{figure}
+
+\begin{figure}
+  \Tree[. A B ]
+  \Tree[. C ]
+  \Tree[. D ]
+  \Tree[. E ]
+ \caption{Ward's method, after A-B merge}
+  \label{ward-cluster-2}
+\end{figure}
+
+The distances between the A-B tree and the others are now more
+complicated to calculate: the A-B-C merge has a distance of $10+20+20
+/ 3$ = 16.6. This is smaller than the A-B-D merge ($10+40+50 / 3 =
+33.3$), but larger than the D-E merge ($12 / 1 = 12$) which eventually
+turns out to be the smallest merge, producing figure
+\ref{ward-cluster-3}.
+
+\begin{figure}
+  \Tree[. A B ]
+  \Tree[. C ]
+  \Tree[. D E ]
+ \caption{Ward's method, after D-E merge}
+  \label{ward-cluster-3}
+\end{figure}
+
+The next merge is primarily concerned with where C will merge, whether
+with A-B or D-E; an A-B-D-E merge is much larger at $10 + 40 + 50 + 50
++ 40 + 12 / 6 = 33.6$. As previously calculated, the A-B-C merge is
+$16.6$, while a C-D-E merge is $30 + 30 + 12 / 3 = 24$. So the new
+merge is A-B-C, producing figure \ref{ward-cluster-4}.
+
+\begin{figure}
+  \Tree[. [. A B ] C ]
+  \Tree[. D E ]
+ \caption{Ward's method, after A-B-C merge}
+  \label{ward-cluster-4}
+\end{figure}
+
+The two remaining trees are merged. Here, the final value of the
+objective function is the average of all distances in the table, that
+is $302 / 10 = 30.2$. The final tree is given in figure
+\ref{ward-cluster-5}.
+
+\begin{figure}
+  \Tree[. [. [. A B ] C ] [. D E ] ]
+ \caption{Ward's method, after clustering}
+ \label{ward-cluster-5}
+\end{figure}
+
+Ward's method is less efficient than other common clustering methods,
+but it usually finds small, round clusters, making it worth the extra
+computer time. In contrast, single-link distance, for example,
+compares only the two closest elements of the two members of a
+possible merge. This is faster, but is susceptible to creating thin,
+oval groups---even though the bulk of a group may be distant, a single
+outlier usually leads to a bad grouping, which recursively leads to
+further outliers.
 
 \subsubsection{Consensus Trees}
 
@@ -925,12 +1037,83 @@ $5$ or more of them. Third, the spans are reconstructed into a single
 tree. Nodes that no longer have a direct parent are added to a higher
 ancestor.
 
-TODO: Paste in the diagrams I made for the web site (or mimic them with
-qtree, probably would fit better).
+\begin{figure}
+  \Tree[. A [. [. [. B C ] D ] E ] ]
+  \Tree[. A [. [. B [. C D ] ] E ] ]
+  \Tree[. A [. B [. [. C D ] E ] ] ]
+  \caption{Input cluster dendrograms}
+  \label{consensus-example-input}
+\end{figure}
+
+\begin{figure}
+  \Tree[. A [. [. B C D ] E ] ]
+  \caption{Output consensus dendrogram}
+  \label{consensus-example-output}
+\end{figure}
+
+\begin{figure}
+\begin{itemize}
+\item \{ B C \}
+\item \{ B C D \}
+\item \{ B C D E \}
+\item \{ A B C D E \}
+\end{itemize}
+\caption{First tree's spans}
+\label{consensus-tree-spans-1}
+\end{figure}
+
+\begin{figure}
+\begin{itemize}
+\item \{ C D \}
+\item \{ B C D \}
+\item \{ B C D E \}
+\item \{ A B C D E \}
+\end{itemize}
+\caption{Second tree's spans}
+\label{consensus-tree-spans-2}
+\end{figure}
+
+\begin{figure}
+  \begin{itemize}
+  \item \{ C D \}
+  \item \{ C D E \}
+  \item \{ B C D E \}
+  \item \{ A B C D E \}
+  \end{itemize}
+  \caption{Third tree's spans}
+  \label{consensus-tree-spans-3}
+\end{figure}
+
+\begin{figure}
+  \begin{itemize}
+  \item \{ B C \} : 1
+  \item \{ C D \} : 2
+  \item \{ B C D \} : 2
+  \item \{ C D E \} : 1
+  \item \{ B C D E \} : 3
+  \item \{ A B C D E \} : 3
+  \end{itemize}
+  \caption{Span type counts}
+  \label{consensus-tree-span-types}
+\end{figure}
+
+\begin{figure}
+  \begin{itemize}
+  \item \{ C D \}
+  \item \{ B C D \}
+  \item \{ B C D E \}
+  \item \{ A B C D E \}
+  \end{itemize}
+\caption{Span type counts}
+\label{consensus-tree-majority-spans}
+\end{figure}
 
 TODO:Can't find a good citation for this. The trail goes back to 1989
 to some software but it obviously existed before then. I should start
-from the biology paper I downloaded.
+from the biology paper I downloaded. (I will have to cite them anyway
+because I used their example but with a more compact tree setup.)
+
+TODO: Those itemizes should be tabulars.
 
 \subsection{Multi-dimensional scaling}
 
