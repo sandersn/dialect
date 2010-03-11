@@ -56,7 +56,7 @@ public:
   Urand(long s = 0) : Randint(s) { }
   long next(long n) { long r = long(n*fdraw()); return (r==n) ? n-1: r; }
 };
-template <class a> a choice(const vector<a>& l) {
+template <class T> T choice(const vector<T>& l) {
   static Urand uni((unsigned)time(0));
   return l[uni.next(l.size())];
 }
@@ -98,11 +98,11 @@ template <class T> vector<T> flatten (const vector<vector<T> >& dialect,
 template <class T> void shuffle(vector<T>& l) {
   static Urand uni((unsigned)time(0));
 
-  for(int i = l.size() - 1; i > -1; i--) {
-    int j = uni.next(i+1);
-    T& tmp = l[j];
-    l[j] = l[i];
-    l[i] = tmp;
+  for(int i = l.size(); i > 1; i--) {
+    int j = uni.next(i);
+    T tmp = l[j];
+    l[j] = l[i-1];
+    l[i-1] = tmp;
   }
 }
 sample zip_ref (entry& h, entry& h2) {
