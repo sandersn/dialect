@@ -941,7 +941,7 @@ takes $n-1$ iterations, because at each step, two groups are merged.
     C &&& 30 & 30\\
     D &&&& 12\\
   \end{tabular}
- \caption{Example distances}
+ \caption{Example dissimilarities}
   \label{cluster-distances}
 \end{table}
 
@@ -1024,7 +1024,8 @@ A weakness of cluster dendrograms is that small variations in
 distances can cause large changes in the cluster membership of
 sites. Consensus trees circumvent this weakness by combining the
 results of multiple related dendrograms. Only the clusters that occur
-in the majority of dendrograms appear in the consensus tree.
+in the majority of dendrograms appear in the consensus tree. For a
+survey of consensus trees, see chapter 6 of \cite{bryant97}.
 
 Consensus trees can be constructed by an algorithm with three primary
 steps. First, the algorithm finds the spans of every internal
@@ -1051,69 +1052,71 @@ ancestor.
   \label{consensus-example-output}
 \end{figure}
 
+For example, consider the three hierarchical dendrograms of figure
+\ref{consensus-example-input}. They cluster the input set \{A B
+C D E\} three different ways. The majority-rule consensus tree for
+these three trees is given in figure \ref{consensus-example-output}.
+This example is adapted from the one given by \namecite{amenta03}.
+
+The spans for the internal nodes of the three trees are given in
+figure \ref{consensus-tree-spans}. There is quite a bit of overlap at
+higher levels, but near the leaves, \{B C\} and \{C D\} vary, as
+do \{B C D\} and \{C D E\}. As a result, when the spans are
+combined and counted, \{B C\} and \{C D E\} only appear once. This
+means that they will be dropped from the consensus tree because they
+appear in 1/3 of the trees and because 1/3 is less than or equal to 1/2,
+they are not majority spans.
+
 \begin{figure}
-\begin{itemize}
-\item \{ B C \}
-\item \{ B C D \}
-\item \{ B C D E \}
-\item \{ A B C D E \}
-\end{itemize}
-\caption{First tree's spans}
-\label{consensus-tree-spans-1}
+\begin{tabular}{l|l|l}
+\hline
+\{B C\}&       \{C D\}    &        \{C D\}           \\
+\{B C D\}& \{B C D\}  &          \{C D E\}       \\
+\{B C D E\}&  \{B C D E\} &  \{B C D E\}  \\  
+\{A B C D E\}& \{A B C D E\}& \{A B C D E\}\\ 
+\end{tabular}
+\caption{Spans from input trees}
+\label{consensus-tree-spans}
 \end{figure}
 
 \begin{figure}
-\begin{itemize}
-\item \{ C D \}
-\item \{ B C D \}
-\item \{ B C D E \}
-\item \{ A B C D E \}
-\end{itemize}
-\caption{Second tree's spans}
-\label{consensus-tree-spans-2}
-\end{figure}
-
-\begin{figure}
-  \begin{itemize}
-  \item \{ C D \}
-  \item \{ C D E \}
-  \item \{ B C D E \}
-  \item \{ A B C D E \}
-  \end{itemize}
-  \caption{Third tree's spans}
-  \label{consensus-tree-spans-3}
-\end{figure}
-
-\begin{figure}
-  \begin{itemize}
-  \item \{ B C \} : 1
-  \item \{ C D \} : 2
-  \item \{ B C D \} : 2
-  \item \{ C D E \} : 1
-  \item \{ B C D E \} : 3
-  \item \{ A B C D E \} : 3
-  \end{itemize}
-  \caption{Span type counts}
+  \begin{tabular}{l|ll}
+  \{B C\} & 1 / 3 & * \\
+  \{C D\} & 2 / 3 \\
+  \{B C D\} & 2 / 3 \\
+  \{C D E\} & 1 / 3 & * \\
+  \{B C D E\} & 3 / 3 \\
+  \{A B C D E\} & 3 / 3 \\
+  \end{tabular}
+  \caption{Span type frequencies (starred rows do not occur in the majority
+  of trees)}
   \label{consensus-tree-span-types}
 \end{figure}
 
 \begin{figure}
-  \begin{itemize}
-  \item \{ C D \}
-  \item \{ B C D \}
-  \item \{ B C D E \}
-  \item \{ A B C D E \}
-  \end{itemize}
-\caption{Span type counts}
-\label{consensus-tree-majority-spans}
+  \begin{tabular}{l}
+    \{C D\} \\
+    \{B C D\} \\
+    \{B C D E\} \\
+    \{A B C D E\} \\
+  \end{tabular}
+  \caption{Majority span types}
+  \label{consensus-tree-majority-spans}
 \end{figure}
 
-TODO:Can't find a good citation for this. The trail goes back to 1989
-to some software but it obviously existed before then. I should start
-from the biology paper I downloaded. (I will have to cite them anyway
-because I used their example but with a more compact tree setup.)
+Reconstruction is fairly simple; taken from the top down, both \{A\}
+and \{B C D E\} must be children of \{A B C D E\}. Because \{A\} is
+not a member of the majority spans, it is added directly as a child of
+\{A B C D E\}. Although this occurs in all three original trees, this
+is not the case when \{B C D\} adds \{B\} as a child. The result is
+that \{B C D\} has ternary branching, which was not present in any of
+the original trees.
 
-TODO: Those itemizes should be tabulars.
+As can be seen from the example, high degrees of branching in the
+consensus tree near the leaves indicate that the original trees do not
+agree well. Therefore, it is not safe to draw conclusions from an
+original tree in the areas where it disagrees with other original
+trees.
 
 \subsection{Multi-dimensional scaling}
 
@@ -1132,7 +1135,25 @@ individual dissimilarities by the minimum amount needed to convert
 them into distances in $n$ dimensions. Since dissimilarities do not
 satisify the triangle inequality, this means finding the minimum
 amount all dissimilarities need to change in order to satisfy it,
-making them distances.
+turning them into distances.
+
+\begin{table}
+  \begin{tabular}{c|cccc}
+    & B & C & D & E \\ \hline
+    A & 10 & 20 & 40 & 50 \\
+    B & & 20 & 50 & 40 \\
+    C &&& 30 & 30\\
+    D &&&& 12\\
+  \end{tabular}
+ \caption{Example dissimilarities}
+  \label{mds-distances}
+\end{table}
+
+\begin{figure}
+  \includegraphics[width=0.4\textwidth]{Sverigekarta-Landskap-mds-dep}
+  \label{mds-dep}
+  \caption{Example of MDS on Swediasyn}
+\end{figure}
 
 Kruskal calls this measure of distortion Stress.  An initial stress is
 obtained by sorting the dissimilarities by size and measuring how far
@@ -1184,17 +1205,20 @@ the time.
 
 \subsection{Feature Ranking}
 \label{feature-ranking}
-% TODO: THIS is hypothesis 1B and I left it out!
-Feature ranking is needed for the first hypothesis so that the results
-of $R$ can be compared qualitatively to the Swedish dialectology
-literature; $R$'s most important features should be similar to those
-discussed most by dialectologists when comparing regions. Feature
-ranking for $R$ is quite simple for one-to-one region comparisons;
-each feature's normalized weight is equal to its importance in
-determining the distance between the two regions. The most important
-features between two sets of regions can be obtained by averaging the
-importance of each feature between all (first-set, second-set) region
-pairs. This more
+
+Feature ranking is needed to compare the results of $R$ qualitatively
+to the Swedish dialectology literature; $R$'s most important features
+should be similar to those discussed most by dialectologists when
+comparing regions. Without feature ranking of some kind, there is no
+way to relate the quantitative distances between regions with the
+features that contribute most to the distances.
+
+Feature ranking for $R$ is quite simple for
+one-to-one region comparisons; each feature's normalized weight is
+equal to its importance in determining the distance between the two
+regions. The most important features between two sets of regions can
+be obtained by averaging the importance of each feature between all
+(first-set, second-set) region pairs. This more
 % (There is a nice equation lurking in here
 % somewhere that I may want to avoid nonetheless.)
 complicated technique is needed to relate the results from
@@ -1218,10 +1242,6 @@ structure, so combining the two does not mean that additional
 redundancy needs to be taken into account.
 % TODO: Last sentence still sucks
 % TODO: Notes from last presentation:
-% TnT has a 'mark unknown words' option.
-% Pass lexical items to Berkeley parser (or make sure both training and test are t
-% he same)
-% check whether Berkeley parser has POS-tagging option
 
 \subsection{Feature Backoff}
 \label{feature-backoff}
