@@ -585,6 +585,34 @@
      wrote about MDS and a little about consensus trees.
    - I will mostly work on diagrams and explanation for clustering.
    - Still Swedish problems, reply to Therese and Russian guy etc etc.
+** 2010/03/10
+   - I worked on diagrams and explanation for clustering and consensus
+     trees. The 10-fold cross validation crashed after running for a
+     day (there is a 100ks hard limit on Big Red boooo). I mailed
+     another person in the OIS after .
+   - I will finish diagrams and explanation for feature
+     ranking. Correlation and combining features too, if I can think
+     of anything. Also I will test random number generation. I will
+     restart the Malt+Timbl test for the third time.
+   - Should reply to Therese. Yes indeed.
+** 2010/03/11
+   - I finished diagrams and explanation for feature ranking, except
+     for comparison to Wybo's 2009 paper.
+   - I will mail Therese to thank her. I will read Wybo's paper and
+     decide if his third normalisation is applicable and useful to my
+     ranking problem. I will bulk up Combining Feature Sets with the
+     hoky Giant Bag method that I *actually used*. I may just axe
+     Feature Backoff since it doesn't look like I need it. Of course
+     it *might* help but the results now are decent, so...
+   - Wybo's second normalisation is optional. So I can justify making
+     mine optional too. But this requires more work to do so, plus 2x
+     computer time to re-run results. Boo. Oh well, I am changing
+     stuff SLOWER than before. So that's good. Soon I should start
+     running MaltEval on the Malt+Timbl settings that have already
+     finished.
+     Also also, I just noticed that I really need to rewrite the intro
+     to the methods section, since it's still written in future-tense
+     proposal style.
 * Plan
 ** January
 *** Get results

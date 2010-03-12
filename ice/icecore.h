@@ -10,6 +10,7 @@
 #include <fstream>
 #include <cmath>
 #include "params.h"
+#define SECONDNORM
 #define SIGNIFICANCE ITERATIONS / 20
 namespace __gnu_cxx { // culled from the internet.
   template<> // just wraps hash<char *>, which is entirely logical
@@ -136,8 +137,12 @@ sample normalise(const strings& a, const strings& b,
       fa = i->second.first / tokens_a;
       fb = i->second.second / tokens_b;
       f = fa + fb;
-      i->second.first = (ci * fa / f) * 2 * types / tokens;
-      i->second.second = (ci * fb / f) * 2 * types / tokens;
+      i->second.first = (ci * fa / f);
+      i->second.second = (ci * fb / f);
+#ifdef SECONDNORM
+      i->second.first *= 2 * types / tokens;
+      i->second.second *= 2 * types / tokens;
+#endif
     }
   }
   return ab;

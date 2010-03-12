@@ -430,12 +430,9 @@ lexical. \quotecite{sampson00} leaf-ancestor paths provide one way to
 do this: for each leaf in the tree, leaf-ancestor paths produce the
 path from that leaf back to the root. Generation is simple as long as
 every sibling is unique. For example, the parse tree
-\[\xymatrix{
-  &&\textrm{S} \ar@{-}[dl] \ar@{-}[dr] &&\\
-  &\textrm{NP} \ar@{-}[d] \ar@{-}[dl] &&\textrm{VP} \ar@{-}[d]\\
-  \textrm{Det} \ar@{-}[d] & \textrm{N} \ar@{-}[d] && \textrm{V} \ar@{-}[d] \\
-\textrm{the}& \textrm{dog} && \textrm{barks}\\}
-\]
+
+\Tree[.S [.NP [.Det the ] [.N dog ] ] [.VP [.V barks ] ] ]
+
 creates the following leaf-ancestor paths:
 
 \begin{itemize}
@@ -450,19 +447,13 @@ There is one path for each word, and the root appears
 in all four. However, there can be ambiguities if some
 node happens to have identical siblings. Sampson gives the example
 of the two trees
-\[\xymatrix{
-  &&\textrm{A} \ar@{-}[dl] \ar@{-}[dr] &&&\\
-  &\textrm{B} \ar@{-}[d] \ar@{-}[dl] &&\textrm{B} \ar@{-}[d] \ar@{-}[dr] & \\
-  \textrm{p} & \textrm{q} && \textrm{r} & \textrm{s} \\
-}
-\]
+
+\Tree[.A [.B p q ] [.B r s ] ]
+
 and
-\[\xymatrix{
-  &&\textrm{A} \ar@{-}[d] &&&\\
-  &&\textrm{B} \ar@{-}[dll] \ar@{-}[dl] \ar@{-}[dr] \ar@{-}[drr]&&& \\
-  \textrm{p} & \textrm{q} && \textrm{r} & \textrm{s} \\
-}
-\]
+
+\Tree[.A [.B p q r s ] ]
+
 which would both produce
 
   \begin{itemize}
@@ -550,9 +541,8 @@ smaller corpora than Nerbonne and Wiersma had tested. The additional
 precision that leaf-ancestor paths provide appears to aid in attaining
 significant results.
 
-% Another idea is supertags rather than leaf-ancestor paths. This is
-% quite similar but might work better.
 \subsubsection{Leaf-Head Paths}
+\label{leaf-head-paths}
 % TODO: This section should probably have a lot more examples and maybe some
 % examples of other applications besides my experiment.
 
@@ -571,8 +561,9 @@ produces the following leaf-head paths.
 The biggest difference is in the relative length of the paths: long
 leaf-ancestor paths indicate deep nesting of structure. Length is a
 weaker indicator of deep structure for leaf-head
-paths; sometimes a difference in length indicates only a difference in
-centrality to the sentence. % or something, this is still kind of % wrong
+paths; for example, the verb in a nested clause has a much shorter
+leaf-head path than leaf-ancestor path, but its dependents have
+comparable lengths between the two types of paths.
 
 In addition, leaf-head paths capture long-distance
 context nicely, like enhanced trigrams. Not as much upper structure,
@@ -650,15 +641,15 @@ to produce the dialect distances must be enumerated
 (\ref{feature-ranking}).
 
 To investigate the second hypothesis, I need a method to combine
-different types of features (\ref{combine-feature-sets}) and back off
-sparse features (\ref{feature-backoff}). I also need a way to generate
-new features that include more information about context
-(\ref{alternate-feature-sets}).
+different types of features (\ref{combine-feature-sets}). I also need
+a way to generate new features that include more information about
+context (\ref{alternate-feature-sets}).
 
 If the distance measure $R$ doesn't provide any significant distances
-with any combination of features, I will experiment with different distance
-measures. For this, there are quite a few possibilities;
-Kullbeck-Leibler divergence is one example (\ref{kl-divergence}).
+with any combination of features, I will experiment with different
+distance measures (\ref{alternate-distance-measures}). For this, there
+are quite a few possibilities; Kullbeck-Leibler divergence is one
+example.
 
 To investigate the third hypothesis, I need a phonological corpus and a method
 for calculating phonological dialect distance, then a method to compare
@@ -833,8 +824,8 @@ of the most similar regions. An example is given in figure
 
 \begin{figure}
   \Tree[. [. [. A B ] C ] [. D E ] ]
+ \caption{Hierarchical Cluster Dendogram}
   \label{example-dendrogram}
-  \caption{Hierarchical Cluster Dendogram}
 \end{figure}
 
 A clustering algorithm provides understanding of which regions group
@@ -896,31 +887,31 @@ cluster merge to form a single tree (figure
 \ref{hierarchical-cluster-5}).
 
 \begin{figure}
-  \includegraphics[width=0.46\textwidth]{hierarchical-cluster-1}
+  \includegraphics[scale=0.7]{hierarchical-cluster-1}
  \caption{Sites Before Clustering}
   \label{hierarchical-cluster-1}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.5\textwidth]{hierarchical-cluster-2}
+  \includegraphics[scale=0.7]{hierarchical-cluster-2}
  \caption{Sites After A-B Merge}
   \label{hierarchical-cluster-2}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.5\textwidth]{hierarchical-cluster-3}
+  \includegraphics[scale=0.7]{hierarchical-cluster-3}
  \caption{Sites After D-E Merge}
   \label{hierarchical-cluster-3}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.65\textwidth]{hierarchical-cluster-4}
+  \includegraphics[scale=0.7]{hierarchical-cluster-4}
  \caption{Sites After A-B-C Merge}
   \label{hierarchical-cluster-4}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.65\textwidth]{hierarchical-cluster-5}
+  \includegraphics[scale=0.7]{hierarchical-cluster-5}
  \caption{Sites After Clustering}
   \label{hierarchical-cluster-5}
 \end{figure}
@@ -1176,6 +1167,11 @@ metric MDS is a special case of PCA anyway. Not sure whether I'm doing
 metric MDS (though I guess so) because I don't know if my analysis is
 unique on the interval level (or ratio/absolute level).
 
+\subsubsection{Cluster Boundary Diagrams}
+
+L04 does these too, Peter's site has an example. I'm not sure they'll
+work but it's worth a try.
+
 \subsection{Correlation}
 
 Correlation is interesting on two levels. First, it is useful to find
@@ -1213,83 +1209,213 @@ comparing regions. Without feature ranking of some kind, there is no
 way to relate the quantitative distances between regions with the
 features that contribute most to the distances.
 
-Feature ranking for $R$ is quite simple for
+A simple feature ranking for $R$ is easy for
 one-to-one region comparisons; each feature's normalized weight is
 equal to its importance in determining the distance between the two
-regions. The most important features between two sets of regions can
-be obtained by averaging the importance of each feature between all
-(first-set, second-set) region pairs. This more
-% (There is a nice equation lurking in here
-% somewhere that I may want to avoid nonetheless.)
-complicated technique is needed to relate the results from
-the computational distance measures with the features that
-dialectologists discuss relative to areas of Sweden larger than
-individual provinces or counties.
+regions. See figure \ref{feature-ranking-1-1}: features that appear
+more often in one region of the compared pair are negative, while features
+that appear more often in the other region are positive. In the
+example, the bigram AB-AJ occurs more often in the left-hand-region,
+while NN-VB and PN-VB occur more often in the right-hand-region.
 
-%Note: All this is speculative. I have no code for this and I'm pretty
-%sure the all-pairs average solution is not quite right
+\begin{figure}
+  \includegraphics[scale=0.8]{feature-ranking-1-1}
+  \label{feature-ranking-1-1}
+  \caption{Feature-ranking 1:1}
+\end{figure}
+
+Features can be ranked between a single region and multiple regions by
+averaging. For example, in figure \ref{feature-ranking-1-many}, the
+binary comparison between the left-hand region and each of the three
+right-hand regions produces three sets of features. The features can
+be combined by averaging the score for each feature type. NN-VB's
+averaged score would be $50 + 20 + 80 / 3 = 50$, for example.
+
+\begin{figure}
+  \includegraphics[scale=0.8]{feature-ranking-1-many}
+  \label{feature-ranking-1-many}
+  \caption{Feature-ranking 1:Many}
+\end{figure}
+
+This average can be extended to compare two sets of regions. As can be
+seen in figure \ref{feature-ranking-many-many}, each feature on the
+right-hand side is no longer a single number, but an average of the
+comparison against each region on the left-hand side. Therefore, in
+this example, NN-VB's overall average score is
+
+\[ \bigg(\frac{50+30}{2} + \frac{20+30}{2} + \frac{80+30}{2}\bigg) / 3 =
+\frac{50+30+20+30+80+30}{6} = 40\]
+
+\begin{figure}
+  \includegraphics[scale=0.8]{feature-ranking-many-many}
+  \label{feature-ranking-many-many}
+  \caption{Feature-ranking Many:Many}
+\end{figure}
+
+This method is similar to a ranking by \namecite{wiersma09}, but
+without the additional normalisation needed to make his test for
+significance work; we do not need this test because I sample by
+sentence rather than by speaker. However, Wiersma also runs a third
+normalisation in which each type count is divided by the average of
+that type count over all {\it permutations}. I can't see why this
+works, since permutations necessarily mix the tokens from both corpora
+together.
+
+The main reason is that Wiersma samples per-speaker from a large
+number of speakers and small number of sentences from each
+speaker. This allows him to avoid the assumption that each sentence is
+independent and instead assume that each {\it speaker} is
+independent. However, this also requires an additional per-speaker
+normalisation because some speakers may contribute more sentences to
+the sample than others. This is not needed for the method used here
+because it assumes all sentences to be independent, regardless of
+speaker.
+
+TODO: This isn't complete; I'm not convinced that Wiersma's
+last normalisation helps with the ranking, but that's because I don't
+understand why he expects it to help.
 
 \subsection{Combining Feature Sets}
 \label{combine-feature-sets}
 
-% maybe use 'kind of feature' instead of 'type of feature'. it's fuzzier
-In order to investigate hypothesis 2, I will need a method for
-combining features of different types. Here, the obvious approach
-of combining feature types linearly should suffice. For example, within a single
-type of feature, such as POS tag or leaf-ancestor path,
-there is already redundant information about lexical items and tree
-structure, so combining the two does not mean that additional
-redundancy needs to be taken into account.
-% TODO: Last sentence still sucks
-% TODO: Notes from last presentation:
+Combining feature sets gives the classifier more information about a
+site by combining the information that each feature set
+captures. This dissertation uses a simple linear combination. In other
+words, when combined, all features are counted together with equal
+weight. This is easy and should suffice in allowing the feature ranker
+to find a greater variety features from different feature sets that capture the
+same underlying syntactic information.
 
-\subsection{Feature Backoff}
-\label{feature-backoff}
-% If I can't find a certain frequency of trigrams then backoff to
-% bigram
-% Thorsten Brants - deleted interpolation
+% Hey, these should really be feature *type* sets since they are sets
+% of feature types, not sets of observed feature tokens. Maybe I
+% should make a note of this early on in the dissertation and say
+% "feature sets" is used in the rest of this dissertation to mean
+% "feature type sets" (except maybe in the discussion of the
+% normalisation, which should refer to vectors anyway)
 
-% Martin Volk inter-type backoff (if X type information isn't
-% available, then use Y type instead) (2000, 2001 or 2002)
-% Scaling Up ...; Exploiting the WWW ...; Combining Unsupervised ...;
-In order to investigate hypothesis 2, I will need a framework for
-backing off sparse features. For backoff within a single type of
-feature, I will use deleted interpolation \cite{jurafskymartin}. Training for the trigram, bigram and unigram counts will
-come from the Talbanken.
+A more sophisticated method of combining features can be
+adapted from Martin Volk's method for deciding prepositional phrase
+(PP) attachment \cite{volk02}. Volk uses a number of different feature
+sets to decide where to attach PPs. However, he also weights each
+feature set differently based on its reliability.
 
-For backoff between types of features, I will use ranked combinations
-of feature sets, based to Martin Volk's system for verb attachment
-\cite{volk02}. Volk used an a priori reliability measure for ranking
-quality of combined feature types; I will use number of significant
-region differences for ranking: the top-ranked feature type will be
+Volk used an a priori reliability measure for ranking
+quality of combined feature types; I use number of significant
+region differences for ranking: the top-ranked feature set will be
 the one that produces the highest number of significant distances
-between regions. Combinations of feature types will be ranked by
-averaging the number of significant distances that the constituent
-feature types produce. Then if the distance measure can't find a
-significant difference using highest ranked set of features, the
-classifier will fall back to the next highest-ranked set of features.
+between regions. So, if a feature set finds significant differences
+between 90 out of 100 regions, its weight will be 0.90 and will be double
+the weight for a feature set that only finds significant differences
+betwen 45/100 regions.
+
+% I don't think I'll do this (I probably won't even do the Volk thing
+% since it involves some kind of Black Magic in icecore.h.
+% Well, I *could* instead replicate each feature by its weight
+% before combining, but this would probably make classification super
+% slow because of the huge number of features.)
+% ----
+% Combinations of feature types will be ranked by
+% averaging the number of significant distances that the constituent
+% feature types produce.
 
 \subsection{Alternate Feature Sets}
 \label{alternate-feature-sets}
-For hypothesis 2, I will need a way to generate new types of
-features. One obvious way to do this is to modify existing feature
-types to include more contextual
-information. For example, supertags \cite{joshi94} are similar to
-leaf-ancestor paths, but include more tree context around the
-head. Similarly, dependency paths could be expanded
-so that each node on the path includes lexical context, such as
-bigrams or trigrams.
+
+Different feature sets capture different aspects of the underlying
+syntactic structure. Ideally, one feature set would capture so much
+that no others would be needed. However, in the absence of a
+minimalist parser capable of returning the complete syntactic
+structure of Swedish (Josh's dissertation, not yet finished), multiple
+feature sets are useful in an empirical setting. One set may capture
+information that the rest miss.
+
+This section describes the variants besides the main feature sets
+already described above: leaf-ancestor paths and dependency
+paths. Most are variants on these two main sets.
 
 \subsubsection{Phrase Structure Rules}
 
-\subsubsection{Grandparent PSGs}
+Phrase structure rules are extracted from the same parses as
+leaf-ancestor paths, but instead of capturing a series of parent-child
+relations, it captures single-level parent-child-sibling
+relations. For example, given the tree in figure
+\ref{psg-example-tree} the extracted relations are given in
+figure \ref{psg-example}.
 
-\subsubsection{Dependency Arc Labels}
+\begin{figure}
+\Tree[.S [.NP [.Det the ] [.N dog ] ] [.VP [.V barks ] ] ]
+ \caption{Example Tree}
+  \label{psg-example-tree}
+\end{figure}
+
+\begin{figure}
+  \begin{tabular}{ccc}
+    \Tree[.S NP VP ] & \Tree[.NP Det N ] & \Tree[.VP V ] \\
+  \end{tabular}
+ \caption{Phrase-Structure Rules Extracted}
+  \label{psg-example}
+\end{figure}
+
+This feature set emphasises upper tree structure more than other
+feature sets because features from the upper tree are not only
+represented (as they are not in dependency-based and trigram-based
+features), but also given their own features separate from the
+features starting lower in the tree.
+
+\subsubsection{Grandparent Phrase Structure Rules}
+
+Grandparent phrase structure rules are a variant of phrase structure
+rules that include the grandparent as well. Given the tree in figure
+\ref{psg-example-tree}, the extracted features are given in
+figure \ref{grand-psg-example}.
+
+\begin{figure}
+  \begin{tabular}{ccc}
+    \Tree[.ROOT [.S NP VP ] ] & \Tree[.S [.NP Det N ] ] &
+    \Tree[.S [.VP V ] ] \\
+  \end{tabular}
+\caption{Phrase-Structure Rules Extracted}
+ \label{grand-psg-example}
+\end{figure}
+
+This variant adds some of the vertical information present in
+leaf-ancestor paths, hopefully without introducing data sparseness
+problems (not measured). However, it retains its advantage over
+leaf-ancestor paths of capturing left and right context.
+
+\subsubsection{Arc-Head Paths}
+
+As described in section \ref{leaf-head-paths}, the usual labels for
+leaf-head paths are the leaves of the tree: `root-V-N-Det-the' is the
+first leaf-head path for ``The dog barks'' (Det N V). However, one can
+also use the arc labels of the depdency parse to create arc-head
+paths. These paths have the same shape as their corresponding
+leaf-head-paths, but use different labels.
+
+For the previous example, the sentence is now
+
+\ldots
+
+and the arc-head paths are
+
+\begin{itemize}
+\item \ldots
+\end{itemize}
 
 \subsubsection{Tags from Berkeley Parser}
 
+\subsubsection{Tags from MaltParser trained with Timbl}
+
+A whole bunch of stuff on how Timbl's settings were determined and
+then how it was used to train MaltParser.
+
+\subsubsection{Within-clause Dependency/Leaf-ancestor paths}
+
+I haven't done this. This is interview data and in the real world
+people don't nest clauses. Life is tough.
+
 \subsection{Alternate Distance Measures}
-\label{kl-divergence}
+\label{alternate-distance-measures}
 In the case that $R$ does not reach statistical significance, I will
 need to experiment with similar but more complicated distance measures
 to find a more sensitive one. The obvious choice at this point is
