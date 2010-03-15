@@ -1374,7 +1374,7 @@ figure \ref{grand-psg-example}.
     \Tree[.ROOT [.S NP VP ] ] & \Tree[.S [.NP Det N ] ] &
     \Tree[.S [.VP V ] ] \\
   \end{tabular}
-\caption{Phrase-Structure Rules Extracted}
+\caption{Grandparent Phrase-Structure Rules Extracted}
  \label{grand-psg-example}
 \end{figure}
 
@@ -1394,20 +1394,59 @@ leaf-head-paths, but use different labels.
 
 For the previous example, the sentence is now
 
-\ldots
+\[\xymatrix{
+& & root \\
+The \ar@/^/[r]^{DT} & dog \ar@/^/[r]^{SS} & barks \ar@{.>}[u]
+}
+\]
 
 and the arc-head paths are
 
 \begin{itemize}
-\item \ldots
+\item root-SS-DT-the
+\item root-SS-dog
+\item root-barks
 \end{itemize}
 
 \subsubsection{Tags from Berkeley Parser}
 
+The Berkeley parser, as described in section \label{parsers}, can either tag
+incoming sentences with its own part of speech tagger (based on the
+rest of the parser) or with parts of speech specified externally. In
+other words, it competes as a part-of-speech tagger with
+T'n'T. Although the tags are not as good, it is interesting to see
+how they change the overall results when given as input to the
+distance measures and to MaltParser.
+
+Specifically, instead of the input corpus being fed through T'n'T to
+first to produce tags, the Berkeley parser is given the same
+corpus. Along the way of parsing trees, it also tags words with parts
+of speech. After parsing, these parts of speech are extracted from the
+leaves of the parse trees. First, the parts of speech are used to
+create trigram features. Second, the Berkeley-tagged words are
+converted to CONLL format and given to MaltParser for dependency
+parsing. This produces dependency parses based on parts of speech from
+the Berkeley parser.
+
 \subsubsection{Tags from MaltParser trained with Timbl}
 
-A whole bunch of stuff on how Timbl's settings were determined and
-then how it was used to train MaltParser.
+Another variation for generating dependency features for MaltParser is
+to use Timbl (*Tilburg Memory-Based Learner*) as the oracle classifier
+for Nivre's dependency parsing algorithm than the default support
+vector machines.
+
+This is however, somewhat complicated since Timbl is quite sensitive
+to parameters and will exhibit better performance if the parameters
+are tuned for the particular task of Swedish parsing. To find the best
+parameters, I use a linear search across a number of the major
+distance measures provided by Timbl, as well as fallback-combinations
+from more complicated distance measures to less complicated ones.
+
+Each combination was evaluated with ten-fold cross-validation on
+Talbanken. The best combination was used as a basis for parsing and
+parsing proceeded identically to previous runs.
+
+TODO: More detail here.
 
 \subsubsection{Within-clause Dependency/Leaf-ancestor paths}
 
