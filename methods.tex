@@ -1431,11 +1431,11 @@ the Berkeley parser.
 \subsubsection{Tags from MaltParser trained with Timbl}
 
 Another variation for generating dependency features for MaltParser is
-to use Timbl (*Tilburg Memory-Based Learner*) as the oracle classifier
+to use Timbl, the Tilburg Memory-Based Learner, as the oracle classifier
 for Nivre's dependency parsing algorithm than the default support
 vector machines.
 
-This is however, somewhat complicated since Timbl is quite sensitive
+This is, however, somewhat complicated since Timbl is quite sensitive
 to parameters and will exhibit better performance if the parameters
 are tuned for the particular task of Swedish parsing. To find the best
 parameters, I use a linear search across a number of the major
@@ -1450,8 +1450,19 @@ TODO: More detail here.
 
 \subsubsection{Within-clause Dependency/Leaf-ancestor paths}
 
-I haven't done this. This is interview data and in the real world
-people don't nest clauses. Life is tough.
+I haven't done this. This is interview data and there are not many
+nested clauses---probably less than 1 in 3 and I don't think it would make much
+difference. Besides, it would be difficult to specify a set of
+criteria for cutting off within-a-clause---simply removing everything
+between the root and the first S would miss some nested clauses.
+
+All right, so maybe you really could just use parts of speech to
+tell. Even if it worked, I still don't think there would be much
+difference because very few of the important features without
+within-clause cutoff have multiple clauses--most are simple and
+non-nested. Oh, right. Simplifying to ignore clause nesting would
+increase the power of phenomena that happen regardless of nesting
+level but don't occur enough to be visible otherwise.
 
 \subsection{Alternate Distance Measures}
 \label{alternate-distance-measures}
