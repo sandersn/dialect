@@ -306,7 +306,7 @@ originally proposed this measure, the {\sc Recurrence}
 metric ($R$):
 
 \begin{equation}
-R = \Sigma_i |c_{ai} - c_{bi}|
+R = \sum_i |c_{ai} - c_{bi}|
 \label{rmeasure}
 \end{equation}
 
@@ -335,7 +335,7 @@ number. \namecite{kessler01} creates a simple measure called the
 is simply the sum of absolute differences of all path token counts
 $c_{ai}$ from the first corpus $A$ and $c_{bi}$ from the second corpus
 $B$.
-\[ R = \Sigma_i |c_{ai} - \bar{c_i}| \textrm{ where } \bar{c_i} = \frac{c_{ai} + c_{bi}}{2}\]
+\[ R = \sum_i |c_{ai} - \bar{c_i}| \textrm{ where } \bar{c_i} = \frac{c_{ai} + c_{bi}}{2}\]
 However, to find out if the value of $R$ is significant, we
 must use a permutation test with a Monte Carlo technique described by
 \namecite{good95}, following
@@ -385,7 +385,7 @@ has been neutralized. This reflects the intuition that something that
 occurs 8 of 40 times is more important than something that occurs 10
 of 100 times.
 
-% this is the (*2n) / N bit
+% this is the (*2n / N) bit
 The second normalization normalizes all values in both
 permutations with respect to each other. This is simple: find the
 average number of times each path appears, then divide each scaled
@@ -1466,14 +1466,19 @@ level but don't occur enough to be visible otherwise.
 
 \subsection{Alternate Distance Measures}
 \label{alternate-distance-measures}
-In the case that $R$ does not reach statistical significance, I will
-need to experiment with similar but more complicated distance measures
-to find a more sensitive one. The obvious choice at this point is
-Kullbeck-Leibler divergence, or relative entropy, which is described
-in \namecite{manningschutze}. Relative entropy is quite similar to $R$
-but more widely used in computational linguistics. Besides this, several variants of
-relative entropy exist, such as Jenson-Shannon divergence \cite{lin91}, that lift
-various restrictions from the input distributions.
+
+There are several reasons to test distance measures besides
+$R$. There are a couple of a priori reasons for this: $R$ is fairly
+simple, so more complicated variations on it may provide better
+sensitivity at the expence of sensitivity to noise. Also, variations
+explore the measure space better in case that $R$ is not significant
+for some combination of corpus/feature set.
+
+Post-hoc, there are interesting patterns of statistical significance
+produced by the combination of distance measure and feature set. These
+patterns are not trivially obvious. This is not expected, but may
+provide insight into the measure/feature combination, which helps
+resolving Hypotheses 1 and 2.
 
 % Another possibility is a return to Goebl's Weighted Identity Value;
 % this classifier is similar in some ways to $R$, but has not been
@@ -1481,25 +1486,118 @@ various restrictions from the input distributions.
 % particularly useful and I don't believe that WIV would actually be
 % good, so I should probably just drop this.)
 
-More exotic classifiers are of course possible, although I
-have not investigated them yet. Examples are k-nearest
-neighbor classification or neural nets.
 % (maybe it was relative entropy or just normal-kind entropy).
 % TODO: WIV, also Kullbeck-Leibler Divergence could work.
 % Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
 % neural net
 
-% Make sure the KL divergence couldn't go to infinity
-% Jensen-Shannon lifts a couple of restrictions though I think the
-% input still has to be a probability distribution
+\subsubsection{KL divergence}
 
-\subsubsection{KL divergence/dissimilarity}
+% TODO: Find original citation for KL divergence
+% TODO: Replace Kullbeck with Kullback
 
-\subsubsection{JS divergence/dissimilarity}
+Kullbeck-Leibler divergence, or relative entropy, is described in
+\namecite{manningschutze}.  Relative entropy is similar to $R$ but
+more widely used in computational linguistics. The name relative
+entropy implies an intuitive interpretation: it is the number of bits
+of entropy incurred when compressing a corpus $b$ with the optimal
+compression scheme for a second corpus $a$. Unless the two corpora
+are identical, the relative entropy $KL(a||b)$ is non-zero because
+$a$'s optimal compression scheme will over-compress $b$'s
+features that are more common in $a$ than in $b$, whereas it will
+under-compress features that are less common in $a$ than in $b$.
 
-\subsubsection{cosine similarity}
+For example, assume that corpus $a$ has two features with type counts
+\{S-NP-N : 20, S-VP-PP-N : 10\}. An optimal compression scheme for $a$
+would compress S-NP-N twice as much as S-VP-PP-N because it occurs
+twice as often. However, if this compression scheme is used on a
+corpus $b$ with the feature counts \{S-NP-N : 15, S-VP-PP-N : 15\},
+efficiency will be worse; S-NP-N and S-VP-PP-N occur the same number
+of times in $b$, so the smaller compressed size of S-NP-N will be used
+less often than expected, while the larger compressed size of
+S-VP-PP-N will be used more. This difference can be measured precisely
+for each feature:
 
-\subsubsection{LSA}
+\[ c_{ai} \log\frac{c_{ai}}{c_{bi}} \]
+
+where $c_{ai}$ is type count of the $i$th feature in $a$ and $c_{bi}$
+is the type count of the $i$th feature in $b$. This measures the
+number of bits lost, or entropy, for each feature $i$. Like $R$'s
+differences, the per-feature entropy can be summed to find the total
+entropy. In the example above, the entropy for S-NP-N is $20
+\log\frac{20}{15} = 5.75$.
+
+However, Kullbeck-Leibler divergence as defined is a divergence: it
+measures the divergence of features in the corpus $c_b$ from the
+features of corpus $c_a$. A dissimilarity is required for
+dialectology, which means that the divergence must additionally be
+symmetric. A divergence can be made symmetric by calculating it twice:
+the divergence from $c_a$ to $c_b$ added to the one from $c_b$ to
+$c_a$. The complete formula is given in equation \ref{klmeasure} and
+the complete example is worked in equation \ref{klexample}.
+
+\begin{equation}
+KL(a||b) = \sum_i {c_{ai} \log\frac{c_{ai}}{c_{bi}} + c_{bi} \log\frac{c_{bi}}{c_{ai}}}
+\label{klmeasure}
+\end{equation}
+
+\begin{equation}
+ (20 \log\frac{20}{15} + 15 \log\frac{15}{20}) + (10
+  \log\frac{10}{15} + 15 \log\frac{15}{10}) = (5.75 - 4.32) + (-4.05 +
+  6.08) = 3.46
+  \label{klexample}
+\end{equation}
+
+\subsubsection{Jensen-Shannon divergence}
+
+Several variants of relative entropy exist that lift various restrictions from the input
+distributions. One is Jenson-Shannon divergence \cite{lin91}, which
+was designed as a dissimilarity from the start. It uses the same
+denominator for both directions: the average of the two
+probabilities. That means that each feature's entropy is found using
+the following formula:
+
+\[ c_{ai} \log\frac{c_{bi}}{(c_{ai} + c_{bi}) / 2} +
+c_{bi} \log\frac{c_{ai}}{(c_{ai} + c_{bi}) / 2} \]
+
+There is a common subexpression in this value: $(c_{ai} + c_{bi}) /
+2$: the average of the two features. If we let $\bar{c_i} = (c_{ai} + c_{bi}) /
+2$ rewrite the formula to take advantage of this simplification, we
+get equation \ref{jsmeasure}.
+
+\begin{equation}
+JS = \sum_i {c_{ai} \log\frac{c_{bi}}{\bar{c_i}} + c_{ai}
+  \log\frac{c_{bi}}{\bar{c_i}}}
+\label{jsmeasure}
+\end{equation}
+
+Here is where I describe what kinds of limitations Jensen-Shannon
+lifts from Kullback-Leibler, besides the obvious initial design as a
+dissimilarity rather than a divergence.
+
+
+\subsubsection{Cosine similarity}
+
+Cosine similarity is a standard in many parts of computational
+linguistics. It captures the dissimarlity between two high-dimensional
+points in space. Type counts of features can be modelled as points on
+a dimension, with each feature a dimension. The result is:
+
+\begin{equation}
+  \frac{\sum_i {c_{ai}c_{bi}}} {\sqrt{\sum_i {c_{ai}}} + \sqrt{\sum_i{c_{bi}}}}
+  \label{cosmeasure}
+\end{equation}
+
+This discussion is not done because I don't compare my use to existing
+uses, nor do I justify my use. I should be able to do a little
+research to find good reasons but at this point, my use is justified
+mainly because so many other people use it. Specifically, Wybo.
+
+Interestingly, the results are very different from other methods,
+possibly because it deviates from the simple linear sum that the other
+methods use.
+
+% \subsubsection{LSA} Nope, didn't work out
 
 \subsubsection{Alternate Training for MaltParser}
 

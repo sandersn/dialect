@@ -613,6 +613,26 @@
      Also also, I just noticed that I really need to rewrite the intro
      to the methods section, since it's still written in future-tense
      proposal style.
+** 2010/03/22
+   - I mailed Therese and read Wybo's paper. Pretty sure his
+   within-group normalisation doesn't apply because I pretend that
+   it's OK to combine people (since I only have 4-per-site anyway).
+   - I will work toward finishing 1st draft of methods.
+   - Still need to (1) gather Malt+Timbl results (2) re-run everything
+     (though maybe AFTER running redep with the best Malt+Timbl
+     parameters)
+** 2010/03/23
+   - I got a little done on the methods.
+   - I will finish distance measures in methods. I will prepare for
+     parsing group tomorrow by comparing the Malt+Timbl results. Maybe
+     re-run everything too?
+   - I should probably mail some people ugh like Alicia Bower or
+     so. Still need to rewrite intro to Methods
+     By the way here is the malteval command line:
+     java -Xmx1G -jar lib/MaltEval.jar -s result-Overlap-3-?.conll -g
+     test-?.conll > eval-Overlap-3.txt
+     (for 10-fold cross-validation)
+
 * Plan
 ** January
 *** Get results
@@ -637,10 +657,10 @@
      Pretty good rough draft, needs a lot of work to be presentable.
 ** February
 *** Revise Hypotheses
-**** TODO Get Sandra (and others?) to look over it and critique.
+**** DONE Get Sandra (and others?) to look over it and critique.
      It probably isn't nearly what is needed.
 *** Start Analysis
-**** TODO Read up on Swedish [syntactic] dialectology
+**** DONE Read up on Swedish [syntactic] dialectology
 **** TODO Work with Rosenkvist to find out how my results compare to it
      Started, need to tell him how I'm working and get some papers.
 *** Methods
@@ -729,8 +749,9 @@ The total budget is $200: $100 for each annotator at $10/hour.
     I think it was Schaeffler's dissertation, but it might be
     Therese's paper. Or maybe Jelena and John's survey paper? Not
     sure. Maybe even the 06 correlation paper
-*** TODO Find out how to do agreement dendrograms (or have a program do them for me)
+*** DONE Find out how to do agreement dendrograms (or have a program do them for me)
 *** DONE Ask Therese for improved eps outline of Sweden
+*** TODO Switch mds diagrams to use Therese's improved outline
 *** Do subgroups in a dendrogram reflect diachronic subgroups?
     It would be cool, but I think the subgroups are too unstable to be
     real
