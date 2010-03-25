@@ -229,7 +229,7 @@ therefore
   \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
   facilitate the presentation.
 
-\section{Statistical Methods} % Computational? Mathematical?
+\section{Dialectometry}
 
 It is at this point that the two types of analysis, phonological and
 syntactic, diverge. Although Goebl's techniques are general enough to
@@ -241,7 +241,6 @@ introduced methods from other fields. These methods, while generally
 giving more accurate results quickly, are tied to the type of data on
 which they operate.
 
-% NEW
 Currently, the dominant phonological distance measure is Levenshtein
 distance. This distance is essentially the count of differing
 segments, although various refinements have been tried, such as
@@ -256,16 +255,6 @@ been as successful on existing dialect resources, which are small and
 are already word-aligned. New resources are not easy to develop
 because the statistical methods still rely on a phonetic transcription
 process.
-% end NEW
-
-% \begin{enumerate}
-% \item I should really check around to see if there is any new work out
-%   there. Surely there is. Course John is free to do whatever works and
-%   Wybo may have graduated or something. So there might not be any more
-%   work on it.
-% \item Explain leaf-ancestor paths, trigrams, dependency `paths' (to be
-%   invented).
-% \end{enumerate}
 
 \subsection{Syntactic Distance}
 
@@ -283,27 +272,67 @@ not sentence-aligned. Automatically constructed syntactic corpora
 lead naturally to statistical measures over large amounts of data
 rather than more sensitive measures that operate on small corpora.
 
+\namecite{nerbonne06} were the first to use the syntactic distance
+measure described below. They analyzed two corpora, both of Finnish
+L2 speakers of English. The first corpus was gathered from speakers
+who learned English after childhood and the second was gathered from
+speakers who learned English as children. Nerbonne \& Wiersma found a
+significant difference between the two corpora. The trigrams that
+contributed most to the difference were those in the older corpus that
+are unexpected in English. For example, the trigram COP-ADJ-N/COM is
+not common in English because a noun phrase following a copula
+typically begins with a determiner. Other trigrams indicate
+hypercorrection on the part of the older speakers; they appear in the
+younger corpus but not as often. Nerbonne \& Wiersma analyzed this as
+interference from Finnish; the younger learners of English learned it
+more completely with less interference from Finnish.
+
+My subsequent work in \cite{sanders07} and \cite{sanders08b}
+expanded on the Finnish experiment in two ways. First, it introduced
+leaf-ancestor paths as an alternative feature type. Second, it tested
+the distance method on a larger set of corpora: Government Office
+Regions of England, as well as Scotland and Wales, for a total of
+11 corpora. Each was smaller than the Finnish L2 corpora, so the
+permutation test parameters had to be adjusted for some feature
+combinations.
+
+The distances between regions were clustered using hierarchical
+agglomerative clustering, as described in section
+\ref{cluster-analysis}. The resulting tree showed a North/South
+distinction with some unexpected differences from previously
+hypothesized dialect boundaries; for example, the Northwest region
+clustered with the Southwest region. This contrasted with the
+clustered phonological distances also produced in
+\namecite{sanders08b}. In that experiment, there was no significant
+correlation between the inter-region phonological distances and
+syntactic distances.
+
+There are several possible reasons for this lack of correlation. The
+two distance measures may find different dialect boundaries based on
+differences between syntax and phonology. Dialect boundaries may have
+shifted during the 40 years between the collection of the SED and the
+collection of the ICE-GB. One or both methods may be measuring the
+wrong thing. In this dissertation, although the focus will remain on results
+of computational syntax distance as compared to traditional syntactic
+dialectology, the discussion compares recent phonological
+dialectometry results on Swedish to the results obtained here.
+
 \subsubsection{Nerbonne and Wiersma}
 \label{nerbonne06}
 
-Due to the lack of alignment between the
-larger corpora available for syntactic analysis, a statistical
-comparison of differences is more appropriate than the simple
-symbolic approach possible with the word-aligned corpora used in
-phonology. This statistical approach means that a syntactic distance
-measure will have to use counting as its basis.
+Due to the lack of alignment between the larger corpora available for
+syntactic analysis, a statistical comparison of differences is more
+appropriate than the simple symbolic approach possible with the
+word-aligned corpora used in phonology. This statistical approach
+means that a syntactic distance measure will have to use counting as
+its basis.
 
-\namecite{nerbonne06} was an early method proposed for syntactic
-distance.  It models syntax by part-of-speech (POS) trigrams and uses
-differences between trigram type counts in a permutation test of
-significance. This method was extended by \namecite{sanders07}, who
-used \quotecite{sampson00} leaf-ancestor paths as an alternate basis
-for building the model.
-
-The heart of the measure is simple: the difference in type counts
-between the combined types of two corpora. \namecite{kessler01}
-originally proposed this measure, the {\sc Recurrence}
-metric ($R$):
+\namecite{nerbonne06}'s method models syntax by part-of-speech (POS)
+trigrams and uses differences between trigram type counts in a
+permutation test of significance. The heart of the measure is simple:
+the difference in type counts between the combined features of two
+corpora. \namecite{kessler01} originally proposed this measure, the
+{\sc Recurrence} metric ($R$):
 
 \begin{equation}
 R = \sum_i |c_{ai} - c_{bi}|
@@ -312,16 +341,37 @@ R = \sum_i |c_{ai} - c_{bi}|
 
 \noindent{}Given two corpora $a$ and $b$, $c_a$ and $c_b$ are the type
 counts. $i$ ranges over all types, so $c_{ai}$ and $c_{bi}$ are the
-type counts of corpora $a$ and $b$ for type $i$.  $R$ is designed to
+type counts of corpora $a$ and $b$ for type $i$. $R$ is designed to
 represent the amount of variation exhibited by the two corpora while
 the contribution of individual types remains transparent to aid later
-analysis.
+analysis. Unfortunately, it doesn't indicate whether its results are significant; a
+permutation test is needed for that, described in section
+\ref{permutationtest}.
 
-To account for differences in corpus size, sampling with replacement is
-used. In addition, the samples are normalized to account for
-differences in sentence length and complexity.  Unfortunately, even normalized, the
-measure doesn't indicate whether its results are significant; a
-permutation test is needed for that.
+To account for differences in corpus size, sampling with replacement
+is used. The corpus is sampled by sentence rather than by feature
+because the intent is to capture syntax, where the composite unit is
+the sentence. In other words, phonology's composite unit is the
+word---most processes operate within the word on individual features;
+some processes operate between words but they are fewer. In phonology,
+the assumption that words are independent will capture many of the
+interesting phonological processes. In the same way, the basic unit of
+analysis is the sentence; processes operate on the words in the
+sentence, but inter-sentence processes are fewer. Because of this, the
+corpora are sampled by sentence, combining the sentences of all
+speakers from an interview site into a single corpus. This removes the
+per-speaker sampling of \quotecite{wiersma09} work on Finnish L2
+speakers. Although the motivation is partly theoretical, there is also
+a difference between the Swediasyn, with 2-4 speakers for each site of
+30, and Wiersma's corpus, with dozens of speakers but only two
+groups. I assume that, since discovery of dialect features are the
+goal of this research, combining the sentences of speakers from the
+same village may result in conflicting evidence from the extracted
+features. However, the dialect features should be the same for all
+speakers.
+
+In addition, the samples are normalized to account for
+differences in sentence length and complexity.
 
 \subsubsection{Normalization}
 
@@ -331,6 +381,7 @@ whether the paths of one region occur in significantly different
 numbers from the paths of another region. To do this, we calculate some
 measure to characterize the difference between two vectors as a single
 number. \namecite{kessler01} creates a simple measure called the
+% This is totally repetitive!
 {\sc Recurrence} metric ($R$ hereafter), which
 is simply the sum of absolute differences of all path token counts
 $c_{ai}$ from the first corpus $A$ and $c_{bi}$ from the second corpus
@@ -407,12 +458,7 @@ tokens in $a$ and $b$ respectively. Dividing $c_{ai}'$ and $c_{bi}'$ by this ave
 and $s_{bi} = 3$. In other words, $s_{ai}$ has 6 times more tokens
 than the average path type.
 
-% Other ideas include training a
-% model on one area and comparing the entropy (compression) of other
-% areas. At this point it's unclear whether this would provide a
-% comparable measure, however.
-
-\subsubsection{Language models}
+\subsection{Syntax Features}
 \label{syntactic-features}
 \namecite{nerbonne06} argue that POS trigrams can accurately represent
 at least the important parts of syntax, similar to the way chunk
@@ -421,8 +467,8 @@ sentence. If this is true, POS trigrams are a good starting point for
 a language model; they are simple and easy to obtain in a number of
 ways. They can either be generated by a tagger as Nerbonne
 and Wiersma did, or taken from the leaves of the trees of a
-syntactically annotated corpus as \namecite{sanders07} did with the
-International Corpus of English.
+syntactically annotated corpus as I did with the
+International Corpus of English \cite{sanders07}.
 
 On the other hand, it might be better to represent the upper structure
 of trees, assuming that syntax is in fact a phenomenon that extends beyond the
@@ -578,53 +624,200 @@ The & dog & barks
 }
 \]
 
-\subsection{Previous Experiments}
+\subsection{Alternate Feature Sets}
+\label{alternate-feature-sets}
 
-\namecite{nerbonne06} were the first to use the syntactic distance
-measure described above. They analyzed two corpora, both of Norwegian
-L2 speakers of English. The first corpus was gathered from speakers
-who learned English after childhood and the second was gathered from
-speakers who learned English as children. Nerbonne \& Wiersma found a
-significant difference between the two corpora. The trigrams that
-contributed most to the difference were those in the older corpus that
-are unexpected in English. For example, the trigram COP-ADJ-N/COM is
-not common in English because a noun phrase following a copula
-typically begins with a determiner. Other trigrams indicate
-hypercorrection on the part of the older speakers; they appear in the
-younger corpus but not as often. Nerbonne \& Wiersma analyzed this as
-interference from Finnish; the younger learners of English learned it
-more completely with less interference from Finnish.
+Different feature sets capture different aspects of the underlying
+syntactic structure. Ideally, one feature set would capture so much
+that no others would be needed. However, in the absence of a
+minimalist parser capable of returning the complete syntactic
+structure of Swedish (Josh's dissertation, not yet finished), multiple
+feature sets are useful in an empirical setting. One set may capture
+information that the rest miss.
 
-Subsequent work by \namecite{sanders07} and \namecite{sanders08b}
-expanded on the Norwegian experiment in two ways. First, it introduced
-leaf-ancestor paths as an alternative feature type. Second, it tested
-the distance method on a larger set of corpora: Government Office
-Regions of England, as well as Scotland and Wales, for a total of
-11 corpora. Each was smaller than the Norwegian L2 corpora, so the
-permutation test parameters had to be adjusted for some feature
-combinations.
+This section describes the variants besides the main feature sets
+already described above: leaf-ancestor paths and dependency
+paths. Most are variants on these two main sets.
 
-The distances between regions were clustered using hierarchical
-agglomerative clustering, as described in section \ref{cluster-analysis}. The resulting tree showed a North/South
-distinction with some unexpected differences from previously
-hypothesized dialect boundaries; for example, the
-Northwest region clustered with the Southwest region. This contrasted
-with the clustered phonological distances also produced in
-\namecite{sanders08b}. In that experiment,
-there was no significant correlation between the inter-region
-phonological distances and syntactic distances.
+\subsubsection{Phrase Structure Rules}
 
-There are several possible reasons for this lack of correlation. The
-two distance measures may find different dialect boundaries based on
-differences between syntax and phonology. Dialect boundaries may have
-shifted during the 40 years between the collection of the SED and the
-collection of the ICE-GB. One or both methods may be measuring the
-wrong thing. However, I will not investigate the relation between
-phonology and syntax in this dissertation. The focus will remain on results
-of computational syntax distance as compared to traditional syntactic
-dialectology.
+Phrase structure rules are extracted from the same parses as
+leaf-ancestor paths, but instead of capturing a series of parent-child
+relations, it captures single-level parent-child-sibling
+relations. For example, given the tree in figure
+\ref{psg-example-tree} the extracted relations are given in
+figure \ref{psg-example}.
 
-\section{Methods}
+\begin{figure}
+\Tree[.S [.NP [.Det the ] [.N dog ] ] [.VP [.V barks ] ] ]
+ \caption{Example Tree}
+  \label{psg-example-tree}
+\end{figure}
+
+\begin{figure}
+  \begin{tabular}{ccc}
+    \Tree[.S NP VP ] & \Tree[.NP Det N ] & \Tree[.VP V ] \\
+  \end{tabular}
+ \caption{Phrase-Structure Rules Extracted}
+  \label{psg-example}
+\end{figure}
+
+This feature set emphasises upper tree structure more than other
+feature sets because features from the upper tree are not only
+represented (as they are not in dependency-based and trigram-based
+features), but also given their own features separate from the
+features starting lower in the tree.
+
+\subsubsection{Grandparent Phrase Structure Rules}
+
+Grandparent phrase structure rules are a variant of phrase structure
+rules that include the grandparent as well. Given the tree in figure
+\ref{psg-example-tree}, the extracted features are given in
+figure \ref{grand-psg-example}.
+
+\begin{figure}
+  \begin{tabular}{ccc}
+    \Tree[.ROOT [.S NP VP ] ] & \Tree[.S [.NP Det N ] ] &
+    \Tree[.S [.VP V ] ] \\
+  \end{tabular}
+\caption{Grandparent Phrase-Structure Rules Extracted}
+ \label{grand-psg-example}
+\end{figure}
+
+This variant adds some of the vertical information present in
+leaf-ancestor paths, hopefully without introducing data sparseness
+problems (not measured). However, it retains its advantage over
+leaf-ancestor paths of capturing left and right context.
+
+\subsubsection{Arc-Head Paths}
+
+As described in section \ref{leaf-head-paths}, the usual labels for
+leaf-head paths are the leaves of the tree: `root-V-N-Det-the' is the
+first leaf-head path for ``The dog barks'' (Det N V). However, one can
+also use the arc labels of the depdency parse to create arc-head
+paths. These paths have the same shape as their corresponding
+leaf-head-paths, but use different labels.
+
+For the previous example, the sentence is now
+
+\[\xymatrix{
+& & root \\
+The \ar@/^/[r]^{DT} & dog \ar@/^/[r]^{SS} & barks \ar@{.>}[u]
+}
+\]
+
+and the arc-head paths are
+
+\begin{itemize}
+\item root-SS-DT-the
+\item root-SS-dog
+\item root-barks
+\end{itemize}
+
+\subsubsection{Tags from Berkeley Parser}
+
+The Berkeley parser, as described in section \label{parsers}, can either tag
+incoming sentences with its own part of speech tagger (based on the
+rest of the parser) or with parts of speech specified externally. In
+other words, it competes as a part-of-speech tagger with
+T'n'T. Although the tags are not as good, it is interesting to see
+how they change the overall results when given as input to the
+distance measures and to MaltParser.
+
+Specifically, instead of the input corpus being fed through T'n'T to
+first to produce tags, the Berkeley parser is given the same
+corpus. Along the way of parsing trees, it also tags words with parts
+of speech. After parsing, these parts of speech are extracted from the
+leaves of the parse trees. First, the parts of speech are used to
+create trigram features. Second, the Berkeley-tagged words are
+converted to CONLL format and given to MaltParser for dependency
+parsing. This produces dependency parses based on parts of speech from
+the Berkeley parser.
+
+\subsubsection{Tags from MaltParser trained with Timbl}
+
+Since MaltParser uses Nivre's oracle-based dependency parsing
+algorithm, the default oracle, based on support vector machines, can
+be replaced with Timbl, the Tilburg Memory-Based Learner. It is
+possible that a memory-based learner will provide better parsing
+because support vector machines depend on large
+training corpora to provide good results. In contrast, a memory-based
+learner can obtain good results on limited training if the training
+happens to be representative and the right combination of parameters
+can be found for Timbl.
+
+This is, however, somewhat complicated since Timbl is quite sensitive
+to parameter changes and usually requires specific tuning for
+particular tasks. To find the best
+parameters, I use a linear search across a number of the major
+distance measures provided by Timbl, as well as fallback-combinations
+from more complicated distance measures to less complicated ones.
+
+Each combination was evaluated with ten-fold cross-validation on
+Talbanken. The best combination, Jeffrey's distance with XX and YY
+settings, was used as a basis for parsing and parsing proceeded
+identically to previous runs.
+
+\subsubsection{Within-clause Dependency/Leaf-ancestor paths}
+
+I haven't done this. This is interview data and there are not many
+nested clauses---probably less than 1 in 3 and I don't think it would make much
+difference. Besides, it would be difficult to specify a set of
+criteria for cutting off within-a-clause---simply removing everything
+between the root and the first S would miss some nested clauses.
+
+All right, so maybe you really could just use parts of speech to
+tell. Even if it worked, I still don't think there would be much
+difference because very few of the important features without
+within-clause cutoff have multiple clauses--most are simple and
+non-nested. Oh, right. Simplifying to ignore clause nesting would
+increase the power of phenomena that happen regardless of nesting
+level but don't occur enough to be visible otherwise.
+
+\subsection{Combining Feature Sets}
+\label{combine-feature-sets}
+
+Combining feature sets gives the classifier more information about a
+site by combining the information that each feature set
+captures. This dissertation uses a simple linear combination. In other
+words, when combined, all features are counted together with equal
+weight. This is easy and should suffice in allowing the feature ranker
+to find a greater variety features from different feature sets that capture the
+same underlying syntactic information.
+
+% Hey, these should really be feature *type* sets since they are sets
+% of feature types, not sets of observed feature tokens. Maybe I
+% should make a note of this early on in the dissertation and say
+% "feature sets" is used in the rest of this dissertation to mean
+% "feature type sets" (except maybe in the discussion of the
+% normalisation, which should refer to vectors anyway)
+
+A more sophisticated method of combining features can be
+adapted from Martin Volk's method for deciding prepositional phrase
+(PP) attachment \cite{volk02}. Volk uses a number of different feature
+sets to decide where to attach PPs. However, he also weights each
+feature set differently based on its reliability.
+
+Volk used an a priori reliability measure for ranking
+quality of combined feature types; I use number of significant
+region differences for ranking: the top-ranked feature set will be
+the one that produces the highest number of significant distances
+between regions. So, if a feature set finds significant differences
+between 90 out of 100 regions, its weight will be 0.90 and will be double
+the weight for a feature set that only finds significant differences
+betwen 45/100 regions.
+
+% I don't think I'll do this (I probably won't even do the Volk thing
+% since it involves some kind of Black Magic in icecore.h.
+% Well, I *could* instead replicate each feature by its weight
+% before combining, but this would probably make classification super
+% slow because of the huge number of features.)
+% ----
+% Combinations of feature types will be ranked by
+% averaging the number of significant distances that the constituent
+% feature types produce.
+
+\section{Pre- and Post-processing}
 To investigate the first hypothesis, I need a dialect corpus that can
 be syntactically annotated (\ref{syntactically-annotated-corpus}); if
 it is not already annotated, it must be possible to annotate it
@@ -648,7 +841,7 @@ context (\ref{alternate-feature-sets}).
 If the distance measure $R$ doesn't provide any significant distances
 with any combination of features, I will experiment with different
 distance measures (\ref{alternate-distance-measures}). For this, there
-are quite a few possibilities; Kullbeck-Leibler divergence is one
+are quite a few possibilities; Kullback-Leibler divergence is one
 example.
 
 To investigate the third hypothesis, I need a phonological corpus and a method
@@ -1272,198 +1465,6 @@ TODO: This isn't complete; I'm not convinced that Wiersma's
 last normalisation helps with the ranking, but that's because I don't
 understand why he expects it to help.
 
-\subsection{Combining Feature Sets}
-\label{combine-feature-sets}
-
-Combining feature sets gives the classifier more information about a
-site by combining the information that each feature set
-captures. This dissertation uses a simple linear combination. In other
-words, when combined, all features are counted together with equal
-weight. This is easy and should suffice in allowing the feature ranker
-to find a greater variety features from different feature sets that capture the
-same underlying syntactic information.
-
-% Hey, these should really be feature *type* sets since they are sets
-% of feature types, not sets of observed feature tokens. Maybe I
-% should make a note of this early on in the dissertation and say
-% "feature sets" is used in the rest of this dissertation to mean
-% "feature type sets" (except maybe in the discussion of the
-% normalisation, which should refer to vectors anyway)
-
-A more sophisticated method of combining features can be
-adapted from Martin Volk's method for deciding prepositional phrase
-(PP) attachment \cite{volk02}. Volk uses a number of different feature
-sets to decide where to attach PPs. However, he also weights each
-feature set differently based on its reliability.
-
-Volk used an a priori reliability measure for ranking
-quality of combined feature types; I use number of significant
-region differences for ranking: the top-ranked feature set will be
-the one that produces the highest number of significant distances
-between regions. So, if a feature set finds significant differences
-between 90 out of 100 regions, its weight will be 0.90 and will be double
-the weight for a feature set that only finds significant differences
-betwen 45/100 regions.
-
-% I don't think I'll do this (I probably won't even do the Volk thing
-% since it involves some kind of Black Magic in icecore.h.
-% Well, I *could* instead replicate each feature by its weight
-% before combining, but this would probably make classification super
-% slow because of the huge number of features.)
-% ----
-% Combinations of feature types will be ranked by
-% averaging the number of significant distances that the constituent
-% feature types produce.
-
-\subsection{Alternate Feature Sets}
-\label{alternate-feature-sets}
-
-Different feature sets capture different aspects of the underlying
-syntactic structure. Ideally, one feature set would capture so much
-that no others would be needed. However, in the absence of a
-minimalist parser capable of returning the complete syntactic
-structure of Swedish (Josh's dissertation, not yet finished), multiple
-feature sets are useful in an empirical setting. One set may capture
-information that the rest miss.
-
-This section describes the variants besides the main feature sets
-already described above: leaf-ancestor paths and dependency
-paths. Most are variants on these two main sets.
-
-\subsubsection{Phrase Structure Rules}
-
-Phrase structure rules are extracted from the same parses as
-leaf-ancestor paths, but instead of capturing a series of parent-child
-relations, it captures single-level parent-child-sibling
-relations. For example, given the tree in figure
-\ref{psg-example-tree} the extracted relations are given in
-figure \ref{psg-example}.
-
-\begin{figure}
-\Tree[.S [.NP [.Det the ] [.N dog ] ] [.VP [.V barks ] ] ]
- \caption{Example Tree}
-  \label{psg-example-tree}
-\end{figure}
-
-\begin{figure}
-  \begin{tabular}{ccc}
-    \Tree[.S NP VP ] & \Tree[.NP Det N ] & \Tree[.VP V ] \\
-  \end{tabular}
- \caption{Phrase-Structure Rules Extracted}
-  \label{psg-example}
-\end{figure}
-
-This feature set emphasises upper tree structure more than other
-feature sets because features from the upper tree are not only
-represented (as they are not in dependency-based and trigram-based
-features), but also given their own features separate from the
-features starting lower in the tree.
-
-\subsubsection{Grandparent Phrase Structure Rules}
-
-Grandparent phrase structure rules are a variant of phrase structure
-rules that include the grandparent as well. Given the tree in figure
-\ref{psg-example-tree}, the extracted features are given in
-figure \ref{grand-psg-example}.
-
-\begin{figure}
-  \begin{tabular}{ccc}
-    \Tree[.ROOT [.S NP VP ] ] & \Tree[.S [.NP Det N ] ] &
-    \Tree[.S [.VP V ] ] \\
-  \end{tabular}
-\caption{Grandparent Phrase-Structure Rules Extracted}
- \label{grand-psg-example}
-\end{figure}
-
-This variant adds some of the vertical information present in
-leaf-ancestor paths, hopefully without introducing data sparseness
-problems (not measured). However, it retains its advantage over
-leaf-ancestor paths of capturing left and right context.
-
-\subsubsection{Arc-Head Paths}
-
-As described in section \ref{leaf-head-paths}, the usual labels for
-leaf-head paths are the leaves of the tree: `root-V-N-Det-the' is the
-first leaf-head path for ``The dog barks'' (Det N V). However, one can
-also use the arc labels of the depdency parse to create arc-head
-paths. These paths have the same shape as their corresponding
-leaf-head-paths, but use different labels.
-
-For the previous example, the sentence is now
-
-\[\xymatrix{
-& & root \\
-The \ar@/^/[r]^{DT} & dog \ar@/^/[r]^{SS} & barks \ar@{.>}[u]
-}
-\]
-
-and the arc-head paths are
-
-\begin{itemize}
-\item root-SS-DT-the
-\item root-SS-dog
-\item root-barks
-\end{itemize}
-
-\subsubsection{Tags from Berkeley Parser}
-
-The Berkeley parser, as described in section \label{parsers}, can either tag
-incoming sentences with its own part of speech tagger (based on the
-rest of the parser) or with parts of speech specified externally. In
-other words, it competes as a part-of-speech tagger with
-T'n'T. Although the tags are not as good, it is interesting to see
-how they change the overall results when given as input to the
-distance measures and to MaltParser.
-
-Specifically, instead of the input corpus being fed through T'n'T to
-first to produce tags, the Berkeley parser is given the same
-corpus. Along the way of parsing trees, it also tags words with parts
-of speech. After parsing, these parts of speech are extracted from the
-leaves of the parse trees. First, the parts of speech are used to
-create trigram features. Second, the Berkeley-tagged words are
-converted to CONLL format and given to MaltParser for dependency
-parsing. This produces dependency parses based on parts of speech from
-the Berkeley parser.
-
-\subsubsection{Tags from MaltParser trained with Timbl}
-
-Since MaltParser uses Nivre's oracle-based dependency parsing
-algorithm, the default oracle, based on support vector machines, can
-be replaced with Timbl, the Tilburg Memory-Based Learner. It is
-possible that a memory-based learner will provide better parsing
-because support vector machines depend on large
-training corpora to provide good results. In contrast, a memory-based
-learner can obtain good results on limited training if the training
-happens to be representative and the right combination of parameters
-can be found for Timbl.
-
-This is, however, somewhat complicated since Timbl is quite sensitive
-to parameter changes and usually requires specific tuning for
-particular tasks. To find the best
-parameters, I use a linear search across a number of the major
-distance measures provided by Timbl, as well as fallback-combinations
-from more complicated distance measures to less complicated ones.
-
-Each combination was evaluated with ten-fold cross-validation on
-Talbanken. The best combination, Jeffrey's distance with XX and YY
-settings, was used as a basis for parsing and parsing proceeded
-identically to previous runs.
-
-\subsubsection{Within-clause Dependency/Leaf-ancestor paths}
-
-I haven't done this. This is interview data and there are not many
-nested clauses---probably less than 1 in 3 and I don't think it would make much
-difference. Besides, it would be difficult to specify a set of
-criteria for cutting off within-a-clause---simply removing everything
-between the root and the first S would miss some nested clauses.
-
-All right, so maybe you really could just use parts of speech to
-tell. Even if it worked, I still don't think there would be much
-difference because very few of the important features without
-within-clause cutoff have multiple clauses--most are simple and
-non-nested. Oh, right. Simplifying to ignore clause nesting would
-increase the power of phenomena that happen regardless of nesting
-level but don't occur enough to be visible otherwise.
 
 \subsection{Alternate Distance Measures}
 \label{alternate-distance-measures}
@@ -1488,16 +1489,15 @@ resolving Hypotheses 1 and 2.
 % good, so I should probably just drop this.)
 
 % (maybe it was relative entropy or just normal-kind entropy).
-% TODO: WIV, also Kullbeck-Leibler Divergence could work.
+% TODO: WIV, also Kullback-Leibler Divergence could work.
 % Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
 % neural net
 
 \subsubsection{KL divergence}
 
 % TODO: Find original citation for KL divergence
-% TODO: Replace Kullbeck with Kullback
 
-Kullbeck-Leibler divergence, or relative entropy, is described in
+Kullback-Leibler divergence, or relative entropy, is described in
 \namecite{manningschutze}.  Relative entropy is similar to $R$ but
 more widely used in computational linguistics. The name relative
 entropy implies an intuitive interpretation: it is the number of bits
@@ -1528,7 +1528,7 @@ differences, the per-feature entropy can be summed to find the total
 entropy. In the example above, the entropy for S-NP-N is $20
 \log\frac{20}{15} = 5.75$.
 
-However, Kullbeck-Leibler divergence as defined is a divergence: it
+However, Kullback-Leibler divergence as defined is a divergence: it
 measures the divergence of features in the corpus $c_b$ from the
 features of corpus $c_a$. A dissimilarity is required for
 dialectology, which means that the divergence must additionally be
