@@ -1152,20 +1152,17 @@ each dissimilarity would have to change in order for all to satisfy
 the triangle inequality. This initial stress is reduced by a process
 of gradient descent as described in \cite{kruskal64b}.
 
-\subsubsection{PCA}
+\subsubsection{Principal Components Analysis}
 
 Principal Components Analysis (PCA) is useful in conjuction with MDS
 because the 3 (or so) dimensions that MDS produces can be correlated
-with features. Then the features can be
+with features. Since the features correlated with the first few dimensions are
+the most important, they can be used when comparing with dialectology
+results.
 
 TODO: Research this and get the details of the math.
 Pretty sure that L04 does it for me. Probably. (The L04 tutorial also mentions
 another method that I can't remember the name of.)
-
-http://www.mathpsyc.uni-bonn.de/doc/delbeke/delbeke.htm says that
-metric MDS is a special case of PCA anyway. Not sure whether I'm doing
-metric MDS (though I guess so) because I don't know if my analysis is
-unique on the interval level (or ratio/absolute level).
 
 \subsubsection{Cluster Boundary Diagrams}
 
@@ -1430,23 +1427,27 @@ the Berkeley parser.
 
 \subsubsection{Tags from MaltParser trained with Timbl}
 
-Another variation for generating dependency features for MaltParser is
-to use Timbl, the Tilburg Memory-Based Learner, as the oracle classifier
-for Nivre's dependency parsing algorithm than the default support
-vector machines.
+Since MaltParser uses Nivre's oracle-based dependency parsing
+algorithm, the default oracle, based on support vector machines, can
+be replaced with Timbl, the Tilburg Memory-Based Learner. It is
+possible that a memory-based learner will provide better parsing
+because support vector machines depend on large
+training corpora to provide good results. In contrast, a memory-based
+learner can obtain good results on limited training if the training
+happens to be representative and the right combination of parameters
+can be found for Timbl.
 
 This is, however, somewhat complicated since Timbl is quite sensitive
-to parameters and will exhibit better performance if the parameters
-are tuned for the particular task of Swedish parsing. To find the best
+to parameter changes and usually requires specific tuning for
+particular tasks. To find the best
 parameters, I use a linear search across a number of the major
 distance measures provided by Timbl, as well as fallback-combinations
 from more complicated distance measures to less complicated ones.
 
 Each combination was evaluated with ten-fold cross-validation on
-Talbanken. The best combination was used as a basis for parsing and
-parsing proceeded identically to previous runs.
-
-TODO: More detail here.
+Talbanken. The best combination, Jeffrey's distance with XX and YY
+settings, was used as a basis for parsing and parsing proceeded
+identically to previous runs.
 
 \subsubsection{Within-clause Dependency/Leaf-ancestor paths}
 
@@ -1571,39 +1572,44 @@ JS = \sum_i {c_{ai} \log\frac{c_{bi}}{\bar{c_i}} + c_{ai}
 \label{jsmeasure}
 \end{equation}
 
-Here is where I describe what kinds of limitations Jensen-Shannon
-lifts from Kullback-Leibler, besides the obvious initial design as a
-dissimilarity rather than a divergence.
-
+Unlike Kullback-Leibler divergence, Jensen-Shannon divergence does not
+require the feature counts to be absolutely continuous; in other
+words, that if $c_{ai}$ is non-zero, then $c_{bi}$ has to be non-zero
+too. Since the current implementation of Kullback-Leibler divergence
+simply skips zero values, this means it ignores features unique to a
+particular corpus. Jensen-Shannon divergence avoids this problem.
+% In addition, it provides bounds on variational distance
+% and the Bayes probability of error.
+% TODO: Find out what this means
 
 \subsubsection{Cosine similarity}
 
-Cosine similarity is a standard in many parts of computational
-linguistics. It captures the dissimarlity between two high-dimensional
-points in space. Type counts of features can be modelled as points on
-a dimension, with each feature a dimension. The result is:
+Cosine similarity is used in many parts of computational linguistics
+and related areas such as information extraction and data
+mining. \namecite{nerbonne06} use it as reference point for
+comparison to previous work in these areas. Cosine similarity measures
+the similarity between two high-dimensional points in space. Each
+feature is modelled as a dimension, and the type count from each
+corpus is plotted as a point on that dimension. The result is equation
+\ref{cosmeasure} or the non-vectorised version in
+\ref{cosmeasureiterative}.
 
 \begin{equation}
-  \frac{\sum_i {c_{ai}c_{bi}}} {\sqrt{\sum_i {c_{ai}}} + \sqrt{\sum_i{c_{bi}}}}
+  \frac{c_{a}\cdot c_{b}} {||c_{ai}||||c_{bi}||}
   \label{cosmeasure}
 \end{equation}
 
-This discussion is not done because I don't compare my use to existing
-uses, nor do I justify my use. I should be able to do a little
-research to find good reasons but at this point, my use is justified
-mainly because so many other people use it. Specifically, Wybo.
+\begin{equation}
+  \frac{\sum_i {c_{ai}c_{bi}}} {\sqrt{\sum_i {c_{ai}^2}} +
+    \sqrt{\sum_i{c_{bi}^2}}}
+  \label{cosmeasureiterative}
+\end{equation}
 
-Interestingly, the results are very different from other methods,
-possibly because it deviates from the simple linear sum that the other
-methods use.
+Interestingly, the results for this measure are very different from
+the other distance measures, possibly because, unlike the others
+described, it is not a linear sum.
 
 % \subsubsection{LSA} Nope, didn't work out
-
-\subsubsection{Alternate Training for MaltParser}
-
-Some text
-
-Some other text
 
 %%% Local Variables: 
 %%% mode: latex

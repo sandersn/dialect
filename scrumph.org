@@ -632,6 +632,14 @@
      java -Xmx1G -jar lib/MaltEval.jar -s result-Overlap-3-?.conll -g
      test-?.conll > eval-Overlap-3.txt
      (for 10-fold cross-validation)
+** 2010/03/24
+   - I finished distance measures. I presented at parsing group and
+     got no (!) new suggestions.
+   - I will run some new 10-fold variations on Jeffrey's classifier. I
+     will start the second pass on the methods chapter. I will finish
+     modifying C++/Python/R code to generate freq/ratio difference (ie
+     2nd normalisation or not)
+   - 
 
 * Plan
 ** January
