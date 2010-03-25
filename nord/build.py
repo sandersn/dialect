@@ -132,39 +132,42 @@ def genFeatures():
         run("./ConvertTagsToFeature '%s.tag' trigram >'%s-trigram.dat'" % (region,region))
         run("./CombineFeatures '%s-path.dat' '%s-dep.dat' '%s-trigram.dat' >'%s-all.dat'" % ((region,) * 4))
 
-variants = [(sample,measure,feature) for sample in consts.sample
-                                     for measure in consts.measures
-                                     for feature in consts.features]
+variants = [(sample,measure,feature,norm) for sample in consts.samples
+                                          for measure in consts.measures
+                                          for feature in consts.features
+                                          for norm in consts.norms]
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
-    for sample, measure, feature in variants:
+    for sample, measure, feature, norm in variants:
         multirun(6, *norte.icetasks(consts.swediaSites,
                                     feature, 'icedist.cpp',
-                                    measure, sample, 10))
-        norte.combine(feature, 'dist', measure, sample, 10)
+                                    measure, sample, norm, 10))
+        norte.combine(feature, 'dist', measure, sample, norm, 10)
 def syntaxSig():
     # 11. Run ctrl.out with various parameter settings.
-    for sample, measure, feature in variants:
-        multirun(6, *norte.icetasks(consts.swediaSites,
-                                    feature, 'icesig.cpp', measure, sample))
-        norte.combine(feature, 'sig', measure, sample)
+    for sample, measure, feature, norm in variants:
+        multirun(6,
+                 *norte.icetasks(consts.swediaSites,
+                                 feature, 'icesig.cpp', measure, sample, norm))
+        norte.combine(feature, 'sig', measure, sample, norm)
 def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
     # 12. Dump a list of all features between each pair of site clusters.
-    for sample, measure, feature in variants:
+    for sample, measure, feature, norm in variants:
         # 12.1 Make cluster files first
         norte.combineFeatures(consts.agreeClusters, feature)
-        multirun(6, *norte.icetasks(list(consts.agreeClusters.keys()),
-                                    feature, 'icefeat.cpp', measure, sample))
+        multirun(6,
+                 *norte.icetasks(list(consts.agreeClusters.keys()),
+                                 feature, 'icefeat.cpp', measure, sample, norm))
         # 12.2 Then analyse it
         tmps = ' '.join([
             "%s-%s-tmp.txt" % pair
             for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
-        run('./RankFeatures %s >feat-5-%s-%s-%s-interview.txt'
-            % (tmps,sample,measure,feature))
+        run('./RankFeatures %s >feat-5-%s-%s-%s-%s.txt'
+            % (tmps,sample,measure,feature,norm))
 def syntaxFeaturesSimple():
-    for sample, measure, feature in variants:
-        norte.writeparams(1000, sample, measure)
+    for sample, measure, feature, norm in variants:
+        norte.writeparams(1000, sample, measure, norm)
         run('g++ -O2 -o ctrl.out params.h icefeat.cpp')
 
         for site in set(consts.swediaSites) - set(["Jamshog"]):
@@ -172,36 +175,37 @@ def syntaxFeaturesSimple():
                 % (feature, site, feature, site))
         tmps = ' '.join("'tmp-Jamshog-%s.txt'" % (site,)
                         for site in set(consts.swediaSites) - set(["Jamshog"]))
-        run('./RankFeatures %s >feat-5-%s-%s-%s-jamshog.txt'
-            % (tmps,sample,measure,feature))
+        run('./RankFeatures %s >feat-5-%s-%s-%s-%s-jamshog.txt'
+            % (tmps,sample,measure,feature,norm))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
-    run('./CalculateGeoDistance >dist-10-1000-geo-interview.txt')
-    run('./FormatDistance dist-10-1000-geo-interview.txt pairwise > dist-10-1000-geo-interview.csv')
-    run('./FormatDistance dist-10-1000-travel-interview.txt pairwise > dist-10-1000-travel-interview.csv')
+    run('./CalculateGeoDistance >dist-geo.txt')
+    run('./FormatDistance dist-geo.txt pairwise > dist-geo.csv')
+    run('./FormatDistance dist-travel.txt pairwise > dist-travel.csv')
     # 13.2 Next a 2-D table (full/redundant-matrix) for R
-    run('./FormatDistance dist-10-1000-geo-interview.txt square > dist-10-1000-geo-interview-R.txt')
-    run('./FormatDistance dist-10-1000-travel-interview.txt square > dist-10-1000-travel-interview-R.txt')
+    run('./FormatDistance dist-geo.txt square > dist-geo-R.txt')
+    run('./FormatDistance dist-travel.txt square > dist-travel-R.txt')
     # 13. Generate some analysis of the output
     for variant in variants:
         # 13.1 First a 2-D table (half-matrix) for Excel
-        run('./FormatDistance dist-10-%s-%s-%s-interview.txt pairwise > dist-10-%s-%s-%s-interview.csv' % (variant * 2))
+        run('./FormatDistance dist-10-%s-%s-%s-%s.txt pairwise > dist-10-%s-%s-%s-%s.csv' % (variant * 2))
         # 13.2 Next a 2-D table (full/redundant-matrix) for R
-        run('./FormatDistance dist-10-%s-%s-%s-interview.txt square > dist-10-%s-%s-%s-interview-R.txt' % (variant * 2))
+        run('./FormatDistance dist-10-%s-%s-%s-%s.txt square > dist-10-%s-%s-%s-%s-R.txt' % (variant * 2))
     # 13.3 make a CSV of significances
-    for sample in consts.sample:
-        run('grep -c 0 sig*.txt >sigtmp.txt')
-        sigs = dict(line.strip().split(':') for line in open('sigtmp.txt'))
-        outf = open('sig-10-%s-interview.csv' % (sample,), 'w')
-        outf.write(',' + ','.join(consts.features) + '\n')
-        for measure in consts.measures:
-            outf.write(measure + ',')
-            outf.write(','.join(
-                sigs['sig-100-1000-%s-%s-interview.txt' % (measure, feature)]
-                for feature in consts.features))
-            outf.write('\n')
-        outf.close()
+    for norm in consts.norms:
+        for sample in consts.samples:
+            run('grep -c 0 sig*.txt >sigtmp.txt')
+            sigs = dict(line.strip().split(':') for line in open('sigtmp.txt'))
+            outf = open('sig-10-%s-%s.csv' % (sample,norm), 'w')
+            outf.write(',' + ','.join(consts.features) + '\n')
+            for measure in consts.measures:
+                outf.write(measure + ',')
+                outf.write(','.join(
+                    sigs['sig-100-1000-%s-%s-%s.txt' % (measure, feature, norm)]
+                    for feature in consts.features))
+                outf.write('\n')
+            outf.close()
     # 13.4 Run correlations AND hierarchical cluster figures
     # TODO: Still have to rotate to portrait after generation
     # TODO: Should generate pairwise comparisons between all feature types
@@ -210,8 +214,8 @@ def genAnalysis():
 def genMaps():
     run('ghc -O2 --make ConvertDistToL04')
     for variant in variants:
-        run('./ConvertDistToL04 dist-10-%s-%s-%s-interview.txt >dist-10-%s-%s-%s-interview.dif' % (variant * 2))
-        run('RuG-L04/bin/mds -K -o mds-10-%s-%s-%s-interview.vec 3 dist-10-%s-%s-%s-interview.dif' % (variant * 2))
+        run('./ConvertDistToL04 dist-10-%s-%s-%s-%s.txt >dist-10-%s-%s-%s-%s.dif' % (variant * 2))
+        run('RuG-L04/bin/mds -K -o mds-10-%s-%s-%s-%s.vec 3 dist-10-%s-%s-%s-%s.dif' % (variant * 2))
         try:
             run('rm out.trn') # mapsetup won't overwrite out.trn
         except:
@@ -224,7 +228,7 @@ def genMaps():
         cfg.write('clipping: sverige.clp\n')
         #TODO: cfg.write(province borders???)
         cfg.close()
-        run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s-%s.eps Sverigekarta.cfg mds-10-%s-%s-%s-interview.vec' % (variant * 2))
+        run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s-%s-%s.eps Sverigekarta.cfg mds-10-%s-%s-%s-%s.vec' % (variant * 2))
         # run('Something to convert eps to pdf')
     run('mv *eps ..')
 def blade(runner, targets):
