@@ -339,127 +339,147 @@ R = \sum_i |c_{ai} - c_{bi}|
 \label{rmeasure}
 \end{equation}
 
-\noindent{}Given two corpora $a$ and $b$, $c_a$ and $c_b$ are the type
-counts. $i$ ranges over all types, so $c_{ai}$ and $c_{bi}$ are the
-type counts of corpora $a$ and $b$ for type $i$. $R$ is designed to
+\noindent{}Given two corpora $a$ and $b$, $c_a$ and $c_b$ are the
+feature counts. $i$ ranges over all features, so $c_{ai}$ and $c_{bi}$ are the
+counts of corpora $a$ and $b$ for feature $i$. $R$ is designed to
 represent the amount of variation exhibited by the two corpora while
-the contribution of individual types remains transparent to aid later
+the contribution of individual features remains transparent to aid later
 analysis. Unfortunately, it doesn't indicate whether its results are significant; a
 permutation test is needed for that, described in section
 \ref{permutationtest}.
 
-To account for differences in corpus size, sampling with replacement
-is used. The corpus is sampled by sentence rather than by feature
-because the intent is to capture syntax, where the composite unit is
-the sentence. In other words, phonology's composite unit is the
-word---most processes operate within the word on individual features;
-some processes operate between words but they are fewer. In phonology,
-the assumption that words are independent will capture many of the
-interesting phonological processes. In the same way, the basic unit of
-analysis is the sentence; processes operate on the words in the
-sentence, but inter-sentence processes are fewer. Because of this, the
-corpora are sampled by sentence, combining the sentences of all
-speakers from an interview site into a single corpus. This removes the
-per-speaker sampling of \quotecite{wiersma09} work on Finnish L2
-speakers. Although the motivation is partly theoretical, there is also
-a difference between the Swediasyn, with 2-4 speakers for each site of
-30, and Wiersma's corpus, with dozens of speakers but only two
-groups. I assume that, since discovery of dialect features are the
-goal of this research, combining the sentences of speakers from the
-same village may result in conflicting evidence from the extracted
-features. However, the dialect features should be the same for all
-speakers.
+\subsubsection{Dialectometry in British English}
 
-In addition, the samples are normalized to account for
-differences in sentence length and complexity.
+The methods used in this dissertation are an evolution of those in my
+previous work on British English: \cite{sanders07} and
+\cite{sanders08b}. There, I compared phonological and syntactic
+dialectometry as described above. The process is similar to Wiersma's
+work in \cite{nerbonne06} and \cite{wiersma09}. Here, it is slightly
+simpler and with a few variations.
+
+The input are 30 corpora, one for each interview site (described in
+section \ref{syntactically-annotated-corpus}). The sentences in each
+corpus have their features generated (the features are described in
+\ref{syntactic-features}). Optionally, only 1000 sentences are sampled
+with replacement, but the corpus sizes, unlike the British interviews
+in my previous work, are fairly similar in size so this is only
+necessary for comparison to previous work. Then the features are
+counted, producing a mapping of feature types to token counts.
+
+At this point, two corpora are compared based on these feature
+counts. The feature counts are first normalised to account for
+variation in corpus size and sentence length (described in
+the next section). Optionally, they are converted to ratios, meaning
+that the counts are scaled relative to the other corpus. For example,
+counts of 10 and 30 would produce the ration 1 to 3, as would the
+counts 100 and 300. Finally, the distance (described above in
+\ref{nerbonne06}) is calculated 10 times and the result is averaged.
+
+The corpus is sampled by sentence rather than by feature because the
+intent is to capture syntax, where the composite unit is the
+sentence. Similarly, phonology's composite unit is the word---most
+processes operate within the word on individual segments; some
+processes operate between words but they are fewer. Therefore, the
+assumption that words are independent will lose some information but
+not the majority. In the same way, the basic unit of syntax is the
+sentence; processes operate on the words in the sentence, but
+inter-sentence processes are fewer. Because of this, the corpora are
+sampled by sentence, combining the sentences of all speakers from an
+interview site into a single corpus.
+
+This dissertation skips the per-speaker sampling of
+\quotecite{wiersma09} work on Finnish L2 speakers. I assume that,
+since discovery of dialect features is the goal of this research, the
+sentences of speakers from the same village are independent of the
+speaker, at least with respect to dialect features. Although the
+motivation is partly theoretical, there is also a difference between
+the Swediasyn dialect corpus, with 2-4 speakers for each of 30 sites,
+and Wiersma's L2 corpus, with dozens of speakers but only two
+groups. Sampling per-speaker would not be feasible for the Swediasyn
+because there aren't enough speakers per village.
 
 \subsubsection{Normalization}
 
-With the paths of each sentence generated from the corpus, then sorted
-by type into vectors, we now try to determine
-whether the paths of one region occur in significantly different
-numbers from the paths of another region. To do this, we calculate some
-measure to characterize the difference between two vectors as a single
-number. \namecite{kessler01} creates a simple measure called the
-% This is totally repetitive!
-{\sc Recurrence} metric ($R$ hereafter), which
-is simply the sum of absolute differences of all path token counts
-$c_{ai}$ from the first corpus $A$ and $c_{bi}$ from the second corpus
-$B$.
-\[ R = \sum_i |c_{ai} - \bar{c_i}| \textrm{ where } \bar{c_i} = \frac{c_{ai} + c_{bi}}{2}\]
-However, to find out if the value of $R$ is significant, we
-must use a permutation test with a Monte Carlo technique described by
-\namecite{good95}, following
-closely the same usage by \namecite{nerbonne06}. The intuition behind
-the technique is to compare the $R$ of the two corpora with the $R$ of
-two random subsets of the combined corpora. If the random subsets' $R$s
-are greater than the $R$ of the two actual corpora more than $p$ percent
-of the time, then we can reject the null hypothesis that the two were
-are actually drawn from the same corpus: that is, we can assume that
-the two corpora are different.
+The two corpora being compared can differ in size, even if they are
+samples with the same number of sentences; if one corpus contains many
+long sentences with the other contains many short ones, raw counts
+will favour the features extracted from the long sentences simply
+because each sentence yields more features. Addtionally, the counts can
+optionally be converted to ratios to ignore the effect of
+frequency---in effect, this ranks features only by how much they differ
+between the two corpora, ignoring the question of how often they occur
+relative to the other features extracted from the corpora. That is,
+a high ratio for a rare feature that happens only ten times in both
+corpora is just as important as a high ratio for a common feature that
+happens thousands of times.
 
-However, before the $R$ values can be compared, the path counts in the
-random subsets must
-be normalized since not all paths will occur in every subset, and
-average sentence length will differ, causing relative path frequency
-to vary. There are two normalizations that must occur: normalization
-with respect to sentence length, and
-normalization with respect to other paths within a subset.
-
-The first stage of normalization normalizes the counts for each path
-within the pair of vectors $a$ and $b$. The purpose is to neutralize the
-difference in sentence length, in which longer sentences with more
-words cause paths to be relatively less frequent.
-Each count is converted to a frequency $f$ \[f=\frac{c}{N} \] where
-$c$ is either $c_{ai}$ or $c_{bi}$ from above and $N$ is the length of the
-containing vector $a$ or $b$. This produces two frequencies, $f_{ai}$ and
-$f_{bi}$.Then the frequency is scaled
-back up to a redistributed count by the equation
+The first normalization normalizes the counts for each feature within the
+pair of vectors $a$ and $b$. The purpose is to normalise the
+difference in sentence length, where longer sentences with more words
+cause features to be relatively more frequent than corpora with many
+short sentences.  Each count $c_i$ in the vector $c$ is converted to a
+frequency $f_i$ \[f_i=\frac{c_i}{N} \] where $N$ is the length of
+$c$. For two corpora $c_a$ and $c_b$ this produces two frequency
+vectors, $f_{a}$ and $f_{b}$.Then the original counts in $c_a$ and
+$c_b$ are redistributed according to the frequencies in $f_a$ and $f_b$:
 \[\forall j \in a,b : c'_{ji} = \frac{f_{ji}(c_{ai}+c_{bi})}{f_{ai}+f_{bi}}\]
-This will redistribute the total of a pair from $a$ and $b$ based on
-their relative frequencies. In other words, the total of each path
-type $c_{ai} + c_{bi}$ will remain the same, but the values of
-$c_{ai}$ and $c_{bi}$ will be balanced by their frequency
+This redistributes the total of a pair from $a$ and $b$ based on
+their relative frequencies. In other words, the total for each feature
+remains the same:
+\[ c_{ai} + c_{bi} = c'_{ai} + c'_{bi} \]
+but the values of $c_{ai}$ and $c_{bi}$ are scaled by their frequency
 within their respective vectors.
 
 For example, assume that the two corpora have 10 sentences each, with
 a corpus $a$ with only 40 words and another, $b$, with 100 words. This
 results in $N_a = 40$ and $N_b = 100$. Assume also that there is a
-path $i$ that occurs in both: $c_{ai} = 8$ in  $a$ and $c_{bi} = 10$ in
+feature $i$ that occurs in both: $c_{ai} = 8$ in $a$ and $c_{bi} = 10$ in
 $b$. This means that the relative frequencies are $f_{ai} = 8/40 = 0.2$
 and $f_{bi} = 10/100 = 0.1$. The first normalization will redistribute the
-total count (18) according to relative size of the frequencies. So
+total count ($10 + 8 = 18$) according to relative frequencies. So
 \[c_{ai}' = \frac{0.2(18)}{0.2+0.1} = 3.6 / 0.3 = 12\] and
-\[c_{bi}' = \frac{0.1(18)}{0.2+0.1} = 1.8 / 0.3 = 6\]
-Now that 8 has been scaled to 12 and 10 to 6, the effect of sentence length
+\[c_{bi}' = \frac{0.1(18)}{0.2+0.1} = 1.8 / 0.3 = 6\] Now that 8 has
+been scaled to 12 and 10 to 6, the fact that corpus $b$ has more words
 has been neutralized. This reflects the intuition that something that
 occurs 8 of 40 times is more important than something that occurs 10
 of 100 times.
 
 % this is the (*2n / N) bit
-The second normalization normalizes all values in both
-permutations with respect to each other. This is simple: find the
-average number of times each path appears, then divide each scaled
-count by it. This produces numbers whose average is 1.0 and whose
-values are multiples of the amount that they are greater than the average.
-The average path
-count is $N / 2n$, where $N$ is the number of path tokens in
-both the permutations and $n$ is the number of path types. Division by
-two is necessary since we are multiplying counts from a single permutation by
-token counts from both permutations. Each type entry in the
-vector now becomes \[\forall j \in a,b : s_{ji} = \frac{2nc_{ji}'}{N}\]
+The second normalization normalizes all values in both permutations
+with respect to each other. This is simple: find the average number of
+times each feature appears, then divide each scaled count by it. This
+produces numbers whose average is 1.0 and whose values are multiples
+of the amount that they are greater than the average.  The average
+feature count is $N / 2n$, where $N$ is the number of feature
+occurrences in both the permutations and $n$ is the number of feature
+types. Division by two is necessary since we are multiplying counts
+from a single permutation by merged counts from both
+permutations. Each entry in the ratio vector now becomes \[\forall j
+\in a,b : r_{ji} = \frac{2nc_{ji}'}{N}\]
 
-Starting from the previous example, this second normalization first
-finds the average. Assuming 5 unique paths (types) for $a$ and 30 for
-$b$ gives \[n = 5 + 30 = 35\] and
-\[N = N_a + N_b = 40 + 100 = 140\]
-Therefore, the average path type has $140 / 2(35) = 2$
-tokens in $a$ and $b$ respectively. Dividing $c_{ai}'$ and $c_{bi}'$ by this average gives $s_{ai} = 6$
-and $s_{bi} = 3$. In other words, $s_{ai}$ has 6 times more tokens
-than the average path type.
+For example, given the previous example numbers, this second
+normalization first finds the average. Assuming 5 unique features for
+$a$'s 40 total features and 30 for $b$'s total 100 features gives \[n
+= 5 + 30 = 35\] and
+\[N = 40 + 100 = 140\]
+Therefore, the average feature has $140 / 2(35) = 2$
+occurrences in $a$ and $b$ respectively. Dividing $c_{ai}' = 12$ and
+$c_{bi}' = 6$ by this average gives $r_{ai} = 6$
+and $r_{bi} = 3$. In other words, $r_{ai}$ occurs 6 times more
+than the average feature.
 
 \subsection{Syntax Features}
 \label{syntactic-features}
+
+In order to investigate hypothesis 1, the distance measure, such as
+$R$, needs features that capture the dialect syntax of the interview
+corpora given as input. Following Nerbonne and Wiersma 2006, I will
+start with parts of speech, then add the leaf-ancestor paths that I
+tried on the ICE-GB, and finally add dependency-ancestor paths, as
+well as variants on these three feature sets. These feature sets each
+depend on a different type of automatic annotation, which described in
+section \ref{parsers}.
+
 \namecite{nerbonne06} argue that POS trigrams can accurately represent
 at least the important parts of syntax, similar to the way chunk
 parsing can capture the most important information about a
@@ -471,11 +491,12 @@ syntactically annotated corpus as I did with the
 International Corpus of English \cite{sanders07}.
 
 On the other hand, it might be better to represent the upper structure
-of trees, assuming that syntax is in fact a phenomenon that extends beyond the
-lexical. \quotecite{sampson00} leaf-ancestor paths provide one way to
-do this: for each leaf in the tree, leaf-ancestor paths produce the
-path from that leaf back to the root. Generation is simple as long as
-every sibling is unique. For example, the parse tree
+of trees in the feature set, assuming that syntax is in fact a
+phenomenon that involves hidden structure above the visible words of
+the sentence. \quotecite{sampson00} leaf-ancestor paths provide one
+way to do this: for each leaf in the parse tree, leaf-ancestor paths produce
+the path from that leaf back to the root. Generation is simple as long
+as every sibling is unique. For example, the parse tree
 
 \Tree[.S [.NP [.Det the ] [.N dog ] ] [.VP [.V barks ] ] ]
 
@@ -534,8 +555,7 @@ that is a leftmost sibling and a right bracket is inserted in a path
 containing a leaf that is a rightmost sibling. The bracket is inserted
 at the highest node for which the leaf is leftmost or rightmost.
 
-It is a good exercise to derive the bracketing of the previous two trees in deta
-il.
+It is a good exercise to derive the bracketing of the previous two trees in detail.
 In the first tree, with two B
 siblings, the first path is A-B-p. Since $p$ is a leftmost child,
 a left bracket must be inserted, at the root in this case. The
@@ -579,11 +599,11 @@ leaves because only the second case will receive brackets.
 
 Sampson originally developed leaf-ancestor paths as an improved
 measure of similarity between gold-standard and machine-parsed trees,
-to be used in evaluating parsers. The underlying idea of a collection of
-features that capture distance between trees transfers quite nicely to
-this application. \namecite{sanders07} replaced POS trigrams with
-leaf-ancestor paths for the ICE corpus and found improved results on
-smaller corpora than Nerbonne and Wiersma had tested. The additional
+to be used in evaluating parsers. The underlying idea of a collection
+of features that capture distance between trees transfers quite nicely
+to this application. I replaced POS trigrams with leaf-ancestor paths
+for the ICE corpus and found improved results on smaller corpora than
+Nerbonne and Wiersma had tested \cite{sanders07}. The additional
 precision that leaf-ancestor paths provide appears to aid in attaining
 significant results.
 
@@ -592,11 +612,24 @@ significant results.
 % TODO: This section should probably have a lot more examples and maybe some
 % examples of other applications besides my experiment.
 
-For dependency annotations, it is easy to adapt leaf-ancestor paths to
-leaf-head paths. Here, each leaf is associated with a leaf-head path,
-the path from the leaf to the head of the sentence via the
+For dependency parses, it is easy to create a variant of leaf-ancestor
+paths called ``leaf-head paths''. Like leaf-ancestor paths, each word
+in the sentence is associated with a single leaf-head path. The
+difference is that the path is from the leaf to the head of the sentence via the
 intermediate heads. For example, the same sentence, ``The dog barks'',
-produces the following leaf-head paths.
+produces the following leaf-head paths, given the dependency parse in
+figure \ref{example-dep-parse}:
+
+\begin{figure}
+\[\xymatrix{
+& & root \\
+DET \ar@/^/[r] & NP\ar@/^/[r] & V \ar@{.>}[u] \\
+The & dog & barks
+}
+\]
+\caption{Dependency parse for ``The dog barks.''}
+\label{example-dep-parse}
+\end{figure}
 
 \begin{itemize}
 \item root-V-N-Det-the
@@ -604,40 +637,30 @@ produces the following leaf-head paths.
 \item root-V-barks
 \end{itemize}
 
-The biggest difference is in the relative length of the paths: long
-leaf-ancestor paths indicate deep nesting of structure. Length is a
+The biggest difference between leaf-ancestor paths and leaf-head paths
+is the relative length of the paths: long
+leaf-ancestor paths indicate deep nesting of structure, while short
+ones indicate flatter structure. Length is a
 weaker indicator of deep structure for leaf-head
 paths; for example, the verb in a nested clause has a much shorter
 leaf-head path than leaf-ancestor path, but its dependents have
-comparable lengths between the two types of paths.
+comparable lengths between the two types of paths. Instead, length of
+path measures centrality to the sentence; longer leaf-head paths
+indicate less important words.
 
-In addition, leaf-head paths capture long-distance
-context nicely, like enhanced trigrams. Not as much upper structure,
-unless you have a deeply embedded sentence, in which case you can
-see that the outer verb, etc, mimic the upper structure of a
-leaf-ancestor path. Ultimately, leaf-head paths are just pretty cool.
-
-\[\xymatrix{
-& & root \\
-DET \ar@/^/[r] & NP\ar@/^/[r] & V \ar@{.>}[u] \\
-The & dog & barks
-}
-\]
+Leaf-head paths represent a compromise between leaf-ancestor paths and
+trigrams. Like trigrams, they capture lexical context, but the context
+is based on head dependendies, so long-distance context is
+possible. Like leaf-ancestor paths, they capture information about the
+nested structure of the sentence, although not as completely or
+explicitly.
 
 \subsection{Alternate Feature Sets}
 \label{alternate-feature-sets}
 
-Different feature sets capture different aspects of the underlying
-syntactic structure. Ideally, one feature set would capture so much
-that no others would be needed. However, in the absence of a
-minimalist parser capable of returning the complete syntactic
-structure of Swedish (Josh's dissertation, not yet finished), multiple
-feature sets are useful in an empirical setting. One set may capture
-information that the rest miss.
-
 This section describes the variants besides the main feature sets
-already described above: leaf-ancestor paths and dependency
-paths. Most are variants on these two main sets.
+already described above: trigrams, leaf-ancestor paths and leaf-head
+paths. Most are variants on these three main sets.
 
 \subsubsection{Phrase Structure Rules}
 
@@ -645,7 +668,7 @@ Phrase structure rules are extracted from the same parses as
 leaf-ancestor paths, but instead of capturing a series of parent-child
 relations, it captures single-level parent-child-sibling
 relations. For example, given the tree in figure
-\ref{psg-example-tree} the extracted relations are given in
+\ref{psg-example-tree} the extracted rules are given in
 figure \ref{psg-example}.
 
 \begin{figure}
@@ -662,11 +685,14 @@ figure \ref{psg-example}.
   \label{psg-example}
 \end{figure}
 
-This feature set emphasises upper tree structure more than other
-feature sets because features from the upper tree are not only
-represented (as they are not in dependency-based and trigram-based
-features), but also given their own features separate from the
-features starting lower in the tree.
+Phrase structure rules are most similar to leaf-ancestor paths in
+emphasising the upper structure of constituency parse trees. Unlike
+leaf-ancestor paths, they capture some context to the left and
+right. They also only cover one level in the tree, whereas
+leaf-ancestor paths traverse it from leaf to root. Phrase structure
+rules have the possibility to be useful in sentences where context is
+important, but they also depend on having accurate parses even at the
+top of the tree. This is difficult for automatic parsers to achieve.
 
 \subsubsection{Grandparent Phrase Structure Rules}
 
@@ -684,9 +710,9 @@ figure \ref{grand-psg-example}.
  \label{grand-psg-example}
 \end{figure}
 
-This variant adds some of the vertical information present in
+Grandparent phrase structure rules add some of the vertical information present in
 leaf-ancestor paths, hopefully without introducing data sparseness
-problems (not measured). However, it retains its advantage over
+problems. However, they retain the advantage over
 leaf-ancestor paths of capturing left and right context.
 
 \subsubsection{Arc-Head Paths}
@@ -917,18 +943,8 @@ lexically annotated for morphology and part-of-speech.
 
 \subsection{Parsing}
 \label{parsers}
-%% Um, this seems useful, but I'm not sure why I put it here...
-%% TODO: Figure out what this is for and use it somewhere?
-% In order to investigate hypothesis 1, I will need to produce features
-% to give to the classifier. These features should reflect the syntax of
-% the speech of the interviewees. Following Nerbonne and Wiersma 2006, I
-% will start with parts of speech, then add the leaf-ancestor paths that
-% I tried on the ICE-GB, and finally add dependency-ancestor paths that
-% are new. Probably one sentence more each on tagging, dependency and
-% constituency parsing.
-% (NOTE: Insert paragraphs on tagging and dependency and constituency
-% parsing before Talbanken discussion)
-% :
+% TODO: This should have a lot more detail probably. Like
+% mini-explanations of how the algorithms actually work.
 In order to extract the features used to build the language models
 described in the previous methods, SweDiaSyn will need to be POS
 tagged and parsed. For this dissertation, both constituency
@@ -963,6 +979,17 @@ cleaned and normalized, then used to train a parser.
 
 \subsection{Permutation test}
 \label{permutationtest}
+
+However, to find out if the value of $R$ is significant, we
+must use a permutation test with a Monte Carlo technique described by
+\namecite{good95}, following
+closely the same usage by \namecite{nerbonne06}. The intuition behind
+the technique is to compare the $R$ of the two corpora with the $R$ of
+two random subsets of the combined corpora. If the random subsets' $R$s
+are greater than the $R$ of the two actual corpora more than $p$ percent
+of the time, then we can reject the null hypothesis that the two were
+are actually drawn from the same corpus: that is, we can assume that
+the two corpora are different.
 
 The first hypothesis requires that the distances produced by a
 distance measure be checked for significance; it is possible that
