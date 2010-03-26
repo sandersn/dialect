@@ -1,5 +1,10 @@
 \chapter{Methods}
 
+I first discuss previous work that mine is related to but does not
+use. Then I discuss previous work, including previous work that I have
+done, that I use in this dissertation. Finally, I discuss the methods
+used to prepare the data for input and analyse the results.
+
 There is a lot of background information, like other distance
 measures and the underlying math of the distance measure I did use.
 
@@ -10,17 +15,7 @@ properly would obviate the need for MDS since I'd be working with a
 distance instead of a dissimilarity). But the top 3 would be different
 for each site pair. THEN he thought I was doing MDS.
 
-TODO: This is badly organised; half of it is historical background
-(ie things I build on but don't actually use) and half of it is stuff
-I actually use (or extend). But the dividing line
-is in the wrong place; R and leaf-ancestor paths are presented as
-history but are actually used in my code.
-
-Probably I should break the first half into a background chapter and move it
-earlier in the dissertation. It might even be appropriate in the first
-chapter, except that should be a short introduction I think.
-
-\section{Previous Work}
+\section{Related Work}
 
 \subsection{S\'eguy}
 
@@ -480,6 +475,13 @@ well as variants on these three feature sets. These feature sets each
 depend on a different type of automatic annotation, which described in
 section \ref{parsers}.
 
+% Hey, these should really be feature *type* sets since they are sets
+% of feature types, not sets of observed feature tokens. Maybe I
+% should make a note of this and say
+% "feature sets" is used in the rest of this dissertation to mean
+% "feature type sets" (except maybe in the discussion of the
+% normalisation, which should refer to vectors anyway)
+
 \namecite{nerbonne06} argue that POS trigrams can accurately represent
 at least the important parts of syntax, similar to the way chunk
 parsing can capture the most important information about a
@@ -623,7 +625,7 @@ figure \ref{example-dep-parse}:
 \begin{figure}
 \[\xymatrix{
 & & root \\
-DET \ar@/^/[r] & NP\ar@/^/[r] & V \ar@{.>}[u] \\
+DET \ar@/^/[r]^{DT} & NP\ar@/^/[r]^{SS} & V \ar@{.>}[u] \\
 The & dog & barks
 }
 \]
@@ -719,20 +721,15 @@ leaf-ancestor paths of capturing left and right context.
 
 As described in section \ref{leaf-head-paths}, the usual labels for
 leaf-head paths are the leaves of the tree: `root-V-N-Det-the' is the
-first leaf-head path for ``The dog barks'' (Det N V). However, one can
+first leaf-head path for ``The dog barks'', which has the parts of
+speec ``Det N V''. However, one can
 also use the arc labels of the depdency parse to create arc-head
 paths. These paths have the same shape as their corresponding
-leaf-head-paths, but use different labels.
+leaf-head-paths, but use the labels of the dependency arcs between
+words instead of the parts of speech of the words themselves.
 
-For the previous example, the sentence is now
-
-\[\xymatrix{
-& & root \\
-The \ar@/^/[r]^{DT} & dog \ar@/^/[r]^{SS} & barks \ar@{.>}[u]
-}
-\]
-
-and the arc-head paths are
+The sentence for the leaf-head example is given in figure
+\ref{example-dep-parse}, and the resulting arc-head paths are
 
 \begin{itemize}
 \item root-SS-DT-the
@@ -742,17 +739,24 @@ and the arc-head paths are
 
 \subsubsection{Tags from Berkeley Parser}
 
-The Berkeley parser, as described in section \label{parsers}, can either tag
-incoming sentences with its own part of speech tagger (based on the
-rest of the parser) or with parts of speech specified externally. In
-other words, it competes as a part-of-speech tagger with
-T'n'T. Although the tags are not as good, it is interesting to see
-how they change the overall results when given as input to the
-distance measures and to MaltParser.
+The Berkeley parser, as described in section \label{parsers}, can
+either tag incoming sentences with its own part of speech tagger,
+using the same splitting process as the rest of the parser, or with
+parts of speech specified externally. In this case, the external
+part-of-speech tagger is T'n'T. Although the Berkeley-generated POS
+tags are not as good, it may be useful to see how they change the
+overall results---although it seems that accurate parts of speech are
+required for good features to be generated, it is useful to see how
+much the results degrade when given lower quality parts of
+speech.
+Note that the Berkeley-generated POS tags are used to generate
+trigrams and leaf-head paths, by taking the POS tags and feeding them
+into MaltParser.
 
-Specifically, instead of the input corpus being fed through T'n'T to
-first to produce tags, the Berkeley parser is given the same
-corpus. Along the way of parsing trees, it also tags words with parts
+To get the Berkeley parser to generate parts of speech, it is given
+the interview corpora directly, skipping the tagging by T'n'T.
+Using the same method it uses to parsing the higher structure of the
+sentence, it also tags words with parts
 of speech. After parsing, these parts of speech are extracted from the
 leaves of the parse trees. First, the parts of speech are used to
 create trigram features. Second, the Berkeley-tagged words are
@@ -760,12 +764,12 @@ converted to CONLL format and given to MaltParser for dependency
 parsing. This produces dependency parses based on parts of speech from
 the Berkeley parser.
 
-\subsubsection{Tags from MaltParser trained with Timbl}
+\subsubsection{Dependencies from alternate MaltParser training}
 
 Since MaltParser uses Nivre's oracle-based dependency parsing
 algorithm, the default oracle, based on support vector machines, can
 be replaced with Timbl, the Tilburg Memory-Based Learner. It is
-possible that a memory-based learner will provide better parsing
+possible that a memory-based learner improves parsing
 because support vector machines depend on large
 training corpora to provide good results. In contrast, a memory-based
 learner can obtain good results on limited training if the training
@@ -775,30 +779,30 @@ can be found for Timbl.
 This is, however, somewhat complicated since Timbl is quite sensitive
 to parameter changes and usually requires specific tuning for
 particular tasks. To find the best
-parameters, I use a linear search across a number of the major
+parameters, I use a manual search across a number of the major
 distance measures provided by Timbl, as well as fallback-combinations
 from more complicated distance measures to less complicated ones.
 
 Each combination was evaluated with ten-fold cross-validation on
 Talbanken. The best combination, Jeffrey's distance with XX and YY
-settings, was used as a basis for parsing and parsing proceeded
-identically to previous runs.
+settings, was used as a basis for parsing and generation of
+leaf-ancestor paths.
 
-\subsubsection{Within-clause Dependency/Leaf-ancestor paths}
+% \subsubsection{Within-clause Dependency/Leaf-ancestor paths}
 
-I haven't done this. This is interview data and there are not many
-nested clauses---probably less than 1 in 3 and I don't think it would make much
-difference. Besides, it would be difficult to specify a set of
-criteria for cutting off within-a-clause---simply removing everything
-between the root and the first S would miss some nested clauses.
+% I haven't done this. This is interview data and there are not many
+% nested clauses---probably less than 1 in 3 and I don't think it would make much
+% difference. Besides, it would be difficult to specify a set of
+% criteria for cutting off within-a-clause---simply removing everything
+% between the root and the first S would miss some nested clauses.
 
-All right, so maybe you really could just use parts of speech to
-tell. Even if it worked, I still don't think there would be much
-difference because very few of the important features without
-within-clause cutoff have multiple clauses--most are simple and
-non-nested. Oh, right. Simplifying to ignore clause nesting would
-increase the power of phenomena that happen regardless of nesting
-level but don't occur enough to be visible otherwise.
+% All right, so maybe you really could just use parts of speech to
+% tell. Even if it worked, I still don't think there would be much
+% difference because very few of the important features without
+% within-clause cutoff have multiple clauses--most are simple and
+% non-nested. Oh, right. Simplifying to ignore clause nesting would
+% increase the power of phenomena that happen regardless of nesting
+% level but don't occur enough to be visible otherwise.
 
 \subsection{Combining Feature Sets}
 \label{combine-feature-sets}
@@ -806,17 +810,10 @@ level but don't occur enough to be visible otherwise.
 Combining feature sets gives the classifier more information about a
 site by combining the information that each feature set
 captures. This dissertation uses a simple linear combination. In other
-words, when combined, all features are counted together with equal
-weight. This is easy and should suffice in allowing the feature ranker
-to find a greater variety features from different feature sets that capture the
+words, all features are counted together with equal
+weight. This is easy and should allow the feature ranker
+to find a greater variety of features that capture the
 same underlying syntactic information.
-
-% Hey, these should really be feature *type* sets since they are sets
-% of feature types, not sets of observed feature tokens. Maybe I
-% should make a note of this early on in the dissertation and say
-% "feature sets" is used in the rest of this dissertation to mean
-% "feature type sets" (except maybe in the discussion of the
-% normalisation, which should refer to vectors anyway)
 
 A more sophisticated method of combining features can be
 adapted from Martin Volk's method for deciding prepositional phrase
@@ -834,7 +831,7 @@ the weight for a feature set that only finds significant differences
 betwen 45/100 regions.
 
 % I don't think I'll do this (I probably won't even do the Volk thing
-% since it involves some kind of Black Magic in icecore.h.
+% since it involves a lot of parameterisation in icecore.h.
 % Well, I *could* instead replicate each feature by its weight
 % before combining, but this would probably make classification super
 % slow because of the huge number of features.)
@@ -843,50 +840,184 @@ betwen 45/100 regions.
 % averaging the number of significant distances that the constituent
 % feature types produce.
 
-\section{Pre- and Post-processing}
-To investigate the first hypothesis, I need a dialect corpus that can
+\subsection{Alternate Distance Measures}
+\label{alternate-distance-measures}
+
+There are several reasons to test distance measures besides
+$R$. There are a couple of a priori reasons for this: $R$ is fairly
+simple, so more complicated variations on it may provide better
+sensitivity at the expence of sensitivity to noise. Also, variations
+explore the measure space better in case that $R$ is not significant
+for some combination of corpus/feature set.
+
+Post-hoc, there are interesting patterns of statistical significance
+produced by the combination of distance measure and feature set. These
+patterns are not trivially obvious. This is not expected, but may
+provide insight into the measure/feature combination, which helps
+resolving Hypotheses 1 and 2.
+
+% Another possibility is a return to Goebl's Weighted Identity Value;
+% this classifier is similar in some ways to $R$, but has not been
+% tested with large corpora, to my knowledge at least. (This is not
+% particularly useful and I don't believe that WIV would actually be
+% good, so I should probably just drop this.)
+
+% (maybe it was relative entropy or just normal-kind entropy).
+% TODO: WIV, also Kullback-Leibler Divergence could work.
+% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
+% neural net
+
+\subsubsection{KL divergence}
+
+% TODO: Find original citation for KL divergence
+
+Kullback-Leibler divergence, or relative entropy, is described in
+\namecite{manningschutze}.  Relative entropy is similar to $R$ but
+more widely used in computational linguistics. The name relative
+entropy implies an intuitive interpretation: it is the number of bits
+of entropy incurred when compressing a corpus $b$ with the optimal
+compression scheme for a second corpus $a$. Unless the two corpora
+are identical, the relative entropy $KL(a||b)$ is non-zero because
+$a$'s optimal compression scheme will over-compress $b$'s
+features that are more common in $a$ than in $b$, whereas it will
+under-compress features that are less common in $a$ than in $b$.
+
+For example, assume that corpus $a$ has two features with type counts
+\{S-NP-N : 20, S-VP-PP-N : 10\}. An optimal compression scheme for $a$
+would compress S-NP-N twice as much as S-VP-PP-N because it occurs
+twice as often. However, if this compression scheme is used on a
+corpus $b$ with the feature counts \{S-NP-N : 15, S-VP-PP-N : 15\},
+efficiency will be worse; S-NP-N and S-VP-PP-N occur the same number
+of times in $b$, so the smaller compressed size of S-NP-N will be used
+less often than expected, while the larger compressed size of
+S-VP-PP-N will be used more. This difference can be measured precisely
+for each feature:
+
+\[ c_{ai} \log\frac{c_{ai}}{c_{bi}} \]
+
+where $c_{ai}$ is type count of the $i$th feature in $a$ and $c_{bi}$
+is the type count of the $i$th feature in $b$. This measures the
+number of bits lost, or entropy, for each feature $i$. Like $R$'s
+differences, the per-feature entropy can be summed to find the total
+entropy. In the example above, the entropy for S-NP-N is $20
+\log\frac{20}{15} = 5.75$.
+
+However, Kullback-Leibler divergence as defined is a divergence: it
+measures the divergence of features in the corpus $c_b$ from the
+features of corpus $c_a$. A dissimilarity is required for
+dialectology, which means that the divergence must additionally be
+symmetric. A divergence can be made symmetric by calculating it twice:
+the divergence from $c_a$ to $c_b$ added to the one from $c_b$ to
+$c_a$. The complete formula is given in equation \ref{klmeasure} and
+the complete example is worked in equation \ref{klexample}.
+
+\begin{equation}
+KL(a||b) = \sum_i {c_{ai} \log\frac{c_{ai}}{c_{bi}} + c_{bi} \log\frac{c_{bi}}{c_{ai}}}
+\label{klmeasure}
+\end{equation}
+
+\begin{equation}
+ (20 \log\frac{20}{15} + 15 \log\frac{15}{20}) + (10
+  \log\frac{10}{15} + 15 \log\frac{15}{10}) = (5.75 - 4.32) + (-4.05 +
+  6.08) = 3.46
+  \label{klexample}
+\end{equation}
+
+\subsubsection{Jensen-Shannon divergence}
+
+Several variants of relative entropy exist that lift various restrictions from the input
+distributions. One is Jenson-Shannon divergence \cite{lin91}, which
+was designed as a dissimilarity from the start. It uses the same
+denominator for both directions: the average of the two
+probabilities. That means that each feature's entropy is found using
+the following formula:
+
+\[ c_{ai} \log\frac{c_{bi}}{(c_{ai} + c_{bi}) / 2} +
+c_{bi} \log\frac{c_{ai}}{(c_{ai} + c_{bi}) / 2} \]
+
+There is a common subexpression in this value: $(c_{ai} + c_{bi}) /
+2$: the average of the two features. If we let $\bar{c_i} = (c_{ai} + c_{bi}) /
+2$ rewrite the formula to take advantage of this simplification, we
+get equation \ref{jsmeasure}.
+
+\begin{equation}
+JS = \sum_i {c_{ai} \log\frac{c_{bi}}{\bar{c_i}} + c_{ai}
+  \log\frac{c_{bi}}{\bar{c_i}}}
+\label{jsmeasure}
+\end{equation}
+
+Unlike Kullback-Leibler divergence, Jensen-Shannon divergence does not
+require the feature counts to be absolutely continuous; in other
+words, that if $c_{ai}$ is non-zero, then $c_{bi}$ has to be non-zero
+too. Since the current implementation of Kullback-Leibler divergence
+simply skips zero values, this means it ignores features unique to a
+particular corpus. Jensen-Shannon divergence avoids this problem.
+% In addition, it provides bounds on variational distance
+% and the Bayes probability of error.
+% TODO: Find out what this means
+
+\subsubsection{Cosine similarity}
+
+Cosine similarity is used in many parts of computational linguistics
+and related areas such as information extraction and data
+mining. \namecite{nerbonne06} use it as reference point for
+comparison to previous work in these areas. Cosine similarity measures
+the similarity between two high-dimensional points in space. Each
+feature is modelled as a dimension, and the type count from each
+corpus is plotted as a point on that dimension. The result is equation
+\ref{cosmeasure} or the non-vectorised version in
+\ref{cosmeasureiterative}.
+
+\begin{equation}
+  \frac{c_{a}\cdot c_{b}} {||c_{ai}||||c_{bi}||}
+  \label{cosmeasure}
+\end{equation}
+
+\begin{equation}
+  \frac{\sum_i {c_{ai}c_{bi}}} {\sqrt{\sum_i {c_{ai}^2}} +
+    \sqrt{\sum_i{c_{bi}^2}}}
+  \label{cosmeasureiterative}
+\end{equation}
+
+Interestingly, the results for this measure are very different from
+the other distance measures, possibly because, unlike the others
+described, it is not a linear sum.
+
+\section{Input Processing}
+To investigate the first question, agreement with dialectology, I need a dialect corpus that can
 be syntactically annotated (\ref{syntactically-annotated-corpus}); if
 it is not already annotated, it must be possible to annotate it
 automatically so I can avoid time-consuming manual annotation.
 Automatic annotation will require a syntactically annotated
-training corpus (\ref{syntactically-annotated-training}) and a parser
-(\ref{parsers}). A distance measure must be defined for the regions
-within the dialect corpus (\ref{nerbonne06}), syntactic features must
-be extracted for the distance measures (\ref{syntactic-features}), and
-the results tested for significance (\ref{permutationtest}) and
-clustered (\ref{cluster-analysis}) to determine which dialect regions
-are found by the corpus. Finally, the most highly ranked features used
-to produce the dialect distances must be enumerated
-(\ref{feature-ranking}).
+training corpus (\ref{syntactically-annotated-training}) and parsers
+for the models of syntax I use as a basis (\ref{parsers}).
 
-To investigate the second hypothesis, I need a method to combine
-different types of features (\ref{combine-feature-sets}). I also need
-a way to generate new features that include more information about
-context (\ref{alternate-feature-sets}).
+% To investigate the second question, quality of features, I need a
+% method to combine different types of features
+% (\ref{combine-feature-sets}). I also need a way to generate new
+% features that include more information about context
+% (\ref{alternate-feature-sets}).
 
-If the distance measure $R$ doesn't provide any significant distances
-with any combination of features, I will experiment with different
-distance measures (\ref{alternate-distance-measures}). For this, there
-are quite a few possibilities; Kullback-Leibler divergence is one
-example.
+% If the distance measure $R$ doesn't provide any significant distances
+% with any combination of features, I will experiment with different
+% distance measures (\ref{alternate-distance-measures}). For this, there
+% are quite a few possibilities; Kullback-Leibler divergence is one
+% example.
 
-To investigate the third hypothesis, I need a phonological corpus and a method
-for calculating phonological dialect distance, then a method to compare
-phonological clusters with syntactic clusters. See my qualifying paper
-\cite{sanders08b} for details.
-
-\subsection{SweDiaSyn} % This is not a good subsection for the new organization
+\subsection{SweDiaSyn}
 \label{syntactically-annotated-corpus}
-The first hypothesis requires a dialect corpus that can
-be syntactically annotated.
-The dialect corpus used in this dissertation will be SweDiaSyn, the
-Swedish part of the ScanDiaSyn.
 % (CITE SweDiaSyn and ScanDiaSyn,
 % except that they don't seem to have any references)
 % Here is a citation for ScanDiaSyn if I could track it down and
 % translate it
 % Vangsnes, Øystein A. 2007. ScanDiaSyn: Prosjektparaplyen Nordisk dialektsyntaks. In T. Arboe (ed.), Nordisk dialektologi og sociolingvistik, Peter Skautrup Centeret for Jysk Dialektforskning, Århus Universitet. 54-72.
-SweDiaSyn is a transcription of SweDia 2000 \cite{bruce99} collected
+
+The first question requires a dialect corpus that can
+be syntactically annotated.
+The dialect corpus used in this dissertation will be SweDiaSyn, the
+Swedish part of the ScanDiaSyn.
+SweDiaSyn is a transcription of SweDia 2000 \cite{bruce99}. SweDia
+2000 was collected
 between 1998 and 2000 from 97 locations in Sweden and 10 in
 Finland. Each location has 12 interviewees: three 30-minute interviews
 for each of older male, older female, younger male and younger female.
@@ -897,27 +1028,22 @@ speakers.
 Currently there are 36,713 sentences of transcribed speech
 from 49 sites, an average of 749 sentences per site.
 However, the sites range from 110 to 1780 sentences because some sites
-have fewer complete transcriptions than others. In order to detect
-significant differences, the sites may need to be grouped by county,
-traditional province or EU region; previous work on British English
-used EU Government Office Regions with at least 850 sentences per
-region. For example, grouping the Swedish corpora into the 25 provinces
-boosts the average sentences per province to 1254, excluding provinces
-with no transcriptions.
+have fewer complete transcriptions than others.
 
-% TODO: Probably switch the second sentence to be first? It's the more
-% important but might completely depend on details in the first.
 In the SweDiaSyn, there are two types of transcription:
 standard Swedish orthography, with glosses for words
-not in standard Swedish, and a phonetic transcription for dialects
+not in standard Swedish; and a phonetic transcription for dialects
 that differ greatly from standard Swedish. For this dissertation,
 the orthographic/gloss transcription will be used so that lexical
-items will be comparable across dialects.
+items will be comparable across dialects. However,
+only 30 of the 49 sites have been glossed, so the total usable size of
+the corpus is 21,004 sentences, with an average of 700 sentences per
+site. The sites range from 301 to 1,144 sentences.
 
 \subsection{Talbanken}
 \label{syntactically-annotated-training}
 
-Because the first hypothesis requires a syntactically annotated
+Because the first question requires a syntactically annotated
 corpus, and because SweDiaSyn consists of untagged lexical items,
 Talbanken05, a syntactically-annotated corpus, will be used to train a
 POS tagger and parsers to be used to annotate SweDiaSyn.  Talbanken05
@@ -976,6 +1102,18 @@ cleaned and normalized, then used to train a parser.
 
 % TODO: Find out how much crossing occurs in Swedish corpora, and how
 % much of it is from interruptions and self-corrections.
+\section{Output Analysis}
+
+After a distance measure has been defined for the interview sites
+within the dialect corpus (see above, section \ref{nerbonne06}) and
+syntactic features have been extracted (\ref{syntactic-features}), the
+results must tested for significance (\ref{permutationtest}). The
+significant results must be analysed by clustering
+(\ref{cluster-analysis}), multi-dimensional scaling (\ref{mds}) and
+principal components analysis (\ref{pca}) to determine which dialect
+regions are found by the distance measure. Finally, the most highly
+ranked features used to produce the dialect distances must be
+enumerated (\ref{feature-ranking}).
 
 \subsection{Permutation test}
 \label{permutationtest}
@@ -1330,6 +1468,7 @@ original tree in the areas where it disagrees with other original
 trees.
 
 \subsection{Multi-dimensional scaling}
+\label{mds}
 
 Multi-dimensional scaling (MDS) is an alternate approach to making the
 high-dimensional dissimilarities more easily interpretable. Instead
@@ -1373,6 +1512,7 @@ the triangle inequality. This initial stress is reduced by a process
 of gradient descent as described in \cite{kruskal64b}.
 
 \subsubsection{Principal Components Analysis}
+\label{pca}
 
 Principal Components Analysis (PCA) is useful in conjuction with MDS
 because the 3 (or so) dimensions that MDS produces can be correlated
@@ -1492,151 +1632,6 @@ TODO: This isn't complete; I'm not convinced that Wiersma's
 last normalisation helps with the ranking, but that's because I don't
 understand why he expects it to help.
 
-
-\subsection{Alternate Distance Measures}
-\label{alternate-distance-measures}
-
-There are several reasons to test distance measures besides
-$R$. There are a couple of a priori reasons for this: $R$ is fairly
-simple, so more complicated variations on it may provide better
-sensitivity at the expence of sensitivity to noise. Also, variations
-explore the measure space better in case that $R$ is not significant
-for some combination of corpus/feature set.
-
-Post-hoc, there are interesting patterns of statistical significance
-produced by the combination of distance measure and feature set. These
-patterns are not trivially obvious. This is not expected, but may
-provide insight into the measure/feature combination, which helps
-resolving Hypotheses 1 and 2.
-
-% Another possibility is a return to Goebl's Weighted Identity Value;
-% this classifier is similar in some ways to $R$, but has not been
-% tested with large corpora, to my knowledge at least. (This is not
-% particularly useful and I don't believe that WIV would actually be
-% good, so I should probably just drop this.)
-
-% (maybe it was relative entropy or just normal-kind entropy).
-% TODO: WIV, also Kullback-Leibler Divergence could work.
-% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
-% neural net
-
-\subsubsection{KL divergence}
-
-% TODO: Find original citation for KL divergence
-
-Kullback-Leibler divergence, or relative entropy, is described in
-\namecite{manningschutze}.  Relative entropy is similar to $R$ but
-more widely used in computational linguistics. The name relative
-entropy implies an intuitive interpretation: it is the number of bits
-of entropy incurred when compressing a corpus $b$ with the optimal
-compression scheme for a second corpus $a$. Unless the two corpora
-are identical, the relative entropy $KL(a||b)$ is non-zero because
-$a$'s optimal compression scheme will over-compress $b$'s
-features that are more common in $a$ than in $b$, whereas it will
-under-compress features that are less common in $a$ than in $b$.
-
-For example, assume that corpus $a$ has two features with type counts
-\{S-NP-N : 20, S-VP-PP-N : 10\}. An optimal compression scheme for $a$
-would compress S-NP-N twice as much as S-VP-PP-N because it occurs
-twice as often. However, if this compression scheme is used on a
-corpus $b$ with the feature counts \{S-NP-N : 15, S-VP-PP-N : 15\},
-efficiency will be worse; S-NP-N and S-VP-PP-N occur the same number
-of times in $b$, so the smaller compressed size of S-NP-N will be used
-less often than expected, while the larger compressed size of
-S-VP-PP-N will be used more. This difference can be measured precisely
-for each feature:
-
-\[ c_{ai} \log\frac{c_{ai}}{c_{bi}} \]
-
-where $c_{ai}$ is type count of the $i$th feature in $a$ and $c_{bi}$
-is the type count of the $i$th feature in $b$. This measures the
-number of bits lost, or entropy, for each feature $i$. Like $R$'s
-differences, the per-feature entropy can be summed to find the total
-entropy. In the example above, the entropy for S-NP-N is $20
-\log\frac{20}{15} = 5.75$.
-
-However, Kullback-Leibler divergence as defined is a divergence: it
-measures the divergence of features in the corpus $c_b$ from the
-features of corpus $c_a$. A dissimilarity is required for
-dialectology, which means that the divergence must additionally be
-symmetric. A divergence can be made symmetric by calculating it twice:
-the divergence from $c_a$ to $c_b$ added to the one from $c_b$ to
-$c_a$. The complete formula is given in equation \ref{klmeasure} and
-the complete example is worked in equation \ref{klexample}.
-
-\begin{equation}
-KL(a||b) = \sum_i {c_{ai} \log\frac{c_{ai}}{c_{bi}} + c_{bi} \log\frac{c_{bi}}{c_{ai}}}
-\label{klmeasure}
-\end{equation}
-
-\begin{equation}
- (20 \log\frac{20}{15} + 15 \log\frac{15}{20}) + (10
-  \log\frac{10}{15} + 15 \log\frac{15}{10}) = (5.75 - 4.32) + (-4.05 +
-  6.08) = 3.46
-  \label{klexample}
-\end{equation}
-
-\subsubsection{Jensen-Shannon divergence}
-
-Several variants of relative entropy exist that lift various restrictions from the input
-distributions. One is Jenson-Shannon divergence \cite{lin91}, which
-was designed as a dissimilarity from the start. It uses the same
-denominator for both directions: the average of the two
-probabilities. That means that each feature's entropy is found using
-the following formula:
-
-\[ c_{ai} \log\frac{c_{bi}}{(c_{ai} + c_{bi}) / 2} +
-c_{bi} \log\frac{c_{ai}}{(c_{ai} + c_{bi}) / 2} \]
-
-There is a common subexpression in this value: $(c_{ai} + c_{bi}) /
-2$: the average of the two features. If we let $\bar{c_i} = (c_{ai} + c_{bi}) /
-2$ rewrite the formula to take advantage of this simplification, we
-get equation \ref{jsmeasure}.
-
-\begin{equation}
-JS = \sum_i {c_{ai} \log\frac{c_{bi}}{\bar{c_i}} + c_{ai}
-  \log\frac{c_{bi}}{\bar{c_i}}}
-\label{jsmeasure}
-\end{equation}
-
-Unlike Kullback-Leibler divergence, Jensen-Shannon divergence does not
-require the feature counts to be absolutely continuous; in other
-words, that if $c_{ai}$ is non-zero, then $c_{bi}$ has to be non-zero
-too. Since the current implementation of Kullback-Leibler divergence
-simply skips zero values, this means it ignores features unique to a
-particular corpus. Jensen-Shannon divergence avoids this problem.
-% In addition, it provides bounds on variational distance
-% and the Bayes probability of error.
-% TODO: Find out what this means
-
-\subsubsection{Cosine similarity}
-
-Cosine similarity is used in many parts of computational linguistics
-and related areas such as information extraction and data
-mining. \namecite{nerbonne06} use it as reference point for
-comparison to previous work in these areas. Cosine similarity measures
-the similarity between two high-dimensional points in space. Each
-feature is modelled as a dimension, and the type count from each
-corpus is plotted as a point on that dimension. The result is equation
-\ref{cosmeasure} or the non-vectorised version in
-\ref{cosmeasureiterative}.
-
-\begin{equation}
-  \frac{c_{a}\cdot c_{b}} {||c_{ai}||||c_{bi}||}
-  \label{cosmeasure}
-\end{equation}
-
-\begin{equation}
-  \frac{\sum_i {c_{ai}c_{bi}}} {\sqrt{\sum_i {c_{ai}^2}} +
-    \sqrt{\sum_i{c_{bi}^2}}}
-  \label{cosmeasureiterative}
-\end{equation}
-
-Interestingly, the results for this measure are very different from
-the other distance measures, possibly because, unlike the others
-described, it is not a linear sum.
-
-% \subsubsection{LSA} Nope, didn't work out
 
 %%% Local Variables: 
 %%% mode: latex
