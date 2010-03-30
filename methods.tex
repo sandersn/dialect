@@ -307,7 +307,7 @@ two distance measures may find different dialect boundaries based on
 differences between syntax and phonology. Dialect boundaries may have
 shifted during the 40 years between the collection of the SED and the
 collection of the ICE-GB. One or both methods may be measuring the
-wrong thing. In this dissertation, although the focus will remain on results
+wrong thing. In this dissertation, although the focus remains on results
 of computational syntax distance as compared to traditional syntactic
 dialectology, the discussion compares recent phonological
 dialectometry results on Swedish to the results obtained here.
@@ -468,7 +468,7 @@ than the average feature.
 
 In order to investigate hypothesis 1, the distance measure, such as
 $R$, needs features that capture the dialect syntax of the interview
-corpora given as input. Following Nerbonne and Wiersma 2006, I will
+corpora given as input. Following Nerbonne and Wiersma 2006, I
 start with parts of speech, then add the leaf-ancestor paths that I
 tried on the ICE-GB, and finally add dependency-ancestor paths, as
 well as variants on these three feature sets. These feature sets each
@@ -784,9 +784,13 @@ distance measures provided by Timbl, as well as fallback-combinations
 from more complicated distance measures to less complicated ones.
 
 Each combination was evaluated with ten-fold cross-validation on
-Talbanken. The best combination, Jeffrey's distance with XX and YY
-settings, was used as a basis for parsing and generation of
-leaf-ancestor paths.
+Talbanken. The best combination was Jeffrey divergence with 5 nearest
+neighbours, no feature weighting, inverse distance neighbour
+weighting, and fallback to the Overlap metric for fewer than two
+neighbours. Jeffrey divergence is a symmetric variant of
+Kullback-Leibler divergence, also described in section
+\ref{kl-divergence}. These parameter settings were used as a basis for
+parsing and generation of leaf-ancestor paths.
 
 % \subsubsection{Within-clause Dependency/Leaf-ancestor paths}
 
@@ -868,6 +872,7 @@ resolving Hypotheses 1 and 2.
 % neural net
 
 \subsubsection{KL divergence}
+\label{kl-divergence}
 
 % TODO: Find original citation for KL divergence
 
@@ -988,7 +993,7 @@ To investigate the first question, agreement with dialectology, I need a dialect
 be syntactically annotated (\ref{syntactically-annotated-corpus}); if
 it is not already annotated, it must be possible to annotate it
 automatically so I can avoid time-consuming manual annotation.
-Automatic annotation will require a syntactically annotated
+Automatic annotation requires a syntactically annotated
 training corpus (\ref{syntactically-annotated-training}) and parsers
 for the models of syntax I use as a basis (\ref{parsers}).
 
@@ -1014,7 +1019,7 @@ for the models of syntax I use as a basis (\ref{parsers}).
 
 The first question requires a dialect corpus that can
 be syntactically annotated.
-The dialect corpus used in this dissertation will be SweDiaSyn, the
+The dialect corpus used in this dissertation is SweDiaSyn, the
 Swedish part of the ScanDiaSyn.
 SweDiaSyn is a transcription of SweDia 2000 \cite{bruce99}. SweDia
 2000 was collected
@@ -1034,8 +1039,8 @@ In the SweDiaSyn, there are two types of transcription:
 standard Swedish orthography, with glosses for words
 not in standard Swedish; and a phonetic transcription for dialects
 that differ greatly from standard Swedish. For this dissertation,
-the orthographic/gloss transcription will be used so that lexical
-items will be comparable across dialects. However,
+the orthographic/gloss transcription is used so that lexical
+items are comparable across dialects. However,
 only 30 of the 49 sites have been glossed, so the total usable size of
 the corpus is 21,004 sentences, with an average of 700 sentences per
 site. The sites range from 301 to 1,144 sentences.
@@ -1044,15 +1049,15 @@ site. The sites range from 301 to 1,144 sentences.
 \label{syntactically-annotated-training}
 
 Because the first question requires a syntactically annotated
-corpus, and because SweDiaSyn consists of untagged lexical items,
-Talbanken05, a syntactically-annotated corpus, will be used to train a
-POS tagger and parsers to be used to annotate SweDiaSyn.  Talbanken05
+corpus, and because SweDiaSyn consists of unannotated lexical items only,
+Talbanken05, a syntactically-annotated corpus, is used to train
+the automatic annotators which in turn annotate SweDiaSyn. Talbanken05
 is a treebank of written and transcribed spoken Swedish, roughly
 300,000 words in size. It is an updated version of Talbanken76
-\cite{nivre06}; Talbanken76's trees are annotated following a custom
+\cite{nivre06}; Talbanken76's trees are annotated following a
 scheme called MAMBA; Talbanken05 adds phrase structure annotation and
-dependency annotation using the standard annotation formats TIGER-XML
-and Malt-XML.  In addition to syntactic annotation, Talbanken is
+dependency annotation using the annotation formats TIGER-XML
+and Malt-XML. In addition to syntactic annotation, Talbanken is
 lexically annotated for morphology and part-of-speech.
 
 % TODO: Should I keep this? It depends on how much detail I want.
@@ -1071,20 +1076,27 @@ lexically annotated for morphology and part-of-speech.
 \label{parsers}
 % TODO: This should have a lot more detail probably. Like
 % mini-explanations of how the algorithms actually work.
-In order to extract the features used to build the language models
-described in the previous methods, SweDiaSyn will need to be POS
-tagged and parsed. For this dissertation, both constituency
-and dependency features will be provided to the classifier.
+In order to build the language models described above, SweDiaSyn must
+be POS tagged, constituency parsed and dependency parsed. This
+allows the features to be extracted for use by the distance measure.
 
-The Tags 'n' Trigrams (T'n'T) tagger \cite{brants00} will be used for tagging, with
-the POS annotations from Talbanken05 used as training.
-After POS tagging, the Talbanken sentences will be cleaned in order to
-be usable for training the parsers.
-Cleaning Talbanken's constituency annotations consists of removing
-discontinuities of various types, especially disfluencies and
-restarts, which may be reparable by a simple top-level strategy. If
-more complicated uncrossing is needed, a strategy similar to the split
-constituents proposed by \namecite{boyd07} may be needed.
+Before annotation, the SweDiaSyn sentences are cleaned in order to
+improve the output of the parsers.  Cleaning the sentences consists of
+removing stop words and mumbles, as well as restarts, which are marked
+in the transcription.
+
+\subsubsection{Tags `n' Trigrams}
+The Tags `n' Trigrams (T`n'T) tagger \cite{brants00} is used for tagging, with
+the POS annotations from Talbanken05 used as training. T`n'T is an
+efficient Markov-model trigram tagger, meaning that it uses only the
+previous two words to decide on the part of speech for a word. It
+backs off to even less context in the case of sparse data; if a
+the trigram composed of the current word and the previous two words has not been seen before, most of the decision will be based
+on the current word and one previous word. T`n'T handles unknown words
+by a simple form of suffix analysis---unknown words that have similar
+endings to known words are more likely to get that tag.
+
+\subsubsection{Berkeley Parser}
 
 For constituency parsing, the Berkeley parser \cite{petrov08} will be
 trained on standard Swedish, again from Talbanken05. The Berkeley
@@ -1143,7 +1155,7 @@ corpus: any real differences will be randomly redistributed by the
 mixing process, lowering the mixed $R$. Repeating this comparison
 enough times will show if the difference is significant. Twenty times
 is the minimum needed to detect significance for $p < 0.05$
-significance; however, in the experiments, I will repeat the test 100
+significance; however, I repeat the test 100
 times, enough to detect significance for $p < 0.01$.
 
 To see how this works, for example, assume that $R$ detects real

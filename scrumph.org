@@ -629,8 +629,7 @@
    - I should probably mail some people ugh like Alicia Bower or
      so. Still need to rewrite intro to Methods
      By the way here is the malteval command line:
-     java -Xmx1G -jar lib/MaltEval.jar -s result-Overlap-3-?.conll -g
-     test-?.conll > eval-Overlap-3.txt
+     java -Xmx1G -jar lib/MaltEval.jar -s result-Overlap-3-?.conll -g test-?.conll > eval-Overlap-3.txt
      (for 10-fold cross-validation)
 ** 2010/03/25
    - I finished distance measures. I presented at parsing group and
@@ -647,6 +646,16 @@
    - More writing on the second pass of methods. Restarting 10-fold
      testing when needed.
    - 
+** 2010/03/29
+   - I got 2/3 done with the second draft of the methods chapter. I
+     ran 3 of the 4 Jeffrey methods, and one failed. I guess it was an
+     invalid combination of parameters or something.
+   - I will run the best Jeffrey parser and document the parameters in
+     Methods. I will try to get as close to finishing the second draft
+     as possible.
+   - I see that the digit of the month in April is 2. I guess it's 1x
+     in March, then 2x in April. We had to scrounge out the 0x days in
+     early March and late February.
 * Plan
 ** January
 *** Get results
@@ -677,10 +686,13 @@
 **** DONE Read up on Swedish [syntactic] dialectology
 **** TODO Work with Rosenkvist to find out how my results compare to it
      Started, need to tell him how I'm working and get some papers.
-*** Methods
 ** March
-*** Results
+*** Methods
+**** TODO Finish discussion of Wybo's feature ranking
+**** TODO Add discussion of PCA and Cluster BOundary Diagrams (maybe later)
+**** TODO Expand the explanation of the parsers so each has a subsubsection
 ** April
+*** Results
 *** Discussion
 ** May
 *** Cleanup and Defence
