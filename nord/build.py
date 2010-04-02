@@ -154,17 +154,19 @@ def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
     # 12. Dump a list of all features between each pair of site clusters.
     for sample, measure, feature, norm in variants:
-        # 12.1 Make cluster files first
-        norte.combineFeatures(consts.agreeClusters, feature)
-        multirun(6,
-                 *norte.icetasks(list(consts.agreeClusters.keys()),
-                                 feature, 'icefeat.cpp', measure, sample, norm))
-        # 12.2 Then analyse it
-        tmps = ' '.join([
-            "%s-%s-tmp.txt" % pair
-            for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
-        run('./RankFeatures %s >feat-5-%s-%s-%s-%s.txt'
-            % (tmps,sample,measure,feature,norm))
+        norm2s = ['over', 'raw'] if norm=='freq' else ['raw']
+        for norm2 in norm2s:
+            # 12.1 Make cluster files first
+            norte.combineFeatures(consts.agreeClusters, feature)
+            multirun(6,
+                     *norte.icetasks(list(consts.agreeClusters.keys()),
+                                     feature, 'icefeat.cpp', measure, sample, norm2))
+            # 12.2 Then analyse it
+            tmps = ' '.join([
+                "%s-%s-tmp.txt" % pair
+                for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
+            run('./RankFeatures %s >feat-5-%s-%s-%s-%s.txt'
+                % (tmps,sample,measure,feature,norm))
 def syntaxFeaturesSimple():
     for sample, measure, feature, norm in variants:
         norte.writeparams(1000, sample, measure, norm)
@@ -238,9 +240,9 @@ def genMaps():
         ## this can be very fancy, like weighting all the significant ones for
         ## a single distance measure the same over feature differences,
         ## re-allocating the insignificant ones' weight to them. ##
-        run('difsum -o Sverigekarta-cluster.dif '
-            + ' '.join('cluster-%s-%s-%s-%s.dif' % v for v in variants))
-        run('RuG-L04/bin/mapdiff -o Sverigekarta-cluster.eps Sverigekarta.cfg Sverigekarta-cluster.dif')
+    run('difsum -o Sverigekarta-cluster.dif '
+        + ' '.join('cluster-%s-%s-%s-%s.dif' % v for v in variants))
+    run('RuG-L04/bin/mapdiff -o Sverigekarta-cluster.eps Sverigekarta.cfg Sverigekarta-cluster.dif')
     run('mv *eps ..')
 def blade(runner, targets):
     for target in targets:
