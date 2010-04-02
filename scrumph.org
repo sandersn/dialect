@@ -712,7 +712,7 @@
 ** March
 *** Methods
 **** TODO Finish discussion of Wybo's feature ranking
-**** TODO Add discussion of PCA and Cluster Boundary Diagrams (maybe later)
+**** DONE Add discussion of PCA and Cluster Boundary Diagrams (maybe later)
 **** DONE Expand the explanation of the parsers so each has a subsubsection
 ** April
 *** Results

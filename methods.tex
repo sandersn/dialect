@@ -1679,39 +1679,55 @@ this example, NN-VB's overall average score is
 \namecite{wiersma09} uses a method similar to the one described above,
 but with an additional normalisation intended to show which features
 are used relatively more in one or the other of the two regions to be
-compared. He does this in place of the However, Wiersma also runs a third
-normalisation in which each type count is divided by the average of
-that type count over all {\it permutations}. I can't see why this
-works, since permutations necessarily mix the tokens from both corpora
-together.
+compared. This normalisation is similar to the optional second
+normalisation: it also removes the effect of frequency. However, this
+normalisation removes the effect of frequency from the difference
+of the two regions, whereas the second removes it from the distance
+between two regions. Both normalisations are similar in being of
+limited value for the noisier data, automatically annotated. However,
+the results could improve if the data are sufficiently clean.
+% But how can we know?!
 
-This permutation removes the effect of frequency from the difference
-of the two regions, much like the second normalisation removes
-frequency from the distance of the two regions. As such, it is of
-questionable value for our noisier data, but is still interesting for
-analysis; if the data are clean {\it enough}, then it could give
-better results than the non-frequency-normalised differences.
+The normalisation centres the two counts around 1.0 by dividing each count
+by the average count, scaled by the total size of the corpora. The equation
+for a feature $i$ with paired counts $c_{ai}$ and $c_{bi}$ is given in
+equation \ref{overuse-norm} for corpus $a$. There,
+$N_a$ and $N_b$ are the sizes of the corpora $a$ and $b$, and $N$
+is the combined size of the two corpora.
 
-The summing proceeds as before.
+\begin{equation}
+  o_{ai} = c_{ai} / \frac{(c_{ai} + c_{bi})N_a}{N_a + N_b}
+  \label{overuse-norm}
+\end{equation}
 
-Example goes here, it shouldn't be too hard, just base it off the
-other one, with made up corpus sizes added.
+The equation can be simplified slightly; equations of this form for both corpus $a$
+and $b$ are given in equation \ref{overuse-norm-simple}.
 
-The main reason is that Wiersma samples per-speaker from a large
-number of speakers and small number of sentences from each
-speaker. This allows him to avoid the assumption that each sentence is
-independent and instead assume that each {\it speaker} is
-independent. However, this also requires an additional per-speaker
-normalisation because some speakers may contribute more sentences to
-the sample than others. This is not needed for the method used here
-because it assumes all sentences to be independent, regardless of
-speaker.
+\begin{equation}
+  o_{ai} = \frac{c_{ai}(N_a + N_b)}{(c_{ai} + c_{bi})N_a} \textrm{  and  }
+  o_{bi} = \frac{c_{bi}(N_a + N_b)}{(c_{ai} + c_{bi})N_b}
+  \label{overuse-norm-simple}
+\end{equation}
 
+For example, the previous one-to-one example shows that NN-VB occurrs
+20 more times in corpus $b$ than in $a$. Let this arise from the
+counts $c_{a\textrm{NN-VB}} = 10$ and $c_{b\textrm{NN-VB}}=30$. Also
+let the corpus sizes for $a$ and $b$ be $N_a = 40$ and $N_b = 100$
+respectively. For the overuse-normalised numbers, this gives
+\[o_{a\textrm{NN-VB}} = \frac{10(100+40)}{(10+30)40} = 1400 / 1600 =
+0.875\] and \[o_{a\textrm{NN-VB}} = \frac{30(100+40)}{(10+30)100} = 4200
+/ 4000 = 1.05\]
 
-TODO: This isn't complete; I'm not convinced that Wiersma's
-last normalisation helps with the ranking, but that's because I don't
-understand why he expects it to help.
-
+With the frequencies turned into ratios of overuse, it is possible to
+see that the additional 20 occurrences in corpus $b$ are not that
+important; they only give $o_{b\textrm{NN-VB}}$ a value of
+1.05. Unlike frequencies, identical overuses occur between pairs
+of the same ratio rather than the same difference. In other words,
+$c_{ai}=2,c_{bi}=12$ gives the same overuse, $o_{b}=1.2$, as
+$c_{aj}=10,c_{bj}=60$, because in both cases
+$c_{b}=6c_{a}$. In contrast, frequency comparison gives a difference
+of $c_{bi} - c_{ai} = 10$ and $c_{bj} - c_{aj} = 50$, making the
+second difference much more important.
 
 %%% Local Variables: 
 %%% mode: latex
