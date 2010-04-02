@@ -149,7 +149,7 @@ sample normalise(const strings& a, const strings& b,
       ci = i->second.first + i->second.second;
       i->second.first = (i->second.first * tokens) / (ci * tokens_a);
       i->second.second = (i->second.second * tokens) / (ci * tokens_b);
-#end if
+#endif
     }
   }
   return ab;
