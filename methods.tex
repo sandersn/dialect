@@ -1098,22 +1098,40 @@ endings to known words are more likely to get that tag.
 
 \subsubsection{Berkeley Parser}
 
-For constituency parsing, the Berkeley parser \cite{petrov08} will be
-trained on standard Swedish, again from Talbanken05. The Berkeley
+For constituency parsing, the Berkeley parser \cite{petrov06} is
+trained on Talbanken05. The Berkeley
 parser has shown good performance on languages other than English,
-which is not common for constituency parsers.
-% TODO: CITE The paper that shows this. Also EXPLAIN it.
+which is not common for constituency parsers \cite{petrov07}.
+% Note: petrov 06 is a actually a lot better at explaining this.
+
+The Berkeley parser learns a latent annotations, which means that it learns
+grammars from training data by assuming that the training gives a
+coarser picture than the true grammar, but one that is also too
+specialised to the observed sentences. For example, it may start with
+the single category NP for noun phrases, which is too coarse to
+capture the subject/object distinction. So the category will be split
+into NP1 and NP2. However, because the splits are cutoff to a certain
+level of frequency, not every random characteristic of the training
+data is learned.
+
+\subsubsection{MaltParser}
 
 For dependency parsing, MaltParser will be used with the existing
 Swedish model trained on Talbanken05 by Hall, Nilsson and
-Nivre. MaltParser is an inductive dependency parser that uses a
-machine learning algorithm to guide the parser at choice points
-\cite{nivre06b}.  Dependency parsing will proceed similarly to
-constituency parsing; the dependency structures of Talbanken05 will be
+Nivre. Dependency parsing proceeds similarly to
+constituency parsing; the dependency structures of Talbanken05 are
 cleaned and normalized, then used to train a parser.
 
-% TODO: Find out how much crossing occurs in Swedish corpora, and how
-% much of it is from interruptions and self-corrections.
+MaltParser is an inductive dependency parser that uses a machine
+learning algorithm to guide the parser at choice points
+\cite{nivre06b}. This means that the parsing algorithm is
+deterministic. Although this sounds impossible for an ambiguous
+language, it achieves this by relying on a machine learner to choose
+the correct option at points where multiple options exist. The machine
+learner is either a memory-based learner or a support vector machine
+trained on a history-based model. This model uses the internal state
+of the parser while as features for training.
+
 \section{Output Analysis}
 
 After a distance measure has been defined for the interview sites
@@ -1479,6 +1497,37 @@ agree well. Therefore, it is not safe to draw conclusions from an
 original tree in the areas where it disagrees with other original
 trees.
 
+\subsubsection{Composite Clustering}
+
+A visual alternative to a consensus tree is composite, or fuzzy, clustering CITE
+Kleiweg I guess. Instead of removing clusters that do not appear
+in the majority of cluster trees, fuzzy clustering plots every cluster
+tree on a map completely. However, each tree is plotted
+transparently. If a large number of trees agree on a cluster, the
+cluster will be plotted many times, creating a dark line. Conversely,
+clusters without wide agreement will only get a light line. This provides a
+graphical equivalent to consensus trees.
+
+To make this work, hierarchical clustering must change slightly: the
+input is a diagonal matrix of distances as before, but the output is
+no longer a binary tree but a diagonal matrix of distances, like the
+input. The distances between two sites are now the number of clusters
+that separate them. % (I think, I'm not sure I understood this part).
+
+You can then draw this directly on a map: put a line equidistant
+between each pair of sites, making it darker the more clusters that
+separate them.
+
+But this still relies on hierarchical clustering, which is not very
+stable. To work around this, I use multiple hierarchical cluster trees
+from different combinations of distance measure and feature set. I
+combine the weights from the trees and scale the line darkness
+accordingly to get a more stable picture of which boundaries are
+important.
+
+% TODO: An example would be nice, but I can't get that until I
+% actually do this method.
+
 \subsection{Multi-dimensional scaling}
 \label{mds}
 
@@ -1532,14 +1581,18 @@ with features. Since the features correlated with the first few dimensions are
 the most important, they can be used when comparing with dialectology
 results.
 
+Each comparison between sites constitutes a new dimension because, for
+example, the dissimilarity between site A and B is not comparable to
+the dissimilarity between site B and C. This is because
+dissimilarities are not distances---they don't satisfy the triangle
+inequality. PCA allows us to reduce the number of dimensions to
+something that can be visualised, as well as telling us which
+dimensions contributed the most to the composite dimensions (the
+principal components).
+
 TODO: Research this and get the details of the math.
 Pretty sure that L04 does it for me. Probably. (The L04 tutorial also mentions
 another method that I can't remember the name of.)
-
-\subsubsection{Cluster Boundary Diagrams}
-
-L04 does these too, Peter's site has an example. I'm not sure they'll
-work but it's worth a try.
 
 \subsection{Correlation}
 
@@ -1621,14 +1674,28 @@ this example, NN-VB's overall average score is
   \caption{Feature-ranking Many:Many}
 \end{figure}
 
-This method is similar to a ranking by \namecite{wiersma09}, but
-without the additional normalisation needed to make his test for
-significance work; we do not need this test because I sample by
-sentence rather than by speaker. However, Wiersma also runs a third
+\subsubsection{Wiersma's Measure of Feature Overuse}
+
+\namecite{wiersma09} uses a method similar to the one described above,
+but with an additional normalisation intended to show which features
+are used relatively more in one or the other of the two regions to be
+compared. He does this in place of the However, Wiersma also runs a third
 normalisation in which each type count is divided by the average of
 that type count over all {\it permutations}. I can't see why this
 works, since permutations necessarily mix the tokens from both corpora
 together.
+
+This permutation removes the effect of frequency from the difference
+of the two regions, much like the second normalisation removes
+frequency from the distance of the two regions. As such, it is of
+questionable value for our noisier data, but is still interesting for
+analysis; if the data are clean {\it enough}, then it could give
+better results than the non-frequency-normalised differences.
+
+The summing proceeds as before.
+
+Example goes here, it shouldn't be too hard, just base it off the
+other one, with made up corpus sizes added.
 
 The main reason is that Wiersma samples per-speaker from a large
 number of speakers and small number of sentences from each
@@ -1639,6 +1706,7 @@ normalisation because some speakers may contribute more sentences to
 the sample than others. This is not needed for the method used here
 because it assumes all sentences to be independent, regardless of
 speaker.
+
 
 TODO: This isn't complete; I'm not convinced that Wiersma's
 last normalisation helps with the ranking, but that's because I don't

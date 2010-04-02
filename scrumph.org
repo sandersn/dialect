@@ -656,6 +656,29 @@
    - I see that the digit of the month in April is 2. I guess it's 1x
      in March, then 2x in April. We had to scrounge out the 0x days in
      early March and late February.
+** 2010/03/30
+   - I ran the best Jeffrey parser and documented the parameters. I
+     just got TnT documented, nothing else.
+   - I will regenerate features and then start running the (hopefully,
+     nearly last) run of distance/syntax. I will read Petrov/Klein 08
+     on the Berkeley parser so I can explain how it works.
+   - I ran some errands today too so that could explain my
+     laziness. But not really.
+** 2010/03/31
+   - I wrote up the berkerley parser. I ran syntaxDist/syntaxSig
+   - I will write up MaltParser. Hope to finish some other stuff in
+     methods too. Maybe I will run genAnalysis too if I get bored and
+     want to debug R code...
+   - 
+** 2010/04/02
+   - I wrote code in build.py to generate composite cluster maps. I
+     read about PCA in R, but I'm not convinced. I wrote about
+     MaltParser. I wrote up, kind of, Wiersma's normalisation for
+     measuring feature overuse.
+   - I will write an example for Wiersma's normalisation (this should
+     help finally prove to me if it's useful.) I will write code I
+     guess through #ifdefs in icecore.h, if it is.
+   - Bah humbug. FParsec sucks
 * Plan
 ** January
 *** Get results
@@ -689,8 +712,8 @@
 ** March
 *** Methods
 **** TODO Finish discussion of Wybo's feature ranking
-**** TODO Add discussion of PCA and Cluster BOundary Diagrams (maybe later)
-**** TODO Expand the explanation of the parsers so each has a subsubsection
+**** TODO Add discussion of PCA and Cluster Boundary Diagrams (maybe later)
+**** DONE Expand the explanation of the parsers so each has a subsubsection
 ** April
 *** Results
 *** Discussion
