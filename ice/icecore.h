@@ -138,10 +138,18 @@ sample normalise(const strings& a, const strings& b,
       f = fa + fb;
       i->second.first = (ci * fa / f);
       i->second.second = (ci * fb / f);
+      // WARNING:
+      // Do not define RATIO_NORM and OVERUSE_NORM at the same time
+      // OVERUSE_NORM is for use only in extracting features.
 #ifdef RATIO_NORM
       i->second.first *= 2 * types / tokens;
       i->second.second *= 2 * types / tokens;
 #endif
+#ifdef OVERUSE_NORM
+      ci = i->second.first + i->second.second;
+      i->second.first = (i->second.first * tokens) / (ci * tokens_a);
+      i->second.second = (i->second.second * tokens) / (ci * tokens_b);
+#end if
     }
   }
   return ab;

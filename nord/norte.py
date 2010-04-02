@@ -10,7 +10,7 @@ def pairwise(l):
     return [(x,y) for i,x in enumerate(l) for y in l[i+1:]]
 ### runner ###
 def icetasks(regions, feature, cpp, measure, sample, norm, iterations=100):
-    writeparams(iterations, sample, measure)
+    writeparams(iterations, sample, measure, norm)
 
     os.system('g++ -O2 -o ctrl.out params.h ' + cpp)
     suffix = '-' + feature + '.dat'
