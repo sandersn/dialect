@@ -230,6 +230,17 @@ def genMaps():
         cfg.close()
         run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s-%s-%s.eps Sverigekarta.cfg mds-10-%s-%s-%s-%s.vec' % (variant * 2))
         # run('Something to convert eps to pdf')
+        ## Clustering with cophenetic mapping to a map ##
+        ## Note: 2-30 clusters are possible. Probably not good for results.
+        ## maybe 2-5 or 2-8 is better. ##
+        run('cluster -wm -b -m 2-30 -o cluster-%s-%s-%s-%s.dif Sverigekarta.cfg dist-10-%s-%s-%s-%s.dif')
+        ## , then sum multiple clusters (this has to be outside the loop)##
+        ## this can be very fancy, like weighting all the significant ones for
+        ## a single distance measure the same over feature differences,
+        ## re-allocating the insignificant ones' weight to them. ##
+        run('difsum -o Sverigekarta-cluster.dif '
+            + ' '.join('cluster-%s-%s-%s-%s.dif' % v for v in variants))
+        run('RuG-L04/bin/mapdiff -o Sverigekarta-cluster.eps Sverigekarta.cfg Sverigekarta-cluster.dif')
     run('mv *eps ..')
 def blade(runner, targets):
     for target in targets:
