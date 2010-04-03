@@ -28,9 +28,13 @@ def writeparams(iterations=100, sample=1000, measure='r', norm='ratio'):
     else:
         params.write('#define SAMPLES %s\n' % (sample,))
     if norm=='ratio':
+        print('#define ratio normalisation')
         params.write('#define RATIO_NORM\n')
     elif norm=='over':
+        print('#define overuse normalisation')
         params.write('#define OVERUSE_NORM\n')
+    else:
+        print('#define only frequency normalisation')
     params.write('#define R_MEASURE %s\n' % (measure,))
     params.close()
 def combine(feature, type, measure, sample, norm, iterations=100):
