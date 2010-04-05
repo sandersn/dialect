@@ -235,14 +235,14 @@ def genMaps():
         ## Clustering with cophenetic mapping to a map ##
         ## Note: 2-30 clusters are possible. Probably not good for results.
         ## maybe 2-5 or 2-8 is better. ##
-        run('cluster -wm -b -m 2-30 -o cluster-%s-%s-%s-%s.dif Sverigekarta.cfg dist-10-%s-%s-%s-%s.dif')
+        run('RuG-L04/bin/cluster -wm -b -m 2-30 -o cluster-%s-%s-%s-%s.dif dist-10-%s-%s-%s-%s.dif' % (variant * 2))
         ## , then sum multiple clusters (this has to be outside the loop)##
         ## this can be very fancy, like weighting all the significant ones for
         ## a single distance measure the same over feature differences,
         ## re-allocating the insignificant ones' weight to them. ##
-    run('difsum -o Sverigekarta-cluster.dif '
+    run('RuG-L04/bin/difsum -o Sverigekarta-cluster.dif '
         + ' '.join('cluster-%s-%s-%s-%s.dif' % v for v in variants))
-    run('RuG-L04/bin/mapdiff -o Sverigekarta-cluster.eps Sverigekarta.cfg Sverigekarta-cluster.dif')
+    run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster.eps Sverigekarta.cfg Sverigekarta-cluster.dif')
     run('mv *eps ..')
 def blade(runner, targets):
     for target in targets:
