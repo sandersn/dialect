@@ -43,5 +43,3 @@ deStutter ws =
     (ws,aft) -> ws ++ deStutter ((dropWhile (not . endStutter) aft) |> tail)
 {-- utils --}
 trimsplit = split $ dropBlanks $ dropDelims $ whenElt isSpace
-f <&&> g = liftM2 (&&) f g
-f <||> g = liftM2 (||) f g
