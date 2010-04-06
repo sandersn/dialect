@@ -1,74 +1,309 @@
 \chapter{Results}
 
+The main research questions are, once again, (1) is R a good measure,
+and generally is the statistical approach to syntactic dialectometry
+workable? and (2) what combination of features gives the best results?
+
+\section{Distances}
+
+180 variations where, with 270 variations for feature ranking. The 180
+variations came from a $5\times 9 \times 2 \times 2$ design, fully
+crossed. The variations were:
+
+\begin{tabular}{r|ccccc}
+  Measure & $R$ & $R^2$ & KL & JS & cos \\ \hline
+  Feature Set & Leaf-Ancestor Path & POS Trigram & Leaf-Head Path \\
+  & Phrase Structure Grammar & Grandparent PSG & POS Unigram \\
+  & Alternate Leaf-Head Paths (Malt) & Dependency-Arc Path & All \\ \hline
+  Sampled & 1000 & All \\ \hline
+  Normalisation & Ratio & Frequency Only \\ \hline
+\end{tabular}
+
+Actually, all this should probably go in methods too, somewhere as a summary.
+
+This is an example table for $R$, Leaf-Ancestor Paths, 1000-sentence
+samples, and Frequency Only normalisation.
+
+\begin{table}
+\begin{tabular}{r|cccccccccccccccccccccccccccccc}
+& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30
+\end{tabular}
+\label{example-distances}
+\end{table}
+
 \section{Significant Distances}
+
+Significant distances help answer the question whether a syntactic
+measure has succeeded in finding reliable distances. It also is a good
+measure of when a feature set has messed up a previously-good measure.
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+  & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor                           &0 & 45 & 14 & 0 & 0\\
+  Trigram                                 &0 & 0 & 0 & 0 & 0\\
+  Dependency                              &0 & 6 & 0 & 0 & 0\\
+  Phrase-Structure Rules                  &0 & 0 & 34 & 0 & 0\\
+  Phrase-Structure with Grandparents  &0 & 0 & 86 & 0 & 0\\
+  Unigram &48 & 55 & 17 & 16 & 0\\
+  Dependencies with MaltParser trained by Timbl &0 & 9 & 20 & 0 & 0\\
+  Dependency, Arc Labels&1 & 52 & 2 & 0 & 0\\
+  All Features Combined &0 & 1 & 0 & 0 & 0\\
+\end{tabular}
+ \label{sig-1000-freq}
+  \caption{Significant distances for sample size 1000, Frequency
+    normalisation only}
+\end{table}
+\begin{table}
+  \begin{tabular}{l|rrrrr}
+ & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&286 & 281 & 286 & 280 & 208\\
+  Trigram&285 & 282 & 283 & 278 & 196\\
+  Dependency&291 & 286 & 285 & 279 & 206\\
+  Phrase-Structure Rules&286 & 293 & 288 & 276 & 235\\
+  Phrase-Structure with Grandparents&288 & 292 & 289 & 272 & 251\\
+  Unigram&298 & 296 & 291 & 293 & 7\\
+  Dependencies with MaltParser trained by Timbl&295 & 293 & 290 & 285 & 227\\
+  Dependency, Arc Labels&294 & 290 & 290 & 287 & 159\\
+  All Features Combined&283 & 277 & 279 & 272 & 190\\
+\end{tabular}
+ \label{sig-full-freq}
+  \caption{Significant distances for complete regions, Frequency
+    normalisation only}
+\end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&5 & 56 & 34 & 0 & 0\\
+  Trigram&3 & 2 & 0 & 0 & 0\\
+  Dependency&3 & 14 & 4 & 0 & 0\\
+  Phrase-Structure Rules&11 & 4 & 66 & 1 & 0\\
+  Phrase-Structure with Grandparents&18 & 0 & 109 & 4 & 0\\
+  Unigram&52 & 53 & 15 & 17 & 0\\
+  Dependencies with MaltParser trained by Timbl&7 & 20 & 45 & 0 & 0\\
+  Dependency, Arc Labels&6 & 54 & 17 & 1 & 0\\
+  All Features Combined&0 & 4 & 0 & 0 & 0\\
+\end{tabular}
+ \label{sig-1000-ratio}
+  \caption{Significant distances for sample size 1000, Ratio
+    normalisation included}
+\end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&290 & 284 & 287 & 278 & 204\\
+  Trigram&284 & 283 & 283 & 276 & 196\\
+  Dependency&293 & 286 & 285 & 279 & 211\\
+  Phrase-Structure Rules&289 & 294 & 286 & 275 & 236\\
+  Phrase-Structure with Grandparents&285 & 290 & 286 & 270 & 258\\
+  Unigram&297 & 296 & 294 & 293 & 9\\
+  Dependencies with MaltParser trained by Timbl&294 & 289 & 288 & 284 & 222\\
+  Dependency, Arc Labels&294 & 290 & 291 & 293 & 162\\
+  All Features Combined&279 & 279 & 279 & 269 & 191\\
+\end{tabular}
+ \label{sig-full-ratio}
+  \caption{Significant distances for complete regions, Ratio
+    normalisation included}
+\end{table}
 
 There is some variation in the number of distances that are
 significant for each combination of distance measure and feature
-set. The numbers are given in tables \ref{significances} and
-\ref{significances-percent}. The second, table
-\ref{significances-percent}, gives the significances as percentages of
-the total number of distances measured, $528 = 33 * (33 - 1) / 2$, and
-bolds numbers above 5\%.
-
-Specifically, looking at the tables above, one can draw the following
-six conclusions:
-
-\begin{table}
-\begin{tabular}{l|rrrr}
-  & $R$ & $R^2$ & KL & JS  \\ \hline
-  Leaf-Ancestor                             & 0 & 7 & 5& 6 \\
-  Trigram                                      & 0 & 0 & 86 & 99 \\
-  Dependency                                & 0 & 13 & 1 & 2 \\
-  Unigram                                      & 11 & 17 & 2 & 2 \\
-  Trigram, From Berkeley Parser      & 0 & 0 & 92 & 105 \\
-  Dependency, From Berkeley Parser & 0 & 6 & 0 & 0 \\
-  Dependency, Arc Labels                & 69 & 80 & 51 & 46 \\
-\end{tabular} \\
-\label{significances}
-\caption{Number of significant distances across Measure and Feature
-  Set}
-\end{table}
+set. The numbers are given in tables \ref{sig-1000-freq} --
+\ref{sig-full-ratio} and \ref{sig-percent-1000-freq} and
+\ref{sig-percent-full-ratio}. The second set gives the significances
+as percentages of the total number of distances measured, $435 = 30
+\times (30 - 1) / 2$.
+Bold percentages in tables \ref{sig-percent-1000-freq},
+and \ref{sig-percent-1000-ratio} indicate that more than 5\% of the
+distances were not significant. They are not marked in tables
+\ref{sig-percent-full-freq} and \ref{sig-percent-full-ratio} because
+so few distances are significant. In fact, the only combination with
+{\it less} than 5\% non-significant results is cosine dissimilarity
+with unigram features. Here, 5\% is an arbitrary cutoff point not
+related to the significance cutoff $p < 0.05$, because the basis for
+these tables are themselves number of significant distances found.
+% TODO:Make sure this is true; Wybo's discussion of family errors
+% doesn't seem to apply here but it might.
 
 \begin{table}
-\begin{tabular}{l|rrrr}
-  & $R$ & $R^2$ & KL & JS  \\ \hline
-  Leaf-Ancestor                    & 0 & 1.33 & 0.95 & 1.14 \\
-  Trigram                            & 0 & 0 & {\bf 16.29} & {\bf 18.75} \\
-  Dependency                       & 0 & 2.46 & 0.19 & 0.38 \\
-  Unigram                             & 2.08 & 3.22 & 0.38 & 0.38\\
-  Trigram, From Berkeley Parser& 0 & 0 & {\bf 17.42} & {\bf 19.89} \\
-  Dependency, From Berkeley Parser & 0 & 1.14 & 0 & 0 \\
-  Dependency, Arc Labels
-  & {\bf 13.07} & {\bf 15.15} & {\bf 9.66} & {\bf 8.71} \\
-\end{tabular} \\
-\label{significances-percent}
-\caption{Percent of significant distances across Measure and Feature
-  Set}
+\begin{tabular}{l|rrrrr}
+ & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&0 & {\bf 10.34} & 3.22 & 0 & 0\\
+  Trigram&0 & 0 & 0 & 0 & 0\\
+  Dependency&0 & 1.38 & 0 & 0 & 0\\
+  Phrase-Structure Rules&0 & 0 & {\bf 7.82} & 0 & 0\\
+  Phrase-Structure with Grandparents&0 & 0 & {\bf 19.77} & 0 & 0\\
+  Unigram&{\bf 11.03} & {\bf 12.64} & 3.91 & 3.68 & 0\\
+  Dependencies with MaltParser trained by Timbl&0 & 2.07 & 4.60 & 0 & 0\\
+  Dependency, Arc Labels&0.23 & {\bf 11.95} & 0.46 & 0 & 0\\
+  All Features Combined&0 & 0.23 & 0 & 0 & 0\\
+\end{tabular}
+ \label{sig-percent-1000-freq}
+  \caption{Significant percentages for sample size 1000, Frequency
+    normalisation only}
+\end{table}
+\begin{table}
+  \begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&65.75 & 64.60 & 65.75 & 64.37 & 47.82\\
+  Trigram&65.52 & 64.83 & 65.06 & 63.91 & 45.06\\
+  Dependency&66.90 & 65.75 & 65.52 & 64.14 & 47.36\\
+  Phrase-Structure Rules&65.75 & 67.36 & 66.21 & 63.45 & 54.02\\
+  Phrase-Structure with Grandparents&66.21 & 67.13 & 66.44 & 62.53 & 57.70\\
+  Unigram&68.51 & 68.05 & 66.90 & 67.36 & {\it 1.61}\\
+  Dependencies with MaltParser trained by Timbl&67.82 & 67.36 & 66.67 & 65.52 & 52.18\\
+  Dependency, Arc Labels&67.59 & 66.67 & 66.67 & 65.98 & 36.55\\
+  All Features Combined&65.06 & 63.68 & 64.14 & 62.53 & 43.68\\
+\end{tabular}
+ \label{sig-percent-full-freq}
+  \caption{Significant percentages for complete regions, Frequency
+    normalisation only}
+\end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&1.15 & {\bf 12.87} & {\bf 7.82} & 0 & 0\\
+  Trigram&0.69 & 0.46 & 0 & 0 & 0\\
+  Dependency&0.69 & 3.22 & 0.92 & 0 & 0\\
+  Phrase-Structure Rules&2.53 & 0.92 & {\bf 15.17} & 0.23 & 0\\
+  Phrase-Structure with Grandparents&4.14 & 0 & {\bf 25.06} & 0.92 & 0\\
+  Unigram&{\bf 11.95} & {\bf 12.18} & 3.45 & 3.91 & 0\\
+  Dependencies, MaltParser trained by Timbl&1.61 & {\bf 4.60} & {\bf 10.34}
+  & 0 & 0\\
+  Dependency, Arc Labels&1.38 & {\bf 12.41} & 3.91 & 0.23 & 0\\
+  All Features Combined&0 & 0.92 & 0 & 0 & 0\\
+\end{tabular}
+ \label{sig-percent-1000-ratio}
+  \caption{Significant percentages for sample size 1000, Ratio
+    normalisation included}
+\end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&66.67 & 65.29 & 65.98 & 63.91 & 46.90\\
+  Trigram&65.29 & 65.06 & 65.06 & 63.45 & 45.06\\
+  Dependency&67.36 & 65.75 & 65.52 & 64.14 & 48.51\\
+  Phrase-Structure Rules&66.44 & 67.59 & 65.75 & 63.22 & 54.25\\
+  Phrase-Structure with Grandparents&65.52 & 66.67 & 65.75 & 62.07 & 59.31\\
+  Unigram&68.28 & 68.05 & 67.59 & 67.36 & {\it 2.07}\\
+  Dependencies, MaltParser trained by Timbl&67.59 & 66.44 & 66.21 & 65.29 & 51.03\\
+  Dependency, Arc Labels&67.59 & 66.67 & 66.90 & 67.36 & 37.24\\
+  All Features Combined&64.14 & 64.14 & 64.14 & 61.84 & 43.91\\
+\end{tabular}
+ \label{sig-percent-full-ratio}
+  \caption{Significant percentages for complete regions, Ratio
+    normalisation included}
 \end{table}
 
 
+Analysis of the tables above leads to the following conclusions:
 
 \begin{enumerate}
-\item Dependencies using arc labels is not a good feature.
-\item Kullbeck-Leibler and Jensen-Shannon divergences
-do not provide good results given trigram features.
-\item Kullbeck-Leibler and Jensen-Shannon divergences provide their
-  best results with dependency features.
-\item However, on unigram features, which were included as a control,
-  Kullbeck-Leibler and Jensen-Shannon divergences do almost as well as with
-  dependency features.
-\item In contrast, $R^2$ gives its best performance for trigram
-  features.
-\item $R$ provides the best results across all feature sets
-  overall. The exceptions are unigram and dependencies with arc
-  labels, but these feature sets perform poorly overall.
+\item Fix-sized sampling is much more successful than relying on
+  normalisation to eradicate size differences between regions.
+  % But what if the sampling is overly significant because
+  % the samples from the combined corpus is more similar because of
+  % sampling from a larger pool
+  % ...no that doesn't make sense, because sampling from a larger pool
+  % will decrease that number of dups, meaning that random distance
+  % should be HIGHER.
+ % Anyway, so the question remains: WHY? Probably because of a size
+ % difference, but how would I check?
+\item Comparison of frequencies is slightly more successful than
+  comparison of ratios. (This also makes sense because of the noisy
+  parsing as well as the smallish corpora)
+\item The distance measures most likely to find significance are in
+  order, cosine dissimilarity, Jensen-Shannon dissimilarity and $R$.
+\item The feature sets most likely to find significance were trigrams
+  and dependencies. Trigrams make sense because they are earlier in
+  the toolchain, and their annotator is much more accurate to
+  boot. Dependencies are not so obvious.
+  % Good question why dependencies are so good.
+\item However, PSGs and dependencies with alternate training are also
+  pretty good.
+\item Unigrams do form an adequate baseline; they are bad but not too
+  bad.
+\item In addition, their results call cos into question. Why is it so
+  good at finding significant distances? Why are the maps (below) so
+  confusing?
+\item Combining all features together is a really good idea. It boosts
+  significance and, as seen later in this chapter, the quality of the
+  results as well.
+% \item Kullbeck-Leibler and Jensen-Shannon divergences
+% do not provide good results given trigram features.
+% \item Kullbeck-Leibler and Jensen-Shannon divergences provide their
+%   best results with dependency features.
+% \item However, on unigram features, which were included as a control,
+%   Kullbeck-Leibler and Jensen-Shannon divergences do almost as well as with
+%   dependency features.
+% \item In contrast, $R^2$ gives its best performance for trigram
+%   features.
+% \item $R$ provides the best results across all feature sets
+%   overall. The exceptions are unigram and dependencies with arc
+%   labels, but these feature sets perform poorly overall.
 \end{enumerate}
 
 These are not particularly coherent conclusions to draw. Further
-analysis is needed to identify the cause of the variation. Regardless,
-because of $R$'s consistency, it will be used exclusively for the
-remaining results. Dependencies with arc labels will also be omitted
-from the rest of the analysis and discussion.
+analysis is needed to identify the cause of the
+variation.
+
+\section{Correlation}
+
+Correlation with geography is another indicator that a syntactic
+measure is finding significant distances.
+
+Besides this, correlation between combinations of measure/feature set
+can show how closely related they are--in other words, how similarly
+they view the underlying data which remains the same for all.
+
+This is similar to the reasoning behind correlation with
+geography---but the assumption is that geography is a factor
+underlying dialect formation; while the distance measure measures some
+aspect of the language which we hope is dialects, it is indirectly
+(even less directly) measuring the geography. Therefore, correlation
+with geography should occur.
+
+
+
+\section{Clusters}
+
+Clusters answer the question of $R$'s utility for dialectometry more
+precisely than correlation by inducing regions from the
+distances. These regions can be compared to regions from syntactic
+dialectology. (There are about four of those, there hasn't been much
+synctactic dialectology in Sweden.)
+
+\subsection{Consensus Trees}
+
+Stabler addition to clusters.
+
+\subsection{Composite Cluster Maps}
+
+A better visualisation with the same intent as consensus trees. Not
+stabler, but easier to visualise the valid boundaries.
+
+\section{MDS}
+
+Same as clusters, more accurate (less distortion) and harder to
+interpret. Is there a cool way to combine multiple MDS maps?
+
+\section{Features}
+
+Ranked features answer the question more precisely than the previous
+two sections of whether $R$ is finding characteristics interesting to
+linguists. Or whether it's finding a bunch of small things that
+linguists ignore, and are maybe just bogus.
+
+The features were ranked with three different kinds of scaling.
+
+The features were compared using consensus groups as well as between
+individual regions. This last was to see how specific the feature
+extraction could be in finding features that were unique to the
+region. These results are from Jamshog, Ossjo and ??, the three most
+distant regions.
+
+\section{Significant Distances}
+
 
 \begin{table}
 \begin{tabular}{r|lll}

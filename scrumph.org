@@ -678,7 +678,27 @@
    - I will write an example for Wiersma's normalisation (this should
      help finally prove to me if it's useful.) I will write code I
      guess through #ifdefs in icecore.h, if it is.
-   - Bah humbug. FParsec sucks
+   - Bah humbug. FParsec sucks.
+     Hey! Remember to write something to filter out non-significant
+     distances, assuming that clusters, MDS, etc can work with some
+     distances removed.
+** 2010/04/05
+   - I finished the second draft of Methods, and sent it to Sandra. I
+     fixed the bugs in generation (space in #end if, as well as
+     incorrect output file name for feature extraction) and ran stage
+     4 and 5 over the weekend. I finished the outline for Results.
+   - I will generate analysis and start pasting in the results I
+     guess.
+   - The outline is kind of sketchy near the end where I got bored.
+     Also I need to run the single feature extraction wrt Jamshog.
+** 2010/04/06
+   - I generated analysis and got the significances formatted
+     nicely. Some analysis too.
+   - I will put in correlation and cluster results.
+   - Still need to worry about filtering out only the non-significant
+     distances instead of keeping only combos that have ALL
+     significants. Maybe not such a problem; the sigs are pretty good
+     for the 1000-sample side.
 * Plan
 ** January
 *** Get results
