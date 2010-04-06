@@ -204,7 +204,8 @@ def genAnalysis():
             for measure in consts.measures:
                 outf.write(measure + ',')
                 outf.write(','.join(
-                    sigs['sig-100-1000-%s-%s-%s.txt' % (measure, feature, norm)]
+                    sigs['sig-100-%s-%s-%s-%s.txt' %
+                         (sample, measure, feature, norm)]
                     for feature in consts.features))
                 outf.write('\n')
             outf.close()
