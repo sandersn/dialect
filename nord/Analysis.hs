@@ -2,7 +2,7 @@
 import Util
 import Text.Printf (printf)
 import Data.List hiding (group)
-import Data.List.Split (sepBy)
+import Data.List.Split (endBy)
 import Control.Monad (liftM2)
 import qualified Data.Map as Map
 features = ["path", "trigram", "dep", "psg", "grand",
@@ -10,11 +10,13 @@ features = ["path", "trigram", "dep", "psg", "grand",
 measures = ["r", "r_sq", "kl", "js", "cos"]
 group n [] = []
 group n l = fore : group n aft where (fore,aft) = splitAt n l
-main = withFileLines (cor "full" "ratio") "correlations-R.txt" >>= mapM_ putStrLn
+main = withFileLines selfcor "correlations-R.txt" >>= mapM_ putStrLn
+-- main = withFileLines (cor "full" "ratio") "correlations-R.txt" >>= mapM_ putStrLn
 cor sample norm = filter (head & ((/='0') <&&> (/='-')))
                   & group 6 & map (map clean & key)
                   & Map.fromList & table sample norm & map (('&':) & (++"\\\\"))
-clean = dropWhile (/=':') & tail
+clean s | dropWhile (/=':') s == "" = error (s ++ " sucks for some reason")
+clean s = s |> dropWhile (/=':') & tail
 key [title,_,geocor,geosig,travelcor,travelsig] =
   (words title, (significance geocor geosig,significance travelcor travelsig))
 significance cor sig = printf "%.2f" (read cor :: Double) ++ stars (read sig)
@@ -29,18 +31,20 @@ table sample norm d = [intercalate " & " (map (foo f) measures) | f <- features]
 f <&&> g = liftM2 (&&) f g
 f <||> g = liftM2 (||) f g
 ----------
-selfcor sample norm = filter (head & ((=='0') <||> (==' ')))
-                      & group 6 & map selfkey & Map.fromList
-                      & Map.filter (desired sample norm) & Map.elems
-                      -- & filterSigs & averageall
-desired sample norm = undefined
-filterSigs ls = map (\ l -> [cor | (cor,sig) <- l, sig < 0.05]) ls
-averageall = transpose & map (transpose & map avg)
-  where avg l = sum l / fromIntegral (length l) -- SLOW but who cares
-selfkey (title:rest) = (words $ clean title, map parseSig rest)
-parseSig = map (pair . map (read :: String -> Double) . words) . sepBy ","
+selfcor = filter (head & ((=='0') <||> (==' ') <||> (=='-')))
+          & group 9 & map selfkey
+          & Map.fromList & Map.filterWithKey desired & Map.elems
+          & averageall & format
+format = map (map (uncurry (printf "%.2f(%d)")) & intercalate " & ")
+desired [sample,_,f,n] _ = sample=="1000" -- full is never significant
+filterSigs l = [cor | (cor,sig) <- l, sig < 5.0]
+averageall = transpose & map (transpose &  map (filterSigs & avg))
+  where avg [] = (-9999.0, 0)
+        avg l = (sum l / fromIntegral (length l), length l) -- SLOW but who cares
+selfkey (title:rest) = (words $ clean title, map parseSig (drop 4 rest))
+parseSig = map (pair . map (read :: String -> Double) . words) . endBy ","
   where pair [x,y] = (x,y)
-        pair _ = error "Not a two-element list"
+        pair l = error ( "Not a two-element list:" ++ show l)
 
 -- so, oh look, Perl 6 has a data structure that implicitly lifts operations
 -- into the list monad. OH GREAT. Like I wouldn't rather do that explicitly

@@ -13,9 +13,9 @@ samples <- c('1000', 'full')
 norms <- c('ratio', 'freq')
 for (norm in norms) {
   for (sample in samples) {
-    for (measure in measures) {
+    for (feature in features) {
       ts <- list()
-      for(feature in features) {
+      for(measure in measures) {
         cat(paste(" OK: ", sample, measure, feature, norm, "\n"))
         t <- read.table(paste("nord/dist-10",
                               sample, measure, feature, norm, "R.txt", sep='-'),
@@ -47,9 +47,9 @@ for (norm in norms) {
  # I also don't know how R represents pairs, so I won't write a separate function
       for(i in 1:(length(ts)-1)) {
         for(j in (i+1):length(ts)) {
-          cat(paste(cor(vectorise(ts[[i]]), vectorise(ts[[j]])), '(',
+          cat(paste(cor(vectorise(ts[[i]]), vectorise(ts[[j]])), ' ',
                   # mantel(ts[[i]], ts[[j]], 33), '),', sep=''))
-                    mantel(ts[[i]], ts[[j]], 30), '),', sep=''))
+                    mantel(ts[[i]], ts[[j]], 30), ',', sep=''))
         }
         cat('\n')
       }
