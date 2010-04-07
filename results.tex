@@ -298,23 +298,23 @@ with geography should occur.
   \caption{Geographic correlation for sample size 1000, Frequency
     normalisation only}
 \end{table}
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.05 & -0.09 & -0.11 & -0.08 & -0.08\\
-  Trigram&-0.09 & -0.13 & -0.14 & -0.12 & -0.09\\
-  Dependency&-0.04 & -0.07 & -0.10 & -0.08 & -0.10\\
-  Phrase-Structure Rules&0.06 & -0.02 & -0.06 & 0.02 & -0.01\\
-  Phrase-Structure with Grandparents&0.08 & -0.01 & -0.05 & 0.05 & -0.02\\
-  Unigram&-0.06 & -0.08 & -0.10 & -0.09 & 0.14\\
-  Dependencies, MaltParser trained by Timbl&-0.04 & -0.07 & -0.10 & -0.07 & -0.10\\
-  Dependency, Arc Labels&-0.06 & -0.06 & -0.10 & -0.10 & -0.10\\
-  All Features Combined&-0.06 & -0.09 & -0.12 & -0.09 & -0.09\\
-\end{tabular}
- \label{cor-full-freq}
-  \caption{Geographic correlation for complete regions, Frequency
-    normalisation only}
-\end{table}
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&-0.05 & -0.09 & -0.11 & -0.08 & -0.08\\
+%   Trigram&-0.09 & -0.13 & -0.14 & -0.12 & -0.09\\
+%   Dependency&-0.04 & -0.07 & -0.10 & -0.08 & -0.10\\
+%   Phrase-Structure Rules&0.06 & -0.02 & -0.06 & 0.02 & -0.01\\
+%   Phrase-Structure with Grandparents&0.08 & -0.01 & -0.05 & 0.05 & -0.02\\
+%   Unigram&-0.06 & -0.08 & -0.10 & -0.09 & 0.14\\
+%   Dependencies, MaltParser trained by Timbl&-0.04 & -0.07 & -0.10 & -0.07 & -0.10\\
+%   Dependency, Arc Labels&-0.06 & -0.06 & -0.10 & -0.10 & -0.10\\
+%   All Features Combined&-0.06 & -0.09 & -0.12 & -0.09 & -0.09\\
+% \end{tabular}
+%  \label{cor-full-freq}
+%   \caption{Geographic correlation for complete regions, Frequency
+%     normalisation only}
+% \end{table}
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
@@ -332,23 +332,23 @@ with geography should occur.
   \caption{Geographic correlation for sample size 1000, Ratio
     normalisation included}
 \end{table}
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.14 & -0.16 & -0.15 & -0.15 & -0.08\\
-  Trigram&-0.09 & -0.07 & -0.09 & -0.09 & -0.09\\
-  Dependency&-0.22 & -0.21 & -0.18 & -0.22 & -0.10\\
-  Phrase-Structure Rules&-0.19 & -0.14 & -0.11 & -0.20 & -0.01\\
-  Phrase-Structure with Grandparents&-0.17 & -0.11 & -0.09 & -0.18 & -0.02\\
-  Unigram&-0.10 & -0.06 & -0.07 & -0.08 & 0.14*\\
- Dependencies, MaltParser trained by Timbl&-0.19 & -0.18 & -0.18 & -0.19 & -0.10\\
-  Dependency, Arc Labels&-0.21 & -0.18 & -0.18 & -0.21 & -0.10\\
-  All Features Combined&-0.18 & -0.18 & -0.16 & -0.18 & -0.09\\
-\end{tabular}
- \label{cor-full-ratio}
-  \caption{Geographic correlation for complete regions, Ratio
-    normalisation included}
-\end{table}
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&-0.14 & -0.16 & -0.15 & -0.15 & -0.08\\
+%   Trigram&-0.09 & -0.07 & -0.09 & -0.09 & -0.09\\
+%   Dependency&-0.22 & -0.21 & -0.18 & -0.22 & -0.10\\
+%   Phrase-Structure Rules&-0.19 & -0.14 & -0.11 & -0.20 & -0.01\\
+%   Phrase-Structure with Grandparents&-0.17 & -0.11 & -0.09 & -0.18 & -0.02\\
+%   Unigram&-0.10 & -0.06 & -0.07 & -0.08 & 0.14*\\
+%  Dependencies, MaltParser trained by Timbl&-0.19 & -0.18 & -0.18 & -0.19 & -0.10\\
+%   Dependency, Arc Labels&-0.21 & -0.18 & -0.18 & -0.21 & -0.10\\
+%   All Features Combined&-0.18 & -0.18 & -0.16 & -0.18 & -0.09\\
+% \end{tabular}
+%  \label{cor-full-ratio}
+%   \caption{Geographic correlation for complete regions, Ratio
+%     normalisation included}
+% \end{table}
 
 Now for correlation with travel distance. Travel distance is more
 informative than geographic distance because it accounts for obstacles
@@ -371,23 +371,24 @@ like mountains, lakes and islands.
   \caption{Travel correlation for sample size 1000, Frequency
     normalisation only}
 \end{table}
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&0.01 & -0.02 & -0.05 & -0.02 & -0.04\\
-  Trigram&-0.03 & -0.05 & -0.07 & -0.05 & -0.05\\
-  Dependency&0.02 & 0.00 & -0.03 & -0.02 & -0.06\\
-  Phrase-Structure Rules&0.11 & 0.05 & 0.01 & 0.08 & 0.04\\
-  Phrase-Structure with Grandparents&0.13 & 0.06 & 0.01 & 0.11 & 0.03\\
-  Unigram&0.00 & -0.01 & -0.03 & -0.02 & 0.18*\\
-  Dependencies, MaltParser trained by Timbl&0.02 & -0.00 & -0.03 & -0.01 & -0.05\\
-  Dependency, Arc Labels&-0.00 & 0.01 & -0.03 & -0.03 & -0.06\\
-  All Features Combined&-0.00 & -0.03 & -0.05 & -0.03 & -0.05\\
-\end{tabular}
- \label{travel-cor-full-freq}
-  \caption{Travel correlation for complete regions, Frequency
-    normalisation only}
-\end{table}
+
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&0.01 & -0.02 & -0.05 & -0.02 & -0.04\\
+%   Trigram&-0.03 & -0.05 & -0.07 & -0.05 & -0.05\\
+%   Dependency&0.02 & 0.00 & -0.03 & -0.02 & -0.06\\
+%   Phrase-Structure Rules&0.11 & 0.05 & 0.01 & 0.08 & 0.04\\
+%   Phrase-Structure with Grandparents&0.13 & 0.06 & 0.01 & 0.11 & 0.03\\
+%   Unigram&0.00 & -0.01 & -0.03 & -0.02 & 0.18*\\
+%   Dependencies, MaltParser trained by Timbl&0.02 & -0.00 & -0.03 & -0.01 & -0.05\\
+%   Dependency, Arc Labels&-0.00 & 0.01 & -0.03 & -0.03 & -0.06\\
+%   All Features Combined&-0.00 & -0.03 & -0.05 & -0.03 & -0.05\\
+% \end{tabular}
+%  \label{travel-cor-full-freq}
+%   \caption{Travel correlation for complete regions, Frequency
+%     normalisation only}
+% \end{table}
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
@@ -407,23 +408,23 @@ like mountains, lakes and islands.
     normalisation included}
 \end{table}
 
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.13 & -0.13 & -0.10 & -0.13 & -0.04\\
-  Trigram&-0.06 & -0.04 & -0.05 & -0.06 & -0.05\\
-  Dependency&-0.20 & -0.17 & -0.13 & -0.19 & -0.06\\
-  Phrase-Structure Rules&-0.15 & -0.08 & -0.05 & -0.15 & 0.04\\
-  Phrase-Structure with Grandparents&-0.12 & -0.05 & -0.03 & -0.13 & 0.03\\
-  Unigram&-0.07 & -0.03 & -0.04 & -0.05 & 0.18*\\
-  Dependencies, MaltParser trained by Timbl&-0.18 & -0.15 & -0.12 & -0.18 & -0.05\\
-  Dependency, Arc Labels&-0.20 & -0.17 & -0.14 & -0.19 & -0.06\\
-  All Features Combined&-0.16 & -0.14 & -0.11 & -0.15 & -0.05\\
-\end{tabular}
- \label{travel-cor-full-ratio}
-  \caption{Travel correlation for complete regions, Ratio
-    normalisation included}
-\end{table}
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&-0.13 & -0.13 & -0.10 & -0.13 & -0.04\\
+%   Trigram&-0.06 & -0.04 & -0.05 & -0.06 & -0.05\\
+%   Dependency&-0.20 & -0.17 & -0.13 & -0.19 & -0.06\\
+%   Phrase-Structure Rules&-0.15 & -0.08 & -0.05 & -0.15 & 0.04\\
+%   Phrase-Structure with Grandparents&-0.12 & -0.05 & -0.03 & -0.13 & 0.03\\
+%   Unigram&-0.07 & -0.03 & -0.04 & -0.05 & 0.18*\\
+%   Dependencies, MaltParser trained by Timbl&-0.18 & -0.15 & -0.12 & -0.18 & -0.05\\
+%   Dependency, Arc Labels&-0.20 & -0.17 & -0.14 & -0.19 & -0.06\\
+%   All Features Combined&-0.16 & -0.14 & -0.11 & -0.15 & -0.05\\
+% \end{tabular}
+%  \label{travel-cor-full-ratio}
+%   \caption{Travel correlation for complete regions, Ratio
+%     normalisation included}
+% \end{table}
 
 From the tables we see that very few combinations have significant
 correlation with geographic or travel distance. Those that do are
@@ -448,22 +449,40 @@ should have lower type counts because of its limited size.
 \subsection{Self-Correlation}
 
 Correlation between the different measures might help explain the
-strange behaviour of cosine.
+strange behaviour of cosine. The correlation between different
+measures, averaged over all 1000-sized samples, is given in table
+\ref{self-correlation-measures}. Only significant correlations are
+shown.
 
-TODO:Correlation between cosine and everybody else.
-
-Oops. I don't measure this. I hold the measure constant and look at
-self-correlations between feature sets.
 % full cos ratio
 % over path/trigram/dep/psg/grand/unigram/redep/deparc/all
-0.94,0.98,0.88,0.82,0.41,0.97,0.93,0.99,
-0.963007944702095,0.938364800043836,0.900357000270338,0.355438598456189,0.97735597161161,0.846244835285222,0.96457332673020,
-0.908076815308865,0.863854458174883,0.368974565589594,0.988779257859572,0.905581405680955,0.995297046650977,
-0.985585594354902,0.381674993392215,0.935383700633888,0.750470106180022,0.901042804757173,
-0.350359232540922,0.890565059176133,0.68554295711633,0.850954375590285,
-0.358056696954652,0.519443951554257,0.399216264905112,
-0.878531682711928,0.986108360067072,
-0.924020357241059,
+
+\begin{tabular}{r|cccc}
+ & $R^2$ & $KL$ & $JS$ & cos \\ \hline
+$R$ & 0.85 & 0.79 & 0.98 & 0.20 \\ 
+$R^2$&& 0.7687 & 0.85 & 0.14 \\
+$KL$ &&& 0.87 & 0.65 \\
+$JS$ &&&& 0.34 \\
+\end{tabular}
+
+\begin{table}
+  \begin{tabular}{r|cccc}
+ & $R^2$ & $KL$ & $JS$ & cos \\ \hline
+  $R$ & 0.92 & 0.82 & 0.98 & 0.66 \\
+  $R^2$&& 0.88 & 0.91 & 0.69 \\
+  $KL$ &&& 0.89 & 0.71 \\
+  $JS$ &&&& 0.65 \\
+\end{tabular}
+  \label{self-correlation-measures}
+  \caption{Average Intra-measure-correlation of measures}
+\end{table}
+
+in addition the lower correlations between cosine and other
+measures, several of the correlations were not significant. It does
+appear that a cosine is arriving at different results than the other
+measures, though the correlation is still much higher than with travel
+distance. A more precise investigation of this anomaly appears below
+in section \ref{results-features}.
 
 \section{Clusters}
 
@@ -473,9 +492,59 @@ distances. These regions can be compared to regions from syntactic
 dialectology. (There are about four of those, there hasn't been much
 synctactic dialectology in Sweden.)
 
+These results differ most with the addition of the ratio
+normalisation; there is significant reconfiguration between the
+two. For example, figure \ref{cluster-r-dep-freq} and
+\ref{cluster-r-dep-ratio} show the different clusters. Other
+dendrograms based on $R$ are similar over feature set, but the
+additional normalisation clearly makes a difference.
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-dep-freq-clusterward}
+  \label{cluster-r-dep-freq}
+  \caption{Dendrogram With Frequency Normalisation Only ($R$
+    measure and Dependency features)}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-dep-ratio-clusterward}
+  \label{cluster-r-dep-ratio}
+  \caption{Dendrogram With Ratio Normalisation ($R$
+    measure and Dependency features)}
+\end{figure}
+
+In addition, most measures produce similar dendrograms; for example, changing
+the measure from $R$ to Jensen-Shannon divergence produces figures
+\ref{cluster-js-dep-freq} and \ref{cluster-js-dep-ratio}.
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-dep-freq-clusterward}
+  \label{cluster-js-dep-freq}
+  \caption{Dendrogram With Frequency Normalisation Only
+    (Jensen-Shannon measure and Dependency features)}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-dep-ratio-clusterward}
+  \label{cluster-js-dep-ratio}
+  \caption{Dendrogram With Ratio Normalisation (Jensen-Shannon
+    measure and Dependency features)}
+\end{figure}
+
+TODO: Cosine agrees pretty well, too actually. Maybe it's just that
+the distances are constrained 0 to 1? I don't think that would make so
+much of a difference.
+
 \subsection{Consensus Trees}
 
 Stabler addition to clusters.
+
+Show at least three: consensus all, consensus freq, consensus
+ratio.
+
+It would still be cool to eliminate only the non-significant distances
+and re-run the clusters. (I can't remember if that's easily possible
+with R though, it may only be a feature of MDS.)
 
 \subsection{Composite Cluster Maps}
 
@@ -488,6 +557,7 @@ Same as clusters, more accurate (less distortion) and harder to
 interpret. Is there a cool way to combine multiple MDS maps?
 
 \section{Features}
+\label{results-features}
 
 Ranked features answer the question more precisely than the previous
 two sections of whether $R$ is finding characteristics interesting to
