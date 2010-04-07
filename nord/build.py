@@ -154,7 +154,7 @@ def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
     # 12. Dump a list of all features between each pair of site clusters.
     for sample, measure, feature, norm in variants:
-        norm2s = ['over', 'raw'] if norm=='freq' else ['raw']
+        norm2s = ['over', 'freq'] if norm=='freq' else ['ratio']
         for norm2 in norm2s:
             # 12.1 Make cluster files first
             norte.combineFeatures(consts.agreeClusters, feature)
@@ -166,7 +166,7 @@ def syntaxFeatures():
                 "%s-%s-tmp.txt" % pair
                 for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
             run('./RankFeatures %s >feat-5-%s-%s-%s-%s.txt'
-                % (tmps,sample,measure,feature,norm))
+                % (tmps,sample,measure,feature,norm2))
 def syntaxFeaturesSimple():
     for sample, measure, feature, norm in variants:
         norte.writeparams(1000, sample, measure, norm)
