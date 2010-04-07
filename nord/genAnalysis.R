@@ -1,6 +1,6 @@
 setwd('/Users/zackman/Documents/dialect/')
 source('montecarlo Mantel example.R')
-sink('nord/dist-10-1000-correlations-interview-R.txt')
+sink('nord/correlations-R.txt')
 
 geo <- read.table("nord/dist-geo-R.txt", header=TRUE)
 travel <- read.table("nord/dist-travel-R.txt", header=TRUE)
@@ -16,25 +16,28 @@ for (norm in norms) {
     for (measure in measures) {
       ts <- list()
       for(feature in features) {
-        cat(paste(" OK: ", measure, feature, norm, "\n"))
-        t <- read.table(paste("nord/dist-10-1000",
-                              measure, feature, norm, "R.txt", sep='-'),
+        cat(paste(" OK: ", sample, measure, feature, norm, "\n"))
+        t <- read.table(paste("nord/dist-10",
+                              sample, measure, feature, norm, "R.txt", sep='-'),
                         header=TRUE)
         ts <- c(ts, list(t))
         hcl <- hclust(as.dist(t), method="ward")
         cat(paste("Cluster: "))
-        cat(paste(measure, feature, sep=' '))
+        cat(paste(sample, measure, feature, norm, sep=' '))
         cat(' ')
         for(i in hcl$merge) {
           cat(i); cat(" ")
         }
         cat("\n")
-        pdf(file=paste("dist-10-1000", measure, feature, norm, "clusterward.pdf", sep='-'),
+        pdf(file=paste("dist-10",
+                       sample, measure, feature, norm,
+                       "clusterward.pdf", sep='-'),
             width=9.014, height=6.931)
-        plclust(hcl, hang=-1, sub="", xlab="", ylab=paste(measure, feature, norm, sep='-'))
+        plclust(hcl, hang=-1, sub="",
+                xlab="", ylab=paste(sample, measure, feature, norm, sep='-'))
         dev.off()
         cat(paste("cor:", cor(vectorise(geo), vectorise(t)), '\n'))
-                                        # cat(paste("sig:", mantel(geo, t, 33), '\n'))
+        # cat(paste("sig:", mantel(geo, t, 33), '\n'))
         cat(paste("sig:", mantel(geo, t, 30), '\n'))
         cat(paste("cortravel:", cor(vectorise(travel), vectorise(t)), '\n'))
         cat(paste("sigtravel:", mantel(travel, t, 30), '\n'))
