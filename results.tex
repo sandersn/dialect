@@ -457,14 +457,6 @@ shown.
 % full cos ratio
 % over path/trigram/dep/psg/grand/unigram/redep/deparc/all
 
-\begin{tabular}{r|cccc}
- & $R^2$ & $KL$ & $JS$ & cos \\ \hline
-$R$ & 0.85 & 0.79 & 0.98 & 0.20 \\ 
-$R^2$&& 0.7687 & 0.85 & 0.14 \\
-$KL$ &&& 0.87 & 0.65 \\
-$JS$ &&&& 0.34 \\
-\end{tabular}
-
 \begin{table}
   \begin{tabular}{r|cccc}
  & $R^2$ & $KL$ & $JS$ & cos \\ \hline
@@ -494,67 +486,206 @@ synctactic dialectology in Sweden.)
 
 These results differ most with the addition of the ratio
 normalisation; there is significant reconfiguration between the
-two. For example, figure \ref{cluster-r-dep-freq} and
-\ref{cluster-r-dep-ratio} show the different clusters. Other
+two. For example, figure \ref{cluster-r-trigram-freq} and
+\ref{cluster-r-trigram-ratio} show the different clusters. Other
 dendrograms based on $R$ are similar over feature set, but the
 additional normalisation clearly makes a difference.
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-dep-freq-clusterward}
-  \label{cluster-r-dep-freq}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-trigram-freq-clusterward}
+  \label{cluster-r-trigram-freq}
   \caption{Dendrogram With Frequency Normalisation Only ($R$
-    measure and Dependency features)}
+    measure and trigram features)}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-dep-ratio-clusterward}
-  \label{cluster-r-dep-ratio}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-trigram-ratio-clusterward}
+  \label{cluster-r-trigram-ratio}
   \caption{Dendrogram With Ratio Normalisation ($R$
-    measure and Dependency features)}
+    measure and trigram features)}
 \end{figure}
 
 In addition, most measures produce similar dendrograms; for example, changing
 the measure from $R$ to Jensen-Shannon divergence produces figures
-\ref{cluster-js-dep-freq} and \ref{cluster-js-dep-ratio}.
+\ref{cluster-js-trigram-freq} and \ref{cluster-js-trigram-ratio}.
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-dep-freq-clusterward}
-  \label{cluster-js-dep-freq}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-trigram-freq-clusterward}
+  \label{cluster-js-trigram-freq}
   \caption{Dendrogram With Frequency Normalisation Only
-    (Jensen-Shannon measure and Dependency features)}
+    (Jensen-Shannon measure and trigram features)}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-dep-ratio-clusterward}
-  \label{cluster-js-dep-ratio}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-trigram-ratio-clusterward}
+  \label{cluster-js-trigram-ratio}
   \caption{Dendrogram With Ratio Normalisation (Jensen-Shannon
-    measure and Dependency features)}
+    measure and trigram features)}
 \end{figure}
 
-TODO: Cosine agrees pretty well, too actually. Maybe it's just that
-the distances are constrained 0 to 1? I don't think that would make so
-much of a difference.
+Note that the highest correlation travel distance with travel
+distance, 0.26,
+is given by the Jensen-Shannon measure, trigram features and ratio
+normalisation. It also produces the dendrogram in figure
+\ref{cluster-js-trigram-ratio}.
+
+Unlike the significances, cosine similarity's dendrograms are fairly
+similar to those of other features. See for example figure
+\ref{cluster-cos-trigram-freq}, with cosine, trigram features and
+frequency normalisation only.
+
+\begin{figure}
+ \includegraphics[width=0.9\textwidth]{dist-10-1000-cos-trigram-freq-clusterward}
+  \label{cluster-cos-trigram-freq}
+  \caption{Dendrogram With Frequency Normalisation (cosine
+    measure and trigram features)}
+\end{figure}
+
 
 \subsection{Consensus Trees}
 
 Stabler addition to clusters.
 
 Show at least three: consensus all, consensus freq, consensus
-ratio.
+ratio. Only dendrograms whose input distances were all significant
+were used. Looking at figures \ref{sig-1000-freq} and
+\ref{sig-1000-ratio}, this means that less than half of the
+dendrograms with the additional ratio normalisation were
+used. However, figure \ref{consensus-freq} shows that agreement is
+much better between trees without the ratio normalisation--the only
+distinction it reliably catches is the out-group of Tors\.as, \"Ossj\"o
+and J\"amshog.
 
-It would still be cool to eliminate only the non-significant distances
-and re-run the clusters. (I can't remember if that's easily possible
-with R though, it may only be a feature of MDS.)
+\begin{figure}
+%   \Tree[.
+%   {Viby\\Bara}
+%   [. {StAnna\\Sorunda}  ]
+%   [. {Jamshog}
+%      [. {Tors\.as\\Ossjo}  ] ]
+%   [. {K\"ola}
+%      [. {Loderup\\Bredsatra}  ] ]
+%   [. {Villberga\\Torso\\Norra Rorum\\Frillesas\\Boda} ]
+%   [. {Vaxtorp\\Sproge\\Skinnskatteberg\\Orust\\Fole\\Faro\\Asby\\Arsunda\\Anundsjo\\Ankarsrum}
+%      [. {Leksand\\Indal}  ]
+%      [. {Segerstad\\Floby\\Bengtsfors}  ] ] ]
+% % 
+\includegraphics[scale=0.7]{consensus-freq}
+\label{consensus-freq}
+\caption{Consensus Tree for Frequency Normalisation}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.7]{consensus-ratio}
+% \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Orust\\Norra Rorum\\Leksand\\K\"ola\\Indal\\Frillesas\\Fole\\Floby\\Faro\\Boda\\Bengtsfors\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Loderup\\Bredsatra}  ] [. {Tors\.as\\Ossjo\\Jamshog}  ] ]
+\label{consensus-ratio}
+\caption{Consensus Tree for Ratio Normalisation}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-freq}
+\label{map-consensus-freq}
+\caption{Consensus Tree for Frequency Normalisation, Mapped}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-ratio}
+\label{map-consensus-ratio}
+\caption{Consensus Tree for Ratio Normalisation, Mapped}
+\end{figure}
+
+% It would still be cool to eliminate only the non-significant distances
+% and re-run the clusters. (I can't remember if that's easily possible
+% with R though, it may only be a feature of MDS.)
+
+% TODO: Try these two again, excluding cosine. Because I believe cosine sucks
+% or at least is a Rogue Element.
+% Later: Probably not worth it.
+
+% Just the ratio ones that are significantly correlated with travel
+% distance.
+% However: This is even more of a mess than the freq results.
+% [. {s0} [. {}
+%     [. {} [. {Köla} [. {Ossjo} [. {Torsås\\Jamshog}  ] ] ]
+%           [. {Villberga\\Viby\\Torso\\StAnna\\Sorunda\\Norra Rorum\\Frillesas\\Boda\\Bara}
+%              [. {Loderup\\Bredsatra}  ] ] ]
+%     [. {Orust\\Leksand\\Indal\\Fole\\Faro\\Asby\\Arsunda\\Anundsjo}
+%        [. {Vaxtorp\\Skinnskatteberg}  ]
+%        [. {Ankarsrum}
+%           [. {Segerstad} 
+%              [. {Bengtsfors}
+%                 [. {Sproge\\Floby}  ] ] ] ] ] ] ]
+
 
 \subsection{Composite Cluster Maps}
 
 A better visualisation with the same intent as consensus trees. Not
 stabler, but easier to visualise the valid boundaries.
 
+\begin{figure}
+\includegraphics[scale=0.7]{Sverigekarta-cluster-freq}
+\label{map-consensus-freq}
+\caption{Composite Cluster Map for Frequency Normalisation}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.7]{Sverigekarta-cluster-ratio}
+\label{map-consensus-ratio}
+\caption{Composite Cluster Map for Ratio Normalisation}
+\end{figure}
+
 \section{MDS}
 
 Same as clusters, more accurate (less distortion) and harder to
 interpret. Is there a cool way to combine multiple MDS maps?
+
+\begin{figure}
+\includegraphics[scale=0.65]{Sverigekarta-mds-1000-js-trigram-freq}
+\label{map-consensus-freq}
+\caption{Swedia, MDS over 1000 sample, JS, trigram features, frequency
+scaling}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-trigram-freq}
+\label{map-consensus-freq}
+\caption{Composite Cluster Map for Frequency Normalisation}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-all-freq}
+\label{map-consensus-freq}
+\caption{Composite Cluster Map for Frequency Normalisation}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.65]{Sverigekarta-mds-1000-js-trigram-ratio}
+\label{map-consensus-freq}
+\caption{Composite Cluster Map for Frequency Normalisation}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-trigram-ratio}
+\label{map-consensus-freq}
+\caption{Composite Cluster Map for Frequency Normalisation}
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-all-ratio}
+\label{map-consensus-freq}
+\caption{Composite Cluster Map for Frequency Normalisation}
+\end{figure}
+
+This shows very similar results to the hierarchical clustering. A
+few strongly different regions appear in the south, there is a bad
+around Stockholm, and North Sweden (Norrland) groups together with a
+couple of more southern regions outside the Stockholm region.
+
+Things I noticed: cities, Scania distinction, sometimes shared with
+Jamhog/Torsas/Ossjo, Stockholm/Uppsala/Malmo are nearly always
+similar, northern sometimes looks different from central area. For
+some reason Kola always patterns with the cities though \ldots But
+Arsunda, right nearby, is always pretty different. Strange.
 
 \section{Features}
 \label{results-features}
@@ -573,35 +704,38 @@ region. These results are from Jamshog, Ossjo and ??, the three most
 distant regions.
 
 \section{Clusters}
-\begin{figure}
-  \includegraphics{dist-10-1000-geo-clusterward} % [width=0.9\textwidth]
-  \label{geo-dist-cluster}
-  \caption{Geographical Distance Clusters}
-\end{figure}
-\begin{figure}
-  \includegraphics{dist-10-1000-r-dep-interview-clusterward} % [width=0.9\textwidth]
-  \label{dep-dist-cluster}
-  \caption{Dependency Path Distance Clusters}
-\end{figure}
-\begin{figure}
-  \includegraphics{dist-10-1000-r-path-interview-clusterward} % [width=0.9\textwidth]
-  \label{path-dist-cluster}
-  \caption{Leaf-Ancestor Path Distance Clusters}
-\end{figure}
-\begin{figure}
-  \includegraphics{dist-10-1000-r-trigram-interview-clusterward} % [width=0.9\textwidth]
-  \label{trigram-dist-cluster}
-  \caption{Trigram Distance Clusters}
-\end{figure}
-\begin{figure}
-  \includegraphics{Sverigekarta-Landskap-Swedia} % [width=0.9\textwidth]
-  \label{agree-clusters}
-  \caption{Swedia, Clusters Common to All 3 Methods}
-\end{figure}
-Maps of Sweden are taken from Wikipedia under the Creative Commons
+% \begin{figure}
+%   \includegraphics{dist-10-1000-geo-clusterward} % [width=0.9\textwidth]
+%   \label{geo-dist-cluster}
+%   \caption{Geographical Distance Clusters}
+% \end{figure}
+% \begin{figure}
+%   \includegraphics{dist-10-1000-r-dep-interview-clusterward} % [width=0.9\textwidth]
+%   \label{dep-dist-cluster}
+%   \caption{Dependency Path Distance Clusters}
+% \end{figure}
+% \begin{figure}
+%   \includegraphics{dist-10-1000-r-path-interview-clusterward} % [width=0.9\textwidth]
+%   \label{path-dist-cluster}
+%   \caption{Leaf-Ancestor Path Distance Clusters}
+% \end{figure}
+% \begin{figure}
+%   \includegraphics{dist-10-1000-r-trigram-interview-clusterward} % [width=0.9\textwidth]
+%   \label{trigram-dist-cluster}
+%   \caption{Trigram Distance Clusters}
+% \end{figure}
+% \begin{figure}
+%   \includegraphics{Sverigekarta-Landskap-Swedia} % [width=0.9\textwidth]
+%   \label{agree-clusters}
+%   \caption{Swedia, Clusters Common to All 3 Methods}
+% \end{figure}
+The colour maps of Sweden are taken from Wikipedia under the Creative Commons
 Attribution ShareAlike 3.0 Licence, and my modifications are released
 under the same licence. They are available separately in pdf and svg
 format at sandersn.com/Sverigekarta-Landskap-Swedia.pdf
+
+The outline maps are used by permission of Therese Leinonen (CITE her
+dissertation).
 
 \subsection{Cluster Analysis}
 
@@ -1118,29 +1252,6 @@ VVPS 847.723
 AJ 903.61
 POOP 1495.66
 ABZA 1756.18
-\subsection{Multi-Dimensional Scaling}
-
-This shows very similar results to the hierarchical clustering. A
-few strongly different regions appear in the south, there is a bad
-around Stockholm, and North Sweden (Norrland) groups together with a
-couple of more southern regions outside the Stockholm region.
-
-\begin{figure}
-  \includegraphics[width=0.9\textwidth]{Sverigekarta-Landskap-mds-dep}
-  \label{mds-dep}
-  \caption{Swedia, Multi-Dimensional Scaling of Depedency Path Distance}
-\end{figure}
-\begin{figure}
-  \includegraphics[width=0.9\textwidth]{Sverigekarta-Landskap-mds-path}
-  \label{mds-path}
-  \caption{Swedia, Multi-Dimensional Scaling of Leaf-Ancestor Path Distance}
-\end{figure}
-\begin{figure}
-  \includegraphics[width=0.9\textwidth]{Sverigekarta-Landskap-mds-trigram}
-  \label{mds-trigram}
-  \caption{Swedia, Multi-Dimensional Scaling of Trigram Distance}
-\end{figure}
-
 \subsection{Consensus Tree}
 
 \begin{figure}
