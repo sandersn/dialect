@@ -6,6 +6,7 @@ import Control.Monad.State
 import Control.Arrow (first, second)
 import Util
 import Consts
+import System (getArgs)
 data Tree a = Leaf a | Node a [Tree a] deriving (Show)
 root tree = Node "ROOT" [Leaf "s0", tree]
 leaf (Leaf _) = True
@@ -76,8 +77,10 @@ t3 = Node "a" [Leaf "s1", Node "b" [Node "c" [Leaf "s2", Leaf "s3"], Leaf "s4"]]
 ts = [t1,t2,t3]
 -- reader --
 main = do
-  sigs <- withFileLines findSigs "sig-10-1000-interview.csv"
-  interactFiles (withFileLines (makeConsensusTree sigs & list)) qtree
+  [sample,norm,file] <- getArgs
+  sigs <- withFileLines findSigs ("sig-10-"++sample++"-"++norm++".csv")
+  tree <- withFileLines (makeConsensusTree sigs sample norm) file
+  putStrLn $ qtree tree
 qtree (Leaf a) = Set.findMax a
 qtree (Node a []) = Set.findMax a
 qtree (Node a kids) = "[. {" ++ left ++ "} " ++ right ++ " ]"
@@ -87,21 +90,39 @@ qtree (Node a kids) = "[. {" ++ left ++ "} " ++ right ++ " ]"
 findSigs =
   tail
   & map (replace ',' ' ' & words & tail
-         & zip ["path", "trigram", "dep", "psg", "grand", "unigram", "all"]
+         & zip ["path", "trigram", "dep", "psg", "grand",
+                "unigram", "redep", "deparc", "all"]
          & filter (snd & (=="0"))
          & map fst)
   & zip ["r", "r_sq", "kl", "js", "cos"]
   & concatMap (uncurry (zip . repeat))
   & Set.fromList
-makeConsensusTree sigs =
+travelsigs = Set.fromList [("r_sq", "path")
+                          , ("kl", "path")
+                          , ("r", "trigram")
+                          , ("r_sq", "trigram")
+                          , ("kl", "trigram")
+                          , ("js", "trigram")
+                          , ("kl", "psg")
+                          , ("r_sq", "grand")
+                          , ("kl", "grand")
+                          , ("kl", "unigram")
+                          , ("cos", "unigram")
+                          , ("r", "all")
+                          , ("r_sq", "all")
+                          , ("kl", "all")
+                          , ("js", "all")]
+makeConsensusTree sigs sample norm =
   filter (isPrefixOf "Cluster: ")
   & map rReader
-  & filter (fst & (`Set.member` sigs))
+  & filter (fst & goodCluster sample norm)
   & map (snd & buildRTree)
   & con
-rReader line = ((measure,features),
+  where goodCluster sample norm (s,m,f,n) =
+          (m,f) `Set.member` sigs && s==sample && n==norm && (m,f) `Set.member` travelsigs
+rReader line = ((sample,measure,feature,norm),
                 splitAt (floor (fromIntegral (length ns) / 2)) ns |> uncurry zip)
-  where (_:measure:features:ss) = words line
+  where (_:sample:measure:feature:norm:ss) = words line
         ns = map read ss
 label (Leaf a) = a
 label (Node a _) = a
