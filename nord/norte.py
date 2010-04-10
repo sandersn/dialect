@@ -2,12 +2,16 @@ from __future__ import division
 from util.lst import group, cross, concat
 from util import dct
 from util.txt import chomp
+import consts
 from consts import swediaSites
 import os
+import csv
 from codecs import open
 ### util ###
 def pairwise(l):
     return [(x,y) for i,x in enumerate(l) for y in l[i+1:]]
+def tail(it): # iterators suck
+    return list(it)[1:]
 ### runner ###
 def icetasks(regions, feature, cpp, measure, sample, norm, iterations=100):
     writeparams(iterations, sample, measure, norm)
@@ -55,3 +59,10 @@ def combineFeatures(clusters, feature):
         for inf in cluster:
             outf.writelines(list(open(inf + suffix, encoding='utf-8'))[1:])
         outf.close()
+def findSigs(sample, norm):
+    f = csv.reader(open("sig-10-%s-%s.csv" % (sample, norm), encoding='ascii'),
+                   delimiter=',')
+    sigs = zip(consts.measures,
+               [[f for (f,n) in zip(consts.features, tail(line)) if n=="0"]
+                for line in tail(f)])
+    return set((m,f) for m,row in sigs for f in row)

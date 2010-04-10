@@ -243,7 +243,14 @@ def genMaps():
         ## re-allocating the insignificant ones' weight to them. ##
     run('RuG-L04/bin/difsum -o Sverigekarta-cluster.dif '
         + ' '.join('cluster-%s-%s-%s-%s.dif' % v for v in variants))
-    run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster.eps Sverigekarta.cfg Sverigekarta-cluster.dif')
+    for norm in consts.norms:
+        sigs = norte.findSigs('1000', norm)
+        run('RuG-L04/bin/difsum -o Sverigekarta-cluster-%s.dif ' % (norm,)
+            + ' '.join('cluster-1000-%s-%s-%s.dif' % (measure,feature,norm)
+                        for feature in consts.features
+                        for measure in consts.measures
+                        if (measure,feature) in sigs))
+        run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster-%s.eps Sverigekarta.cfg Sverigekarta-cluster-%s.dif' % (norm,norm))
     run('mv *eps ..')
 def blade(runner, targets):
     for target in targets:
