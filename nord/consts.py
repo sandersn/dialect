@@ -75,18 +75,16 @@ swediaRegions = dict(
     West = ['Bengtsfors', 'Floby', 'Orust', 'Torso', 'Frillesas', 'Vaxtorp'],
     )
 agreeClusters = dict(
-    # I suppose I could call them Mystery Central1 Central2 Exterior and North
-    # cluster D is slop (moved between groups with deps vs paths)
-    clusterA = [ 'Jamshog', 'Ossjo', 'Torsås', ],
-    clusterB = [ 'Loderup', 'Norra Rorum', 'Köla', 'Boda',
-                 'Bredsatra', 'Villberga', 'Frillesas', 'Viby',
-                 'Fole', 'Bara', 'StAnna', 'Sorunda',
-                 'Torso', ],
-    clusterC = [ 'Anundsjo', 'Arsunda', 'Asby',
-                 'Orust', 'Indal', 'Leksand', 
-                 'Vaxtorp', 'Bengtsfors', 'Floby',
-                 'Sproge', 'Segerstad'],
-    clusterD = [ 'Faro', 'Ankarsrum',  'Skinnskatteberg',],
+    # Viby and Bara are slop and are not included
+    clusterA = ['StAnna', 'Sorunda',],
+    clusterB = [ 'Jamshog', 'Ossjo', 'Torsås', ],
+    clusterC = [ 'Loderup',  'Köla', 'Bredsatra', ],
+    clusterD = [ 'Norra Rorum', 'Villberga','Torso', 'Boda', 'Frillesas',],
+    clusterE = ['Indal', 'Leksand'],
+    clusterF = [ 'Floby','Segerstad','Bengtsfors',],
+    clusterG = [ 'Anundsjo', 'Arsunda', 'Asby',
+                 'Orust', 'Vaxtorp', 'Fole',
+                 'Sproge', 'Faro', 'Ankarsrum', 'Skinnskatteberg'],
     )
 swediaSites = [
   'Ankarsrum',
