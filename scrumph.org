@@ -699,6 +699,26 @@
      distances instead of keeping only combos that have ALL
      significants. Maybe not such a problem; the sigs are pretty good
      for the 1000-sample side.
+** 2010/04/08
+   - I got correlation and cluster results in, plus
+     self-correlations. Clusters are not well presented so probably
+     not done yet. (Also the writing is a bit lacking.)
+   - I will add the appropriate consensus trees plus some writing.
+   - 
+** 2010/04/09
+   - Consensus trees are kind of mostly in.
+   - Need to improve appearance and include mapped versions. Should
+     also start of composite cluster maps.
+   - 
+** 2010/04/12
+   - Improved appearance a little in Omnigraffle and included mapped
+     versions, plus a key which looks OK, but out of place..too
+     colourful for a dendrogram. Also put in composite cluster maps,
+     but they look bad. Also put in some MDS maps, which also also
+     look bad.
+   - I will integrate Therese's maps so that my RuG diagrams look
+     better. I will mail my committee today too.
+   - 
 * Plan
 ** January
 *** Get results

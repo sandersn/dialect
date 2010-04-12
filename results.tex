@@ -633,47 +633,60 @@ stabler, but easier to visualise the valid boundaries.
 \caption{Composite Cluster Map for Ratio Normalisation}
 \end{figure}
 
+Things I noticed: These really support well the gradient hypothesis;
+there are horizontal boundaries from north to south, none too
+strong. Also, Kola and Frillesas are still looking a lot like
+Stockholdm/Uppsala. And of course Jamshog/Ossjo/Torsas are still out
+on their own.
+
+The boundary with Scania is evident too. Though it looks just like the
+other horizontal boundaries, maybe a little stronger.
+
 \section{MDS}
 
 Same as clusters, more accurate (less distortion) and harder to
 interpret. Is there a cool way to combine multiple MDS maps?
 
+Explain why I chose these particular variants: all is generally the
+best, but trigram has the best combination of high significance and
+correlation with geography (especially with JS). $R$ I just like.
+
 \begin{figure}
 \includegraphics[scale=0.65]{Sverigekarta-mds-1000-js-trigram-freq}
 \label{map-consensus-freq}
-\caption{Swedia, MDS over 1000 sample, JS, trigram features, frequency
-scaling}
+\caption{Jensen-Shannon measure with trigram features, and frequency normalisation only}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-trigram-freq}
 \label{map-consensus-freq}
-\caption{Composite Cluster Map for Frequency Normalisation}
+\caption{$R$ measure with trigram features, and frequency normalisation only}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-all-freq}
 \label{map-consensus-freq}
-\caption{Composite Cluster Map for Frequency Normalisation}
+\caption{$R$ measure with all features combined, and frequency normalisation only}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.65]{Sverigekarta-mds-1000-js-trigram-ratio}
 \label{map-consensus-freq}
-\caption{Composite Cluster Map for Frequency Normalisation}
+\caption{Jensen-Shannon measure with trigram features, and additional
+  ratio normalisation}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-trigram-ratio}
 \label{map-consensus-freq}
-\caption{Composite Cluster Map for Frequency Normalisation}
+\caption{$R$ measure with trigram features, and additional ratio normalisation}
 \end{figure}
 
 
 \begin{figure}
 \includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-all-ratio}
 \label{map-consensus-freq}
-\caption{Composite Cluster Map for Frequency Normalisation}
+\caption{$R$ measure with all features combined, and additional ratio normalisation}
 \end{figure}
 
 This shows very similar results to the hierarchical clustering. A

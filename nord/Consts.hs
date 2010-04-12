@@ -75,6 +75,8 @@ swediaRegions = Map.fromList [ -- (Riksomr@den)
                "Faro", "Fole", "Sproge"]),
     ("West", ["Bengtsfors", "Floby", "Orust", "Torso", "Frillesas", "Vaxtorp"])
     ]
+-- these are the filenames
+-- (complete with bizarro combining diacritics for Kola and Torsas)
 swediaSites = [
   "Ankarsrum",
   "Anundsjo",
@@ -108,6 +110,42 @@ swediaSites = [
   "Torso",
   --"Torsö",
   "Vaxtorp",
+  "Viby",
+  "Villberga"]
+-- these are the correct spellings for display in the dissertation
+swediaLabels = [
+  "Ankarsrum",
+  "Anundsjö",
+  -- "Arjeplog",
+  "Årsunda",
+  "Asby",
+  "Bara",
+  "Bengtsfors",
+  "Böda",
+  "Bredsätra",
+  "Fårö",
+  "Floby",
+  "Fole",
+  "Frillesås",
+  "Indal",
+  "Jämshög",
+  "Köla",
+  "Leksand", -- WARNING: One filename is typoed "Leksand " not "Leksand"
+  "Löderup",
+  -- "Nederlulea",
+  "Norra Rörum",
+  "Orust",
+  "Össjö",
+  -- "Overkalix",
+  "Segerstad",
+  "Skinnskatteberg",
+  "Sorunda",
+  "Sproge",
+  "S:t Anna",
+  "Torsås",
+  "Torsö",
+  --"Torsö",
+  "Våxtorp",
   "Viby",
   "Villberga"]
 swediaSitesEjkorrekturlast = [

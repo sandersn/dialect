@@ -31,6 +31,11 @@ def multirun(n, tasks, files):
 def run(cmd):
     result = os.system(cmd)
     if result: raise Exception("Error: '%s' returned code %d" % (cmd, result))
+def tryrm(file):
+    try:
+        run('rm ' + file)
+    except:
+        pass
 def stage1(): # jones
     # run all the first taggers/extracters
     extractTalbanken()
@@ -219,24 +224,23 @@ def genMaps():
     for variant in variants:
         run('./ConvertDistToL04 dist-10-%s-%s-%s-%s.txt >dist-10-%s-%s-%s-%s.dif' % (variant * 2))
         run('RuG-L04/bin/mds -K -o mds-10-%s-%s-%s-%s.vec 3 dist-10-%s-%s-%s-%s.dif' % (variant * 2))
-        try:
-            run('rm out.trn') # mapsetup won't overwrite out.trn
-        except:
-            pass
-        run('RuG-L04/bin/mapsetup -l interview.coo -p')
-        cfg = open('Sverigekarta.cfg', 'w')
-        cfg.write('transform: out.trn\n')
-        cfg.write('labels: interview.labels\n')
-        cfg.write('coordinates: interview.coo\n')
-        cfg.write('clipping: sverige.clp\n')
-        #TODO: cfg.write(province borders???)
-        cfg.close()
-        run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s-%s-%s.eps Sverigekarta.cfg mds-10-%s-%s-%s-%s.vec' % (variant * 2))
+        tryrm('out.trn')
+        tryrm('out.map')
+        tryrm('out.clp')
+        run('RuG-L04/bin/mapsetup -b 105 -p -c 30orter.clp -m 30orter.map')
+##         cfg = open('Sverigekarta.cfg', 'w')
+##         cfg.write('transform: out.trn\n')
+##         cfg.write('labels: interview.labels\n')
+##         cfg.write('coordinates: interview.coo\n')
+##         cfg.write('clipping: sverige.clp\n')
+##         #TODO: cfg.write(province borders???)
+##         cfg.close()
+        run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s-%s-%s.eps 30orter.cfg mds-10-%s-%s-%s-%s.vec' % (variant * 2))
         # run('Something to convert eps to pdf')
         ## Clustering with cophenetic mapping to a map ##
         ## Note: 2-30 clusters are possible. Probably not good for results.
         ## maybe 2-5 or 2-8 is better. ##
-        run('RuG-L04/bin/cluster -wm -b -m 2-30 -o cluster-%s-%s-%s-%s.dif dist-10-%s-%s-%s-%s.dif' % (variant * 2))
+        run('RuG-L04/bin/cluster -wm -b -m 2-8 -o cluster-%s-%s-%s-%s.dif dist-10-%s-%s-%s-%s.dif' % (variant * 2))
         ## , then sum multiple clusters (this has to be outside the loop)##
         ## this can be very fancy, like weighting all the significant ones for
         ## a single distance measure the same over feature differences,
@@ -250,7 +254,7 @@ def genMaps():
                         for feature in consts.features
                         for measure in consts.measures
                         if (measure,feature) in sigs))
-        run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster-%s.eps Sverigekarta.cfg Sverigekarta-cluster-%s.dif' % (norm,norm))
+        run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster-%s.eps 30orter.cfg Sverigekarta-cluster-%s.dif' % (norm,norm))
     run('mv *eps ..')
 def blade(runner, targets):
     for target in targets:
