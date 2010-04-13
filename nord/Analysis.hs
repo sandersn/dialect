@@ -1,19 +1,17 @@
 -- just an analysis script. bunch of misc output munging basically --
 import Util
 import Text.Printf (printf)
-import Data.List hiding (group)
+import Data.List
 import Data.List.Split (endBy)
 import Control.Monad (liftM2)
 import qualified Data.Map as Map
 features = ["path", "trigram", "dep", "psg", "grand",
                     "unigram", "redep", "deparc", "all"]
 measures = ["r", "r_sq", "kl", "js", "cos"]
-group n [] = []
-group n l = fore : group n aft where (fore,aft) = splitAt n l
 main = withFileLines selfcor "correlations-R.txt" >>= mapM_ putStrLn
 -- main = withFileLines (cor "full" "ratio") "correlations-R.txt" >>= mapM_ putStrLn
 cor sample norm = filter (head & ((/='0') <&&> (/='-')))
-                  & group 6 & map (map clean & key)
+                  & splitsAt 6 & map (map clean & key)
                   & Map.fromList & table sample norm & map (('&':) & (++"\\\\"))
 clean s | dropWhile (/=':') s == "" = error (s ++ " sucks for some reason")
 clean s = s |> dropWhile (/=':') & tail
@@ -32,7 +30,7 @@ f <&&> g = liftM2 (&&) f g
 f <||> g = liftM2 (||) f g
 ----------
 selfcor = filter (head & ((=='0') <||> (==' ') <||> (=='-')))
-          & group 9 & map selfkey
+          & splitsAt 9 & map selfkey
           & Map.fromList & Map.filterWithKey desired & Map.elems
           & averageall & format
 format = map (map (uncurry (printf "%.2f(%d)")) & intercalate " & ")

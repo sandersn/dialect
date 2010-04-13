@@ -27,7 +27,7 @@ getGroupedSites path sites =
         glossed filename = dropWhile (/='.') filename == ".cha"
 readSwedia path filename = withFileLines splitter (path++filename)
   where splitter = dropWhile (not . newline) &
-                   splitBy newline &
+                   splitByL newline &
                    filter (head & (isPrefixOf "*INT") & not) &
                    map (unwords & between ':' '\NAK' & trimsplit & deStutter
                         & filter (not . (`elem` stoplist)) & map decomma)

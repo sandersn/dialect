@@ -184,6 +184,16 @@ def syntaxFeaturesSimple():
                         for site in set(consts.swediaSites) - set(["Jamshog"]))
         run('./RankFeatures %s >feat-5-%s-%s-%s-%s-jamshog.txt'
             % (tmps,sample,measure,feature,norm))
+def syntaxFeaturesDiagram():
+    run('ghc -O2 --make FormatFeatures')
+    for variant in variants:
+        norm = variant[3]
+        norm2s = ['over', 'freq'] if norm=='freq' else ['ratio']
+        for norm2 in norm2s:
+            v = list(variant)
+            v[3] = norm2
+            assert len(v*2)==8, len(v*2)
+            run('./FormatFeatures feat-5-%s-%s-%s-%s.txt > feat-diagram-%s-%s-%s-%s.txt' % tuple(v*2))
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')

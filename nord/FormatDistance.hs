@@ -1,4 +1,4 @@
-import Util hiding (groupBy)
+import Util
 import Consts (quoteSpace, swediaSites)
 import Data.List.Split (splitEvery)
 import Data.List (intercalate, groupBy)

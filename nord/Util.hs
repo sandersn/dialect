@@ -24,8 +24,10 @@ window n l = win l (length l)
 between before after = dropWhile (/=before) & tail & takeWhile (/=after)
 replace _ _ [] = []
 replace src dst (x:xs) = (if src == x then dst else x) : replace src dst xs
-groupBy f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
-splitBy f = split $ dropInitBlank $ dropFinalBlank $ keepDelimsL $ whenElt f
+splitByR f = split $ dropFinalBlank $ keepDelimsR $ whenElt f
+splitByL f = split $ dropInitBlank $ dropFinalBlank $ keepDelimsL $ whenElt f
+splitsAt n [] = []
+splitsAt n l = fore : splitsAt n aft where (fore,aft) = splitAt n l
 list = (:[])
 {--- fs ---}
 withFile f = readFile >=> f & return -- see also System.IO

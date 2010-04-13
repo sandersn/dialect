@@ -1,5 +1,5 @@
 module ConvertMaltToFeature where
-import Util (withFileLines, (&), (|>), groupBy, interactTargets, list)
+import Util (withFileLines, (&), (|>), interactTargets, list)
 import Data.Map ((!), fromList, size)
 import Data.List (intercalate)
 import Data.List.Split (splitOn,endBy)
