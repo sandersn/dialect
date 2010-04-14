@@ -796,8 +796,9 @@ more precisely than the previous two sections. It even has the
 capability to point out infrequent constructions and small differences
 that linguists may have ignored.
 
-The features were ranked with three different kinds of scaling:
-frequency, ratio and type-ratio.
+The features were ranked with two different kinds of normalisation:
+frequency, and overuse. For feature types, ratio normalisation
+produces the same values. So they are not included.
 
 The features were compared using consensus groups as well as between
 individual regions. This last was to see how specific the feature
@@ -1443,186 +1444,12 @@ For Jensen-Shannon distance, trigram features and ratio normalisation.
 \end{figure}
 \clearpage
 
-\subsection{JS-trigram Comparison wrt Normalisation}
+\subsection{JS-trigram with OveruseNormalisation}
 
-The next section contains only Jamshog/Tors\.as/\"Ossj\"o compared to
-the other clusters. It includes both bare frequency normalisation as
-well as versions with the overuse normalisation done afterward.
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-AV-AB}
-\put(180,99){\line(-1,0){139.9929946004993}}
-\put(190,96){PO-VV-AB}
-\put(180,88){\line(-1,0){102.86485218903893}}
-\put(190,85){AB-VV-PO}
-\put(180,77){\line(-1,0){87.81761026825338}}
-\put(190,74){NN-PR-NN}
-\put(180,66){\line(-1,0){85.01942811005603}}
-\put(190,63){AB-PR-NN}
-\put(250,55){\line(1,0){3.3701184090618996}}
-\put(190,52){PR-VN-PR}
-\put(250,44){\line(1,0){3.7401709198742594}}
-\put(190,41){AJ-AV-AB}
-\put(250,33){\line(1,0){3.7401709198742594}}
-\put(190,30){++-AV-AB}
-\put(250,22){\line(1,0){3.7401709198742594}}
-\put(190,19){PO-HV-BV}
-\put(250,11){\line(1,0){4.1309920654945484}}
-\put(190,8){PR-PO-HV}
-\end{picture}
-\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterC-Loderup-K\"ola-Bredsatra}
-\end{figure}
-
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-AV-AB}
-\put(180,99){\line(-1,0){163.1132111584286}}
-\put(190,96){PO-VV-AB}
-\put(180,88){\line(-1,0){106.08234843772429}}
-\put(190,85){AB-VV-PO}
-\put(180,77){\line(-1,0){86.03292023541796}}
-\put(190,74){++-PO-AV}
-\put(180,66){\line(-1,0){85.8959758840136}}
-\put(190,63){VV-PO-AB}
-\put(250,55){\line(1,0){2.58385568687497}}
-\put(190,52){AB-IM-GV}
-\put(250,44){\line(1,0){2.755806976410354}}
-\put(190,41){VV-AJ-AB}
-\put(250,33){\line(1,0){3.0144983013541315}}
-\put(190,30){AB-AB-BV}
-\put(250,22){\line(1,0){3.1469898081247907}}
-\put(190,19){EN-AJ-AJ}
-\put(250,11){\line(1,0){5.598353988229102}}
-\put(190,8){NN-++-IP}
-\end{picture}
-\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterA-StAnna-Sorunda}
-\end{figure}
-
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-AV-AB}
-\put(180,99){\line(-1,0){148.55607926945189}}
-\put(190,96){PO-VV-AB}
-\put(180,88){\line(-1,0){85.89361688179726}}
-\put(190,85){AB-VV-PO}
-\put(180,77){\line(-1,0){83.2008679519873}}
-\put(190,74){++-PO-AV}
-\put(180,66){\line(-1,0){68.99903633729505}}
-\put(190,63){VV-PO-AB}
-\put(250,55){\line(1,0){2.3599902978176646}}
-\put(190,52){NN-PR-AJ}
-\put(250,44){\line(1,0){2.3599902978176646}}
-\put(190,41){++-++-NN}
-\put(250,33){\line(1,0){2.6549890850448725}}
-\put(190,30){HV-VV-NN}
-\put(250,22){\line(1,0){3.0658633958949277}}
-\put(190,19){PO-PO-++}
-\put(250,11){\line(1,0){4.559442255626283}}
-\put(190,8){AJ-++-PO}
-\end{picture}
-\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterF-Floby-Segerstad-Bengtsfors}
-\end{figure}
-
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){2.65139116202946}}
-\put(190,107){SV-PO-HV}
-\put(180,99){\line(-1,0){1.6693944353518821}}
-\put(190,96){PR-RO-IP}
-\put(180,88){\line(-1,0){1.6693944353518821}}
-\put(190,85){PO-AB-XX}
-\put(180,77){\line(-1,0){1.5711947626841243}}
-\put(190,74){AB-XX-PO}
-\put(180,66){\line(-1,0){1.4729950900163666}}
-\put(190,63){RO-PR-RO}
-\put(250,55){\line(1,0){93.21338788870703}}
-\put(190,52){PO-VV-PO}
-\put(250,44){\line(1,0){94.58366612111293}}
-\put(190,41){VV-PO-AB}
-\put(250,33){\line(1,0){116.14860883797054}}
-\put(190,30){AB-VV-PO}
-\put(250,22){\line(1,0){160.6418985270049}}
-\put(190,19){PO-VV-AB}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){PO-AV-AB}
-\end{picture}
-\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
-\end{figure}
-
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){1.9454051383399211}}
-\put(190,107){SV-PO-HV}
-\put(180,99){\line(-1,0){1.8064476284584983}}
-\put(190,96){AB-VN-AB}
-\put(180,88){\line(-1,0){1.8064476284584983}}
-\put(190,85){PN-VV-PO}
-\put(180,77){\line(-1,0){1.6674901185770752}}
-\put(190,74){RO-PR-RO}
-\put(180,66){\line(-1,0){1.6674901185770752}}
-\put(190,63){EN-VV-AB}
-\put(250,55){\line(1,0){96.73943922924902}}
-\put(190,52){VV-PO-AB}
-\put(250,44){\line(1,0){98.16597702569172}}
-\put(190,41){PO-VV-PO}
-\put(250,33){\line(1,0){124.23259943181819}}
-\put(190,30){AB-VV-PO}
-\put(250,22){\line(1,0){169.33223196640316}}
-\put(190,19){PO-VV-AB}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){PO-AV-AB}
-\end{picture}
-\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-\end{figure}
-
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-VV-AB}
-\put(180,99){\line(-1,0){159.8721348906648}}
-\put(190,96){PO-AV-AB}
-\put(180,88){\line(-1,0){114.57591990866779}}
-\put(190,85){AB-VV-PO}
-\put(180,77){\line(-1,0){91.9346623342408}}
-\put(190,74){AB-PR-NN}
-\put(180,66){\line(-1,0){90.67989812944586}}
-\put(190,63){PO-AB-AB}
-\put(250,55){\line(1,0){2.458944410292439}}
-\put(190,52){AJ-VN-AB}
-\put(250,44){\line(1,0){2.810222183191359}}
-\put(190,41){NN-PO-BV}
-\put(250,33){\line(1,0){3.1614999560902786}}
-\put(190,30){VN-UK-PO}
-\put(250,22){\line(1,0){3.4740879950821117}}
-\put(190,19){PR-++-AB}
-\put(250,11){\line(1,0){7.376833230877317}}
-\put(190,8){PR-AB-AB}
-\end{picture}
-\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterE-Indal-Leksand}
-\end{figure}
-
-And now for the overuse feature comparisons.
+The next section contains only Jamshog, Tors\.as and \"Ossj\"o,
+labelled cluster B, compared to the other clusters. The overuse
+normalisation is used. The results are quite different, as can be
+seen.
 
 \begin{figure}
 \setlength{\unitlength}{1pt}
