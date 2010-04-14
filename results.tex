@@ -476,6 +476,66 @@ measures, though the correlation is still much higher than with travel
 distance. A more precise investigation of this anomaly appears below
 in section \ref{results-features}.
 
+\subsection{Correlation with Corpus Size}
+
+Correlation with corpus size is a confounding factor.
+
+This can be measured in two ways: by total size of the two regions
+being compared, or by difference in size. Right now I'm using total
+size because larger totals indicate more tokens, thereby driving up
+token count differences compared to comparison between small regions.
+
+Difference in size is appropriate if you decide that the normalisation
+might not be doing its job with respect to sentence length. But this
+shouldn't be detectable by using difference in size. So that's just
+wrong.
+
+TODO:Move this to methods if I decide to keep it.
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&-0.50 & -0.38 & -0.35 & -0.49 & -0.32\\
+  Trigram&-0.45 & -0.42 & -0.33 & -0.40 & -0.24\\
+  Dependency&-0.49 & -0.37 & -0.33 & -0.47 & -0.32\\
+  Phrase-Structure Rules&-0.54 & -0.42 & -0.37 & -0.53 & -0.34\\
+  Phrase-Structure with Grandparents&-0.56 & -0.43 & -0.37 & -0.56 & -0.36\\
+  Unigram&-0.39 & -0.40 & -0.32 & -0.34 & -0.05\\
+  Dependencies, MaltParser trained by Timbl&-0.52 & -0.38 & -0.32 & -0.50 & -0.31\\
+  Dependency, Arc Labels&-0.45 & -0.35 & -0.33 & -0.42 & -0.28\\
+  All Features Combined&-0.48 & -0.38 & -0.33 & -0.45 & -0.31\\
+\end{tabular}
+ \label{size-cor-1000-freq}
+  \caption{Size correlation for sample size 1000, Frequency
+    normalisation only}
+\end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&0.35* & 0.36** & 0.06 & 0.27 & -0.32\\
+  Trigram&0.75** & 0.63** & 0.46** & 0.68** & -0.24\\
+  Dependency&0.46** & 0.44** & 0.14 & 0.38** & -0.33\\
+  Phrase-Structure Rules&0.85** & 0.59** & 0.36** & 0.85** & -0.34\\
+  Phrase-Structure with Grandparents&0.88** & 0.66** & 0.40** & 0.88** & -0.36\\
+  Unigram&0.38** & 0.35** & 0.14 & 0.19 & -0.04\\
+  Dependencies, MaltParser trained by Timbl&0.44** & 0.41** & 0.16 & 0.39* & -0.30\\
+  Dependency, Arc Labels&0.20 & 0.28* & -0.00 & 0.09 & -0.28\\
+  All Features Combined&0.58** & 0.48** & 0.21 & 0.47** & -0.31\\
+\end{tabular}
+ \label{size-cor-1000-ratio}
+  \caption{Size correlation for sample size 1000, Ratio
+    normalisation included}
+\end{table}
+
+Considering how high the correlation with size is with the ratio
+normalisation included, the rest of this chapter will include results for
+ratio normalisation only in special cases. Most examples will use only
+frequency normalisation.
+
+Note that cosine still comes up looking just fine. Strange. Still need
+to investigate this.
+
 \section{Clusters}
 
 Clusters answer the question of $R$'s utility for dialectometry more

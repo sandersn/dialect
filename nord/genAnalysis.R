@@ -22,29 +22,28 @@ for (norm in norms) {
                               sample, measure, feature, norm, "R.txt", sep='-'),
                         header=TRUE)
         ts <- c(ts, list(t))
-        hcl <- hclust(as.dist(t), method="ward")
-        cat(paste("Cluster: "))
-        cat(paste(sample, measure, feature, norm, sep=' '))
-        cat(' ')
-        for(i in hcl$merge) {
-          cat(i); cat(" ")
-        }
-        cat("\n")
-        pdf(file=paste("dist-10",
-                       sample, measure, feature, norm,
-                       "clusterward.pdf", sep='-'),
-            width=9.014, height=6.931)
-        plclust(hcl, hang=-1, sub="",
-                xlab="", ylab=paste(sample, measure, feature, norm, sep='-'))
-        dev.off()
+##         hcl <- hclust(as.dist(t), method="ward")
+##         cat(paste("Cluster: "))
+##         cat(paste(sample, measure, feature, norm, sep=' '))
+##         cat(' ')
+##         for(i in hcl$merge) {
+##           cat(i); cat(" ")
+##         }
+##         cat("\n")
+##         pdf(file=paste("dist-10",
+##                        sample, measure, feature, norm,
+##                        "clusterward.pdf", sep='-'),
+##             width=9.014, height=6.931)
+##         plclust(hcl, hang=-1, sub="",
+##                 xlab="", ylab=paste(sample, measure, feature, norm, sep='-'))
+##         dev.off()
         cat(paste("cor:", cor(vectorise(geo), vectorise(t)), '\n'))
         # cat(paste("sig:", mantel(geo, t, 33), '\n'))
         cat(paste("sig:", mantel(geo, t, 30), '\n'))
         cat(paste("cortravel:", cor(vectorise(travel), vectorise(t)), '\n'))
         cat(paste("sigtravel:", mantel(travel, t, 30), '\n'))
-        # Disabled right now because I don't want to change the R-reading code...
-        # cat(paste("corsize:", cor(vectorise(sizes), vectorise(t)), '\n'))
-        # cat(paste("sigsize:", mantel(sizes, t, 30), '\n'))
+        cat(paste("corsize:", cor(vectorise(sizes), vectorise(t)), '\n'))
+        cat(paste("sigsize:", mantel(sizes, t, 30), '\n'))
       }
  # I don't know R's zip, so I will just use indexing even if it is slow
  # which it's not, R's lists are actually untyped vectors not conses

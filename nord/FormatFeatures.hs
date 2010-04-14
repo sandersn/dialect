@@ -2,6 +2,7 @@ import Util
 import System
 import Text.Printf (printf)
 import Control.Arrow (second)
+import Data.List.Split (chunk)
 fig = "\\begin{figure}\n\
       \\\setlength{\\unitlength}{1pt}\n\
       \\\begin{picture}(400,140)\n\
@@ -12,7 +13,7 @@ fig = "\\begin{figure}\n\
       \\\end{figure}\n\n"
 main = interactFiles (withFileLines parse) format
   where tmp (s,_,_,_) = s
-parse = splitsAt 13 & map struct
+parse = chunk 13 & map struct
 struct (from:to:numbers) = (from,to,take 5 ns++drop 6 ns)
  where ns' = map (words & parse) numbers
        ns = scale largest ns'

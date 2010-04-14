@@ -719,6 +719,13 @@
    - I will integrate Therese's maps so that my RuG diagrams look
      better. I will mail my committee today too.
    - 
+** 2010/04/14
+   - I skipped a day because I was trying to figure out which feature
+     rankings to include. I finally have some idea, but the results
+     are bad and probably wrong.
+   - I will check for size/distance correlation. I will check for bugs
+     in the overuse normalisation since all results are the same.
+   - 
 * Plan
 ** January
 *** Get results

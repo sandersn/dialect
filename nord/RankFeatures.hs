@@ -1,10 +1,10 @@
 import Util
 import Data.List (sort, sortBy)
-import Data.List.Split (splitEvery)
+import Data.List.Split (chunk)
 import Data.Ord (comparing)
 main = interactFiles (withFileLines rank) id
 rank lines =
-  splitEvery 2 diffs |> map tupleise |> leftright |> map format |> (header++)
+  chunk 2 diffs |> map tupleise |> leftright |> map format |> (header++)
   where (header,diffs) = splitAt 2 lines
         tupleise [name,value] = (name, read value :: Double)
         format (name, value) = name ++ " " ++ show value

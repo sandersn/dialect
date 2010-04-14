@@ -2,21 +2,25 @@
 import Util
 import Text.Printf (printf)
 import Data.List
-import Data.List.Split (endBy)
+import Data.List.Split (endBy, chunk)
 import Control.Monad (liftM2)
 import qualified Data.Map as Map
 features = ["path", "trigram", "dep", "psg", "grand",
                     "unigram", "redep", "deparc", "all"]
 measures = ["r", "r_sq", "kl", "js", "cos"]
-main = withFileLines selfcor "correlations-R.txt" >>= mapM_ putStrLn
--- main = withFileLines (cor "full" "ratio") "correlations-R.txt" >>= mapM_ putStrLn
-cor sample norm = filter (head & ((/='0') <&&> (/='-')))
-                  & splitsAt 6 & map (map clean & key)
+-- main = withFileLines selfcor "correlations-R.txt" >>= mapM_ putStrLn
+main = main' "full" "ratio"
+main' sample norm = withFileLines (cor sample norm keySize) "correlations-R.txt"
+                    >>= mapM_ putStrLn
+cor sample norm key = filter (head & ((/='0') <&&> (/='-')))
+                  & chunk 7 & map (map clean & key)
                   & Map.fromList & table sample norm & map (('&':) & (++"\\\\"))
 clean s | dropWhile (/=':') s == "" = error (s ++ " sucks for some reason")
 clean s = s |> dropWhile (/=':') & tail
-key [title,_,geocor,geosig,travelcor,travelsig] =
+key [title,_,geocor,geosig,travelcor,travelsig,sizecor,sizesig] =
   (words title, (significance geocor geosig,significance travelcor travelsig))
+keySize [title,_,_,_,_,sizecor,sizesig] =
+  (words title, ("", significance sizecor sizesig))
 significance cor sig = printf "%.2f" (read cor :: Double) ++ stars (read sig)
   where stars n | n < 0.001 = "***"
                 | n < 0.01  = "**"
@@ -30,7 +34,7 @@ f <&&> g = liftM2 (&&) f g
 f <||> g = liftM2 (||) f g
 ----------
 selfcor = filter (head & ((=='0') <||> (==' ') <||> (=='-')))
-          & splitsAt 9 & map selfkey
+          & chunk 9 & map selfkey
           & Map.fromList & Map.filterWithKey desired & Map.elems
           & averageall & format
 format = map (map (uncurry (printf "%.2f(%d)")) & intercalate " & ")
@@ -43,6 +47,17 @@ selfkey (title:rest) = (words $ clean title, map parseSig (drop 4 rest))
 parseSig = map (pair . map (read :: String -> Double) . words) . endBy ","
   where pair [x,y] = (x,y)
         pair l = error ( "Not a two-element list:" ++ show l)
+----------
+-- This is some code to find parameter sets without significant correlation
+-- with corpus size.
+-- TODO: It would be cool to also filter out the ones with non-significant
+-- distances.
+{- main = do
+  cors <- return . chunk 3 . lines =<< readFile "cor-size.txt"
+  let sigs = Map.fromList (map parse' cors)
+  mapM_ putStrLn . Map.keys . Map.filter (snd & (>=0.05)) $ sigs
+parse' [cor,sig,title] = (title,(parse cor, parse sig))
+parse = words |> (!!1) |> (read :: String -> Double) -}
 
 -- so, oh look, Perl 6 has a data structure that implicitly lifts operations
 -- into the list monad. OH GREAT. Like I wouldn't rather do that explicitly
