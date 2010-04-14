@@ -700,49 +700,6 @@ similar, northern sometimes looks different from central area. For
 some reason Kola always patterns with the cities though \ldots But
 Arsunda, right nearby, is always pretty different. Strange.
 
-\section{Features}
-\label{results-features}
-
-Ranked features answer the question of agreement with dialectology
-more precisely than the previous two sections. It even has the
-capability to point out infrequent constructions and small differences
-that linguists may have ignored.
-
-The features were ranked with three different kinds of scaling:
-frequency, ratio and type-ratio.
-
-The features were compared using consensus groups as well as between
-individual regions. This last was to see how specific the feature
-extraction could be in finding features that were unique to the
-region. These results are from Jamshog, Ossjo and ??, the three most
-distant regions.
-
-\section{Clusters}
-% \begin{figure}
-%   \includegraphics{dist-10-1000-geo-clusterward} % [width=0.9\textwidth]
-%   \label{geo-dist-cluster}
-%   \caption{Geographical Distance Clusters}
-% \end{figure}
-% \begin{figure}
-%   \includegraphics{dist-10-1000-r-dep-interview-clusterward} % [width=0.9\textwidth]
-%   \label{dep-dist-cluster}
-%   \caption{Dependency Path Distance Clusters}
-% \end{figure}
-% \begin{figure}
-%   \includegraphics{dist-10-1000-r-path-interview-clusterward} % [width=0.9\textwidth]
-%   \label{path-dist-cluster}
-%   \caption{Leaf-Ancestor Path Distance Clusters}
-% \end{figure}
-% \begin{figure}
-%   \includegraphics{dist-10-1000-r-trigram-interview-clusterward} % [width=0.9\textwidth]
-%   \label{trigram-dist-cluster}
-%   \caption{Trigram Distance Clusters}
-% \end{figure}
-% \begin{figure}
-%   \includegraphics{Sverigekarta-Landskap-Swedia} % [width=0.9\textwidth]
-%   \label{agree-clusters}
-%   \caption{Swedia, Clusters Common to All 3 Methods}
-% \end{figure}
 The colour maps of Sweden are taken from Wikipedia under the Creative Commons
 Attribution ShareAlike 3.0 Licence, and my modifications are released
 under the same licence. They are available separately in pdf and svg
@@ -831,441 +788,1161 @@ of recognisable features, and they are particularly strong for A.
     \caption{Possible cluster names}
 \end{table}
 
-\section{Trigram Cluster Features}
-\begin{table}
-\begin{tabular}{rcr}
-& ja,-det-\"ar & -35.0 \\
-& \"ar-[/-]-\# & -20.0 \\
-Cluster D & det-[/]-det & -18.0 \\
-& och-sedan-har & -17.0 \\
-& dei-\"a-vi\"al & -16.0 \\ \hline \\
-% & ************ 0.0 \\
-& \"ar-det-ju & 67.0074 \\
-& \#-det-\"ar & 81.6324 \\
- Cluster A & 94.27 & \\
-& det-var-ju & 185.699 \\
-& det-\"ar-ju & 190.682 \\
-\end{tabular}
-\label{trigram-feature-A-D}
-\caption{Most important trigram features between clusters A and D}
-\end{table}
+\section{Features}
+\label{results-features}
 
-clusterA-Jamshog-Ossjo-Tors\.as
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-ja-visst-. -35.0 \\
-vet-du-. -31.0 \\
-ja,-det-\"ar -22.0 \\
-ja-ja-. -18.0 \\
-och-s\.a-var -16.0 \\
-% ************ 0.0 \\
-\#-det-\"ar 72.7919 \\
-ja-det-\"ar 73.6275 \\
- 75.165
-det-\"ar-ju 156.471 \\
-det-var-ju 196.719 \\
+Ranked features answer the question of agreement with dialectology
+more precisely than the previous two sections. It even has the
+capability to point out infrequent constructions and small differences
+that linguists may have ignored.
 
+The features were ranked with three different kinds of scaling:
+frequency, ratio and type-ratio.
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterA-Jamshog-Ossjo-Tors\.as
-det-var-ju -236.686 \\
-det-\"ar-ju -194.744 \\
-\#-det-\"ar -115.03 \\
- -108.799 \\
-\#-det-var -93.6809 \\
-% ************ 0.0
-vet-du-. 17.0 \\
-och-s\.a-vidare 19.0 \\
-som-jag-s\"ager, 21.0 \\
-f\"or-att-det 24.0 \\
-det-[/]-det 36.0 \\
+The features were compared using consensus groups as well as between
+individual regions. This last was to see how specific the feature
+extraction could be in finding features that were unique to the
+region. These results are from Jamshog, Ossjo and Tors\.as the three most
+distant regions.
 
+First, I have all comparisons between the consensus tree clusters in
+figure \ref{consensus-freq}. These comparisons are over Jensen-Shannon
+distance, trigram features and ratio normalisation---the highest
+travel-distance correlated combination of features. Then a comparison
+is given of the overuse normalisation instead of the ratio
+normalisation. Plus a comparison with freq. These are only for cluster
+B to everything else though.
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-dei-\"a-ju -67.0 \\
-i-alle-fall -22.0 \\
-s\.a-dei-\"a -20.0 \\
-ja-veit-inte -20.0 \\
-\.a-s\.ant-d\"a -18.0 \\
-% ************ 0.0 \\
-men-det-\"ar 61.1535 \\
-s\.a-att-det 61.6677 \\
-\#-det-\"ar 63.172 \\
-det-\"ar-ju 135.711 \\
-det-var-ju 174.186 \\
+Next, selected features from cluster B, the most distant cluster, are
+given for r-all-freq/ratio/overuse, plus r-*-freq/ratio except for unigram and
+deparc. This is problematic for /ratio because it was not
+significant in a few cases.
 
+Also, maybe some investigation of cos is in order.
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-det-\"ar-ju -159.962 \\
- -147.412 \\
-det-var-ju -103.444 \\
-det-\"ar-v\"al -61.774 \\
-och-det-\"ar -57.9524 \\
-% ************ 0.0 \\
-som-jag-s\"ager 14.0 \\
-och-s\.a-har 14.0 \\
-\#-och-sen 15.0 \\
-ja-\#-ja 15.6459 \\
-som-jag-s\"ager, 17.0754 \\
+As a reminder, here are the parts of speech used here:
+
+\begin{itemize}
+\item PO = pronoun
+\item AV = copular verb
+\item VV = present tense verb
+\item AB = adverb
+\item PR = something?
+\end{itemize}
+
+\subsection{Complete Comparison}
+
+For Jensen-Shannon distance, trigram features and ratio normalisation.
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){139.9933694868652}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){102.8650812237859}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){87.81749664672444}}
+\put(190,74){NN-PR-NN}
+\put(180,66){\line(-1,0){85.01990674700333}}
+\put(190,63){AB-PR-NN}
+\put(250,55){\line(1,0){3.370110376753056}}
+\put(190,52){PR-VN-PR}
+\put(250,44){\line(1,0){3.7401751307093125}}
+\put(190,41){AJ-AV-AB}
+\put(250,33){\line(1,0){3.7401751307093125}}
+\put(190,30){++-AV-AB}
+\put(250,22){\line(1,0){3.7401751307093125}}
+\put(190,19){PO-HV-BV}
+\put(250,11){\line(1,0){4.130989132649803}}
+\put(190,8){PR-PO-HV}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterC-Loderup-K\"ola-Bredsatra}
+\end{figure}
 
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
- -388.719
-det-var-ju -116.469 \\
-det-\"ar-ju -88.3658 \\
-ja-det-\"ar -62.6448 \\
-d\.a-var-det -60.0826 \\
-% ************ 0.0 \\
-s\.a-att-eh 14.9965 \\
-\#-det-\"ar 15.9322 \\
-som-jag-s\"ager, 21.0 \\
-\#-ja-\# 21.0 \\
-och-\#-och 23.0 \\
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){163.11306491974423}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){106.08255721450668}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){86.03279262112831}}
+\put(190,74){++-PO-AV}
+\put(180,66){\line(-1,0){85.89598136132759}}
+\put(190,63){VV-PO-AB}
+\put(250,55){\line(1,0){2.583860432183625}}
+\put(190,52){AB-IM-GV}
+\put(250,44){\line(1,0){2.7558000574479626}}
+\put(190,41){VV-AJ-AB}
+\put(250,33){\line(1,0){3.0145073837181124}}
+\put(190,30){AB-AB-BV}
+\put(250,22){\line(1,0){3.146999407789518}}
+\put(190,19){EN-AJ-AJ}
+\put(250,11){\line(1,0){5.598367815901738}}
+\put(190,8){NN-++-IP}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterA-StAnna-Sorunda}
+\end{figure}
 
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterA-Jamshog-Ossjo-Tors\.as
-det-var-ju -248.993 \\
- -245.07 \\
-det-\"ar-ju -235.972 \\
-ja-det-\"ar -102.614 \\
-i-alla-fall -87.8123 \\
-% ************ 0.0 \\
- -[/]-det-\"ar 30.0 \\
-d\.a-[/]-d\.a 30.0 \\
-och-s\.adant-d\"ar 39.0 \\
-dei-\"a-ju 67.0 \\
-det-[/]-det 70.0 \\
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){148.55644116854558}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){85.89383653921374}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){83.20124468704638}}
+\put(190,74){++-PO-AV}
+\put(180,66){\line(-1,0){68.9993481038514}}
+\put(190,63){VV-PO-AB}
+\put(250,55){\line(1,0){2.3599996523220543}}
+\put(190,52){NN-PR-AJ}
+\put(250,44){\line(1,0){2.3599996523220543}}
+\put(190,41){++-++-NN}
+\put(250,33){\line(1,0){2.654995697485419}}
+\put(190,30){HV-VV-NN}
+\put(250,22){\line(1,0){3.0658780171926745}}
+\put(190,19){PO-PO-++}
+\put(250,11){\line(1,0){4.559445105998313}}
+\put(190,8){AJ-++-PO}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterF-Floby-Segerstad-Bengtsfors}
+\end{figure}
 
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-det-\"ar-ju -266.769 \\
- -262.836 \\
-det-var-ju -221.247 \\
-det-\"ar-v\"al -96.5831 \\
-och-det-\"ar -92.3385 \\
-% ************ 0.0 \\
-s\.adant-d\"ar-va 11.0 \\
-dei-\"a-dei 11.0 \\
-d\"ar-va-. 12.0 \\
-dei-\"a-ju 12.3435 \\
-\.a-s\.ant-d\"a 18.0 \\
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){2.6513896124027068}}
+\put(190,107){SV-PO-HV}
+\put(180,99){\line(-1,0){1.6693934596609634}}
+\put(190,96){PR-RO-IP}
+\put(180,88){\line(-1,0){1.6693934596609634}}
+\put(190,85){PO-AB-XX}
+\put(180,77){\line(-1,0){1.571193844386789}}
+\put(190,74){AB-XX-PO}
+\put(180,66){\line(-1,0){1.4729942291126148}}
+\put(190,63){RO-PR-RO}
+\put(250,55){\line(1,0){93.21347709305842}}
+\put(190,52){PO-VV-PO}
+\put(250,44){\line(1,0){94.58339580257517}}
+\put(190,41){VV-PO-AB}
+\put(250,33){\line(1,0){116.14806607932873}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){160.64137911757007}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
+\end{figure}
 
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
- -532.933
-det-var-ju -235.832 \\
-det-\"ar-ju -195.996 \\
-ja-det-\"ar -109.573 \\
-d\.a-var-det -85.0658 \\
-% ************ 0.0 \\
-\.a-s\.ant-d\"a 18.0 \\
-ja-veit-inte 20.0 \\
-s\.a-dei-\"a 20.0 \\
-i-alle-fall 22.0 \\
-dei-\"a-ju 67.0 \\
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){1.945409080187941}}
+\put(190,107){SV-PO-HV}
+\put(180,99){\line(-1,0){1.8064510203783448}}
+\put(190,96){AB-VN-AB}
+\put(180,88){\line(-1,0){1.8064510203783448}}
+\put(190,85){PN-VV-PO}
+\put(180,77){\line(-1,0){1.6674929605687485}}
+\put(190,74){RO-PR-RO}
+\put(180,66){\line(-1,0){1.6674929605687485}}
+\put(190,63){EN-VV-AB}
+\put(250,55){\line(1,0){96.73975707961185}}
+\put(190,52){VV-PO-AB}
+\put(250,44){\line(1,0){98.16634556980256}}
+\put(190,41){PO-VV-PO}
+\put(250,33){\line(1,0){124.23305161692971}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){169.33270992533716}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
+\end{figure}
 
 
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
- -220.061
-ja-visst-. -33.9183 \\
-ja-det-\"ar -26.9453 \\
-vet-du-. -25.6397 \\
-d\.a-var-det -21.1476 \\
-% ************ 0.0 \\
-s\.a-att-det 28.61 \\
-det-\"ar-[/-] 30.7066 \\
-s\.a-det-\"ar 32.1738 \\
-det-\"ar-v\"al 44.29 \\
-det-\"ar-ju 58.649 \\
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-VV-AB}
+\put(180,99){\line(-1,0){159.87219200115663}}
+\put(190,96){PO-AV-AB}
+\put(180,88){\line(-1,0){114.57584081831818}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){91.93457791914409}}
+\put(190,74){AB-PR-NN}
+\put(180,66){\line(-1,0){90.67972096217447}}
+\put(190,63){PO-AB-AB}
+\put(250,55){\line(1,0){2.4589503551226213}}
+\put(190,52){AJ-VN-AB}
+\put(250,44){\line(1,0){2.810228977282996}}
+\put(190,41){NN-PO-BV}
+\put(250,33){\line(1,0){3.1614913342851465}}
+\put(190,30){VN-UK-PO}
+\put(250,22){\line(1,0){3.4740914101892177}}
+\put(190,19){PR-++-AB}
+\put(250,11){\line(1,0){7.37683480020964}}
+\put(190,8){PR-AB-AB}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterE-Indal-Leksand}
+\end{figure}
 
-\section{Leaf-Ancestor Path Cluster Features}
-clusterA-Jamshog-Ossjo-Tors\.as
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-S-ABDA-sedan -74.0
-S-[-ABDA-sedan -52.0
-S-[-VVIP-ja, -23.0
-S-[-ABRA-ja, -20.0
-S-AJ-klart -19.0
-************ 0.0
-S-POPPHH-jag 441.269
-S-[-++OC-och 546.965
-S-POOP-det 728.457
-S-ABZA-ju 929.502
-]-S-IP-. 3738.76
 
-clusterA-Jamshog-Ossjo-Tors\.as
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-XP-[-NAC-YY-nej -71.0
-XP-[-NP-POPPHH-ja -32.0
-S-]-PP-NN-N -32.0
-XP-[-NNDD-jaha -31.0
-XP-]-NP-POZP-visst -30.0
-************ 0.0
-S-POPPHH-jag 418.204
-S-[-++OC-och 565.761
-S-POOP-det 698.845
-S-ABZA-ju 834.536
-]-S-IP-. 4152.71
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-VV-AB}
+\put(180,99){\line(-1,0){158.8479104236878}}
+\put(190,96){PO-AV-AB}
+\put(180,88){\line(-1,0){130.81740931586853}}
+\put(190,85){AB-AB-IP}
+\put(180,77){\line(-1,0){124.107844718546}}
+\put(190,74){++-PO-AV}
+\put(180,66){\line(-1,0){117.65346055569232}}
+\put(190,63){VV-AB-AB}
+\put(250,55){\line(1,0){28.676436132734576}}
+\put(190,52){NN-PR-NN}
+\put(250,44){\line(1,0){31.49174865660999}}
+\put(190,41){PR-PR-NN}
+\put(250,33){\line(1,0){34.759204237726976}}
+\put(190,30){PR-NN-++}
+\put(250,22){\line(1,0){47.7592339493544}}
+\put(190,19){RO-NN-AB}
+\put(250,11){\line(1,0){85.69096511854939}}
+\put(190,8){AB-AV-AB}
+\end{picture}
+\caption{clusterC-Loderup-K\"ola-Bredsatra clusterA-StAnna-Sorunda}
+\end{figure}
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterA-Jamshog-Ossjo-Tors\.as
-]-S-IP-. -3596.19
-S-ABZA-ju -842.73
-S-POOP-det -672.696
-S-[-++OC-och -584.147
-S-POPPHH-jag -455.665
-************ 0.0
-S-]-NP-POPPHH-ja 12.0
-S-[-PP-PR-i 13.0
-S-[-ABDA-sedan 14.0
-S-POZP-var 16.0
-S-ABDA-sedan 51.0
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-S-HVIV-ha -53.2072
-S-AVPT-va -48.2612
-S-NP-ID-\.a -43.0
-S-VVPS-\"a -34.0
-S-[-PP-PR-\.a -28.0
-************ 0.0
-S-POPPHH-jag 369.681
-S-[-++OC-och 451.659
-S-POOP-det 575.757
-S-ABZA-ju 629.984
-]-S-IP-. 2982.45
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){138.82374792900288}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){94.72744563400373}}
+\put(190,85){++-PO-AV}
+\put(180,77){\line(-1,0){61.496779274426615}}
+\put(190,74){AB-VV-PO}
+\put(180,66){\line(-1,0){60.05327013232092}}
+\put(190,63){VV-AB-AB}
+\put(250,55){\line(1,0){7.523338558808888}}
+\put(190,52){NN-++-++}
+\put(250,44){\line(1,0){10.332390766510397}}
+\put(190,41){PO-++-PO}
+\put(250,33){\line(1,0){10.564135901988898}}
+\put(190,30){NN-++-AB}
+\put(250,22){\line(1,0){10.751468457692221}}
+\put(190,19){VV-PO-++}
+\put(250,11){\line(1,0){13.249592487202538}}
+\put(190,8){PR-PR-NN}
+\end{picture}
+\caption{clusterC-Loderup-K\"ola-Bredsatra clusterF-Floby-Segerstad-Bengtsfors}
+\end{figure}
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-]-S-IP-. -2886.73
-S-ABZA-ju -652.575
-S-POOP-det -554.997
-]-XP-IP-. -364.455
-S-[-POOP-det -359.816
-************ 0.0
-S-S-S-HVPS-har 17.2628
-S-S-S-HVPT-hade 17.5593
-S-VVPT-\# 19.0902
-S-S-HVPT-hade 19.8175
-S-VVPS-\# 20.2092
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-]-S-IP-. -2910.81
-]-XP-IP-. -757.599
-S-POOP-det -386.002
-S-ABZA-ju -375.784
-S-HVPS-har -231.863
-************ 0.0
-S-VVPT-\#\# 22.4381
-S-VVPT-\# 24.3454
-S-VVPS-\# 25.5941
-S-S-S-POPPHH-jag 27.4778
-S-ABDA-sedan 33.9028
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){2.119831714485452}}
+\put(190,107){NN-RO-IP}
+\put(180,99){\line(-1,0){1.4132189752936777}}
+\put(190,96){AB-TP-++}
+\put(180,88){\line(-1,0){1.3122747627727005}}
+\put(190,85){PO-TP-AB}
+\put(180,77){\line(-1,0){1.3122747627727005}}
+\put(190,74){EN-NN-AJ}
+\put(180,66){\line(-1,0){1.3122747627727005}}
+\put(190,63){PO-VV-PN}
+\put(250,55){\line(1,0){86.99280866645108}}
+\put(190,52){PO-VV-PO}
+\put(250,44){\line(1,0){88.48104078340555}}
+\put(190,41){VV-PO-AB}
+\put(250,33){\line(1,0){109.7594759954695}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){152.97153272409014}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterC-Loderup-K\"ola-Bredsatra clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
+\end{figure}
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterA-Jamshog-Ossjo-Tors\.as
-]-S-IP-. -5363.05
-S-ABZA-ju -1179.27
-S-POOP-det -853.142
-S-[-++OC-och -703.663
-]-XP-IP-. -573.724
-************ 0.0
-S-VVPS-\"a 34.0
-XP-[-NAC-YY-nej 37.0
-S-NP-ID-\.a 43.0
-S-ABDA-sedan 55.0
-S-AVPT-va 59.0
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-]-S-IP-. -5874.22
-S-ABZA-ju -1271.85
-S-POOP-det -1054.04
-]-XP-IP-. -675.275
-S-[-++OC-och -658.231
-************ 0.0
-XP-S-S-S-ABZA-ju 11.0
-S-[-UKKD-nej 11.0
-S-VVIV-jobba 12.0
-S-S-POPPHHAA-p\.a 12.0
-S-[-VVPS-dei 14.0
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){1.9241736436736878}}
+\put(190,107){AV-AB-PN}
+\put(180,99){\line(-1,0){1.9241736436736878}}
+\put(190,96){PO-VV-PN}
+\put(180,88){\line(-1,0){1.7867328342509718}}
+\put(190,85){PO-HV-BV}
+\put(180,77){\line(-1,0){1.6492920248282559}}
+\put(190,74){AB-AB-PN}
+\put(180,66){\line(-1,0){1.6492920248282559}}
+\put(190,63){AB-AJ-TP}
+\put(250,55){\line(1,0){87.38598228424577}}
+\put(190,52){VV-PO-AB}
+\put(250,44){\line(1,0){88.59202521354842}}
+\put(190,41){PO-VV-PO}
+\put(250,33){\line(1,0){114.93656157168562}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){158.2006064505689}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterC-Loderup-K\"ola-Bredsatra clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
+\end{figure}
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-]-S-IP-. -6055.36
-]-XP-IP-. -1120.66
-S-ABZA-ju -996.303
-S-POOP-det -912.327
-S-[-++OC-och -630.858
-************ 0.0
-S-VVPS-dei 20.0
-S-AVPT-va 21.2214
-S-ABZA-dei 24.0
-S-AVIV-va 25.0
-S-VVPS-\"a 34.0
 
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-]-XP-IP-. -314.893
-S-[-POPPHH-ja -132.327
-S-[-NP-POPPHH-ja -79.3349
-XP-[-NAC-YY-nej -55.3133
-S-POPPHH-vi -50.9981
-************ 0.0
-S-POPPHH-jag 96.3519
-S-[-POOP-det 169.147
-S-POOP-det 181.617
-]-S-IP-. 218.833
-S-ABZA-ju 273.605
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-VV-AB}
+\put(180,99){\line(-1,0){118.06143350253808}}
+\put(190,96){PO-AV-AB}
+\put(180,88){\line(-1,0){98.59658071065991}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){98.53971167512691}}
+\put(190,74){PO-AB-AB}
+\put(180,66){\line(-1,0){95.23823756345179}}
+\put(190,63){PR-NN-IP}
+\put(250,55){\line(1,0){6.195713299492386}}
+\put(190,52){AB-AJ-AB}
+\put(250,44){\line(1,0){7.052242842639594}}
+\put(190,41){VV-PR-AB}
+\put(250,33){\line(1,0){8.939885482233503}}
+\put(190,30){PR-AB-AB}
+\put(250,22){\line(1,0){10.129705583756346}}
+\put(190,19){UK-PO-HV}
+\put(250,11){\line(1,0){10.170961218274112}}
+\put(190,8){NN-++-++}
+\end{picture}
+\caption{clusterC-Loderup-K\"ola-Bredsatra clusterE-Indal-Leksand}
+\end{figure}
 
-\section{Dependency Path Cluster Features}
 
-clusterA-Jamshog-Ossjo-Tors\.as
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-IG -168.0
-IP-POSU -14.0
-++OC-NNDD -14.0
-PU -13.0
-PN-PN -12.0
-************ 0.0
-++OC 3057.85
-ABDA 3325.05
-POPPHH 3718.88
-POOP 3983.69
-ABZA 5225.85
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){118.14096591370202}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){84.37306421241759}}
+\put(190,85){++-PO-AV}
+\put(180,77){\line(-1,0){70.05225791804537}}
+\put(190,74){AV-AB-AB}
+\put(180,66){\line(-1,0){58.50345321390818}}
+\put(190,63){AB-UK-PO}
+\put(250,55){\line(1,0){14.58005159018369}}
+\put(190,52){AB-++-PO}
+\put(250,44){\line(1,0){15.420416851149685}}
+\put(190,41){AB-SV-PO}
+\put(250,33){\line(1,0){18.772354975802333}}
+\put(190,30){NN-++-PO}
+\put(250,22){\line(1,0){19.64532005535004}}
+\put(190,19){NN-++-AB}
+\put(250,11){\line(1,0){20.74369170807476}}
+\put(190,8){PO-ID-NN}
+\end{picture}
+\caption{clusterA-StAnna-Sorunda clusterF-Floby-Segerstad-Bengtsfors}
+\end{figure}
 
-clusterA-Jamshog-Ossjo-Tors\.as
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-IG -190.0
-POPPHH-POZP -34.0
-I?-ABDA -25.0
-++OC-NNDD -21.0
-IP-VN -19.0
-************ 0.0
-++OC 3483.38
-ABDA 3837.43
-POOP 4165.35
-POPPHH 4618.76
-ABZA 5513.75
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterA-Jamshog-Ossjo-Tors\.as
-ABZA -6352.92
-POOP -5200.21
-POPPHH -5182.3
-ABDA -4411.69
-++OC -3982.49
-************ 0.0
-PONPHH 12.0
-IU-YY 12.0
-++OC-NNDD 12.0
-I?-ABDA 15.0
-IG 92.0
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){3.8401946417230652}}
+\put(190,107){NN-++-IP}
+\put(180,99){\line(-1,0){2.425379422935846}}
+\put(190,96){AB-AB-BV}
+\put(180,88){\line(-1,0){2.1222069950688653}}
+\put(190,85){AB-++-IP}
+\put(180,77){\line(-1,0){1.7179781467870219}}
+\put(190,74){HV-AJ-NN}
+\put(180,66){\line(-1,0){1.7179781467870219}}
+\put(190,63){SV-VV-IP}
+\put(250,55){\line(1,0){86.52447359300811}}
+\put(190,52){PO-VV-PO}
+\put(250,44){\line(1,0){90.12808987578045}}
+\put(190,41){VV-PO-AB}
+\put(250,33){\line(1,0){109.10914115923009}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){155.4700762980073}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterA-StAnna-Sorunda clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
+\end{figure}
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-PU -46.4788
-NN-HVIV -24.0
-NN-VVIP -21.0
-HVIV -17.1015
-IP-HVIV -13.4212
-************ 0.0
-++OC 3241.52
-ABDA 3803.28
-POPPHH 4252.33
-POOP 4691.67
-ABZA 5182.31
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-ABZA -3518.33
-POOP -2763.81
-ABDA -2092.98
-POPPHH -1914.67
-++OC -1763.74
-************ 0.0
-I?-YY 8.0
-AJ-ABDA-PR 8.3748
-AJ-YY-PR 9.0
-RO-NN-UKKS 10.0
-YY-PR 10.083
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){2.8679359279061556}}
+\put(190,107){AB-AB-BV}
+\put(180,99){\line(-1,0){2.3216634577238464}}
+\put(190,96){HV-AJ-NN}
+\put(180,88){\line(-1,0){1.6388239618857665}}
+\put(190,85){PO-SV-BV}
+\put(180,77){\line(-1,0){1.6388239618857665}}
+\put(190,74){EN-VV-AB}
+\put(180,66){\line(-1,0){1.6388239618857665}}
+\put(190,63){AB-AJ-TP}
+\put(250,55){\line(1,0){87.90892183160877}}
+\put(190,52){PO-VV-PO}
+\put(250,44){\line(1,0){89.81557981168541}}
+\put(190,41){VV-PO-AB}
+\put(250,33){\line(1,0){114.09112912324889}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){161.94451016003467}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterA-StAnna-Sorunda clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
+\end{figure}
 
-clusterB-Loderup-Norra Rorum-K\"ola-Boda-Bredsatra-Villberga-Frillesas
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-ABZA -1777.02
-POPPHH -1674.71
-ABDA -1365.05
-++OC -1136.11
-POOP -1124.59
-************ 0.0
-AJ-ABDA-PR 13.9375
-PR-UKKS 14.2152
-NN-PR-NN\_\_SS 15.7729
-ABSA 16.5935
-UKKS 19.5349
+\clearpage
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-VV-AB}
+\put(180,99){\line(-1,0){117.40027162222579}}
+\put(190,96){PR-NN-IP}
+\put(180,88){\line(-1,0){107.07677123841178}}
+\put(190,85){AB-PR-NN}
+\put(180,77){\line(-1,0){104.65975520257788}}
+\put(190,74){PO-AB-AB}
+\put(180,66){\line(-1,0){100.72561937459405}}
+\put(190,63){AB-VV-PO}
+\put(250,55){\line(1,0){22.66938851257307}}
+\put(190,52){AB-++-PO}
+\put(250,44){\line(1,0){23.16354694762415}}
+\put(190,41){EN-NN-PR}
+\put(250,33){\line(1,0){23.54182729212886}}
+\put(190,30){NN-++-PO}
+\put(250,22){\line(1,0){24.9216344572195}}
+\put(190,19){AJ-PR-NN}
+\put(250,11){\line(1,0){26.694475608830253}}
+\put(190,8){RO-NN-IP}
+\end{picture}
+\caption{clusterA-StAnna-Sorunda clusterE-Indal-Leksand}
+\end{figure}
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterA-Jamshog-Ossjo-Tors\.as
-ABZA -7794.44
-POPPHH -6569.61
-POOP -5807.77
-ABDA -5342.99
-++OC -4736.91
-************ 0.0
-IP-HVIV 24.0
-I?-ABDA 24.0
-++OC-NNDD 25.0
-PU 69.0
-IG 321.0
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-ABZA -7298.33
-POOP -5820.92
-POPPHH -5121.14
-ABDA -4809.2
-++OC -4066.63
-************ 0.0
-YY-AJ 10.0
-AJ-NN-HVIV 11.0
-AJ-YY-PR 11.0
-NN-MN 11.0
-YY-PR-NN 14.0
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){3.5792861115919057}}
+\put(190,107){NN-AV-IP}
+\put(180,99){\line(-1,0){2.128224991975855}}
+\put(190,96){PO-AB-SV}
+\put(180,88){\line(-1,0){1.838012768052645}}
+\put(190,85){YY-PO-SV}
+\put(180,77){\line(-1,0){1.741273343539261}}
+\put(190,74){NN-PR-AJ}
+\put(180,66){\line(-1,0){1.644536943834348}}
+\put(190,63){VV-NN-NN}
+\put(250,55){\line(1,0){80.26268781119816}}
+\put(190,52){PO-VV-PO}
+\put(250,44){\line(1,0){84.75725071797189}}
+\put(190,41){VV-PO-AB}
+\put(250,33){\line(1,0){102.49533255248463}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){150.8568778263054}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterF-Floby-Segerstad-Bengtsfors clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
+\end{figure}
 
-clusterC-Viby-Bara-Sorunda-StAnna-Arjeplog-Faro-Fole-Torso
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-ABZA -6202.61
-POPPHH -5388.95
-POOP -4891.25
-ABDA -4576.24
-++OC -3862.97
-************ 0.0
-NN-AVPT 9.67385
-AJ-NN-ABJA 10.0
-RO-NN-VVPT 10.0
-YY-PR-NN 14.0
-RO-NN-AVPT 21.0
 
-clusterD-Ankarsrum-Vaxtorp-Bengtsfors-Floby-Skinnskatteberg-Sproge-Segerstad
-clusterE-Anundsjo-Arsunda-Asby-Indal-Leksand-Nederlulea-Orust-Overkalix
-YY -218.738
-IP-YY -170.49
-PODPHH -162.222
-IP-POPPHH -125.739
-YY-YY -29.1216
-************ 0.0
-ABDA 823.042
-VVPS 847.723
-AJ 903.61
-POOP 1495.66
-ABZA 1756.18
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){2.934390367886864}}
+\put(190,107){NN-AV-IP}
+\put(180,99){\line(-1,0){2.2964776303539507}}
+\put(190,96){PO-ID-AJ}
+\put(180,88){\line(-1,0){2.168890970465099}}
+\put(190,85){ID-AJ-NN}
+\put(180,77){\line(-1,0){2.0413084229585166}}
+\put(190,74){NN-PR-AJ}
+\put(180,66){\line(-1,0){1.7861453841364856}}
+\put(190,63){FV-PO-PO}
+\put(250,55){\line(1,0){80.98637773373467}}
+\put(190,52){++-PO-AV}
+\put(250,44){\line(1,0){82.46436792113366}}
+\put(190,41){VV-PO-AB}
+\put(250,33){\line(1,0){104.79727668907535}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){155.31172428761545}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterF-Floby-Segerstad-Bengtsfors clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){75.60745444655151}}
+\put(190,107){AB-PR-NN}
+\put(180,99){\line(-1,0){70.92732786161008}}
+\put(190,96){PR-NN-AB}
+\put(180,88){\line(-1,0){56.708701362320845}}
+\put(190,85){YY-YY-IP}
+\put(180,77){\line(-1,0){56.4163117860438}}
+\put(190,74){++-AB-AB}
+\put(180,66){\line(-1,0){53.81645183491064}}
+\put(190,63){PO-AB-AB}
+\put(250,55){\line(1,0){55.97407593293282}}
+\put(190,52){PO-HV-AB}
+\put(250,44){\line(1,0){67.25149590822892}}
+\put(190,41){AB-UK-PO}
+\put(250,33){\line(1,0){79.01469912033684}}
+\put(190,30){PR-PO-NN}
+\put(250,22){\line(1,0){118.60711484307613}}
+\put(190,19){++-PO-AV}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterF-Floby-Segerstad-Bengtsfors clusterE-Indal-Leksand}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){161.29527755947703}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){116.26891476745017}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){90.14017289419161}}
+\put(190,74){VV-PO-AB}
+\put(180,66){\line(-1,0){87.20438665428306}}
+\put(190,63){PO-VV-PO}
+\put(250,55){\line(1,0){1.2778431092376936}}
+\put(190,52){VV-YY-PO}
+\put(250,44){\line(1,0){1.3520897335143245}}
+\put(190,41){++-AJ-IP}
+\put(250,33){\line(1,0){1.4661313138529684}}
+\put(190,30){EN-NN-AV}
+\put(250,22){\line(1,0){1.5081960420090017}}
+\put(190,19){PO-QV-AV}
+\put(250,11){\line(1,0){1.641386011288133}}
+\put(190,8){AB-TP-IP}
+\end{picture}
+\caption{clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){162.35298378376513}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){112.39977166547959}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){90.9472605893583}}
+\put(190,74){VV-PO-AB}
+\put(180,66){\line(-1,0){88.31579147056743}}
+\put(190,63){PO-VV-PO}
+\put(250,55){\line(1,0){1.4420401103041989}}
+\put(190,52){PO-WV-HV}
+\put(250,44){\line(1,0){1.4420401103041989}}
+\put(190,41){ID-PO-PO}
+\put(250,33){\line(1,0){1.5450420883985714}}
+\put(190,30){NN-PO-QV}
+\put(250,22){\line(1,0){1.64804717073869}}
+\put(190,19){BV-PO-NN}
+\put(250,11){\line(1,0){3.193089259137261}}
+\put(190,8){PR-AB-AB}
+\end{picture}
+\caption{clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg clusterE-Indal-Leksand}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){171.91278147537378}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){119.0102727091812}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){90.9787993720229}}
+\put(190,74){VV-PO-AB}
+\put(180,66){\line(-1,0){90.49091842232973}}
+\put(190,63){PO-VV-PO}
+\put(250,55){\line(1,0){1.6722753230369607}}
+\put(190,52){NN-PO-QV}
+\put(250,44){\line(1,0){1.6722753230369607}}
+\put(190,41){IM-AB-VV}
+\put(250,33){\line(1,0){1.811632472793672}}
+\put(190,30){HV-EN-PO}
+\put(250,22){\line(1,0){1.950987527741668}}
+\put(190,19){AB-AB-RO}
+\put(250,11){\line(1,0){3.623264945587344}}
+\put(190,8){PR-AB-AB}
+\end{picture}
+\caption{clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas clusterE-Indal-Leksand}
+\end{figure}
+\clearpage
+
+\subsection{JS-trigram Comparison wrt Normalisation}
+
+The next section contains only Jamshog/Tors\.as/\"Ossj\"o compared to
+the other clusters. It includes both bare frequency normalisation as
+well as versions with the overuse normalisation done afterward.
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){139.9929946004993}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){102.86485218903893}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){87.81761026825338}}
+\put(190,74){NN-PR-NN}
+\put(180,66){\line(-1,0){85.01942811005603}}
+\put(190,63){AB-PR-NN}
+\put(250,55){\line(1,0){3.3701184090618996}}
+\put(190,52){PR-VN-PR}
+\put(250,44){\line(1,0){3.7401709198742594}}
+\put(190,41){AJ-AV-AB}
+\put(250,33){\line(1,0){3.7401709198742594}}
+\put(190,30){++-AV-AB}
+\put(250,22){\line(1,0){3.7401709198742594}}
+\put(190,19){PO-HV-BV}
+\put(250,11){\line(1,0){4.1309920654945484}}
+\put(190,8){PR-PO-HV}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterC-Loderup-K\"ola-Bredsatra}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){163.1132111584286}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){106.08234843772429}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){86.03292023541796}}
+\put(190,74){++-PO-AV}
+\put(180,66){\line(-1,0){85.8959758840136}}
+\put(190,63){VV-PO-AB}
+\put(250,55){\line(1,0){2.58385568687497}}
+\put(190,52){AB-IM-GV}
+\put(250,44){\line(1,0){2.755806976410354}}
+\put(190,41){VV-AJ-AB}
+\put(250,33){\line(1,0){3.0144983013541315}}
+\put(190,30){AB-AB-BV}
+\put(250,22){\line(1,0){3.1469898081247907}}
+\put(190,19){EN-AJ-AJ}
+\put(250,11){\line(1,0){5.598353988229102}}
+\put(190,8){NN-++-IP}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterA-StAnna-Sorunda}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){148.55607926945189}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){85.89361688179726}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){83.2008679519873}}
+\put(190,74){++-PO-AV}
+\put(180,66){\line(-1,0){68.99903633729505}}
+\put(190,63){VV-PO-AB}
+\put(250,55){\line(1,0){2.3599902978176646}}
+\put(190,52){NN-PR-AJ}
+\put(250,44){\line(1,0){2.3599902978176646}}
+\put(190,41){++-++-NN}
+\put(250,33){\line(1,0){2.6549890850448725}}
+\put(190,30){HV-VV-NN}
+\put(250,22){\line(1,0){3.0658633958949277}}
+\put(190,19){PO-PO-++}
+\put(250,11){\line(1,0){4.559442255626283}}
+\put(190,8){AJ-++-PO}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterF-Floby-Segerstad-Bengtsfors}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){2.65139116202946}}
+\put(190,107){SV-PO-HV}
+\put(180,99){\line(-1,0){1.6693944353518821}}
+\put(190,96){PR-RO-IP}
+\put(180,88){\line(-1,0){1.6693944353518821}}
+\put(190,85){PO-AB-XX}
+\put(180,77){\line(-1,0){1.5711947626841243}}
+\put(190,74){AB-XX-PO}
+\put(180,66){\line(-1,0){1.4729950900163666}}
+\put(190,63){RO-PR-RO}
+\put(250,55){\line(1,0){93.21338788870703}}
+\put(190,52){PO-VV-PO}
+\put(250,44){\line(1,0){94.58366612111293}}
+\put(190,41){VV-PO-AB}
+\put(250,33){\line(1,0){116.14860883797054}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){160.6418985270049}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){1.9454051383399211}}
+\put(190,107){SV-PO-HV}
+\put(180,99){\line(-1,0){1.8064476284584983}}
+\put(190,96){AB-VN-AB}
+\put(180,88){\line(-1,0){1.8064476284584983}}
+\put(190,85){PN-VV-PO}
+\put(180,77){\line(-1,0){1.6674901185770752}}
+\put(190,74){RO-PR-RO}
+\put(180,66){\line(-1,0){1.6674901185770752}}
+\put(190,63){EN-VV-AB}
+\put(250,55){\line(1,0){96.73943922924902}}
+\put(190,52){VV-PO-AB}
+\put(250,44){\line(1,0){98.16597702569172}}
+\put(190,41){PO-VV-PO}
+\put(250,33){\line(1,0){124.23259943181819}}
+\put(190,30){AB-VV-PO}
+\put(250,22){\line(1,0){169.33223196640316}}
+\put(190,19){PO-VV-AB}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){PO-AV-AB}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-VV-AB}
+\put(180,99){\line(-1,0){159.8721348906648}}
+\put(190,96){PO-AV-AB}
+\put(180,88){\line(-1,0){114.57591990866779}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){91.9346623342408}}
+\put(190,74){AB-PR-NN}
+\put(180,66){\line(-1,0){90.67989812944586}}
+\put(190,63){PO-AB-AB}
+\put(250,55){\line(1,0){2.458944410292439}}
+\put(190,52){AJ-VN-AB}
+\put(250,44){\line(1,0){2.810222183191359}}
+\put(190,41){NN-PO-BV}
+\put(250,33){\line(1,0){3.1614999560902786}}
+\put(190,30){VN-UK-PO}
+\put(250,22){\line(1,0){3.4740879950821117}}
+\put(190,19){PR-++-AB}
+\put(250,11){\line(1,0){7.376833230877317}}
+\put(190,8){PR-AB-AB}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterE-Indal-Leksand}
+\end{figure}
+
+And now for the overuse feature comparisons.
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){AJ-VN-QV}
+\put(180,99){\line(-1,0){180.0}}
+\put(190,96){PR-VV-PN}
+\put(180,88){\line(-1,0){180.0}}
+\put(190,85){FV-AV-AB}
+\put(180,77){\line(-1,0){180.0}}
+\put(190,74){AJ-VN-SV}
+\put(180,66){\line(-1,0){180.0}}
+\put(190,63){++-NN-EN}
+\put(250,55){\line(1,0){144.09699621191913}}
+\put(190,52){VV-AJ-UK}
+\put(250,44){\line(1,0){144.09699621191913}}
+\put(190,41){AN-UK-NN}
+\put(250,33){\line(1,0){144.09699621191913}}
+\put(190,30){AN-UK-PO}
+\put(250,22){\line(1,0){144.09699621191913}}
+\put(190,19){PO-AJ-HV}
+\put(250,11){\line(1,0){144.09699621191913}}
+\put(190,8){VV-AJ-VV}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterC-Loderup-K\"ola-Bredsatra}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){HV-RO-IP}
+\put(180,99){\line(-1,0){180.0}}
+\put(190,96){HV-AB-AN}
+\put(180,88){\line(-1,0){180.0}}
+\put(190,85){FV-AV-AB}
+\put(180,77){\line(-1,0){180.0}}
+\put(190,74){++-NN-EN}
+\put(180,66){\line(-1,0){180.0}}
+\put(190,63){HV-RO-PO}
+\put(250,55){\line(1,0){135.85511884177657}}
+\put(190,52){ID-AB-SV}
+\put(250,44){\line(1,0){135.85511884177657}}
+\put(190,41){PO-AJ-EN}
+\put(250,33){\line(1,0){135.85511884177657}}
+\put(190,30){VV-AJ-UK}
+\put(250,22){\line(1,0){135.85511884177657}}
+\put(190,19){AN-UK-NN}
+\put(250,11){\line(1,0){135.85511884177657}}
+\put(190,8){VV-AJ-VV}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterA-StAnna-Sorunda}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){HV-RO-IP}
+\put(180,99){\line(-1,0){180.0}}
+\put(190,96){HV-AB-AN}
+\put(180,88){\line(-1,0){180.0}}
+\put(190,85){PR-VV-PN}
+\put(180,77){\line(-1,0){180.0}}
+\put(190,74){FV-AV-AB}
+\put(180,66){\line(-1,0){180.0}}
+\put(190,63){PO-IU-++}
+\put(250,55){\line(1,0){125.76419537275065}}
+\put(190,52){ID-AB-TP}
+\put(250,44){\line(1,0){125.76419537275065}}
+\put(190,41){ID-AB-SV}
+\put(250,33){\line(1,0){125.76419537275065}}
+\put(190,30){VV-AJ-UK}
+\put(250,22){\line(1,0){125.76419537275065}}
+\put(190,19){AN-UK-NN}
+\put(250,11){\line(1,0){125.76419537275065}}
+\put(190,8){AN-UK-PO}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterF-Floby-Segerstad-Bengtsfors}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){66.93857192812203}}
+\put(190,107){PO-AJ-IU}
+\put(180,99){\line(-1,0){66.93857192812203}}
+\put(190,96){FV-AV-AB}
+\put(180,88){\line(-1,0){66.93857192812203}}
+\put(190,85){NN-HV-AJ}
+\put(180,77){\line(-1,0){66.93857192812203}}
+\put(190,74){PO-IU-++}
+\put(180,66){\line(-1,0){66.93857192812203}}
+\put(190,63){++-NN-EN}
+\put(250,55){\line(1,0){180.0}}
+\put(190,52){FV-VN-UK}
+\put(250,44){\line(1,0){180.0}}
+\put(190,41){++-VV-SV}
+\put(250,33){\line(1,0){180.0}}
+\put(190,30){ID-AB-TP}
+\put(250,22){\line(1,0){180.0}}
+\put(190,19){AN-UK-NN}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){AN-UK-PO}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){89.95141748970372}}
+\put(190,107){HV-RO-IP}
+\put(180,99){\line(-1,0){89.95141748970372}}
+\put(190,96){HV-AB-AN}
+\put(180,88){\line(-1,0){89.95141748970372}}
+\put(190,85){++-NN-AN}
+\put(180,77){\line(-1,0){89.95141748970372}}
+\put(190,74){AJ-VN-QV}
+\put(180,66){\line(-1,0){89.95141748970372}}
+\put(190,63){VN-BV-AB}
+\put(250,55){\line(1,0){180.0}}
+\put(190,52){++-VV-RO}
+\put(250,44){\line(1,0){180.0}}
+\put(190,41){FV-VN-UK}
+\put(250,33){\line(1,0){180.0}}
+\put(190,30){ID-AB-TP}
+\put(250,22){\line(1,0){180.0}}
+\put(190,19){VV-AJ-UK}
+\put(250,11){\line(1,0){180.0}}
+\put(190,8){AN-UK-PO}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
+\end{figure}
+
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){FV-AV-AB}
+\put(180,99){\line(-1,0){180.0}}
+\put(190,96){++-NN-I?}
+\put(180,88){\line(-1,0){180.0}}
+\put(190,85){NN-HV-AV}
+\put(180,77){\line(-1,0){180.0}}
+\put(190,74){BV-TP-AB}
+\put(180,66){\line(-1,0){180.0}}
+\put(190,63){ID-QV-AB}
+\put(250,55){\line(1,0){127.19275581944204}}
+\put(190,52){AN-UK-NN}
+\put(250,44){\line(1,0){127.19275581944204}}
+\put(190,41){PO-AJ-IM}
+\put(250,33){\line(1,0){127.19275581944204}}
+\put(190,30){AN-UK-PO}
+\put(250,22){\line(1,0){127.19275581944204}}
+\put(190,19){PO-AJ-HV}
+\put(250,11){\line(1,0){127.19275581944204}}
+\put(190,8){VV-AJ-VV}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as clusterE-Indal-Leksand}
+\end{figure}
+
+
+\subsection{$R$ Features, Variation Across Feature Sets}
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){AV}
+\put(180,99){\line(-1,0){170.46100426450016}}
+\put(190,96){PO-AV}
+\put(180,88){\line(-1,0){162.0987794042221}}
+\put(190,85){AB-AV}
+\put(180,77){\line(-1,0){159.26456034231583}}
+\put(190,74){IP-AV}
+\put(180,66){\line(-1,0){155.71864412493468}}
+\put(190,63){VV}
+\put(250,55){\line(1,0){3.823400090057767}}
+\put(190,52){PO-VV-AV-AV}
+\put(250,44){\line(1,0){4.269272723332427}}
+\put(190,41){AB-VV-VV-VV}
+\put(250,33){\line(1,0){4.767764135337079}}
+\put(190,30){AB-VV-VV-VV-HV}
+\put(250,22){\line(1,0){4.767764135337079}}
+\put(190,19){NN-AV-FV}
+\put(250,11){\line(1,0){4.87074784066036}}
+\put(190,8){AB-AV-FV}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as
+  clusterC-Loderup-K\"ola-Bredsatra, r-dep-freq}
+\end{figure}
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PO-AV-AB}
+\put(180,99){\line(-1,0){139.9929946004993}}
+\put(190,96){PO-VV-AB}
+\put(180,88){\line(-1,0){102.86485218903893}}
+\put(190,85){AB-VV-PO}
+\put(180,77){\line(-1,0){87.81761026825338}}
+\put(190,74){NN-PR-NN}
+\put(180,66){\line(-1,0){85.01942811005603}}
+\put(190,63){AB-PR-NN}
+\put(250,55){\line(1,0){3.3701184090618996}}
+\put(190,52){PR-VN-PR}
+\put(250,44){\line(1,0){3.7401709198742594}}
+\put(190,41){AJ-AV-AB}
+\put(250,33){\line(1,0){3.7401709198742594}}
+\put(190,30){++-AV-AB}
+\put(250,22){\line(1,0){3.7401709198742594}}
+\put(190,19){PO-HV-BV}
+\put(250,11){\line(1,0){4.1309920654945484}}
+\put(190,8){PR-PO-HV}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as
+  clusterC-Loderup-K\"ola-Bredsatra, r-trigram-freq}
+\end{figure}
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){]-S-IP}
+\put(180,99){\line(-1,0){168.62107408295375}}
+\put(190,96){S-AB}
+\put(180,88){\line(-1,0){131.47009110525053}}
+\put(190,85){S-PO}
+\put(180,77){\line(-1,0){82.8858786861664}}
+\put(190,74){S-VV}
+\put(180,66){\line(-1,0){71.41057300407576}}
+\put(190,63){S-AV}
+\put(250,55){\line(1,0){1.8147626468472788}}
+\put(190,52){S-NP-S-S-S-AB}
+\put(250,44){\line(1,0){1.8522176935986576}}
+\put(190,41){S-S-PP-[-AB}
+\put(250,33){\line(1,0){1.8522176935986576}}
+\put(190,30){S-S-PP-PR}
+\put(250,22){\line(1,0){1.9779429393430832}}
+\put(190,19){S-S-S-NP-S-[-PO}
+\put(250,11){\line(1,0){2.337568928314553}}
+\put(190,8){S-NP-S-CS-S-AB}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as
+  clusterC-Loderup-K\"ola-Bredsatra, r-path-freq}
+\end{figure}
+
+\begin{figure}
+\setlength{\unitlength}{1pt}
+\begin{picture}(400,140)
+\linethickness{2mm}
+\put(180,110){\line(-1,0){180.0}}
+\put(190,107){PP$\to$PR-NN}
+\put(180,99){\line(-1,0){66.35645552164347}}
+\put(190,96){NP$\to$PO-PO}
+\put(180,88){\line(-1,0){58.88232729337565}}
+\put(190,85){AVP$\to$AB-AB}
+\put(180,77){\line(-1,0){50.88899930035185}}
+\put(190,74){PP$\to$PR-PO}
+\put(180,66){\line(-1,0){50.01997546161568}}
+\put(190,63){NP$\to$RO-NN}
+\put(250,55){\line(1,0){4.2587278571501}}
+\put(190,52){XP$\to$CNP-S}
+\put(250,44){\line(1,0){4.2811226817817705}}
+\put(190,41){PP$\to$PR-PO-NN-S}
+\put(250,33){\line(1,0){4.867117551028685}}
+\put(190,30){S$\to$PO-AV-AB-PP}
+\put(250,22){\line(1,0){7.300676326543028}}
+\put(190,19){PP$\to$AB-PR-S}
+\put(250,11){\line(1,0){7.707080642053923}}
+\put(190,8){S$\to$++-PO-VV-S}
+\end{picture}
+\caption{clusterB-Jamshog-Ossjo-Tors\.as
+  clusterC-Loderup-K\"ola-Bredsatra, r-psg-freq}
+\end{figure}
+
+TODO: I need to check that the comparisons with other clusters are
+substantially similar for the respective parameter settings.
+
+
+Things I noticed: the freq top-5 features are basically useless:
+they're always just the simplest sentence types like PO-VV-AB,
+regardless of side. There IS a difference though, it's just that it
+flips back and forth, so from top-5 freq features you can only tell there is
+a difference, but not the content.
+
+Maybe I should check for correlation with corpus size again.
+
+Ratio top-5 has the same problem as freq top-5, the values are just
+smaller. In fact, I think the ratios when scaled up give the same
+values as the freqs, so there's no point in including them. I should
+just note it and skip them.
+
+OTOH, top-5 overuse features are all the same value. Does this extend
+all the way down? Then I probably have a bug in my code.
+
+TODO: Check for corpus size correlation (I guess, I've checked this
+like 3 times before).
+TODO: See why all the top-5 overuse features have the same value.
+TODO: See if there's some pattern to the top-5 overuse features.
+
+
+
 \subsection{Consensus Tree}
 
 \begin{figure}
