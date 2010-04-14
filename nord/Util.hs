@@ -10,6 +10,7 @@ import System (getArgs)
 import Control.Arrow ((&&&))
 import Control.Monad ((>=>))
 {--- lst ---}
+pairwise l = [(x,y) | (i,x) <- zip [1..] l, y <- drop i l]
 countBy f = filter f & length
 count x = filter (==x) & length
 histogram :: (Ord a) => [a] -> Map.Map a Int

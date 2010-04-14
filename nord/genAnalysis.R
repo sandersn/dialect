@@ -4,6 +4,7 @@ sink('nord/correlations-R.txt')
 
 geo <- read.table("nord/dist-geo-R.txt", header=TRUE)
 travel <- read.table("nord/dist-travel-R.txt", header=TRUE)
+sizes <- read.table('nord/size-R.txt', header=TRUE)
 measures <- c('r', 'r_sq', 'kl', 'js', 'cos')
 features <- c('path', 'trigram', 'dep', 'psg', 'grand',
               'unigram',
@@ -41,6 +42,9 @@ for (norm in norms) {
         cat(paste("sig:", mantel(geo, t, 30), '\n'))
         cat(paste("cortravel:", cor(vectorise(travel), vectorise(t)), '\n'))
         cat(paste("sigtravel:", mantel(travel, t, 30), '\n'))
+        # Disabled right now because I don't want to change the R-reading code...
+        # cat(paste("corsize:", cor(vectorise(sizes), vectorise(t)), '\n'))
+        # cat(paste("sigsize:", mantel(sizes, t, 30), '\n'))
       }
  # I don't know R's zip, so I will just use indexing even if it is slow
  # which it's not, R's lists are actually untyped vectors not conses

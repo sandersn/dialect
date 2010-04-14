@@ -197,12 +197,14 @@ def syntaxFeaturesDiagram():
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
+    run('ghc -O2 --make CalculateSizeDifference')
     run('./CalculateGeoDistance >dist-geo.txt')
     run('./FormatDistance dist-geo.txt pairwise > dist-geo.csv')
     run('./FormatDistance dist-travel.txt pairwise > dist-travel.csv')
     # 13.2 Next a 2-D table (full/redundant-matrix) for R
     run('./FormatDistance dist-geo.txt square > dist-geo-R.txt')
     run('./FormatDistance dist-travel.txt square > dist-travel-R.txt')
+    run('./CalculateSizeDifference > size-R.txt')
     # 13. Generate some analysis of the output
     for variant in variants:
         # 13.1 First a 2-D table (half-matrix) for Excel
