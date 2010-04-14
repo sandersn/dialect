@@ -47,17 +47,6 @@ selfkey (title:rest) = (words $ clean title, map parseSig (drop 4 rest))
 parseSig = map (pair . map (read :: String -> Double) . words) . endBy ","
   where pair [x,y] = (x,y)
         pair l = error ( "Not a two-element list:" ++ show l)
-----------
--- This is some code to find parameter sets without significant correlation
--- with corpus size.
--- TODO: It would be cool to also filter out the ones with non-significant
--- distances.
-{- main = do
-  cors <- return . chunk 3 . lines =<< readFile "cor-size.txt"
-  let sigs = Map.fromList (map parse' cors)
-  mapM_ putStrLn . Map.keys . Map.filter (snd & (>=0.05)) $ sigs
-parse' [cor,sig,title] = (title,(parse cor, parse sig))
-parse = words |> (!!1) |> (read :: String -> Double) -}
 
 -- so, oh look, Perl 6 has a data structure that implicitly lifts operations
 -- into the list monad. OH GREAT. Like I wouldn't rather do that explicitly

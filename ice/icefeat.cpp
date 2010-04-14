@@ -1,8 +1,11 @@
 #include "icecore.h"
 /// Feature dump ///
 void dumpcomparison(const dialect& a, const dialect& b) {
-  sample total = normalise(concat(a), concat(b), 5);
+  sample total = normalise(concat(a), concat(b), 1);
   for(sample::iterator i = total.begin(); i != total.end(); i++) {
+    // remove the mutually unseen types because they are
+    // not interesting in an automatically tagged corpus
+    if(i->second.first==0 || i->second.second==0) continue;
     cout << i->first << endl;
     cout << i->second.first - i->second.second << endl;
   }
