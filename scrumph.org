@@ -726,6 +726,15 @@
    - I will check for size/distance correlation. I will check for bugs
      in the overuse normalisation since all results are the same.
    - 
+** 2010/04/15
+   - I checked for size/distance correlation. I went back and forth,
+     deciding that size1 + size2 is right, not abs(size1-size2). This
+     makes ratio norm look bad. BUT, size/travel also correlates
+     significantly at 0.32. Also I threw out single-region uniques
+     in icefeat.cpp. Then I improved formatting a tiny bit.
+   - I will put in the new results from icefeat.cpp. I will rewrite
+     the text in Results. I will format the feature ranks to be easier
+     to read.
 * Plan
 ** January
 *** Get results
