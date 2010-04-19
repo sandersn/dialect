@@ -17,6 +17,299 @@ better on a dialect corpus.
 A big question is why trigrams are so good. All of the fancier feature
 sets do worse than trigrams.
 
+(On consensus trees, specifically the freq normed one)
+much better between trees without the ratio normalisation--the only
+distinction it reliably catches is the out-group of Tors\.as, \"Ossj\"o
+and J\"amshog.
+
+
+\section{Analysis of Results}
+
+\subsection{Significance of Dialect Distance}
+
+Analysis of the significance of dialect distance provides a measure of
+how reliable the distances to be analysed later in this chapter are. A
+distance that does not find significant distances between of 30
+regions is not suitable for precise inspection, although small numbers
+of non-significant distances will still allow less precise methods to
+return interpretable results.
+
+From the very few significant distances found by comparing whole
+regions to regions, It is obvious that fix-sized sampling is needed to
+work around size differences; sentence length normalisation does not
+adequately adjust for the effects of having more sentences, nor is the
+difference negligable as might be hoped. For the rest of the analysis,
+whole-region sampling will be skipped in favour of 1000-sentence
+fixed-size samples.
+
+TODO: Comparison of frequencies is slightly more successful than
+  comparison of ratios. (This also makes sense because of the noisy
+  parsing as well as the smallish corpora)
+
+\subsubsection{Significance by Measure}
+
+The distance measures most likely to find significance are, in order,
+cosine dissimilarity, Jensen-Shannon divergence and $R$. Cosine
+similarity resulted in all significant distances, even for
+part-of-speech unigrams. Unigrams are intended as a baseline and as
+such, it is unexpected for. More on cosine similarity will explored
+in later sections.
+
+Of the two pairs of similar methods, it is not surprising that
+Jenson-Shannon divergence provides more reliable results than
+Kullback-Leibler divergence. Although both are called ``divergence'',
+JS divergence is originally a dissimalarity, while KL divergence must
+be converted to a dissimarility, which is symmetric, by measuring it
+twice. Because of the placement of the logarithm in KL divergence, it
+can only compare features that occur at least once in both corpora (see equation
+\ref{klmeasure} in chapter \ref{methods-chapter}). It must skip
+features unique to a single corpus in order to avoid division by zero.
+
+On the other hand, there is no reason to expect that $R^2$ would
+provide less reliable results than $R$---the only difference is that
+$R$ sums the absolute difference in feature counts rather than the
+squared difference. Yet $R$ consistently finds more significant
+distances than $R^2$. This is backward from the expected result that
+$R^2$ would exaggerate the most important feature differences by
+squaring them. Furthermore, the difference is not uniform across feature
+type; the differences are largest for leaf-ancestor paths and
+arc-head paths.
+
+In the following analysis, I will further investigate the causes for the difference
+between $R$ and $R^2$, as well as investigate whether cosine
+similarity's ability to find significant distances between practically
+anything will extend to good results based on measures besides
+statistical reliability.
+
+\subsubsection{Significance by Feature Set}
+
+% \item Unigrams do form an adequate baseline; they are bad but not too
+%   bad.
+
+The feature sets most likely to find significance are, in order,
+trigrams, all combined features and leaf-head paths (both with
+support-vector-machine training and with Timbl's instance-based
+training). Without ratio normalisation, the other feature sets are not
+much worse, but with it included, these three are the best by some
+distance.
+
+The relatively high quality of trigrams does not make sense given only
+the linguistic facts; however, it is likely that the entirely
+automatic annotation used here introduces more and more errors the
+more annotators run, operating on the output of previous automatic
+annotators. Trigrams are the result of only one
+automatic annotation, and one for which the state of the art is at or
+near human performance. So the fact that these particular trigrams are
+of higher quality than these particular dependencies or constituencies
+is probably the deciding factor in their higher number of significant
+distances. Although it is impossible to tell from my results, I
+predict that a manually annotated dialect corpus would show that
+non-flat syntactic structure is helpful in producing significant
+distances.
+
+Given the above facts, the question should rather be: why are
+leaf-head paths perform as well as they do? Better, for example, than
+the leaf-ancestor paths on which they're modelled. It could be that
+there is less room for error; many of the common leaf-head paths are
+short: short interview sentences with simple structure make for
+shorter leaf-head paths than leaf-ancestor paths. As a result, the
+important leaf-head paths consist mainly of a couple of
+parts-of-speech. But in that case, adding the ratio normalisation
+should remove their advantage over leaf-ancestor paths, but it does
+not.
+
+Another reason could be a difference in parsers: MaltParser has been
+tested before with Swedish (CITE). Besides English, the Berkeley
+parser has been tested prominently on German and Chinese. Therefore,
+the difference would better be explained by appealing to the
+difference in parsers rather than an unsuitability of Swedish for
+constituent analysis.
+
+It is disappointing linguistically that trigrams provide the most
+reliable results so far; a linguist would expect that including
+syntactic information would make it easier to measure the differences
+between regions. If it is, as hypothesised here, an effect of chaining
+machine annotators, a study using manually annotated corpora could
+detect this. However, it still means that trigrams are the most useful
+feature set from a practical view, because automatic trigram tagging
+is very close to human performance with little training. That means
+the only required human work is the transcription of interviews in
+most cases.
+
+On the other hand, if additional features sets are to be developed for
+a corpus, then combining all available features seems to be a
+successful strategy. The distance measures seem to be able to use all
+available information for finding significant distances.
+
+\begin{enumerate}
+\item In addition, their results call the cosine measure into question. Why is it so
+  good at finding significant distances? Why are the maps it produces (below) so
+  confusing and different from the others?
+\end{enumerate}
+\subsection{Correlation}
+
+Correlation with geographic distance or travel distance indicates that
+a distance measure follows the expectations of linguists about
+distribution of dialects. A lack of correlation does not mean that a
+measure is useless, but presence of correlation means that the
+distance measure asserts the well-known tendency of dialect
+distributions to be more or less smoothly gradient over physical
+space.
+
+Taken as a whole, the distance measures correlate more strongly with
+travel distance than with straight-line geographic distance. This
+makes sense since this is actually what influences dialect formation.
+
+Unlike the number of significant distances, there is a distinct effect
+of the ratio normalisation on the travel distance
+correlations. Without the ratio normalisation, only cosine similarity
+with trigram and unigram POS features correlate significantly with
+travel distance. With ratio normalisation, quite a few of the
+parameter settings correlate significantly with travel
+distance. Notably, the trigram feature set and combined feature set
+all correlate, except as measured by cosine similarity. A number of
+feature sets besides trigrams, as measured by Kullback-Leiber
+divergence also correlate significantly, but this is not valid because
+of the large number of non-significant distances on which the
+correlation is based.
+
+% (On cosine's n-gram correlation with geography)
+This is really bizarre. A possible explanation is that unigrams are
+simpler, so the type count is a higher than for other
+measures. But this only happens for the full-corpus condition, which
+has more tokens and should therefore have a higher type count. What's
+more this distinction doesn't show up in the 1000-sample size, which
+should have lower type counts because of its limited size.
+
+The results of travel distance correlation indicate that ratio
+normalisation improves the results above the sentence-length
+normalisation alone.
+
+\subsubsection{Self-Correlation}
+
+It appears that a cosine is arriving at different results than the
+other measures, though the correlation is still much higher than with
+travel distance. A more precise investigation of this anomaly appears
+below in section \ref{feature-ranking}.
+
+\subsubsection{Correlation with Corpus Size}
+
+Not sure what to say here. Overall, ratio normalised distances correlate much
+better with corpus size in addition to travel distance.
+
+On the other hand, travel distance itself correlates almost as
+strongly with corpus size. So all three things appear to be
+related. Somehow. Not sure how.
+
+\subsection{Cluster Dendrograms}
+
+The most reliable way to analyse these it to only look at the
+consensus dendrograms.
+
+% Below is old. Might serve as a useful guide though.
+
+% There are 5 main clusters found by leaf-ancestor path and dependency
+% path feature types. These clusters are also visible in the trigram
+% clusters, but are not so clear.
+
+% \begin{figure}
+%   Jamshog, Ossjo, Tors\.as
+% \label{cluster-a}
+% \caption{Cluster A}
+% \end{figure}
+
+% \begin{figure}
+%   Loderup, Norra Rorum, K\"ola, Boda, Frilles\.as, Villberga,
+%   Breds\"atra
+% \label{cluster-b}
+% \caption{Cluster B}
+% \end{figure}
+
+% \begin{figure}
+%   Viby, Bara, Sorunda, St Anna, Faro, Fole, Arjeplog, Torso
+% \label{cluster-c}
+% \caption{Cluster C}
+% \end{figure}
+
+% \begin{figure}
+%   Ankarsrum, V\"axtorp, Bengtsfors, Floby, Segerstad, Sproge,
+%   Skinnskatteberg
+% \label{cluster-d}
+% \caption{Cluster D}
+% \end{figure}
+
+% \begin{figure}
+%   Nederluleu, Overkalix, Asby, Orust, Anundsj\"o, Arsunda, Indal,
+%   Leksand
+% \label{cluster-e}
+% \caption{Cluster E}
+% \end{figure}
+
+% Clusters A, B and E appear to have a clear interpretation; A is
+% concentrated in a small area: perhaps there are mountains or some
+% other reason for having a close-knit speech community there. B is on
+% the edges of the country; it is probably a remnant pattern that is
+% being pushed out by the dominant clusters C and D. E is a
+% northern speech pattern with southern outposts in Orust and Asby.
+
+% C and D are not so obvious, but it is quite likely, given its
+% geographical distribution, that C represents
+% ``standard'' Swedish of the urban speaker. D is Everything Else and
+% might have a rural basis (perhaps).
+
+% As indicated by the colours, B and C together form a larger cluster,
+% as do D and E.
+
+% Looking at the positive vs negative dependency path feature weights
+% for each cluster comparison, it appears that the clusters with
+% strongest evidence are clusters A and C. Strangely, it seems that most
+% of the evidence for C is negative---it does not share features with
+% other dialects, but doesn't have any strong features of its own.
+% Clusters D and E have strong features of their own, but not as
+% strongly differentiating as those of A or negatively different as
+% those of C. Finally, cluster B does not seem to have any strongly
+% characteristic features except with respect to C.
+
+% In other words, C is ``not like the rest'', while B is ``like C,
+% except for certain recognisable features''. A, D and E have their own set
+% of recognisable features, and they are particularly strong for A.
+
+% \begin{table}
+%   \begin{tabular}{cc}
+%     A & Strange (Are there mountains here?) \\
+%     B & Remnant \\
+%     C & Central / Urban \\
+%     D & Central / Rural \\
+%     E & Northern \\
+%     \end{tabular}
+%     \label{cluster-names}
+%     \caption{Possible cluster names}
+% \end{table}
+
+\subsection{Composite Cluster Maps}
+
+Things I noticed: These really support well the gradient hypothesis;
+there are horizontal boundaries from north to south, none too
+strong. Also, Kola and Frillesas are still looking a lot like
+Stockholdm/Uppsala. And of course Jamshog/Ossjo/Torsas are still out
+on their own.
+
+The boundary with Scania is evident too. Though it looks just like the
+other horizontal boundaries, maybe a little stronger.
+
+\subsection{MDS}
+
+This shows very similar results to the hierarchical clustering. A
+few strongly different regions appear in the south, there is a region
+around Stockholm, and North Sweden (Norrland) groups together with a
+couple of more southern regions outside the Stockholm region.
+
+Things I noticed: cities, Scania distinction, sometimes shared with
+Jamhog/Torsas/Ossjo, Stockholm/Uppsala/Malmo are nearly always
+similar, northern sometimes looks different from central area. For
+some reason Kola always patterns with the cities though \ldots But
+Arsunda, right nearby, is always pretty different. Strange.
+
 \section{Compared to Previous Work}
 
 In previous work on British English, this method failed to find
@@ -124,6 +417,44 @@ Try all those smarter variants of $R$.
 
 Include the rest of Nodalida once it is done.
 
+Better normalisation and feature ranking are needed. It appears that
+the current normalisations vary either in favouring differences
+only in high-frequency features OR in favouring rare features so much
+that the most important appear to be those that only occur in one of
+the two regions.
+
 \section{The End}
 
-This is the end of a Highly Impressive Dissertation.
+This dissertation contributes a better understanding of syntax with
+respect to dialectometry. It establishes that statistical methods can
+find interesting things, and with not much more data than is expected
+of previous dialectometry in other areas. Remember, the majoriy of
+interviews used here were less than 1000 sentences. Previous work
+pointed the way (Nerbonne \& Wiersma (2006) and Sanders (2008)) but
+failed to establish the utility and reliability of these methods
+either by lack of dialect application or by lack of consistent
+results. This dissertation addresses these shortcomings
+comprehensively.
+
+In addition, it points the way toward future work in Swedish; while
+the results here are interesting, it is difficult to corraborate them
+solidly because of the lack of study on Swedish dialects, both in
+dialectology and dialectometry. This gap in the literature is on its
+way to being remedied with the work of Leinonen in dialectometry and
+X,Y,Z in dialectology.
+
+Like its findings, future directions based on this work are
+twofold. In general dialectometry, syntactic investigations should
+begin, hopefully extending to languages for which the syntactic
+variation is already well-studied.
+
+In Swedish, I hope that this investigation of syntactic dialect
+variation will lead to further work in this area; there is little
+enough right now, and perhaps a computer-generated overview of the
+interesting features will spark some new avenues of investigation for
+linguists.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "dissertation.tex"
+%%% End: 

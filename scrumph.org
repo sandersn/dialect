@@ -735,6 +735,28 @@
    - I will put in the new results from icefeat.cpp. I will rewrite
      the text in Results. I will format the feature ranks to be easier
      to read.
+   - 
+** 2010/04/16
+   - I put in the new results from icefeat.cpp. I wrote some text for
+     the feature ranking to make it easier to follow (though it is
+     still hard). I did not rewrite the rest of Results yet. I reformatted the
+     feature rank labels but not the figures themselves.
+   - I will rewrite Results. That's probably it.
+   - Otherwise I need to start addressing Sandra's comments in the
+     earlier chapters.
+     Also, I need to see if Kaleb wants to car pool to Toli's
+     wedding. Probably should take my car this time...
+** 2010/04/19
+   - I finished rewriting Resulsts. There was more new stuff needed
+     than I thought. But at least I got it sent off. Over the weekend
+     I wrote some summary and beginning of analysis. Not sure if it's
+     useful.
+   - I will start writing up my analses. Probably just the stuff I've
+     already come up with. The idea is to have a complete dissertation
+     sooner, even if it's unpolished. "Great artists ship" and all
+     that
+   - I should mail Therese this week to see if I can get the current
+     version of her dissertation.
 * Plan
 ** January
 *** Get results
