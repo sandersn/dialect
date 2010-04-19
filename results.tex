@@ -1,59 +1,109 @@
 \chapter{Results}
+% TODO: Many tables are ugly
+% TODO: Re-order features in order of importance in all tables
+% eg unigram last, preceded by deparc, timbl-dep (redep), etc
 
-The main research questions are, once again, (1) is R a good measure,
-and generally is the statistical approach to syntactic dialectometry
-workable? and (2) what combination of features gives the best results?
+These results are meant to answer two main questions: first, how well does
+this approach to syntactic dialectometry agree with dialectology?
+Second, what combinations of distance measures, feature
+sets and other settings produce the best results for linguistic
+analyses? Additionally, the results are meant to allow comparison with
+phonological dialectometry.
 
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor
-  Trigram
-  Dependency
-  Phrase-Structure Rules
-  Phrase-Structure with Grandparents
-  Unigram
-  Dependencies, MaltParser trained by Timbl
-  Dependency, Arc Labels
-  All Features Combined
-\end{tabular}
- \label{empty-results-table}
-  \caption{Generic empty results table}
-\end{table}
+The organisation of this chapter mirrors the order of the methods
+chapter, particularly the output analysis (section
+\ref{output-analysis}). First, there is an overview of the different
+parameter settings, the combinations of distance measure and feature
+set, as well as other settings. Then the number of significant
+distances for each parameter setting is given, which is followed by
+the correlation with geography and travel distance for each parameter
+setting. These sections focus mainly on detecting which settings do not
+produce valid results, so that they can be ignored in the rest of the
+chapter. At a high level, they answer the question of the suitability
+of statistical syntactic dialectometry: whether or not significant
+results can be found.
 
+Next, the specific dialectological results are examined. First,
+cluster dendrograms provide a visualisation of which regions the
+distance measures find to be similar. In addition, to improve the
+reliability of the dendrograms, consensus trees and composite cluster
+maps are produced. Next, multi-dimensional scaling gives an smoother
+view of similarity than clusters. Finally, features are ranked and
+extracted from each cluster in the consensus tree.
 
 \section{Distances}
 
-180 variations where, with 270 variations for feature ranking. The 180
-variations came from a $5\times 9 \times 2 \times 2$ design, fully
-crossed. The variations were:
-
-\begin{tabular}{r|ccccc}
-  Measure & $R$ & $R^2$ & KL & JS & cos \\ \hline
-  Feature Set & Leaf-Ancestor Path & POS Trigram & Leaf-Head Path \\
-  & Phrase Structure Grammar & Grandparent PSG & POS Unigram \\
-  & Alternate Leaf-Head Paths (Malt) & Dependency-Arc Path & All \\ \hline
-  Sampled & 1000 & All \\ \hline
-  Normalisation & Ratio & Frequency Only \\ \hline
-\end{tabular}
-
-Actually, all this should probably go in methods too, somewhere as a summary.
-
-This is an example table for $R$, Leaf-Ancestor Paths, 1000-sentence
-samples, and Frequency Only normalisation.
+There are 180 parameter settings investigated in this chapter. This
+number arises from the four paramaters: measure, feature set, sampling
+method and normalisation method. 5 measures, 9 feature sets, 2
+sampling methods and 2 normalisation methods gives $5\times 9 \times 2
+\times 2=180$ different settings. The settings are given in table
+\ref{parameter-settings}.
 
 \begin{table}
-\begin{tabular}{r|cccccccccccccccccccccccccccccc}
-& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30
+\begin{tabular}{|c|} \hline
+  Feature Set \\\hline
+  Leaf-Ancestor Path \\
+  Part-of-speech Trigram \\
+  Leaf-Head Path \\
+  Phrase Structure Rule \\
+  PSR with Grandparent \\
+  Part-of-speech Unigram \\
+  Leaf-Head Path, based on Timbl training \\
+  Dependency-Arc Path \\
+  All features combined \\ \hline
 \end{tabular}
-\label{example-distances}
+\begin{tabular}{|c|} \hline
+  Measure \\ \hline
+  $R$ \\
+  $R^2$ \\
+  Kullback-Leibler divergence \\
+  Jensen-Shannon divergence \\
+  cosine dissimilarity\\\hline
+\end{tabular}
+\begin{tabular}{|c|} \hline
+  Sampling Method \\ \hline
+  1000 sentences \\
+  All sentences \\\hline
+\end{tabular}
+\begin{tabular}{|c|} \hline
+  Normalisation method \\ \hline
+  Sentence-length \\
+  Sentence-length and ratio \\\hline
+\end{tabular}
+\label{parameter-settings}
+\caption{Settings for the four parameters tested}
 \end{table}
+% Actually, all this should probably go in methods too, somewhere as a summary.
+
+For feature ranking, the normalisation setting differs: the choice is
+between sentence-length normalisation only and an additional
+normalisation that highlights overuse. The additional frequency
+normalisation does not change the ranking of individual features, so
+it is not included.
 
 \section{Significant Distances}
 
 Significant distances help answer the question whether a syntactic
-measure has succeeded in finding reliable distances. It also is a good
-measure of when a feature set has messed up a previously-good measure.
+measure has succeeded in finding reliable distances. The measures
+should have zero non-significant distances, or at least a small
+number. In the first set of tables, \ref{sig-1000-freq} --
+\ref{sig-full-ratio}, the total number of comparisons between all 30
+regions is the $435=30(30-1) / 2$. In the second set, tables
+\ref{sig-percent-1000-freq} -- \ref{sig-percent-full-freq}, the percentage
+of non-significant distances is given instead.
+
+Bold percentages in indicate that more than 5\% of the
+distances were not significant. They are not marked in tables
+\ref{sig-percent-full-freq} -- \ref{sig-percent-full-ratio} because
+so few distances are significant. In fact, the only combination with
+{\it less} than 5\% non-significant results is cosine dissimilarity
+with unigram features. Note that here, 5\% is an arbitrary cutoff point not
+related to the usual significance cutoff $p < 0.05$; the basis for
+these tables are themselves number of significant distances found.
+% TODO:Make sure this is true; Wybo's discussion of family errors
+% doesn't seem to apply here but it might.
+
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
@@ -68,9 +118,9 @@ measure of when a feature set has messed up a previously-good measure.
   Dependency, Arc Labels&1 & 52 & 2 & 0 & 0\\
   All Features Combined &0 & 1 & 0 & 0 & 0\\
 \end{tabular}
- \label{sig-1000-freq}
-  \caption{Significant distances for sample size 1000, Frequency
+ \caption{Number of significant distances for sample size 1000, Sentence-length
     normalisation only}
+ \label{sig-1000-freq}
 \end{table}
 \begin{table}
   \begin{tabular}{l|rrrrr}
@@ -86,7 +136,7 @@ measure of when a feature set has messed up a previously-good measure.
   All Features Combined&283 & 277 & 279 & 272 & 190\\
 \end{tabular}
  \label{sig-full-freq}
-  \caption{Significant distances for complete regions, Frequency
+  \caption{Number of significant distances for complete regions, Sentence-length
     normalisation only}
 \end{table}
 \begin{table}
@@ -102,9 +152,9 @@ measure of when a feature set has messed up a previously-good measure.
   Dependency, Arc Labels&6 & 54 & 17 & 1 & 0\\
   All Features Combined&0 & 4 & 0 & 0 & 0\\
 \end{tabular}
- \label{sig-1000-ratio}
-  \caption{Significant distances for sample size 1000, Ratio
+ \caption{Number of significant distances for sample size 1000, Ratio
     normalisation included}
+ \label{sig-1000-ratio}
 \end{table}
 \begin{table}
 \begin{tabular}{l|rrrrr}
@@ -120,28 +170,9 @@ measure of when a feature set has messed up a previously-good measure.
   All Features Combined&279 & 279 & 279 & 269 & 191\\
 \end{tabular}
  \label{sig-full-ratio}
-  \caption{Significant distances for complete regions, Ratio
+  \caption{Number of significant distances for complete regions, Ratio
     normalisation included}
 \end{table}
-
-There is some variation in the number of distances that are
-significant for each combination of distance measure and feature
-set. The numbers are given in tables \ref{sig-1000-freq} --
-\ref{sig-full-ratio} and \ref{sig-percent-1000-freq} and
-\ref{sig-percent-full-ratio}. The second set gives the significances
-as percentages of the total number of distances measured, $435 = 30
-\times (30 - 1) / 2$.
-Bold percentages in tables \ref{sig-percent-1000-freq},
-and \ref{sig-percent-1000-ratio} indicate that more than 5\% of the
-distances were not significant. They are not marked in tables
-\ref{sig-percent-full-freq} and \ref{sig-percent-full-ratio} because
-so few distances are significant. In fact, the only combination with
-{\it less} than 5\% non-significant results is cosine dissimilarity
-with unigram features. Here, 5\% is an arbitrary cutoff point not
-related to the significance cutoff $p < 0.05$, because the basis for
-these tables are themselves number of significant distances found.
-% TODO:Make sure this is true; Wybo's discussion of family errors
-% doesn't seem to apply here but it might.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
@@ -157,7 +188,8 @@ these tables are themselves number of significant distances found.
   All Features Combined&0 & 0.23 & 0 & 0 & 0\\
 \end{tabular}
  \label{sig-percent-1000-freq}
-  \caption{Significant percentages for sample size 1000, Frequency
+  \caption{Percent of significant distances for sample size 1000,
+    Sentence-length
     normalisation only}
 \end{table}
 \begin{table}
@@ -174,7 +206,7 @@ these tables are themselves number of significant distances found.
   All Features Combined&65.06 & 63.68 & 64.14 & 62.53 & 43.68\\
 \end{tabular}
  \label{sig-percent-full-freq}
-  \caption{Significant percentages for complete regions, Frequency
+  \caption{Percent of significant distances for complete regions, Sentence-length
     normalisation only}
 \end{table}
 \begin{table}
@@ -192,7 +224,7 @@ these tables are themselves number of significant distances found.
   All Features Combined&0 & 0.92 & 0 & 0 & 0\\
 \end{tabular}
  \label{sig-percent-1000-ratio}
-  \caption{Significant percentages for sample size 1000, Ratio
+  \caption{Percent of significant distances for sample size 1000, Ratio
     normalisation included}
 \end{table}
 \begin{table}
@@ -209,66 +241,24 @@ these tables are themselves number of significant distances found.
   All Features Combined&64.14 & 64.14 & 64.14 & 61.84 & 43.91\\
 \end{tabular}
  \label{sig-percent-full-ratio}
-  \caption{Significant percentages for complete regions, Ratio
+  \caption{Percent of significant distances for complete regions, Ratio
     normalisation included}
 \end{table}
 
-
-Analysis of the tables above leads to the following conclusions:
-
-\begin{enumerate}
-\item Fix-sized sampling is much more successful than relying on
-  normalisation to eradicate size differences between regions.
-  % But what if the sampling is overly significant because
-  % the samples from the combined corpus is more similar because of
-  % sampling from a larger pool
-  % ...no that doesn't make sense, because sampling from a larger pool
-  % will decrease that number of dups, meaning that random distance
-  % should be HIGHER.
- % Anyway, so the question remains: WHY? Probably because of a size
- % difference, but how would I check?
-\item Comparison of frequencies is slightly more successful than
-  comparison of ratios. (This also makes sense because of the noisy
-  parsing as well as the smallish corpora)
-\item The distance measures most likely to find significance are in
-  order, cosine dissimilarity, Jensen-Shannon dissimilarity and $R$.
-\item The feature sets most likely to find significance were trigrams
-  and dependencies. Trigrams make sense because they are earlier in
-  the toolchain, and their annotator is much more accurate to
-  boot. Dependencies are not so obvious.
-  % Good question why dependencies are so good.
-\item However, PSGs and dependencies with alternate training are also
-  pretty good.
-\item Unigrams do form an adequate baseline; they are bad but not too
-  bad.
-\item In addition, their results call the cosine measure into question. Why is it so
-  good at finding significant distances? Why are the maps it produces (below) so
-  confusing and different from the others?
-\item Combining all features together is a really good idea. It boosts
-  significance and, as seen later in this chapter, the quality of the
-  results as well.
-% \item Kullbeck-Leibler and Jensen-Shannon divergences
-% do not provide good results given trigram features.
-% \item Kullbeck-Leibler and Jensen-Shannon divergences provide their
-%   best results with dependency features.
-% \item However, on unigram features, which were included as a control,
-%   Kullbeck-Leibler and Jensen-Shannon divergences do almost as well as with
-%   dependency features.
-% \item In contrast, $R^2$ gives its best performance for trigram
-%   features.
-% \item $R$ provides the best results across all feature sets
-%   overall. The exceptions are unigram and dependencies with arc
-%   labels, but these feature sets perform poorly overall.
-\end{enumerate}
-
-These are not particularly coherent conclusions to draw. Further
-analysis is needed to identify the cause of the
-variation.
+Because so few of the distances produced with measures run on the full
+corpora are significant, only 1000-sentence sampling will be
+shown for the rest of the results.
 
 \section{Correlation}
 
-Correlation with geography is another indicator that a syntactic
-measure is finding significant distances.
+Correlation with geographic distance is another indicator that a
+syntactic measure is finding significant distances. Although
+correlation with geographic is not a guaranteed indicator that the
+measure is successful, the geographic basis of dialect variation is
+well-known \cite{chambers98}. In addition to straight-line geographic
+distance, travel distance is presented. Travel distance can be more
+informative than straight-line distance because it accounts for
+natural obstacles such as mountains, lakes and islands.
 
 Besides this, correlation between combinations of measure/feature set
 can show how closely related they are--in other words, how similarly
@@ -280,6 +270,10 @@ underlying dialect formation; while the distance measure measures some
 aspect of the language which we hope is dialects, it is indirectly
 (even less directly) measuring the geography. Therefore, correlation
 with geography should occur.
+
+Third, correlation with corpus size is not predicted and is probably
+an undesired defect in sampling or normalisation. Correlation with
+corpus size is presented in table \ref{size-cor-1000-freq}.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
@@ -295,7 +289,7 @@ with geography should occur.
   All Features Combined&-0.01 & 0.01 & 0.08 & 0.02 & 0.11\\
 \end{tabular}
  \label{cor-1000-freq}
-  \caption{Geographic correlation for sample size 1000, Frequency
+  \caption{Geographic correlation for sample size 1000, Sentence-length
     normalisation only}
 \end{table}
 % \begin{table}
@@ -312,7 +306,7 @@ with geography should occur.
 %   All Features Combined&-0.06 & -0.09 & -0.12 & -0.09 & -0.09\\
 % \end{tabular}
 %  \label{cor-full-freq}
-%   \caption{Geographic correlation for complete regions, Frequency
+%   \caption{Geographic correlation for complete regions, Sentence-length
 %     normalisation only}
 % \end{table}
 \begin{table}
@@ -350,10 +344,6 @@ with geography should occur.
 %     normalisation included}
 % \end{table}
 
-Now for correlation with travel distance. Travel distance is more
-informative than geographic distance because it accounts for obstacles
-like mountains, lakes and islands.
-
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
@@ -368,7 +358,7 @@ like mountains, lakes and islands.
   All Features Combined&-0.02 & 0.01 & 0.07 & 0.01 & 0.11\\
 \end{tabular}
  \label{travel-cor-1000-freq}
-  \caption{Travel correlation for sample size 1000, Frequency
+  \caption{Travel correlation for sample size 1000, Sentence-length
     normalisation only}
 \end{table}
 
@@ -386,7 +376,7 @@ like mountains, lakes and islands.
 %   All Features Combined&-0.00 & -0.03 & -0.05 & -0.03 & -0.05\\
 % \end{tabular}
 %  \label{travel-cor-full-freq}
-%   \caption{Travel correlation for complete regions, Frequency
+%   \caption{Travel correlation for complete regions, Sentence-length
 %     normalisation only}
 % \end{table}
 
@@ -437,25 +427,21 @@ correlation there is spurious.
 The strangely high significance rate for the measure cosine combined
 with unigram feature when operating on complete regions carries
 through to the correlation with geographic and travel distance. The
-correlation is low, 0.14 and 0.18, but significant.
-
-This is really bizarre. A possible explanation is that unigrams are
-simpler, so the type count is a higher than for other
-measures. But this only happens for the full-corpus condition, which
-has more tokens and should therefore have a higher type count. What's
-more this distinction doesn't show up in the 1000-sample size, which
-should have lower type counts because of its limited size.
+correlation is low, 0.16 and 0.18 for trigram and unigram feature sets
+respectively, but significant.
 
 \subsection{Self-Correlation}
 
-Correlation between the different measures might help explain the
-strange behaviour of cosine. The correlation between different
-measures, averaged over all 1000-sized samples, is given in table
-\ref{self-correlation-measures}. Only significant correlations are
-shown.
+Correlation between measures simply indicates that they are using
+similar information from the corpus to do their classification. This
+is expected since most measures are quite similar. The one that
+differs the most, cosine similarity, also correlates the least with
+the others. The average correlation between different measures is
+given in table \ref{self-correlation-measures}. The correlations are
+averaged over the correlations for all combinations of feature set
+with 1000-sentence samples and with non-significant correlations
+removed before averaging.
 
-% full cos ratio
-% over path/trigram/dep/psg/grand/unigram/redep/deparc/all
 
 \begin{table}
   \begin{tabular}{r|cccc}
@@ -465,32 +451,23 @@ shown.
   $KL$ &&& 0.89 & 0.71 \\
   $JS$ &&&& 0.65 \\
 \end{tabular}
+ \caption{Average Intra-measure-correlation of measures}
   \label{self-correlation-measures}
-  \caption{Average Intra-measure-correlation of measures}
 \end{table}
-
-in addition the lower correlations between cosine and other
-measures, several of the correlations were not significant. It does
-appear that a cosine is arriving at different results than the other
-measures, though the correlation is still much higher than with travel
-distance. A more precise investigation of this anomaly appears below
-in section \ref{feature-ranking}.
 
 \subsection{Correlation with Corpus Size}
 
-Correlation with corpus size is a confounding factor.
+As previously stated, correlation with corpus size is not predicted and is probably
+an undesired defect in sampling or normalisation. Correlation with
+corpus size is presented in table \ref{size-cor-1000-freq}.
 
-This can be measured in two ways: by total size of the two regions
-being compared, or by difference in size. Right now I'm using total
-size because larger totals indicate more tokens, thereby driving up
-token count differences compared to comparison between small regions.
-
-Difference in size is appropriate if you decide that the normalisation
-might not be doing its job with respect to sentence length. But this
-shouldn't be detectable by using difference in size. So that's just
-wrong.
-
-TODO:Move this to methods if I decide to keep it.
+Corpus size between two regions can be measured in two different ways:
+either by the sum of the regions' sizes, or by the difference. Here
+the sum is used: a larger sum means more tokens. If there is a
+correlation with size, it must arise because higher token counts are
+not properly normalised away. In other words, two large regions will
+have more tokens, leading to higher type counts, which directly leads
+to higher distances. Smaller regions will lead to lower distances.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
@@ -505,9 +482,9 @@ TODO:Move this to methods if I decide to keep it.
   Dependency, Arc Labels&-0.45 & -0.35 & -0.33 & -0.42 & -0.28\\
   All Features Combined&-0.48 & -0.38 & -0.33 & -0.45 & -0.31\\
 \end{tabular}
- \label{size-cor-1000-freq}
-  \caption{Size correlation for sample size 1000, Frequency
+ \caption{Size correlation for sample size 1000, Sentence-length
     normalisation only}
+ \label{size-cor-1000-freq}
 \end{table}
 
 \begin{table}
@@ -528,62 +505,55 @@ TODO:Move this to methods if I decide to keep it.
     normalisation included}
 \end{table}
 
-Considering how high the correlation with size is with the ratio
-normalisation included, the rest of this chapter will include results for
-ratio normalisation only in special cases. Most examples will use only
-frequency normalisation.
-
-Note that cosine still comes up looking just fine. Strange. Still need
-to investigate this.
-
-Of course, corpus size correlates with travel distance at 0.32 and
-geographic distance at 0.31, for $p
-< 0.01$. So I don't know how to interpret this really. It could be
-that corpus size SHOULD correlate with distance because of a
-difference between city and country. But this has 3 problems; I notice
-this rift in the parameters that DON'T correlate with size; the city
-corpora are not necessarily the larger ones (though I could measure
-that); and it still doesn't explain why travel distance correlates with
-corpus size.
+A large number of parameter settings that include the ratio
+normalisation correlate with corpus size. However, corpus size also
+correlates with geographic distance at a rate of 0.31 for $p < 0.01$
+and travel distance at a rate of 0.32 for $p < 0.01$. Therefore,
+results with ratio normalisation will be presented in the rest of this
+chapter.
 
 \section{Clusters}
 
-Clusters answer the question of $R$'s utility for dialectometry more
-precisely than correlation by inducing regions from the
-distances. These regions can be compared to regions from syntactic
-dialectology. (There are about four of those, there hasn't been much
-synctactic dialectology in Sweden.)
+Cluster dendrograms provide a visualisation of which regions the
+distance measures find to be similar.  Clusters answer the question of
+whether $R$ is useful for dialectometry more precisely than correlation by
+inducing grouping regions. These groups can be compared to
+regions proposed by syntactic dialectology.
 
-These results differ most with the addition of the ratio
-normalisation; there is significant reconfiguration between the
-two. For example, figure \ref{cluster-r-trigram-freq} and
-\ref{cluster-r-trigram-ratio} show the different clusters. Other
-dendrograms based on $R$ are similar over feature set, but the
-additional normalisation clearly makes a difference.
+The clusters based on sentence-length normalisation alone are fairly
+similar, regardless of measure and feature set. The addition of the
+ratio normalisation causes significant reconfiguration. For example,
+figures \ref{cluster-r-trigram-freq} and \ref{cluster-r-trigram-ratio}
+show the different clusters.
+
+Conversely, the clusters produced by $R$ (figure
+\ref{cluster-r-trigram-freq}) and Jensen-Shannon divergence
+are fairly similar (figure \ref{cluster-js-trigram-freq}). Both are
+based on trigram features with sentence-length normalisation
+only. There is more variation in the equivalent clusters once ratio
+normalisation is added (figures \ref{cluster-r-trigram-ratio} and
+\ref{cluster-js-trigram-ratio}.
 
 \begin{figure}
   \includegraphics[width=0.9\textwidth]{dist-10-1000-r-trigram-freq-clusterward}
   \label{cluster-r-trigram-freq}
-  \caption{Dendrogram With Frequency Normalisation Only ($R$
+  \caption{Dendrogram With Sentence-length Normalisation Only ($R$
     measure and trigram features)}
 \end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-trigram-freq-clusterward}
+  \label{cluster-js-trigram-freq}
+  \caption{Dendrogram With Sentence-length Normalisation Only
+    (Jensen-Shannon measure and trigram features)}
+\end{figure}
+
 
 \begin{figure}
   \includegraphics[width=0.9\textwidth]{dist-10-1000-r-trigram-ratio-clusterward}
   \label{cluster-r-trigram-ratio}
   \caption{Dendrogram With Ratio Normalisation ($R$
     measure and trigram features)}
-\end{figure}
-
-In addition, most measures produce similar dendrograms; for example, changing
-the measure from $R$ to Jensen-Shannon divergence produces figures
-\ref{cluster-js-trigram-freq} and \ref{cluster-js-trigram-ratio}.
-
-\begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-trigram-freq-clusterward}
-  \label{cluster-js-trigram-freq}
-  \caption{Dendrogram With Frequency Normalisation Only
-    (Jensen-Shannon measure and trigram features)}
 \end{figure}
 
 \begin{figure}
@@ -594,39 +564,49 @@ the measure from $R$ to Jensen-Shannon divergence produces figures
 \end{figure}
 
 Note that the highest correlation travel distance with travel
-distance, 0.26,
-is given by the Jensen-Shannon measure, trigram features and ratio
-normalisation. It also produces the dendrogram in figure
-\ref{cluster-js-trigram-ratio}.
+distance, 0.26, is given by the Jensen-Shannon measure, trigram
+features and ratio normalisation. It also produces the dendrogram in
+figure \ref{cluster-js-trigram-ratio}.
 
 Unlike the significances, cosine similarity's dendrograms are fairly
 similar to those of other features. See for example figure
 \ref{cluster-cos-trigram-freq}, with cosine, trigram features and
-frequency normalisation only.
+sentence-length normalisation only.
 
 \begin{figure}
  \includegraphics[width=0.9\textwidth]{dist-10-1000-cos-trigram-freq-clusterward}
   \label{cluster-cos-trigram-freq}
-  \caption{Dendrogram With Frequency Normalisation (cosine
+  \caption{Dendrogram With Sentence-length Normalisation (cosine
     measure and trigram features)}
 \end{figure}
 
 
 \subsection{Consensus Trees}
 
-Stabler addition to clusters.
+Consensus trees combine the results of cluster dendrograms, which
+avoids the dendrograms's problem of instability, where small changes
+in distances cause large re-arrangements in the tree. Only dendrograms
+whose input were distances were all significant were used. That is, a
+measure/feature set combination had to have a 0 entry in tables
+\ref{sig-1000-freq} or \ref{sig-1000-ratio} to be included.
 
-Show at least three: consensus all, consensus freq, consensus
-ratio. Only dendrograms whose input distances were all significant
-were used. Looking at figures \ref{sig-1000-freq} and
-\ref{sig-1000-ratio}, this means that less than half of the
-dendrograms with the additional ratio normalisation were
-used. However, figure \ref{consensus-freq} shows that agreement is
-much better between trees without the ratio normalisation--the only
-distinction it reliably catches is the out-group of Tors\.as, \"Ossj\"o
-and J\"amshog.
+This means that more sentence-length dendrograms were used to build
+the consensus tree of figure \ref{consensus-freq} than were used in
+figure \ref{consensus-ratio}. Despite this, figure
+\ref{consensus-freq} retains much more detail, indicating that its
+constituent dendrograms, based on sentence-length normalisation only,
+agree much more than those with the additional ratio normalisation.
+
+The consensus trees are also grouped into clusters, which are then
+mapped in figures \ref{map-consensus-freq} and
+\ref{map-consensus-ratio}. The maps of Sweden are modified from those
+available on Wikipedia under the Creative Commons
+Attribution ShareAlike 3.0 Licence.
 
 \begin{figure}
+% Couldn't get qtree to display the whole tree. Maybe it ran out of
+% space. Maybe it ran out of stack. Maybe it just doesn't like me. I
+% decided to use Omnigraffle. More work in the short-term though.
 %   \Tree[.
 %   {Viby\\Bara}
 %   [. {StAnna\\Sorunda}  ]
@@ -640,27 +620,27 @@ and J\"amshog.
 %      [. {Segerstad\\Floby\\Bengtsfors}  ] ] ]
 % % 
 \includegraphics[scale=0.7]{consensus-freq}
+\caption{Consensus Tree for Sentence-length Normalisation}
 \label{consensus-freq}
-\caption{Consensus Tree for Frequency Normalisation}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.7]{consensus-ratio}
 % \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Orust\\Norra Rorum\\Leksand\\K\"ola\\Indal\\Frillesas\\Fole\\Floby\\Faro\\Boda\\Bengtsfors\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Loderup\\Bredsatra}  ] [. {Tors\.as\\Ossjo\\Jamshog}  ] ]
-\label{consensus-ratio}
 \caption{Consensus Tree for Ratio Normalisation}
+\label{consensus-ratio}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-freq}
+\caption{Consensus Tree for Sentence-length Normalisation, Mapped}
 \label{map-consensus-freq}
-\caption{Consensus Tree for Frequency Normalisation, Mapped}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-ratio}
-\label{map-consensus-ratio}
 \caption{Consensus Tree for Ratio Normalisation, Mapped}
+\label{map-consensus-ratio}
 \end{figure}
 
 % It would still be cool to eliminate only the non-significant distances
@@ -688,177 +668,90 @@ and J\"amshog.
 
 \subsection{Composite Cluster Maps}
 
-A better visualisation with the same intent as consensus trees. Not
-stabler, but easier to visualise the valid boundaries.
+Composite cluster maps start with the same data as consensus trees:
+multiple cluster trees. They, too, provide a stabler view of the
+groups that regions form when clustered. However, they provide a better way to
+visualise the boundaries between regions.
+
+The two composite cluster maps in figures \ref{map-composite-freq} and
+\ref{map-composite-ratio} are the composite of the same dendrograms
+used as input for the consensus trees: all-significant parameter
+settings, divided by type of normalisation (sentence-length only or
+ratio added as well).
 
 \begin{figure}
-\includegraphics[scale=0.7]{Sverigekarta-cluster-freq}
-\label{map-consensus-freq}
-\caption{Composite Cluster Map for Frequency Normalisation}
+\includegraphics[scale=0.82]{Sverigekarta-cluster-freq}
+\caption{Composite Cluster Map for Sentence-length Normalisation}
+\label{map-composite-freq}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.7]{Sverigekarta-cluster-ratio}
-\label{map-consensus-ratio}
+\includegraphics[scale=0.82]{Sverigekarta-cluster-ratio}
 \caption{Composite Cluster Map for Ratio Normalisation}
+\label{map-composite-ratio}
 \end{figure}
 
-Things I noticed: These really support well the gradient hypothesis;
-there are horizontal boundaries from north to south, none too
-strong. Also, Kola and Frillesas are still looking a lot like
-Stockholdm/Uppsala. And of course Jamshog/Ossjo/Torsas are still out
-on their own.
+\section{Multi-Dimensional Scaling}
 
-The boundary with Scania is evident too. Though it looks just like the
-other horizontal boundaries, maybe a little stronger.
+\begin{sloppypar}
+Multi-dimensional scaling (MDS) plays a similar role to clusters,
+condensing the high-dimensional information into an
+easier-to-understand form. The difference is that
+the grouping here is ``soft'' rather than ``hard'': only enough
+scaling is done to produce the desired number of dimensions, and there
+is no exclusive membership of a groups. This also means that
+MDS maps are more stable than dendrograms.
+\end{sloppypar}
 
-\section{MDS}
+The maps shown here in figures \ref{mds-js-trigram-freq} --
+\ref{mds-r-all-ratio} are from the same parameter settings as the
+dendrograms, with the addition of the all-combined feature set. This
+provides a combined MDS view somewhat analoguous to the consensus trees or
+composite clusters for the cluster dendrograms.
 
-Same as clusters, more accurate (less distortion) and harder to
-interpret. Is there a cool way to combine multiple MDS maps?
-
-Explain why I chose these particular variants: all is generally the
-best, but trigram has the best combination of high significance and
-correlation with geography (especially with JS). $R$ I just like.
-
-\begin{figure}
-\includegraphics[scale=0.65]{Sverigekarta-mds-1000-js-trigram-freq}
-\label{map-consensus-freq}
-\caption{Jensen-Shannon measure with trigram features, and frequency normalisation only}
-\end{figure}
-
-\begin{figure}
-\includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-trigram-freq}
-\label{map-consensus-freq}
-\caption{$R$ measure with trigram features, and frequency normalisation only}
-\end{figure}
+The outline maps are used by permission of Therese Leinonen (CITE her
+dissertation after I get a copy to read). The MDS and composite
+clusters were both generated by the L04 package from the University of
+Groningen.
 
 \begin{figure}
-\includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-all-freq}
-\label{map-consensus-freq}
-\caption{$R$ measure with all features combined, and frequency normalisation only}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1000-js-trigram-freq}
+\label{mds-js-trigram-freq}
+\caption{Jensen-Shannon measure with trigram features, and sentence-length normalisation only}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.65]{Sverigekarta-mds-1000-js-trigram-ratio}
-\label{map-consensus-freq}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1000-r-trigram-freq}
+\label{mds-r-trigram-freq}
+\caption{$R$ measure with trigram features, and sentence-length normalisation only}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1000-r-all-freq}
+\label{mds-r-all-freq}
+\caption{$R$ measure with all features combined, and sentence-length normalisation only}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1000-js-trigram-ratio}
+\label{mds-js-trigram-ratio}
 \caption{Jensen-Shannon measure with trigram features, and additional
   ratio normalisation}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-trigram-ratio}
-\label{map-consensus-freq}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1000-r-trigram-ratio}
+\label{mds-r-trigram-ratio}
 \caption{$R$ measure with trigram features, and additional ratio normalisation}
 \end{figure}
 
 
 \begin{figure}
-\includegraphics[scale=0.65]{Sverigekarta-mds-1000-r-all-ratio}
-\label{map-consensus-freq}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1000-r-all-ratio}
+\label{mds-r-all-ratio}
 \caption{$R$ measure with all features combined, and additional ratio normalisation}
 \end{figure}
 
-This shows very similar results to the hierarchical clustering. A
-few strongly different regions appear in the south, there is a bad
-around Stockholm, and North Sweden (Norrland) groups together with a
-couple of more southern regions outside the Stockholm region.
-
-Things I noticed: cities, Scania distinction, sometimes shared with
-Jamhog/Torsas/Ossjo, Stockholm/Uppsala/Malmo are nearly always
-similar, northern sometimes looks different from central area. For
-some reason Kola always patterns with the cities though \ldots But
-Arsunda, right nearby, is always pretty different. Strange.
-
-The colour maps of Sweden are taken from Wikipedia under the Creative Commons
-Attribution ShareAlike 3.0 Licence, and my modifications are released
-under the same licence. They are available separately in pdf and svg
-format at sandersn.com/Sverigekarta-Landskap-Swedia.pdf
-
-The outline maps are used by permission of Therese Leinonen (CITE her
-dissertation after I get a copy to read).
-
-% \subsection{Cluster Analysis}
-
-% TODO: This is old. Also it goes in the DISCUSSION chapter.
-
-% There are 5 main clusters found by leaf-ancestor path and dependency
-% path feature types. These clusters are also visible in the trigram
-% clusters, but are not so clear.
-
-% \begin{figure}
-%   Jamshog, Ossjo, Tors\.as
-% \label{cluster-a}
-% \caption{Cluster A}
-% \end{figure}
-
-% \begin{figure}
-%   Loderup, Norra Rorum, K\"ola, Boda, Frilles\.as, Villberga,
-%   Breds\"atra
-% \label{cluster-b}
-% \caption{Cluster B}
-% \end{figure}
-
-% \begin{figure}
-%   Viby, Bara, Sorunda, St Anna, Faro, Fole, Arjeplog, Torso
-% \label{cluster-c}
-% \caption{Cluster C}
-% \end{figure}
-
-% \begin{figure}
-%   Ankarsrum, V\"axtorp, Bengtsfors, Floby, Segerstad, Sproge,
-%   Skinnskatteberg
-% \label{cluster-d}
-% \caption{Cluster D}
-% \end{figure}
-
-% \begin{figure}
-%   Nederluleu, Overkalix, Asby, Orust, Anundsj\"o, Arsunda, Indal,
-%   Leksand
-% \label{cluster-e}
-% \caption{Cluster E}
-% \end{figure}
-
-% Clusters A, B and E appear to have a clear interpretation; A is
-% concentrated in a small area: perhaps there are mountains or some
-% other reason for having a close-knit speech community there. B is on
-% the edges of the country; it is probably a remnant pattern that is
-% being pushed out by the dominant clusters C and D. E is a
-% northern speech pattern with southern outposts in Orust and Asby.
-
-% C and D are not so obvious, but it is quite likely, given its
-% geographical distribution, that C represents
-% ``standard'' Swedish of the urban speaker. D is Everything Else and
-% might have a rural basis (perhaps).
-
-% As indicated by the colours, B and C together form a larger cluster,
-% as do D and E.
-
-% Looking at the positive vs negative dependency path feature weights
-% for each cluster comparison, it appears that the clusters with
-% strongest evidence are clusters A and C. Strangely, it seems that most
-% of the evidence for C is negative---it does not share features with
-% other dialects, but doesn't have any strong features of its own.
-% Clusters D and E have strong features of their own, but not as
-% strongly differentiating as those of A or negatively different as
-% those of C. Finally, cluster B does not seem to have any strongly
-% characteristic features except with respect to C.
-
-% In other words, C is ``not like the rest'', while B is ``like C,
-% except for certain recognisable features''. A, D and E have their own set
-% of recognisable features, and they are particularly strong for A.
-
-% \begin{table}
-%   \begin{tabular}{cc}
-%     A & Strange (Are there mountains here?) \\
-%     B & Remnant \\
-%     C & Central / Urban \\
-%     D & Central / Rural \\
-%     E & Northern \\
-%     \end{tabular}
-%     \label{cluster-names}
-%     \caption{Possible cluster names}
-% \end{table}
 
 \section{Features}
 \label{feature-ranking}
@@ -888,7 +781,7 @@ set, with sentence-size normalisation only.
 These results compare clusters from the consensus tree based on
 sentence-size normalisation only (figure \ref{consensus-freq}). The
 focus is on cluster B, the cluster most distant from the
-other. Cluster B contains Jamshog, Ossjo and Tors\.as. In the figures,
+other. Cluster B contains J\"amshog, \"Ossj\"o and T\"ors\.as. In the figures,
 features on the right are typical of cluster B. Features on the left
 are typical of the cluster being compared to B.
 
@@ -1766,7 +1659,7 @@ seen.
 \end{picture}
 \caption{cluster E $\Leftrightarrow$ cluster B}
 \end{figure}
-
+\clearpage
 
 \subsection{$R$ Features, Variation Across Feature Sets}
 \label{feature-ranking-feature-sets}
@@ -2143,22 +2036,6 @@ features show up. How important are these really? It's hard to
 tell. They do seem to be very specific to cluster B, however.
 
 TODO: See if there's some pattern to the top-5 overuse features.
-
-
-
-\subsection{Consensus Tree}
-
-\begin{figure}
-\Tree[. [. {Villberga\\Viby\\Torso\\StAnna\\Sorunda\\Norra Rorum\\Köla\\Frillesas\\Boda\\Bara} [. {Loderup\\Bredsatra}  ] [. {Torsås\\Ossjo\\Jamshog}  ] ] [. {Vaxtorp\\Sproge\\Skinnskatteberg\\Segerstad\\Leksand\\Indal\\Fole\\Floby\\Faro\\Bengtsfors\\Arsunda\\Anundsjo\\Ankarsrum} [. {Orust\\Asby}  ] ] ]
-%\Tree[. s0 [. [. Villberga Viby Torso StAnna Sorunda Norra Rorum Kla
-%Frillesas Boda Bara [. Loderup Bredsatra ] [. Torss Ossjo Jamshog ] ]
-%[. Vaxtorp Sproge Skinnskatteberg Segerstad Leksand Indal Fole Floby
-%Faro Bengtsfors Arsunda Anundsjo Ankarsrum [. Orust Asby ] ] ] ]
-\label{consensus-tree}
-\caption{Consensus Tree for Methods with all significant distances}
-\end{figure}
-
-
 
 %%% Local Variables: 
 %%% mode: latex
