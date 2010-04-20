@@ -757,6 +757,16 @@
      that
    - I should mail Therese this week to see if I can get the current
      version of her dissertation.
+** 2010/04/20
+    - I wrote up discussion of significances and some on
+      correlation. Discussion of self-correlation and size correlation
+      isn't done.
+    - I will look at the rest of correlation and decide if I can say
+      anything useful about it. If not I will move on to cluster
+      dendrograms (probably focussing on the consensus tree actually)
+    - Remember to mail Therese. I will probably attend Alex and Mike's
+      talk and also ask Sandra if. Maybe I will find out if Mike will
+      be here during the week of syntaxfest.
 * Plan
 ** January
 *** Get results

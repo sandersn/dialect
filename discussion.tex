@@ -25,6 +25,9 @@ and J\"amshog.
 
 \section{Analysis of Results}
 
+% TODO: Need to add references to results chapter and also any
+% citations
+
 \subsection{Significance of Dialect Distance}
 
 Analysis of the significance of dialect distance provides a measure of
@@ -147,6 +150,10 @@ available information for finding significant distances.
   confusing and different from the others?
 \end{enumerate}
 \subsection{Correlation}
+TODO: ALSO I should point out that geographic correlation IS the
+default expected by normal old boring linguists. The Nordic languages
+is pretty clear on this plus there are some references from
+dialectology papers.
 
 Correlation with geographic distance or travel distance indicates that
 a distance measure follows the expectations of linguists about
@@ -156,34 +163,47 @@ distance measure asserts the well-known tendency of dialect
 distributions to be more or less smoothly gradient over physical
 space.
 
-Taken as a whole, the distance measures correlate more strongly with
-travel distance than with straight-line geographic distance. This
-makes sense since this is actually what influences dialect formation.
+Taken as a whole, the distance measures are more likely to correlate
+significantly with travel distance than with straight-line geographic
+distance. This makes sense since the difficulty of moving from place
+to place is what influences dialect formation, and taking roads into
+account is an improved estimate over straight-line distance. It is
+interesting, though, that there is such a difference given that geographic
+and travel distance are themselves highly correlated.
 
-Unlike the number of significant distances, there is a distinct effect
+Unlike the number of significant distances, there is a strong effect
 of the ratio normalisation on the travel distance
 correlations. Without the ratio normalisation, only cosine similarity
 with trigram and unigram POS features correlate significantly with
 travel distance. With ratio normalisation, quite a few of the
 parameter settings correlate significantly with travel
 distance. Notably, the trigram feature set and combined feature set
-all correlate, except as measured by cosine similarity. A number of
-feature sets besides trigrams, as measured by Kullback-Leiber
-divergence also correlate significantly, but this is not valid because
-of the large number of non-significant distances on which the
-correlation is based.
+all correlate, except as measured by cosine similarity. As measured by
+Kullback-Leibler divergence, a number of feature sets besides trigrams
+also correlate significantly, but most of these are not valid because
+the distances on which the correlation is based are not all significant.
 
 % (On cosine's n-gram correlation with geography)
-This is really bizarre. A possible explanation is that unigrams are
-simpler, so the type count is a higher than for other
-measures. But this only happens for the full-corpus condition, which
-has more tokens and should therefore have a higher type count. What's
-more this distinction doesn't show up in the 1000-sample size, which
-should have lower type counts because of its limited size.
+% TODO: This analysis ends with idle speculation. I should replace it
+% with fevered speculation.
+With ratio normalisation, once again cosine similarity measured over
+unigram POS features correlates significantly with travel
+distance. What's more, this is the {\it only} significant correlation
+in the ratio normalised case for cosine. This seems strange. A
+possible explanation is that unigrams are simpler, so the type count
+is a higher than for other measures. But this distinction doesn't show up in
+the 1000-sample size, which should have lower type counts because of
+its limited size.
 
 The results of travel distance correlation indicate that ratio
 normalisation improves the results above the sentence-length
-normalisation alone.
+normalisation alone. This contradicts the conclusion one can take from
+the significant distance analysis, which says that the ratio
+normalisation harms significance and is therefore less
+successful. This is an instance of the noise/quality tradeoff,
+however: ratio normalised features appear to listen more closely to
+the data, at the expense of being interfered with by the noise there.
+% wow that last sentence sucks. but you get the idea
 
 \subsubsection{Self-Correlation}
 
