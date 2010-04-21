@@ -1,0 +1,540 @@
+cor: 0.0920785207266052 
+sig: 0.157 
+*** 1000 r path ratio ***
+cor: 0.0378887973479480 
+sig: 0.3 
+*** 1000 r_sq path ratio ***
+cor: 0.252180310747872 
+sig: 0.001 
+*** 1000 kl path ratio ***
+cor: 0.142581763488686 
+sig: 0.071 
+*** 1000 js path ratio ***
+cor: 0.313191436936112 
+sig: 0.004 
+*** 1000 cos path ratio ***
+cor: -0.103435898773306 
+sig: 0.862 
+*** 1000 r trigram ratio ***
+cor: -0.100664615499971 
+sig: 0.886 
+*** 1000 r_sq trigram ratio ***
+cor: 0.0706550052863079 
+sig: 0.165 
+*** 1000 kl trigram ratio ***
+cor: -0.0472222608147539 
+sig: 0.673 
+*** 1000 js trigram ratio ***
+cor: 0.315130798947594 
+sig: 0.002 
+*** 1000 cos trigram ratio ***
+cor: -0.0116110558099615 
+sig: 0.533 
+*** 1000 r dep ratio ***
+cor: -0.0251167933659475 
+sig: 0.607 
+*** 1000 r_sq dep ratio ***
+cor: 0.203210310791968 
+sig: 0.013 
+*** 1000 kl dep ratio ***
+cor: 0.0551666821228067 
+sig: 0.288 
+*** 1000 js dep ratio ***
+cor: 0.326625329265707 
+sig: 0.001 
+*** 1000 cos dep ratio ***
+cor: -0.134923349985436 
+sig: 0.888 
+*** 1000 r psg ratio ***
+cor: -0.0922590077485134 
+sig: 0.873 
+*** 1000 r_sq psg ratio ***
+cor: 0.133231298776449 
+sig: 0.054 
+*** 1000 kl psg ratio ***
+cor: -0.129118529637142 
+sig: 0.89 
+*** 1000 js psg ratio ***
+cor: 0.31740836982704 
+sig: 0.001 
+*** 1000 cos psg ratio ***
+cor: -0.141010656753593 
+sig: 0.927 
+*** 1000 r grand ratio ***
+cor: -0.095868621569453 
+sig: 0.871 
+*** 1000 r_sq grand ratio ***
+cor: 0.114906343591351 
+sig: 0.071 
+*** 1000 kl grand ratio ***
+cor: -0.134428291453273 
+sig: 0.916 
+*** 1000 js grand ratio ***
+cor: 0.311127949650947 
+sig: 0.003 
+*** 1000 cos grand ratio ***
+cor: -0.0118560412126380 
+sig: 0.53 
+*** 1000 r unigram ratio ***
+cor: -0.00850243084749096 
+sig: 0.509 
+*** 1000 r_sq unigram ratio ***
+cor: 0.147625409163174 
+sig: 0.032 
+*** 1000 kl unigram ratio ***
+cor: 0.106256133660116 
+sig: 0.087 
+*** 1000 js unigram ratio ***
+cor: 0.150953502328614 
+sig: 0.034 
+*** 1000 cos unigram ratio ***
+cor: -0.00632047935696244 
+sig: 0.516 
+*** 1000 r redep ratio ***
+cor: 0.00355893705731076 
+sig: 0.456 
+*** 1000 r_sq redep ratio ***
+cor: 0.195585246355140 
+sig: 0.014 
+*** 1000 kl redep ratio ***
+cor: 0.0340509591128968 
+sig: 0.352 
+*** 1000 js redep ratio ***
+cor: 0.340879961321671 
+sig: 0.003 
+*** 1000 cos redep ratio ***
+cor: 0.100885205708666 
+sig: 0.136 
+*** 1000 r deparc ratio ***
+cor: 0.0512654800138221 
+sig: 0.256 
+*** 1000 r_sq deparc ratio ***
+cor: 0.250232548454066 
+sig: 0.003 
+*** 1000 kl deparc ratio ***
+cor: 0.171206873368352 
+sig: 0.047 
+*** 1000 js deparc ratio ***
+cor: 0.297775171853726 
+sig: 0.002 
+*** 1000 cos deparc ratio ***
+cor: 0.0220309769583038 
+sig: 0.388 
+*** 1000 r all ratio ***
+cor: -0.0244471759018825 
+sig: 0.601 
+*** 1000 r_sq all ratio ***
+cor: 0.218972238644271 
+sig: 0.007 
+*** 1000 kl all ratio ***
+cor: 0.085335077593584 
+sig: 0.172 
+*** 1000 js all ratio ***
+cor: 0.330873466554753 
+sig: 0.002 
+*** 1000 cos all ratio ***
+cor: 0.0713838361098992 
+sig: 0.232 
+*** full r path ratio ***
+cor: 0.0120531978741493 
+sig: 0.444 
+*** full r_sq path ratio ***
+cor: 0.184701062552477 
+sig: 0.015 
+*** full kl path ratio ***
+cor: 0.0920677042759969 
+sig: 0.169 
+*** full js path ratio ***
+cor: 0.219982818610560 
+sig: 0.006 
+*** full cos path ratio ***
+cor: -0.0348442726142260 
+sig: 0.606 
+*** full r trigram ratio ***
+cor: -0.00497933048658443 
+sig: 0.483 
+*** full r_sq trigram ratio ***
+cor: 0.12014931174176 
+sig: 0.138 
+*** full kl trigram ratio ***
+cor: 0.0338936093118256 
+sig: 0.373 
+*** full js trigram ratio ***
+cor: 0.217466576213774 
+sig: 0.023 
+*** full cos trigram ratio ***
+cor: -0.00971988450650909 
+sig: 0.531 
+*** full r dep ratio ***
+cor: -0.0374439394927296 
+sig: 0.688 
+*** full r_sq dep ratio ***
+cor: 0.16464938568093 
+sig: 0.039 
+*** full kl dep ratio ***
+cor: 0.0255894764112092 
+sig: 0.369 
+*** full js dep ratio ***
+cor: 0.215693617328451 
+sig: 0.012 
+*** full cos dep ratio ***
+cor: 0.180162079080658 
+sig: 0.025 
+*** full r psg ratio ***
+cor: 0.298294869937975 
+sig: 0.002 
+*** full r_sq psg ratio ***
+cor: 0.350858435925289 
+sig: 0.002 
+*** full kl psg ratio ***
+cor: 0.21588967130628 
+sig: 0.011 
+*** full js psg ratio ***
+cor: 0.417058435764477 
+sig: 0.001 
+*** full cos psg ratio ***
+cor: 0.182312540491715 
+sig: 0.027 
+*** full r grand ratio ***
+cor: 0.320315509352551 
+sig: 0.003 
+*** full r_sq grand ratio ***
+cor: 0.361174312098703 
+sig: 0.001 
+*** full kl grand ratio ***
+cor: 0.213862510551588 
+sig: 0.009 
+*** full js grand ratio ***
+cor: 0.420879237558865 
+sig: 0.001 
+*** full cos grand ratio ***
+cor: -0.0374242511629352 
+sig: 0.6 
+*** full r unigram ratio ***
+cor: -0.065770258627122 
+sig: 0.769 
+*** full r_sq unigram ratio ***
+cor: 0.06965278799305 
+sig: 0.231 
+*** full kl unigram ratio ***
+cor: 0.0381482221360307 
+sig: 0.296 
+*** full js unigram ratio ***
+cor: 0.396630457431864 
+sig: 0.001 
+*** full cos unigram ratio ***
+cor: -0.00367654435741748 
+sig: 0.476 
+*** full r redep ratio ***
+cor: 0.0183491284516178 
+sig: 0.387 
+*** full r_sq redep ratio ***
+cor: 0.168912076640359 
+sig: 0.032 
+*** full kl redep ratio ***
+cor: 0.0185836122521504 
+sig: 0.427 
+*** full js redep ratio ***
+cor: 0.242847433367925 
+sig: 0.006 
+*** full cos redep ratio ***
+cor: -0.00803416952133686 
+sig: 0.519 
+*** full r deparc ratio ***
+cor: -0.0823710308066139 
+sig: 0.852 
+*** full r_sq deparc ratio ***
+cor: 0.118983781854899 
+sig: 0.082 
+*** full kl deparc ratio ***
+cor: 0.0275886551649860 
+sig: 0.403 
+*** full js deparc ratio ***
+cor: 0.157183752788622 
+sig: 0.035 
+*** full cos deparc ratio ***
+cor: 0.0318785679139131 
+sig: 0.375 
+*** full r all ratio ***
+cor: -0.0353509557086358 
+sig: 0.676 
+*** full r_sq all ratio ***
+cor: 0.165527519545751 
+sig: 0.032 
+*** full kl all ratio ***
+cor: 0.0729138345424439 
+sig: 0.229 
+*** full js all ratio ***
+cor: 0.217468273647687 
+sig: 0.012 
+*** full cos all ratio ***
+cor: 0.232596040973460 
+sig: 0.013 
+*** 1000 r path freq ***
+cor: 0.261724131989849 
+sig: 0.004 
+*** 1000 r_sq path freq ***
+cor: 0.310034904107053 
+sig: 0.003 
+*** 1000 kl path freq ***
+cor: 0.264494590900965 
+sig: 0.007 
+*** 1000 js path freq ***
+cor: 0.310419641582726 
+sig: 0.003 
+*** 1000 cos path freq ***
+cor: 0.266587187027952 
+sig: 0.004 
+*** 1000 r trigram freq ***
+cor: 0.299563188912629 
+sig: 0.003 
+*** 1000 r_sq trigram freq ***
+cor: 0.33158540820467 
+sig: 0.001 
+*** 1000 kl trigram freq ***
+cor: 0.308059761219209 
+sig: 0.001 
+*** 1000 js trigram freq ***
+cor: 0.32077474204555 
+sig: 0.002 
+*** 1000 cos trigram freq ***
+cor: 0.243213834284774 
+sig: 0.017 
+*** 1000 r dep freq ***
+cor: 0.287237719790696 
+sig: 0.003 
+*** 1000 r_sq dep freq ***
+cor: 0.33304859384101 
+sig: 0.002 
+*** 1000 kl dep freq ***
+cor: 0.275967561437647 
+sig: 0.008 
+*** 1000 js dep freq ***
+cor: 0.327104759072252 
+sig: 0.001 
+*** 1000 cos dep freq ***
+cor: 0.230602616551568 
+sig: 0.019 
+*** 1000 r psg freq ***
+cor: 0.299064785002318 
+sig: 0.003 
+*** 1000 r_sq psg freq ***
+cor: 0.303648539097736 
+sig: 0.002 
+*** 1000 kl psg freq ***
+cor: 0.247854497634523 
+sig: 0.013 
+*** 1000 js psg freq ***
+cor: 0.324508300926013 
+sig: 0.002 
+*** 1000 cos psg freq ***
+cor: 0.217224775575938 
+sig: 0.024 
+*** 1000 r grand freq ***
+cor: 0.300335426992906 
+sig: 0.003 
+*** 1000 r_sq grand freq ***
+cor: 0.305262180268262 
+sig: 0.001 
+*** 1000 kl grand freq ***
+cor: 0.228525563233090 
+sig: 0.02 
+*** 1000 js grand freq ***
+cor: 0.312539696372286 
+sig: 0.001 
+*** 1000 cos grand freq ***
+cor: 0.272739606131555 
+sig: 0.003 
+*** 1000 r unigram freq ***
+cor: 0.303183116165470 
+sig: 0.002 
+*** 1000 r_sq unigram freq ***
+cor: 0.337133189471336 
+sig: 0.001 
+*** 1000 kl unigram freq ***
+cor: 0.323361247074242 
+sig: 0.002 
+*** 1000 js unigram freq ***
+cor: 0.144822983592874 
+sig: 0.044 
+*** 1000 cos unigram freq ***
+cor: 0.227253586020288 
+sig: 0.016 
+*** 1000 r redep freq ***
+cor: 0.293697877022624 
+sig: 0.002 
+*** 1000 r_sq redep freq ***
+cor: 0.332606277455642 
+sig: 0.002 
+*** 1000 kl redep freq ***
+cor: 0.253366563937005 
+sig: 0.011 
+*** 1000 js redep freq ***
+cor: 0.337931182262060 
+sig: 0.001 
+*** 1000 cos redep freq ***
+cor: 0.254164300931599 
+sig: 0.009 
+*** 1000 r deparc freq ***
+cor: 0.296334682824606 
+sig: 0.002 
+*** 1000 r_sq deparc freq ***
+cor: 0.334698892905641 
+sig: 0.001 
+*** 1000 kl deparc freq ***
+cor: 0.291292853730007 
+sig: 0.002 
+*** 1000 js deparc freq ***
+cor: 0.299402202507635 
+sig: 0.003 
+*** 1000 cos deparc freq ***
+cor: 0.250070492890323 
+sig: 0.008 
+*** 1000 r all freq ***
+cor: 0.275886306049340 
+sig: 0.004 
+*** 1000 r_sq all freq ***
+cor: 0.329122697097208 
+sig: 0.001 
+*** 1000 kl all freq ***
+cor: 0.283266461245782 
+sig: 0.005 
+*** 1000 js all freq ***
+cor: 0.330202602214355 
+sig: 0.001 
+*** 1000 cos all freq ***
+cor: 0.294120807273184 
+sig: 0.004 
+*** full r path freq ***
+cor: 0.203040160445928 
+sig: 0.015 
+*** full r_sq path freq ***
+cor: 0.323451656882714 
+sig: 0.002 
+*** full kl path freq ***
+cor: 0.331546076278098 
+sig: 0.001 
+*** full js path freq ***
+cor: 0.219982818610560 
+sig: 0.012 
+*** full cos path freq ***
+cor: 0.203413499330273 
+sig: 0.015 
+*** full r trigram freq ***
+cor: 0.210698591932094 
+sig: 0.023 
+*** full r_sq trigram freq ***
+cor: 0.238370993248973 
+sig: 0.011 
+*** full kl trigram freq ***
+cor: 0.227373767423866 
+sig: 0.013 
+*** full js trigram freq ***
+cor: 0.217466576213774 
+sig: 0.014 
+*** full cos trigram freq ***
+cor: 0.286912494536684 
+sig: 0.001 
+*** full r dep freq ***
+cor: 0.220925424263738 
+sig: 0.015 
+*** full r_sq dep freq ***
+cor: 0.328570093367214 
+sig: 0.001 
+*** full kl dep freq ***
+cor: 0.315248898952278 
+sig: 0.002 
+*** full js dep freq ***
+cor: 0.215693617328451 
+sig: 0.015 
+*** full cos dep freq ***
+cor: 0.359087387419535 
+sig: 0.002 
+*** full r psg freq ***
+cor: 0.381201586134447 
+sig: 0.001 
+*** full r_sq psg freq ***
+cor: 0.40883484878054 
+sig: 0.001 
+*** full kl psg freq ***
+cor: 0.390330030698325 
+sig: 0.001 
+*** full js psg freq ***
+cor: 0.417058435764477 
+sig: 0.001 
+*** full cos psg freq ***
+cor: 0.342139011632399 
+sig: 0.002 
+*** full r grand freq ***
+cor: 0.389819862080504 
+sig: 0.001 
+*** full r_sq grand freq ***
+cor: 0.408197386742672 
+sig: 0.001 
+*** full kl grand freq ***
+cor: 0.376329097935248 
+sig: 0.001 
+*** full js grand freq ***
+cor: 0.420879237558865 
+sig: 0.001 
+*** full cos grand freq ***
+cor: 0.319687037498508 
+sig: 0.002 
+*** full r unigram freq ***
+cor: 0.329906375054363 
+sig: 0.002 
+*** full r_sq unigram freq ***
+cor: 0.361500841357173 
+sig: 0.001 
+*** full kl unigram freq ***
+cor: 0.352124065382391 
+sig: 0.001 
+*** full js unigram freq ***
+cor: 0.396630457431864 
+sig: 0.001 
+*** full cos unigram freq ***
+cor: 0.263094645184874 
+sig: 0.006 
+*** full r redep freq ***
+cor: 0.236573765859344 
+sig: 0.007 
+*** full r_sq redep freq ***
+cor: 0.308290098619492 
+sig: 0.001 
+*** full kl redep freq ***
+cor: 0.293790309387936 
+sig: 0.005 
+*** full js redep freq ***
+cor: 0.242847433367925 
+sig: 0.008 
+*** full cos redep freq ***
+cor: 0.297167947872748 
+sig: 0.002 
+*** full r deparc freq ***
+cor: 0.221593304367505 
+sig: 0.01 
+*** full r_sq deparc freq ***
+cor: 0.340361722609394 
+sig: 0.001 
+*** full kl deparc freq ***
+cor: 0.327248854020268 
+sig: 0.003 
+*** full js deparc freq ***
+cor: 0.157183752788622 
+sig: 0.04 
+*** full cos deparc freq ***
+cor: 0.268411812378469 
+sig: 0.004 
+*** full r all freq ***
+cor: 0.189507064632062 
+sig: 0.023 
+*** full r_sq all freq ***
+cor: 0.30248150167826 
+sig: 0.003 
+*** full kl all freq ***
+cor: 0.299252747976553 
+sig: 0.002 
+*** full js all freq ***
+cor: 0.217468273647687 
+sig: 0.01 
+*** full cos all freq ***
