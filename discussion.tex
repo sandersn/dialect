@@ -17,11 +17,6 @@ better on a dialect corpus.
 A big question is why trigrams are so good. All of the fancier feature
 sets do worse than trigrams.
 
-(On consensus trees, specifically the freq normed one)
-much better between trees without the ratio normalisation--the only
-distinction it reliably catches is the out-group of Tors\.as, \"Ossj\"o
-and J\"amshog.
-
 
 \section{Analysis of Results}
 
@@ -214,71 +209,77 @@ below in section \ref{feature-ranking}.
 
 \subsubsection{Correlation with Corpus Size}
 
-Not sure what to say here. Overall, ratio normalised distances correlate much
-better with corpus size in addition to travel distance.
+The correlation of corpus size and dialect distance is a problem. It
+is not a predicted as a side effect of the way dialect distance is
+measured. The correlation of travel distance with corpus size makes
+the situation murkier: the ratio-normalised distances correlate more
+highly with travel distance than non-ratio-normalised distances, but
+they also correlate more highly with corpus size. Is corpus size the
+determining variable? Or is there an unknown variable influencing all
+three? Some possibilities are ``interviewer boundaries'', common in
+corpora collected by multiple people \cite{chambers98}, or perhaps the
+interviewers got better over time and collected longer interviews as
+they moved throughout the country,
+or perhaps cultural differences between the interviewer and
+interviewees caused some participants in one area to talk more than in
+another area.
 
-On the other hand, travel distance itself correlates almost as
-strongly with corpus size. So all three things appear to be
-related. Somehow. Not sure how.
+% TODO: It would be cool if this were *present work* instead
+In any case it is possible that the fixed-size sampling method is not doing its
+job in eliminating size differences between corpora. Future work
+should develop a method for normalising a comparison between two full
+corpora. It should avoid sampling, but also take the relative number
+of sentences into account. It is not difficult to come up
+with a simple method to do so, but it needs some checking to make sure
+that the method is valid.
 
 \subsection{Cluster Dendrograms}
 
-The most reliable way to analyse these it to only look at the
-consensus dendrograms.
+The cluster dendrograms in chapter \ref{results-chapter} are dangerous
+to interpret too closely on their own; the instability of a single
+dendrogram means that small clusters cannot be analysed reliably. For
+example, in figure \ref{cluster-r-trigram-freq}, a two-way split
+between the regions on the top and bottom of the page is
+obvious, and a three-way split is easy to argue for, but small
+clusters like the first four sites (Fole, Skinnskatteberg, Faro and
+Vaxtorp) are not likely to be found in that exact configuration in
+other dendrograms.
 
-% Below is old. Might serve as a useful guide though.
+It is safer to analyse the consensus trees; the smoothing effect of
+taking the majority rule of each cluster will show where the optimal
+cutoff for splitting clusters is. The consensus tree for
+sentence-length normalisation has 5 main clusters, one of which has
+two additional subclusters. Additionally, Viby and Bara don't cluster
+with any other interview site.
 
-% There are 5 main clusters found by leaf-ancestor path and dependency
-% path feature types. These clusters are also visible in the trigram
-% clusters, but are not so clear.
+% TODO: Maybe reproduce those clusters here in some itemize enviroment
+% or so.
 
-% \begin{figure}
-%   Jamshog, Ossjo, Tors\.as
-% \label{cluster-a}
-% \caption{Cluster A}
-% \end{figure}
+In contrast, the consensus tree for ratio normalisation only has two
+subtrees: Loderup/Bredsatra and Jamshog/Ossjo/Torsas. By this measure,
+adding the ratio normalisation is less successful than leaving it out:
+the variations over measure and feature set do not come to much of an
+agreement, so there is less information available from the ratio
+normalised consensus tree.
 
-% \begin{figure}
-%   Loderup, Norra Rorum, K\"ola, Boda, Frilles\.as, Villberga,
-%   Breds\"atra
-% \label{cluster-b}
-% \caption{Cluster B}
-% \end{figure}
+% TODO: Goes here the analysis of the clusters themselves. That is a
+% hard row to hoe. 
 
-% \begin{figure}
-%   Viby, Bara, Sorunda, St Anna, Faro, Fole, Arjeplog, Torso
-% \label{cluster-c}
-% \caption{Cluster C}
-% \end{figure}
+Looking at the clusters on a map of Sweden, it is not obvious how the
+distribution of the regions in each cluster might convey information
+about the dialects. The green/cyan/blue cluster is definitely in the
+north--except for the yellow and red interruptions. And the red
+cluster is definitely around the cities. But brown cluster is
+described as ``edges'' and the yellow cluster doesn't seem to have any
+good description. Yet all these are consensus clusters, so they are
+necessarily not consignable to an ``unclassifiable'' bin.
 
-% \begin{figure}
-%   Ankarsrum, V\"axtorp, Bengtsfors, Floby, Segerstad, Sproge,
-%   Skinnskatteberg
-% \label{cluster-d}
-% \caption{Cluster D}
-% \end{figure}
-
-% \begin{figure}
-%   Nederluleu, Overkalix, Asby, Orust, Anundsj\"o, Arsunda, Indal,
-%   Leksand
-% \label{cluster-e}
-% \caption{Cluster E}
-% \end{figure}
-
-% Clusters A, B and E appear to have a clear interpretation; A is
-% concentrated in a small area: perhaps there are mountains or some
-% other reason for having a close-knit speech community there. B is on
-% the edges of the country; it is probably a remnant pattern that is
-% being pushed out by the dominant clusters C and D. E is a
-% northern speech pattern with southern outposts in Orust and Asby.
-
-% C and D are not so obvious, but it is quite likely, given its
-% geographical distribution, that C represents
-% ``standard'' Swedish of the urban speaker. D is Everything Else and
-% might have a rural basis (perhaps).
-
-% As indicated by the colours, B and C together form a larger cluster,
-% as do D and E.
+Most clear is the magenta grouping of J\"amshog, Tors\.as and
+\"Ossj\"o. These three sites are clearly related both by dialect and
+by geography. However, one item of note is that \"Ossj\"o is quite
+different from its close neighbours V\"axtorp and Norra R\"orum. So
+too is Tors\.as in a different cluster from the nearby Segerstad,
+although that site is on an island.
 
 % Looking at the positive vs negative dependency path feature weights
 % for each cluster comparison, it appears that the clusters with
@@ -329,6 +330,14 @@ Jamhog/Torsas/Ossjo, Stockholm/Uppsala/Malmo are nearly always
 similar, northern sometimes looks different from central area. For
 some reason Kola always patterns with the cities though \ldots But
 Arsunda, right nearby, is always pretty different. Strange.
+
+\subsection{Features}
+
+Analysis of specific features
+
+\subsection{Cosine}
+
+What is up with cosine? Seriously.
 
 \section{Compared to Previous Work}
 
