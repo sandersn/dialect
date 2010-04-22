@@ -371,11 +371,14 @@ isogloss boundaries of dialectology.
 Both composite cluster maps, with and without the ratio normalisation,
 support the north-to-south gradient held by dialectologists. (CITE:
 The Nordic Languages). There are a number of horizontal boundaries
-throughout Sweden, none of them particularly strong. The northernmost
-boundary is somewhat thick in fact.
+throughout Sweden, none of them particularly strong.
 
 However, K\"ola and Frilles\.as still separate fairly well from their
-neighbours.
+neighbours. These sites are on the edges of the country and have strong borders
+with surrounding, Like the cluster J\"amshog, Tors\.as and \"Ossj\"o,
+these sites are different from the others. However, they don't have
+any geographic coherence, so it is more likely these are remnants of a
+dialect that was historically wider spread and has since receded.
 
 Of all the boundaries, the one between Scania and the rest of Sweden
 is the strongest. Due to the lack of interview sites in the middle of
@@ -386,22 +389,95 @@ J\"amshog, Tors\.as, and \"Ossjo\" and the other sites in
 Scania. Their presence along the northern border of Scania is one
 reason why its boundary with the rest of Sweden is so strong.
 
-\subsection{MDS}
+\subsection{Multi-Dimensional Scaling}
 
-This shows very similar results to the hierarchical clustering. A
-few strongly different regions appear in the south, there is a region
-around Stockholm, and North Sweden (Norrland) groups together with a
-couple of more southern regions outside the Stockholm region.
+Multi-dimensional scaling (MDS) operates similarly to cluster
+dendrograms in that it reduces the high-dimensional distances to a
+lower-dimensionality representation. It differs, however, in producing
+gradient numbers, not binary trees. This means that the MDS maps
+naturally have gradient borders.
 
-Things I noticed: cities, Scania distinction, sometimes shared with
-Jamhog/Torsas/Ossjo, Stockholm/Uppsala/Malmo are nearly always
-similar, northern sometimes looks different from central area. For
-some reason Kola always patterns with the cities though \ldots But
-Arsunda, right nearby, is always pretty different. Strange.
+Despite this difference, the similarities between MDS and cluster
+dendrograms are evident in the MDS results; for sentence-length
+normalisation, there is a clear equivalence between the blue-green
+cluster in the consensus tree and the the orange sites in the MDS map
+based on $R$ measured over trigram features. The light brown cluster
+of K\"ola, Loderup and Breds\"atra is replicated as well, this time in
+dark brown. The pink sites of the consensus tree are blue-green this
+time, which reveals an important fact that is easy to gloss over from
+looking at the consensus tree: J\"amshog, in the middle, is almost as
+different from Tors\.as and \"Ossj\"o as it is from all the other
+sites.
+
+The main place that the $R$ results differ from the consensus tree is
+in its pink sites. They group together the areas around the
+major cities of Sweden: besides the sites near Stockholm and Uppsala,
+the Scanian sites near Malm\"o are a similar colour. This differs
+somewhat from the consensus tree which has yellow and red sites around
+Stockholm and Uppsala, but doesn't cluster Viby or Bara at all. Here,
+Viby and Bara appear close to the other pink sites.
+
+MDS maps based on other parameter settings produce similar results,
+but with some colour shifting, a side effect of the method of mapping
+3-dimensional results onto red,green,blue colour triples. For example,
+with all features combined, the MDS map for $R$ uses purple for
+K\"ola, Loderup and Breds\"atra instead of dark brown, and light pink
+in place of orange. The pattern is essentially the same, but the
+more similar colours indicate that trigram features separate
+the different regions more strongly.
+
+The results change slightly, after adding the ratio normalisation. The
+city group loses members to the country group. What's more, the
+originally blue-green cluster move much close to the country group
+as well--in figure \ref{mds-r-trigram-freq}, with
+$R$ measured over trigram features, the countryside group is green,
+and the blue-green cluster has become dark green. When all features
+are combined, the city group also becomes much closer in colour to the
+country group.
+
+Basically, the results from MDS are similar to those of cluster
+dendrograms. Within the MDS maps, the clearest pattern was visible in
+the $R$ distances measured over trigram features. Note that this is
+predicted by the number of significant distances, too: $R$ and
+Jensen-Shannon divergence have the highest number of significant
+distances of the measures, and trigrams and combined features have the
+highest number of significant distances of the feature sets. And the
+ratio-normalised results have consistently fewer significant distances
+than those only normalised for sentence-length.
 
 \subsection{Features}
 
 Analysis of specific features
+
+Ratio and sentence-length normalisation are the same for this case
+because ratio normalisation is a scaling that is identical across
+features. There is an additonal normalisation used here, called
+overuse normalisation. It ranks rarely used features more highly.
+This is useful because the very common features are very common in all
+sites---they differ only in degree. This is difficult to analyse,
+especially to compare to previous linguistic analyses.
+
+%% oops I left this in %%
+Things I noticed: the freq top-5 features are basically useless:
+they're always just the simplest sentence types like PO-VV-AB,
+regardless of side. There IS a difference though, it's just that it
+flips back and forth, so from top-5 freq features you can only tell there is
+a difference, but not the content, since the top-5 features are always
+the same.
+
+Cosine overuse features seem to be the same as the others. So no
+difference there.
+
+Ratio top-5 has the same problem as freq top-5, the values are just
+smaller. In fact, I think the ratios when scaled up give the same
+values as the freqs, so there's no point in including them. I should
+just note it and skip them.
+
+Overuse top-5 features focus heavily on rare features. So very long
+features show up. How important are these really? It's hard to
+tell. They do seem to be very specific to cluster B, however.
+
+TODO: See if there's some pattern to the top-5 overuse features.
 
 \subsection{Cosine}
 

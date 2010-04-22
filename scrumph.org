@@ -776,6 +776,16 @@
      committee a prospective defence date.
      Also, I can map consensus clusters onto Therese's maps with a
      simple .vec file passed into maprgb. (Later: It was easy!)
+** 2010/04/22
+   - I went to a parser group meeting. They suggested colours for my
+     feature ranking diagrams instead of left<->right opposition. Also
+     different colours for different features.
+   - I will finish talking about composite cluster maps. That should
+     be easy because I don't have much to say. I will start on the
+     discussion of MDS. That will be hard because there are so many
+     and I'm not sure how to explain their differences.
+   - Remember to mail Therese. Learn about pstricks instead of the
+     picture environment.
 * Plan
 ** January
 *** Get results
