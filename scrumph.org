@@ -786,6 +786,16 @@
      and I'm not sure how to explain their differences.
    - Remember to mail Therese. Learn about pstricks instead of the
      picture environment.
+** 2010/04/23
+   - I finished composite cluster maps and MDS. I started a little on
+     features but didn't get anything useful done. I found a good
+     pstricks example and got it to compile.
+   - I will try to get SOMETHING done with features. I will get
+     pstricks version of the feature ranking diagrams going.
+   - Still should mail Therese. Doesn't need to be complicated, just
+     "if you are done or nearly there, I would appreciate seeing your
+     dissertation so I can compare my work with it. I am writing my
+     discussion chapter right now."
 * Plan
 ** January
 *** Get results

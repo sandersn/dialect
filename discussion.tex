@@ -447,6 +447,9 @@ than those only normalised for sentence-length.
 
 \subsection{Features}
 
+%TODO: Put back in the freq/ratio features for $R$ instead of the
+%overuse-ranked features. I guess overuse isn't that useful after all.
+
 Analysis of specific features
 
 Ratio and sentence-length normalisation are the same for this case
@@ -456,6 +459,68 @@ overuse normalisation. It ranks rarely used features more highly.
 This is useful because the very common features are very common in all
 sites---they differ only in degree. This is difficult to analyse,
 especially to compare to previous linguistic analyses.
+
+There actually is a difference for the Jensen-Shannon trigram
+distances. The trigrams don't seem very informative, but here is what
+I noticed: Overall, the ratio normed trigrams are very common, typical
+of the core of the sentence. This fits with the nature of $R$ and
+Jensen-Shannon; both are sums and trigrams that occur in nearly all
+sentences are the most likely to be high-ranked.
+
+Odd patterns of adverbs generally; adverbs are generally more common
+in cluster B's trigrams. Upon closer inspection, non-B clusters do
+have uses of adverbs, but they differ in their content. (This is what
+you would expect when ranking lots of common trigrams: subtle
+differences in the distribution based on statistical variation.)
+Specifically, the adverbs are usually close to the verb in cluster
+B. This is not true in the other clusters---adverbs typically appear
+near nouns, usually at the end of sentence. When they do appear next
+to the verb, it is a copula (at least, a form of the verb {\it vara}
+``to be''). Another odd adverb pattern is that adverbs don't commonly
+occur at the end of sentences in cluster B, unlike the others. Either
+it's still there but less common, or it just doesn't happen, I'm not
+sure.
+
+preposition-noun-conjuction and noun-conjunction-pronoun showed up
+commonly as well. I'm not sure what to make of that except to say that
+it seems conjunctions are more common in cluster B. This might also
+explain the lack of advers at end of sentence--if the overall length
+of sentences is longer, then more conjunctions is expected, along with
+fewer words at the ends of sentences (because, for each feature, there are fewer
+sentences to end).
+
+Overuse ranked features seem to highlight conjunctuions. But there is
+no other pattern--just a lot of variation and juxtapositions that
+don't make any sense. It seems like overuse ranking is susceptible to
+noise from the parser.
+
+The bulk of evidence varies for/against cluster B. I don't see any
+clear patterns. This is true for both overuse and ratio/freq norms; in
+fact, it often reverses between the two.
+
+Variation over $R$ features:  the same results show up here, but some
+of the patterns are easier to see because the features are easier to
+read than trigrams.
+
+In particular, leaf-ancestor paths show off well the tendency for
+nested sentences with features like S-NP-S-VV and S-NP-S-S-AB. It
+makes me wish one of the features were just plain old sentence
+length. Boring but it might be important. Those last two features, by the
+way, are also adverb features S-S-S-AB.
+
+(Note that leaf-heads I didn't reverse, so they are read from leaf to
+root, while lead-ancestors read from root to leaf. I should fix this
+and give relevant examples all the way through this discussion)
+
+Overall both normalisations leave something to be desired; freq/ratio
+only gives us features that are safe from noise, but are mostly the
+same so they're hard to interpret, these relatively small variations
+in common trigrams. On the other hand, overuse normed features are
+basically full of noise and thus impossible to interpret.
+
+Yeah, basically overuse norming is useless. That sucks. I guess
+freq/ratio it is. Distort the number as little as possible eh, even if
+you miss out on some informations.
 
 %% oops I left this in %%
 Things I noticed: the freq top-5 features are basically useless:
