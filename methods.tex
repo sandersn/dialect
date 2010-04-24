@@ -1635,7 +1635,9 @@ regions. See figure \ref{feature-ranking-1-1}: features that appear
 more often in one region of the compared pair are negative, while features
 that appear more often in the other region are positive. In the
 example, the bigram AB-AJ occurs more often in the left-hand-region,
-while NN-VB and PN-VB occur more often in the right-hand-region.
+while NN-VB and PN-VB occur more often in the right-hand-region. This
+is the same as the first step of $R$ and $R^2$: $R$ then takes the
+absolute value of this difference and $R^2$ takes the square.
 
 \begin{figure}
   \includegraphics[scale=0.8]{feature-ranking-1-1}

@@ -245,3 +245,68 @@ swediaSizes = [
   ("Vaxtorp", 903),
   ("Viby", 431),
   ("Villberga", 680)]
+swediaWords = [
+  ("Ankarsrum", 7708),
+  ("Anundsjo", 11897),
+  -- ("Arjeplog", ),
+  ("Arsunda", 8933),
+  ("Asby", 7171),
+  ("Bara", 10724),
+  ("Bengtsfors", 7423),
+  ("Boda", 17425),
+  ("Bredsatra", 6938),
+  ("Faro", 8260),
+  ("Floby", 6392),
+  ("Fole", 9920),
+  ("Frillesas", 9634),
+  ("Indal", 13090),
+  ("Jamshog", 8661),
+  ("Ko"++umlaut++"la", 10133),
+  ("Leksand", 10676), -- WARNING: One filename is typoed "Leksand " not "Leksand"
+  ("Loderup", 7850),
+  -- ("Nederlulea", ),
+  ("Norra Rorum", 9160),
+  ("Orust", 11409),
+  ("Ossjo", 12275),
+  -- ("Overkalix", ),
+  ("Segerstad", 9746),
+  ("Skinnskatteberg", 9529),
+  ("Sorunda", 11144),
+  ("Sproge", 4399),
+  ("StAnna", 13156),
+  ("Torsa"++ring++"s", 9217),
+  ("Torso", 15577),
+  --"Torsö",
+  ("Vaxtorp", 11353),
+  ("Viby", 6734),
+  ("Villberga", 11479)]
+swediaWordsPerSentence = [("Ankarsrum",12.234920634920634)
+                         ,("Anundsjo",10.399475524475525)
+                         ,("Arsunda",9.533617929562434)
+                         ,("Asby",10.347763347763347)
+                         ,("Bara",15.408045977011493)
+                         ,("Bengtsfors",11.196078431372548)
+                         ,("Boda",16.933916423712343)
+                         ,("Bredsatra",19.272222222222222)
+                         ,("Faro",12.534142640364188)
+                         ,("Floby",11.47576301615799)
+                         ,("Fole",13.645116918844566)
+                         ,("Frillesas",16.842657342657343)
+                         ,("Indal",11.625222024866785)
+                         ,("Jamshog",28.774086378737543)
+                         ,("Ko\204\136la",19.19128787878788)
+                         ,("Leksand",11.566630552546046)
+                         ,("Loderup",18.2983682983683)
+                         ,("Norra Rorum",16.776556776556777)
+                         ,("Orust",10.692596063730084)
+                         ,("Ossjo",25.51975051975052)
+                         ,("Segerstad",11.643966547192354)
+                         ,("Skinnskatteberg",13.053424657534247)
+                         ,("Sorunda",14.510416666666666)
+                         ,("Sproge",11.545931758530184)
+                         ,("StAnna",15.018264840182649)
+                         ,("Torsa\204\138s",24.644385026737968)
+                         ,("Torso",16.293933054393307)
+                         ,("Vaxtorp",12.572535991140642)
+                         ,("Viby",15.624129930394432)
+                         ,("Villberga",16.88088235294118)]

@@ -215,9 +215,9 @@ bool comparepermutation(const dialect& a, const dialect& b) {
   int gt = 0;
   for(int i=0; i < ITERATIONS; i++) {
 #ifdef FULLCORPUS
-    sample total = normalise(flatten(a,0,a.size()), flatten(b,0,b.size()), 5);
+    sample total = normalise(flatten(a,0,a.size()), flatten(b,0,b.size()), 1);
 #else
-    sample total = normalise(permutation(a), permutation(b), 5);
+    sample total = normalise(permutation(a), permutation(b), 1);
 #endif
     double total_r = R_MEASURE(total);
     // size_t total_types = total.size();
@@ -225,10 +225,10 @@ bool comparepermutation(const dialect& a, const dialect& b) {
     shuffle(both_ab);
     double perm_r =
       R_MEASURE(normalise(flatten(both_ab, 0, a.size()),
-                          flatten(both_ab, a.size(), b.size()), 5));
+                          flatten(both_ab, a.size(), b.size()), 1));
 #else
     double perm_r =
-      R_MEASURE(normalise(permutation(both_ab), permutation(both_ab), 5));
+      R_MEASURE(normalise(permutation(both_ab), permutation(both_ab), 1));
 #endif
     if(perm_r > total_r) {
       cout << '-' << flush;

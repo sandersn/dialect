@@ -449,46 +449,92 @@ than those only normalised for sentence-length.
 
 %TODO: Put back in the freq/ratio features for $R$ instead of the
 %overuse-ranked features. I guess overuse isn't that useful after all.
+%TODO:Revamp feature rank results in the following way:
+% 1. cluster B <=> everything else
+% 2. cluster B <=> cluster C, different features
+% 3. cluster B <=> cluster C, different features/overuse
+% 4. cosine
 
-Analysis of specific features
+Next I rank and analyse the input features by comparing their
+differences. The features analysed here are the
+ten highest ranked features for a particular comparison, based on the
+consensus tree clusters of figure \ref{consensus-freq}. The clusters
+are labelled A to G from top to bottom, excluding Viby and Bara which
+are not part of any cluster. Although each feature set has ten
+features ranked here, it's actually two sets of five features, because
+these are differences. The top five positive features are shown as are
+the top five negative features.
 
-Ratio and sentence-length normalisation are the same for this case
-because ratio normalisation is a scaling that is identical across
-features. There is an additonal normalisation used here, called
-overuse normalisation. It ranks rarely used features more highly.
-This is useful because the very common features are very common in all
-sites---they differ only in degree. This is difficult to analyse,
-especially to compare to previous linguistic analyses.
+This has two advantages. It splits the features so that both the
+positive and negative evidence are always visible; otherwise, in some
+cases, if one side is strong enough, the other would be pushed out of
+the top ten. However, it still allows the relative weight of evidence
+to be estimated. For example, if some cluster has some idiosyncratic
+features, most of the features will be positive, meaning that most of
+the distance comes from features typical of this cluster. The two-part
+feature will show this: the five positive features will have much
+higher values than the five negative features.
 
-There actually is a difference for the Jensen-Shannon trigram
-distances. The trigrams don't seem very informative, but here is what
-I noticed: Overall, the ratio normed trigrams are very common, typical
-of the core of the sentence. This fits with the nature of $R$ and
-Jensen-Shannon; both are sums and trigrams that occur in nearly all
-sentences are the most likely to be high-ranked.
+For feature ranking, the addition of ratio normalisation makes no
+difference because it is a scaling that is identical across
+features. However, there is an additonal normalisation used here,
+called overuse normalisation, which ranks rarely used features more
+highly.  This can be useful; without it, the top-ranked features will
+tend to be the most common ones, those found in almost every sentence
+in the interview. The interesting differences here tend to be
+gradient: differences in quantity but not in quality. In contrast,
+the overuse normalisation allows us to see which features happen only
+a few times in one side of the comparison and not at all in the
+other. This is closer to a traditional linguistic analysis.
 
-Odd patterns of adverbs generally; adverbs are generally more common
-in cluster B's trigrams. Upon closer inspection, non-B clusters do
-have uses of adverbs, but they differ in their content. (This is what
-you would expect when ranking lots of common trigrams: subtle
-differences in the distribution based on statistical variation.)
-Specifically, the adverbs are usually close to the verb in cluster
-B. This is not true in the other clusters---adverbs typically appear
-near nouns, usually at the end of sentence. When they do appear next
-to the verb, it is a copula (at least, a form of the verb {\it vara}
-``to be''). Another odd adverb pattern is that adverbs don't commonly
-occur at the end of sentences in cluster B, unlike the others. Either
-it's still there but less common, or it just doesn't happen, I'm not
-sure.
+This analysis will focus on cluster C, containing J\"amshog, \"Ossj\"o
+and Tors\.as, because it is the most different from the rest of the
+sites. It should be the easiest cluster to find interesting features
+in.
 
-preposition-noun-conjuction and noun-conjunction-pronoun showed up
-commonly as well. I'm not sure what to make of that except to say that
-it seems conjunctions are more common in cluster B. This might also
-explain the lack of advers at end of sentence--if the overall length
-of sentences is longer, then more conjunctions is expected, along with
-fewer words at the ends of sentences (because, for each feature, there are fewer
-sentences to end).
+\subsubsection{Trigrams}
 
+The analysis will start with trigram features without the overuse
+normalisation, since trigrams have the highest rate of
+significance of the feature sets, except for the combined feature
+set. But it is confusing to read the ranking of the combined feature
+set.
+
+As mentioned above, the top-ranked trigrams are very common, typical
+of the core of the sentence. The non-B clusters, especially, are full
+of trigrams like PR-NN-IP (preposition-noun-period) and PO-NN-IP
+(pronoun-noun-period). But cluster B also has a lot of common
+clusters, like PO-VV-PO (pronoun-verb-pronoun) and PO-VV-AB
+(pronoun-verb-adverb). This fits with the nature of $R$; it is a sum
+and trigrams that occur in nearly all sentences are the most likely to
+be high-ranked.
+
+In cluster B, the most noticeable pattern with trigrams is the
+frequency of adverbs---the most important feature in the comparison
+between cluster A and cluster B is the trigram AB-AB-AB.
+Upon closer inspection, it can be seen that non-B clusters do have
+high-ranked trigrams containing adverbs, but the contexts differ. The
+adverbs in cluster B are usually close to the verb. This is not true
+in the other clusters---adverbs typically appear near nouns and at the
+end of the sentence. For example, AB-VV-PO, AB-PO-VV and VV-PO-AB are
+both typical of cluster B. The only non-B trigram with a verb and an
+adverb is cluster F, whose most important feature is PO-AV-AB
+(pronoun-verb `to be'-adverb), in other words, a copular sentence.
+
+Besides, the adverb patterns, co-ordinating conjunctions (code $++$)
+form some patterns in cluster B. While non-B clusters have some
+important trigrams with both co-ordinating subordinating conjunctions
+(code UK), cluster B has a lot of important trigrams with
+co-ordinating conjunctions, like NN-$++$-PO, $++$-PO-VV, NN-$++$-AB
+and PR-NN-$++$. NN-$++$-PO, in particular, shows up in nearly every
+comparison. One simple explanation for this could be that sentences in
+these three regions are longer.
+
+This is in fact the case. So,
+hmf. Does this just mean that my normalisation failed and put all the
+long-sentence guys together? It kind of looks that way.
+
+%%%% done to here
 Overuse ranked features seem to highlight conjunctuions. But there is
 no other pattern--just a lot of variation and juxtapositions that
 don't make any sense. It seems like overuse ranking is susceptible to

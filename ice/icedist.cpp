@@ -7,9 +7,9 @@ pair<double, double> r_avg_variance (const dialect& a, const dialect& b) {
   for(int i = 0; i < AVG_ITERATIONS; i++) {
 #ifdef FULLCORPUS
     double r_value = R_MEASURE(normalise(flatten(a, 0, a.size()),
-                                         flatten(b, 0, b.size()), 5));
+                                         flatten(b, 0, b.size()), 1));
 #else
-    double r_value = R_MEASURE(normalise(permutation(a), permutation(b), 5));
+    double r_value = R_MEASURE(normalise(permutation(a), permutation(b), 1));
 #endif
     sum += r_value;
     rs.push_back(r_value);
