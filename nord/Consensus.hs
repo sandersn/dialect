@@ -77,9 +77,9 @@ t3 = Node "a" [Leaf "s1", Node "b" [Node "c" [Leaf "s2", Leaf "s3"], Leaf "s4"]]
 ts = [t1,t2,t3]
 -- reader --
 main = do
-  [sample,norm,file] <- getArgs
-  sigs <- withFileLines findSigs ("sig-10-"++sample++"-"++norm++".csv")
-  tree <- withFileLines (makeConsensusTree sigs sample norm) file
+  [num,sample,norm,file] <- getArgs
+  sigs <- withFileLines findSigs ("sig-"++num++"-"++sample++"-"++norm++".csv")
+  tree <- withFileLines (makeConsensusTree sigs (num,sample,norm)) file
   putStrLn $ qtree tree
 qtree (Leaf a) = Set.findMax a
 qtree (Node a []) = Set.findMax a
@@ -90,39 +90,40 @@ qtree (Node a kids) = "[. {" ++ left ++ "} " ++ right ++ " ]"
 findSigs =
   tail
   & map (replace ',' ' ' & words & tail
-         & zip ["path", "trigram", "dep", "psg", "grand",
-                "unigram", "redep", "deparc", "all"]
+         & zip ["r", "r_sq", "kl", "js", "cos"]
          & filter (snd & (=="0"))
          & map fst)
-  & zip ["r", "r_sq", "kl", "js", "cos"]
+  & zip ["path", "trigram", "dep", "psg", "grand",
+         "unigram", "redep", "deparc", "all"]
   & concatMap (uncurry (zip . repeat))
   & Set.fromList
-travelsigs = Set.fromList [("r_sq", "path")
-                          , ("kl", "path")
-                          , ("r", "trigram")
-                          , ("r_sq", "trigram")
-                          , ("kl", "trigram")
-                          , ("js", "trigram")
-                          , ("kl", "psg")
-                          , ("r_sq", "grand")
-                          , ("kl", "grand")
-                          , ("kl", "unigram")
-                          , ("cos", "unigram")
-                          , ("r", "all")
-                          , ("r_sq", "all")
-                          , ("kl", "all")
-                          , ("js", "all")]
-makeConsensusTree sigs sample norm =
+travelsigs = Set.fromList [("path", "r_sq")
+                          , ("path", "kl")
+                          , ("trigram", "r")
+                          , ("trigram", "r_sq")
+                          , ("trigram", "kl")
+                          , ("trigram", "js")
+                          , ("psg", "kl")
+                          , ("grand", "r_sq")
+                          , ("grand", "kl")
+                          , ("unigram", "kl")
+                          , ("unigram", "cos")
+                          , ("all", "r")
+                          , ("all", "r_sq")
+                          , ("all", "kl")
+                          , ("all", "js")]
+makeConsensusTree sigs variant =
   filter (isPrefixOf "Cluster: ")
   & map rReader
-  & filter (fst & goodCluster sample norm)
+  & filter (fst & goodCluster variant)
   & map (snd & buildRTree)
   & con
-  where goodCluster sample norm (s,m,f,n) =
-          (m,f) `Set.member` sigs && s==sample && n==norm && (m,f) `Set.member` travelsigs
-rReader line = ((sample,measure,feature,norm),
+  where goodCluster (num,sample,norm) (n',s,m,f,n) =
+          (f,m) `Set.member` sigs && s==sample && n==norm && n'==num
+-- && (m,f) `Set.member` travelsigs
+rReader line = ((num,sample,measure,feature,norm),
                 splitAt (floor (fromIntegral (length ns) / 2)) ns |> uncurry zip)
-  where (_:sample:measure:feature:norm:ss) = words line
+  where (_:num:sample:measure:feature:norm:ss) = words line
         ns = map read ss
 label (Leaf a) = a
 label (Node a _) = a

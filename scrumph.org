@@ -796,6 +796,23 @@
      "if you are done or nearly there, I would appreciate seeing your
      dissertation so I can compare my work with it. I am writing my
      discussion chapter right now."
+** 2010/04/26
+   - I got SOMETHING done with features, or at least half done. I
+     realised that feature ranking is independent of method (it's a
+     non-abs R/R^2) so I don't need to present as many diagrams as a I
+     thought). I got pstricks working but not yet integrated into the
+     build process. I also discovered that (1) freq norm correlates
+     highly with sentence size and (2) 1 round of norming gives MUCH
+     more significant results than 5 rounds. The results are also much
+     different.
+   - I add analysis and map generation of both 1-round and 5-round
+     norming. I will edit the results chapter to contain many fewer
+     diagrams of freq norming and many more comparing 1-round a
+     5-round normalisation of ratio. I will change the names of
+     norming to within-comparison sentence-length norming and
+     cross-comparison/cross-corpus norming.
+   - Bah. Should still write to Therese. Need to make an R file for
+     sentence-length so I can correlate it formally.
 * Plan
 ** January
 *** Get results
