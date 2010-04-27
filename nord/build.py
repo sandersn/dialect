@@ -255,19 +255,24 @@ def genMaps():
     run('RuG-L04/bin/difsum -o Sverigekarta-cluster.dif '
         + ' '.join('cluster-%s-%s-%s-%s-%s.dif' % v for v in variants))
     for num in consts.numnorms:
-        for norm in consts.norms:
+        for sample in consts.samples:
             # for numnorm=1, sample=ratio might actually be useful
-            sigs = norte.findSigs(num, '1000', norm)
-            run('RuG-L04/bin/difsum -o Sverigekarta-cluster-%s-%s.dif ' % (num,norm)
-                + ' '.join('cluster-%s-1000-%s-%s-%s.dif' % (num,measure,feature,norm)
+            sigs = norte.findSigs(num, sample, 'ratio')
+            if not sigs:
+                print('nothing to see here')
+                continue
+            run('RuG-L04/bin/difsum -o Sverigekarta-cluster-%s-%s.dif ' % (num,sample)
+                + ' '.join('cluster-%s-%s-%s-%s-ratio.dif' % (num,sample,measure,feature)
                             for feature in consts.features
                             for measure in consts.measures
-                            if (measure,feature) in sigs))
-            run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster-%s-%s.eps 30orter.cfg Sverigekarta-cluster-%s-%s.dif' % (num,norm,num,norm))
+                            if (feature,measure) in sigs))
+            run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster-%s-%s.eps 30orter.cfg Sverigekarta-cluster-%s-%s.dif' % (num,sample,num,sample))
     run('mv *eps ..')
 def genMoreAnalysis():
     run('ghc -O2 --make Analysis')
     run('ghc -O2 --make Consensus')
+    tryrm('correlations.tex')
+    tryrm('consensusses.tex')
     # running either of this is unsafe because they require hand-tweaking of the
     # code. They both now take *some* parameters, but not everything
     # or travel-sig-inclusion or cos-exclusion or row/col-inclusion in Consensus
@@ -275,10 +280,12 @@ def genMoreAnalysis():
     for num in consts.numnorms:
         for sample in consts.samples:
             for norm in consts.norms:
-                run('./Consensus %s %s %s correlations-R.txt'
+                run('echo %s-%s-%s >>consensusses.tex' % (num,sample,norm))
+                run('./Consensus %s %s %s correlations-R.txt >>consensusses.tex'
                     % (num,sample,norm))
                 for key in ['geo', 'travel', 'size']:
-                    run('./Analysis %s %s %s %s' % (num,sample,norm,key))
+                    run('echo %s-%s-%s-%s >>correlations.tex' % (num,sample,norm,key))
+                    run('./Analysis %s %s %s %s >>correlations.tex' % (num,sample,norm,key))
     # TODO: FormatFeatures goes in here somewhere with
     # latex clusterA-clusterD-feat-5-1000-r-trigram-ratio.txt && dvips -Ppdf clusterA-clusterD-feat-5-1000-r-trigram-ratio.dvi && ps2pdf clusterA-clusterD-feat-5-1000-r-trigram-ratio.ps && open clusterA-clusterD-feat-5-1000-r-trigram-ratio.pdf
 def blade(runner, targets):

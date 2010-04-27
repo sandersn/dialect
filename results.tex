@@ -35,11 +35,11 @@ extracted from each cluster in the consensus tree.
 \section{Distances}
 
 There are 180 parameter settings investigated in this chapter. This
-number arises from the four paramaters: measure, feature set, sampling
-method and normalisation method. 5 measures, 9 feature sets, 2
-sampling methods and 2 normalisation methods gives $5\times 9 \times 2
-\times 2=180$ different settings. The settings are given in table
-\ref{parameter-settings}.
+number arises from the four parameters: measure, feature set, sampling
+method and number of normalisation iterations. 5 measures, 9 feature
+sets, 2 sampling methods and 2 numbers of normalisation iterations
+gives $5\times 9 \times 2 \times 2=180$ different settings. The
+settings are given in table \ref{parameter-settings}.
 
 \begin{table}
 \begin{tabular}{|c|} \hline
@@ -62,193 +62,257 @@ sampling methods and 2 normalisation methods gives $5\times 9 \times 2
   Jensen-Shannon divergence \\
   cosine dissimilarity\\\hline
 \end{tabular}
-\begin{tabular}{|c|} \hline
-  Sampling Method \\ \hline
-  1000 sentences \\
-  All sentences \\\hline
+\begin{tabular}{|c|c|c|} \hline
+  Sampling Method & Iterations of normalisations \\ \hline
+  1000 sentences & 1 \\
+  All sentences & 5 \\\hline
 \end{tabular}
-\begin{tabular}{|c|} \hline
-  Normalisation method \\ \hline
-  Sentence-length \\
-  Sentence-length and ratio \\\hline
-\end{tabular}
-\caption{Settings for the four parameters tested}
+\caption{Settings for the five parameters tested}
 \label{parameter-settings}
 \end{table}
 % Actually, all this should probably go in methods too, somewhere as a summary.
-
-For feature ranking, the normalisation setting differs: the choice is
-between sentence-length normalisation only and an additional
-normalisation that highlights overuse. The additional frequency
-normalisation does not change the ranking of individual features, so
-it is not included.
 
 \section{Significant Distances}
 
 Significant distances help answer the question whether a syntactic
 measure has succeeded in finding reliable distances. The measures
 should have zero non-significant distances, or at least a small
-number. In the first set of tables, \ref{sig-1000-freq} --
-\ref{sig-full-ratio}, the total number of comparisons between all 30
-regions is the $435=30(30-1) / 2$. In the second set, tables
-\ref{sig-percent-1000-freq} -- \ref{sig-percent-full-freq}, the percentage
-of non-significant distances is given instead.
+number. In the tables, the total number of comparisons between all 30
+regions is the $435=30(30-1) / 2$. In the first set,
+\ref{sig-1-1000} -- \ref{sig-1-full}, the results are shown
+from one iteration of the normalisation step. In the second set,
+tables \ref{sig-5-1000} -- \ref{sig-5-full}, the results
+from five normalisation iterations are shown.
 
-Bold percentages in indicate that more than 5\% of the
-distances were not significant. They are not marked in tables
-\ref{sig-percent-full-freq} -- \ref{sig-percent-full-ratio} because
-so few distances are significant. In fact, the only combination with
-{\it less} than 5\% non-significant results is cosine dissimilarity
-with unigram features. Note that here, 5\% is an arbitrary cutoff point not
-related to the usual significance cutoff $p < 0.05$; the basis for
-these tables are themselves number of significant distances found.
+Bold numbers in the tables indicate that more than 5\% of the
+distances were not significant. They are not marked in table
+\ref{sig-5-full}, the 5-iteration table that compares full corpora,
+because so few distances are significant. In fact, the only
+combination with {\it less} than 5\% non-significant results is cosine
+dissimilarity with unigram features. Note that here, 5\% is an
+arbitrary cutoff point not related to the usual significance cutoff $p
+< 0.05$; the basis for these tables are themselves number of
+significant distances found.
 % TODO:Make sure this is true; Wybo's discussion of family errors
 % doesn't seem to apply here but it might.
 
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&0&0&8&0&0 \\
+%   Trigram&0&0&0&0&0 \\
+%   Dependency&0&0&0&0&0 \\
+%   Phrase-Structure Rules&0&0&\textbf{81} &0&0 \\
+%   Phrase-Structure with Grandparents&0&0&\textbf{246}&0&0 \\
+%   Unigram&0&0&0&0&0 \\
+%   Dependencies with MaltParser trained by Timbl&0&0&\textbf{41}&0&0 \\
+%   Dependency, Arc Labels&0&0&0&0&0 \\
+%   All Features Combined&0&0&0&0&0 \\
+% \end{tabular}
+%  \caption{Number of significant distances for sample size 1000,
+%    within-comparison normalisation only}
+%  \label{sig-1-1000-freq}
+% \end{table}
+
+% \begin{table}
+%   \begin{tabular}{l|rrrrr}
+%  & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&6&10&11&\textbf{35}&7 \\
+%   Trigram&3&1&0&\textbf{22}&2 \\
+%   Dependency&9&14&17&\textbf{44}&16 \\
+%   Phrase-Structure Rules&\textbf{27}&20&\textbf{22}&\textbf{56}&21 \\
+%   Phrase-Structure with
+%   Grandparents&\textbf{52}&\textbf{36}&\textbf{37}&\textbf{72}&\textbf{36}
+%   \\
+%   Unigram&1&2&0&0&3 \\
+%   Dependencies with MaltParser trained by Timbl&16&\textbf{23}&18&\textbf{73}&\textbf{30}
+%    \\
+%   Dependency, Arc Labels&13&18&\textbf{34}&\textbf{93}&17 \\
+%   All Features Combined&1&0&1&8&1 \\
+% \end{tabular}
+%  \caption{Number of significant distances for complete regions, Sentence-length
+%     normalisation only}
+%  \label{sig-1-full-freq}
+% \end{table}
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
   & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor                           &0 & 45 & 14 & 0 & 0\\
-  Trigram                                 &0 & 0 & 0 & 0 & 0\\
-  Dependency                              &0 & 6 & 0 & 0 & 0\\
-  Phrase-Structure Rules                  &0 & 0 & 34 & 0 & 0\\
-  Phrase-Structure with Grandparents  &0 & 0 & 86 & 0 & 0\\
-  Unigram &48 & 55 & 17 & 16 & 0\\
-  Dependencies with MaltParser trained by Timbl &0 & 9 & 20 & 0 & 0\\
-  Dependency, Arc Labels&1 & 52 & 2 & 0 & 0\\
-  All Features Combined &0 & 1 & 0 & 0 & 0\\
+  Leaf-Ancestor &0&0&11&0&0 \\
+  Trigram &0&0&0&0&0 \\
+  Dependency &0&0&0&0&0 \\
+  Phrase-Structure Rules &0&0&\textbf{95}&0&0 \\
+  Phrase-Structure with Grandparents &0&0&\textbf{273}&0&0 \\
+  Unigram &0&0&0&0&0 \\
+  Dependencies with MaltParser trained by Timbl &0&0&\textbf{47}&0&0 \\
+  Dependency, Arc Labels&0&0&0&0&0 \\
+  All Features Combined &0&0&0&0&0 \\
 \end{tabular}
- \caption{Number of significant distances for sample size 1000, Sentence-length
-    normalisation only}
- \label{sig-1000-freq}
+\caption{Number of significant distances for sample size 1000, 1
+  normalisation}
+\label{sig-1-1000}
 \end{table}
-\begin{table}
-  \begin{tabular}{l|rrrrr}
- & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&286 & 281 & 286 & 280 & 208\\
-  Trigram&285 & 282 & 283 & 278 & 196\\
-  Dependency&291 & 286 & 285 & 279 & 206\\
-  Phrase-Structure Rules&286 & 293 & 288 & 276 & 235\\
-  Phrase-Structure with Grandparents&288 & 292 & 289 & 272 & 251\\
-  Unigram&298 & 296 & 291 & 293 & 7\\
-  Dependencies with MaltParser trained by Timbl&295 & 293 & 290 & 285 & 227\\
-  Dependency, Arc Labels&294 & 290 & 290 & 287 & 159\\
-  All Features Combined&283 & 277 & 279 & 272 & 190\\
-\end{tabular}
- \caption{Number of significant distances for complete regions, Sentence-length
-    normalisation only}
- \label{sig-full-freq}
-\end{table}
+
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&5 & 56 & 34 & 0 & 0\\
+  Leaf-Ancestor&7&11&12&\textbf{35}&9 \\
+  Trigram&4&1&0&\textbf{24}&1 \\
+  Dependency&10&12&20&\textbf{44}&19 \\
+  Phrase-Structure Rules&\textbf{26}&17&\textbf{24}&\textbf{49}&20 \\
+  Phrase-Structure with Grandparents&\textbf{58}&\textbf{35}&\textbf{38}&\textbf{71}&\textbf{33}
+   \\
+  Unigram&1&2&0&0&2 \\
+  Dependencies with MaltParser trained by Timbl&11&21&18&\textbf{74}&\textbf{30}
+   \\
+  Dependency, Arc Labels&14&19&\textbf{37}&\textbf{94}&17 \\
+  All Features Combined&0&0&1&8&2 \\
+\end{tabular}
+ \caption{Number of significant distances for complete regions, 1
+   normalisation}
+ \label{sig-1-full}
+\end{table}
+%%%%%%%%%%%%%%
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+%   & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor                           &0 & \textbf{45} & 14 & 0 & 0\\
+%   Trigram                                 &0 & 0 & 0 & 0 & 0\\
+%   Dependency                              &0 & 6 & 0 & 0 & 0\\
+%   Phrase-Structure Rules                  &0 & 0 & \textbf{34} & 0 & 0\\
+%   Phrase-Structure with Grandparents  &0 & 0 & \textbf{86} & 0 & 0\\
+%   Unigram &\textbf{48} & \textbf{55} & 17 & 16 & 0\\
+%   Dependencies with MaltParser trained by Timbl &0 & 9 & 20 & 0 & 0\\
+%   Dependency, Arc Labels&1 & \textbf{52} & 2 & 0 & 0\\
+%   All Features Combined &0 & 1 & 0 & 0 & 0\\
+% \end{tabular}
+%  \caption{Number of significant distances for sample size 1000,
+%    within-comparison normalisation only}
+%  \label{sig-5-1000-freq}
+% \end{table}
+% \begin{table}
+%   \begin{tabular}{l|rrrrr}
+%  & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&\textbf{286} & \textbf{281} & \textbf{286} & \textbf{280} & \textbf{208}\\
+%   Trigram&\textbf{285} & \textbf{282} & \textbf{283} & \textbf{278} & \textbf{196}\\
+%   Dependency&\textbf{291} & \textbf{286} & \textbf{285} & \textbf{279} & \textbf{206}\\
+%   Phrase-Structure Rules&\textbf{286} & \textbf{293} & \textbf{288} & \textbf{276} & \textbf{235}\\
+%   Phrase-Structure with Grandparents&\textbf{288} & \textbf{292} & \textbf{289} & \textbf{272} & \textbf{251}\\
+%   Unigram&\textbf{298} & \textbf{296} & \textbf{291} & \textbf{293} &   \textit{7}\\
+%   Dependencies with MaltParser trained by Timbl&\textbf{295} & \textbf{293} & \textbf{290} & \textbf{285} & \textbf{227}\\
+%   Dependency, Arc Labels&\textbf{294} & \textbf{290} & \textbf{290} & \textbf{287} & \textbf{159}\\
+%   All Features Combined&\textbf{283} & \textbf{277} & \textbf{279} & \textbf{272} & \textbf{190}\\
+% \end{tabular}
+%  \caption{Number of significant distances for complete regions, Sentence-length
+%     normalisation only}
+%  \label{sig-5-full-freq}
+% \end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&5 & \textbf{56} & \textbf{34} & 0 & 0\\
   Trigram&3 & 2 & 0 & 0 & 0\\
   Dependency&3 & 14 & 4 & 0 & 0\\
-  Phrase-Structure Rules&11 & 4 & 66 & 1 & 0\\
-  Phrase-Structure with Grandparents&18 & 0 & 109 & 4 & 0\\
-  Unigram&52 & 53 & 15 & 17 & 0\\
-  Dependencies with MaltParser trained by Timbl&7 & 20 & 45 & 0 & 0\\
-  Dependency, Arc Labels&6 & 54 & 17 & 1 & 0\\
+  Phrase-Structure Rules&11 & 4 & \textbf{66} & 1 & 0\\
+  Phrase-Structure with Grandparents&18 & 0 & \textbf{109} & 4 & 0\\
+  Unigram&\textbf{52} & \textbf{53} & 15 & 17 & 0\\
+  Dependencies with MaltParser trained by Timbl&7 & 20 & \textbf{45} & 0 & 0\\
+  Dependency, Arc Labels&6 & \textbf{54} & 17 & 1 & 0\\
   All Features Combined&0 & 4 & 0 & 0 & 0\\
 \end{tabular}
-\caption{Number of significant distances for sample size 1000, Ratio
-    normalisation included}
-\label{sig-1000-ratio}
+\caption{Number of significant distances for sample size 1000, 5
+  normalisations}
+\label{sig-5-1000}
 \end{table}
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&290 & 284 & 287 & 278 & 204\\
-  Trigram&284 & 283 & 283 & 276 & 196\\
-  Dependency&293 & 286 & 285 & 279 & 211\\
-  Phrase-Structure Rules&289 & 294 & 286 & 275 & 236\\
-  Phrase-Structure with Grandparents&285 & 290 & 286 & 270 & 258\\
-  Unigram&297 & 296 & 294 & 293 & 9\\
-  Dependencies with MaltParser trained by Timbl&294 & 289 & 288 & 284 & 222\\
-  Dependency, Arc Labels&294 & 290 & 291 & 293 & 162\\
-  All Features Combined&279 & 279 & 279 & 269 & 191\\
+  Leaf-Ancestor&\textbf{290} & \textbf{284} & \textbf{287} & \textbf{278} & \textbf{204}\\
+  Trigram&\textbf{284} & \textbf{283} & \textbf{283} & \textbf{276} & \textbf{196}\\
+  Dependency&\textbf{293} & \textbf{286} & \textbf{285} & \textbf{279} & \textbf{211}\\
+  Phrase-Structure Rules&\textbf{289} & \textbf{294} & \textbf{286} & \textbf{275} & \textbf{236}\\
+  Phrase-Structure with Grandparents&\textbf{285} & \textbf{290} & \textbf{286} & \textbf{270} & \textbf{258}\\
+  Unigram&\textbf{297} & \textbf{296} & \textbf{294} & \textbf{293} &
+  \textit{9}\\
+  Dependencies with MaltParser trained by Timbl&\textbf{294} & \textbf{289} & \textbf{288} & \textbf{284} & \textbf{222}\\
+  Dependency, Arc Labels&\textbf{294} & \textbf{290} & \textbf{291} & \textbf{293} & \textbf{162}\\
+  All Features Combined&\textbf{279} & \textbf{279} & \textbf{279} & \textbf{269} & \textbf{191}\\
 \end{tabular}
- \caption{Number of significant distances for complete regions, Ratio
-    normalisation included}
- \label{sig-full-ratio}
+ \caption{Number of significant distances for complete regions, 5
+   normalisations}
+ \label{sig-5-full}
 \end{table}
 
-\begin{table}
-\begin{tabular}{l|rrrrr}
- & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&0 & {\bf 10.34} & 3.22 & 0 & 0\\
-  Trigram&0 & 0 & 0 & 0 & 0\\
-  Dependency&0 & 1.38 & 0 & 0 & 0\\
-  Phrase-Structure Rules&0 & 0 & {\bf 7.82} & 0 & 0\\
-  Phrase-Structure with Grandparents&0 & 0 & {\bf 19.77} & 0 & 0\\
-  Unigram&{\bf 11.03} & {\bf 12.64} & 3.91 & 3.68 & 0\\
-  Dependencies with MaltParser trained by Timbl&0 & 2.07 & 4.60 & 0 & 0\\
-  Dependency, Arc Labels&0.23 & {\bf 11.95} & 0.46 & 0 & 0\\
-  All Features Combined&0 & 0.23 & 0 & 0 & 0\\
-\end{tabular}
- \caption{Percent of significant distances for sample size 1000,
-    Sentence-length
-    normalisation only}
- \label{sig-percent-1000-freq}
-\end{table}
-\begin{table}
-  \begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&65.75 & 64.60 & 65.75 & 64.37 & 47.82\\
-  Trigram&65.52 & 64.83 & 65.06 & 63.91 & 45.06\\
-  Dependency&66.90 & 65.75 & 65.52 & 64.14 & 47.36\\
-  Phrase-Structure Rules&65.75 & 67.36 & 66.21 & 63.45 & 54.02\\
-  Phrase-Structure with Grandparents&66.21 & 67.13 & 66.44 & 62.53 & 57.70\\
-  Unigram&68.51 & 68.05 & 66.90 & 67.36 & {\it 1.61}\\
-  Dependencies with MaltParser trained by Timbl&67.82 & 67.36 & 66.67 & 65.52 & 52.18\\
-  Dependency, Arc Labels&67.59 & 66.67 & 66.67 & 65.98 & 36.55\\
-  All Features Combined&65.06 & 63.68 & 64.14 & 62.53 & 43.68\\
-\end{tabular}
- \caption{Percent of significant distances for complete regions, Sentence-length
-    normalisation only}
- \label{sig-percent-full-freq}
-\end{table}
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&1.15 & {\bf 12.87} & {\bf 7.82} & 0 & 0\\
-  Trigram&0.69 & 0.46 & 0 & 0 & 0\\
-  Dependency&0.69 & 3.22 & 0.92 & 0 & 0\\
-  Phrase-Structure Rules&2.53 & 0.92 & {\bf 15.17} & 0.23 & 0\\
-  Phrase-Structure with Grandparents&4.14 & 0 & {\bf 25.06} & 0.92 & 0\\
-  Unigram&{\bf 11.95} & {\bf 12.18} & 3.45 & 3.91 & 0\\
-  Dependencies, MaltParser trained by Timbl&1.61 & {\bf 4.60} & {\bf 10.34}
-  & 0 & 0\\
-  Dependency, Arc Labels&1.38 & {\bf 12.41} & 3.91 & 0.23 & 0\\
-  All Features Combined&0 & 0.92 & 0 & 0 & 0\\
-\end{tabular}
- \caption{Percent of significant distances for sample size 1000, Ratio
-    normalisation included}
- \label{sig-percent-1000-ratio}
-\end{table}
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&66.67 & 65.29 & 65.98 & 63.91 & 46.90\\
-  Trigram&65.29 & 65.06 & 65.06 & 63.45 & 45.06\\
-  Dependency&67.36 & 65.75 & 65.52 & 64.14 & 48.51\\
-  Phrase-Structure Rules&66.44 & 67.59 & 65.75 & 63.22 & 54.25\\
-  Phrase-Structure with Grandparents&65.52 & 66.67 & 65.75 & 62.07 & 59.31\\
-  Unigram&68.28 & 68.05 & 67.59 & 67.36 & {\it 2.07}\\
-  Dependencies, MaltParser trained by Timbl&67.59 & 66.44 & 66.21 & 65.29 & 51.03\\
-  Dependency, Arc Labels&67.59 & 66.67 & 66.90 & 67.36 & 37.24\\
-  All Features Combined&64.14 & 64.14 & 64.14 & 61.84 & 43.91\\
-\end{tabular}
- \caption{Percent of significant distances for complete regions, Ratio
-    normalisation included}
- \label{sig-percent-full-ratio}
-\end{table}
-
-Because so few of the distances produced with measures run on the full
-corpora are significant, only 1000-sentence sampling will be
-shown for the rest of the results.
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+%  & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&0 & {\bf 10.34} & 3.22 & 0 & 0\\
+%   Trigram&0 & 0 & 0 & 0 & 0\\
+%   Dependency&0 & 1.38 & 0 & 0 & 0\\
+%   Phrase-Structure Rules&0 & 0 & {\bf 7.82} & 0 & 0\\
+%   Phrase-Structure with Grandparents&0 & 0 & {\bf 19.77} & 0 & 0\\
+%   Unigram&{\bf 11.03} & {\bf 12.64} & 3.91 & 3.68 & 0\\
+%   Dependencies with MaltParser trained by Timbl&0 & 2.07 & 4.60 & 0 & 0\\
+%   Dependency, Arc Labels&0.23 & {\bf 11.95} & 0.46 & 0 & 0\\
+%   All Features Combined&0 & 0.23 & 0 & 0 & 0\\
+% \end{tabular}
+%  \caption{Percent of significant distances for sample size 1000,
+%     Sentence-length
+%     normalisation only}
+%  \label{sig-percent-1000-freq}
+% \end{table}
+% \begin{table}
+%   \begin{tabular}{l|rrrrr}
+% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&65.75 & 64.60 & 65.75 & 64.37 & 47.82\\
+%   Trigram&65.52 & 64.83 & 65.06 & 63.91 & 45.06\\
+%   Dependency&66.90 & 65.75 & 65.52 & 64.14 & 47.36\\
+%   Phrase-Structure Rules&65.75 & 67.36 & 66.21 & 63.45 & 54.02\\
+%   Phrase-Structure with Grandparents&66.21 & 67.13 & 66.44 & 62.53 & 57.70\\
+%   Unigram&68.51 & 68.05 & 66.90 & 67.36 & {\it 1.61}\\
+%   Dependencies with MaltParser trained by Timbl&67.82 & 67.36 & 66.67 & 65.52 & 52.18\\
+%   Dependency, Arc Labels&67.59 & 66.67 & 66.67 & 65.98 & 36.55\\
+%   All Features Combined&65.06 & 63.68 & 64.14 & 62.53 & 43.68\\
+% \end{tabular}
+%  \caption{Percent of significant distances for complete regions, Sentence-length
+%     normalisation only}
+%  \label{sig-percent-full-freq}
+% \end{table}
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&1.15 & {\bf 12.87} & {\bf 7.82} & 0 & 0\\
+%   Trigram&0.69 & 0.46 & 0 & 0 & 0\\
+%   Dependency&0.69 & 3.22 & 0.92 & 0 & 0\\
+%   Phrase-Structure Rules&2.53 & 0.92 & {\bf 15.17} & 0.23 & 0\\
+%   Phrase-Structure with Grandparents&4.14 & 0 & {\bf 25.06} & 0.92 & 0\\
+%   Unigram&{\bf 11.95} & {\bf 12.18} & 3.45 & 3.91 & 0\\
+%   Dependencies, MaltParser trained by Timbl&1.61 & {\bf 4.60} & {\bf 10.34}
+%   & 0 & 0\\
+%   Dependency, Arc Labels&1.38 & {\bf 12.41} & 3.91 & 0.23 & 0\\
+%   All Features Combined&0 & 0.92 & 0 & 0 & 0\\
+% \end{tabular}
+%  \caption{Percent of significant distances for sample size 1000, Ratio
+%     normalisation included}
+%  \label{sig-percent-1000-ratio}
+% \end{table}
+% \begin{table}
+% \begin{tabular}{l|rrrrr}
+% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
+%   Leaf-Ancestor&66.67 & 65.29 & 65.98 & 63.91 & 46.90\\
+%   Trigram&65.29 & 65.06 & 65.06 & 63.45 & 45.06\\
+%   Dependency&67.36 & 65.75 & 65.52 & 64.14 & 48.51\\
+%   Phrase-Structure Rules&66.44 & 67.59 & 65.75 & 63.22 & 54.25\\
+%   Phrase-Structure with Grandparents&65.52 & 66.67 & 65.75 & 62.07 & 59.31\\
+%   Unigram&68.28 & 68.05 & 67.59 & 67.36 & {\it 2.07}\\
+%   Dependencies, MaltParser trained by Timbl&67.59 & 66.44 & 66.21 & 65.29 & 51.03\\
+%   Dependency, Arc Labels&67.59 & 66.67 & 66.90 & 67.36 & 37.24\\
+%   All Features Combined&64.14 & 64.14 & 64.14 & 61.84 & 43.91\\
+% \end{tabular}
+%  \caption{Percent of significant distances for complete regions, Ratio
+%     normalisation included}
+%  \label{sig-percent-full-ratio}
+% \end{table}
 
 \section{Correlation}
 
@@ -260,6 +324,15 @@ well-known \cite{chambers98}. In addition to straight-line geographic
 distance, travel distance is presented. Travel distance can be more
 informative than straight-line distance because it accounts for
 natural obstacles such as mountains, lakes and islands.
+
+The tables that present geographic and table correlation,
+\ref{cor-1-1000} -- \ref{travel-cor-5-full}, mark significant
+correlations with a star for $p < 0.05$, two stars for $p < 0.01$ and
+three starts for $p < 0.001$. However, these correlations are only
+trustworthy in the case that the underlying distances are
+significant. Significant correlations from significant distances (as
+cross-referenced from tables \ref{sig-1-1000} -- \ref{sig-5-full}) are
+marked by italics.
 
 Besides this, correlation between combinations of measure/feature set
 can show how closely related they are--in other words, how similarly
@@ -274,162 +347,152 @@ with geography should occur.
 
 Third, correlation with corpus size is not predicted and is probably
 an undesired defect in sampling or normalisation. Correlation with
-corpus size is presented in table \ref{size-cor-1000-freq}.
+corpus size is presented in tables \ref{size-cor-1-1000} --
+\ref{size-cor-5-full}.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.04 & -0.00 & 0.05 & -0.01 & 0.08\\
-  Trigram&0.00 & 0.02 & 0.08 & 0.05 & 0.16\\
-  Dependency&-0.02 & 0.03 & 0.08 & 0.01 & 0.10\\
-  Phrase-Structure Rules&-0.04 & 0.01 & 0.04 & -0.03 & 0.06\\
-  Phrase-Structure with Grandparents&-0.06 & 0.01 & 0.04 & -0.05 & 0.06\\
-  Unigram&0.02 & 0.03 & 0.08 & 0.07 & 0.15\\
-  Dependencies, MaltParser trained by Timbl&-0.04 & 0.03 & 0.09 & -0.01 & 0.11\\
-  Dependency, Arc Labels&-0.00 & 0.05 & 0.08 & 0.03 & 0.10\\
-  All Features Combined&-0.01 & 0.01 & 0.08 & 0.02 & 0.11\\
+  Leaf-Ancestor&-0.01 & 0.03 & 0.02 & -0.02 & 0.08\\
+  Trigram&0.17 & 0.17 & 0.10 & 0.19 & 0.13\\
+  Dependency&-0.06 & 0.03 & 0.00 & -0.07 & 0.05\\
+  Phrase-Structure Rules&0.01 & \textit{0.18*} & 0.16 & 0.01 & 0.12\\
+  Phrase-Structure with Grandparents&0.03 & \textit{0.25*} & 0.21* & 0.03 & 0.12\\
+  Unigram&\textit{0.18*} & 0.17 & \textit{0.29**} & \textit{0.30**} & \textit{0.18*}\\
+  Dependencies, MaltParser trained by Timbl&-0.07 & 0.02 & -0.00 & -0.08 & 0.05\\
+  Dependency, Arc Labels&-0.07 & 0.06 & -0.06 & -0.09 & 0.00\\
+  All Features Combined&-0.02 & 0.03 & 0.01 & -0.02 & 0.07\\
 \end{tabular}
- \caption{Geographic correlation for sample size 1000, Sentence-length
-    normalisation only}
- \label{cor-1000-freq}
+ \caption{Geographic correlation for sample size 1000, 1 normalisation iteration}
+ \label{cor-1-1000}
 \end{table}
-% \begin{table}
-% \begin{tabular}{l|rrrrr}
-% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-%   Leaf-Ancestor&-0.05 & -0.09 & -0.11 & -0.08 & -0.08\\
-%   Trigram&-0.09 & -0.13 & -0.14 & -0.12 & -0.09\\
-%   Dependency&-0.04 & -0.07 & -0.10 & -0.08 & -0.10\\
-%   Phrase-Structure Rules&0.06 & -0.02 & -0.06 & 0.02 & -0.01\\
-%   Phrase-Structure with Grandparents&0.08 & -0.01 & -0.05 & 0.05 & -0.02\\
-%   Unigram&-0.06 & -0.08 & -0.10 & -0.09 & 0.14\\
-%   Dependencies, MaltParser trained by Timbl&-0.04 & -0.07 & -0.10 & -0.07 & -0.10\\
-%   Dependency, Arc Labels&-0.06 & -0.06 & -0.10 & -0.10 & -0.10\\
-%   All Features Combined&-0.06 & -0.09 & -0.12 & -0.09 & -0.09\\
-% \end{tabular}
-%  \label{cor-full-freq}
-%   \caption{Geographic correlation for complete regions, Sentence-length
-%     normalisation only}
-% \end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&0.02 & 0.09 & 0.11 & -0.00 & 0.09\\
+  Trigram&\textit{0.27*} & \textit{0.26*} & \textit{0.30**} & 0.21* & 0.08\\
+  Dependency&-0.03 & 0.12 & 0.14 & -0.06 & 0.02\\
+  Phrase-Structure Rules&0.13 & \textit{0.36**} & 0.30** & 0.11 & \textit{0.20*}\\
+  Phrase-Structure with Grandparents&0.15 & 0.41** & 0.36** & 0.14 & 0.19*\\
+  Unigram&\textit{0.20*} & \textit{0.20*} & \textit{0.33**} & \textit{0.33**} & \textit{0.22*}\\
+  Dependencies, MaltParser trained by Timbl&-0.02 & 0.14 & 0.16 & -0.05 & 0.02\\
+  Dependency, Arc Labels&-0.06 & 0.13 & -0.01 & -0.12 & -0.03\\
+  All Features Combined&0.03 & 0.11 & 0.16 & -0.00 & 0.04\\
+\end{tabular}
+ \caption{Geographic correlation for complete corpora, 1 normalisation iteration}
+ \label{cor-1-full}
+\end{table}
+
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&0.14 & 0.14 & 0.16 & 0.15 & 0.08\\
-  Trigram&0.22* & 0.17 & 0.22* & 0.22* & 0.16\\
+  Trigram&\textit{0.22*} & 0.17 & \textit{0.22*} & \textit{0.22*} & 0.16\\
   Dependency&0.10 & 0.11 & 0.15 & 0.12 & 0.10\\
   Phrase-Structure Rules&0.14 & 0.10 & 0.14 & 0.15 & 0.06\\
   Phrase-Structure with Grandparents&0.16 & 0.14 & 0.14 & 0.15 & 0.05\\
   Unigram&0.12 & 0.11 & 0.14 & 0.13 & 0.17\\
   Dependencies, MaltParser trained by Timbl&0.09 & 0.12 & 0.16 & 0.11 & 0.11\\
   Dependency, Arc Labels&0.08 & 0.10 & 0.14 & 0.10 & 0.09\\
-  All Features Combined&0.19 & 0.16 & 0.20* & 0.21* & 0.11\\
+  All Features Combined&0.19 & 0.16 & \textit{0.20*} & \textit{0.21*} & 0.11\\
 \end{tabular}
- \caption{Geographic correlation for sample size 1000, Ratio
-    normalisation included}
- \label{cor-1000-ratio}
+ \caption{Geographic correlation for sample size 1000, 5
+   normalisations}
+ \label{cor-5-1000}
 \end{table}
-% \begin{table}
-% \begin{tabular}{l|rrrrr}
-% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-%   Leaf-Ancestor&-0.14 & -0.16 & -0.15 & -0.15 & -0.08\\
-%   Trigram&-0.09 & -0.07 & -0.09 & -0.09 & -0.09\\
-%   Dependency&-0.22 & -0.21 & -0.18 & -0.22 & -0.10\\
-%   Phrase-Structure Rules&-0.19 & -0.14 & -0.11 & -0.20 & -0.01\\
-%   Phrase-Structure with Grandparents&-0.17 & -0.11 & -0.09 & -0.18 & -0.02\\
-%   Unigram&-0.10 & -0.06 & -0.07 & -0.08 & 0.14*\\
-%  Dependencies, MaltParser trained by Timbl&-0.19 & -0.18 & -0.18 & -0.19 & -0.10\\
-%   Dependency, Arc Labels&-0.21 & -0.18 & -0.18 & -0.21 & -0.10\\
-%   All Features Combined&-0.18 & -0.18 & -0.16 & -0.18 & -0.09\\
-% \end{tabular}
-%  \label{cor-full-ratio}
-%   \caption{Geographic correlation for complete regions, Ratio
-%     normalisation included}
-% \end{table}
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.05 & -0.00 & 0.04 & -0.02 & 0.07\\
-  Trigram&-0.01 & 0.00 & 0.07 & 0.04 & 0.16*\\
-  Dependency&-0.03 & 0.02 & 0.07 & 0.00 & 0.10\\
-  Phrase-Structure Rules&-0.06 & -0.00 & 0.03 & -0.04 & 0.06\\
-  Phrase-Structure with Grandparents&-0.07 & -0.00 & 0.03 & -0.06 & 0.06\\
-  Unigram&0.02 & 0.02 & 0.08 & 0.06 & 0.18*\\
-  Dependencies, MaltParser trained by Timbl&-0.05 & 0.02 & 0.08 & -0.03 & 0.10\\
-  Dependency, Arc Labels&-0.01 & 0.05 & 0.07 & 0.02 & 0.09\\
-  All Features Combined&-0.02 & 0.01 & 0.07 & 0.01 & 0.11\\
+  Leaf-Ancestor&-0.14 & -0.16 & -0.15 & -0.15 & -0.08\\
+  Trigram&-0.09 & -0.07 & -0.09 & -0.09 & -0.09\\
+  Dependency&-0.22 & -0.21 & -0.18 & -0.22 & -0.10\\
+  Phrase-Structure Rules&-0.19 & -0.14 & -0.11 & -0.20 & -0.01\\
+  Phrase-Structure with Grandparents&-0.17 & -0.11 & -0.09 & -0.18 & -0.02\\
+  Unigram&-0.10 & -0.06 & -0.07 & -0.08 & 0.14\\
+  Dependencies, MaltParser trained by Timbl&-0.19 & -0.18 & -0.18 & -0.19 & -0.10\\
+  Dependency, Arc Labels&-0.21 & -0.18 & -0.18 & -0.21 & -0.10\\
+  All Features Combined&-0.18 & -0.18 & -0.16 & -0.18 & -0.09\\
 \end{tabular}
- \caption{Travel correlation for sample size 1000, Sentence-length
-    normalisation only}
- \label{travel-cor-1000-freq}
+ \caption{Geographic correlation for complete corpora, 5 normalisations}
+ \label{cor-5-full}
 \end{table}
 
-% \begin{table}
-% \begin{tabular}{l|rrrrr}
-% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-%   Leaf-Ancestor&0.01 & -0.02 & -0.05 & -0.02 & -0.04\\
-%   Trigram&-0.03 & -0.05 & -0.07 & -0.05 & -0.05\\
-%   Dependency&0.02 & 0.00 & -0.03 & -0.02 & -0.06\\
-%   Phrase-Structure Rules&0.11 & 0.05 & 0.01 & 0.08 & 0.04\\
-%   Phrase-Structure with Grandparents&0.13 & 0.06 & 0.01 & 0.11 & 0.03\\
-%   Unigram&0.00 & -0.01 & -0.03 & -0.02 & 0.18*\\
-%   Dependencies, MaltParser trained by Timbl&0.02 & -0.00 & -0.03 & -0.01 & -0.05\\
-%   Dependency, Arc Labels&-0.00 & 0.01 & -0.03 & -0.03 & -0.06\\
-%   All Features Combined&-0.00 & -0.03 & -0.05 & -0.03 & -0.05\\
-% \end{tabular}
-%  \label{travel-cor-full-freq}
-%   \caption{Travel correlation for complete regions, Sentence-length
-%     normalisation only}
-% \end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&-0.03 & 0.02 & 0.01 & -0.04 & 0.07\\
+  Trigram&0.20 & 0.19 & 0.11 & \textit{0.23*} & 0.14\\
+  Dependency&-0.07 & 0.01 & -0.01 & -0.08 & 0.05\\
+  Phrase-Structure Rules&0.01 & \textit{0.18*} & 0.17 & 0.00 & 0.14\\
+  Phrase-Structure with Grandparents&0.03 & \textit{0.26*} & 0.22* & 0.03 & 0.15\\
+  Unigram&\textit{0.20*} & \textit{0.19*} & \textit{0.30**} & \textit{0.31**} & \textit{0.21*}\\
+  Dependencies, MaltParser trained by Timbl&-0.08 & 0.02 & -0.01 & -0.09 & 0.05\\
+  Dependency, Arc Labels&-0.08 & 0.05 & -0.06 & -0.10 & 0.00\\
+  All Features Combined&-0.03 & 0.03 & 0.01 & -0.03 & 0.06\\
+\end{tabular}
+ \caption{Travel correlation for sample size 1000, 1 normalisation iteration}
+ \label{travel-cor-1-1000}
+\end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&0.02 & 0.08 & 0.11 & 0.00 & 0.08\\
+  Trigram&\textit{0.31*} & \textit{0.28*} & \textit{0.32**} & 0.26* & 0.09\\
+  Dependency&-0.02 & 0.12 & 0.13 & -0.05 & 0.01\\
+  Phrase-Structure Rules&0.15 & \textit{0.37**} & 0.32** & 0.13 & \textit{0.22*}\\
+  Phrase-Structure with Grandparents&0.17 & 0.43** & 0.38** & 0.16 & 0.22*\\
+  Unigram&\textit{0.22*} & \textit{0.22*} & \textit{0.33**} & \textit{0.34**} & \textit{0.24*}\\
+  Dependencies, MaltParser trained by Timbl&-0.01 & 0.14 & 0.17 & -0.04 & 0.02\\
+  Dependency, Arc Labels&-0.06 & 0.12 & -0.02 & -0.12 & -0.03\\
+  All Features Combined&0.04 & 0.10 & 0.16 & 0.01 & 0.04\\
+\end{tabular}
+ \caption{Travel correlation for complete corpora, 1 normalisation iteration}
+ \label{travel-cor-1-full}
+\end{table}
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&0.17 & 0.19* & 0.17* & 0.18 & 0.07\\
-  Trigram&0.24* & 0.20* & 0.25* & 0.26* & 0.16\\
+  Trigram&\textit{0.24*} & \textit{0.20*} & \textit{0.25*} & \textit{0.26*} & 0.16\\
   Dependency&0.14 & 0.16 & 0.17 & 0.15 & 0.10\\
   Phrase-Structure Rules&0.17 & 0.14 & 0.16* & 0.18 & 0.06\\
-  Phrase-Structure with Grandparents&0.19 & 0.18* & 0.17* & 0.19 & 0.06\\
-  Unigram&0.15 & 0.13 & 0.17* & 0.16 & 0.20*\\
+  Phrase-Structure with Grandparents&0.19 & \textit{0.18*} & 0.17* & 0.19 & 0.06\\
+  Unigram&0.15 & 0.13 & \textit{0.17*} & 0.16 & \textit{0.20*}\\
   Dependencies, MaltParser trained by Timbl&0.12 & 0.16 & 0.18 & 0.14 & 0.11\\
   Dependency, Arc Labels&0.09 & 0.13 & 0.14 & 0.11 & 0.08\\
-  All Features Combined&0.23* & 0.20* & 0.22* & 0.24* & 0.11\\
+  All Features Combined&\textit{0.23*} & \textit{0.20*} & \textit{0.22*} & \textit{0.24*} & 0.11\\
 \end{tabular}
- \caption{Travel correlation for sample size 1000, Ratio
-    normalisation included}
- \label{travel-cor-1000-ratio}
+ \caption{Travel correlation for sample size 1000, 5 normalisations}
+ \label{travel-cor-5-1000}
 \end{table}
 
-% \begin{table}
-% \begin{tabular}{l|rrrrr}
-% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-%   Leaf-Ancestor&-0.13 & -0.13 & -0.10 & -0.13 & -0.04\\
-%   Trigram&-0.06 & -0.04 & -0.05 & -0.06 & -0.05\\
-%   Dependency&-0.20 & -0.17 & -0.13 & -0.19 & -0.06\\
-%   Phrase-Structure Rules&-0.15 & -0.08 & -0.05 & -0.15 & 0.04\\
-%   Phrase-Structure with Grandparents&-0.12 & -0.05 & -0.03 & -0.13 & 0.03\\
-%   Unigram&-0.07 & -0.03 & -0.04 & -0.05 & 0.18*\\
-%   Dependencies, MaltParser trained by Timbl&-0.18 & -0.15 & -0.12 & -0.18 & -0.05\\
-%   Dependency, Arc Labels&-0.20 & -0.17 & -0.14 & -0.19 & -0.06\\
-%   All Features Combined&-0.16 & -0.14 & -0.11 & -0.15 & -0.05\\
-% \end{tabular}
-%  \label{travel-cor-full-ratio}
-%   \caption{Travel correlation for complete regions, Ratio
-%     normalisation included}
-% \end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&-0.13 & -0.13 & -0.10 & -0.13 & -0.04\\
+  Trigram&-0.06 & -0.04 & -0.05 & -0.06 & -0.05\\
+  Dependency&-0.20 & -0.17 & -0.13 & -0.19 & -0.06\\
+  Phrase-Structure Rules&-0.15 & -0.08 & -0.05 & -0.15 & 0.04\\
+  Phrase-Structure with Grandparents&-0.12 & -0.05 & -0.03 & -0.13 & 0.03\\
+  Unigram&-0.07 & -0.03 & -0.04 & -0.05 & \textit{0.18*}\\
+  Dependencies, MaltParser trained by Timbl&-0.18 & -0.15 & -0.12 & -0.18 & -0.05\\
+  Dependency, Arc Labels&-0.20 & -0.17 & -0.14 & -0.19 & -0.06\\
+  All Features Combined&-0.16 & -0.14 & -0.11 & -0.15 & -0.05\\
+\end{tabular}
+ \caption{Travel correlation for complete corpora, 5 normalisations}
+ \label{travel-cor-5-full}
+\end{table}
 
-From the tables we see that very few combinations have significant
-correlation with geographic or travel distance. Those that do are
-weak, at most 0.26. Most of the significant correlations are
-concentrated in the Ratio normalisation table, primarily for the
-trigram feature set and Kullback-Leibler measure. However, so many of
-the Kullback-Leibler distances are not significant that the
-correlation there is spurious.
-
-The strangely high significance rate for the measure cosine combined
-with unigram feature when operating on complete regions carries
-through to the correlation with geographic and travel distance. The
-correlation is low, 0.16 and 0.18 for trigram and unigram feature sets
-respectively, but significant.
+From the tables we see that parameter settings that correlate
+significantly do so at rates around 0.2 to 0.3, with a high of 0.37
+for phrase-structure-rule features measured by $R^2$, 1 normalistion
+iteration and comparison of full corpora.  The significant
+correlations are mostly concentrated in the trigram, unigram and
+combined feature sets.
 
 \subsection{Self-Correlation}
 
@@ -443,14 +506,13 @@ averaged over the correlations for all combinations of feature set
 with 1000-sentence samples and with non-significant correlations
 removed before averaging.
 
-
 \begin{table}
   \begin{tabular}{r|cccc}
  & $R^2$ & $KL$ & $JS$ & cos \\ \hline
-  $R$ & 0.92 & 0.82 & 0.98 & 0.66 \\
-  $R^2$&& 0.88 & 0.91 & 0.69 \\
-  $KL$ &&& 0.89 & 0.71 \\
-  $JS$ &&&& 0.65 \\
+  $R$ & 0.85 & 0.85 & 0.98 & 0.39\\
+  $R^2$&& 0.90 & 0.83 & 0.57\\
+  $KL$ &&& 0.88 & 0.67\\
+  $JS$ &&&& 0.44
 \end{tabular}
 \caption{Average Intra-measure-correlation of measures}
  \label{self-correlation-measures}
@@ -460,57 +522,92 @@ removed before averaging.
 
 As previously stated, correlation with corpus size is not predicted and is probably
 an undesired defect in sampling or normalisation. Correlation with
-corpus size is presented in table \ref{size-cor-1000-freq}.
+corpus size is presented in tables \ref{size-cor-1-1000} --
+\ref{size-cor-5-full}.
 
 Corpus size between two regions can be measured in two different ways:
 either by the sum of the regions' sizes, or by the difference. Here
 the sum is used: a larger sum means more tokens. If there is a
 correlation with size, it must arise because higher token counts are
-not properly normalised away. In other words, two large regions will
+not properly normalised. In other words, two large regions will
 have more tokens, leading to higher type counts, which directly leads
 to higher distances. Smaller regions will lead to lower distances.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.50 & -0.38 & -0.35 & -0.49 & -0.32\\
-  Trigram&-0.45 & -0.42 & -0.33 & -0.40 & -0.24\\
-  Dependency&-0.49 & -0.37 & -0.33 & -0.47 & -0.32\\
-  Phrase-Structure Rules&-0.54 & -0.42 & -0.37 & -0.53 & -0.34\\
-  Phrase-Structure with Grandparents&-0.56 & -0.43 & -0.37 & -0.56 & -0.36\\
-  Unigram&-0.39 & -0.40 & -0.32 & -0.34 & -0.05\\
-  Dependencies, MaltParser trained by Timbl&-0.52 & -0.38 & -0.32 & -0.50 & -0.31\\
-  Dependency, Arc Labels&-0.45 & -0.35 & -0.33 & -0.42 & -0.28\\
-  All Features Combined&-0.48 & -0.38 & -0.33 & -0.45 & -0.31\\
+  Leaf-Ancestor&-0.38 & -0.26 & -0.37 & -0.40 & -0.37\\
+  Trigram&0.12 & -0.12 & -0.16 & 0.14 & -0.18\\
+  Dependency&-0.39 & -0.26 & -0.35 & -0.43 & -0.39\\
+  Phrase-Structure Rules&0.06 & 0.15 & 0.00 & 0.03 & -0.10\\
+  Phrase-Structure with Grandparents&0.08 & 0.19 & 0.07 & 0.04 & -0.09\\
+  Unigram&-0.08 & -0.14 & -0.09 & -0.09 & -0.10\\
+  Dependencies, MaltParser trained by Timbl&-0.35 & -0.23 & -0.28 & -0.37 & -0.37\\
+  Dependency, Arc Labels&-0.44 & -0.26 & -0.40 & -0.48 & -0.34\\
+  All Features Combined&-0.37 & -0.26 & -0.38 & -0.42 & -0.40\\
 \end{tabular}
-\caption{Size correlation for sample size 1000, Sentence-length
-    normalisation only}
-\label{size-cor-1000-freq}
+\caption{Size correlation for sample size 1000, 1 normalisation}
+\label{size-cor-1-1000}
 \end{table}
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&0.35* & 0.36** & 0.06 & 0.27 & -0.32\\
-  Trigram&0.75** & 0.63** & 0.46** & 0.68** & -0.24\\
-  Dependency&0.46** & 0.44** & 0.14 & 0.38** & -0.33\\
-  Phrase-Structure Rules&0.85** & 0.59** & 0.36** & 0.85** & -0.34\\
-  Phrase-Structure with Grandparents&0.88** & 0.66** & 0.40** & 0.88** & -0.36\\
-  Unigram&0.38** & 0.35** & 0.14 & 0.19 & -0.04\\
-  Dependencies, MaltParser trained by Timbl&0.44** & 0.41** & 0.16 & 0.39* & -0.30\\
-  Dependency, Arc Labels&0.20 & 0.28* & -0.00 & 0.09 & -0.28\\
-  All Features Combined&0.58** & 0.48** & 0.21 & 0.47** & -0.31\\
+  Leaf-Ancestor&-0.19 & -0.15 & -0.16 & -0.24 & -0.36\\
+  Trigram&\textit{0.30*} & 0.08 & 0.19 & 0.08 & -0.39\\
+  Dependency&-0.17 & -0.06 & -0.08 & -0.26 & -0.41\\
+  Phrase-Structure Rules&0.52** & \textit{0.40**} & 0.30* & 0.47** & -0.21\\
+  Phrase-Structure with Grandparents&0.54** & 0.43** & 0.37** & 0.50** & -0.22\\
+  Unigram&-0.09 & -0.13 & -0.11 & -0.13 & -0.13\\
+  Dependencies, MaltParser trained by Timbl&-0.08 & 0.02 & 0.09 & -0.14 & -0.39\\
+  Dependency, Arc Labels&-0.32 & -0.16 & -0.26 & -0.40 & -0.35\\
+  All Features Combined&-0.15 & -0.11 & -0.10 & -0.25 & -0.42\\
 \end{tabular}
- \caption{Size correlation for sample size 1000, Ratio
-    normalisation included}
- \label{size-cor-1000-ratio}
+\caption{Size correlation for complete corpora, 1 normalisation}
+\label{size-cor-1-full}
 \end{table}
 
-A large number of parameter settings that include the ratio
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&\textit{0.35*} & 0.36** & 0.06 & 0.27 & -0.32\\
+  Trigram&\textit{0.75**} & \textit{0.63**} & \textit{0.46**} & \textit{0.68**} & -0.24\\
+  Dependency&\textit{0.46**} & \textit{0.44**} & 0.14 & \textit{0.38**} & -0.33\\
+  Phrase-Structure Rules&\textit{0.85**} & \textit{0.59**} & 0.36** & \textit{0.85**} & -0.34\\
+  Phrase-Structure with Grandparents&\textit{0.88**} & \textit{0.66**} & 0.40** & \textit{0.88**} & -0.36\\
+  Unigram&0.38** & 0.35** & 0.14 & 0.19 & -0.04\\
+  Dependencies, MaltParser trained by Timbl&\textit{0.44**} & \textit{0.41**} & 0.16 & \textit{0.39*} & -0.30\\
+  Dependency, Arc Labels&0.20 & 0.28* & -0.00 & 0.09 & -0.28\\
+  All Features Combined&\textit{0.58**} & \textit{0.48**} & 0.21 & \textit{0.47**} & -0.31\\
+\end{tabular}
+ \caption{Size correlation for sample size 1000, 5 normalisations}
+ \label{size-cor-5-1000}
+\end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&-0.55 & -0.38 & -0.26 & -0.53 & -0.17\\
+  Trigram&-0.29 & -0.27 & -0.19 & -0.26 & -0.14\\
+  Dependency&-0.61 & -0.43 & -0.27 & -0.58 & -0.18\\
+  Phrase-Structure Rules&-0.21 & -0.08 & -0.04 & -0.22 & -0.14\\
+  Phrase-Structure with Grandparents&-0.24 & -0.08 & -0.03 & -0.26 & -0.14\\
+  Unigram&-0.38 & -0.25 & -0.30 & -0.32 & -0.08\\
+  Dependencies, MaltParser trained by Timbl&-0.52 & -0.33 & -0.20 & -0.51 & -0.15\\
+  Dependency, Arc Labels&-0.59 & -0.45 & -0.33 & -0.54 & -0.20\\
+  All Features Combined&-0.61 & -0.44 & -0.26 & -0.55 & -0.18\\
+\end{tabular}
+\caption{Size correlation for complete corpora, Sentence-length
+    normalisation only}
+\label{size-cor-5-full}
+\end{table}
+
+A large number of parameter settings that include 5 iterations of
 normalisation correlate with corpus size. However, corpus size also
 correlates with geographic distance at a rate of 0.31 for $p < 0.01$
-and travel distance at a rate of 0.32 for $p < 0.01$. Therefore,
-results with ratio normalisation will be presented in the rest of this
+and travel distance at a rate of 0.32 for $p < 0.01$. This makes the
+conclusion that these distances are invalid difficult to defend. Therefore,
+results with 5 normalisations will be presented in the rest of this
 chapter.
 
 \section{Clusters}
@@ -521,64 +618,72 @@ whether $R$ is useful for dialectometry more precisely than correlation by
 inducing grouping regions. These groups can be compared to
 regions proposed by syntactic dialectology.
 
-The clusters based on sentence-length normalisation alone are fairly
-similar, regardless of measure and feature set. The addition of the
-ratio normalisation causes significant reconfiguration. For example,
-figures \ref{cluster-r-trigram-freq} and \ref{cluster-r-trigram-ratio}
-show the different clusters.
+Within the same settings for sampling and number of normalisation
+iterations, the clusters based on sentence-length normalisation alone are fairly
+similar, regardless of measure and feature set. Changing the sampling
+settings or the number of normalisations substantial reconfiguration.
 
-Conversely, the clusters produced by $R$ (figure
-\ref{cluster-r-trigram-freq}) and Jensen-Shannon divergence
-are fairly similar (figure \ref{cluster-js-trigram-freq}). Both are
-based on trigram features with sentence-length normalisation
-only. There is more variation in the equivalent clusters once ratio
-normalisation is added (figures \ref{cluster-r-trigram-ratio} and
-\ref{cluster-js-trigram-ratio}.
+For example, the clusters produced by $R$ (figure
+\ref{cluster-1-r-trigram}) and Jensen-Shannon divergence are fairly
+similar (figure \ref{cluster-1-js-trigram}). Both are based on trigram
+features with sentence-length normalisation only. Those dendrograms
+differ from their 5-normalised equivalents, figures
+\ref{cluster-5-r-trigram} and \ref{cluster-5-js-trigram}.
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-trigram-freq-clusterward}
- \caption{Dendrogram With Sentence-length Normalisation Only ($R$
-    measure and trigram features)}
-  \label{cluster-r-trigram-freq}
+  \includegraphics[width=0.9\textwidth]{dist-1-1000-r-trigram-ratio-clusterward}
+ \caption{Dendrogram With $R$
+    measure and trigram features, 1 normalisation, 1000 samples}
+  \label{cluster-1-r-trigram}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-trigram-freq-clusterward}
- \caption{Dendrogram With Sentence-length Normalisation Only
-    (Jensen-Shannon measure and trigram features)}
-  \label{cluster-js-trigram-freq}
+  \includegraphics[width=0.9\textwidth]{dist-1-1000-js-trigram-ratio-clusterward}
+ \caption{Dendrogram With Jensen-Shannon
+    measure and trigram features, 1 normalisation, 1000 samples}
+  \label{cluster-1-js-trigram}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{dist-1-full-r_sq-psg-ratio-clusterward}
+ \caption{Dendrogram With $R^2$ measure and phrase-structure-rule features,
+ 1 normalisation, complete corpora}
+  \label{cluster-1-r_sq-psg}
 \end{figure}
 
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-trigram-ratio-clusterward}
- \caption{Dendrogram With Ratio Normalisation ($R$
-    measure and trigram features)}
-  \label{cluster-r-trigram-ratio}
+  \includegraphics[width=0.9\textwidth]{dist-5-1000-r-trigram-ratio-clusterward}
+ \caption{Dendrogram With $R$ measure and trigram features, 5 normalisations, 1000 samples}
+  \label{cluster-5-r-trigram}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-trigram-ratio-clusterward}
- \caption{Dendrogram With Ratio Normalisation (Jensen-Shannon
-    measure and trigram features)}
-  \label{cluster-js-trigram-ratio}
+  \includegraphics[width=0.9\textwidth]{dist-5-1000-js-trigram-ratio-clusterward}
+ \caption{Dendrogram With Jensen-Shannon
+    measure and trigram features, 5 normalisations, 1000 samples}
+  \label{cluster-5-js-trigram}
 \end{figure}
 
-Note that the highest correlation travel distance with travel
-distance, 0.26, is given by the Jensen-Shannon measure, trigram
-features and ratio normalisation. It also produces the dendrogram in
-figure \ref{cluster-js-trigram-ratio}.
+The highest correlation of 1-normalised distances with travel
+distance, 0.37, is given by $R^2$ measured over phrase-structure-rule
+features, comparing full corpora. Those parameter settings produce the
+dendrogram in figure \ref{cluster-1-r_sq-psg}. The highest
+correlation of 5-normalised distances with travel distance, 0.26, is
+given by the Jensen-Shannon measure and trigram features, comparing
+1000-sentence samples of corpora. Its dendrogram is in figure
+\ref{cluster-5-js-trigram}.
 
 Unlike the significances, cosine similarity's dendrograms are fairly
 similar to those of other features. See for example figure
-\ref{cluster-cos-trigram-freq}, with cosine, trigram features and
-sentence-length normalisation only.
+\ref{cluster-5-cos-trigram}, with cosine, trigram features and
+5 iterations of normalisation.
 
 \begin{figure}
- \includegraphics[width=0.9\textwidth]{dist-10-1000-cos-trigram-freq-clusterward}
- \caption{Dendrogram With Sentence-length Normalisation (cosine
-    measure and trigram features)}
-  \label{cluster-cos-trigram-freq}
+ \includegraphics[width=0.9\textwidth]{dist-5-1000-cos-trigram-ratio-clusterward}
+ \caption{Dendrogram with cosine measure and trigram features, 5
+   normalisations}
+  \label{cluster-5-cos-trigram}
 \end{figure}
 
 
@@ -604,43 +709,47 @@ mapped in figures \ref{map-consensus-freq} and
 Leinonen and are the same as in her (2010) dissertation.
 
 \begin{figure}
-% Couldn't get qtree to display the whole tree. Maybe it ran out of
-% space. Maybe it ran out of stack. Maybe it just doesn't like me. I
-% decided to use Omnigraffle. More work in the short-term though.
-%   \Tree[.
-%   {Viby\\Bara}
-%   [. {StAnna\\Sorunda}  ]
-%   [. {Jamshog}
-%      [. {Tors\.as\\Ossjo}  ] ]
-%   [. {K\"ola}
-%      [. {Loderup\\Bredsatra}  ] ]
-%   [. {Villberga\\Torso\\Norra Rorum\\Frillesas\\Boda} ]
-%   [. {Vaxtorp\\Sproge\\Skinnskatteberg\\Orust\\Fole\\Faro\\Asby\\Arsunda\\Anundsjo\\Ankarsrum}
-%      [. {Leksand\\Indal}  ]
-%      [. {Segerstad\\Floby\\Bengtsfors}  ] ] ]
-% % 
-\includegraphics[scale=0.7]{consensus-freq}
-\caption{Consensus Tree for Sentence-length Normalisation}
-\label{consensus-freq}
+\includegraphics[scale=0.7]{consensus-1-1000}
+% \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\Tors\.as\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Ossjo\\Orust\\Norra Rorum\\Loderup\\Leksand\\K\"ola\\Jamshog\\Indal\\Frillesas\\Fole\\Faro\\Bredsatra\\Boda\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Floby\\Bengtsfors}  ] ]
+\caption{Consensus Tree for 1000-samples and 1 normalisation}
+\label{consensus-1-1000}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.7]{consensus-ratio}
+\includegraphics[scale=0.7]{consensus-1-full}
+% \Tree[. {Villberga\\Viby\\Torso\\Tors\.as\\Sorunda\\Segerstad\\Ossjo\\Orust\\Norra Rorum\\Loderup\\Leksand\\K\"ola\\Indal\\Fole\\Boda\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum}
+%   [. {Vaxtorp\\Skinnskatteberg}  ]
+%   [. {StAnna\\Frillesas}  ]
+%   [. {Sproge\\Faro}  ]
+%   [. {Jamshog\\Bredsatra}  ]
+%   [. {Floby\\Bengtsfors}  ] ]
+\caption{Consensus Tree for full corpus comparison and 1 normalisation}
+\label{consensus-1-full}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.7]{consensus-5-1000}
 % \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Orust\\Norra Rorum\\Leksand\\K\"ola\\Indal\\Frillesas\\Fole\\Floby\\Faro\\Boda\\Bengtsfors\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Loderup\\Bredsatra}  ] [. {Tors\.as\\Ossjo\\Jamshog}  ] ]
-\caption{Consensus Tree for Ratio Normalisation}
-\label{consensus-ratio}
+\caption{Consensus Tree for 1000-samples and 5 normalisations}
+\label{consensus-5-1000}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-freq}
-\caption{Consensus Tree for Sentence-length Normalisation, Mapped}
-\label{map-consensus-freq}
+\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-1-1000}
+\caption{Consensus Tree for 1000-samples and 1 normalisation, Mapped}
+\label{map-consensus-1-1000}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-ratio}
-\caption{Consensus Tree for Ratio Normalisation, Mapped}
-\label{map-consensus-ratio}
+\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-1-full}
+\caption{Consensus Tree for full corpus comparison and 1 normalisation, Mapped}
+\label{map-consensus-1-full}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-5-1000}
+\caption{Consensus Tree for 1000-samples and 5 normalisations, Mapped}
+\label{map-consensus-5-1000}
 \end{figure}
 
 % It would still be cool to eliminate only the non-significant distances
@@ -673,22 +782,28 @@ multiple cluster trees. They, too, provide a stabler view of the
 groups that regions form when clustered. However, they provide a better way to
 visualise the boundaries between regions.
 
-The two composite cluster maps in figures \ref{map-composite-freq} and
-\ref{map-composite-ratio} are the composite of the same dendrograms
-used as input for the consensus trees: all-significant parameter
-settings, divided by type of normalisation (sentence-length only or
-ratio added as well).
+The two composite cluster maps in figures \ref{map-composite-1-1000}
+-- \ref{map-composite-5-1000} are the composite of the same
+dendrograms used as input for the consensus trees: all-significant
+parameter settings, divided by type of normalisation (sentence-length
+only or ratio added as well).
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-cluster-freq}
-\caption{Composite Cluster Map for Sentence-length Normalisation}
-\label{map-composite-freq}
+\includegraphics[scale=0.82]{Sverigekarta-cluster-1-1000}
+\caption{Composite Cluster Map for 1000-sample, 1 normalisation}
+\label{map-composite-1-1000}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-cluster-ratio}
-\caption{Composite Cluster Map for Ratio Normalisation}
-\label{map-composite-ratio}
+\includegraphics[scale=0.82]{Sverigekarta-cluster-1-full}
+\caption{Composite Cluster Map for complete corpora, 1 normalisation}
+\label{map-composite-1-full}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.82]{Sverigekarta-cluster-5-1000}
+\caption{Composite Cluster Map for complete corpora, 5 normalisations}
+\label{map-composite-5-1000}
 \end{figure}
 
 \section{Multi-Dimensional Scaling}

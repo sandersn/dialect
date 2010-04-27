@@ -29,6 +29,7 @@ buildNode span (next:rest) = if Set.isSubsetOf next span
   then first (next:) (buildNode (span `Set.difference` next) rest)
   else second (next:) (buildNode span rest)
 -- I hate typing consensus so I shortened it for now.
+con [] = Leaf (Set.fromList ["nothing to see here"])
 con trees = majority (map root trees) |> buildTree |> fst
 buildTree [span] = (Leaf span, [])
 buildTree (span:ranks) = let (kids, rest) = buildNode span ranks in
@@ -112,13 +113,10 @@ travelsigs = Set.fromList [("path", "r_sq")
                           , ("all", "r_sq")
                           , ("all", "kl")
                           , ("all", "js")]
-makeConsensusTree sigs variant =
-  filter (isPrefixOf "Cluster: ")
-  & map rReader
-  & filter (fst & goodCluster variant)
-  & map (snd & buildRTree)
-  & con
-  where goodCluster (num,sample,norm) (n',s,m,f,n) =
+makeConsensusTree sigs variant = readClusters & make
+  where readClusters = filter (isPrefixOf "Cluster: ") & map rReader
+        make = filter(fst & goodCluster variant) & map (snd & buildRTree) & con
+        goodCluster (num,sample,norm) (n',s,m,f,n) =
           (f,m) `Set.member` sigs && s==sample && n==norm && n'==num
 -- && (m,f) `Set.member` travelsigs
 rReader line = ((num,sample,measure,feature,norm),

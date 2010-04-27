@@ -10,7 +10,6 @@ import qualified Data.Map as Map
 features = ["path", "trigram", "dep", "psg", "grand",
                     "unigram", "redep", "deparc", "all"]
 measures = ["r", "r_sq", "kl", "js", "cos"]
--- main = withFileLines selfcor "correlations-R.txt" >>= mapM_ putStrLn
 keys = [("geo", keyGeo)
        ,("travel", keyTravel)
        ,("size", keySize)]
@@ -19,13 +18,14 @@ main = do
   main' (num,sample,norm) (lookup key keys |> fromJust)
 main' variant key =
   withFileLines (cor variant key) "correlations-R.txt" >>= mapM_ putStrLn
+main'' = withFileLines selfcor "correlations-R.txt" >>= mapM_ putStrLn
 cor variant key = filter (head & ((/='0') <&&> (/='-')))
                   & chunk 8 & map (map clean & key)
                   & Map.fromList & table variant & map (('&':) & (++"\\\\"))
 clean s | dropWhile (/=':') s == "" = error (s ++ " sucks for some reason")
 clean s = s |> dropWhile (/=':') & tail
 keyGeo [title,_,cor,sig,_,_,_,_] = (words title, (significance cor sig))
-keySize [title,_,_,_,_,cor,sig] = (words title, (significance cor sig))
+keySize [title,_,_,_,_,_,cor,sig] = (words title, (significance cor sig))
 keyTravel [title,_,_,_,cor,sig,_,_] = (words title, (significance cor sig))
 
 significance cor sig = printf "%.2f" (read cor :: Double) ++ stars (read sig)
@@ -44,7 +44,7 @@ selfcor = filter (head & ((=='0') <||> (==' ') <||> (=='-')))
           & Map.fromList & Map.filterWithKey desired & Map.elems
           & averageall & format
 format = map (map (uncurry (printf "%.2f(%d)")) & intercalate " & ")
-desired [sample,_,f,n] _ = sample=="1000" -- full is never significant
+desired [num,sample,_,f,n] _ = sample=="1000" -- full is never significant
 filterSigs l = [cor | (cor,sig) <- l, sig < 5.0]
 averageall = transpose & map (transpose &  map (filterSigs & avg))
   where avg [] = (-9999.0, 0)
