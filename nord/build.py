@@ -158,6 +158,7 @@ def syntaxSig():
         norte.combine(feature, 'sig', measure, sample, norm)
 def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
+    clusters = sorted(consts.agreeClusters.keys(), reverse=True)
     # 12. Dump a list of all features between each pair of site clusters.
     for sample in consts.samples:
         for feature in consts.features:
@@ -165,12 +166,11 @@ def syntaxFeatures():
                 # 12.1 Make cluster files first
                 norte.combineFeatures(consts.agreeClusters, feature)
                 multirun(6,
-                         *norte.icetasks(list(consts.agreeClusters.keys()),
-                                         feature, 'icefeat.cpp', 'r', sample, norm2))
+                         *norte.icetasks(clusters, feature,
+                                         'icefeat.cpp', 'r', sample, norm2))
                 # 12.2 Then analyse it
-                tmps = ' '.join([
-                    "%s-%s-tmp.txt" % pair
-                    for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
+                tmps = ' '.join(["%s-%s-tmp.txt" % pair
+                                 for pair in norte.pairwise(clusters)])
                 run('./RankFeatures %s >feat-5-%s-%s-%s.txt'
                     % (tmps,sample,feature,norm2))
 def syntaxFeaturesSimple():
@@ -187,14 +187,17 @@ def syntaxFeaturesSimple():
             % (tmps,sample,measure,feature,norm))
 def syntaxFeaturesDiagram():
     run('ghc -O2 --make FormatFeatures')
-    for variant in variants:
-        norm = variant[3]
-        norm2s = ['over', 'freq'] if norm=='freq' else ['ratio']
-        for norm2 in norm2s:
-            v = list(variant)
-            v[3] = norm2
-            assert len(v*2)==8, len(v*2)
-            run('./FormatFeatures feat-5-%s-%s-%s-%s.txt > feat-diagram-%s-%s-%s-%s.txt' % tuple(v*2))
+    for sample in consts.samples:
+        for feature in consts.features:
+            for norm2 in ['over', 'ratio']:
+                v = (sample,feature,norm2)
+                run('./FormatFeatures feat-5-%s-%s-%s.txt' % v)
+                for (fro,to) in norte.pairwise(list(consts.agreeClusters.keys())):
+                    fname = ('%s-%s-feat-5-%s-%s-%s' % ((fro,to) + v),)
+                    run('latex %s.txt' % fname)
+                    run('dvips -Ppdf %s.dvi' % fname)
+                    run('ps2pdf %s.ps' % fname)
+    run('mv *pdf ../')
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
