@@ -160,7 +160,7 @@ def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
     # 12. Dump a list of all features between each pair of site clusters.
     for sample in consts.samples:
-        for feature in consts.feature:
+        for feature in consts.features:
             for norm2 in ['over', 'ratio']:
                 # 12.1 Make cluster files first
                 norte.combineFeatures(consts.agreeClusters, feature)
