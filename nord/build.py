@@ -161,7 +161,7 @@ def syntaxFeatures():
     # 12. Dump a list of all features between each pair of site clusters.
     for sample in consts.samples:
         for feature in consts.feature:
-            for norm2 in ['over', 'freq']:
+            for norm2 in ['over', 'ratio']:
                 # 12.1 Make cluster files first
                 norte.combineFeatures(consts.agreeClusters, feature)
                 multirun(6,

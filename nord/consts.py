@@ -75,17 +75,17 @@ swediaRegions = dict(
                'Faro', 'Fole', 'Sproge'],
     West = ['Bengtsfors', 'Floby', 'Orust', 'Torso', 'Frillesas', 'Vaxtorp'],
     )
+# these clusters are a mixture of the 1-1000 (A) and 5-1000 (B,C)
+# consensus clusters with everything else put in (D)
 agreeClusters = dict(
-    # Viby and Bara are slop and are not included
-    clusterA = ['StAnna', 'Sorunda',],
+    clusterA = ['Floby','Bengtsfors'],
     clusterB = [ 'Jamshog', 'Ossjo', 'Torsås', ],
-    clusterC = [ 'Loderup',  'Köla', 'Bredsatra', ],
-    clusterD = [ 'Norra Rorum', 'Villberga','Torso', 'Boda', 'Frillesas',],
-    clusterE = ['Indal', 'Leksand'],
-    clusterF = [ 'Floby','Segerstad','Bengtsfors',],
-    clusterG = [ 'Anundsjo', 'Arsunda', 'Asby',
-                 'Orust', 'Vaxtorp', 'Fole',
-                 'Sproge', 'Faro', 'Ankarsrum', 'Skinnskatteberg'],
+    clusterC = [ 'Loderup',  'Bredsatra', ],
+    clusterD = ['Segerstad','Köla', 'StAnna', 'Sorunda', 'Norra Rorum',
+                'Villberga','Torso', 'Boda', 'Frillesas','Indal', 'Leksand',
+                'Anundsjo', 'Arsunda', 'Asby',
+                'Orust', 'Vaxtorp', 'Fole',
+                'Sproge', 'Faro', 'Ankarsrum', 'Skinnskatteberg'],
     )
 swediaSites = [
   'Ankarsrum',
