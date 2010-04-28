@@ -805,7 +805,7 @@
      highly with sentence size and (2) 1 round of norming gives MUCH
      more significant results than 5 rounds. The results are also much
      different.
-   - I add analysis and map generation of both 1-round and 5-round
+   - I will add analysis and map generation of both 1-round and 5-round
      norming. I will edit the results chapter to contain many fewer
      diagrams of freq norming and many more comparing 1-round a
      5-round normalisation of ratio. I will change the names of
@@ -813,6 +813,15 @@
      cross-comparison/cross-corpus norming.
    - Bah. Should still write to Therese. Need to make an R file for
      sentence-length so I can correlate it formally.
+** 2010/04/27
+   - I did all that stuff I said I'd do, up to MDS diagrams.
+   - I will replace the MDS diagrams. I will generate colour feature
+     diagrams with pstricks. I will start rewriting the discussion.
+   - Mail Therese!
+** 2010/04/28
+   - I did that stuff, only a little discussion.
+   - I will rewrite the discussion, at least up to the features again.
+   - Mail Therese!
 * Plan
 ** January
 *** Get results

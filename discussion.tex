@@ -32,17 +32,19 @@ regions is not suitable for precise inspection, although small numbers
 of non-significant distances will still allow less precise methods to
 return interpretable results.
 
-From the very few significant distances found by comparing whole
-regions to regions, It is obvious that fix-sized sampling is needed to
-work around size differences; sentence length normalisation does not
-adequately adjust for the effects of having more sentences, nor is the
-difference negligable as might be hoped. For the rest of the analysis,
+The highest number of significant distances are found in the first
+case: 1 round of normalisation with a fixed-size sample of 1000
+sentences. From there, both full-corpus comparisons and 5 rounds of
+normalisation have fewer significant distances, although the number is
+still usable. However, the combination of the two, with 5 rounds of
+normalisation over full-corpus comparisons, has only one combination
+with fewer than 5\% of distances that are {\it not}
+significant. Although both full-corpus comparisons and multiple
+rounds of normalisation may increase the precision of the results,
+their combined effect on significance is so detrimental that its
+results are useless. For the rest of the analysis,
 whole-region sampling will be skipped in favour of 1000-sentence
 fixed-size samples.
-
-TODO: Comparison of frequencies is slightly more successful than
-  comparison of ratios. (This also makes sense because of the noisy
-  parsing as well as the smallish corpora)
 
 \subsubsection{Significance by Measure}
 
@@ -238,7 +240,7 @@ that the method is valid.
 The cluster dendrograms in chapter \ref{results-chapter} are dangerous
 to interpret too closely on their own; the instability of a single
 dendrogram means that small clusters cannot be analysed reliably. For
-example, in figure \ref{cluster-r-trigram-freq}, a two-way split
+example, in figure \ref{cluster-5-1000-r-trigram}, a two-way split
 between the regions on the top and bottom of the page is
 obvious, and a three-way split is easy to argue for, but small
 clusters like the first four sites (Fole, Skinnskatteberg, Faro and
@@ -429,7 +431,7 @@ the different regions more strongly.
 The results change slightly, after adding the ratio normalisation. The
 city group loses members to the country group. What's more, the
 originally blue-green cluster move much close to the country group
-as well--in figure \ref{mds-r-trigram-freq}, with
+as well--in figure \ref{mds-5-1000-r-trigram-freq}, with
 $R$ measured over trigram features, the countryside group is green,
 and the blue-green cluster has become dark green. When all features
 are combined, the city group also becomes much closer in colour to the
@@ -458,7 +460,7 @@ than those only normalised for sentence-length.
 Next I rank and analyse the input features by comparing their
 differences. The features analysed here are the
 ten highest ranked features for a particular comparison, based on the
-consensus tree clusters of figure \ref{consensus-freq}. The clusters
+consensus tree clusters of figure \ref{consensus-5-1000}. The clusters
 are labelled A to G from top to bottom, excluding Viby and Bara which
 are not part of any cluster. Although each feature set has ten
 features ranked here, it's actually two sets of five features, because
@@ -737,6 +739,27 @@ variation will lead to further work in this area; there is little
 enough right now, and perhaps a computer-generated overview of the
 interesting features will spark some new avenues of investigation for
 linguists.
+
+%%%%%%%%% cut two (raw) %%%%%%%%%
+
+This dissertation establishes that statistical methods for syntactic
+dialectometry can be useful. The results show that significant
+distances can be obtained, which was shown by earlier work and not
+much else. They show that dialect distances correlate with geographic
+distance for many parameter settings. Clustering dialect distances
+reproduces two well-known aspects of Swedish dialects: the Scanian
+border, and a north-to-south gradient, as well as a previously unremarked
+aspect: differences between the cities and the
+countryside. Mult-dimensional scaling produces the same
+results. Finally, interesting features have been discovered from these
+same clusters, but features in the dialectology literature do not
+necessarily appear.
+
+In summary, this dissertation has answered its questions with some
+degree of accuracy. Although the more complete verification is still
+missing, it points the way for practical studies in the future: many
+parameter variations are explored and the most efficacious are pointed
+out.
 
 %%% Local Variables: 
 %%% mode: latex

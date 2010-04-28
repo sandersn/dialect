@@ -186,14 +186,15 @@ def syntaxFeaturesSimple():
         run('./RankFeatures %s >feat-5-%s-%s-%s-%s-jamshog.txt'
             % (tmps,sample,measure,feature,norm))
 def syntaxFeaturesDiagram():
+    "This runs on flenser so it properly should have a 'gen' prefix I guess"
     run('ghc -O2 --make FormatFeatures')
     for sample in consts.samples:
         for feature in consts.features:
             for norm2 in ['over', 'ratio']:
                 v = (sample,feature,norm2)
                 run('./FormatFeatures feat-5-%s-%s-%s.txt' % v)
-                for (fro,to) in norte.pairwise(list(consts.agreeClusters.keys())):
-                    fname = ('%s-%s-feat-5-%s-%s-%s' % ((fro,to) + v),)
+                for (fro,to) in norte.pairwise(sorted(consts.agreeClusters.keys(), reverse=True)):
+                    fname = ('%s-%s-feat-5-%s-%s-%s' % ((to,fro) + v),)
                     run('latex %s.txt' % fname)
                     run('dvips -Ppdf %s.dvi' % fname)
                     run('ps2pdf %s.ps' % fname)
@@ -272,10 +273,14 @@ def genMaps():
             run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster-%s-%s.eps 30orter.cfg Sverigekarta-cluster-%s-%s.dif' % (num,sample,num,sample))
     run('mv *eps ..')
 def genMoreAnalysis():
+    "Yeah, this is a stupid name. But it does what it says what it does."
     run('ghc -O2 --make Analysis')
     run('ghc -O2 --make Consensus')
     tryrm('correlations.tex')
     tryrm('consensusses.tex')
+    run('RuG-L04/bin/maprgb -r -o Sverigekarta-Landskap-consensus-1-1000.eps 30orter.cfg consensus-1-1000.vec')
+    run('RuG-L04/bin/maprgb -r -o Sverigekarta-Landskap-consensus-1-full.eps 30orter.cfg consensus-1-full.vec')
+    run('RuG-L04/bin/maprgb -r -o Sverigekarta-Landskap-consensus-5-1000.eps 30orter.cfg consensus-5-1000.vec')
     # running either of this is unsafe because they require hand-tweaking of the
     # code. They both now take *some* parameters, but not everything
     # or travel-sig-inclusion or cos-exclusion or row/col-inclusion in Consensus

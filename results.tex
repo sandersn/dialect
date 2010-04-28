@@ -692,20 +692,22 @@ similar to those of other features. See for example figure
 Consensus trees combine the results of cluster dendrograms, which
 avoids the dendrograms's problem of instability, where small changes
 in distances cause large re-arrangements in the tree. Only dendrograms
-whose input were distances were all significant were used. That is, a
-measure/feature set combination had to have a 0 entry in tables
-\ref{sig-1000-freq} or \ref{sig-1000-ratio} to be included.
+whose input distances were at least 95\% significant were used. That is, a
+measure/feature set combination had to be non-bold in tables
+\ref{sig-1-1000} to \ref{sig-5-full} to be included. The consensus
+tree for full-corpora comparisons and 5 rounds of normalisation is not
+given because there is only one dendrogram that qualifies.
 
-This means that more sentence-length dendrograms were used to build
-the consensus tree of figure \ref{consensus-freq} than were used in
-figure \ref{consensus-ratio}. Despite this, figure
-\ref{consensus-freq} retains much more detail, indicating that its
-constituent dendrograms, based on sentence-length normalisation only,
-agree much more than those with the additional ratio normalisation.
+In addition, more dendrograms were used to build
+the consensus tree of figure \ref{consensus-5-1000} than were used in
+figures \ref{consensus-1-1000} and \ref{consensus-1-full}. Despite this, figure
+\ref{consensus-5-1000} retains much more detail, indicating that its
+constituent dendrograms, based on 5 rounds of normalisation,
+agree more than those with only 1 round of normalisation.
 
 The consensus trees are also grouped into clusters, which are then
-mapped in figures \ref{map-consensus-freq} and
-\ref{map-consensus-ratio}. The maps of Sweden were provided by Therese
+mapped in figures \ref{map-consensus-1-1000} --
+\ref{map-consensus-5-1000}. The maps of Sweden were provided by Therese
 Leinonen and are the same as in her (2010) dissertation.
 
 \begin{figure}
@@ -878,28 +880,30 @@ first kind of features are unlikely to be noticed by linguists without
 the aid of computers, whereas the second kind are the rare features
 that are easy for linguists to notice.
 
-There are two sets of rankings on display here; the first set is only
-normalised for sentence size, whereas the second is normalised for
-relative overuse, based on \quotecite{wiersma09} normalisation. The
-ratio normalisation is not shown because it is a linear transformation
-over feature types. Therefore, its rankings are the same as the first
-set, with sentence-size normalisation only.
+There are two sets of rankings on display here; the first set is the
+previous normalisation for sentence size, whereas the second is normalised for
+relative overuse, based on \quotecite{wiersma09} normalisation.
 
-% The features were compared using consensus groups as well as between
-% individual regions. This last was to see how specific the feature
-% extraction could be in finding features that were unique to the
-% region. These results are from Jamshog, Ossjo and Tors\.as the three most
-% distant regions.
+These results compare clusters from the consensus trees
+based on 1 round of normalisation (figures \ref{consensus-1-1000} and
+\ref{consensus-1-full}) as well as the consensus tree based on 5
+rounds of normalisation and a 1000-sentence sample (figure
+\ref{consensus-5-1000}. The consensus tree for 5 rounds or
+normalisation and full-corpus comparisons only had one tree for input
+and was not usable. Given these three consensus trees, the groups in
+table \ref{feature-ranking-groups} are the relevant ones for analysis.
 
-These results compare clusters from the two consensus trees
-based on 1000-sentence samples; not enough trees form the consensus
-trees for either of the full-corpora settings to make those clusters
-reliable. There are four clusters, three small and one containing the
-remainder of the sites. The list of clusters is given in table
-\ref{feature-ranking-groups}; group A corresponds to the red group in
-figure \ref{consensus-1-1000} and groups B and C correspond to the red
-and blue groups in figure \ref{consensus-5-5000},
-respectively. Cluster D contains the remainder of the sites.
+There are four groups, three small and one containing the remainder of
+the sites. Group A, containing Floby and Bengtsfors, appears in all
+three consensus trees. Its features are coloured blue in the following
+figures. Group B, containing Jamshog, Torsas and Ossjo, appears in the
+second two trees. It features are coloured red. Group C, containing
+Loderup and Bredsatra, appears only in the third tree. Its features
+are coloured yellow. The remainder of the sites are in Group D;
+the third consensus tree differs from the first two in splitting the
+remainder into two groups, but this division is ignored here to reduce
+the number of comparisons. Between large groups of sites, such
+comparisons are unlikely to be informative anyway.
 
 \begin{table}
   \begin{enumerate}
@@ -916,25 +920,20 @@ respectively. Cluster D contains the remainder of the sites.
 \end{table}
 
 The first subsection, \ref{feature-ranking-complete}, shows all
-comparisons between regions for a single parameter setting:
-Jensen-Shannon divergence, trigrams features and sentence-size
-normalisation only. These are the parameters that give the highest correlation with
-travel distance. In order to save space, only the comparisons between
-cluster B and the other clusters are given. The complete set of
-comparisons is in Appendix X.
+comparisons between regions for a single parameter setting: trigram
+features, 1000-sentence sampling and sentence-size normalisation
+only. Besides unigrams, these are the parameters that give the highest
+correlation with travel distance for 1000-sentence sampling.
 
-In the next subsection, \ref{feature-ranking-overuse}, the same
-parameter settings are used for comparisons between cluster B and all
-other clusters (the other 15 comparisons are in Appendix X). However,
-overuse normalisation is added as well.
+In the next subsection, \ref{feature-ranking-overuse}, the overuse
+normalisation is added, keeping other parameter settings the same.
 
 The third subsection, \ref{feature-ranking-feature-sets},
-a single comparison between cluster B and cluster C are given for
-all feature sets, with $R$ as distance measure.
+a single comparison between cluster A and cluster B is given for
+all feature sets.
 
-In the final subsection, \ref{feature-ranking-cos}, selected comparisons
-are presented to make cosine dissimilarity's difference from the other
-methods clearer. Both normalisation settings are compared.
+In the final subsection, \ref{feature-ranking-psg}, the high-ranked
+phrase-structure rules are given.
 
 In addition, only features that appear in both groups were ranked;
 although features that only appear in one or the other can be
@@ -997,1168 +996,159 @@ appendix).
 \item XX = Unclassifiable
 \end{itemize}
 
-\subsection{Complete Comparison}
+\subsection{Trigram Features}
 \label{feature-ranking-complete}
-For Jensen-Shannon distance, trigram features and ratio normalisation.
+The figures in this section show the highest ranked features for
+trigram features.
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){161.9396297070559}}
-\put(190,107){AB-AB-IP}
-\put(180,99){\line(-1,0){120.04035593204934}}
-\put(190,96){NN-AB-IP}
-\put(180,88){\line(-1,0){113.3669026822152}}
-\put(190,85){PR-NN-IP}
-\put(180,77){\line(-1,0){102.02415902418629}}
-\put(190,74){PO-NN-IP}
-\put(180,66){\line(-1,0){98.43711655047673}}
-\put(190,63){PO-AB-IP}
-\put(250,55){\line(1,0){119.71805382608774}}
-\put(190,52){PO-VV-PO}
-\put(250,44){\line(1,0){127.23243744376073}}
-\put(190,41){AB-VV-PO}
-\put(250,33){\line(1,0){133.91897910398922}}
-\put(190,30){AV-AB-AB}
-\put(250,22){\line(1,0){135.9910380745494}}
-\put(190,19){NN-++-PO}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){AB-AB-AB}
-\end{picture}
-\caption{cluster A $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, trigram features}
 \end{figure}
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){126.94052270897559}}
-\put(190,107){NN-PR-NN}
-\put(180,99){\line(-1,0){103.22864099593535}}
-\put(190,96){PR-NN-IP}
-\put(180,88){\line(-1,0){95.42187837492882}}
-\put(190,85){PR-NN-AB}
-\put(180,77){\line(-1,0){74.61780587900328}}
-\put(190,74){NN-AB-IP}
-\put(180,66){\line(-1,0){62.02704852043121}}
-\put(190,63){UK-PO-AV}
-\put(250,55){\line(1,0){145.694425353938}}
-\put(190,52){VV-AB-AB}
-\put(250,44){\line(1,0){151.0473815461347}}
-\put(190,41){VV-PO-AB}
-\put(250,33){\line(1,0){161.1957311445795}}
-\put(190,30){++-PO-VV}
-\put(250,22){\line(1,0){171.17530975710332}}
-\put(190,19){AB-AB-AB}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){PO-VV-AB}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ clusterB, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-trigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster C, trigram features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-trigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster D, trigram features}
 \end{figure}
 
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-NN-IP}
-\put(180,99){\line(-1,0){160.81981270070784}}
-\put(190,96){PO-AV-AB}
-\put(180,88){\line(-1,0){153.38197958874858}}
-\put(190,85){AB-UK-PO}
-\put(180,77){\line(-1,0){147.59755872017755}}
-\put(190,74){PO-AV-PO}
-\put(180,66){\line(-1,0){145.04026766649292}}
-\put(190,63){NN-AB-IP}
-\put(250,55){\line(1,0){125.70169981673588}}
-\put(190,52){NN-PR-PO}
-\put(250,44){\line(1,0){126.72865141146998}}
-\put(190,41){AJ-NN-AB}
-\put(250,33){\line(1,0){127.87464061738152}}
-\put(190,30){PO-VV-PO}
-\put(250,22){\line(1,0){138.00998705381912}}
-\put(190,19){NN-++-PO}
-\put(250,11){\line(1,0){152.12905829144037}}
-\put(190,8){AB-PO-VV}
-\end{picture}
-\caption{cluster D $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-trigram-ratio}
+  \caption{cluster B $\Leftrightarrow$ cluster C, trigram features}
 \end{figure}
-
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){174.75145638272872}}
-\put(190,107){PR-NN-IP}
-\put(180,99){\line(-1,0){135.80370063450047}}
-\put(190,96){NN-AB-IP}
-\put(180,88){\line(-1,0){111.98655551570171}}
-\put(190,85){AB-AB-IP}
-\put(180,77){\line(-1,0){109.05004267108632}}
-\put(190,74){PO-NN-IP}
-\put(180,66){\line(-1,0){101.92860941732323}}
-\put(190,63){PO-AB-IP}
-\put(250,55){\line(1,0){85.19894620969437}}
-\put(190,52){PO-NN-PO}
-\put(250,44){\line(1,0){85.90468887212279}}
-\put(190,41){NN-PR-PO}
-\put(250,33){\line(1,0){107.0252068620054}}
-\put(190,30){AB-PR-PO}
-\put(250,22){\line(1,0){125.4006753163226}}
-\put(190,19){PR-PO-NN}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){NN-++-PO}
-\end{picture}
-\caption{cluster E $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-trigram-ratio}
+  \caption{cluster B $\Leftrightarrow$ cluster D, trigram features}
 \end{figure}
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){176.42951698355745}}
-\put(190,107){PO-AV-AB}
-\put(180,99){\line(-1,0){116.38670798187398}}
-\put(190,96){PR-NN-IP}
-\put(180,88){\line(-1,0){111.07609211600884}}
-\put(190,85){++-PO-AV}
-\put(180,77){\line(-1,0){106.99083969915766}}
-\put(190,74){AB-AB-IP}
-\put(180,66){\line(-1,0){102.97882251659142}}
-\put(190,63){NN-AB-IP}
-\put(250,55){\line(1,0){94.97442368528897}}
-\put(190,52){AB-PR-NN}
-\put(250,44){\line(1,0){95.55181451791225}}
-\put(190,41){PR-NN-++}
-\put(250,33){\line(1,0){99.2501938493017}}
-\put(190,30){NN-++-AB}
-\put(250,22){\line(1,0){105.20665957114342}}
-\put(190,19){PO-VV-PO}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){NN-++-PO}
-\end{picture}
-\caption{cluster F $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-trigram-ratio}
+  \caption{cluster C $\Leftrightarrow$ cluster D, trigram features}
 \end{figure}
 
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PR-NN-IP}
-\put(180,99){\line(-1,0){103.67567485982084}}
-\put(190,96){PO-NN-IP}
-\put(180,88){\line(-1,0){99.19805447177173}}
-\put(190,85){PO-AB-IP}
-\put(180,77){\line(-1,0){94.78088280796023}}
-\put(190,74){PO-AV-AB}
-\put(180,66){\line(-1,0){92.26071436657134}}
-\put(190,63){NN-AB-IP}
-\put(250,55){\line(1,0){58.76227275128482}}
-\put(190,52){PR-NN-++}
-\put(250,44){\line(1,0){64.39283369431512}}
-\put(190,41){NN-AB-PO}
-\put(250,33){\line(1,0){66.68445162215396}}
-\put(190,30){AB-AB-PO}
-\put(250,22){\line(1,0){67.95828962561033}}
-\put(190,19){AB-PO-VV}
-\put(250,11){\line(1,0){88.55296621361569}}
-\put(190,8){NN-++-PO}
-\end{picture}
-\caption{cluster G $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
-\end{figure}
-
-
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){AB-AB-IP}
-% \put(180,99){\line(-1,0){121.30246194626291}}
-% \put(190,96){++-PO-AV}
-% \put(180,88){\line(-1,0){118.93851158681072}}
-% \put(190,85){VV-AB-AB}
-% \put(180,77){\line(-1,0){102.59598779067433}}
-% \put(190,74){PO-VV-AB}
-% \put(180,66){\line(-1,0){101.77818386280573}}
-% \put(190,63){PO-AV-NN}
-% \put(250,55){\line(1,0){87.96398449736937}}
-% \put(190,52){++-AB-AV}
-% \put(250,44){\line(1,0){107.9862645086148}}
-% \put(190,41){RO-NN-AB}
-% \put(250,33){\line(1,0){145.13625045182536}}
-% \put(190,30){NN-PR-NN}
-% \put(250,22){\line(1,0){152.25611470340175}}
-% \put(190,19){PR-NN-++}
-% \put(250,11){\line(1,0){178.03636692236634}}
-% \put(190,8){AB-AV-AB}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterA-StAnna-Sorunda}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PO-AV-AB}
-% \put(180,99){\line(-1,0){136.32174751248735}}
-% \put(190,96){++-PO-AV}
-% \put(180,88){\line(-1,0){117.28743616911103}}
-% \put(190,85){PO-VV-AB}
-% \put(180,77){\line(-1,0){98.7253738239582}}
-% \put(190,74){AB-AB-IP}
-% \put(180,66){\line(-1,0){90.30614927465805}}
-% \put(190,63){VV-AB-IP}
-% \put(250,55){\line(1,0){73.13932460745498}}
-% \put(190,52){NN-PR-NN}
-% \put(250,44){\line(1,0){90.93565527735069}}
-% \put(190,41){NN-++-AB}
-% \put(250,33){\line(1,0){93.93118611932094}}
-% \put(190,30){NN-++-PO}
-% \put(250,22){\line(1,0){96.7250073689326}}
-% \put(190,19){PR-NN-AB}
-% \put(250,11){\line(1,0){104.51711583962016}}
-% \put(190,8){PR-NN-++}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterF-Floby-Segerstad-Bengtsfors}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PR-NN-IP}
-% \put(180,99){\line(-1,0){174.72926832930438}}
-% \put(190,96){PO-AV-AB}
-% \put(180,88){\line(-1,0){143.8405429347908}}
-% \put(190,85){PO-VV-AB}
-% \put(180,77){\line(-1,0){135.132025044669}}
-% \put(190,74){VV-PO-AB}
-% \put(180,66){\line(-1,0){129.47373162565125}}
-% \put(190,63){PO-NN-IP}
-% \put(250,55){\line(1,0){64.58821939610516}}
-% \put(190,52){AB-HV-PO}
-% \put(250,44){\line(1,0){65.04929355415084}}
-% \put(190,41){PR-NN-PR}
-% \put(250,33){\line(1,0){79.76799147159953}}
-% \put(190,30){NN-PR-NN}
-% \put(250,22){\line(1,0){85.01493971561989}}
-% \put(190,19){PR-NN-AB}
-% \put(250,11){\line(1,0){114.23828471043979}}
-% \put(190,8){PR-NN-++}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PO-VV-AB}
-% \put(180,99){\line(-1,0){172.97343800408646}}
-% \put(190,96){VV-AB-AB}
-% \put(180,88){\line(-1,0){152.61150661361438}}
-% \put(190,85){PO-AV-AB}
-% \put(180,77){\line(-1,0){149.2859877406173}}
-% \put(190,74){++-PO-AV}
-% \put(180,66){\line(-1,0){133.83761694805892}}
-% \put(190,63){VV-PO-AB}
-% \put(250,55){\line(1,0){75.31405957629853}}
-% \put(190,52){AB-HV-PO}
-% \put(250,44){\line(1,0){80.09738681578665}}
-% \put(190,41){PR-NN-PR}
-% \put(250,33){\line(1,0){86.64312291644264}}
-% \put(190,30){AB-AV-AB}
-% \put(250,22){\line(1,0){118.5510700075277}}
-% \put(190,19){PR-NN-++}
-% \put(250,11){\line(1,0){126.1474997311539}}
-% \put(190,8){NN-PR-NN}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PO-VV-AB}
-% \put(180,99){\line(-1,0){136.39373294301893}}
-% \put(190,96){PR-NN-IP}
-% \put(180,88){\line(-1,0){124.95364465971942}}
-% \put(190,85){PO-AB-AB}
-% \put(180,77){\line(-1,0){122.6467148171888}}
-% \put(190,74){AB-AB-IP}
-% \put(180,66){\line(-1,0){110.9574376697438}}
-% \put(190,63){NN-AB-IP}
-% \put(250,55){\line(1,0){59.308971724233636}}
-% \put(190,52){AB-HV-PO}
-% \put(250,44){\line(1,0){64.30916335714427}}
-% \put(190,41){UK-PO-HV}
-% \put(250,33){\line(1,0){79.06066833629593}}
-% \put(190,30){NN-++-AB}
-% \put(250,22){\line(1,0){102.36071921813773}}
-% \put(190,19){PR-NN-++}
-% \put(250,11){\line(1,0){106.51366871295372}}
-% \put(190,8){NN-++-PO}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterE-Indal-Leksand}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PO-AV-AB}
-% \put(180,99){\line(-1,0){87.87415523915753}}
-% \put(190,96){AV-AB-AB}
-% \put(180,88){\line(-1,0){83.86940728060077}}
-% \put(190,85){++-PO-AV}
-% \put(180,77){\line(-1,0){72.20356574073521}}
-% \put(190,74){PO-VV-AB}
-% \put(180,66){\line(-1,0){70.7042009889592}}
-% \put(190,63){AV-PO-AB}
-% \put(250,55){\line(1,0){60.83834871250395}}
-% \put(190,52){PO-AV-AJ}
-% \put(250,44){\line(1,0){66.29897823454677}}
-% \put(190,41){PO-ID-NN}
-% \put(250,33){\line(1,0){68.97238907015169}}
-% \put(190,30){PR-NN-AB}
-% \put(250,22){\line(1,0){77.59011279383958}}
-% \put(190,19){NN-++-AB}
-% \put(250,11){\line(1,0){88.96660324125715}}
-% \put(190,8){NN-++-PO}
-% \end{picture}
-% \caption{clusterA-StAnna-Sorunda clusterF-Floby-Segerstad-Bengtsfors}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PR-NN-IP}
-% \put(180,99){\line(-1,0){167.64361641091975}}
-% \put(190,96){PO-AV-AB}
-% \put(180,88){\line(-1,0){155.08945057008438}}
-% \put(190,85){AV-AB-AB}
-% \put(180,77){\line(-1,0){126.65700009388398}}
-% \put(190,74){AV-PO-AB}
-% \put(180,66){\line(-1,0){125.55667984519576}}
-% \put(190,63){AB-AV-PO}
-% \put(250,55){\line(1,0){54.730792902371086}}
-% \put(190,52){PR-ID-ID}
-% \put(250,44){\line(1,0){55.17793100570606}}
-% \put(190,41){PO-VV-PR}
-% \put(250,33){\line(1,0){56.30848189603913}}
-% \put(190,30){NN-PR-PO}
-% \put(250,22){\line(1,0){56.514964063298656}}
-% \put(190,19){PO-GV-PO}
-% \put(250,11){\line(1,0){79.86585022375682}}
-% \put(190,8){PO-AV-AJ}
-% \end{picture}
-% \caption{clusterA-StAnna-Sorunda clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){AV-AB-AB}
-% \put(180,99){\line(-1,0){167.06874240225875}}
-% \put(190,96){AB-AB-AB}
-% \put(180,88){\line(-1,0){150.40351358770243}}
-% \put(190,85){PO-AV-AB}
-% \put(180,77){\line(-1,0){148.891976225022}}
-% \put(190,74){AB-UK-PO}
-% \put(180,66){\line(-1,0){146.9972606116287}}
-% \put(190,63){AB-PO-NN}
-% \put(250,55){\line(1,0){77.62838432106304}}
-% \put(190,52){PO-AV-NN}
-% \put(250,44){\line(1,0){81.82408532998706}}
-% \put(190,41){AB-ID-IP}
-% \put(250,33){\line(1,0){87.56187712526679}}
-% \put(190,30){VV-AB-IP}
-% \put(250,22){\line(1,0){120.34418818309646}}
-% \put(190,19){AB-AB-IP}
-% \put(250,11){\line(1,0){132.70975367912743}}
-% \put(190,8){PO-AV-AJ}
-% \end{picture}
-% \caption{clusterA-StAnna-Sorunda clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PR-NN-IP}
-% \put(180,99){\line(-1,0){168.14915411683333}}
-% \put(190,96){PO-VV-AB}
-% \put(180,88){\line(-1,0){131.84327307057356}}
-% \put(190,85){NN-PR-NN}
-% \put(180,77){\line(-1,0){131.82873327039485}}
-% \put(190,74){AB-PR-NN}
-% \put(180,66){\line(-1,0){125.56117065585605}}
-% \put(190,63){PO-AB-AB}
-% \put(250,55){\line(1,0){84.22542748527087}}
-% \put(190,52){PO-NN-PO}
-% \put(250,44){\line(1,0){101.06160735471559}}
-% \put(190,41){PR-PO-NN}
-% \put(250,33){\line(1,0){109.48287787072704}}
-% \put(190,30){++-PO-AV}
-% \put(250,22){\line(1,0){125.59570268128051}}
-% \put(190,19){PO-AV-AJ}
-% \put(250,11){\line(1,0){133.28907445084488}}
-% \put(190,8){NN-++-PO}
-% \end{picture}
-% \caption{clusterA-StAnna-Sorunda clusterE-Indal-Leksand}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){124.75814273761839}}
-% \put(190,107){AB-PR-NN}
-% \put(180,99){\line(-1,0){119.58040560051533}}
-% \put(190,96){VV-PO-AB}
-% \put(180,88){\line(-1,0){119.05663450788172}}
-% \put(190,85){AB-VV-PO}
-% \put(180,77){\line(-1,0){118.51687040478605}}
-% \put(190,74){PO-PO-AV}
-% \put(180,66){\line(-1,0){113.30248261870737}}
-% \put(190,63){PO-ID-NN}
-% \put(250,55){\line(1,0){89.55486120880504}}
-% \put(190,52){PR-PO-NN}
-% \put(250,44){\line(1,0){92.38229218341614}}
-% \put(190,41){PO-HV-AB}
-% \put(250,33){\line(1,0){99.09402557400838}}
-% \put(190,30){AB-UK-PO}
-% \put(250,22){\line(1,0){134.36860927446523}}
-% \put(190,19){PO-AV-AB}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){++-PO-AV}
-% \end{picture}
-% \caption{clusterF-Floby-Segerstad-Bengtsfors clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){NN-++-PO}
-% \put(180,99){\line(-1,0){142.49031444274257}}
-% \put(190,96){NN-++-AB}
-% \put(180,88){\line(-1,0){103.3630657416584}}
-% \put(190,85){PR-NN-AB}
-% \put(180,77){\line(-1,0){101.44217196744451}}
-% \put(190,74){AB-VV-PO}
-% \put(180,66){\line(-1,0){100.6805417905517}}
-% \put(190,63){PO-ID-NN}
-% \put(250,55){\line(1,0){80.98927831336155}}
-% \put(190,52){AB-AB-IP}
-% \put(250,44){\line(1,0){91.73919572333843}}
-% \put(190,41){PR-NN-IP}
-% \put(250,33){\line(1,0){100.6649247679971}}
-% \put(190,30){++-PO-AV}
-% \put(250,22){\line(1,0){109.56182238640118}}
-% \put(190,19){VV-AB-IP}
-% \put(250,11){\line(1,0){159.84202781031323}}
-% \put(190,8){PO-AV-AB}
-% \end{picture}
-% \caption{clusterF-Floby-Segerstad-Bengtsfors clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){96.98776551290538}}
-% \put(190,107){AB-PR-NN}
-% \put(180,99){\line(-1,0){88.20515703949437}}
-% \put(190,96){PR-NN-AB}
-% \put(180,88){\line(-1,0){72.72253757625789}}
-% \put(190,85){PO-AB-AB}
-% \put(180,77){\line(-1,0){68.17551006846917}}
-% \put(190,74){++-AB-AB}
-% \put(180,66){\line(-1,0){65.6682963981486}}
-% \put(190,63){YY-YY-IP}
-% \put(250,55){\line(1,0){56.50799573697003}}
-% \put(190,52){PO-HV-AB}
-% \put(250,44){\line(1,0){69.3706919245229}}
-% \put(190,41){AB-UK-PO}
-% \put(250,33){\line(1,0){83.62960710096071}}
-% \put(190,30){PR-PO-NN}
-% \put(250,22){\line(1,0){124.82151756710822}}
-% \put(190,19){++-PO-AV}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){PO-AV-AB}
-% \end{picture}
-% \caption{clusterF-Floby-Segerstad-Bengtsfors clusterE-Indal-Leksand}
-% \end{figure}
-% \clearpage
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){96.62339887271503}}
-% \put(190,107){UK-PO-VV}
-% \put(180,99){\line(-1,0){83.87719789162304}}
-% \put(190,96){AB-UK-PO}
-% \put(180,88){\line(-1,0){76.71259943692858}}
-% \put(190,85){NN-++-PO}
-% \put(180,77){\line(-1,0){66.35374134120643}}
-% \put(190,74){AB-AB-PO}
-% \put(180,66){\line(-1,0){61.89565475612611}}
-% \put(190,63){++-PO-AV}
-% \put(250,55){\line(1,0){76.70591796060785}}
-% \put(190,52){AB-AJ-IP}
-% \put(250,44){\line(1,0){80.55547624078443}}
-% \put(190,41){AV-PO-AB}
-% \put(250,33){\line(1,0){90.83724037895963}}
-% \put(190,30){PO-AB-IP}
-% \put(250,22){\line(1,0){110.20684023276664}}
-% \put(190,19){AB-AV-PO}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){PR-NN-IP}
-% \end{picture}
-% \caption{clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){91.91270491457142}}
-% \put(190,107){PO-AB-AB}
-% \put(180,99){\line(-1,0){77.2130773713504}}
-% \put(190,96){PR-NN-AB}
-% \put(180,88){\line(-1,0){72.77096019526533}}
-% \put(190,85){PO-VV-AB}
-% \put(180,77){\line(-1,0){68.33999138535341}}
-% \put(190,74){NN-PR-NN}
-% \put(180,66){\line(-1,0){66.12856093173315}}
-% \put(190,63){AB-AB-PO}
-% \put(250,55){\line(1,0){77.47607746425345}}
-% \put(190,52){VV-PO-AB}
-% \put(250,44){\line(1,0){77.78316427793216}}
-% \put(190,41){AV-AB-PO}
-% \put(250,33){\line(1,0){78.31879259816053}}
-% \put(190,30){PO-AV-PO}
-% \put(250,22){\line(1,0){89.79502208558905}}
-% \put(190,19){RO-NN-IP}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){PO-AV-AB}
-% \end{picture}
-% \caption{clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg clusterE-Indal-Leksand}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){172.37697925708642}}
-% \put(190,107){PR-NN-IP}
-% \put(180,99){\line(-1,0){118.31946481487024}}
-% \put(190,96){NN-AB-IP}
-% \put(180,88){\line(-1,0){105.52553204226406}}
-% \put(190,85){AB-AV-PO}
-% \put(180,77){\line(-1,0){101.48403124906461}}
-% \put(190,74){NN-PR-NN}
-% \put(180,66){\line(-1,0){98.97265706845461}}
-% \put(190,63){VV-PO-IP}
-% \put(250,55){\line(1,0){119.53575383878595}}
-% \put(190,52){++-PO-AV}
-% \put(250,44){\line(1,0){125.72832170971894}}
-% \put(190,41){PR-PO-NN}
-% \put(250,33){\line(1,0){131.9383998323805}}
-% \put(190,30){AB-UK-PO}
-% \put(250,22){\line(1,0){152.4328025382382}}
-% \put(190,19){PO-AV-AB}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){NN-++-PO}
-% \end{picture}
-% \caption{clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas clusterE-Indal-Leksand}
-% \end{figure}
-
-
-\subsection{JS-trigram with Overuse Normalisation}
+\subsection{Trigrams with Overuse Normalisation}
 \label{feature-ranking-overuse}
-The next section contains only Jamshog, Tors\.as and \"Ossj\"o,
-labelled cluster B, compared to the other clusters. The overuse
-normalisation is used. The results are quite different, as can be
-seen.
+The figures in this section show the highest ranked features for
+trigram features with 1000-sentence sampling. Overuse normalisation is
+added.  The results are somewhat different from the previous section
+without the overuse normalisation.
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PR-VN-IP}
-\put(180,99){\line(-1,0){177.6807483678834}}
-\put(190,96){RO-++-EN}
-\put(180,88){\line(-1,0){171.4623460948223}}
-\put(190,85){NN-AJ-++}
-\put(180,77){\line(-1,0){171.4623460948223}}
-\put(190,74){YY-++-PO}
-\put(180,66){\line(-1,0){167.15659709384482}}
-\put(190,63){I?-YY-PO}
-\put(250,55){\line(1,0){108.24085938726621}}
-\put(190,52){PR-VN-PR}
-\put(250,44){\line(1,0){114.2851354568154}}
-\put(190,41){PO-MV-VV}
-\put(250,33){\line(1,0){119.14972928895934}}
-\put(190,30){HV-VV-NN}
-\put(250,22){\line(1,0){119.14972928895934}}
-\put(190,19){NN-RO-RO}
-\put(250,11){\line(1,0){123.1500736921542}}
-\put(190,8){PO-WV-VV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-over}
+  \caption{cluster A $\Leftrightarrow$ cluster B, trigram features
+    with overuse normalisation}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-trigram-over}
+  \caption{cluster A $\Leftrightarrow$ cluster C, trigram features
+    with overuse normalisation}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-trigram-over}
+  \caption{cluster A $\Leftrightarrow$ cluster D, trigram features
+    with overuse normalisation}
 \end{figure}
 
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){AB-I?-PO}
-\put(180,99){\line(-1,0){178.2255115117133}}
-\put(190,96){NN-SV-PO}
-\put(180,88){\line(-1,0){176.12187009546298}}
-\put(190,85){NN-I?-PO}
-\put(180,77){\line(-1,0){173.58626945616334}}
-\put(190,74){YY-PO-SV}
-\put(180,66){\line(-1,0){170.47097953953147}}
-\put(190,63){PR-MN-ID}
-\put(250,55){\line(1,0){101.51732876416465}}
-\put(190,52){++-++-NN}
-\put(250,44){\line(1,0){110.36126189687693}}
-\put(190,41){VV-PO-IM}
-\put(250,33){\line(1,0){113.70721803861714}}
-\put(190,30){++-++-VV}
-\put(250,22){\line(1,0){116.55037364472793}}
-\put(190,19){VV-AJ-AB}
-\put(250,11){\line(1,0){118.99699068407942}}
-\put(190,8){EN-AJ-AJ}
-\end{picture}
-\caption{cluster A $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-trigram-over}
+  \caption{cluster B $\Leftrightarrow$ cluster C, trigram features
+    with overuse normalisation}
 \end{figure}
-
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PR-EN-AB}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){AB-FV-EN}
-\put(180,88){\line(-1,0){180.0}}
-\put(190,85){PR-PN-IP}
-\put(180,77){\line(-1,0){180.0}}
-\put(190,74){VV-EN-AB}
-\put(180,66){\line(-1,0){180.0}}
-\put(190,63){PN-++-PN}
-\put(250,55){\line(1,0){107.347631781045}}
-\put(190,52){AJ-++-PO}
-\put(250,44){\line(1,0){109.55855547433774}}
-\put(190,41){EN-NN-UK}
-\put(250,33){\line(1,0){109.55855547433774}}
-\put(190,30){QV-AB-AB}
-\put(250,22){\line(1,0){111.4996715304829}}
-\put(190,19){PR-++-PO}
-\put(250,11){\line(1,0){117.36465667995967}}
-\put(190,8){PO-PO-++}
-\end{picture}
-\caption{cluster F $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-trigram-over}
+  \caption{cluster B $\Leftrightarrow$ cluster D, trigram features
+    with overuse normalisation}
 \end{figure}
-
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){58.585136047941525}}
-\put(190,107){YY-++-PO}
-\put(180,99){\line(-1,0){53.46606162426174}}
-\put(190,96){AB-AV-IP}
-\put(180,88){\line(-1,0){52.88671042832153}}
-\put(190,85){PR-PN-IP}
-\put(180,77){\line(-1,0){46.63496544676724}}
-\put(190,74){PN-++-PN}
-\put(180,66){\line(-1,0){41.43265150596671}}
-\put(190,63){PO-AB-I?}
-\put(250,55){\line(1,0){169.3129189254724}}
-\put(190,52){AB-++-HV}
-\put(250,44){\line(1,0){169.3129189254724}}
-\put(190,41){VV-PO-PN}
-\put(250,33){\line(1,0){173.4764535739647}}
-\put(190,30){PO-PN-NN}
-\put(250,22){\line(1,0){173.4764535739647}}
-\put(190,19){AJ-++-AV}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){++-PR-++}
-\end{picture}
-\caption{cluster G $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-trigram-over}
+  \caption{cluster C $\Leftrightarrow$ cluster D, trigram features
+    with overuse normalisation}
 \end{figure}
 
 
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){72.89300775454419}}
-\put(190,107){++-RO-NN}
-\put(180,99){\line(-1,0){71.7228097615167}}
-\put(190,96){AB-AV-IP}
-\put(180,88){\line(-1,0){67.47089305160682}}
-\put(190,85){YY-++-PO}
-\put(180,77){\line(-1,0){65.73907895602348}}
-\put(190,74){PN-++-PN}
-\put(180,66){\line(-1,0){65.27553846940938}}
-\put(190,63){PR-PN-IP}
-\put(250,55){\line(1,0){170.5048858744509}}
-\put(190,52){++-AJ-VV}
-\put(250,44){\line(1,0){170.5048858744509}}
-\put(190,41){SV-GV-PO}
-\put(250,33){\line(1,0){172.74727202297856}}
-\put(190,30){++-++-VV}
-\put(250,22){\line(1,0){174.6436637115105}}
-\put(190,19){AB-PR-VV}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){++-PR-++}
-\end{picture}
-\caption{cluster D $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
-\end{figure}
-
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){YY-++-PO}
-\put(180,99){\line(-1,0){172.48560759296717}}
-\put(190,96){AB-AV-IP}
-\put(180,88){\line(-1,0){171.36144390851098}}
-\put(190,85){NN-AV-IP}
-\put(180,77){\line(-1,0){169.3301695970126}}
-\put(190,74){PR-PN-IP}
-\put(180,66){\line(-1,0){166.7294227477828}}
-\put(190,63){MN-++-MN}
-\put(250,55){\line(1,0){91.1957367356465}}
-\put(190,52){++-PO-AJ}
-\put(250,44){\line(1,0){93.01618173331258}}
-\put(190,41){EN-AJ-VN}
-\put(250,33){\line(1,0){96.2182978061304}}
-\put(190,30){UK-PO-WV}
-\put(250,22){\line(1,0){98.94274155904778}}
-\put(190,19){VV-PR-AJ}
-\put(250,11){\line(1,0){109.39707484051658}}
-\put(190,8){PR-++-AB}
-\end{picture}
-\caption{cluster E $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
-\end{figure}
-\clearpage
-
-\subsection{$R$ Features, Variation Across Feature Sets}
+\subsection{Variation Across Feature Sets}
 \label{feature-ranking-feature-sets}
 
-Here, I only show comparisons between clusters B and C from figure
-\ref{consensus-freq}. However the comparisons of cluster B with the
-rest of the clusters are similar.
-
+Here, I show only comparisons between clusters A and B across feature sets.
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){S-XX}
-\put(180,99){\line(-1,0){173.89196929076283}}
-\put(190,96){XP-[-NP-PO}
-\put(180,88){\line(-1,0){171.02760175481353}}
-\put(190,85){S-RO}
-\put(180,77){\line(-1,0){167.51340482573724}}
-\put(190,74){S-XP-S-NP-[-PO}
-\put(180,66){\line(-1,0){163.10169388252498}}
-\put(190,63){S-]-PP-AJ}
-\put(290,55){\line(1,0){127.05215695832318}}
-\put(190,52){S-S-CS-S-S-AB}
-\put(290,44){\line(1,0){127.05215695832318}}
-\put(190,41){S-S-S-S-FV}
-\put(290,33){\line(1,0){135.46338045332683}}
-\put(190,30){S-NP-S-S-]-NP-NN}
-\put(290,22){\line(1,0){137.52985620277846}}
-\put(190,19){S-S-PP-[-AB}
-\put(290,11){\line(1,0){137.52985620277846}}
-\put(190,8){S-S-PP-PR}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, leaf-ancestor paths}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-path-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, leaf-ancestor path features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, trigram features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-dep-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
+    rule features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-grand-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
+    rules features, with grandparent}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-unigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, unigram features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-redep-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features,
+MaltParser trained by Timbl}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-deparc-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features
+    with arc labels}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-all-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, all combined features}
 \end{figure}
 
+\clearpage
+
+\subsection{Phrase-structure rule features}
+\label{feature-ranking-psg}
+
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PR-VN-IP}
-\put(180,99){\line(-1,0){177.6807483678834}}
-\put(190,96){RO-++-EN}
-\put(180,88){\line(-1,0){171.4623460948223}}
-\put(190,85){NN-AJ-++}
-\put(180,77){\line(-1,0){171.4623460948223}}
-\put(190,74){YY-++-PO}
-\put(180,66){\line(-1,0){167.15659709384482}}
-\put(190,63){I?-YY-PO}
-\put(250,55){\line(1,0){108.24085938726621}}
-\put(190,52){PR-VN-PR}
-\put(250,44){\line(1,0){114.2851354568154}}
-\put(190,41){PO-MV-VV}
-\put(250,33){\line(1,0){119.14972928895934}}
-\put(190,30){HV-VV-NN}
-\put(250,22){\line(1,0){119.14972928895934}}
-\put(190,19){NN-RO-RO}
-\put(250,11){\line(1,0){123.1500736921542}}
-\put(190,8){PO-WV-VV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, trigrams}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
+    rule features}
 \end{figure}
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PN-PR-VV}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){AV-VV-VV-AV}
-\put(180,88){\line(-1,0){175.25519394740002}}
-\put(190,85){VV-HV-YY}
-\put(180,77){\line(-1,0){175.25519394740002}}
-\put(190,74){PO-AJ-VV}
-\put(180,66){\line(-1,0){175.25519394740002}}
-\put(190,63){++-AV-SV}
-\put(270,55){\line(1,0){127.36399663744447}}
-\put(190,52){AB-AV-VV-HV}
-\put(270,44){\line(1,0){127.36399663744447}}
-\put(190,41){AJ-AV-AV-AV}
-\put(270,33){\line(1,0){132.46743888991998}}
-\put(190,30){PR-AV-VV-AV}
-\put(270,22){\line(1,0){132.46743888991998}}
-\put(190,19){AB-SV-HV}
-\put(270,11){\line(1,0){136.66004345120473}}
-\put(190,8){AB-VV-NN-VV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, dependency-head paths}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-psg-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster C, phrase-structure rule features}
 \end{figure}
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){CONJP$\to$RO-NN}
-\put(180,99){\line(-1,0){173.49064521470046}}
-\put(190,96){VP$\to$IM-VV-NP}
-\put(180,88){\line(-1,0){173.49064521470046}}
-\put(190,85){S$\to$PO-AV}
-\put(180,77){\line(-1,0){169.46725967879144}}
-\put(190,74){XP$\to$TP-PP}
-\put(180,66){\line(-1,0){164.75429772025282}}
-\put(190,63){S$\to$NP-AV-NP-S-IP}
-\put(290,55){\line(1,0){121.2112976802873}}
-\put(190,52){S$\to$AB-PO-VV-AB}
-\put(290,44){\line(1,0){129.5530142562703}}
-\put(190,41){NP$\to$EN-AJ-VN}
-\put(290,33){\line(1,0){136.07983968118938}}
-\put(190,30){PP$\to$PR-PO-AJ-NN}
-\put(290,22){\line(1,0){141.32411462109837}}
-\put(190,19){XP$\to$UK-NP}
-\put(290,11){\line(1,0){160.94569828319567}}
-\put(190,8){S$\to$++-PO-VV-S}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, phrase structure rules}
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){S$\to$CONJP$\to$RO-NN}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){S$\to$PP$\to$PR-NN-AB}
-\put(180,88){\line(-1,0){180.0}}
-\put(190,85){AVP$\to$PP$\to$PR-PN}
-\put(180,77){\line(-1,0){180.0}}
-\put(190,74){S$\to$NAC$\to$PP}
-\put(180,66){\line(-1,0){180.0}}
-\put(190,63){NP$\to$NAC$\to$AB}
-\put(290,55){\line(1,0){121.2112976802873}}
-\put(190,52){CONJP$\to$NAC$\to$CNP}
-\put(290,44){\line(1,0){121.2112976802873}}
-\put(190,41){S$\to$XP$\to$PR-PR}
-\put(290,33){\line(1,0){125.653978567065}}
-\put(190,30){S$\to$S$\to$PO-VV-AB-PP}
-\put(290,22){\line(1,0){129.5530142562703}}
-\put(190,19){S$\to$NP$\to$EN-AJ-VN}
-\put(290,11){\line(1,0){141.32411462109837}}
-\put(190,8){S$\to$S$\to$++-PO-VV-S}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, phrase structure
-  rules, with grandparent}
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){XX}
-\put(180,99){\line(-1,0){143.31715877371713}}
-\put(190,96){I?}
-\put(180,88){\line(-1,0){137.07067732931324}}
-\put(190,85){MN}
-\put(180,77){\line(-1,0){70.2666093490525}}
-\put(190,74){PN}
-\put(180,66){\line(-1,0){70.14174331916097}}
-\put(190,63){RO}
-\put(180,55){\line(-1,0){7.040589115149516}}
-\put(190,52){AJ}
-\put(180,44){\line(-1,0){4.150311517307172}}
-\put(190,41){QV}
-\put(250,33){\line(1,0){6.158280236022943}}
-\put(190,30){WV}
-\put(250,22){\line(1,0){13.032918369510169}}
-\put(190,19){BV}
-\put(250,11){\line(1,0){54.07123087613506}}
-\put(190,8){KV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, unigrams}
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-HV-PO}
-\put(180,99){\line(-1,0){177.03363769692956}}
-\put(190,96){PR-AV-YY}
-\put(180,88){\line(-1,0){173.394521455268}}
-\put(190,85){I?}
-\put(180,77){\line(-1,0){168.8262288877324}}
-\put(190,74){VV-VV-NN}
-\put(180,66){\line(-1,0){168.8262288877324}}
-\put(190,63){HV-PO}
-\put(280,55){\line(1,0){127.51856933339641}}
-\put(190,52){AB-BV-HV}
-\put(280,44){\line(1,0){127.51856933339641}}
-\put(190,41){NN-VV-NN-AV}
-\put(280,33){\line(1,0){127.51856933339641}}
-\put(190,30){NN-PR-VV-VV-HV}
-\put(280,22){\line(1,0){144.2768604816199}}
-\put(190,19){++-VV-VV-AV}
-\put(280,11){\line(1,0){147.40975540521362}}
-\put(190,8){AB-VV-PO-AV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, Timbl dependencies}
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){IM-OA-VG}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){OA-VG-+F}
-\put(180,88){\line(-1,0){180.0}}
-\put(190,85){UK-ET-OO}
-\put(180,77){\line(-1,0){173.6987637709192}}
-\put(190,74){PA-OA-VG-+F}
-\put(180,66){\line(-1,0){173.6987637709192}}
-\put(190,63){AA-PA-OA}
-\put(280,55){\line(1,0){124.29400386847195}}
-\put(190,52){TA-TA-VG}
-\put(280,44){\line(1,0){130.8122109158187}}
-\put(190,41){++-CC-OO-+F}
-\put(280,33){\line(1,0){136.05382221848456}}
-\put(190,30){MS-AA-AA}
-\put(280,22){\line(1,0){136.05382221848456}}
-\put(190,19){OO-ET-SP-MS}
-\put(280,11){\line(1,0){153.92111681103356}}
-\put(190,8){SS-MS-AA-AA}
-\end{picture}
-\caption{cluster C $\to$ cluster B,  $R$,dependency arc labels}
-\end{figure}
-
-
-
-
-\subsection{Features from cosine dissimilarity}
-\label{feature-ranking-cos}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-AV}
-\put(180,99){\line(-1,0){156.15542303391726}}
-\put(190,96){AV}
-\put(180,88){\line(-1,0){140.1200149086843}}
-\put(190,85){IP-AV}
-\put(180,77){\line(-1,0){127.08907938874395}}
-\put(190,74){AB-AV}
-\put(180,66){\line(-1,0){108.93935892657474}}
-\put(190,63){IP-VV}
-\put(250,55){\line(1,0){46.64591874767052}}
-\put(190,52){PO-AV-VV}
-\put(250,44){\line(1,0){49.58374953410362}}
-\put(190,41){VV-AV}
-\put(250,33){\line(1,0){61.34983227730153}}
-\put(190,30){AB-AV-VV}
-\put(250,22){\line(1,0){76.82336936265374}}
-\put(190,19){PO-VV-AV}
-\put(250,11){\line(1,0){109.03708535221767}}
-\put(190,8){AB-VV-AV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, cosine, dep-freq}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-psg-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster D, phrase-structure rule features}
 \end{figure}
 
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PN-PR-VV}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){AV-VV-VV-AV}
-\put(180,88){\line(-1,0){175.25519394740002}}
-\put(190,85){VV-HV-YY}
-\put(180,77){\line(-1,0){175.25519394740002}}
-\put(190,74){PO-AJ-VV}
-\put(180,66){\line(-1,0){175.25519394740002}}
-\put(190,63){++-AV-SV}
-\put(270,55){\line(1,0){127.36399663744447}}
-\put(190,52){AB-AV-VV-HV}
-\put(270,44){\line(1,0){127.36399663744447}}
-\put(190,41){AJ-AV-AV-AV}
-\put(270,33){\line(1,0){132.46743888991998}}
-\put(190,30){PR-AV-VV-AV}
-\put(270,22){\line(1,0){132.46743888991998}}
-\put(190,19){AB-SV-HV}
-\put(270,11){\line(1,0){136.66004345120473}}
-\put(190,8){AB-VV-NN-VV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B,  cosine,dep-over}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-psg-ratio}
+  \caption{cluster B $\Leftrightarrow$ cluster C, phrase-structure rule features}
 \end{figure}
-
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){]-S-IP}
-\put(180,99){\line(-1,0){142.0722179607375}}
-\put(190,96){S-AB}
-\put(180,88){\line(-1,0){128.93264013182193}}
-\put(190,85){S-PO}
-\put(180,77){\line(-1,0){93.49754254382226}}
-\put(190,74){PO-AV}
-\put(180,66){\line(-1,0){82.93644705815507}}
-\put(190,63){S-AV}
-\put(250,55){\line(1,0){38.24784795022586}}
-\put(190,52){++-PO-VV}
-\put(250,44){\line(1,0){39.16253302650643}}
-\put(190,41){AB-AB-AB}
-\put(250,33){\line(1,0){40.01164805818347}}
-\put(190,30){PO-VV-AV}
-\put(250,22){\line(1,0){45.00178982357453}}
-\put(190,19){PO-VV-AB}
-\put(250,11){\line(1,0){54.30841785277991}}
-\put(190,8){AB-VV-AV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, cosine,all-freq}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-psg-ratio}
+  \caption{cluster B $\Leftrightarrow$ cluster D, phrase-structure rule features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-psg-ratio}
+  \caption{cluster C $\Leftrightarrow$ cluster D, phrase-structure rule features}
 \end{figure}
 
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){S-XX}
-\put(180,99){\line(-1,0){176.32616017586673}}
-\put(190,96){PR-VN-IP}
-\put(180,88){\line(-1,0){173.9800939838251}}
-\put(190,85){XP-[-NP-PO}
-\put(180,77){\line(-1,0){173.9800939838251}}
-\put(190,74){RO-++-EN}
-\put(180,66){\line(-1,0){171.15573886210998}}
-\put(190,63){S-RO}
-\put(280,55){\line(1,0){125.04941209688805}}
-\put(190,52){S-S-S-S-FV}
-\put(280,44){\line(1,0){125.04941209688805}}
-\put(190,41){S-S-CS-S-S-AB}
-\put(280,33){\line(1,0){133.47528386745458}}
-\put(190,30){S-NP-S-S-]-NP-NN}
-\put(280,22){\line(1,0){135.5454490450356}}
-\put(190,19){S-S-PP-[-AB}
-\put(280,11){\line(1,0){135.5454490450356}}
-\put(190,8){S-S-PP-PR}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, cosine, all-over}
-\end{figure}
 
-\begin{figure}
-  \includegraphics[scale=1.0]{clusterA-clusterD-feat-5-1000-r-trigram-ratio}
- \caption{cluster A $\Leftrightarrow$ cluster D, $R$, trigrams, ratio normalisation}
-\end{figure}
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "dissertation.tex"

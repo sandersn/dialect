@@ -92,7 +92,7 @@ findSigs =
   tail
   & map (replace ',' ' ' & words & tail
          & zip ["r", "r_sq", "kl", "js", "cos"]
-         & filter (snd & (=="0"))
+         & filter (snd & read & (<22)) -- 5% of 435 is 21.75
          & map fst)
   & zip ["path", "trigram", "dep", "psg", "grand",
          "unigram", "redep", "deparc", "all"]
