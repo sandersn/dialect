@@ -59,10 +59,10 @@ def combineFeatures(clusters, feature):
         for inf in cluster:
             outf.writelines(list(open(inf + suffix, encoding='utf-8'))[1:])
         outf.close()
-def findSigs(sample, norm):
-    f = csv.reader(open("sig-10-%s-%s.csv" % (sample, norm), encoding='ascii'),
+def findSigs(num, sample, norm):
+    f = csv.reader(open("sig-%s-%s-%s.csv" % (num,sample,norm), encoding='ascii'),
                    delimiter=',')
-    sigs = zip(consts.measures,
-               [[f for (f,n) in zip(consts.features, tail(line)) if n=="0"]
+    sigs = zip(consts.features,
+               [[m for (m,n) in zip(consts.measures, tail(line)) if n=="0"]
                 for line in tail(f)])
-    return set((m,f) for m,row in sigs for f in row)
+    return set((f,m) for f,row in sigs for m in row)

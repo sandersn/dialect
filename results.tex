@@ -35,11 +35,11 @@ extracted from each cluster in the consensus tree.
 \section{Distances}
 
 There are 180 parameter settings investigated in this chapter. This
-number arises from the four paramaters: measure, feature set, sampling
-method and normalisation method. 5 measures, 9 feature sets, 2
-sampling methods and 2 normalisation methods gives $5\times 9 \times 2
-\times 2=180$ different settings. The settings are given in table
-\ref{parameter-settings}.
+number arises from the four parameters: measure, feature set, sampling
+method and number of normalisation iterations. 5 measures, 9 feature
+sets, 2 sampling methods and 2 numbers of normalisation iterations
+gives $5\times 9 \times 2 \times 2=180$ different settings. The
+settings are given in table \ref{parameter-settings}.
 
 \begin{table}
 \begin{tabular}{|c|} \hline
@@ -51,7 +51,7 @@ sampling methods and 2 normalisation methods gives $5\times 9 \times 2
   PSR with Grandparent \\
   Part-of-speech Unigram \\
   Leaf-Head Path, based on Timbl training \\
-  Dependency-Arc Path \\
+  Leaf-Arc Path \\
   All features combined \\ \hline
 \end{tabular}
 \begin{tabular}{|c|} \hline
@@ -62,193 +62,114 @@ sampling methods and 2 normalisation methods gives $5\times 9 \times 2
   Jensen-Shannon divergence \\
   cosine dissimilarity\\\hline
 \end{tabular}
-\begin{tabular}{|c|} \hline
-  Sampling Method \\ \hline
-  1000 sentences \\
-  All sentences \\\hline
+\begin{tabular}{|c|c|c|} \hline
+  Sampling Method & Iterations of normalisations \\ \hline
+  1000 sentences & 1 \\
+  All sentences & 5 \\\hline
 \end{tabular}
-\begin{tabular}{|c|} \hline
-  Normalisation method \\ \hline
-  Sentence-length \\
-  Sentence-length and ratio \\\hline
-\end{tabular}
-\caption{Settings for the four parameters tested}
+\caption{Settings for the five parameters tested}
 \label{parameter-settings}
 \end{table}
 % Actually, all this should probably go in methods too, somewhere as a summary.
-
-For feature ranking, the normalisation setting differs: the choice is
-between sentence-length normalisation only and an additional
-normalisation that highlights overuse. The additional frequency
-normalisation does not change the ranking of individual features, so
-it is not included.
 
 \section{Significant Distances}
 
 Significant distances help answer the question whether a syntactic
 measure has succeeded in finding reliable distances. The measures
 should have zero non-significant distances, or at least a small
-number. In the first set of tables, \ref{sig-1000-freq} --
-\ref{sig-full-ratio}, the total number of comparisons between all 30
-regions is the $435=30(30-1) / 2$. In the second set, tables
-\ref{sig-percent-1000-freq} -- \ref{sig-percent-full-freq}, the percentage
-of non-significant distances is given instead.
+number. In the tables, the total number of comparisons between all 30
+regions is the $435=30(30-1) / 2$. In the first set,
+\ref{sig-1-1000} -- \ref{sig-1-full}, the results are shown
+from one iteration of the normalisation step. In the second set,
+tables \ref{sig-5-1000} -- \ref{sig-5-full}, the results
+from five normalisation iterations are shown.
 
-Bold percentages in indicate that more than 5\% of the
-distances were not significant. They are not marked in tables
-\ref{sig-percent-full-freq} -- \ref{sig-percent-full-ratio} because
-so few distances are significant. In fact, the only combination with
-{\it less} than 5\% non-significant results is cosine dissimilarity
-with unigram features. Note that here, 5\% is an arbitrary cutoff point not
-related to the usual significance cutoff $p < 0.05$; the basis for
-these tables are themselves number of significant distances found.
+Bold numbers in the tables indicate that more than 5\% of the
+distances were not significant. They are not marked in table
+\ref{sig-5-full}, the 5-iteration table that compares full corpora,
+because so few distances are significant. In fact, the only
+combination with {\it less} than 5\% non-significant results is cosine
+dissimilarity with unigram features. Note that here, 5\% is an
+arbitrary cutoff point not related to the usual significance cutoff $p
+< 0.05$; the basis for these tables are themselves number of
+significant distances found.
 % TODO:Make sure this is true; Wybo's discussion of family errors
 % doesn't seem to apply here but it might.
-
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
   & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor                           &0 & 45 & 14 & 0 & 0\\
-  Trigram                                 &0 & 0 & 0 & 0 & 0\\
-  Dependency                              &0 & 6 & 0 & 0 & 0\\
-  Phrase-Structure Rules                  &0 & 0 & 34 & 0 & 0\\
-  Phrase-Structure with Grandparents  &0 & 0 & 86 & 0 & 0\\
-  Unigram &48 & 55 & 17 & 16 & 0\\
-  Dependencies with MaltParser trained by Timbl &0 & 9 & 20 & 0 & 0\\
-  Dependency, Arc Labels&1 & 52 & 2 & 0 & 0\\
-  All Features Combined &0 & 1 & 0 & 0 & 0\\
+  Leaf-Ancestor &0&0&11&0&0 \\
+  Trigram &0&0&0&0&0 \\
+  Leaf-Head &0&0&0&0&0 \\
+  Phrase-Structure Rules &0&0&\textbf{95}&0&0 \\
+  Phrase-Structure with Grandparents &0&0&\textbf{273}&0&0 \\
+  Unigram &0&0&0&0&0 \\
+  Leaf-Head with MaltParser trained by Timbl &0&0&\textbf{47}&0&0 \\
+  Leaf-Arc Labels&0&0&0&0&0 \\
+  All Features Combined &0&0&0&0&0 \\
 \end{tabular}
- \caption{Number of significant distances for sample size 1000, Sentence-length
-    normalisation only}
- \label{sig-1000-freq}
+\caption{Number of significant distances for sample size 1000, 1
+  normalisation}
+\label{sig-1-1000}
 \end{table}
-\begin{table}
-  \begin{tabular}{l|rrrrr}
- & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&286 & 281 & 286 & 280 & 208\\
-  Trigram&285 & 282 & 283 & 278 & 196\\
-  Dependency&291 & 286 & 285 & 279 & 206\\
-  Phrase-Structure Rules&286 & 293 & 288 & 276 & 235\\
-  Phrase-Structure with Grandparents&288 & 292 & 289 & 272 & 251\\
-  Unigram&298 & 296 & 291 & 293 & 7\\
-  Dependencies with MaltParser trained by Timbl&295 & 293 & 290 & 285 & 227\\
-  Dependency, Arc Labels&294 & 290 & 290 & 287 & 159\\
-  All Features Combined&283 & 277 & 279 & 272 & 190\\
-\end{tabular}
- \caption{Number of significant distances for complete regions, Sentence-length
-    normalisation only}
- \label{sig-full-freq}
-\end{table}
+
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&5 & 56 & 34 & 0 & 0\\
+  Leaf-Ancestor&7&11&12&\textbf{35}&9 \\
+  Trigram&4&1&0&\textbf{24}&1 \\
+  Leaf-Head&10&12&20&\textbf{44}&19 \\
+  Phrase-Structure Rules&\textbf{26}&17&\textbf{24}&\textbf{49}&20 \\
+  Phrase-Structure with Grandparents&\textbf{58}&\textbf{35}&\textbf{38}&\textbf{71}&\textbf{33}
+   \\
+  Unigram&1&2&0&0&2 \\
+  Leaf-Head with MaltParser trained by Timbl&11&21&18&\textbf{74}&\textbf{30}
+   \\
+  Leaf-Arc Labels&14&19&\textbf{37}&\textbf{94}&17 \\
+  All Features Combined&0&0&1&8&2 \\
+\end{tabular}
+ \caption{Number of significant distances for complete regions, 1
+   normalisation}
+ \label{sig-1-full}
+\end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&5 & \textbf{56} & \textbf{34} & 0 & 0\\
   Trigram&3 & 2 & 0 & 0 & 0\\
-  Dependency&3 & 14 & 4 & 0 & 0\\
-  Phrase-Structure Rules&11 & 4 & 66 & 1 & 0\\
-  Phrase-Structure with Grandparents&18 & 0 & 109 & 4 & 0\\
-  Unigram&52 & 53 & 15 & 17 & 0\\
-  Dependencies with MaltParser trained by Timbl&7 & 20 & 45 & 0 & 0\\
-  Dependency, Arc Labels&6 & 54 & 17 & 1 & 0\\
+  Leaf-Head&3 & 14 & 4 & 0 & 0\\
+  Phrase-Structure Rules&11 & 4 & \textbf{66} & 1 & 0\\
+  Phrase-Structure with Grandparents&18 & 0 & \textbf{109} & 4 & 0\\
+  Unigram&\textbf{52} & \textbf{53} & 15 & 17 & 0\\
+  Leaf-Head with MaltParser trained by Timbl&7 & 20 & \textbf{45} & 0 & 0\\
+  Leaf-Arc Labels&6 & \textbf{54} & 17 & 1 & 0\\
   All Features Combined&0 & 4 & 0 & 0 & 0\\
 \end{tabular}
-\caption{Number of significant distances for sample size 1000, Ratio
-    normalisation included}
-\label{sig-1000-ratio}
+\caption{Number of significant distances for sample size 1000, 5
+  normalisations}
+\label{sig-5-1000}
 \end{table}
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&290 & 284 & 287 & 278 & 204\\
-  Trigram&284 & 283 & 283 & 276 & 196\\
-  Dependency&293 & 286 & 285 & 279 & 211\\
-  Phrase-Structure Rules&289 & 294 & 286 & 275 & 236\\
-  Phrase-Structure with Grandparents&285 & 290 & 286 & 270 & 258\\
-  Unigram&297 & 296 & 294 & 293 & 9\\
-  Dependencies with MaltParser trained by Timbl&294 & 289 & 288 & 284 & 222\\
-  Dependency, Arc Labels&294 & 290 & 291 & 293 & 162\\
-  All Features Combined&279 & 279 & 279 & 269 & 191\\
+  Leaf-Ancestor&\textbf{290} & \textbf{284} & \textbf{287} & \textbf{278} & \textbf{204}\\
+  Trigram&\textbf{284} & \textbf{283} & \textbf{283} & \textbf{276} & \textbf{196}\\
+  Leaf-Head&\textbf{293} & \textbf{286} & \textbf{285} & \textbf{279} & \textbf{211}\\
+  Phrase-Structure Rules&\textbf{289} & \textbf{294} & \textbf{286} & \textbf{275} & \textbf{236}\\
+  Phrase-Structure with Grandparents&\textbf{285} & \textbf{290} & \textbf{286} & \textbf{270} & \textbf{258}\\
+  Unigram&\textbf{297} & \textbf{296} & \textbf{294} & \textbf{293} &
+  \textit{9}\\
+  Leaf-Head with MaltParser trained by Timbl&\textbf{294} & \textbf{289} & \textbf{288} & \textbf{284} & \textbf{222}\\
+  Leaf-Arc Labels&\textbf{294} & \textbf{290} & \textbf{291} & \textbf{293} & \textbf{162}\\
+  All Features Combined&\textbf{279} & \textbf{279} & \textbf{279} & \textbf{269} & \textbf{191}\\
 \end{tabular}
- \caption{Number of significant distances for complete regions, Ratio
-    normalisation included}
- \label{sig-full-ratio}
+ \caption{Number of significant distances for complete regions, 5
+   normalisations}
+ \label{sig-5-full}
 \end{table}
 
-\begin{table}
-\begin{tabular}{l|rrrrr}
- & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&0 & {\bf 10.34} & 3.22 & 0 & 0\\
-  Trigram&0 & 0 & 0 & 0 & 0\\
-  Dependency&0 & 1.38 & 0 & 0 & 0\\
-  Phrase-Structure Rules&0 & 0 & {\bf 7.82} & 0 & 0\\
-  Phrase-Structure with Grandparents&0 & 0 & {\bf 19.77} & 0 & 0\\
-  Unigram&{\bf 11.03} & {\bf 12.64} & 3.91 & 3.68 & 0\\
-  Dependencies with MaltParser trained by Timbl&0 & 2.07 & 4.60 & 0 & 0\\
-  Dependency, Arc Labels&0.23 & {\bf 11.95} & 0.46 & 0 & 0\\
-  All Features Combined&0 & 0.23 & 0 & 0 & 0\\
-\end{tabular}
- \caption{Percent of significant distances for sample size 1000,
-    Sentence-length
-    normalisation only}
- \label{sig-percent-1000-freq}
-\end{table}
-\begin{table}
-  \begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&65.75 & 64.60 & 65.75 & 64.37 & 47.82\\
-  Trigram&65.52 & 64.83 & 65.06 & 63.91 & 45.06\\
-  Dependency&66.90 & 65.75 & 65.52 & 64.14 & 47.36\\
-  Phrase-Structure Rules&65.75 & 67.36 & 66.21 & 63.45 & 54.02\\
-  Phrase-Structure with Grandparents&66.21 & 67.13 & 66.44 & 62.53 & 57.70\\
-  Unigram&68.51 & 68.05 & 66.90 & 67.36 & {\it 1.61}\\
-  Dependencies with MaltParser trained by Timbl&67.82 & 67.36 & 66.67 & 65.52 & 52.18\\
-  Dependency, Arc Labels&67.59 & 66.67 & 66.67 & 65.98 & 36.55\\
-  All Features Combined&65.06 & 63.68 & 64.14 & 62.53 & 43.68\\
-\end{tabular}
- \caption{Percent of significant distances for complete regions, Sentence-length
-    normalisation only}
- \label{sig-percent-full-freq}
-\end{table}
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&1.15 & {\bf 12.87} & {\bf 7.82} & 0 & 0\\
-  Trigram&0.69 & 0.46 & 0 & 0 & 0\\
-  Dependency&0.69 & 3.22 & 0.92 & 0 & 0\\
-  Phrase-Structure Rules&2.53 & 0.92 & {\bf 15.17} & 0.23 & 0\\
-  Phrase-Structure with Grandparents&4.14 & 0 & {\bf 25.06} & 0.92 & 0\\
-  Unigram&{\bf 11.95} & {\bf 12.18} & 3.45 & 3.91 & 0\\
-  Dependencies, MaltParser trained by Timbl&1.61 & {\bf 4.60} & {\bf 10.34}
-  & 0 & 0\\
-  Dependency, Arc Labels&1.38 & {\bf 12.41} & 3.91 & 0.23 & 0\\
-  All Features Combined&0 & 0.92 & 0 & 0 & 0\\
-\end{tabular}
- \caption{Percent of significant distances for sample size 1000, Ratio
-    normalisation included}
- \label{sig-percent-1000-ratio}
-\end{table}
-\begin{table}
-\begin{tabular}{l|rrrrr}
-& $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&66.67 & 65.29 & 65.98 & 63.91 & 46.90\\
-  Trigram&65.29 & 65.06 & 65.06 & 63.45 & 45.06\\
-  Dependency&67.36 & 65.75 & 65.52 & 64.14 & 48.51\\
-  Phrase-Structure Rules&66.44 & 67.59 & 65.75 & 63.22 & 54.25\\
-  Phrase-Structure with Grandparents&65.52 & 66.67 & 65.75 & 62.07 & 59.31\\
-  Unigram&68.28 & 68.05 & 67.59 & 67.36 & {\it 2.07}\\
-  Dependencies, MaltParser trained by Timbl&67.59 & 66.44 & 66.21 & 65.29 & 51.03\\
-  Dependency, Arc Labels&67.59 & 66.67 & 66.90 & 67.36 & 37.24\\
-  All Features Combined&64.14 & 64.14 & 64.14 & 61.84 & 43.91\\
-\end{tabular}
- \caption{Percent of significant distances for complete regions, Ratio
-    normalisation included}
- \label{sig-percent-full-ratio}
-\end{table}
-
-Because so few of the distances produced with measures run on the full
-corpora are significant, only 1000-sentence sampling will be
-shown for the rest of the results.
 
 \section{Correlation}
 
@@ -260,6 +181,15 @@ well-known \cite{chambers98}. In addition to straight-line geographic
 distance, travel distance is presented. Travel distance can be more
 informative than straight-line distance because it accounts for
 natural obstacles such as mountains, lakes and islands.
+
+The tables that present geographic and table correlation,
+\ref{cor-1-1000} -- \ref{travel-cor-5-full}, mark significant
+correlations with a star for $p < 0.05$, two stars for $p < 0.01$ and
+three stars for $p < 0.001$. However, these correlations are only
+trustworthy in the case that the underlying distances are
+significant. Significant correlations from significant distances (as
+cross-referenced from tables \ref{sig-1-1000} -- \ref{sig-5-full}) are
+marked by italics.
 
 Besides this, correlation between combinations of measure/feature set
 can show how closely related they are--in other words, how similarly
@@ -274,164 +204,154 @@ with geography should occur.
 
 Third, correlation with corpus size is not predicted and is probably
 an undesired defect in sampling or normalisation. Correlation with
-corpus size is presented in table \ref{size-cor-1000-freq}.
+corpus size is presented in tables \ref{size-cor-1-1000} --
+\ref{size-cor-5-full}.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.04 & -0.00 & 0.05 & -0.01 & 0.08\\
-  Trigram&0.00 & 0.02 & 0.08 & 0.05 & 0.16\\
-  Dependency&-0.02 & 0.03 & 0.08 & 0.01 & 0.10\\
-  Phrase-Structure Rules&-0.04 & 0.01 & 0.04 & -0.03 & 0.06\\
-  Phrase-Structure with Grandparents&-0.06 & 0.01 & 0.04 & -0.05 & 0.06\\
-  Unigram&0.02 & 0.03 & 0.08 & 0.07 & 0.15\\
-  Dependencies, MaltParser trained by Timbl&-0.04 & 0.03 & 0.09 & -0.01 & 0.11\\
-  Dependency, Arc Labels&-0.00 & 0.05 & 0.08 & 0.03 & 0.10\\
-  All Features Combined&-0.01 & 0.01 & 0.08 & 0.02 & 0.11\\
+  Leaf-Ancestor&-0.01 & 0.03 & 0.02 & -0.02 & 0.08\\
+  Trigram&0.17 & 0.17 & 0.10 & 0.19 & 0.13\\
+  Dependency&-0.06 & 0.03 & 0.00 & -0.07 & 0.05\\
+  Phrase-Structure Rules&0.01 & \textit{0.18*} & 0.16 & 0.01 & 0.12\\
+  Phrase-Structure with Grandparents&0.03 & \textit{0.25*} & 0.21* & 0.03 & 0.12\\
+  Unigram&\textit{0.18*} & 0.17 & \textit{0.29**} & \textit{0.30**} & \textit{0.18*}\\
+  Dependencies, MaltParser trained by Timbl&-0.07 & 0.02 & -0.00 & -0.08 & 0.05\\
+  Dependency, Arc Labels&-0.07 & 0.06 & -0.06 & -0.09 & 0.00\\
+  All Features Combined&-0.02 & 0.03 & 0.01 & -0.02 & 0.07\\
 \end{tabular}
- \caption{Geographic correlation for sample size 1000, Sentence-length
-    normalisation only}
- \label{cor-1000-freq}
+ \caption{Geographic correlation for sample size 1000, 1 normalisation iteration}
+ \label{cor-1-1000}
 \end{table}
-% \begin{table}
-% \begin{tabular}{l|rrrrr}
-% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-%   Leaf-Ancestor&-0.05 & -0.09 & -0.11 & -0.08 & -0.08\\
-%   Trigram&-0.09 & -0.13 & -0.14 & -0.12 & -0.09\\
-%   Dependency&-0.04 & -0.07 & -0.10 & -0.08 & -0.10\\
-%   Phrase-Structure Rules&0.06 & -0.02 & -0.06 & 0.02 & -0.01\\
-%   Phrase-Structure with Grandparents&0.08 & -0.01 & -0.05 & 0.05 & -0.02\\
-%   Unigram&-0.06 & -0.08 & -0.10 & -0.09 & 0.14\\
-%   Dependencies, MaltParser trained by Timbl&-0.04 & -0.07 & -0.10 & -0.07 & -0.10\\
-%   Dependency, Arc Labels&-0.06 & -0.06 & -0.10 & -0.10 & -0.10\\
-%   All Features Combined&-0.06 & -0.09 & -0.12 & -0.09 & -0.09\\
-% \end{tabular}
-%  \label{cor-full-freq}
-%   \caption{Geographic correlation for complete regions, Sentence-length
-%     normalisation only}
-% \end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&0.02 & 0.09 & 0.11 & -0.00 & 0.09\\
+  Trigram&\textit{0.27*} & \textit{0.26*} & \textit{0.30**} & 0.21* & 0.08\\
+  Dependency&-0.03 & 0.12 & 0.14 & -0.06 & 0.02\\
+  Phrase-Structure Rules&0.13 & \textit{0.36**} & 0.30** & 0.11 & \textit{0.20*}\\
+  Phrase-Structure with Grandparents&0.15 & 0.41** & 0.36** & 0.14 & 0.19*\\
+  Unigram&\textit{0.20*} & \textit{0.20*} & \textit{0.33**} & \textit{0.33**} & \textit{0.22*}\\
+  Dependencies, MaltParser trained by Timbl&-0.02 & 0.14 & 0.16 & -0.05 & 0.02\\
+  Dependency, Arc Labels&-0.06 & 0.13 & -0.01 & -0.12 & -0.03\\
+  All Features Combined&0.03 & 0.11 & 0.16 & -0.00 & 0.04\\
+\end{tabular}
+ \caption{Geographic correlation for complete corpora, 1 normalisation iteration}
+ \label{cor-1-full}
+\end{table}
+
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&0.14 & 0.14 & 0.16 & 0.15 & 0.08\\
-  Trigram&0.22* & 0.17 & 0.22* & 0.22* & 0.16\\
+  Trigram&\textit{0.22*} & 0.17 & \textit{0.22*} & \textit{0.22*} & 0.16\\
   Dependency&0.10 & 0.11 & 0.15 & 0.12 & 0.10\\
   Phrase-Structure Rules&0.14 & 0.10 & 0.14 & 0.15 & 0.06\\
   Phrase-Structure with Grandparents&0.16 & 0.14 & 0.14 & 0.15 & 0.05\\
   Unigram&0.12 & 0.11 & 0.14 & 0.13 & 0.17\\
   Dependencies, MaltParser trained by Timbl&0.09 & 0.12 & 0.16 & 0.11 & 0.11\\
   Dependency, Arc Labels&0.08 & 0.10 & 0.14 & 0.10 & 0.09\\
-  All Features Combined&0.19 & 0.16 & 0.20* & 0.21* & 0.11\\
+  All Features Combined&0.19 & 0.16 & \textit{0.20*} & \textit{0.21*} & 0.11\\
 \end{tabular}
- \caption{Geographic correlation for sample size 1000, Ratio
-    normalisation included}
- \label{cor-1000-ratio}
+ \caption{Geographic correlation for sample size 1000, 5
+   normalisations}
+ \label{cor-5-1000}
 \end{table}
-% \begin{table}
-% \begin{tabular}{l|rrrrr}
-% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-%   Leaf-Ancestor&-0.14 & -0.16 & -0.15 & -0.15 & -0.08\\
-%   Trigram&-0.09 & -0.07 & -0.09 & -0.09 & -0.09\\
-%   Dependency&-0.22 & -0.21 & -0.18 & -0.22 & -0.10\\
-%   Phrase-Structure Rules&-0.19 & -0.14 & -0.11 & -0.20 & -0.01\\
-%   Phrase-Structure with Grandparents&-0.17 & -0.11 & -0.09 & -0.18 & -0.02\\
-%   Unigram&-0.10 & -0.06 & -0.07 & -0.08 & 0.14*\\
-%  Dependencies, MaltParser trained by Timbl&-0.19 & -0.18 & -0.18 & -0.19 & -0.10\\
-%   Dependency, Arc Labels&-0.21 & -0.18 & -0.18 & -0.21 & -0.10\\
-%   All Features Combined&-0.18 & -0.18 & -0.16 & -0.18 & -0.09\\
-% \end{tabular}
-%  \label{cor-full-ratio}
-%   \caption{Geographic correlation for complete regions, Ratio
-%     normalisation included}
-% \end{table}
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.05 & -0.00 & 0.04 & -0.02 & 0.07\\
-  Trigram&-0.01 & 0.00 & 0.07 & 0.04 & 0.16*\\
-  Dependency&-0.03 & 0.02 & 0.07 & 0.00 & 0.10\\
-  Phrase-Structure Rules&-0.06 & -0.00 & 0.03 & -0.04 & 0.06\\
-  Phrase-Structure with Grandparents&-0.07 & -0.00 & 0.03 & -0.06 & 0.06\\
-  Unigram&0.02 & 0.02 & 0.08 & 0.06 & 0.18*\\
-  Dependencies, MaltParser trained by Timbl&-0.05 & 0.02 & 0.08 & -0.03 & 0.10\\
-  Dependency, Arc Labels&-0.01 & 0.05 & 0.07 & 0.02 & 0.09\\
-  All Features Combined&-0.02 & 0.01 & 0.07 & 0.01 & 0.11\\
+  Leaf-Ancestor&-0.14 & -0.16 & -0.15 & -0.15 & -0.08\\
+  Trigram&-0.09 & -0.07 & -0.09 & -0.09 & -0.09\\
+  Dependency&-0.22 & -0.21 & -0.18 & -0.22 & -0.10\\
+  Phrase-Structure Rules&-0.19 & -0.14 & -0.11 & -0.20 & -0.01\\
+  Phrase-Structure with Grandparents&-0.17 & -0.11 & -0.09 & -0.18 & -0.02\\
+  Unigram&-0.10 & -0.06 & -0.07 & -0.08 & 0.14\\
+  Dependencies, MaltParser trained by Timbl&-0.19 & -0.18 & -0.18 & -0.19 & -0.10\\
+  Dependency, Arc Labels&-0.21 & -0.18 & -0.18 & -0.21 & -0.10\\
+  All Features Combined&-0.18 & -0.18 & -0.16 & -0.18 & -0.09\\
 \end{tabular}
- \caption{Travel correlation for sample size 1000, Sentence-length
-    normalisation only}
- \label{travel-cor-1000-freq}
+ \caption{Geographic correlation for complete corpora, 5 normalisations}
+ \label{cor-5-full}
 \end{table}
 
-% \begin{table}
-% \begin{tabular}{l|rrrrr}
-% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-%   Leaf-Ancestor&0.01 & -0.02 & -0.05 & -0.02 & -0.04\\
-%   Trigram&-0.03 & -0.05 & -0.07 & -0.05 & -0.05\\
-%   Dependency&0.02 & 0.00 & -0.03 & -0.02 & -0.06\\
-%   Phrase-Structure Rules&0.11 & 0.05 & 0.01 & 0.08 & 0.04\\
-%   Phrase-Structure with Grandparents&0.13 & 0.06 & 0.01 & 0.11 & 0.03\\
-%   Unigram&0.00 & -0.01 & -0.03 & -0.02 & 0.18*\\
-%   Dependencies, MaltParser trained by Timbl&0.02 & -0.00 & -0.03 & -0.01 & -0.05\\
-%   Dependency, Arc Labels&-0.00 & 0.01 & -0.03 & -0.03 & -0.06\\
-%   All Features Combined&-0.00 & -0.03 & -0.05 & -0.03 & -0.05\\
-% \end{tabular}
-%  \label{travel-cor-full-freq}
-%   \caption{Travel correlation for complete regions, Sentence-length
-%     normalisation only}
-% \end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&-0.03 & 0.02 & 0.01 & -0.04 & 0.07\\
+  Trigram&0.20 & 0.19 & 0.11 & \textit{0.23*} & 0.14\\
+  Dependency&-0.07 & 0.01 & -0.01 & -0.08 & 0.05\\
+  Phrase-Structure Rules&0.01 & \textit{0.18*} & 0.17 & 0.00 & 0.14\\
+  Phrase-Structure with Grandparents&0.03 & \textit{0.26*} & 0.22* & 0.03 & 0.15\\
+  Unigram&\textit{0.20*} & \textit{0.19*} & \textit{0.30**} & \textit{0.31**} & \textit{0.21*}\\
+  Dependencies, MaltParser trained by Timbl&-0.08 & 0.02 & -0.01 & -0.09 & 0.05\\
+  Dependency, Arc Labels&-0.08 & 0.05 & -0.06 & -0.10 & 0.00\\
+  All Features Combined&-0.03 & 0.03 & 0.01 & -0.03 & 0.06\\
+\end{tabular}
+ \caption{Travel correlation for sample size 1000, 1 normalisation iteration}
+ \label{travel-cor-1-1000}
+\end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&0.02 & 0.08 & 0.11 & 0.00 & 0.08\\
+  Trigram&\textit{0.31*} & \textit{0.28*} & \textit{0.32**} & 0.26* & 0.09\\
+  Dependency&-0.02 & 0.12 & 0.13 & -0.05 & 0.01\\
+  Phrase-Structure Rules&0.15 & \textit{0.37**} & 0.32** & 0.13 & \textit{0.22*}\\
+  Phrase-Structure with Grandparents&0.17 & 0.43** & 0.38** & 0.16 & 0.22*\\
+  Unigram&\textit{0.22*} & \textit{0.22*} & \textit{0.33**} & \textit{0.34**} & \textit{0.24*}\\
+  Dependencies, MaltParser trained by Timbl&-0.01 & 0.14 & 0.17 & -0.04 & 0.02\\
+  Dependency, Arc Labels&-0.06 & 0.12 & -0.02 & -0.12 & -0.03\\
+  All Features Combined&0.04 & 0.10 & 0.16 & 0.01 & 0.04\\
+\end{tabular}
+ \caption{Travel correlation for complete corpora, 1 normalisation iteration}
+ \label{travel-cor-1-full}
+\end{table}
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&0.17 & 0.19* & 0.17* & 0.18 & 0.07\\
-  Trigram&0.24* & 0.20* & 0.25* & 0.26* & 0.16\\
+  Trigram&\textit{0.24*} & \textit{0.20*} & \textit{0.25*} & \textit{0.26*} & 0.16\\
   Dependency&0.14 & 0.16 & 0.17 & 0.15 & 0.10\\
   Phrase-Structure Rules&0.17 & 0.14 & 0.16* & 0.18 & 0.06\\
-  Phrase-Structure with Grandparents&0.19 & 0.18* & 0.17* & 0.19 & 0.06\\
-  Unigram&0.15 & 0.13 & 0.17* & 0.16 & 0.20*\\
+  Phrase-Structure with Grandparents&0.19 & \textit{0.18*} & 0.17* & 0.19 & 0.06\\
+  Unigram&0.15 & 0.13 & \textit{0.17*} & 0.16 & \textit{0.20*}\\
   Dependencies, MaltParser trained by Timbl&0.12 & 0.16 & 0.18 & 0.14 & 0.11\\
   Dependency, Arc Labels&0.09 & 0.13 & 0.14 & 0.11 & 0.08\\
-  All Features Combined&0.23* & 0.20* & 0.22* & 0.24* & 0.11\\
+  All Features Combined&\textit{0.23*} & \textit{0.20*} & \textit{0.22*} & \textit{0.24*} & 0.11\\
 \end{tabular}
- \caption{Travel correlation for sample size 1000, Ratio
-    normalisation included}
- \label{travel-cor-1000-ratio}
+ \caption{Travel correlation for sample size 1000, 5 normalisations}
+ \label{travel-cor-5-1000}
 \end{table}
 
-% \begin{table}
-% \begin{tabular}{l|rrrrr}
-% & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-%   Leaf-Ancestor&-0.13 & -0.13 & -0.10 & -0.13 & -0.04\\
-%   Trigram&-0.06 & -0.04 & -0.05 & -0.06 & -0.05\\
-%   Dependency&-0.20 & -0.17 & -0.13 & -0.19 & -0.06\\
-%   Phrase-Structure Rules&-0.15 & -0.08 & -0.05 & -0.15 & 0.04\\
-%   Phrase-Structure with Grandparents&-0.12 & -0.05 & -0.03 & -0.13 & 0.03\\
-%   Unigram&-0.07 & -0.03 & -0.04 & -0.05 & 0.18*\\
-%   Dependencies, MaltParser trained by Timbl&-0.18 & -0.15 & -0.12 & -0.18 & -0.05\\
-%   Dependency, Arc Labels&-0.20 & -0.17 & -0.14 & -0.19 & -0.06\\
-%   All Features Combined&-0.16 & -0.14 & -0.11 & -0.15 & -0.05\\
-% \end{tabular}
-%  \label{travel-cor-full-ratio}
-%   \caption{Travel correlation for complete regions, Ratio
-%     normalisation included}
-% \end{table}
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&-0.13 & -0.13 & -0.10 & -0.13 & -0.04\\
+  Trigram&-0.06 & -0.04 & -0.05 & -0.06 & -0.05\\
+  Dependency&-0.20 & -0.17 & -0.13 & -0.19 & -0.06\\
+  Phrase-Structure Rules&-0.15 & -0.08 & -0.05 & -0.15 & 0.04\\
+  Phrase-Structure with Grandparents&-0.12 & -0.05 & -0.03 & -0.13 & 0.03\\
+  Unigram&-0.07 & -0.03 & -0.04 & -0.05 & \textit{0.18*}\\
+  Dependencies, MaltParser trained by Timbl&-0.18 & -0.15 & -0.12 & -0.18 & -0.05\\
+  Dependency, Arc Labels&-0.20 & -0.17 & -0.14 & -0.19 & -0.06\\
+  All Features Combined&-0.16 & -0.14 & -0.11 & -0.15 & -0.05\\
+\end{tabular}
+ \caption{Travel correlation for complete corpora, 5 normalisations}
+ \label{travel-cor-5-full}
+\end{table}
 
-From the tables we see that very few combinations have significant
-correlation with geographic or travel distance. Those that do are
-weak, at most 0.26. Most of the significant correlations are
-concentrated in the Ratio normalisation table, primarily for the
-trigram feature set and Kullback-Leibler measure. However, so many of
-the Kullback-Leibler distances are not significant that the
-correlation there is spurious.
+From the tables we see that parameter settings that correlate
+significantly do so at rates around 0.2 to 0.3, with a high of 0.37
+for phrase-structure-rule features measured by $R^2$, 1 normalistion
+iteration and comparison of full corpora.  The significant
+correlations are mostly concentrated in the trigram, unigram and
+combined feature sets.
 
-The strangely high significance rate for the measure cosine combined
-with unigram feature when operating on complete regions carries
-through to the correlation with geographic and travel distance. The
-correlation is low, 0.16 and 0.18 for trigram and unigram feature sets
-respectively, but significant.
-
-\subsection{Self-Correlation}
+\subsection{Inter-measure Correlation}
 
 Correlation between measures simply indicates that they are using
 similar information from the corpus to do their classification. This
@@ -443,16 +363,15 @@ averaged over the correlations for all combinations of feature set
 with 1000-sentence samples and with non-significant correlations
 removed before averaging.
 
-
 \begin{table}
   \begin{tabular}{r|cccc}
  & $R^2$ & $KL$ & $JS$ & cos \\ \hline
-  $R$ & 0.92 & 0.82 & 0.98 & 0.66 \\
-  $R^2$&& 0.88 & 0.91 & 0.69 \\
-  $KL$ &&& 0.89 & 0.71 \\
-  $JS$ &&&& 0.65 \\
+  $R$ & 0.85 & 0.85 & 0.98 & 0.39\\
+  $R^2$&& 0.90 & 0.83 & 0.57\\
+  $KL$ &&& 0.88 & 0.67\\
+  $JS$ &&&& 0.44
 \end{tabular}
-\caption{Average Intra-measure-correlation of measures}
+\caption{Average Inter-measure-correlation of measures}
  \label{self-correlation-measures}
 \end{table}
 
@@ -460,57 +379,91 @@ removed before averaging.
 
 As previously stated, correlation with corpus size is not predicted and is probably
 an undesired defect in sampling or normalisation. Correlation with
-corpus size is presented in table \ref{size-cor-1000-freq}.
+corpus size is presented in tables \ref{size-cor-1-1000} --
+\ref{size-cor-5-full}.
 
 Corpus size between two regions can be measured in two different ways:
 either by the sum of the regions' sizes, or by the difference. Here
 the sum is used: a larger sum means more tokens. If there is a
 correlation with size, it must arise because higher token counts are
-not properly normalised away. In other words, two large regions will
+not properly normalised. In other words, two large regions will
 have more tokens, leading to higher type counts, which directly leads
 to higher distances. Smaller regions will lead to lower distances.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&-0.50 & -0.38 & -0.35 & -0.49 & -0.32\\
-  Trigram&-0.45 & -0.42 & -0.33 & -0.40 & -0.24\\
-  Dependency&-0.49 & -0.37 & -0.33 & -0.47 & -0.32\\
-  Phrase-Structure Rules&-0.54 & -0.42 & -0.37 & -0.53 & -0.34\\
-  Phrase-Structure with Grandparents&-0.56 & -0.43 & -0.37 & -0.56 & -0.36\\
-  Unigram&-0.39 & -0.40 & -0.32 & -0.34 & -0.05\\
-  Dependencies, MaltParser trained by Timbl&-0.52 & -0.38 & -0.32 & -0.50 & -0.31\\
-  Dependency, Arc Labels&-0.45 & -0.35 & -0.33 & -0.42 & -0.28\\
-  All Features Combined&-0.48 & -0.38 & -0.33 & -0.45 & -0.31\\
+  Leaf-Ancestor&-0.38 & -0.26 & -0.37 & -0.40 & -0.37\\
+  Trigram&0.12 & -0.12 & -0.16 & 0.14 & -0.18\\
+  Dependency&-0.39 & -0.26 & -0.35 & -0.43 & -0.39\\
+  Phrase-Structure Rules&0.06 & 0.15 & 0.00 & 0.03 & -0.10\\
+  Phrase-Structure with Grandparents&0.08 & 0.19 & 0.07 & 0.04 & -0.09\\
+  Unigram&-0.08 & -0.14 & -0.09 & -0.09 & -0.10\\
+  Dependencies, MaltParser trained by Timbl&-0.35 & -0.23 & -0.28 & -0.37 & -0.37\\
+  Dependency, Arc Labels&-0.44 & -0.26 & -0.40 & -0.48 & -0.34\\
+  All Features Combined&-0.37 & -0.26 & -0.38 & -0.42 & -0.40\\
 \end{tabular}
-\caption{Size correlation for sample size 1000, Sentence-length
-    normalisation only}
-\label{size-cor-1000-freq}
+\caption{Size correlation for sample size 1000, 1 normalisation}
+\label{size-cor-1-1000}
 \end{table}
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
-  Leaf-Ancestor&0.35* & 0.36** & 0.06 & 0.27 & -0.32\\
-  Trigram&0.75** & 0.63** & 0.46** & 0.68** & -0.24\\
-  Dependency&0.46** & 0.44** & 0.14 & 0.38** & -0.33\\
-  Phrase-Structure Rules&0.85** & 0.59** & 0.36** & 0.85** & -0.34\\
-  Phrase-Structure with Grandparents&0.88** & 0.66** & 0.40** & 0.88** & -0.36\\
-  Unigram&0.38** & 0.35** & 0.14 & 0.19 & -0.04\\
-  Dependencies, MaltParser trained by Timbl&0.44** & 0.41** & 0.16 & 0.39* & -0.30\\
-  Dependency, Arc Labels&0.20 & 0.28* & -0.00 & 0.09 & -0.28\\
-  All Features Combined&0.58** & 0.48** & 0.21 & 0.47** & -0.31\\
+  Leaf-Ancestor&-0.19 & -0.15 & -0.16 & -0.24 & -0.36\\
+  Trigram&\textit{0.30*} & 0.08 & 0.19 & 0.08 & -0.39\\
+  Dependency&-0.17 & -0.06 & -0.08 & -0.26 & -0.41\\
+  Phrase-Structure Rules&0.52** & \textit{0.40**} & 0.30* & 0.47** & -0.21\\
+  Phrase-Structure with Grandparents&0.54** & 0.43** & 0.37** & 0.50** & -0.22\\
+  Unigram&-0.09 & -0.13 & -0.11 & -0.13 & -0.13\\
+  Dependencies, MaltParser trained by Timbl&-0.08 & 0.02 & 0.09 & -0.14 & -0.39\\
+  Dependency, Arc Labels&-0.32 & -0.16 & -0.26 & -0.40 & -0.35\\
+  All Features Combined&-0.15 & -0.11 & -0.10 & -0.25 & -0.42\\
 \end{tabular}
- \caption{Size correlation for sample size 1000, Ratio
-    normalisation included}
- \label{size-cor-1000-ratio}
+\caption{Size correlation for complete corpora, 1 normalisation}
+\label{size-cor-1-full}
 \end{table}
 
-A large number of parameter settings that include the ratio
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&\textit{0.35*} & 0.36** & 0.06 & 0.27 & -0.32\\
+  Trigram&\textit{0.75**} & \textit{0.63**} & \textit{0.46**} & \textit{0.68**} & -0.24\\
+  Dependency&\textit{0.46**} & \textit{0.44**} & 0.14 & \textit{0.38**} & -0.33\\
+  Phrase-Structure Rules&\textit{0.85**} & \textit{0.59**} & 0.36** & \textit{0.85**} & -0.34\\
+  Phrase-Structure with Grandparents&\textit{0.88**} & \textit{0.66**} & 0.40** & \textit{0.88**} & -0.36\\
+  Unigram&0.38** & 0.35** & 0.14 & 0.19 & -0.04\\
+  Dependencies, MaltParser trained by Timbl&\textit{0.44**} & \textit{0.41**} & 0.16 & \textit{0.39*} & -0.30\\
+  Dependency, Arc Labels&0.20 & 0.28* & -0.00 & 0.09 & -0.28\\
+  All Features Combined&\textit{0.58**} & \textit{0.48**} & 0.21 & \textit{0.47**} & -0.31\\
+\end{tabular}
+ \caption{Size correlation for sample size 1000, 5 normalisations}
+ \label{size-cor-5-1000}
+\end{table}
+
+\begin{table}
+\begin{tabular}{l|rrrrr}
+& $R$ & $R^2$ & KL & JS & cos  \\ \hline
+  Leaf-Ancestor&-0.55 & -0.38 & -0.26 & -0.53 & -0.17\\
+  Trigram&-0.29 & -0.27 & -0.19 & -0.26 & -0.14\\
+  Dependency&-0.61 & -0.43 & -0.27 & -0.58 & -0.18\\
+  Phrase-Structure Rules&-0.21 & -0.08 & -0.04 & -0.22 & -0.14\\
+  Phrase-Structure with Grandparents&-0.24 & -0.08 & -0.03 & -0.26 & -0.14\\
+  Unigram&-0.38 & -0.25 & -0.30 & -0.32 & -0.08\\
+  Dependencies, MaltParser trained by Timbl&-0.52 & -0.33 & -0.20 & -0.51 & -0.15\\
+  Dependency, Arc Labels&-0.59 & -0.45 & -0.33 & -0.54 & -0.20\\
+  All Features Combined&-0.61 & -0.44 & -0.26 & -0.55 & -0.18\\
+\end{tabular}
+\caption{Size correlation for complete corpora, 5 normalisations}
+\label{size-cor-5-full}
+\end{table}
+
+A large number of parameter settings that include 5 iterations of
 normalisation correlate with corpus size. However, corpus size also
 correlates with geographic distance at a rate of 0.31 for $p < 0.01$
-and travel distance at a rate of 0.32 for $p < 0.01$. Therefore,
-results with ratio normalisation will be presented in the rest of this
+and travel distance at a rate of 0.32 for $p < 0.01$. This makes the
+conclusion that these distances are invalid difficult to defend. Therefore,
+results with 5 normalisations will be presented in the rest of this
 chapter.
 
 \section{Clusters}
@@ -521,64 +474,72 @@ whether $R$ is useful for dialectometry more precisely than correlation by
 inducing grouping regions. These groups can be compared to
 regions proposed by syntactic dialectology.
 
-The clusters based on sentence-length normalisation alone are fairly
-similar, regardless of measure and feature set. The addition of the
-ratio normalisation causes significant reconfiguration. For example,
-figures \ref{cluster-r-trigram-freq} and \ref{cluster-r-trigram-ratio}
-show the different clusters.
+Within the same settings for sampling and number of normalisation
+iterations, the clusters based on sentence-length normalisation alone are fairly
+similar, regardless of measure and feature set. Changing the sampling
+settings or the number of normalisations substantial reconfiguration.
 
-Conversely, the clusters produced by $R$ (figure
-\ref{cluster-r-trigram-freq}) and Jensen-Shannon divergence
-are fairly similar (figure \ref{cluster-js-trigram-freq}). Both are
-based on trigram features with sentence-length normalisation
-only. There is more variation in the equivalent clusters once ratio
-normalisation is added (figures \ref{cluster-r-trigram-ratio} and
-\ref{cluster-js-trigram-ratio}.
+For example, the clusters produced by $R$ (figure
+\ref{cluster-1-r-trigram}) and Jensen-Shannon divergence are fairly
+similar (figure \ref{cluster-1-js-trigram}). Both are based on trigram
+features with sentence-length normalisation only. Those dendrograms
+differ from their 5-normalised equivalents, figures
+\ref{cluster-5-r-trigram} and \ref{cluster-5-js-trigram}.
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-trigram-freq-clusterward}
- \caption{Dendrogram With Sentence-length Normalisation Only ($R$
-    measure and trigram features)}
-  \label{cluster-r-trigram-freq}
+  \includegraphics[width=0.9\textwidth]{dist-1-1000-r-trigram-ratio-clusterward}
+ \caption{Dendrogram With $R$
+    measure and trigram features, 1 normalisation, 1000 samples}
+  \label{cluster-1-r-trigram}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-trigram-freq-clusterward}
- \caption{Dendrogram With Sentence-length Normalisation Only
-    (Jensen-Shannon measure and trigram features)}
-  \label{cluster-js-trigram-freq}
+  \includegraphics[width=0.9\textwidth]{dist-1-1000-js-trigram-ratio-clusterward}
+ \caption{Dendrogram With Jensen-Shannon
+    measure and trigram features, 1 normalisation, 1000 samples}
+  \label{cluster-1-js-trigram}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{dist-1-full-r_sq-psg-ratio-clusterward}
+ \caption{Dendrogram With $R^2$ measure and phrase-structure-rule features,
+ 1 normalisation, complete corpora}
+  \label{cluster-1-r_sq-psg}
 \end{figure}
 
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-r-trigram-ratio-clusterward}
- \caption{Dendrogram With Ratio Normalisation ($R$
-    measure and trigram features)}
-  \label{cluster-r-trigram-ratio}
+  \includegraphics[width=0.9\textwidth]{dist-5-1000-r-trigram-ratio-clusterward}
+ \caption{Dendrogram With $R$ measure and trigram features, 5 normalisations, 1000 samples}
+  \label{cluster-5-r-trigram}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-10-1000-js-trigram-ratio-clusterward}
- \caption{Dendrogram With Ratio Normalisation (Jensen-Shannon
-    measure and trigram features)}
-  \label{cluster-js-trigram-ratio}
+  \includegraphics[width=0.9\textwidth]{dist-5-1000-js-trigram-ratio-clusterward}
+ \caption{Dendrogram With Jensen-Shannon
+    measure and trigram features, 5 normalisations, 1000 samples}
+  \label{cluster-5-js-trigram}
 \end{figure}
 
-Note that the highest correlation travel distance with travel
-distance, 0.26, is given by the Jensen-Shannon measure, trigram
-features and ratio normalisation. It also produces the dendrogram in
-figure \ref{cluster-js-trigram-ratio}.
+The highest correlation of 1-normalised distances with travel
+distance, 0.37, is given by $R^2$ measured over phrase-structure-rule
+features, comparing full corpora. Those parameter settings produce the
+dendrogram in figure \ref{cluster-1-r_sq-psg}. The highest
+correlation of 5-normalised distances with travel distance, 0.26, is
+given by the Jensen-Shannon measure and trigram features, comparing
+1000-sentence samples of corpora. Its dendrogram is in figure
+\ref{cluster-5-js-trigram}.
 
 Unlike the significances, cosine similarity's dendrograms are fairly
 similar to those of other features. See for example figure
-\ref{cluster-cos-trigram-freq}, with cosine, trigram features and
-sentence-length normalisation only.
+\ref{cluster-5-cos-trigram}, with cosine, trigram features and
+5 iterations of normalisation.
 
 \begin{figure}
- \includegraphics[width=0.9\textwidth]{dist-10-1000-cos-trigram-freq-clusterward}
- \caption{Dendrogram With Sentence-length Normalisation (cosine
-    measure and trigram features)}
-  \label{cluster-cos-trigram-freq}
+ \includegraphics[width=0.9\textwidth]{dist-5-1000-cos-trigram-ratio-clusterward}
+ \caption{Dendrogram with cosine measure and trigram features, 5
+   normalisations}
+  \label{cluster-5-cos-trigram}
 \end{figure}
 
 
@@ -587,60 +548,66 @@ sentence-length normalisation only.
 Consensus trees combine the results of cluster dendrograms, which
 avoids the dendrograms's problem of instability, where small changes
 in distances cause large re-arrangements in the tree. Only dendrograms
-whose input were distances were all significant were used. That is, a
-measure/feature set combination had to have a 0 entry in tables
-\ref{sig-1000-freq} or \ref{sig-1000-ratio} to be included.
+whose input distances were at least 95\% significant were used. That is, a
+measure/feature set combination had to be non-bold in tables
+\ref{sig-1-1000} to \ref{sig-5-full} to be included. The consensus
+tree for full-corpora comparisons and 5 rounds of normalisation is not
+given because there is only one dendrogram that qualifies.
 
-This means that more sentence-length dendrograms were used to build
-the consensus tree of figure \ref{consensus-freq} than were used in
-figure \ref{consensus-ratio}. Despite this, figure
-\ref{consensus-freq} retains much more detail, indicating that its
-constituent dendrograms, based on sentence-length normalisation only,
-agree much more than those with the additional ratio normalisation.
+In addition, more dendrograms were used to build
+the consensus tree of figure \ref{consensus-5-1000} than were used in
+figures \ref{consensus-1-1000} and \ref{consensus-1-full}. Despite this, figure
+\ref{consensus-5-1000} retains much more detail, indicating that its
+constituent dendrograms, based on 5 rounds of normalisation,
+agree more than those with only 1 round of normalisation.
 
 The consensus trees are also grouped into clusters, which are then
-mapped in figures \ref{map-consensus-freq} and
-\ref{map-consensus-ratio}. The maps of Sweden were provided by Therese
+mapped in figures \ref{map-consensus-1-1000} --
+\ref{map-consensus-5-1000}. The maps of Sweden were provided by Therese
 Leinonen and are the same as in her (2010) dissertation.
 
 \begin{figure}
-% Couldn't get qtree to display the whole tree. Maybe it ran out of
-% space. Maybe it ran out of stack. Maybe it just doesn't like me. I
-% decided to use Omnigraffle. More work in the short-term though.
-%   \Tree[.
-%   {Viby\\Bara}
-%   [. {StAnna\\Sorunda}  ]
-%   [. {Jamshog}
-%      [. {Tors\.as\\Ossjo}  ] ]
-%   [. {K\"ola}
-%      [. {Loderup\\Bredsatra}  ] ]
-%   [. {Villberga\\Torso\\Norra Rorum\\Frillesas\\Boda} ]
-%   [. {Vaxtorp\\Sproge\\Skinnskatteberg\\Orust\\Fole\\Faro\\Asby\\Arsunda\\Anundsjo\\Ankarsrum}
-%      [. {Leksand\\Indal}  ]
-%      [. {Segerstad\\Floby\\Bengtsfors}  ] ] ]
-% % 
-\includegraphics[scale=0.7]{consensus-freq}
-\caption{Consensus Tree for Sentence-length Normalisation}
-\label{consensus-freq}
+\includegraphics[scale=0.7]{consensus-1-1000}
+% \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\Tors\.as\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Ossjo\\Orust\\Norra Rorum\\Loderup\\Leksand\\K\"ola\\Jamshog\\Indal\\Frillesas\\Fole\\Faro\\Bredsatra\\Boda\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Floby\\Bengtsfors}  ] ]
+\caption{Consensus Tree for 1000-samples and 1 normalisation}
+\label{consensus-1-1000}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.7]{consensus-ratio}
+\includegraphics[scale=0.7]{consensus-1-full}
+% \Tree[. {Villberga\\Viby\\Torso\\Tors\.as\\Sorunda\\Segerstad\\Ossjo\\Orust\\Norra Rorum\\Loderup\\Leksand\\K\"ola\\Indal\\Fole\\Boda\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum}
+%   [. {Vaxtorp\\Skinnskatteberg}  ]
+%   [. {StAnna\\Frillesas}  ]
+%   [. {Sproge\\Faro}  ]
+%   [. {Jamshog\\Bredsatra}  ]
+%   [. {Floby\\Bengtsfors}  ] ]
+\caption{Consensus Tree for full corpus comparison and 1 normalisation}
+\label{consensus-1-full}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.7]{consensus-5-1000}
 % \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Orust\\Norra Rorum\\Leksand\\K\"ola\\Indal\\Frillesas\\Fole\\Floby\\Faro\\Boda\\Bengtsfors\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Loderup\\Bredsatra}  ] [. {Tors\.as\\Ossjo\\Jamshog}  ] ]
-\caption{Consensus Tree for Ratio Normalisation}
-\label{consensus-ratio}
+\caption{Consensus Tree for 1000-samples and 5 normalisations}
+\label{consensus-5-1000}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-freq}
-\caption{Consensus Tree for Sentence-length Normalisation, Mapped}
-\label{map-consensus-freq}
+\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-1-1000}
+\caption{Consensus Tree for 1000-samples and 1 normalisation, Mapped}
+\label{map-consensus-1-1000}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-ratio}
-\caption{Consensus Tree for Ratio Normalisation, Mapped}
-\label{map-consensus-ratio}
+\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-1-full}
+\caption{Consensus Tree for full corpus comparison and 1 normalisation, Mapped}
+\label{map-consensus-1-full}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-5-1000}
+\caption{Consensus Tree for 1000-samples and 5 normalisations, Mapped}
+\label{map-consensus-5-1000}
 \end{figure}
 
 % It would still be cool to eliminate only the non-significant distances
@@ -673,22 +640,28 @@ multiple cluster trees. They, too, provide a stabler view of the
 groups that regions form when clustered. However, they provide a better way to
 visualise the boundaries between regions.
 
-The two composite cluster maps in figures \ref{map-composite-freq} and
-\ref{map-composite-ratio} are the composite of the same dendrograms
-used as input for the consensus trees: all-significant parameter
-settings, divided by type of normalisation (sentence-length only or
-ratio added as well).
+The two composite cluster maps in figures \ref{map-composite-1-1000}
+-- \ref{map-composite-5-1000} are the composite of the same
+dendrograms used as input for the consensus trees: all-significant
+parameter settings, divided by type of normalisation (sentence-length
+only or ratio added as well).
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-cluster-freq}
-\caption{Composite Cluster Map for Sentence-length Normalisation}
-\label{map-composite-freq}
+\includegraphics[scale=0.82]{Sverigekarta-cluster-1-1000}
+\caption{Composite Cluster Map for 1000-sample, 1 normalisation}
+\label{map-composite-1-1000}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-cluster-ratio}
-\caption{Composite Cluster Map for Ratio Normalisation}
-\label{map-composite-ratio}
+\includegraphics[scale=0.82]{Sverigekarta-cluster-1-full}
+\caption{Composite Cluster Map for complete corpora, 1 normalisation}
+\label{map-composite-1-full}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.82]{Sverigekarta-cluster-5-1000}
+\caption{Composite Cluster Map for complete corpora, 5 normalisations}
+\label{map-composite-5-1000}
 \end{figure}
 
 \section{Multi-Dimensional Scaling}
@@ -703,8 +676,8 @@ is no exclusive membership of a groups. This also means that
 MDS maps are more stable than dendrograms.
 \end{sloppypar}
 
-The maps shown here in figures \ref{mds-js-trigram-freq} --
-\ref{mds-r-all-ratio} are from the same parameter settings as the
+The maps shown here in figures \ref{mds-1-1000-js-trigram} --
+\ref{mds-5-1000-js-trigram} are from the same parameter settings as the
 dendrograms, with the addition of the all-combined feature set. This
 provides a combined MDS view somewhat analoguous to the consensus trees or
 composite clusters for the cluster dendrograms.
@@ -715,43 +688,48 @@ clusters were both generated by the L04 package from the University of
 Groningen.
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-1000-js-trigram-freq}
-\caption{Jensen-Shannon measure with trigram features, and sentence-length normalisation only}
-\label{mds-js-trigram-freq}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1-1000-r-trigram-ratio}
+\caption{$R$ measure with trigram features, 1000-sentence sampling and
+  1 round of normalisation}
+\label{mds-1-1000-r-trigram}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-1000-r-trigram-freq}
-\caption{$R$ measure with trigram features, and sentence-length normalisation only}
-\label{mds-r-trigram-freq}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1-1000-js-trigram-ratio}
+\caption{Jensen-Shannon measure with trigram features, 1000-sentence sampling and
+  1 round of normalisation}
+\label{mds-1-1000-js-trigram}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-1000-r-all-freq}
-\caption{$R$ measure with all features combined, and sentence-length normalisation only}
-\label{mds-r-all-freq}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1-full-r-trigram-ratio}
+\caption{$R$ measure with trigram features, full-corpus comparison and
+  1 round of normalisation}
+\label{mds-1-full-r-trigram}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-1000-js-trigram-ratio}
-\caption{Jensen-Shannon measure with trigram features, and additional
-\label{mds-js-trigram-ratio}
-  ratio normalisation}
+\includegraphics[scale=0.82]{Sverigekarta-mds-1-full-r_sq-psg-ratio}
+\caption{$R^2$ measure with phrase-structure-rule features, full-corpus comparison and
+  1 round of normalisation}
+\label{mds-1-full-r_sq-psg}
 \end{figure}
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-1000-r-trigram-ratio}
-\caption{$R$ measure with trigram features, and additional ratio normalisation}
-\label{mds-r-trigram-ratio}
+\includegraphics[scale=0.82]{Sverigekarta-mds-5-1000-r-trigram-ratio}
+\caption{$R$ measure with trigram features, 1000-sentence sampling and
+  5 rounds of normalisation}
+\label{mds-5-1000-r-trigram}
 \end{figure}
-
 
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-1000-r-all-ratio}
-\caption{$R$ measure with all features combined, and additional ratio normalisation}
-\label{mds-r-all-ratio}
+\includegraphics[scale=0.82]{Sverigekarta-mds-5-1000-js-trigram-ratio}
+\caption{Jensen-Shannon measure with trigram features, 1000-sentence sampling and
+  5 rounds of normalisation}
+\label{mds-5-1000-js-trigram}
 \end{figure}
 
+% should probably still put cos-trigram and maybe r-all or something
 
 \section{Features}
 \label{feature-ranking}
@@ -765,46 +743,60 @@ first kind of features are unlikely to be noticed by linguists without
 the aid of computers, whereas the second kind are the rare features
 that are easy for linguists to notice.
 
-There are two sets of rankings on display here; the first set is only
-normalised for sentence size, whereas the second is normalised for
-relative overuse, based on \quotecite{wiersma09} normalisation. The
-ratio normalisation is not shown because it is a linear transformation
-over feature types. Therefore, its rankings are the same as the first
-set, with sentence-size normalisation only.
+There are two sets of rankings on display here; the first set is the
+previous normalisation for sentence size, whereas the second is normalised for
+relative overuse, based on \quotecite{wiersma09} normalisation.
 
-% The features were compared using consensus groups as well as between
-% individual regions. This last was to see how specific the feature
-% extraction could be in finding features that were unique to the
-% region. These results are from Jamshog, Ossjo and Tors\.as the three most
-% distant regions.
+These results compare clusters from the consensus trees
+based on 1 round of normalisation (figures \ref{consensus-1-1000} and
+\ref{consensus-1-full}) as well as the consensus tree based on 5
+rounds of normalisation and a 1000-sentence sample (figure
+\ref{consensus-5-1000}. The consensus tree for 5 rounds or
+normalisation and full-corpus comparisons only had one tree for input
+and was not usable. Given these three consensus trees, the groups in
+table \ref{feature-ranking-groups} are the relevant ones for analysis.
 
-These results compare clusters from the consensus tree based on
-sentence-size normalisation only (figure \ref{consensus-freq}). The
-focus is on cluster B, the cluster most distant from the
-other. Cluster B contains J\"amshog, \"Ossj\"o and T\"ors\.as. In the figures,
-features on the right are typical of cluster B. Features on the left
-are typical of the cluster being compared to B.
+There are four groups, three small and one containing the remainder of
+the sites. Group A, containing Floby and Bengtsfors, appears in all
+three consensus trees. Its features are coloured blue in the following
+figures. Group B, containing Jamshog, Torsas and Ossjo, appears in the
+second two trees. It features are coloured red. Group C, containing
+Loderup and Bredsatra, appears only in the third tree. Its features
+are coloured yellow. The remainder of the sites are in Group D;
+the third consensus tree differs from the first two in splitting the
+remainder into two groups, but this division is ignored here to reduce
+the number of comparisons. Between large groups of sites, such
+comparisons are unlikely to be informative anyway.
+
+\begin{table}
+  \begin{enumerate}
+   \item[A] Floby, Bengtsfors
+    \item[B] J\"amshog, \"Ossj\"o, Tors\.as
+    \item[C] L\"oderup, Breds\"atra
+    \item[D] Segerstad, K\"ola, S:t Anna, Soruna, Norra Rorum,
+      Villberga, Torso, Boda, Frilles\.as, Indal, Leksand, Anundsj\"o,
+      \.Arsunda, Asby, Orust, V\.axtorp, Fola, Sproge, F\.ar\"o,
+      Ankarsrum, Skinnsketteberg
+  \end{enumerate}
+  \caption{Clusters discussed}
+  \label{feature-ranking-groups}
+\end{table}
 
 The first subsection, \ref{feature-ranking-complete}, shows all
-comparisons between regions for a single parameter setting:
-Jensen-Shannon divergence, trigrams features and sentence-size
-normalisation only. These are the parameters that give the highest correlation with
-travel distance. In order to save space, only the comparisons between
-cluster B and the other clusters are given. The complete set of
-comparisons is in Appendix X.
+comparisons between regions for a single parameter setting: trigram
+features, 1000-sentence sampling and sentence-size normalisation
+only. Besides unigrams, these are the parameters that give the highest
+correlation with travel distance for 1000-sentence sampling.
 
-In the next subsection, \ref{feature-ranking-overuse}, the same
-parameter settings are used for comparisons between cluster B and all
-other clusters (the other 15 comparisons are in Appendix X). However,
-overuse normalisation is added as well.
+In the next subsection, \ref{feature-ranking-overuse}, the overuse
+normalisation is added, keeping other parameter settings the same.
 
 The third subsection, \ref{feature-ranking-feature-sets},
-a single comparison between cluster B and cluster C are given for
-all feature sets, with $R$ as distance measure.
+a single comparison between cluster A and cluster B is given for
+all feature sets.
 
-In the final subsection, \ref{feature-ranking-cos}, selected comparisons
-are presented to make cosine dissimilarity's difference from the other
-methods clearer. Both normalisation settings are compared.
+In the final subsection, \ref{feature-ranking-psg}, the high-ranked
+phrase-structure rules are given.
 
 In addition, only features that appear in both groups were ranked;
 although features that only appear in one or the other can be
@@ -867,1168 +859,159 @@ appendix).
 \item XX = Unclassifiable
 \end{itemize}
 
-\subsection{Complete Comparison}
+\subsection{Trigram Features}
 \label{feature-ranking-complete}
-For Jensen-Shannon distance, trigram features and ratio normalisation.
+The figures in this section show the highest ranked features for
+trigram features.
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){161.9396297070559}}
-\put(190,107){AB-AB-IP}
-\put(180,99){\line(-1,0){120.04035593204934}}
-\put(190,96){NN-AB-IP}
-\put(180,88){\line(-1,0){113.3669026822152}}
-\put(190,85){PR-NN-IP}
-\put(180,77){\line(-1,0){102.02415902418629}}
-\put(190,74){PO-NN-IP}
-\put(180,66){\line(-1,0){98.43711655047673}}
-\put(190,63){PO-AB-IP}
-\put(250,55){\line(1,0){119.71805382608774}}
-\put(190,52){PO-VV-PO}
-\put(250,44){\line(1,0){127.23243744376073}}
-\put(190,41){AB-VV-PO}
-\put(250,33){\line(1,0){133.91897910398922}}
-\put(190,30){AV-AB-AB}
-\put(250,22){\line(1,0){135.9910380745494}}
-\put(190,19){NN-++-PO}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){AB-AB-AB}
-\end{picture}
-\caption{cluster A $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, trigram features}
 \end{figure}
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){126.94052270897559}}
-\put(190,107){NN-PR-NN}
-\put(180,99){\line(-1,0){103.22864099593535}}
-\put(190,96){PR-NN-IP}
-\put(180,88){\line(-1,0){95.42187837492882}}
-\put(190,85){PR-NN-AB}
-\put(180,77){\line(-1,0){74.61780587900328}}
-\put(190,74){NN-AB-IP}
-\put(180,66){\line(-1,0){62.02704852043121}}
-\put(190,63){UK-PO-AV}
-\put(250,55){\line(1,0){145.694425353938}}
-\put(190,52){VV-AB-AB}
-\put(250,44){\line(1,0){151.0473815461347}}
-\put(190,41){VV-PO-AB}
-\put(250,33){\line(1,0){161.1957311445795}}
-\put(190,30){++-PO-VV}
-\put(250,22){\line(1,0){171.17530975710332}}
-\put(190,19){AB-AB-AB}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){PO-VV-AB}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ clusterB, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-trigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster C, trigram features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-trigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster D, trigram features}
 \end{figure}
 
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-NN-IP}
-\put(180,99){\line(-1,0){160.81981270070784}}
-\put(190,96){PO-AV-AB}
-\put(180,88){\line(-1,0){153.38197958874858}}
-\put(190,85){AB-UK-PO}
-\put(180,77){\line(-1,0){147.59755872017755}}
-\put(190,74){PO-AV-PO}
-\put(180,66){\line(-1,0){145.04026766649292}}
-\put(190,63){NN-AB-IP}
-\put(250,55){\line(1,0){125.70169981673588}}
-\put(190,52){NN-PR-PO}
-\put(250,44){\line(1,0){126.72865141146998}}
-\put(190,41){AJ-NN-AB}
-\put(250,33){\line(1,0){127.87464061738152}}
-\put(190,30){PO-VV-PO}
-\put(250,22){\line(1,0){138.00998705381912}}
-\put(190,19){NN-++-PO}
-\put(250,11){\line(1,0){152.12905829144037}}
-\put(190,8){AB-PO-VV}
-\end{picture}
-\caption{cluster D $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-trigram-ratio}
+  \caption{cluster B $\Leftrightarrow$ cluster C, trigram features}
 \end{figure}
-
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){174.75145638272872}}
-\put(190,107){PR-NN-IP}
-\put(180,99){\line(-1,0){135.80370063450047}}
-\put(190,96){NN-AB-IP}
-\put(180,88){\line(-1,0){111.98655551570171}}
-\put(190,85){AB-AB-IP}
-\put(180,77){\line(-1,0){109.05004267108632}}
-\put(190,74){PO-NN-IP}
-\put(180,66){\line(-1,0){101.92860941732323}}
-\put(190,63){PO-AB-IP}
-\put(250,55){\line(1,0){85.19894620969437}}
-\put(190,52){PO-NN-PO}
-\put(250,44){\line(1,0){85.90468887212279}}
-\put(190,41){NN-PR-PO}
-\put(250,33){\line(1,0){107.0252068620054}}
-\put(190,30){AB-PR-PO}
-\put(250,22){\line(1,0){125.4006753163226}}
-\put(190,19){PR-PO-NN}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){NN-++-PO}
-\end{picture}
-\caption{cluster E $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-trigram-ratio}
+  \caption{cluster B $\Leftrightarrow$ cluster D, trigram features}
 \end{figure}
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){176.42951698355745}}
-\put(190,107){PO-AV-AB}
-\put(180,99){\line(-1,0){116.38670798187398}}
-\put(190,96){PR-NN-IP}
-\put(180,88){\line(-1,0){111.07609211600884}}
-\put(190,85){++-PO-AV}
-\put(180,77){\line(-1,0){106.99083969915766}}
-\put(190,74){AB-AB-IP}
-\put(180,66){\line(-1,0){102.97882251659142}}
-\put(190,63){NN-AB-IP}
-\put(250,55){\line(1,0){94.97442368528897}}
-\put(190,52){AB-PR-NN}
-\put(250,44){\line(1,0){95.55181451791225}}
-\put(190,41){PR-NN-++}
-\put(250,33){\line(1,0){99.2501938493017}}
-\put(190,30){NN-++-AB}
-\put(250,22){\line(1,0){105.20665957114342}}
-\put(190,19){PO-VV-PO}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){NN-++-PO}
-\end{picture}
-\caption{cluster F $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-trigram-ratio}
+  \caption{cluster C $\Leftrightarrow$ cluster D, trigram features}
 \end{figure}
 
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PR-NN-IP}
-\put(180,99){\line(-1,0){103.67567485982084}}
-\put(190,96){PO-NN-IP}
-\put(180,88){\line(-1,0){99.19805447177173}}
-\put(190,85){PO-AB-IP}
-\put(180,77){\line(-1,0){94.78088280796023}}
-\put(190,74){PO-AV-AB}
-\put(180,66){\line(-1,0){92.26071436657134}}
-\put(190,63){NN-AB-IP}
-\put(250,55){\line(1,0){58.76227275128482}}
-\put(190,52){PR-NN-++}
-\put(250,44){\line(1,0){64.39283369431512}}
-\put(190,41){NN-AB-PO}
-\put(250,33){\line(1,0){66.68445162215396}}
-\put(190,30){AB-AB-PO}
-\put(250,22){\line(1,0){67.95828962561033}}
-\put(190,19){AB-PO-VV}
-\put(250,11){\line(1,0){88.55296621361569}}
-\put(190,8){NN-++-PO}
-\end{picture}
-\caption{cluster G $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features ratio normalised}
-\end{figure}
-
-
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){AB-AB-IP}
-% \put(180,99){\line(-1,0){121.30246194626291}}
-% \put(190,96){++-PO-AV}
-% \put(180,88){\line(-1,0){118.93851158681072}}
-% \put(190,85){VV-AB-AB}
-% \put(180,77){\line(-1,0){102.59598779067433}}
-% \put(190,74){PO-VV-AB}
-% \put(180,66){\line(-1,0){101.77818386280573}}
-% \put(190,63){PO-AV-NN}
-% \put(250,55){\line(1,0){87.96398449736937}}
-% \put(190,52){++-AB-AV}
-% \put(250,44){\line(1,0){107.9862645086148}}
-% \put(190,41){RO-NN-AB}
-% \put(250,33){\line(1,0){145.13625045182536}}
-% \put(190,30){NN-PR-NN}
-% \put(250,22){\line(1,0){152.25611470340175}}
-% \put(190,19){PR-NN-++}
-% \put(250,11){\line(1,0){178.03636692236634}}
-% \put(190,8){AB-AV-AB}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterA-StAnna-Sorunda}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PO-AV-AB}
-% \put(180,99){\line(-1,0){136.32174751248735}}
-% \put(190,96){++-PO-AV}
-% \put(180,88){\line(-1,0){117.28743616911103}}
-% \put(190,85){PO-VV-AB}
-% \put(180,77){\line(-1,0){98.7253738239582}}
-% \put(190,74){AB-AB-IP}
-% \put(180,66){\line(-1,0){90.30614927465805}}
-% \put(190,63){VV-AB-IP}
-% \put(250,55){\line(1,0){73.13932460745498}}
-% \put(190,52){NN-PR-NN}
-% \put(250,44){\line(1,0){90.93565527735069}}
-% \put(190,41){NN-++-AB}
-% \put(250,33){\line(1,0){93.93118611932094}}
-% \put(190,30){NN-++-PO}
-% \put(250,22){\line(1,0){96.7250073689326}}
-% \put(190,19){PR-NN-AB}
-% \put(250,11){\line(1,0){104.51711583962016}}
-% \put(190,8){PR-NN-++}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterF-Floby-Segerstad-Bengtsfors}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PR-NN-IP}
-% \put(180,99){\line(-1,0){174.72926832930438}}
-% \put(190,96){PO-AV-AB}
-% \put(180,88){\line(-1,0){143.8405429347908}}
-% \put(190,85){PO-VV-AB}
-% \put(180,77){\line(-1,0){135.132025044669}}
-% \put(190,74){VV-PO-AB}
-% \put(180,66){\line(-1,0){129.47373162565125}}
-% \put(190,63){PO-NN-IP}
-% \put(250,55){\line(1,0){64.58821939610516}}
-% \put(190,52){AB-HV-PO}
-% \put(250,44){\line(1,0){65.04929355415084}}
-% \put(190,41){PR-NN-PR}
-% \put(250,33){\line(1,0){79.76799147159953}}
-% \put(190,30){NN-PR-NN}
-% \put(250,22){\line(1,0){85.01493971561989}}
-% \put(190,19){PR-NN-AB}
-% \put(250,11){\line(1,0){114.23828471043979}}
-% \put(190,8){PR-NN-++}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PO-VV-AB}
-% \put(180,99){\line(-1,0){172.97343800408646}}
-% \put(190,96){VV-AB-AB}
-% \put(180,88){\line(-1,0){152.61150661361438}}
-% \put(190,85){PO-AV-AB}
-% \put(180,77){\line(-1,0){149.2859877406173}}
-% \put(190,74){++-PO-AV}
-% \put(180,66){\line(-1,0){133.83761694805892}}
-% \put(190,63){VV-PO-AB}
-% \put(250,55){\line(1,0){75.31405957629853}}
-% \put(190,52){AB-HV-PO}
-% \put(250,44){\line(1,0){80.09738681578665}}
-% \put(190,41){PR-NN-PR}
-% \put(250,33){\line(1,0){86.64312291644264}}
-% \put(190,30){AB-AV-AB}
-% \put(250,22){\line(1,0){118.5510700075277}}
-% \put(190,19){PR-NN-++}
-% \put(250,11){\line(1,0){126.1474997311539}}
-% \put(190,8){NN-PR-NN}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PO-VV-AB}
-% \put(180,99){\line(-1,0){136.39373294301893}}
-% \put(190,96){PR-NN-IP}
-% \put(180,88){\line(-1,0){124.95364465971942}}
-% \put(190,85){PO-AB-AB}
-% \put(180,77){\line(-1,0){122.6467148171888}}
-% \put(190,74){AB-AB-IP}
-% \put(180,66){\line(-1,0){110.9574376697438}}
-% \put(190,63){NN-AB-IP}
-% \put(250,55){\line(1,0){59.308971724233636}}
-% \put(190,52){AB-HV-PO}
-% \put(250,44){\line(1,0){64.30916335714427}}
-% \put(190,41){UK-PO-HV}
-% \put(250,33){\line(1,0){79.06066833629593}}
-% \put(190,30){NN-++-AB}
-% \put(250,22){\line(1,0){102.36071921813773}}
-% \put(190,19){PR-NN-++}
-% \put(250,11){\line(1,0){106.51366871295372}}
-% \put(190,8){NN-++-PO}
-% \end{picture}
-% \caption{clusterC-Loderup-K\"ola-Bredsatra clusterE-Indal-Leksand}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PO-AV-AB}
-% \put(180,99){\line(-1,0){87.87415523915753}}
-% \put(190,96){AV-AB-AB}
-% \put(180,88){\line(-1,0){83.86940728060077}}
-% \put(190,85){++-PO-AV}
-% \put(180,77){\line(-1,0){72.20356574073521}}
-% \put(190,74){PO-VV-AB}
-% \put(180,66){\line(-1,0){70.7042009889592}}
-% \put(190,63){AV-PO-AB}
-% \put(250,55){\line(1,0){60.83834871250395}}
-% \put(190,52){PO-AV-AJ}
-% \put(250,44){\line(1,0){66.29897823454677}}
-% \put(190,41){PO-ID-NN}
-% \put(250,33){\line(1,0){68.97238907015169}}
-% \put(190,30){PR-NN-AB}
-% \put(250,22){\line(1,0){77.59011279383958}}
-% \put(190,19){NN-++-AB}
-% \put(250,11){\line(1,0){88.96660324125715}}
-% \put(190,8){NN-++-PO}
-% \end{picture}
-% \caption{clusterA-StAnna-Sorunda clusterF-Floby-Segerstad-Bengtsfors}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PR-NN-IP}
-% \put(180,99){\line(-1,0){167.64361641091975}}
-% \put(190,96){PO-AV-AB}
-% \put(180,88){\line(-1,0){155.08945057008438}}
-% \put(190,85){AV-AB-AB}
-% \put(180,77){\line(-1,0){126.65700009388398}}
-% \put(190,74){AV-PO-AB}
-% \put(180,66){\line(-1,0){125.55667984519576}}
-% \put(190,63){AB-AV-PO}
-% \put(250,55){\line(1,0){54.730792902371086}}
-% \put(190,52){PR-ID-ID}
-% \put(250,44){\line(1,0){55.17793100570606}}
-% \put(190,41){PO-VV-PR}
-% \put(250,33){\line(1,0){56.30848189603913}}
-% \put(190,30){NN-PR-PO}
-% \put(250,22){\line(1,0){56.514964063298656}}
-% \put(190,19){PO-GV-PO}
-% \put(250,11){\line(1,0){79.86585022375682}}
-% \put(190,8){PO-AV-AJ}
-% \end{picture}
-% \caption{clusterA-StAnna-Sorunda clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){AV-AB-AB}
-% \put(180,99){\line(-1,0){167.06874240225875}}
-% \put(190,96){AB-AB-AB}
-% \put(180,88){\line(-1,0){150.40351358770243}}
-% \put(190,85){PO-AV-AB}
-% \put(180,77){\line(-1,0){148.891976225022}}
-% \put(190,74){AB-UK-PO}
-% \put(180,66){\line(-1,0){146.9972606116287}}
-% \put(190,63){AB-PO-NN}
-% \put(250,55){\line(1,0){77.62838432106304}}
-% \put(190,52){PO-AV-NN}
-% \put(250,44){\line(1,0){81.82408532998706}}
-% \put(190,41){AB-ID-IP}
-% \put(250,33){\line(1,0){87.56187712526679}}
-% \put(190,30){VV-AB-IP}
-% \put(250,22){\line(1,0){120.34418818309646}}
-% \put(190,19){AB-AB-IP}
-% \put(250,11){\line(1,0){132.70975367912743}}
-% \put(190,8){PO-AV-AJ}
-% \end{picture}
-% \caption{clusterA-StAnna-Sorunda clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){PR-NN-IP}
-% \put(180,99){\line(-1,0){168.14915411683333}}
-% \put(190,96){PO-VV-AB}
-% \put(180,88){\line(-1,0){131.84327307057356}}
-% \put(190,85){NN-PR-NN}
-% \put(180,77){\line(-1,0){131.82873327039485}}
-% \put(190,74){AB-PR-NN}
-% \put(180,66){\line(-1,0){125.56117065585605}}
-% \put(190,63){PO-AB-AB}
-% \put(250,55){\line(1,0){84.22542748527087}}
-% \put(190,52){PO-NN-PO}
-% \put(250,44){\line(1,0){101.06160735471559}}
-% \put(190,41){PR-PO-NN}
-% \put(250,33){\line(1,0){109.48287787072704}}
-% \put(190,30){++-PO-AV}
-% \put(250,22){\line(1,0){125.59570268128051}}
-% \put(190,19){PO-AV-AJ}
-% \put(250,11){\line(1,0){133.28907445084488}}
-% \put(190,8){NN-++-PO}
-% \end{picture}
-% \caption{clusterA-StAnna-Sorunda clusterE-Indal-Leksand}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){124.75814273761839}}
-% \put(190,107){AB-PR-NN}
-% \put(180,99){\line(-1,0){119.58040560051533}}
-% \put(190,96){VV-PO-AB}
-% \put(180,88){\line(-1,0){119.05663450788172}}
-% \put(190,85){AB-VV-PO}
-% \put(180,77){\line(-1,0){118.51687040478605}}
-% \put(190,74){PO-PO-AV}
-% \put(180,66){\line(-1,0){113.30248261870737}}
-% \put(190,63){PO-ID-NN}
-% \put(250,55){\line(1,0){89.55486120880504}}
-% \put(190,52){PR-PO-NN}
-% \put(250,44){\line(1,0){92.38229218341614}}
-% \put(190,41){PO-HV-AB}
-% \put(250,33){\line(1,0){99.09402557400838}}
-% \put(190,30){AB-UK-PO}
-% \put(250,22){\line(1,0){134.36860927446523}}
-% \put(190,19){PO-AV-AB}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){++-PO-AV}
-% \end{picture}
-% \caption{clusterF-Floby-Segerstad-Bengtsfors clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){180.0}}
-% \put(190,107){NN-++-PO}
-% \put(180,99){\line(-1,0){142.49031444274257}}
-% \put(190,96){NN-++-AB}
-% \put(180,88){\line(-1,0){103.3630657416584}}
-% \put(190,85){PR-NN-AB}
-% \put(180,77){\line(-1,0){101.44217196744451}}
-% \put(190,74){AB-VV-PO}
-% \put(180,66){\line(-1,0){100.6805417905517}}
-% \put(190,63){PO-ID-NN}
-% \put(250,55){\line(1,0){80.98927831336155}}
-% \put(190,52){AB-AB-IP}
-% \put(250,44){\line(1,0){91.73919572333843}}
-% \put(190,41){PR-NN-IP}
-% \put(250,33){\line(1,0){100.6649247679971}}
-% \put(190,30){++-PO-AV}
-% \put(250,22){\line(1,0){109.56182238640118}}
-% \put(190,19){VV-AB-IP}
-% \put(250,11){\line(1,0){159.84202781031323}}
-% \put(190,8){PO-AV-AB}
-% \end{picture}
-% \caption{clusterF-Floby-Segerstad-Bengtsfors clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){96.98776551290538}}
-% \put(190,107){AB-PR-NN}
-% \put(180,99){\line(-1,0){88.20515703949437}}
-% \put(190,96){PR-NN-AB}
-% \put(180,88){\line(-1,0){72.72253757625789}}
-% \put(190,85){PO-AB-AB}
-% \put(180,77){\line(-1,0){68.17551006846917}}
-% \put(190,74){++-AB-AB}
-% \put(180,66){\line(-1,0){65.6682963981486}}
-% \put(190,63){YY-YY-IP}
-% \put(250,55){\line(1,0){56.50799573697003}}
-% \put(190,52){PO-HV-AB}
-% \put(250,44){\line(1,0){69.3706919245229}}
-% \put(190,41){AB-UK-PO}
-% \put(250,33){\line(1,0){83.62960710096071}}
-% \put(190,30){PR-PO-NN}
-% \put(250,22){\line(1,0){124.82151756710822}}
-% \put(190,19){++-PO-AV}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){PO-AV-AB}
-% \end{picture}
-% \caption{clusterF-Floby-Segerstad-Bengtsfors clusterE-Indal-Leksand}
-% \end{figure}
-% \clearpage
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){96.62339887271503}}
-% \put(190,107){UK-PO-VV}
-% \put(180,99){\line(-1,0){83.87719789162304}}
-% \put(190,96){AB-UK-PO}
-% \put(180,88){\line(-1,0){76.71259943692858}}
-% \put(190,85){NN-++-PO}
-% \put(180,77){\line(-1,0){66.35374134120643}}
-% \put(190,74){AB-AB-PO}
-% \put(180,66){\line(-1,0){61.89565475612611}}
-% \put(190,63){++-PO-AV}
-% \put(250,55){\line(1,0){76.70591796060785}}
-% \put(190,52){AB-AJ-IP}
-% \put(250,44){\line(1,0){80.55547624078443}}
-% \put(190,41){AV-PO-AB}
-% \put(250,33){\line(1,0){90.83724037895963}}
-% \put(190,30){PO-AB-IP}
-% \put(250,22){\line(1,0){110.20684023276664}}
-% \put(190,19){AB-AV-PO}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){PR-NN-IP}
-% \end{picture}
-% \caption{clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){91.91270491457142}}
-% \put(190,107){PO-AB-AB}
-% \put(180,99){\line(-1,0){77.2130773713504}}
-% \put(190,96){PR-NN-AB}
-% \put(180,88){\line(-1,0){72.77096019526533}}
-% \put(190,85){PO-VV-AB}
-% \put(180,77){\line(-1,0){68.33999138535341}}
-% \put(190,74){NN-PR-NN}
-% \put(180,66){\line(-1,0){66.12856093173315}}
-% \put(190,63){AB-AB-PO}
-% \put(250,55){\line(1,0){77.47607746425345}}
-% \put(190,52){VV-PO-AB}
-% \put(250,44){\line(1,0){77.78316427793216}}
-% \put(190,41){AV-AB-PO}
-% \put(250,33){\line(1,0){78.31879259816053}}
-% \put(190,30){PO-AV-PO}
-% \put(250,22){\line(1,0){89.79502208558905}}
-% \put(190,19){RO-NN-IP}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){PO-AV-AB}
-% \end{picture}
-% \caption{clusterG-Anundsjo-Arsunda-Asby-Orust-Vaxtorp-Fole-Sproge-Faro-Ankarsrum-Skinnskatteberg clusterE-Indal-Leksand}
-% \end{figure}
-
-
-% \begin{figure}
-% \setlength{\unitlength}{1pt}
-% \begin{picture}(400,140)
-% \linethickness{2mm}
-% \put(180,110){\line(-1,0){172.37697925708642}}
-% \put(190,107){PR-NN-IP}
-% \put(180,99){\line(-1,0){118.31946481487024}}
-% \put(190,96){NN-AB-IP}
-% \put(180,88){\line(-1,0){105.52553204226406}}
-% \put(190,85){AB-AV-PO}
-% \put(180,77){\line(-1,0){101.48403124906461}}
-% \put(190,74){NN-PR-NN}
-% \put(180,66){\line(-1,0){98.97265706845461}}
-% \put(190,63){VV-PO-IP}
-% \put(250,55){\line(1,0){119.53575383878595}}
-% \put(190,52){++-PO-AV}
-% \put(250,44){\line(1,0){125.72832170971894}}
-% \put(190,41){PR-PO-NN}
-% \put(250,33){\line(1,0){131.9383998323805}}
-% \put(190,30){AB-UK-PO}
-% \put(250,22){\line(1,0){152.4328025382382}}
-% \put(190,19){PO-AV-AB}
-% \put(250,11){\line(1,0){180.0}}
-% \put(190,8){NN-++-PO}
-% \end{picture}
-% \caption{clusterD-Norra Rorum-Villberga-Torso-Boda-Frillesas clusterE-Indal-Leksand}
-% \end{figure}
-
-
-\subsection{JS-trigram with Overuse Normalisation}
+\subsection{Trigrams with Overuse Normalisation}
 \label{feature-ranking-overuse}
-The next section contains only Jamshog, Tors\.as and \"Ossj\"o,
-labelled cluster B, compared to the other clusters. The overuse
-normalisation is used. The results are quite different, as can be
-seen.
+The figures in this section show the highest ranked features for
+trigram features with 1000-sentence sampling. Overuse normalisation is
+added.  The results are somewhat different from the previous section
+without the overuse normalisation.
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PR-VN-IP}
-\put(180,99){\line(-1,0){177.6807483678834}}
-\put(190,96){RO-++-EN}
-\put(180,88){\line(-1,0){171.4623460948223}}
-\put(190,85){NN-AJ-++}
-\put(180,77){\line(-1,0){171.4623460948223}}
-\put(190,74){YY-++-PO}
-\put(180,66){\line(-1,0){167.15659709384482}}
-\put(190,63){I?-YY-PO}
-\put(250,55){\line(1,0){108.24085938726621}}
-\put(190,52){PR-VN-PR}
-\put(250,44){\line(1,0){114.2851354568154}}
-\put(190,41){PO-MV-VV}
-\put(250,33){\line(1,0){119.14972928895934}}
-\put(190,30){HV-VV-NN}
-\put(250,22){\line(1,0){119.14972928895934}}
-\put(190,19){NN-RO-RO}
-\put(250,11){\line(1,0){123.1500736921542}}
-\put(190,8){PO-WV-VV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-over}
+  \caption{cluster A $\Leftrightarrow$ cluster B, trigram features
+    with overuse normalisation}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-trigram-over}
+  \caption{cluster A $\Leftrightarrow$ cluster C, trigram features
+    with overuse normalisation}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-trigram-over}
+  \caption{cluster A $\Leftrightarrow$ cluster D, trigram features
+    with overuse normalisation}
 \end{figure}
 
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){AB-I?-PO}
-\put(180,99){\line(-1,0){178.2255115117133}}
-\put(190,96){NN-SV-PO}
-\put(180,88){\line(-1,0){176.12187009546298}}
-\put(190,85){NN-I?-PO}
-\put(180,77){\line(-1,0){173.58626945616334}}
-\put(190,74){YY-PO-SV}
-\put(180,66){\line(-1,0){170.47097953953147}}
-\put(190,63){PR-MN-ID}
-\put(250,55){\line(1,0){101.51732876416465}}
-\put(190,52){++-++-NN}
-\put(250,44){\line(1,0){110.36126189687693}}
-\put(190,41){VV-PO-IM}
-\put(250,33){\line(1,0){113.70721803861714}}
-\put(190,30){++-++-VV}
-\put(250,22){\line(1,0){116.55037364472793}}
-\put(190,19){VV-AJ-AB}
-\put(250,11){\line(1,0){118.99699068407942}}
-\put(190,8){EN-AJ-AJ}
-\end{picture}
-\caption{cluster A $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-trigram-over}
+  \caption{cluster B $\Leftrightarrow$ cluster C, trigram features
+    with overuse normalisation}
 \end{figure}
-
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PR-EN-AB}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){AB-FV-EN}
-\put(180,88){\line(-1,0){180.0}}
-\put(190,85){PR-PN-IP}
-\put(180,77){\line(-1,0){180.0}}
-\put(190,74){VV-EN-AB}
-\put(180,66){\line(-1,0){180.0}}
-\put(190,63){PN-++-PN}
-\put(250,55){\line(1,0){107.347631781045}}
-\put(190,52){AJ-++-PO}
-\put(250,44){\line(1,0){109.55855547433774}}
-\put(190,41){EN-NN-UK}
-\put(250,33){\line(1,0){109.55855547433774}}
-\put(190,30){QV-AB-AB}
-\put(250,22){\line(1,0){111.4996715304829}}
-\put(190,19){PR-++-PO}
-\put(250,11){\line(1,0){117.36465667995967}}
-\put(190,8){PO-PO-++}
-\end{picture}
-\caption{cluster F $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-trigram-over}
+  \caption{cluster B $\Leftrightarrow$ cluster D, trigram features
+    with overuse normalisation}
 \end{figure}
-
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){58.585136047941525}}
-\put(190,107){YY-++-PO}
-\put(180,99){\line(-1,0){53.46606162426174}}
-\put(190,96){AB-AV-IP}
-\put(180,88){\line(-1,0){52.88671042832153}}
-\put(190,85){PR-PN-IP}
-\put(180,77){\line(-1,0){46.63496544676724}}
-\put(190,74){PN-++-PN}
-\put(180,66){\line(-1,0){41.43265150596671}}
-\put(190,63){PO-AB-I?}
-\put(250,55){\line(1,0){169.3129189254724}}
-\put(190,52){AB-++-HV}
-\put(250,44){\line(1,0){169.3129189254724}}
-\put(190,41){VV-PO-PN}
-\put(250,33){\line(1,0){173.4764535739647}}
-\put(190,30){PO-PN-NN}
-\put(250,22){\line(1,0){173.4764535739647}}
-\put(190,19){AJ-++-AV}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){++-PR-++}
-\end{picture}
-\caption{cluster G $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-trigram-over}
+  \caption{cluster C $\Leftrightarrow$ cluster D, trigram features
+    with overuse normalisation}
 \end{figure}
 
 
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){72.89300775454419}}
-\put(190,107){++-RO-NN}
-\put(180,99){\line(-1,0){71.7228097615167}}
-\put(190,96){AB-AV-IP}
-\put(180,88){\line(-1,0){67.47089305160682}}
-\put(190,85){YY-++-PO}
-\put(180,77){\line(-1,0){65.73907895602348}}
-\put(190,74){PN-++-PN}
-\put(180,66){\line(-1,0){65.27553846940938}}
-\put(190,63){PR-PN-IP}
-\put(250,55){\line(1,0){170.5048858744509}}
-\put(190,52){++-AJ-VV}
-\put(250,44){\line(1,0){170.5048858744509}}
-\put(190,41){SV-GV-PO}
-\put(250,33){\line(1,0){172.74727202297856}}
-\put(190,30){++-++-VV}
-\put(250,22){\line(1,0){174.6436637115105}}
-\put(190,19){AB-PR-VV}
-\put(250,11){\line(1,0){180.0}}
-\put(190,8){++-PR-++}
-\end{picture}
-\caption{cluster D $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
-\end{figure}
-
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){YY-++-PO}
-\put(180,99){\line(-1,0){172.48560759296717}}
-\put(190,96){AB-AV-IP}
-\put(180,88){\line(-1,0){171.36144390851098}}
-\put(190,85){NN-AV-IP}
-\put(180,77){\line(-1,0){169.3301695970126}}
-\put(190,74){PR-PN-IP}
-\put(180,66){\line(-1,0){166.7294227477828}}
-\put(190,63){MN-++-MN}
-\put(250,55){\line(1,0){91.1957367356465}}
-\put(190,52){++-PO-AJ}
-\put(250,44){\line(1,0){93.01618173331258}}
-\put(190,41){EN-AJ-VN}
-\put(250,33){\line(1,0){96.2182978061304}}
-\put(190,30){UK-PO-WV}
-\put(250,22){\line(1,0){98.94274155904778}}
-\put(190,19){VV-PR-AJ}
-\put(250,11){\line(1,0){109.39707484051658}}
-\put(190,8){PR-++-AB}
-\end{picture}
-\caption{cluster E $\Leftrightarrow$ cluster B, Jensen-Shannon, trigram
-features overuse normalised}
-\end{figure}
-\clearpage
-
-\subsection{$R$ Features, Variation Across Feature Sets}
+\subsection{Variation Across Feature Sets}
 \label{feature-ranking-feature-sets}
 
-Here, I only show comparisons between clusters B and C from figure
-\ref{consensus-freq}. However the comparisons of cluster B with the
-rest of the clusters are similar.
-
+Here, I show only comparisons between clusters A and B across feature sets.
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){S-XX}
-\put(180,99){\line(-1,0){173.89196929076283}}
-\put(190,96){XP-[-NP-PO}
-\put(180,88){\line(-1,0){171.02760175481353}}
-\put(190,85){S-RO}
-\put(180,77){\line(-1,0){167.51340482573724}}
-\put(190,74){S-XP-S-NP-[-PO}
-\put(180,66){\line(-1,0){163.10169388252498}}
-\put(190,63){S-]-PP-AJ}
-\put(290,55){\line(1,0){127.05215695832318}}
-\put(190,52){S-S-CS-S-S-AB}
-\put(290,44){\line(1,0){127.05215695832318}}
-\put(190,41){S-S-S-S-FV}
-\put(290,33){\line(1,0){135.46338045332683}}
-\put(190,30){S-NP-S-S-]-NP-NN}
-\put(290,22){\line(1,0){137.52985620277846}}
-\put(190,19){S-S-PP-[-AB}
-\put(290,11){\line(1,0){137.52985620277846}}
-\put(190,8){S-S-PP-PR}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, leaf-ancestor paths}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-path-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, leaf-ancestor path features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, trigram features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-dep-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
+    rule features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-grand-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
+    rules features, with grandparent}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-unigram-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, unigram features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-redep-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features,
+MaltParser trained by Timbl}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-deparc-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features
+    with arc labels}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-all-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, all combined features}
 \end{figure}
 
+\clearpage
+
+\subsection{Phrase-structure rule features}
+\label{feature-ranking-psg}
+
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PR-VN-IP}
-\put(180,99){\line(-1,0){177.6807483678834}}
-\put(190,96){RO-++-EN}
-\put(180,88){\line(-1,0){171.4623460948223}}
-\put(190,85){NN-AJ-++}
-\put(180,77){\line(-1,0){171.4623460948223}}
-\put(190,74){YY-++-PO}
-\put(180,66){\line(-1,0){167.15659709384482}}
-\put(190,63){I?-YY-PO}
-\put(250,55){\line(1,0){108.24085938726621}}
-\put(190,52){PR-VN-PR}
-\put(250,44){\line(1,0){114.2851354568154}}
-\put(190,41){PO-MV-VV}
-\put(250,33){\line(1,0){119.14972928895934}}
-\put(190,30){HV-VV-NN}
-\put(250,22){\line(1,0){119.14972928895934}}
-\put(190,19){NN-RO-RO}
-\put(250,11){\line(1,0){123.1500736921542}}
-\put(190,8){PO-WV-VV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, trigrams}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
+    rule features}
 \end{figure}
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PN-PR-VV}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){AV-VV-VV-AV}
-\put(180,88){\line(-1,0){175.25519394740002}}
-\put(190,85){VV-HV-YY}
-\put(180,77){\line(-1,0){175.25519394740002}}
-\put(190,74){PO-AJ-VV}
-\put(180,66){\line(-1,0){175.25519394740002}}
-\put(190,63){++-AV-SV}
-\put(270,55){\line(1,0){127.36399663744447}}
-\put(190,52){AB-AV-VV-HV}
-\put(270,44){\line(1,0){127.36399663744447}}
-\put(190,41){AJ-AV-AV-AV}
-\put(270,33){\line(1,0){132.46743888991998}}
-\put(190,30){PR-AV-VV-AV}
-\put(270,22){\line(1,0){132.46743888991998}}
-\put(190,19){AB-SV-HV}
-\put(270,11){\line(1,0){136.66004345120473}}
-\put(190,8){AB-VV-NN-VV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, dependency-head paths}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-psg-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster C, phrase-structure rule features}
 \end{figure}
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){CONJP$\to$RO-NN}
-\put(180,99){\line(-1,0){173.49064521470046}}
-\put(190,96){VP$\to$IM-VV-NP}
-\put(180,88){\line(-1,0){173.49064521470046}}
-\put(190,85){S$\to$PO-AV}
-\put(180,77){\line(-1,0){169.46725967879144}}
-\put(190,74){XP$\to$TP-PP}
-\put(180,66){\line(-1,0){164.75429772025282}}
-\put(190,63){S$\to$NP-AV-NP-S-IP}
-\put(290,55){\line(1,0){121.2112976802873}}
-\put(190,52){S$\to$AB-PO-VV-AB}
-\put(290,44){\line(1,0){129.5530142562703}}
-\put(190,41){NP$\to$EN-AJ-VN}
-\put(290,33){\line(1,0){136.07983968118938}}
-\put(190,30){PP$\to$PR-PO-AJ-NN}
-\put(290,22){\line(1,0){141.32411462109837}}
-\put(190,19){XP$\to$UK-NP}
-\put(290,11){\line(1,0){160.94569828319567}}
-\put(190,8){S$\to$++-PO-VV-S}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, phrase structure rules}
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){S$\to$CONJP$\to$RO-NN}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){S$\to$PP$\to$PR-NN-AB}
-\put(180,88){\line(-1,0){180.0}}
-\put(190,85){AVP$\to$PP$\to$PR-PN}
-\put(180,77){\line(-1,0){180.0}}
-\put(190,74){S$\to$NAC$\to$PP}
-\put(180,66){\line(-1,0){180.0}}
-\put(190,63){NP$\to$NAC$\to$AB}
-\put(290,55){\line(1,0){121.2112976802873}}
-\put(190,52){CONJP$\to$NAC$\to$CNP}
-\put(290,44){\line(1,0){121.2112976802873}}
-\put(190,41){S$\to$XP$\to$PR-PR}
-\put(290,33){\line(1,0){125.653978567065}}
-\put(190,30){S$\to$S$\to$PO-VV-AB-PP}
-\put(290,22){\line(1,0){129.5530142562703}}
-\put(190,19){S$\to$NP$\to$EN-AJ-VN}
-\put(290,11){\line(1,0){141.32411462109837}}
-\put(190,8){S$\to$S$\to$++-PO-VV-S}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, phrase structure
-  rules, with grandparent}
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){XX}
-\put(180,99){\line(-1,0){143.31715877371713}}
-\put(190,96){I?}
-\put(180,88){\line(-1,0){137.07067732931324}}
-\put(190,85){MN}
-\put(180,77){\line(-1,0){70.2666093490525}}
-\put(190,74){PN}
-\put(180,66){\line(-1,0){70.14174331916097}}
-\put(190,63){RO}
-\put(180,55){\line(-1,0){7.040589115149516}}
-\put(190,52){AJ}
-\put(180,44){\line(-1,0){4.150311517307172}}
-\put(190,41){QV}
-\put(250,33){\line(1,0){6.158280236022943}}
-\put(190,30){WV}
-\put(250,22){\line(1,0){13.032918369510169}}
-\put(190,19){BV}
-\put(250,11){\line(1,0){54.07123087613506}}
-\put(190,8){KV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, unigrams}
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-HV-PO}
-\put(180,99){\line(-1,0){177.03363769692956}}
-\put(190,96){PR-AV-YY}
-\put(180,88){\line(-1,0){173.394521455268}}
-\put(190,85){I?}
-\put(180,77){\line(-1,0){168.8262288877324}}
-\put(190,74){VV-VV-NN}
-\put(180,66){\line(-1,0){168.8262288877324}}
-\put(190,63){HV-PO}
-\put(280,55){\line(1,0){127.51856933339641}}
-\put(190,52){AB-BV-HV}
-\put(280,44){\line(1,0){127.51856933339641}}
-\put(190,41){NN-VV-NN-AV}
-\put(280,33){\line(1,0){127.51856933339641}}
-\put(190,30){NN-PR-VV-VV-HV}
-\put(280,22){\line(1,0){144.2768604816199}}
-\put(190,19){++-VV-VV-AV}
-\put(280,11){\line(1,0){147.40975540521362}}
-\put(190,8){AB-VV-PO-AV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, $R$, Timbl dependencies}
-\end{figure}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){IM-OA-VG}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){OA-VG-+F}
-\put(180,88){\line(-1,0){180.0}}
-\put(190,85){UK-ET-OO}
-\put(180,77){\line(-1,0){173.6987637709192}}
-\put(190,74){PA-OA-VG-+F}
-\put(180,66){\line(-1,0){173.6987637709192}}
-\put(190,63){AA-PA-OA}
-\put(280,55){\line(1,0){124.29400386847195}}
-\put(190,52){TA-TA-VG}
-\put(280,44){\line(1,0){130.8122109158187}}
-\put(190,41){++-CC-OO-+F}
-\put(280,33){\line(1,0){136.05382221848456}}
-\put(190,30){MS-AA-AA}
-\put(280,22){\line(1,0){136.05382221848456}}
-\put(190,19){OO-ET-SP-MS}
-\put(280,11){\line(1,0){153.92111681103356}}
-\put(190,8){SS-MS-AA-AA}
-\end{picture}
-\caption{cluster C $\to$ cluster B,  $R$,dependency arc labels}
-\end{figure}
-
-
-
-
-\subsection{Features from cosine dissimilarity}
-\label{feature-ranking-cos}
-
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PO-AV}
-\put(180,99){\line(-1,0){156.15542303391726}}
-\put(190,96){AV}
-\put(180,88){\line(-1,0){140.1200149086843}}
-\put(190,85){IP-AV}
-\put(180,77){\line(-1,0){127.08907938874395}}
-\put(190,74){AB-AV}
-\put(180,66){\line(-1,0){108.93935892657474}}
-\put(190,63){IP-VV}
-\put(250,55){\line(1,0){46.64591874767052}}
-\put(190,52){PO-AV-VV}
-\put(250,44){\line(1,0){49.58374953410362}}
-\put(190,41){VV-AV}
-\put(250,33){\line(1,0){61.34983227730153}}
-\put(190,30){AB-AV-VV}
-\put(250,22){\line(1,0){76.82336936265374}}
-\put(190,19){PO-VV-AV}
-\put(250,11){\line(1,0){109.03708535221767}}
-\put(190,8){AB-VV-AV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, cosine, dep-freq}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-psg-ratio}
+  \caption{cluster A $\Leftrightarrow$ cluster D, phrase-structure rule features}
 \end{figure}
 
 
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){PN-PR-VV}
-\put(180,99){\line(-1,0){180.0}}
-\put(190,96){AV-VV-VV-AV}
-\put(180,88){\line(-1,0){175.25519394740002}}
-\put(190,85){VV-HV-YY}
-\put(180,77){\line(-1,0){175.25519394740002}}
-\put(190,74){PO-AJ-VV}
-\put(180,66){\line(-1,0){175.25519394740002}}
-\put(190,63){++-AV-SV}
-\put(270,55){\line(1,0){127.36399663744447}}
-\put(190,52){AB-AV-VV-HV}
-\put(270,44){\line(1,0){127.36399663744447}}
-\put(190,41){AJ-AV-AV-AV}
-\put(270,33){\line(1,0){132.46743888991998}}
-\put(190,30){PR-AV-VV-AV}
-\put(270,22){\line(1,0){132.46743888991998}}
-\put(190,19){AB-SV-HV}
-\put(270,11){\line(1,0){136.66004345120473}}
-\put(190,8){AB-VV-NN-VV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B,  cosine,dep-over}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-psg-ratio}
+  \caption{cluster B $\Leftrightarrow$ cluster C, phrase-structure rule features}
 \end{figure}
-
-
 \begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){]-S-IP}
-\put(180,99){\line(-1,0){142.0722179607375}}
-\put(190,96){S-AB}
-\put(180,88){\line(-1,0){128.93264013182193}}
-\put(190,85){S-PO}
-\put(180,77){\line(-1,0){93.49754254382226}}
-\put(190,74){PO-AV}
-\put(180,66){\line(-1,0){82.93644705815507}}
-\put(190,63){S-AV}
-\put(250,55){\line(1,0){38.24784795022586}}
-\put(190,52){++-PO-VV}
-\put(250,44){\line(1,0){39.16253302650643}}
-\put(190,41){AB-AB-AB}
-\put(250,33){\line(1,0){40.01164805818347}}
-\put(190,30){PO-VV-AV}
-\put(250,22){\line(1,0){45.00178982357453}}
-\put(190,19){PO-VV-AB}
-\put(250,11){\line(1,0){54.30841785277991}}
-\put(190,8){AB-VV-AV}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, cosine,all-freq}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-psg-ratio}
+  \caption{cluster B $\Leftrightarrow$ cluster D, phrase-structure rule features}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-psg-ratio}
+  \caption{cluster C $\Leftrightarrow$ cluster D, phrase-structure rule features}
 \end{figure}
 
-\begin{figure}
-\setlength{\unitlength}{1pt}
-\begin{picture}(400,140)
-\linethickness{2mm}
-\put(180,110){\line(-1,0){180.0}}
-\put(190,107){S-XX}
-\put(180,99){\line(-1,0){176.32616017586673}}
-\put(190,96){PR-VN-IP}
-\put(180,88){\line(-1,0){173.9800939838251}}
-\put(190,85){XP-[-NP-PO}
-\put(180,77){\line(-1,0){173.9800939838251}}
-\put(190,74){RO-++-EN}
-\put(180,66){\line(-1,0){171.15573886210998}}
-\put(190,63){S-RO}
-\put(280,55){\line(1,0){125.04941209688805}}
-\put(190,52){S-S-S-S-FV}
-\put(280,44){\line(1,0){125.04941209688805}}
-\put(190,41){S-S-CS-S-S-AB}
-\put(280,33){\line(1,0){133.47528386745458}}
-\put(190,30){S-NP-S-S-]-NP-NN}
-\put(280,22){\line(1,0){135.5454490450356}}
-\put(190,19){S-S-PP-[-AB}
-\put(280,11){\line(1,0){135.5454490450356}}
-\put(190,8){S-S-PP-PR}
-\end{picture}
-\caption{cluster C $\Leftrightarrow$ cluster B, cosine, all-over}
-\end{figure}
 
-\begin{figure}
-  \includegraphics[scale=1.0]{clusterA-clusterD-feat-5-1000-r-trigram-ratio}
- \caption{cluster A $\Leftrightarrow$ cluster D, $R$, trigrams, ratio normalisation}
-\end{figure}
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "dissertation.tex"

@@ -137,10 +137,11 @@ def genFeatures():
         run("./ConvertTagsToFeature '%s.tag' trigram >'%s-trigram.dat'" % (region,region))
         run("./CombineFeatures '%s-path.dat' '%s-dep.dat' '%s-trigram.dat' >'%s-all.dat'" % ((region,) * 4))
 
-variants = [(sample,measure,feature,norm) for sample in consts.samples
-                                          for measure in consts.measures
-                                          for feature in consts.features
-                                          for norm in consts.norms]
+variants = [(num,sample,measure,feature,norm) for sample in consts.samples
+                                              for measure in consts.measures
+                                              for feature in consts.features
+                                              for norm in consts.norms
+                                              for num in consts.numnorms ]
 def syntaxDist():
     # 9. Run ctrl.out with various parameter settings.
     for sample, measure, feature, norm in variants:
@@ -157,19 +158,19 @@ def syntaxSig():
         norte.combine(feature, 'sig', measure, sample, norm)
 def syntaxFeatures():
     run('ghc -O2 --make RankFeatures')
+    clusters = sorted(consts.agreeClusters.keys(), reverse=True)
     # 12. Dump a list of all features between each pair of site clusters.
     for sample in consts.samples:
-        for feature in consts.feature:
-            for norm2 in ['over', 'freq']:
+        for feature in consts.features:
+            for norm2 in ['over', 'ratio']:
                 # 12.1 Make cluster files first
                 norte.combineFeatures(consts.agreeClusters, feature)
                 multirun(6,
-                         *norte.icetasks(list(consts.agreeClusters.keys()),
-                                         feature, 'icefeat.cpp', 'r', sample, norm2))
+                         *norte.icetasks(clusters, feature,
+                                         'icefeat.cpp', 'r', sample, norm2))
                 # 12.2 Then analyse it
-                tmps = ' '.join([
-                    "%s-%s-tmp.txt" % pair
-                    for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
+                tmps = ' '.join(["%s-%s-tmp.txt" % pair
+                                 for pair in norte.pairwise(clusters)])
                 run('./RankFeatures %s >feat-5-%s-%s-%s.txt'
                     % (tmps,sample,feature,norm2))
 def syntaxFeaturesSimple():
@@ -185,15 +186,19 @@ def syntaxFeaturesSimple():
         run('./RankFeatures %s >feat-5-%s-%s-%s-%s-jamshog.txt'
             % (tmps,sample,measure,feature,norm))
 def syntaxFeaturesDiagram():
+    "This runs on flenser so it properly should have a 'gen' prefix I guess"
     run('ghc -O2 --make FormatFeatures')
-    for variant in variants:
-        norm = variant[3]
-        norm2s = ['over', 'freq'] if norm=='freq' else ['ratio']
-        for norm2 in norm2s:
-            v = list(variant)
-            v[3] = norm2
-            assert len(v*2)==8, len(v*2)
-            run('./FormatFeatures feat-5-%s-%s-%s-%s.txt > feat-diagram-%s-%s-%s-%s.txt' % tuple(v*2))
+    for sample in consts.samples:
+        for feature in consts.features:
+            for norm2 in ['over', 'ratio']:
+                v = (sample,feature,norm2)
+                run('./FormatFeatures feat-5-%s-%s-%s.txt' % v)
+                for (fro,to) in norte.pairwise(sorted(consts.agreeClusters.keys(), reverse=True)):
+                    fname = ('%s-%s-feat-5-%s-%s-%s' % ((to,fro) + v),)
+                    run('latex %s.txt' % fname)
+                    run('dvips -Ppdf %s.dvi' % fname)
+                    run('ps2pdf %s.ps' % fname)
+    run('mv *pdf ../')
 def genAnalysis():
     run('ghc -O2 --make FormatDistance')
     run('ghc -O2 --make CalculateGeoDistance')
@@ -208,24 +213,25 @@ def genAnalysis():
     # 13. Generate some analysis of the output
     for variant in variants:
         # 13.1 First a 2-D table (half-matrix) for Excel
-        run('./FormatDistance dist-10-%s-%s-%s-%s.txt pairwise > dist-10-%s-%s-%s-%s.csv' % (variant * 2))
+        run('./FormatDistance dist-%s-%s-%s-%s-%s.txt pairwise > dist-%s-%s-%s-%s-%s.csv' % (variant * 2))
         # 13.2 Next a 2-D table (full/redundant-matrix) for R
-        run('./FormatDistance dist-10-%s-%s-%s-%s.txt square > dist-10-%s-%s-%s-%s-R.txt' % (variant * 2))
+        run('./FormatDistance dist-%s-%s-%s-%s-%s.txt square > dist-%s-%s-%s-%s-%s-R.txt' % (variant * 2))
     # 13.3 make a CSV of significances
     for norm in consts.norms:
         for sample in consts.samples:
-            run('grep -c 0 sig*.txt >sigtmp.txt')
-            sigs = dict(line.strip().split(':') for line in open('sigtmp.txt'))
-            outf = open('sig-10-%s-%s.csv' % (sample,norm), 'w')
-            outf.write(',' + ','.join(consts.features) + '\n')
-            for measure in consts.measures:
-                outf.write(measure + ',')
-                outf.write(','.join(
-                    sigs['sig-100-%s-%s-%s-%s.txt' %
-                         (sample, measure, feature, norm)]
-                    for feature in consts.features))
-                outf.write('\n')
-            outf.close()
+            for num in consts.numnorms:
+                run('grep -c 0 sig*.txt >sigtmp.txt')
+                sigs = dict(line.strip().split(':') for line in open('sigtmp.txt'))
+                outf = open('sig-%s-%s-%s.csv' % (num,sample,norm), 'w')
+                outf.write(',' + ','.join(consts.measures) + '\n')
+                for feature in consts.features:
+                    outf.write(feature + ',')
+                    outf.write(','.join(
+                        sigs['sig-%s-%s-%s-%s-%s.txt' %
+                             (num, sample, measure, feature, norm)]
+                        for measure in consts.measures))
+                    outf.write('\n')
+                outf.close()
     # 13.4 Run correlations AND hierarchical cluster figures
     # TODO: Still have to rotate to portrait after generation
     # TODO: Should generate pairwise comparisons between all feature types
@@ -234,40 +240,62 @@ def genAnalysis():
 def genMaps():
     run('ghc -O2 --make ConvertDistToL04')
     for variant in variants:
-        run('./ConvertDistToL04 dist-10-%s-%s-%s-%s.txt >dist-10-%s-%s-%s-%s.dif' % (variant * 2))
-        run('RuG-L04/bin/mds -K -o mds-10-%s-%s-%s-%s.vec 3 dist-10-%s-%s-%s-%s.dif' % (variant * 2))
+        run('./ConvertDistToL04 dist-%s-%s-%s-%s-%s.txt >dist-%s-%s-%s-%s-%s.dif' % (variant * 2))
+        run('RuG-L04/bin/mds -K -o mds-%s-%s-%s-%s-%s.vec 3 dist-%s-%s-%s-%s-%s.dif' % (variant * 2))
         tryrm('out.trn')
         tryrm('out.map')
         tryrm('out.clp')
         run('RuG-L04/bin/mapsetup -b 105 -p -c 30orter.clp -m 30orter.map')
-##         cfg = open('Sverigekarta.cfg', 'w')
-##         cfg.write('transform: out.trn\n')
-##         cfg.write('labels: interview.labels\n')
-##         cfg.write('coordinates: interview.coo\n')
-##         cfg.write('clipping: sverige.clp\n')
-##         #TODO: cfg.write(province borders???)
-##         cfg.close()
-        run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s-%s-%s.eps 30orter.cfg mds-10-%s-%s-%s-%s.vec' % (variant * 2))
-        # run('Something to convert eps to pdf')
+        run('RuG-L04/bin/maprgb -o Sverigekarta-mds-%s-%s-%s-%s-%s.eps 30orter.cfg mds-%s-%s-%s-%s-%s.vec' % (variant * 2))
+        # does ps2pdf work on eps? I don't need this now anyway...
+        # run('ps2pdf Sverigekarta-mds-%s-%s-%s-%s-%s.eps' % variant)
         ## Clustering with cophenetic mapping to a map ##
-        ## Note: 2-30 clusters are possible. Probably not good for results.
-        ## maybe 2-5 or 2-8 is better. ##
-        run('RuG-L04/bin/cluster -wm -b -m 2-8 -o cluster-%s-%s-%s-%s.dif dist-10-%s-%s-%s-%s.dif' % (variant * 2))
+        ## Note: 2-30 clusters are possible. but 2-8 gives better maps. ##
+        run('RuG-L04/bin/cluster -wm -b -m 2-8 -o cluster-%s-%s-%s-%s-%s.dif dist-%s-%s-%s-%s-%s.dif' % (variant * 2))
         ## , then sum multiple clusters (this has to be outside the loop)##
         ## this can be very fancy, like weighting all the significant ones for
         ## a single distance measure the same over feature differences,
         ## re-allocating the insignificant ones' weight to them. ##
     run('RuG-L04/bin/difsum -o Sverigekarta-cluster.dif '
-        + ' '.join('cluster-%s-%s-%s-%s.dif' % v for v in variants))
-    for norm in consts.norms:
-        sigs = norte.findSigs('1000', norm)
-        run('RuG-L04/bin/difsum -o Sverigekarta-cluster-%s.dif ' % (norm,)
-            + ' '.join('cluster-1000-%s-%s-%s.dif' % (measure,feature,norm)
-                        for feature in consts.features
-                        for measure in consts.measures
-                        if (measure,feature) in sigs))
-        run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster-%s.eps 30orter.cfg Sverigekarta-cluster-%s.dif' % (norm,norm))
+        + ' '.join('cluster-%s-%s-%s-%s-%s.dif' % v for v in variants))
+    for num in consts.numnorms:
+        for sample in consts.samples:
+            # for numnorm=1, sample=ratio might actually be useful
+            sigs = norte.findSigs(num, sample, 'ratio')
+            if not sigs:
+                print('nothing to see here')
+                continue
+            run('RuG-L04/bin/difsum -o Sverigekarta-cluster-%s-%s.dif ' % (num,sample)
+                + ' '.join('cluster-%s-%s-%s-%s-ratio.dif' % (num,sample,measure,feature)
+                            for feature in consts.features
+                            for measure in consts.measures
+                            if (feature,measure) in sigs))
+            run('RuG-L04/bin/mapdiff -c 2.5 -o Sverigekarta-cluster-%s-%s.eps 30orter.cfg Sverigekarta-cluster-%s-%s.dif' % (num,sample,num,sample))
     run('mv *eps ..')
+def genMoreAnalysis():
+    "Yeah, this is a stupid name. But it does what it says what it does."
+    run('ghc -O2 --make Analysis')
+    run('ghc -O2 --make Consensus')
+    tryrm('correlations.tex')
+    tryrm('consensusses.tex')
+    run('RuG-L04/bin/maprgb -r -o Sverigekarta-Landskap-consensus-1-1000.eps 30orter.cfg consensus-1-1000.vec')
+    run('RuG-L04/bin/maprgb -r -o Sverigekarta-Landskap-consensus-1-full.eps 30orter.cfg consensus-1-full.vec')
+    run('RuG-L04/bin/maprgb -r -o Sverigekarta-Landskap-consensus-5-1000.eps 30orter.cfg consensus-5-1000.vec')
+    # running either of this is unsafe because they require hand-tweaking of the
+    # code. They both now take *some* parameters, but not everything
+    # or travel-sig-inclusion or cos-exclusion or row/col-inclusion in Consensus
+    # (or unigram-exclusion, another good idea)
+    for num in consts.numnorms:
+        for sample in consts.samples:
+            for norm in consts.norms:
+                run('echo %s-%s-%s >>consensusses.tex' % (num,sample,norm))
+                run('./Consensus %s %s %s correlations-R.txt >>consensusses.tex'
+                    % (num,sample,norm))
+                for key in ['geo', 'travel', 'size']:
+                    run('echo %s-%s-%s-%s >>correlations.tex' % (num,sample,norm,key))
+                    run('./Analysis %s %s %s %s >>correlations.tex' % (num,sample,norm,key))
+    # TODO: FormatFeatures goes in here somewhere with
+    # latex clusterA-clusterD-feat-5-1000-r-trigram-ratio.txt && dvips -Ppdf clusterA-clusterD-feat-5-1000-r-trigram-ratio.dvi && ps2pdf clusterA-clusterD-feat-5-1000-r-trigram-ratio.ps && open clusterA-clusterD-feat-5-1000-r-trigram-ratio.pdf
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)
