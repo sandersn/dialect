@@ -819,9 +819,16 @@
      diagrams with pstricks. I will start rewriting the discussion.
    - Mail Therese!
 ** 2010/04/28
-   - I did that stuff, only a little discussion.
+   - I did that stuff, although only a little discussion.
    - I will rewrite the discussion, at least up to the features again.
    - Mail Therese!
+** 2010/04/29
+   - So I got to halfway through MDS. I just need to add figure
+     references and add another paragraph or so.
+   - I will finish MDS and HOPEFULLY feature diagrams. If I do I will
+     spend the rest of the time translating relevant artikelern av
+     dialektboka to English
+   - Therese's thesis will be done in a couple of weeks....
 * Plan
 ** January
 *** Get results
