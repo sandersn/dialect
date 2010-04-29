@@ -172,13 +172,6 @@ def syntaxFeatures():
                     for pair in norte.pairwise(list(consts.agreeClusters.keys()))])
                 run('./RankFeatures %s >feat-5-%s-%s-%s.txt'
                     % (tmps,sample,feature,norm2))
-    for sample, measure, feature, norm in variants:
-        # syntax features are the same for all measures, so only run this
-        # once ('r' is not meaningful, it's just the first)
-        if measure != 'r': continue
-        if norm != 'freq': continue
-        norm2s = ['over', 'freq'] if norm=='freq' else ['ratio']
-        for norm2 in norm2s:
 def syntaxFeaturesSimple():
     for sample, measure, feature, norm in variants:
         norte.writeparams(1000, sample, measure, norm)
@@ -281,8 +274,10 @@ def blade(runner, targets):
         getattr(runner, target)()
 if __name__=="__main__":
     import build
-    blade(build,
-          sys.argv[1:] if sys.argv[1:] else 'extractTalbanken tagPos'.split())
+    if sys.argv[1:]:
+        blade(build, sys.argv[1:])
+    else:
+        print("Please supply something to run")
 # TODO: Remove (or normalise to Talbanken) pauses in swedia.extractTxt
 # They look like - <first second> - also there's some funny [/] and [/-]
 # TODO: Cut off last couple of characters from each word for POS tagging?
