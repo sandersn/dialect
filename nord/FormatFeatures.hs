@@ -49,13 +49,5 @@ formatLine from to (i,(pos,n)) =
          \  \\uput{0.2}[0](7,%f){%.2f}\n"
     height pos
     (if n < 0 then to else from)
-    offset height (offset + abs n) height height n
+    offset height (offset + abs n) height height (n / 3.0)
   where height = maxheight - i * (maxheight / 10)
-    {-(if n < 0 then 180 else 250 :: Integer)
-    (110 - i * 11)
-    (if n < 0 then "-1" else "1")
-    (abs n)
-    (107 - i * 11)
-    pos
-"\\put(%d,%d){\\line(%s,0){%f}}\n\
-          \\\put(190,%d){%s}" -}

@@ -5,18 +5,16 @@ This chapter discusses three topics:
 \begin{enumerate}
 \item Analysis of results: dissertation work on its own.
 \item Comparison to Swedish syntactic dialectology.
-\item Comparison to Swedish phonological dialectometry.
+\item Comparison to Swedish phonological dialectometry. (If Therese
+  sends it to me in time.)
+\item Comparison to syntactic dialectometry.
 \item Conclusions: summary of discussion
 \item and then summary of dissertation: contribution to dialectometry at large.
 \end{enumerate}
 
-However, I can get some of the discussion from my first qualifying
-paper; the syntax distance method hasn't changed, it just works a lot
-better on a dialect corpus.
-
 A big question is why trigrams are so good. All of the fancier feature
-sets do worse than trigrams.
-
+sets do worse than trigrams. I should address this in the summary for
+sure.
 
 \section{Analysis of Results}
 
@@ -444,21 +442,31 @@ Malm\"o.
 
 %TODO: Put back in the freq/ratio features for $R$ instead of the
 %overuse-ranked features. I guess overuse isn't that useful after all.
-%TODO:Revamp feature rank results in the following way:
-% 1. cluster B <=> everything else
-% 2. cluster B <=> cluster C, different features
-% 3. cluster B <=> cluster C, different features/overuse
-% 4. cosine
 
 Next I rank and analyse the input features by comparing their
 differences. The features analysed here are the ten highest ranked
 features for a particular comparison, based on the consensus tree
 clusters of figures \ref{consensus-1-1000} --
 \ref{consensus-5-1000}. The clusters are labelled A to D from top to
-bottom. Although each feature set has ten features ranked here, it's
-actually two sets of five features, because these are differences. The
-top five positive features are shown as are the top five negative
-features.
+bottom. The clusters are reproduced in table
+\ref{feature-ranking-clusters-again}. Although each feature set has
+ten features ranked here, it's actually two sets of five features,
+because these are differences. The top five positive features are
+shown as are the top five negative features.
+
+\begin{table}
+  \begin{enumerate}
+   \item[A] (Blue) Floby, Bengtsfors
+    \item[B] (Red) J\"amshog, \"Ossj\"o, Tors\.as
+    \item[C] (Yellow) L\"oderup, Breds\"atra
+    \item[D] (Cyan) Segerstad, K\"ola, S:t Anna, Sorunda, Norra Rorum,
+      Villberga, Torso, Boda, Frilles\.as, Indal, Leksand, Anundsj\"o,
+      \.Arsunda, Asby, Orust, V\.axtorp, Fola, Sproge, F\.ar\"o,
+      Ankarsrum, Skinnskatteberg
+  \end{enumerate}
+  \caption{Clusters discussed}
+  \label{feature-ranking-clusters-again}
+\end{table}
 
 This has two advantages. It splits the features so that both the
 positive and negative evidence are always visible; otherwise, in some
@@ -480,112 +488,124 @@ the overuse normalisation allows us to see which features happen only
 a few times in one side of the comparison and not at all in the
 other. This is closer to a traditional linguistic analysis.
 
-This analysis will focus on cluster B, containing J\"amshog, \"Ossj\"o
-and Tors\.as, because it is the most different from the rest of the
-sites. It should be the easiest cluster to find interesting features
-in.
+% This analysis will focus on cluster B, containing J\"amshog, \"Ossj\"o
+% and Tors\.as, because it is the most different from the rest of the
+% sites. It should be the easiest cluster to find interesting features
+% in.
 
 \subsubsection{Trigrams}
 
 The analysis will start with trigram features without the overuse
-normalisation, since trigrams have the highest rate of
-significance of the feature sets, except for the combined feature
-set. But it is confusing to read the ranking of the combined feature
-set.
+normalisation, since trigrams have the highest rate of significance of
+the non-combined feature sets. (The combined feature set is difficult
+to read because of the mixing of feature types.)
 
-As mentioned above, the top-ranked trigrams are very common, typical
-of the core of the sentence. The non-B clusters, especially, are full
-of trigrams like PR-NN-IP (preposition-noun-period) and PO-NN-IP
-(pronoun-noun-period). But cluster B also has a lot of common
-clusters, like PO-VV-PO (pronoun-verb-pronoun) and PO-VV-AB
-(pronoun-verb-adverb). This fits with the nature of $R$; it is a sum
-and trigrams that occur in nearly all sentences are the most likely to
-be high-ranked.
+As mentioned above, the top-ranked trigrams are common, typical
+of the core of the sentence. Cluster A's typical trigrams, for
+example, typically involve a pronoun or a verb or both: PO-AV-AB
+(pronoun-copula-adverb), $++$-PO-AV (conjunction-pronoun-copula) and
+PO-VV-AB (pronoun-verb-adverb). The same is of the
+other clusters for the most part. Unfortunately, this makes it say
+interesting things about the difference in feature distribution. It
+does appear that clusters B and C have heavier use of adverbs and of
+conjunctions. The comparison between cluster A and cluster B even
+highlights the trigram AB-AB-AB as important.
 
-In cluster B, the most noticeable pattern with trigrams is the
-frequency of adverbs---the most important feature in the comparison
-between cluster A and cluster B is the trigram AB-AB-AB.
-Upon closer inspection, it can be seen that non-B clusters do have
-high-ranked trigrams containing adverbs, but the contexts differ. The
-adverbs in cluster B are usually close to the verb. This is not true
-in the other clusters---adverbs typically appear near nouns and at the
-end of the sentence. For example, AB-VV-PO, AB-PO-VV and VV-PO-AB are
-both typical of cluster B. The only non-B trigram with a verb and an
-adverb is cluster F, whose most important feature is PO-AV-AB
-(pronoun-verb `to be'-adverb), in other words, a copular sentence.
+Given this lack of information, there are two dimensions along which
+the comparisons can be altered: normalisation and feature
+set. Starting with normalisation, let us add the overuse normalisation
+technique. Differences appear immediately. First, the balance of
+feature weight obviously differs here. For example, in the comparison
+between cluster A and cluster B, the features of cluster A are more
+important in distinguishing the two than the features of cluster
+B. The comparison between cluster A and cluster D is so lop-sided that
+cluster D contributes no features at all.
 
-Besides, the adverb patterns, co-ordinating conjunctions (code $++$)
-form some patterns in cluster B. While non-B clusters have some
-important trigrams with both co-ordinating subordinating conjunctions
-(code UK), cluster B has a lot of important trigrams with
-co-ordinating conjunctions, like NN-$++$-PO, $++$-PO-VV, NN-$++$-AB
-and PR-NN-$++$. NN-$++$-PO, in particular, shows up in nearly every
-comparison. One simple explanation for this could be that sentences in
-these three regions are longer.
+With the overuse normalisation, cluster A has two interesting
+patterns. First, the trigrams it overuses are filled with indefinite
+articles (EN) and prepositions (PR). Examples include VV-EN-AB
+(verb-indefinite-adverb), PR-EN-AB (preposition-indefinite-adverb) and
+PR-EN-VN (preposition-indefinite-verbal noun), as well as IM-PR-NN
+(infinitive marker-preposition-noun) and PR-ID-PR
+(preposition-idiom-preposition). Second, the trigrams it underuses
+mostly end with pronouns: 4 of 5 trigrams in the comparison with
+cluster B and 4 or 5 in the comparison with cluster C. Even in the
+comparison with cluster D, 4 of 5 of the ``least overused'' trigrams
+end with pronouns. (The low values in the bottom half of the
+comparison with cluster D are not underused by cluster A, because
+cluster D has no unique features here. Instead they are the ``least
+overused'' by cluster A.)
 
-This is in fact the case. So,
-hmf. Does this just mean that my normalisation failed and put all the
-long-sentence guys together? It kind of looks that way.
+Cluster B shows one interesting pattern: overuse of sk\"ola (shall),
+including an interesting trigram SV-QV-AB (shall verb-can
+verb-adverb). Although this could be a mistake on the part of the
+tagger, the different forms of this verb are limited, so this is
+unlikely: identifying them is not hard. Instead it points to the
+possibility of double modals.
+%% a quick search suggests that Fennell and Butters (1996) finds
+%% evidence in German and Scandinavian languages...but it's a book ro
+%% something. Google Scholar has no link, just a wimpy citation.
+%% Also:
+%% Modals and double modals in the Scandinavian languages
+%% Working papers in Scandinavian syntax
+%% Thrainsson and Vikner 1995 (but focussing on Danish and Icelandic)
 
-%%%% done to here
-Overuse ranked features seem to highlight conjunctuions. But there is
-no other pattern--just a lot of variation and juxtapositions that
-don't make any sense. It seems like overuse ranking is susceptible to
-noise from the parser.
+Cluster C doesn't gain any interesting patterns with overuse
+normalisation except for a surprising variety in the verbs: g\"ora
+(do), hava (have), kunna (get), sk\"ola (shall), vara (be) and vilja
+(want). Many uses of adverbs show up as well. It is not clear what
+either of these patterns mean linguistically, however.
+% I have no idea whether to make that verb singular or plural.
+% So like whatever.
 
-The bulk of evidence varies for/against cluster B. I don't see any
-clear patterns. This is true for both overuse and ratio/freq norms; in
-fact, it often reverses between the two.
+Cluster D gives no information whatsoever when the overuse
+normalisation is added, simply because it has no informative
+features. This is expected, given its nature as a combination of many
+sites. The tradeoff of more informative features for the smaller
+clusters is worthwhile.
 
-Variation over $R$ features:  the same results show up here, but some
-of the patterns are easier to see because the features are easier to
-read than trigrams.
+Moving to other features sets with overuse normalisation,
+leaf-ancestor paths and leaf-head paths give additional information
+about cluster A that lead to the conclusion its defining
+characteristic is simple sentences, simpler at least than the other
+clusters. Specifically, cluster A's overused leaf-ancestor paths
+include few nested sentences. This contrasts sharply with cluster B
+and cluster C, which include many nested sentences. Cluster A does
+have complex paths, but they feature prepositional phrases. (Note: NAC
+stands for ``not a constituent'' and indicates that the parser could
+not decide what the correct constituent was at that point.) (Or that
+there are crossing branches, which is less common.)
 
-In particular, leaf-ancestor paths show off well the tendency for
-nested sentences with features like S-NP-S-VV and S-NP-S-S-AB. It
-makes me wish one of the features were just plain old sentence
-length. Boring but it might be important. Those last two features, by the
-way, are also adverb features S-S-S-AB.
+This characteristic of cluster A appears in the leaf-head paths as
+well; cluster A's paths contain many [adjective]-noun-preposition
+sequences, but few verb-verb sequences that indicate nested
+phrases. Again, cluster B and cluster C have many of these
+sequences. Both clusters have a number of overused adverb features as
+well, similar to the trigram results. Note that comparison to clsuter
+D is less interesting. Because it has fewer unique characteristics,
+when compared to it, clusters A, B and C show more generic
+characteristics. For example, all three clusters show that their
+sentences are generally more complex than the general sites in cluster D.
 
-(Note that leaf-heads I didn't reverse, so they are read from leaf to
-root, while lead-ancestors read from root to leaf. I should fix this
-and give relevant examples all the way through this discussion)
+Analysis of the phrase-structure-rule features is difficult because of
+all the noise. Features like S$\to++$-AB (conjunction-adverb)
+S$\to$FV-PO-AB-VV (get verb-pronoun-adverb-verb) are hard to describe
+as anything but junk rules created by the parser. On the other hand,
+there are a lot of linguistically odd but reasonable rules like
+S$\to$PO-AV-NP-IP (pronoun-copula-noun phrase-period), which makes a
+certain kind of sense if you can be persuaded that copular sentences
+are special enough to deserve their own rule. (Remember that
+statistical parsers trained on interview data are particularly
+susceptible to this kind of persuasion.)
 
-Overall both normalisations leave something to be desired; freq/ratio
-only gives us features that are safe from noise, but are mostly the
-same so they're hard to interpret, these relatively small variations
-in common trigrams. On the other hand, overuse normed features are
-basically full of noise and thus impossible to interpret.
-
-Yeah, basically overuse norming is useless. That sucks. I guess
-freq/ratio it is. Distort the number as little as possible eh, even if
-you miss out on some informations.
-
-%% oops I left this in %%
-Things I noticed: the freq top-5 features are basically useless:
-they're always just the simplest sentence types like PO-VV-AB,
-regardless of side. There IS a difference though, it's just that it
-flips back and forth, so from top-5 freq features you can only tell there is
-a difference, but not the content, since the top-5 features are always
-the same.
-
-Cosine overuse features seem to be the same as the others. So no
-difference there.
-
-Ratio top-5 has the same problem as freq top-5, the values are just
-smaller. In fact, I think the ratios when scaled up give the same
-values as the freqs, so there's no point in including them. I should
-just note it and skip them.
-
-Overuse top-5 features focus heavily on rare features. So very long
-features show up. How important are these really? It's hard to
-tell. They do seem to be very specific to cluster B, however.
-
-TODO: See if there's some pattern to the top-5 overuse features.
-
-\subsection{Cosine}
-
-What is up with cosine? Seriously.
+Overall both normalisations leave something to be desired; without
+overuse normalisation, only very common features appear. These
+features convey only basic information, making it hard to identify
+characteristics of a cluster. On the other hand, the overuse
+normalisation is susceptible to noise, especially for more error-prone
+feature sets. Even though more detail may be available with this
+normalisation step, the features must be inspected for general trends
+because individual features are not necessarily reliable.
 
 \section{Compared to Previous Work}
 

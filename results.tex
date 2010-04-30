@@ -754,15 +754,15 @@ rounds of normalisation and a 1000-sentence sample (figure
 \ref{consensus-5-1000}. The consensus tree for 5 rounds or
 normalisation and full-corpus comparisons only had one tree for input
 and was not usable. Given these three consensus trees, the groups in
-table \ref{feature-ranking-groups} are the relevant ones for analysis.
+table \ref{feature-ranking-clusters} are the relevant ones for analysis.
 
 There are four groups, three small and one containing the remainder of
-the sites. Group A, containing Floby and Bengtsfors, appears in all
+the sites. Cluster A, containing Floby and Bengtsfors, appears in all
 three consensus trees. Its features are coloured blue in the following
-figures. Group B, containing Jamshog, Torsas and Ossjo, appears in the
-second two trees. It features are coloured red. Group C, containing
+figures. Cluster B, containing Jamshog, Torsas and Ossjo, appears in the
+second two trees. It features are coloured red. Cluster C, containing
 Loderup and Bredsatra, appears only in the third tree. Its features
-are coloured yellow. The remainder of the sites are in Group D;
+are coloured yellow. The remainder of the sites are in Cluster D;
 the third consensus tree differs from the first two in splitting the
 remainder into two groups, but this division is ignored here to reduce
 the number of comparisons. Between large groups of sites, such
@@ -773,13 +773,13 @@ comparisons are unlikely to be informative anyway.
    \item[A] Floby, Bengtsfors
     \item[B] J\"amshog, \"Ossj\"o, Tors\.as
     \item[C] L\"oderup, Breds\"atra
-    \item[D] Segerstad, K\"ola, S:t Anna, Soruna, Norra Rorum,
+    \item[D] Segerstad, K\"ola, S:t Anna, Sorunda, Norra Rorum,
       Villberga, Torso, Boda, Frilles\.as, Indal, Leksand, Anundsj\"o,
       \.Arsunda, Asby, Orust, V\.axtorp, Fola, Sproge, F\.ar\"o,
-      Ankarsrum, Skinnsketteberg
+      Ankarsrum, Skinnskatteberg
   \end{enumerate}
   \caption{Clusters discussed}
-  \label{feature-ranking-groups}
+  \label{feature-ranking-clusters}
 \end{table}
 
 The first subsection, \ref{feature-ranking-complete}, shows all
@@ -855,6 +855,7 @@ appendix).
 % \item UU = exclamation
 \item VN = verbal noun
 \item VV = other verb
+\item WV = verb ``vilja'' (want)
 \item YY = Interjection
 \item XX = Unclassifiable
 \end{itemize}
@@ -935,46 +936,47 @@ without the overuse normalisation.
 \subsection{Variation Across Feature Sets}
 \label{feature-ranking-feature-sets}
 
-Here, I show only comparisons between clusters A and B across feature sets.
+Here, I show only comparisons between clusters A and B across feature
+sets. Overuse normalisation is used.
 
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-path-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-path-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, leaf-ancestor path features}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, trigram features}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-dep-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-dep-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, dependency features}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
     rule features}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-grand-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-grand-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
     rules features, with grandparent}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-unigram-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-unigram-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, unigram features}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-redep-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-redep-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, dependency features,
 MaltParser trained by Timbl}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-deparc-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-deparc-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, dependency features
     with arc labels}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-all-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-all-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, all combined features}
 \end{figure}
 
