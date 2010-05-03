@@ -296,6 +296,29 @@ def genMoreAnalysis():
                     run('./Analysis %s %s %s %s >>correlations.tex' % (num,sample,norm,key))
     # TODO: FormatFeatures goes in here somewhere with
     # latex clusterA-clusterD-feat-5-1000-r-trigram-ratio.txt && dvips -Ppdf clusterA-clusterD-feat-5-1000-r-trigram-ratio.dvi && ps2pdf clusterA-clusterD-feat-5-1000-r-trigram-ratio.ps && open clusterA-clusterD-feat-5-1000-r-trigram-ratio.pdf
+def genFeatureAnalysis():
+    run('ghc -O2 --make AnalyseFeatures')
+    ### possessive Article types 1,2,3
+##     X = ["Bara"]
+##     B = ["Ankarsrum", "Arsunda", "Asby", "Bengtsfors", "Boda", "Bredsatra", "Floby", "Frillesas", "Jamshog", "K*la", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Segerstad", "Skinnskatteberg", "Sorunda", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga"]
+##     A = ["Faro", "Fole", "Sproge"]
+##     X = ["Indal", "Anundsjo"]
+    ### possessive pronoun types 1,2 (2 is 1 reversed)
+    A = ["Boda", "Bredsatra", "Segerstad", "K*la", "Anundsjo", "Indal", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
+    B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga"]
+    ### redundant possessive pronoun
+    A = ["K*la"]
+    B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Anundsjo", "Indal", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
+    groupA = ' '.join(region+"-trigram.dat" for region in A)
+    groupB = ' '.join(region+"-trigram.dat" for region in B)
+    print("****")
+    print(A)
+    print("----")
+    run('./AnalyseFeatures ' + groupA)
+    print("****")
+    print(B)
+    print("----")
+    run('./AnalyseFeatures ' + groupB)
 def blade(runner, targets):
     for target in targets:
         print("Running target", target)

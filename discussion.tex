@@ -8,6 +8,8 @@ This chapter discusses three topics:
 \item Comparison to Swedish phonological dialectometry. (If Therese
   sends it to me in time.)
 \item Comparison to syntactic dialectometry.
+  That is, previous work. That is, MY previous work, plus
+  Wybo's. That's pretty much it you know.
 \item Conclusions: summary of discussion
 \item and then summary of dissertation: contribution to dialectometry at large.
 \end{enumerate}
@@ -336,7 +338,7 @@ clusters are assigned colours, which are detailed in figures
 \item Sorunda
 \item B\"oda
 \end{itemize}
-\caption{orange Cluster}
+\caption{Orange Cluster}
 \label{orange-cluster}
 \end{figure}
 
@@ -488,12 +490,7 @@ the overuse normalisation allows us to see which features happen only
 a few times in one side of the comparison and not at all in the
 other. This is closer to a traditional linguistic analysis.
 
-% This analysis will focus on cluster B, containing J\"amshog, \"Ossj\"o
-% and Tors\.as, because it is the most different from the rest of the
-% sites. It should be the easiest cluster to find interesting features
-% in.
-
-\subsubsection{Trigrams}
+\subsubsection{Analysis}
 
 The analysis will start with trigram features without the overuse
 normalisation, since trigrams have the highest rate of significance of
@@ -607,7 +604,231 @@ feature sets. Even though more detail may be available with this
 normalisation step, the features must be inspected for general trends
 because individual features are not necessarily reliable.
 
-\section{Compared to Previous Work}
+\section{Comparison to Syntactic Dialectology}
+
+\subsection{Delsing's Survey of the Norse Nominal Phrase}
+
+\namecite{delsing03} surveys a number of dialectology
+studies. According to him, the literature's heyday was 1880-1930. It
+is reasonable to believe that some of the dialect features may have
+changed in the intervening 70-120 years. This is particularly true in
+the northern dialect areas, where improved travel and communication
+will have added a centralising effect.
+
+HOWEVER, I will soldier on nonetheless and look at each one.
+
+TODO: It would be cool if I could figure out how to paste his maps
+into this pdf. Not sure how.
+
+\subsubsection{``Partitive'' Article}
+
+Use of the partitive article varies in the northern parts of Sweden
+and in the Swedish-speaking parts of Finland. There are two variants;
+the northern one includes the sites Indal and Anundsj\"o, and the
+southern one has Leksand and \.Arsunda on its border. Because of the age of
+the data, Leksand and \.Arsunda.
+
+Unforunately, the set of part-of-speech tags used for tagging is too
+small to represent nouns with article suffixes. This makes it
+impossible to identify this feature.
+
+NEXT.
+
+\subsubsection{Proper-Noun Articles}
+
+In Northern Sweden (as well as Iceland and most of Norway), first
+names are preceded by an indefinite article. Standard Swedish does not include
+this feature. This feature is found along the Swedish border with
+Norway as well as Northern Sweden, which includes the sites K\"ola,
+Indal and Anundsj\"o.
+
+Unlike the partitive article suffix, this feature is easy to detect in
+our corpora. It should be visible in the trigram feature set as a
+EN-PN (indefinite article-pronoun noun) sequence. The same sequence is
+expected leaf-head paths. The phrase-structure-rule features should
+look something like NP$\to$EN-PN. Syntactically, of course, this article
+is somewhat different from indefinite articles, but at the shallow
+level of syntactic analysis we are doing here, it looks the same.
+
+\begin{table}
+  \begin{tabular}{r|ccccc}
+    & trigram & dep & redep & psg & grand \\ \hline
+    Leksand & \\
+    Indal & \\
+    K\"ola & \\
+    \end{tabular}
+\end{table}
+% trigram, dep, redep, (psg, grand)
+
+% trigram-Indal
+In Indal, 6 of the proper nouns are preceded by
+meta-nouns. Whatever THOSE are. Otherwise it is precded by the normal
+assortment of verbs and nouns, with fewer adverbs and pronouns. Oh,
+and plenty of conjunctions and prepositions, but I filtered those out
+because there were so many. But no ENs.
+%dep-Indal
+Plenty of ID-PN sequences, but the trigram evidence makes it look like
+these IDs are all after the PN. No sign of ENs depending on PNs.
+%redep-indal
+Same here.
+% psg-indal/grand-indal
+Nothing of interest but of course it's possible to miss things with
+psg because you only see one level.
+
+So, maybe it's the fault of the tagger, or maybe the pattern just
+isn't there. I suspect the latter, but you never know. I'm just
+pessimistic.
+
+%trigram-indal
+There is a POST-nominal occurence, but that's not predicted. And
+there is only one and with trigrams it's impossible to tell whether
+it's a chance juxtaposition, and with only one occurrence it probably
+is.
+
+% Leksand
+Nothing for Leksand either, although I didn't check for meta-nouns.
+
+% K\"ola
+K\"ola has 4 or 5 trigrams with post-nominal indefinite articles. None
+before the proper noun, though.
+
+For leaf-head paths, K\"ola has a consistent PN-ID-EN-AV-AV sequence
+that happens several times. Like 5. The surroundings vary but the
+whole thing is pretty consistent. The sequence PN-ID shows up in the
+trigrams but that's it.
+
+The meta-noun I found here came *after* the proper noun.
+
+\subsubsection{Possessives and the article}
+
+Somehow you get possessives on definite-article-suffix nouns. That's
+weird, but the suffixes are already weird (and behave in such a way as
+to suggest that they aren't {\it really completely} definite articles
+anyway). Detecting this is difficult since the parts of speech don't
+mark possessiveness. If there is a difference between regions, it will
+have to be statistical; the regions that allow possessives with a
+definite-suffix noun will have more possessive-noun combinations than
+those that don't, due to the missing possessive$+$definite-noun
+combination. However, the combinations will appear the same in terms
+of part-of-speech.
+
+There are three relevant varieties (besides the standard)
+
+First, Faro/Fole/Sproge, same as southern Finland: the type that uses
+both ``mitt/Pers huset'' and ``mitt/Pers det gamla huset''. This
+predicts both PO-NN and PO-PO-NN etc etc (see the second option).
+
+Does not work: 0.06393 vs 0.07316
+
+Second, Bara (and Malm\"o of course), same as Denmark: the type that
+uses ``mitt/Pers det gamla hus(et)''. This translates to n-grams like
+PO-PO-NN or PO-PO-AJ-NN or NN-PO-NN or NN-PO-AJ-NN. There is no
+separate tag in our increasingly crappy tagset for definite articles;
+they are represented as Pronoun. Crazy, I know.
+
+This works! Yay! 0.00686 vs 0.00594. Coming next time: is this
+significant? Probably not, but I haven't measured it yet.
+
+As an aside, much of this missing information IS available to me, so I
+could look manually. But none of it made it through to the distance
+measures, and this analysis compares the way the distance measures
+make the decisions with the way that linguists make their
+decisions. So I have to use only the information that the distance
+measures used.
+
+Third, northern Sweden, which includes Indal and Anundsj\"o: the type
+that uses both ``Pers huset'' and ``huset Pers''. Here we should
+expect both PN-NN or PO-NN and NN-PN or NN-PO. That's pretty broad,
+but it's because we don't have the markup for possessiveness.
+
+Does not work: 0.00435 vs 0.00594
+
+\subsubsection{Pronominal Possessives}
+
+In normal Norse (which is confusingly similar to Swedish, except
+where it differs), genitive constructions can have an intervening
+pronoun, as in {\it Per sitt hus} ``Per's house'' (gloss: Per
+3-poss-pronoun house). In Swedish, this is known as the reflexive genitive
+construction. However, this is not allowed with possessive pronouns:
+*{\it han sitt hus}. The prepositional genitive (which exists in
+English as well) behaves the same way: {\it huset till Per} ``Per's
+house'' (gloss: house-the of Per) is legal but *{\it huset till meg}
+``my house'' (gloss: house-the of me) is not.
+
+There is an exception for kinship words, which I don't understand
+yet. But somehow ``far min'' is different (maybe just because it's not
+``min far''?)
+
+So basically standard Swedish allows trigrams sequences like NN-PO-NN
+({\it Per sitt hus}) but not  PO-PO-NN ({\it han sitt hus}). It also
+allows
+
+Does not work (is too close to call): 0.02229 vs 0.2429
+
+Reversing the bigram, looking for PO-NN in the south gives
+Works (but is still super close): 0.04243 vs 0.03998
+
+It looks like one set just uses more nouns than the others or
+something. Conclusion: inconclusive, leaning toward no---it looks like
+they're the same.
+
+\subsubsection{Prepropriell Possessives}
+
+Redundent post-nominal possessive pronoun for post-nominal proper-noun
+possessors. That is, {\it Huset hans Per} ``The house his Per''.
+
+This overlaps partly with possessives and the article; the nothern
+section is alternative 3 there, which was found not to work.
+
+There is some overlap into Sweden from Norway of this pattern. Of the
+interview regions, it covers K\"ola.
+
+This predicts K\"ola to have more trigrams of the type NN-PO-PN, as
+opposed to NN-PN elsewhere, or PN-NN in the north. Note that K\"ola is
+pretty iffy--it's right on the border, but Delsing's map is hard to
+interpret (it is distorted in a different way than most maps of
+Sweden), so it's quite possible that it isn't predicted to differ anyway.
+
+Does not work: 0 vs 0.00001
+
+So it doesn't occur anywhere, save for some noise. Conclusion:
+inconclusive, leaning toward no---it could be a lack of data or more
+likely neither has this construction.
+
+\subsubsection{Noun possessives}
+
+Specifically s-genitives in the dative case. I'm pretty sure my wimpy
+part-of-speech distinction can't catch this, and the grammar is the
+same as without the dative case, so this is impossible. Oh well.
+
+\subsubsection{Adjective attributes}
+
+
+\subsection{That Other Analysis from Dialektboka}
+
+I think there was another one. (Later) It is more likely that the
+other two papers on Swedish are analyses of individual patterns
+discussed in Delsing's survey paper. Interesting, but not relevant to
+this dissertation until basic equivalent is established between the
+features and I have moved on to rating how well the features capture
+actual syntactic phenomena.
+
+That is not likely to happen at this rate.
+
+\subsection{Rosenkvist's Analysis of the South Swedish Apparent Cleft}
+
+Assuming I can get decent features from his analysis, and some kind of
+distribution. I guess ``south'' probably means Sk\.ane and Blekinge
+but I'm not sure.
+
+\section{Comparison to Phonological Dialectometry}
+
+Come to think of it, this would be better after syntactic
+dialectometry. Either way, the basic conclusion is that the
+north-to-south thing is the same, but the cities is new. And that a
+quantitative study would be amazing but neither of us had time.
+
+\section{Comparison to Syntactic Dialectometry}
 
 In previous work on British English, this method failed to find
 agreement between syntactic distance ($R$) and phonological distance

@@ -829,6 +829,23 @@
      spend the rest of the time translating relevant artikelern av
      dialektboka to English
    - Therese's thesis will be done in a couple of weeks....
+** 2010/04/30
+   - I finished feature diagrams. It was kind of sucky, but not much
+     more than before. Overuse is better than ratio even if it's
+     noisier. I got the first 20 pages of dialectboka translated,
+     enough to remember that Delsing's Syntaktisk variation i nordiska
+     nominalfraser is the relevant paper in there.
+   - I will get the rest of Delsing's paper translated. Somehow.
+   - Maybe I need a way to chop PDFs into 20 pages segments so Google
+     Translate will do it? Maybe I should try Bing. (Also remember to
+     reply to various e-mails today.)
+** 2010/05/03
+   - I got through two of Delsing's examples. One region of one
+     example worked; the first example required a better tagset.
+   - I will get through two more of Delsing's examples. Maybe three?
+   - I am just using trigrams right now. It's simple but all the
+     examples use left-right context and I don't want to mess with
+     dependencies yet.
 * Plan
 ** January
 *** Get results
