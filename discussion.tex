@@ -699,6 +699,12 @@ trigrams but that's it.
 
 The meta-noun I found here came *after* the proper noun.
 
+The analysis code which I wrote yesterday says:
+Works: 0.00007 vs 0.00006.
+
+But of course this is so close to the noise floor that it's not
+trustworthy. Call it indecisive, but still possible and plausible.
+
 \subsubsection{Possessives and the article}
 
 Somehow you get possessives on definite-article-suffix nouns. That's
@@ -801,32 +807,118 @@ Specifically s-genitives in the dative case. I'm pretty sure my wimpy
 part-of-speech distinction can't catch this, and the grammar is the
 same as without the dative case, so this is impossible. Oh well.
 
-\subsubsection{Adjective attributes}
+\subsubsection{Post-Adjective articles}
 
+Aka double indefinites.
 
-\subsection{That Other Analysis from Dialektboka}
+An indefinite article appears after adjectives that modify an
+already-indefinite noun. For example: {\it en stor en bil} ``A large
+car'' (gloss: a large a car). In a trigram feature set, this predicts
+trigrams like EN-AJ-EN and AJ-EN-NN. It predicts very confused
+dependencies like, uh, EN-EN-AJ-NN or double EN-AJ-NN or
+EN-AJ-EN-NN. All of which are pretty weird, I'm sure you'll
+agree. (Syntactically, it looks like it's duplication, like ``A large
+one, car''. But what do I know, I'm not a syntactician and I don't
+know Swedish. I'm just guessing at what Delsing is implying)
 
-I think there was another one. (Later) It is more likely that the
-other two papers on Swedish are analyses of individual patterns
-discussed in Delsing's survey paper. Interesting, but not relevant to
-this dissertation until basic equivalent is established between the
-features and I have moved on to rating how well the features capture
-actual syntactic phenomena.
+This occurs in the north, which predicts that Anundsj\"o and Indal
+will follow this pattern.
 
-That is not likely to happen at this rate.
+Rousing success! 0.00054 vs 0.00012. Rare but seriously, it actually
+occurs. 7 times in Indal (out of about 10000 trigrams). 4 times in
+Leksand (out of under 9000 trigrams). In other regions, V\.axtorp had
+3 occurrences. B\"oda had 4. Fole 3/Asby 3
+
+Note: it would be interesting to get the icefeat ranking for this trigram.
+
+\subsubsection{Double-definite}
+
+Double-definite with adjectives is standard in Sweden and Norway, but
+not in Denmark, where the definite suffix disappears and not in
+Iceland, where the definite article is not allowed. However, in North
+Sweden, there is a weirdo combined thing where the adjective is
+combined with the noun instead. So, the adjective is marked, unlike
+Iceland, by combining. But the dialect refuses to repurpose `det' as
+an article of sorts.
+
+Unfortunately, I have no way to differentiate this from normal usage
+except to look for FEWER trigrams like PO-AJ-NN, because they would be
+realised without the PO and with the AJ combined, then tagged
+(hopefully) as NN because of the -et suffix and TnT's amazing suffix
+tagging mechanism. So, uh...that's what I'll do. The relevant sites
+are Leksand, Indal and Anundsjo.
+
+Works: 0.00167 vs 0.00217. Not a smashing success, but it could be
+significant. Who knows. It's a test, and it passed.
 
 \subsection{Rosenkvist's Analysis of the South Swedish Apparent Cleft}
 
-Assuming I can get decent features from his analysis, and some kind of
-distribution. I guess ``south'' probably means Sk\.ane and Blekinge
-but I'm not sure.
+Rosenkvist's analysis applies to Sk\.ane, at least according to his
+reference to ``Scanian linguists''. Oh wait, section 4 covers his
+attempts to pin it down. He finds it is Svealand and G\"otaland, ie
+southern and middle Sweden. This means not Arsunda, Indal and
+Anundsjo.
+OTOH, his survey points out only Halland,
+Sm\.aland and Sk\.ane (Frillesas, Vaxtorp; Ankarsrum, Torsas; Bara,
+Loderup, Norra Rorum, Ossjo).
+
+Sequences like ``som du g\"or dig till''. Rosenkvist mentions
+searching for the sequence ``det \"ar bara som'' in his novel
+corpus. The subject must be a pronoun. ``som'' is either UK
+(subordinating conjuction) or PO. I think here it is UK. So bigrams
+like UK-PO.
+
+Except the difference between the {\it apparent} cleft and a real
+cleft (or whatever it's called) is that apparent cleft haven't got any
+antecedent. And since the antecedent usually comes immediately before,
+the easiest way to search for an {\it apparent} cleft instead of a
+real cleft is to search for XX-UK-PO, where XX is something that can't
+be an antecedent. Like AB I guess, although it would be a lot smarter
+to search for all trigrams that end with the bigram UK-PO and whose
+first part is not NN or or other hilarious nominal like PO, PN (or
+seriously, PR would be wrong here too...). All of Rosenkvists's
+examples use VV-UK-PO.
+
+The problem with this construction is that it's hard to detect with
+trigrams: there are two similar constructions that Rosenvkist mentions
+that look nearly the same on the surface: true clefts and comparative
+clauses. A leaf-ancestor feature set would instead look for something
+with {\it som} as the subordinating conjunction. Unfortunately,
+Rosenkvist does not deal with the internal structure and I don't know
+syntax, much less Swedish syntax, so I am lost. I'll just do a
+simplistic search like he did.
+
+Wide area, restrictive search:
+
+Works: 0.00512 vs 0.00542. But it's really close.
+
+Wide area, wide search:
+
+Works: 0.00905 vs 0.01042. But it's still too close to call.
+
+Narrow area, restrictive search:
+
+Doesn't work: 0.00550 vs 0.00508. Very close again.
+
+Narrow area, wide search:
+
+Doesn't work: 0.00962 vs 0.0151. Super close.
+
+Conclusion: doesn't seem to be a difference, but there are a number of
+factors interfering with this. (1) Hard to capture this precise
+syntactic phenomenon using trigrams (2) Lack of
+precise understanding of the syntactic phenonemon (3) Lack of
+significance testing (or any sound method really).
+If anything, there is slightly more support for the widespread
+use. But surely nothing significant.
 
 \section{Comparison to Phonological Dialectometry}
 
 Come to think of it, this would be better after syntactic
 dialectometry. Either way, the basic conclusion is that the
-north-to-south thing is the same, but the cities is new. And that a
-quantitative study would be amazing but neither of us had time.
+north-to-south thing is the same (and the Scanian difference), but the
+cities is new. And that a quantitative study would be amazing but
+neither of us had time.
 
 \section{Comparison to Syntactic Dialectometry}
 

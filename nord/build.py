@@ -298,17 +298,32 @@ def genMoreAnalysis():
     # latex clusterA-clusterD-feat-5-1000-r-trigram-ratio.txt && dvips -Ppdf clusterA-clusterD-feat-5-1000-r-trigram-ratio.dvi && ps2pdf clusterA-clusterD-feat-5-1000-r-trigram-ratio.ps && open clusterA-clusterD-feat-5-1000-r-trigram-ratio.pdf
 def genFeatureAnalysis():
     run('ghc -O2 --make AnalyseFeatures')
+    ### indefinite articles for proper nouns
+    A = ["Indal", "Anundsjo", "K*la"]
+    B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
     ### possessive Article types 1,2,3
 ##     X = ["Bara"]
 ##     B = ["Ankarsrum", "Arsunda", "Asby", "Bengtsfors", "Boda", "Bredsatra", "Floby", "Frillesas", "Jamshog", "K*la", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Segerstad", "Skinnskatteberg", "Sorunda", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga"]
 ##     A = ["Faro", "Fole", "Sproge"]
 ##     X = ["Indal", "Anundsjo"]
     ### possessive pronoun types 1,2 (2 is 1 reversed)
-    A = ["Boda", "Bredsatra", "Segerstad", "K*la", "Anundsjo", "Indal", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
-    B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga"]
+##     A = ["Boda", "Bredsatra", "Segerstad", "K*la", "Anundsjo", "Indal", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
+##     B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga"]
     ### redundant possessive pronoun
-    A = ["K*la"]
-    B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Anundsjo", "Indal", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
+##     A = ["K*la"]
+##     B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
+    ### (duplicate) postadjectival (indefinite) article
+##     A = ["Indal", "Anundsjo"]
+##     B = ["K*la", "Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
+    ### double definite marking (a: composition, b: double definite)
+##     A = ["Leksand", "Indal", "Anundsjo"]
+##     B = ["K*la", "Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Arsunda", "Sorunda", "Bengtsfors"]
+    ### SSAC, wide version (Svealand och G\"otaland)
+    X = ["Arsunda", "Indal", "Anundsjo", ]
+    X = ["K*la","Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Sorunda", "Bengtsfors"]
+    ### SSAC, narrow version (Halland, Sm\.aland och Sk\.ane)
+    A = ["Frillesas", "Vaxtorp", "Ankarsrum", "Tors*s", "Bara", "Loderup", "Norra\\ Rorum", "Ossjo", ]
+    B = ["Arsunda", "Indal", "Anundsjo", "K*la","Faro", "Fole", "Sproge", "Asby", "Floby", "Jamshog", "Orust", "Skinnskatteberg", "StAnna", "Torso", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Sorunda", "Bengtsfors"]
     groupA = ' '.join(region+"-trigram.dat" for region in A)
     groupB = ' '.join(region+"-trigram.dat" for region in B)
     print("****")
