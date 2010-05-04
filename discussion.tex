@@ -641,27 +641,53 @@ rates occur in the predicted direction.
 TODO: It would be cool if I could figure out how to paste his maps
 into this pdf. Not sure how.
 
+Notes: make a note on the methodology here: the parts of speech are
+crude. Trigrams doesn't capture much of syntax at all. But it matches
+pretty well the survey nature of this article and allows a fast check
+of whether they match. (Also I should find the icefeat ranking, but
+that would take some more work since it doesn't print them all.)
+
 \subsubsection{``Partitive'' Article}
 
-Use of the partitive article varies in the northern parts of Sweden
-and in the Swedish-speaking parts of Finland. There are two variants;
-the northern one includes the sites Indal and Anundsj\"o, and the
-southern one has Leksand and \.Arsunda on its border. Because of the age of
-the data, Leksand and \.Arsunda.
+Northern Sweden uses the suffixed article much more than the rest of
+Sweden. Delsing says the reason is that some uses of the suffix
+article are not definite in the north; they have a partitive function,
+similar to the partitive article in French, which is not marked in the
+rest of the country. (There is also a use of the suffixed article in
+predicative constructions, but this is probably not related). See
+figure \ref{partitive-article} for an example.
 
-Unforunately, the set of part-of-speech tags used for tagging is too
-small to represent nouns with article suffixes. This makes it
-impossible to identify this feature.
 
-NEXT.
+\begin{figure}
+  {\it H\"a finns vattne d\"ari hinken.} \\
+  Here found the-water in the-bucket \\
+  There is water in the bucket. \\
+  \caption{Suffix marking for partitive}
+  \label{partitive-article}
+\end{figure}
+
+Unfortunately, the part-of-speech tag set used for this
+dissertation does not record whether nouns are marked with the
+definite suffix. Therefore, there is no way to tell the difference
+between suffixed dialect usage and bare standard usage. This feature
+must be skipped because it cannot be compared.
 
 \subsubsection{Proper-Noun Articles}
 
-In Northern Sweden (as well as Iceland and most of Norway), first
-names are preceded by an indefinite article. Standard Swedish does not include
-this feature. This feature is found along the Swedish border with
-Norway as well as Northern Sweden, which includes the sites K\"ola,
-Indal and Anundsj\"o.
+In Northern Scandinavia, first names are preceded by an indefinite
+article, and sometimes last names as well. It also includes the
+kinship terms that are used as proper names. Standard Swedish does not
+include this feature. In Sweden, this feature is found along the border
+with Norway as well as Northern Sweden. In our data, this includes the
+interview sites K\"ola, Indal, and Anundsj\"o. An example is given in
+figure \ref{indefinite-article-proper-noun}
+
+\begin{figure}
+  {\it En Bjurstr\"om ha aff\"arn.}
+  A Bjurstr\"om has affarn.
+  \caption{Indefinite Article for Proper Nouns: First Names}
+  \label{}
+\end{figure}
 
 Unlike the partitive article suffix, this feature is easy to detect in
 our corpora. It should be visible in the trigram feature set as a
