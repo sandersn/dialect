@@ -846,6 +846,17 @@
    - I am just using trigrams right now. It's simple but all the
      examples use left-right context and I don't want to mess with
      dependencies yet.
+     Remember to mail Stuart about defence and summer
+     registritaion. When I mail Henrik again I should offer him the
+     tagged versions of my code and mention software to search it.
+** 2010/05/04
+   - I got through ALL of Delsing's examples, but with no writing to
+     speak of. Also got halfway done with Rosenkvist's.
+   - I will finish Rosenkvist and start writing it all up. I will run
+     errands: find out how much 1 summer credit costs, get a summer
+     parking tag, and set a defence date in Kirkwood hall. Also a
+     'graduation lunch'.
+   - I should park cackhanded.com/cack-handed.com pretty soon.
 * Plan
 ** January
 *** Get results
