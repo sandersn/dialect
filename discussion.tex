@@ -632,20 +632,36 @@ a centralising effect.
 However, the eight phenomena in the survey are too useful to ignore, so
 with that caveat in mind, I will investigate each in turn, starting
 with a summary of the phenomenon for Swedish dialects, then
-identifying the relevant interview sites and representing the
-phenomenon using the feature sets of this dissertation. I will then
-compare the rates of occurrence of these features in each region; the
-dialectometry method agrees with the dialectology analysis if the
-rates occur in the predicted direction.
+identifying the relevant interview sites. Next I represent the
+phenomenon in terms of the feature sets used throughout this
+dissertation. This is somewhat difficult; the features are mostly designed
+for ease of automatic tagging and extraction. When they capture
+syntactic differences between two regions, they do so in a way that
+can be hard to translate to linguistic analyses. (NOTE: Trigrams are
+used therefore because they are least simple, and also their tagger is
+more reliable)
 
-TODO: It would be cool if I could figure out how to paste his maps
-into this pdf. Not sure how.
+With the target sites and features defined, it is straightforward to count the
+number of occurrences of each feature in each site and compare the
+two. If the predicted dialect phenomenon is reflected in the data,
+then the sites associated with the phenomenon will have more
+occurrences of the target features than the non-associated sites. This
+difference is precisely what the distance measures use.
 
-Notes: make a note on the methodology here: the parts of speech are
-crude. Trigrams doesn't capture much of syntax at all. But it matches
-pretty well the survey nature of this article and allows a fast check
-of whether they match. (Also I should find the icefeat ranking, but
-that would take some more work since it doesn't print them all.)
+This method is inadequate for two reasons: first, the translation of
+linguistic analysis to feature representation will not be perfect and
+may miss some valid instances of the linguistic phenomenon. Second,
+more importantly, the differences are not yet checked for statistical
+significance. As such, the comparison can only be suggestive;
+checking for statistical significance will have to wait for future
+work.
+
+% As an aside, much of this missing information IS available to me, so I
+% could look manually. But none of it made it through to the distance
+% measures, and this analysis compares the way the distance measures
+% make the decisions with the way that linguists make their
+% decisions. So I have to use only the information that the distance
+% measures used.
 
 \subsubsection{``Partitive'' Article}
 
@@ -683,118 +699,106 @@ interview sites K\"ola, Indal, and Anundsj\"o. An example is given in
 figure \ref{indefinite-article-proper-noun}
 
 \begin{figure}
-  {\it En Bjurstr\"om ha aff\"arn.}
-  A Bjurstr\"om has affarn.
-  \caption{Indefinite Article for Proper Nouns: First Names}
-  \label{}
+  \includegraphics[scale=0.7]{dialektboka-karta3}
+  \caption{Proper-Noun Articles}
+  \label{indefinite-article-proper-noun-map}
 \end{figure}
 
-Unlike the partitive article suffix, this feature is easy to detect in
-our corpora. It should be visible in the trigram feature set as a
-EN-PN (indefinite article-pronoun noun) sequence. The same sequence is
-expected leaf-head paths. The phrase-structure-rule features should
-look something like NP$\to$EN-PN. Syntactically, of course, this article
-is somewhat different from indefinite articles, but at the shallow
-level of syntactic analysis we are doing here, it looks the same.
+\begin{figure}
+  {\it En Bjurstr\"om ha aff\"arn.} \\
+  A Bjurstr\"om has the-store. \\
+  Bjurstr\"om has a store. \\
+  \caption{Indefinite Article for Proper Nouns: First Names}
+  \label{indefinite-article-proper-noun}
+\end{figure}
 
-\begin{table}
-  \begin{tabular}{r|ccccc}
-    & trigram & dep & redep & psg & grand \\ \hline
-    Leksand & \\
-    Indal & \\
-    K\"ola & \\
-    \end{tabular}
-\end{table}
-% trigram, dep, redep, (psg, grand)
+Unlike the partitive article suffix, this feature is easy to detect
+with simple features. Specifically, it can be represented as the
+bigram EN-PN (indefinite article-proper noun), which can be used as a
+search term in the trigram feature set. The same EN-PN sequence is
+expected for leaf-head paths, since the indefinite article depends on
+proper noun. The phrase-structure-rule features should
+look something like NP$\to$EN-PN.
 
-% trigram-Indal
-In Indal, 6 of the proper nouns are preceded by
-meta-nouns. Whatever THOSE are. Otherwise it is precded by the normal
-assortment of verbs and nouns, with fewer adverbs and pronouns. Oh,
-and plenty of conjunctions and prepositions, but I filtered those out
-because there were so many. But no ENs.
-%dep-Indal
-Plenty of ID-PN sequences, but the trigram evidence makes it look like
-these IDs are all after the PN. No sign of ENs depending on PNs.
-%redep-indal
-Same here.
-% psg-indal/grand-indal
-Nothing of interest but of course it's possible to miss things with
-psg because you only see one level.
-
-So, maybe it's the fault of the tagger, or maybe the pattern just
-isn't there. I suspect the latter, but you never know. I'm just
-pessimistic.
-
-%trigram-indal
-There is a POST-nominal occurence, but that's not predicted. And
-there is only one and with trigrams it's impossible to tell whether
-it's a chance juxtaposition, and with only one occurrence it probably
-is.
-
-% Leksand
-Nothing for Leksand either, although I didn't check for meta-nouns.
-
-% K\"ola
-K\"ola has 4 or 5 trigrams with post-nominal indefinite articles. None
-before the proper noun, though.
-
-For leaf-head paths, K\"ola has a consistent PN-ID-EN-AV-AV sequence
-that happens several times. Like 5. The surroundings vary but the
-whole thing is pretty consistent. The sequence PN-ID shows up in the
-trigrams but that's it.
-
-The meta-noun I found here came *after* the proper noun.
-
-The analysis code which I wrote yesterday says:
-Works: 0.00007 vs 0.00006.
-
-But of course this is so close to the noise floor that it's not
-trustworthy. Call it indecisive, but still possible and plausible.
+Occurrences of the EN-PN bigram in the trigram feature set for
+Leksand, Indal and K\"ola agree with the linguistic analysis: a rate
+of 0.00007 versus 0.00006. Unfortunately, this result can hardly be
+trusted because the rate of occurrence for both regions is so rare, as
+well as so close between the two regions. The only conclusion that can
+be drawn is that the hypothesis is not yet disproven.
 
 \subsubsection{Possessives and the article}
 
-Somehow you get possessives on definite-article-suffix nouns. That's
-weird, but the suffixes are already weird (and behave in such a way as
-to suggest that they aren't {\it really completely} definite articles
-anyway). Detecting this is difficult since the parts of speech don't
-mark possessiveness. If there is a difference between regions, it will
-have to be statistical; the regions that allow possessives with a
-definite-suffix noun will have more possessive-noun combinations than
-those that don't, due to the missing possessive$+$definite-noun
-combination. However, the combinations will appear the same in terms
-of part-of-speech.
+In Swedish, and in the other Scandinavian countries, there is a good
+deal of variation in the handling of possessives with articles. In
+Swedish, normally only one is allowed in a noun phrase: either a
+possessive or a determiner, but not both. However, in Danish and the
+Danish-influenced areas of Sweden, both are allowed in certain
+cases. When the possessive and determiner are separated from the noun
+by an adjective, both are allowed. Delsing gives an example from
+Danish, copied here in figure \ref{possessive-plus-article-example}.
+This pattern is also standard in the southwest corner of Sweden, very
+near to Denmark. This includes the interview site Bara. In addition,
+it alternates with the standard on the island of Gotland, which
+includes the interview sites Fole, F\.ar\"o and Sproge.
 
-There are three relevant varieties (besides the standard)
+\begin{figure}
+  \includegraphics[scale=0.7]{dialektboka-karta4}
+  \caption{Proper-Noun Articles}
+  \label{possessive-plus-article-map}
+\end{figure}
 
-First, Faro/Fole/Sproge, same as southern Finland: the type that uses
-both ``mitt/Pers huset'' and ``mitt/Pers det gamla huset''. This
-predicts both PO-NN and PO-PO-NN etc etc (see the second option).
+\begin{figure}
+  {\it naboens den stribede kat} \\
+  Neighbours' the striped kat \\
+  The neighbours' striped cat.
+  \caption{Simultaneous possessive and determiner in noun phrase in
+    Danish}
+  \label{possessive-plus-article-example}
+\end{figure}
 
-Does not work: 0.06393 vs 0.07316
+This pattern can be detected by looking for the
+4-grams PO-PO-AJ-NN, PR-PO-AJ-NN and NN-PO-AJ-NN. The first is the
+sequence pronoun-pronoun-adjective-noun, for example {\it mitt det
+  gamla huset} ``My the old house-the''. The second starts with a
+proper name, such as {\it Pers} ``Per's'', and the third starts with a
+noun, such as {\it naboen} ``neighbour's''. These three 4-tag sequence
+can be encoded as trigrams by breaking them into two pieces.
 
-Second, Bara (and Malm\"o of course), same as Denmark: the type that
-uses ``mitt/Pers det gamla hus(et)''. This translates to n-grams like
-PO-PO-NN or PO-PO-AJ-NN or NN-PO-NN or NN-PO-AJ-NN. There is no
-separate tag in our increasingly crappy tagset for definite articles;
-they are represented as Pronoun. Crazy, I know.
+In addition to this pattern, there is a second in the north of
+Sweden. Here, it is simply that possessive personal pronouns are
+allowed both before and after the noun. This pattern includes the
+interview sites Indal and Anundsj\"o and is covered in the next
+section.
 
-This works! Yay! 0.00686 vs 0.00594. Coming next time: is this
-significant? Probably not, but I haven't measured it yet.
+Searching Bara, in the southwest of Sweden, for the previously
+mentioned trigram patterns does not find them: the rate of occurrence
+is 0.00289 inside Bara but 0.000341 outside. It should be higher in
+Bara. However, Delsing also mentions that Scanians he has asked do not
+recognise this form either, so it is possible that it has fallen out
+of use in the 70 years or so since it was last reported.
 
-As an aside, much of this missing information IS available to me, so I
-could look manually. But none of it made it through to the distance
-measures, and this analysis compares the way the distance measures
-make the decisions with the way that linguists make their
-decisions. So I have to use only the information that the distance
-measures used.
+Executing a similar search for the Gotland sites (F\.ar\"o, Fole and
+Sproge), but with the addition of the standard trigrams PO-AJ-NN,
+PR-AJ-NN and NN-AJ-NN, shows similar results: 0.00441 on Gotland,
+0.00495 off.
 
-Third, northern Sweden, which includes Indal and Anundsj\"o: the type
-that uses both ``Pers huset'' and ``huset Pers''. Here we should
-expect both PN-NN or PO-NN and NN-PN or NN-PO. That's pretty broad,
-but it's because we don't have the markup for possessiveness.
+The final region in map \ref{possessive-plus-article-map}, in northern
+Sweden, which includes Indal and Andundsj\"o, is actually more
+complicated than can be captured by the part-of-speech tags used here;
+this region allows possessive proper nouns to occur with
+suffix-determiner nouns. But this can occur in either order: for
+example, both ``Pers huset'' and ``huset Pers'' is allowed. Although
+both ``Pers hus'' and ``Pers huset'' produce identical tags (PR-NN),
+trigrams encode order, so the unusual order in ``huset Pers'' can be
+searched for.
 
-Does not work: 0.00435 vs 0.00594
+Searching for the bigrams NN-PN (noun-proper noun) and NN-PO
+(noun-pronoun) shows a usage rate of 0.02532 for Indal and Anundsj\"o
+and a rate of 0.02438 for the rest of Sweden. This is the expected
+direction, but the rate of usage is very similar between the two
+regions. The comparison is really too close to make a prediction
+because the difference is not likely to be significant.
 
 \subsubsection{Pronominal Possessives}
 
@@ -958,6 +962,13 @@ precise understanding of the syntactic phenonemon (3) Lack of
 significance testing (or any sound method really).
 If anything, there is slightly more support for the widespread
 use. But surely nothing significant.
+
+\subsection{Conclusions}
+
+There a bunch of small differences. It's possible that all these small
+differences add up to produce the different regions. (And actually
+very likely.) But they are
+still not very interpretable.
 
 \section{Comparison to Phonological Dialectometry}
 
