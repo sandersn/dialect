@@ -7,7 +7,7 @@ main = getArgs >>= mapM (withFileLines tail) >>= concat & scale & mapM_ putStrLn
 scale lines = l |> histogram & norm (length l) & Map.filterWithKey match & format
   where l = lines |> filter (/="***")
         match :: String -> Double -> Bool
-        match = possessiveArticleTrigram3
+        match = possessivePronounTrigram1
 norm len = Map.map (fromIntegral &  (/ fromIntegral len))
 format d = map (uncurry (printf "%s %.5f")) (("TOTAL",sum (map snd l)):l)
   where l = Map.toList d
@@ -34,3 +34,6 @@ ssacTrigram1 f n = "AB-UK-PO"==f
 -- meant to exclude true clefts.
 ssacTrigram2 f n = "-UK-PO" `isSuffixOf` f && not (any (`isPrefixOf` f) nouns)
   where nouns = ["NN", "PO", "PR"]
+-- test of throwaway comments about Per sitt hus vs han sitt hus
+-- this MIGHT be legal in North Sweden, but I doubt it.
+genitiveReflexiveTrigram f n = f `elem` ["PO-PO-NN", "NN-PR-PO"]

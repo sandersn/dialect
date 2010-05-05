@@ -800,34 +800,60 @@ direction, but the rate of usage is very similar between the two
 regions. The comparison is really too close to make a prediction
 because the difference is not likely to be significant.
 
-\subsubsection{Pronominal Possessives}
+% \subsubsection{Pronominal Possessives}
 
-In normal Norse (which is confusingly similar to Swedish, except
-where it differs), genitive constructions can have an intervening
-pronoun, as in {\it Per sitt hus} ``Per's house'' (gloss: Per
-3-poss-pronoun house). In Swedish, this is known as the reflexive genitive
-construction. However, this is not allowed with possessive pronouns:
-*{\it han sitt hus}. The prepositional genitive (which exists in
-English as well) behaves the same way: {\it huset till Per} ``Per's
-house'' (gloss: house-the of Per) is legal but *{\it huset till meg}
-``my house'' (gloss: house-the of me) is not.
+% In Swedish, as well all of mainland Scandinavian, another possessive
+% construction is the reflexive genitive, which consists of a
+% noun-reflexive-noun sequence. An example is given in figure
+% \ref{genitive-reflexive-normal-example}. However, this construction
+% does not allow pronouns: the sequence noun-reflexive-pronoun is not
+% allowed (see figure \ref{genitive-reflexive-pronoun-example}).
 
-There is an exception for kinship words, which I don't understand
-yet. But somehow ``far min'' is different (maybe just because it's not
-``min far''?)
+% \begin{figure}
+%   {\it Per sitt hus} \\
+%   Per its house
+% ``Per's house'' \\
+% \caption{Standard Swedish genitive reflexive construction}
+% \label{genitive-reflexive-normal-example}
+% \end{figure}
 
-So basically standard Swedish allows trigrams sequences like NN-PO-NN
-({\it Per sitt hus}) but not  PO-PO-NN ({\it han sitt hus}). It also
-allows
+% \begin{figure}
+%   {\it han sitt hus} \\
+%   his its house
+% ``his house'' \\
+% \caption{Pronominal genitive reflexive construction}
+% \label{genitive-reflexive-pronoun-example}
+% \end{figure}
 
-Does not work (is too close to call): 0.02229 vs 0.2429
+% However, this construction is allowed in NORTHERN SWEDEN.
+% Oops, actually I think this whole section is whole throwaway intro to
+% something else. Boooooo.
 
-Reversing the bigram, looking for PO-NN in the south gives
-Works (but is still super close): 0.04243 vs 0.03998
+% However, this is not allowed with possessive pronouns:
+% *{\it han sitt hus}.
 
-It looks like one set just uses more nouns than the others or
-something. Conclusion: inconclusive, leaning toward no---it looks like
-they're the same.
+% The prepositional genitive
+% behaves the same way: {\it huset till Per} ``Per's
+% house'' (gloss: house-the of Per) is legal but *{\it huset till meg}
+% ``my house'' (gloss: house-the of me) is not.
+
+% There is an exception for kinship words, which I don't understand
+% yet. But somehow ``far min'' is different (maybe just because it's not
+% ``min far''?)
+
+% So basically standard Swedish allows trigrams sequences like NN-PO-NN
+% ({\it Per sitt hus}) but not PO-PO-NN ({\it han sitt hus}). It also
+% allows sequence like NN-PR-NN ({\it huset till Per}) but not NN-PR-PO
+% ({\it huset till meg}).
+
+% Does not work (is too close to call): 0.02229 vs 0.2429
+
+% Reversing the bigram, looking for PO-NN in the south gives
+% Works (but is still super close): 0.04243 vs 0.03998
+
+% It looks like one set just uses more nouns than the others or
+% something. Conclusion: inconclusive, leaning toward no---it looks like
+% they're the same.
 
 \subsubsection{Prepropriell Possessives}
 

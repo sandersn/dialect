@@ -302,10 +302,10 @@ def genFeatureAnalysis():
 ##     A = ["Indal", "Anundsjo", "K*la"]
 ##     B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
     ### possessive Article types 1,2,3
-    X = ["Bara"]
-    B = ["Ankarsrum", "Arsunda", "Asby", "Bengtsfors", "Boda", "Bredsatra", "Floby", "Frillesas", "Jamshog", "K*la", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Segerstad", "Skinnskatteberg", "Sorunda", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga"]
-    X = ["Faro", "Fole", "Sproge"]
-    A = ["Indal", "Anundsjo"]
+##     X = ["Bara"]
+##     B = ["Ankarsrum", "Arsunda", "Asby", "Bengtsfors", "Boda", "Bredsatra", "Floby", "Frillesas", "Jamshog", "K*la", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Segerstad", "Skinnskatteberg", "Sorunda", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga"]
+##     X = ["Faro", "Fole", "Sproge"]
+##     A = ["Indal", "Anundsjo"]
     ### possessive pronoun types 1,2 (2 is 1 reversed)
 ##     A = ["Boda", "Bredsatra", "Segerstad", "K*la", "Anundsjo", "Indal", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
 ##     B = ["Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga"]
@@ -324,6 +324,9 @@ def genFeatureAnalysis():
     ### SSAC, narrow version (Halland, Sm\.aland och Sk\.ane)
 ##     A = ["Frillesas", "Vaxtorp", "Ankarsrum", "Tors*s", "Bara", "Loderup", "Norra\\ Rorum", "Ossjo", ]
 ##     B = ["Arsunda", "Indal", "Anundsjo", "K*la","Faro", "Fole", "Sproge", "Asby", "Floby", "Jamshog", "Orust", "Skinnskatteberg", "StAnna", "Torso", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Sorunda", "Bengtsfors"]
+    ### trying to detect lack of "far min" in Southern Sweden
+    A = ["Jamshog", "Vaxtorp", "Tors*s", "Bara", "Loderup", "Norra\\ Rorum", "Ossjo", "Segerstad", ]
+    B = ["Ankarsrum", "Frillesas", "Arsunda", "Indal", "Anundsjo", "K*la","Faro", "Fole", "Sproge", "Asby", "Floby", "Orust", "Skinnskatteberg", "StAnna", "Torso", "Viby", "Villberga", "Boda", "Bredsatra", "Leksand", "Sorunda", "Bengtsfors"]
     groupA = ' '.join(region+"-trigram.dat" for region in A)
     groupB = ' '.join(region+"-trigram.dat" for region in B)
     print("****")
