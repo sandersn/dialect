@@ -316,17 +316,17 @@ def genFeatureAnalysis():
 ##     A = ["Indal", "Anundsjo"]
 ##     B = ["K*la", "Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Arsunda", "Sorunda", "Bengtsfors"]
     ### double definite marking (a: composition, b: double definite)
-##     A = ["Leksand", "Indal", "Anundsjo"]
-##     B = ["K*la", "Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Arsunda", "Sorunda", "Bengtsfors"]
+##     A = ["Indal", "Anundsjo"]
+##     B = ["Leksand", "K*la", "Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Arsunda", "Sorunda", "Bengtsfors"]
     ### SSAC, wide version (Svealand och G\"otaland)
-##     X = ["Arsunda", "Indal", "Anundsjo", ]
-##     X = ["K*la","Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Sorunda", "Bengtsfors"]
+    X = ["Arsunda", "Indal", "Anundsjo", ]
+    X = ["K*la","Bara", "Faro", "Fole", "Sproge", "Ankarsrum", "Asby", "Floby", "Frillesas", "Jamshog", "Loderup", "Norra\\ Rorum", "Orust", "Ossjo", "Skinnskatteberg", "StAnna", "Tors*s", "Torso", "Vaxtorp", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Sorunda", "Bengtsfors"]
     ### SSAC, narrow version (Halland, Sm\.aland och Sk\.ane)
-##     A = ["Frillesas", "Vaxtorp", "Ankarsrum", "Tors*s", "Bara", "Loderup", "Norra\\ Rorum", "Ossjo", ]
-##     B = ["Arsunda", "Indal", "Anundsjo", "K*la","Faro", "Fole", "Sproge", "Asby", "Floby", "Jamshog", "Orust", "Skinnskatteberg", "StAnna", "Torso", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Sorunda", "Bengtsfors"]
+    A = ["Frillesas", "Vaxtorp", "Ankarsrum", "Tors*s", "Bara", "Loderup", "Norra\\ Rorum", "Ossjo", ]
+    B = ["Arsunda", "Indal", "Anundsjo", "K*la","Faro", "Fole", "Sproge", "Asby", "Floby", "Jamshog", "Orust", "Skinnskatteberg", "StAnna", "Torso", "Viby", "Villberga", "Boda", "Bredsatra", "Segerstad", "Leksand", "Sorunda", "Bengtsfors"]
     ### trying to detect lack of "far min" in Southern Sweden
-    A = ["Jamshog", "Vaxtorp", "Tors*s", "Bara", "Loderup", "Norra\\ Rorum", "Ossjo", "Segerstad", ]
-    B = ["Ankarsrum", "Frillesas", "Arsunda", "Indal", "Anundsjo", "K*la","Faro", "Fole", "Sproge", "Asby", "Floby", "Orust", "Skinnskatteberg", "StAnna", "Torso", "Viby", "Villberga", "Boda", "Bredsatra", "Leksand", "Sorunda", "Bengtsfors"]
+##     A = ["Jamshog", "Vaxtorp", "Tors*s", "Bara", "Loderup", "Norra\\ Rorum", "Ossjo", "Segerstad", ]
+##     B = ["Ankarsrum", "Frillesas", "Arsunda", "Indal", "Anundsjo", "K*la","Faro", "Fole", "Sproge", "Asby", "Floby", "Orust", "Skinnskatteberg", "StAnna", "Torso", "Viby", "Villberga", "Boda", "Bredsatra", "Leksand", "Sorunda", "Bengtsfors"]
     groupA = ' '.join(region+"-trigram.dat" for region in A)
     groupB = ' '.join(region+"-trigram.dat" for region in B)
     print("****")

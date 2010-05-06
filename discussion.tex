@@ -4,9 +4,12 @@ This chapter discusses three topics:
 
 \begin{enumerate}
 \item Analysis of results: dissertation work on its own.
+TODO: Move this to results chapter.
 \item Comparison to Swedish syntactic dialectology.
-\item Comparison to Swedish phonological dialectometry. (If Therese
-  sends it to me in time.)
+TODO: More of this to come! (Unless I have already written some)
+\item DONE Comparison to Swedish phonological dialectometry. (Based mostly
+  on Therese's previous work and personal communication; the
+  dissertation won't get here on time)
 \item Comparison to syntactic dialectometry.
   That is, previous work. That is, MY previous work, plus
   Wybo's. That's pretty much it you know.
@@ -17,6 +20,10 @@ This chapter discusses three topics:
 A big question is why trigrams are so good. All of the fancier feature
 sets do worse than trigrams. I should address this in the summary for
 sure.
+
+The reason is that the simpler tags are easier to tag. So I recommend
+for the real-world analyses with only untagged transcriptions as input
+to simply use trigrams.
 
 \section{Analysis of Results}
 
@@ -148,10 +155,6 @@ successful strategy. The distance measures seem to be able to use all
 available information for finding significant distances.
 
 \subsection{Correlation}
-% TODO: ALSO I should point out that geographic correlation IS the
-% default expected by normal old boring linguists. The Nordic Languages
-% is pretty clear on this plus I have some references from
-% dialectology papers.
 
 In dialectology, the default expectation for dialect distance is that
 it correlates with geographic distance \cite{chambers98}. A lack of
@@ -180,7 +183,7 @@ an asterisk, but only the italicised correlations are based on at
 least 95\% significant distances. For example, this means that most of
 the significant correlations based on phrase-structure rules are not valid.
 
-It is worthwile noting, however, that the valid and significant
+It is worthwile to note, however, that the valid and significant
 correlations based on phrase-structure grammars give the highest
 correlations: 0.37 for $R^2$ with full-corpus comparisons and 1 round
 of normalisation.
@@ -357,14 +360,6 @@ represent the countryside of Sweden. On the other hand, because the
 blue cluster is near G\"oteborg, it might be better characterised
 simply as ``non-Stockholm''.
 
-Most of this analysis agrees with the existing dialectology
-literature; the north-to-south gradient is well-attested in (CITE: The
-Nordic Languages, plus I'm pretty sure I read this somewhere
-else). In the south, it is also well-known that the boundary with
-Sk\.ane is stronger; this boundary extends along Blekinge as well, it
-seems. However, the difference between city and countryside is not
-well attested in the literature, nor is the possible difference
-between Stockholm/Malm\"o and G\"oteborg.
 
 \subsection{Composite Cluster Maps}
 
@@ -606,6 +601,56 @@ because individual features are not necessarily reliable.
 
 \section{Comparison to Syntactic Dialectology}
 
+The comparison to syntactic dialectology covers three main
+areas. First, the overall expected pattern of dialects in
+Sweden. Second, the specific regions. Third, the individual features.
+
+\subsection{Overall Pattern}
+
+The default expectation of dialect distance is that it should
+correlate with geographic distance \cite{goosken04a}. This is
+especially true for the Scandinavian languages; \namecite{halland05}
+points out that . 
+
+\begin{itemize}
+\item Significance -- Does not apply: dialectology only measures
+  significance by guessing if there are enough isoglosses in one place
+  to form a bundle.
+\item Correlation (with geo) -- Just say here that we expect a
+  north-to-south gradient, which translates to a high geo
+  correlation. We didn't get that oh well.
+\item Clusters and Consensus tree and Maps -- remember, these produce a
+  city/country divide, a boundary at Jamshog, and something kind of
+  near Goteborg.
+
+  Most of this analysis agrees with the existing dialectology
+literature; the north-to-south gradient is well-attested in
+\namecite{hallberg05}. In the south, it is also well-known that the
+boundary with Sk\.ane is stronger; this boundary extends along
+Blekinge as well, it seems. However, the difference between city and
+countryside is not well attested in the literature, nor is the
+possible difference between Stockholm/Malm\"o and G\"oteborg.
+
+The southern section contradicts Hallberg's assertion that the
+boundaries do not follow the previously Danish area. However, there
+aren't many sites here, so it may just lack precision enough to tell
+that the southern boundary is *near* the ex-Danish border. Still, it's
+telling that there's such a strong region and boundary down there at
+all.
+
+\item Composite Cluster Maps
+  
+  North-to-south gradient. Yup. 
+  
+\item MDS
+  This is basically the same as the composite cluster maps except that
+  you have to agree with my interpretation because the maps are not so
+  self-evident.
+
+\item Features
+NOTE: This is already done: below
+\end{itemize}
+
 The literature for Swedish syntactic dialectology is not large;
 although it is not large anywhere, Swedish dialectology is not a very
 large field. I will compare my results to two papers,
@@ -629,17 +674,17 @@ a centralising effect.
 
 % The gerunds in this paragraph suck and turn it into a
 % single-sentence thing.
-However, the eight phenomena in the survey are too useful to ignore, so
-with that caveat in mind, I will investigate each in turn, starting
-with a summary of the phenomenon for Swedish dialects, then
-identifying the relevant interview sites. Next I represent the
-phenomenon in terms of the feature sets used throughout this
-dissertation. This is somewhat difficult; the features are mostly designed
-for ease of automatic tagging and extraction. When they capture
-syntactic differences between two regions, they do so in a way that
-can be hard to translate to linguistic analyses. (NOTE: Trigrams are
-used therefore because they are least simple, and also their tagger is
-more reliable)
+However, comparison to the eight phenomena in the survey are too
+useful to ignore, so with that caveat in mind, I will investigate each
+in turn, starting with a summary of the phenomenon for Swedish
+dialects, then identifying the relevant interview sites. Next I
+represent the phenomenon in terms of the feature sets used throughout
+this dissertation. This is somewhat difficult; the features are mostly
+designed for ease of automatic tagging and extraction. When they
+capture syntactic differences between two regions, they do so in a way
+that can be hard to translate to linguistic analyses. (NOTE: Trigrams
+are used therefore because they are least simple, and also their
+tagger is more reliable)
 
 With the target sites and features defined, it is straightforward to count the
 number of occurrences of each feature in each site and compare the
@@ -662,6 +707,8 @@ work.
 % make the decisions with the way that linguists make their
 % decisions. So I have to use only the information that the distance
 % measures used.
+
+The maps reproduced here are taken from Delsing's survey as well.
 
 \subsubsection{``Partitive'' Article}
 
@@ -750,7 +797,7 @@ includes the interview sites Fole, F\.ar\"o and Sproge.
 
 \begin{figure}
   {\it naboens den stribede kat} \\
-  Neighbours' the striped kat \\
+  Neighbours' the striped cat \\
   The neighbours' striped cat.
   \caption{Simultaneous possessive and determiner in noun phrase in
     Danish}
@@ -855,154 +902,323 @@ because the difference is not likely to be significant.
 % something. Conclusion: inconclusive, leaning toward no---it looks like
 % they're the same.
 
-\subsubsection{Prepropriell Possessives}
+\subsubsection{Proper Noun Possessives}
 
-Redundent post-nominal possessive pronoun for post-nominal proper-noun
-possessors. That is, {\it Huset hans Per} ``The house his Per''.
+In addtion to the post-nominal possessive pattern of the previous
+section, there is a variant that is common in Norway. Here, the
+sequence is noun-possessive pronoun-proper noun. An example
+of this pattern is given in figure \ref{proper-noun-post-possessive}.
 
-This overlaps partly with possessives and the article; the nothern
-section is alternative 3 there, which was found not to work.
+\begin{figure}
+  {\it Huset hans Per} \\
+  The-house his Per \\
+  Per's house
+  \caption{Possessive formed of Possessive Pronoun and Proper Noun}
+  \label{proper-noun-post-possessive}
+\end{figure}
 
-There is some overlap into Sweden from Norway of this pattern. Of the
-interview regions, it covers K\"ola.
+This pattern overlaps slightly into Sweden, covering the interview
+site K\"ola. The distribution is given in map
+\ref{proper-noun-post-possessive-map}. Note that the northern area
+with small stripes is the same as in map
+\ref{possessive-plus-article-map}. The area of interest is the first,
+with larger, thick stripes.
 
-This predicts K\"ola to have more trigrams of the type NN-PO-PN, as
-opposed to NN-PN elsewhere, or PN-NN in the north. Note that K\"ola is
-pretty iffy--it's right on the border, but Delsing's map is hard to
-interpret (it is distorted in a different way than most maps of
-Sweden), so it's quite possible that it isn't predicted to differ anyway.
+\begin{figure}
+  \includegraphics[scale=0.7]{dialektboka-karta6}
+  \caption{Proper-Noun Possessives}
+  \label{proper-noun-post-possessive-map}
+\end{figure}
 
-Does not work: 0 vs 0.00001
-
-So it doesn't occur anywhere, save for some noise. Conclusion:
-inconclusive, leaning toward no---it could be a lack of data or more
-likely neither has this construction.
+This phenomenon maps to a trigram NN-PO-PN: noun-pronoun-proper
+noun. The occurrence rate of this trigram in K\"ola to the rest of
+Sweden is 0 vs 0.00001. This is the wrong direction, and the value is
+so low that it is probably noise. There are two possible causes for
+this essentially zero result: either neither region has this feature
+or there is not sufficient data to tell.
 
 \subsubsection{Noun possessives}
 
-Specifically s-genitives in the dative case. I'm pretty sure my wimpy
-part-of-speech distinction can't catch this, and the grammar is the
-same as without the dative case, so this is impossible. Oh well.
+Delsing mentions briefly that central Sweden, including \"Alvdalen and
+V\"asterdalarna, uses the dative form of nouns for the
+s-genitive. However, the part-of-speech tag set used here makes no
+difference between dative and other cases on nouns, so it is not
+possible to look for this phenomenon.
 
-\subsubsection{Post-Adjective articles}
+\subsubsection{Double indefinite}
 
-Aka double indefinites.
+In northern Sweden and northern Norway, indefinite articles are used both
+before and after adjectives when modifying nouns. Delsing calls this
+the ``double indefinite''. See for example figure
+\ref{double-indefinite-example}. One indefinite article is used after
+each adjective, even for multiple adjectives, so {\it en stor en bil}
+(a large car) but also {\it en stor en fin en bil} (a large fine car).
 
-An indefinite article appears after adjectives that modify an
-already-indefinite noun. For example: {\it en stor en bil} ``A large
-car'' (gloss: a large a car). In a trigram feature set, this predicts
-trigrams like EN-AJ-EN and AJ-EN-NN. It predicts very confused
-dependencies like, uh, EN-EN-AJ-NN or double EN-AJ-NN or
-EN-AJ-EN-NN. All of which are pretty weird, I'm sure you'll
-agree. (Syntactically, it looks like it's duplication, like ``A large
-one, car''. But what do I know, I'm not a syntactician and I don't
-know Swedish. I'm just guessing at what Delsing is implying)
+\begin{figure}
+  {\it en stor en bil} \\
+  a large a car \\
+  A large car
+  \caption{Double Indefinite}
+  \label{double-indefinite-example}
+\end{figure}
 
-This occurs in the north, which predicts that Anundsj\"o and Indal
-will follow this pattern.
+\begin{figure}
+  \includegraphics[scale=0.7]{dialektboka-karta8}
+  \caption{Double indefinite (post-adjectival articles)}
+  \label{double-indefinite-map}
+\end{figure}
 
-Rousing success! 0.00054 vs 0.00012. Rare but seriously, it actually
-occurs. 7 times in Indal (out of about 10000 trigrams). 4 times in
-Leksand (out of under 9000 trigrams). In other regions, V\.axtorp had
-3 occurrences. B\"oda had 4. Fole 3/Asby 3
+In central Sweden, a similar pattern occurs, but the article is not
+perceived as independent, but as a suffix of the adjective. In other
+words, the above example is perceived as {\it en stor-en bil}
+instead. Unfortunately, this pattern appears identical to the ordinary
+Swedish case given the course part-of-speech tag set in use.
+In constrast, the first pattern is quite easy to represent with
+trigrams: we are interested in the 4-gram EN-AJ-EN-NN and the 6-gram
+EN-AJ-EN-AJ-EN-NN---alternating series of indefinite articles and
+adjectives ended by a noun. The larger n-grams can be broken into the
+trigrams EN-AJ-EN and AJ-EN-NN.
 
-Note: it would be interesting to get the icefeat ranking for this trigram.
+This is a northern pattern which includes the interview sites
+Anundsj\"o and Indal. When measured, these trigrams occur at a rate of
+0.00054 there versus the rest of Sweden, which has a rate of
+0.00012. From this we can conclude that this is a rare phenomenon, but
+one that happens in the north about 4 times more often than in the
+rest of Sweden.
 
-\subsubsection{Double-definite}
+\subsubsection{Double Definite}
 
-Double-definite with adjectives is standard in Sweden and Norway, but
-not in Denmark, where the definite suffix disappears and not in
-Iceland, where the definite article is not allowed. However, in North
-Sweden, there is a weirdo combined thing where the adjective is
-combined with the noun instead. So, the adjective is marked, unlike
-Iceland, by combining. But the dialect refuses to repurpose `det' as
-an article of sorts.
+Double-definite with adjectives is standard in Sweden and Norway,
+where there is a definite article as well as a definite suffix on the
+noun (see figure \ref{double-definite-example}). This is not the case
+in Denmark (figure \ref{single-definite-example}), where the definite
+suffix disappears in case of a definite article, nor in Iceland, where
+the definite is suffix-only and there is no article (figure
+\ref{single-definite-suffix-example}).
 
-Unfortunately, I have no way to differentiate this from normal usage
-except to look for FEWER trigrams like PO-AJ-NN, because they would be
-realised without the PO and with the AJ combined, then tagged
-(hopefully) as NN because of the -et suffix and TnT's amazing suffix
-tagging mechanism. So, uh...that's what I'll do. The relevant sites
-are Leksand, Indal and Anundsjo.
+However, in North Sweden, there is a fourth option, where the
+adjective combines with the noun into a single word (figure
+\ref{adjective-single-definite-suffix-example}). Delsing gives
+examples like {\it storhuset} (the big house) and {\it
+  stor-svart-gamm-katta} (the big, black, old cat). In Norrland,
+Delsing finds that this construction is used almost to the exclusion
+of the normal Swedish one. Further south, the two co-exist.
 
-Works: 0.00167 vs 0.00217. Not a smashing success, but it could be
-significant. Who knows. It's a test, and it passed.
+\begin{figure}
+  {\it det store huset} \\
+  The large the-house \\
+  The large house
+  \caption{Double definite (Sweden and Norway)}
+  \label{double-definite-example}
+\end{figure}
+\begin{figure}
+  {\it Det store hus} \\
+  The large house\\
+  The large house
+  \caption{Single Indefinite (Denmark)}
+  \label{single-definite-example}
+\end{figure}
+\begin{figure}
+  {\it gamla h\'usid} \\
+  old house-the \\
+  The old house
+  \caption{Single definite suffix (Iceland)}
+  \label{single-definite-suffix-example}
+\end{figure}
+\begin{figure}
+  {\it storhuset} \\
+  old-house-the \\
+  The old house
+  \caption{Single definite suffix with combined adjective (Northern Sweden)}
+  \label{adjective-single-definite-suffix-example}
+\end{figure}
+
+Therefore, since the annotation scheme does not differentiate between
+a combined noun like {\it storhuset} and a normal noun like {\it
+  huset}, the better way to detect the region difference is to count
+the rate of normal trigrams like PO-AJ-NN (pronoun-adjective-noun);
+this is the feature type that occurs rarely or not at all in the
+north. If the region division in map \ref{double-definite-map} is
+detected, then northern Sweden will have a lower rate of occurrence of
+these standard trigrams.
+
+As before, the two northern sites are Indal and Anundsj\"o. The rate
+of PO-AJ-NN in this region is 0.00152, compared to 0.00216 for the
+rest of Sweden. This difference is in the right direction, and it is
+larger than most of the other comparisons here, but of course it has
+not been checked for significance so it is currently just suggestive.
+
+\begin{figure}
+  \includegraphics[scale=0.7]{dialektboka-karta9}
+  \caption{Double definite (and combined adjectives)}
+  \label{double-definite-map}
+\end{figure}
 
 \subsection{Rosenkvist's Analysis of the South Swedish Apparent Cleft}
 
-Rosenkvist's analysis applies to Sk\.ane, at least according to his
-reference to ``Scanian linguists''. Oh wait, section 4 covers his
-attempts to pin it down. He finds it is Svealand and G\"otaland, ie
-southern and middle Sweden. This means not Arsunda, Indal and
-Anundsjo.
-OTOH, his survey points out only Halland,
-Sm\.aland and Sk\.ane (Frillesas, Vaxtorp; Ankarsrum, Torsas; Bara,
-Loderup, Norra Rorum, Ossjo).
+\namecite{rosenkvist07} analyses a phenomenon he calls the South
+Swedish Apparent Cleft. It involves an embedded clause, similar to a
+cleft, but with no clefted constituent. Instead, subordinating
+conjunction {\it som} is directly preceded by the verb or an adverb
+expressing speaker attitude. The subject of of the {\it som}-clause
+must be a pronoun, though Rosenkvist notes that this may be a
+pragmatic, not a syntactic, restriction. The two main variants are
+given in figures \ref{apparent-cleft-example1} and
+\ref{apparent-cleft-example2}, but is also found in yes/no questions
+and embedded clauses.
 
-Sequences like ``som du g\"or dig till''. Rosenkvist mentions
-searching for the sequence ``det \"ar bara som'' in his novel
-corpus. The subject must be a pronoun. ``som'' is either UK
-(subordinating conjuction) or PO. I think here it is UK. So bigrams
-like UK-PO.
+\begin{figure}
+  {\it Det \"ar som han har missuppfattat.} \\
+  it is {\it som} he has misunderstood \\
+  He has misunderstood.
+  \caption{Apparent Cleft}
+  \label{apparent-cleft-example1}
+\end{figure}
 
-Except the difference between the {\it apparent} cleft and a real
-cleft (or whatever it's called) is that apparent cleft haven't got any
-antecedent. And since the antecedent usually comes immediately before,
-the easiest way to search for an {\it apparent} cleft instead of a
-real cleft is to search for XX-UK-PO, where XX is something that can't
-be an antecedent. Like AB I guess, although it would be a lot smarter
-to search for all trigrams that end with the bigram UK-PO and whose
-first part is not NN or or other hilarious nominal like PO, PN (or
-seriously, PR would be wrong here too...). All of Rosenkvists's
-examples use VV-UK-PO.
+\begin{figure}
+  {\it Det \"ar bara som han finner p\.a.} \\
+  it is only {\it som} he finds-on \\
+  He just makes it up.
+  \caption{Apparent Cleft with adverb expressing speaker attitude}
+  \label{apparent-cleft-example2}
+\end{figure}
 
-The problem with this construction is that it's hard to detect with
-trigrams: there are two similar constructions that Rosenvkist mentions
-that look nearly the same on the surface: true clefts and comparative
-clauses. A leaf-ancestor feature set would instead look for something
-with {\it som} as the subordinating conjunction. Unfortunately,
-Rosenkvist does not deal with the internal structure and I don't know
-syntax, much less Swedish syntax, so I am lost. I'll just do a
-simplistic search like he did.
+Unfortunately, Rosenkvist does not give a comprehensive syntactic
+analysis of the apparent cleft. This means that a translation to our
+feature set based on his description will necessarily be
+surface-oriented in the same way this his analysis and results are
+surface-oriented.
 
-Wide area, restrictive search:
+Accordingly, translating the sequences like {\it Det \"ar som han
+  \ldots} gives the 4-gram PO-AV-UK-PO, and {\it Det \"ar bara som han
+  \ldots} gives the 5-gram PO-AV-AB-UK-PO (pronoun-be
+verb-adverb-subordinating conjunction-pronoun). Although these
+part-of-speech sequences can obviously appear in other contexts, they
+should appear more in the region that has apparent clefts than in the
+region that does not. Converting these sequences to trigrams is
+straightforward, producing 5 unique trigrams of interest.
 
-Works: 0.00512 vs 0.00542. But it's really close.
+Rosenkvist captures the geographical distribution of the apparent
+cleft in two ways. He first consults two collections of Swedish
+novels, using the authors' birthplaces as proxies for their
+dialect. Second, he uses the results of a questionnaire that he issued
+to university students at several Swedish universities: Stockholm,
+Gothenburg, Lund and Ume\.a.
 
-Wide area, wide search:
+Using author birthplace as a proxy for dialect, the apparent cleft is
+seen throughout southern and middle Sweden---this includes all the
+interview sites except \.Arsunda, Indal and Anundsj\"o. However, based
+on the survey results, the apparent cleft is only accepted by speakers
+from Halland, Sm\.aland and Sk\.ane. This includes the interview sites
+Frilles\.as, V\.axtorp, Ankarsrum, Tors\.as, Bara, L\"oderup, Norra
+Rorum and \"Ossj\"o.
 
-Works: 0.00905 vs 0.01042. But it's still too close to call.
+Therefore, the test for this comparison is the occurrence rates
+for the 5 trigrams based on the two common forms Rosenkvist gives as
+examples, with two variations: one region division based on author
+birthplaces and one region division based on the student survey. The
+southern region in both cases should have more occurrences of the
+target trigrams.
 
-Narrow area, restrictive search:
+For the larger cleft region division based on author birthplaces, the
+comparison goes in the expected direction: a rate of 0.02430 in the
+south and 0.02427 in the north. But these rates are so close identical
+that they should not be regarded as different. For the smaller divison
+based on the student survey, the comparison goes in the opposite
+direction: 0.02264 in the south and 0.02491 in the north. Again, this
+is not much of a difference.
 
-Doesn't work: 0.00550 vs 0.00508. Very close again.
+With such a small difference, it is not possible to draw any
+conclusions or even suggest whether the distance measures will consistently
+notice this difference. One problem is that it hard to capture a
+phenomenon like this with trigrams, where the surface form is only
+subtly different from that produced by other syntactic structures. A
+more complete syntactic analysis of the phenomenon is needed so that
+more advanced feature sets from dialectometry can be used to compare
+to the results from dialectology.
 
-Narrow area, wide search:
+\subsection{Conclusion}
 
-Doesn't work: 0.00962 vs 0.0151. Super close.
-
-Conclusion: doesn't seem to be a difference, but there are a number of
-factors interfering with this. (1) Hard to capture this precise
-syntactic phenomenon using trigrams (2) Lack of
-precise understanding of the syntactic phenonemon (3) Lack of
-significance testing (or any sound method really).
-If anything, there is slightly more support for the widespread
-use. But surely nothing significant.
-
-\subsection{Conclusions}
-
-There a bunch of small differences. It's possible that all these small
-differences add up to produce the different regions. (And actually
-very likely.) But they are
-still not very interpretable.
+The dialect constructions surveyed here do not support the agreement
+of the new dialectometry results with existing dialectology results
+nearly as well as the previous sections which compared the results at
+a less detailed level. The larger problem is that no good method yet
+exists for doing so; the differences were in some cases large enough
+to suggest directions, but without significance testing, it is not
+possible to know. In fact, it is possible that the small differences
+are significant, and already being used by the distance measures to
+distinguish regions; after all, the aggregation of many small
+differences is the inherent in the working of the statistical approach
+in this dissertation.
 
 \section{Comparison to Phonological Dialectometry}
 
-Come to think of it, this would be better after syntactic
-dialectometry. Either way, the basic conclusion is that the
-north-to-south thing is the same (and the Scanian difference), but the
-cities is new. And that a quantitative study would be amazing but
-neither of us had time.
+The comparison to phonological dialectometry is currently difficult
+because there has been so little work to date on Swedish. The only
+paper at the time of this writing is \namecite{leinonen08}. It uses
+factor analysis to characterise the distribution of nine phonological
+variables across Sweden, but does not cluster the sites based on these
+variables. In other words, it is equivalent to the analysis of feature
+rankings presented in chapter \ref{results-chapter}. Since the
+syntactic and phonological features can not be compared directly, I will
+attempt to compare Leinonen's individual feature maps to my composite
+cluster and MDS maps. This is still a comparison of maps based on
+single features rather than aggregrates, so it must be taken as
+preliminary.
+
+However, Leinonen's dissertation, currently unpublished, will cover
+phonological dialectometry of Sweden comprehensively. In future work,
+a better comparison should be possible, since both dissertations are
+based on the same corpus.
+
+Looking at Leinonen's first two maps, reproduced here as figure
+\ref{leinonen-factors-1-2}, we see patterns similar to the
+city/country difference from the syntactic results: in the first diagram,
+Stockholm and Uppsala differ from the rest of the country, and in the
+second Stockholm, Uppsala and Malm\"o areas all differ.
+
+\begin{figure}
+  \includegraphics[scale=0.4]{leinonen-factors-1-2}
+  \caption{Factors 1 and 2 of Swedish vowels}
+  \label{leinonen-factors-1-2}
+\end{figure}
+
+In Leinonen's third and fouth maps (figure \ref{leinonen-factors-3-4}),
+there is a north/south divide roughly half way between Stockholm and
+Malm\"o. This boundary generally reflects the north/south
+gradient from my results. However, the phonological boundary is stronger and more
+localised than numerous small syntactic ones, such as those seen in
+the composite cluster map \ref{map-composite-5-1000}.
+
+\begin{figure}
+  \includegraphics[scale=0.4]{leinonen-factors-3-4}
+  \caption{Factors 3 and 4 of Swedish vowels}
+  \label{leinonen-factors-3-4}
+\end{figure}
+
+
+The fifth map (figure \ref{leinonen-factors-5-6}) is more specific
+than the previous four; most of the sites are blue, but there are a
+few in the south that are much yellower than the rest. These are the
+same three sites that form the red cluster in
+figure \label{red-cluster} from the consensus tree
+results: J\"amshog, \"Ossj\"o and Tors\.as. The sixth map, however,
+shows a clear east/west divide that is not reflected in my data.
+
+\begin{figure}
+  \includegraphics[scale=0.4]{leinonen-factors-5-6}
+  \caption{Factors 5 and 6 of Swedish vowels}
+  \label{leinonen-factors-5-6}
+\end{figure}
+
+The level of agreement between the phonological results and syntactic
+results is quite high. Of the six variables Leinonen illustrates with
+map, all but one reflect some aspect of the combined syntactic
+results. The precision with which Leinonen's fifth variable matches
+the red cluster from the consensus tree results is surprising for
+statistical methods. This discussion is not precise, but it provides
+hope that a quantitative comparison between the two result sets will
+support high agreement with statistical evidence.
 
 \section{Comparison to Syntactic Dialectometry}
 
@@ -1116,6 +1332,15 @@ the current normalisations vary either in favouring differences
 only in high-frequency features OR in favouring rare features so much
 that the most important appear to be those that only occur in one of
 the two regions.
+
+Quantitative comparison to phonology. There is a dissertation out for
+it now, based on the same data. So it should be easy.
+
+Better comparison to dialectology.
+NOTE for conclusions: But this has taken some time in phonology too. (at least 8-10
+years) so this is not such a big problem.
+
+Better parsers!
 
 \section{The End}
 
