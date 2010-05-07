@@ -873,7 +873,21 @@
      dialectology. Also cut abstract down to 300 words and send it to
      Sandra.
    - Summer register. Reply to Steve Chin. Link to the public version
-     of my paper.
+     of my paper. Finish background check AGAIN. Sheesh.
+** 2010/05/07
+   - Finished comparison to phonology (Therese) and general
+     dialectology. Cut down abstract. Moved analysis to results
+     chapter but didn't integrate it yet.
+   - Integrate analysis into results chapter? Finish discussion:
+     comparison to syntax dialectometry, future work, final
+     summary. Also a paragraph or two at the beginning.
+   - Keep checking the stupid onestart site. Maybe with Firefox?
+     Probably not.
+     I should PROBABLY mention Spruit after Goebl but before Wybo &
+     Wiersma. I don't have time right now but maybe before the
+     defence.
+     Did I ever put up a table showing corpus sizes? I should probably
+     put it in somewhere...
 * Plan
 ** January
 *** Get results
@@ -906,7 +920,7 @@
      Started, need to tell him how I'm working and get some papers.
 ** March
 *** Methods
-**** TODO Finish discussion of Wybo's feature ranking
+**** DONE Finish discussion of Wybo's feature ranking
 **** DONE Add discussion of PCA and Cluster Boundary Diagrams (maybe later)
 **** DONE Expand the explanation of the parsers so each has a subsubsection
 ** April

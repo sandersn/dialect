@@ -1,26 +1,22 @@
 \chapter{Discussion}
 
-This chapter discusses:
+This chapter compares the dissertation's results to three areas. It
+compares the results to dialectology, starting with the traditional
+dialect regions and moving to individual dialect phenomena. Then it
+compares the results to phonological dialectometry, which uses many of
+the same analytical techniques on phonology data. Finally, it compares
+this work to prevous work in the field of syntactic dialectometry and
+summarises its improvements. The chapter ends with a summary of the
+work and its contributions to dialectology at large and Swedish
+dialectology in particular.
 
-\begin{enumerate}
-\item DONE Comparison to Swedish syntactic dialectology.
-\item DONE Comparison to Swedish phonological dialectometry. (Based mostly
-  on Therese's previous work and personal communication; the
-  dissertation won't get here on time)
-\item TODO Comparison to syntactic dialectometry.
-  That is, previous work. That is, MY previous work, plus
-  Wybo's. That's pretty much it you know.
-\item Conclusions: summary of discussion
-\item and then summary of dissertation: contribution to dialectometry at large.
-\end{enumerate}
+% A big question is why trigrams are so good. All of the fancier feature
+% sets do worse than trigrams. I should address this in the summary for
+% sure.
 
-A big question is why trigrams are so good. All of the fancier feature
-sets do worse than trigrams. I should address this in the summary for
-sure.
-
-The reason is that the simpler tags are easier to tag. So I recommend
-for the real-world analyses with only untagged transcriptions as input
-to simply use trigrams.
+% The reason is that the simpler tags are easier to tag. So I recommend
+% for the real-world analyses with only untagged transcriptions as input
+% to simply use trigrams.
 
 \section{Comparison to Syntactic Dialectology}
 
@@ -690,177 +686,159 @@ support high agreement with statistical evidence.
 
 \section{Comparison to Syntactic Dialectometry}
 
-In my previous work on British English, this method failed to find
-agreement between syntactic distance ($R$) and phonological distance
-(Levenshtein) distance---there was no
-significant correlation between the two methods. Although both showed
-something like a North/South distinction in Britain, its orientation was much more
-obvious from phonological distance. This lack of agreement was a
-preliminary answer to the question of whether multiple
-ways of measuring linguistic distance give the same results.
+In the progression from dialectology of Swedish to phonological
+dialectometry of Swedish and finally to syntactic dialectometry, there
+is less and less existing work. To my knowledge, this dissertation is
+the first treatment of syntactic dialectometry for Swedish. Even
+outside Swedish, very little syntactic dialectometry exists. Besides
+\quotecite{spruit08} dissertation, based on Goebl's limited-data
+techniques, statistical work is limited to Nerbonne and Wiersma's work
+on Finnish \cite{nerbonne06} and \cite{wiersma09}, and my work on
+English \cite{sanders07} and \cite{sanders08b}.
 
-However, there were at least five reasonable explanations for the difference
-between the two distance measures.
-% First, and
-% least satisfying, is the possibility that one of the distances is not
-% measuring what it is supposed to. Second, the corpora may not agree
-% because of the 40 year difference in age and differing collection
-% methodologies. Third, syntactic and phonological dialect markers may
-% not share the same boundaries.
+This dissertation is the first to show that a statistical measure
+designed for syntax can find distances between dialect regions. It
+directly addresses the shortcomings of the previous work, which failed
+to show this conclusively. It evaluates parameter variations,
+establishing which combinations of feature set, distance measure and
+corpus size produce valid and useful results, taking into account a
+number of practical considerations, such as amount of existing
+annotation.
 
-\begin{enumerate}
-\item One or both of the distances does not measure what it is supposed to.
-\item The two corpora may not agree on dialect boundaries because of
-  their 40-year difference in age.
-\item Place of birth, as recorded in the ICE, may not correlate well
-  with spoken dialect, especially given variations in speaker
-  education level and place of residence.
-\item Dialect boundaries may appear from systematic variation in
-  annotation practices rather than the speech.
-\item Syntactic and phonological dialect boundaries may be different.
-\end{enumerate}
+This dissertation shows that fairly small corpora, on the order of
+6,000--10,000 words, can produce significant distances. This
+constrasts with previous work; the significant distances between
+English sites were between much larger corpora: London had over
+200,000 words, and Scotland over 25,000. The conclusion to be drawn
+here is that when the corpora consist of properly collected dialect
+speech, the required size drops considerably. The Swediasyn corpus
+captures dialect speech in a way that the ICE does not; the Swediasyn
+contains interviews in homes, while the majority of the ICE is
+interviews from University College London.
 
-Of these, this dissertation addresses the second, third and fourth
-problems directly by using a single corpus, Swedia2000, annotated by a single
-person. (TODO: This may not be true for the phonological annotation.)
-By finding significant distances between all interview sites of
-Swedia2000, it also suggests that $R$ is measuring syntax
-distance. PROBABLY.
+In addition, the syntactic results of this dissertation agree closely
+with the phonological results of \namecite{leinonen08}. Although
+agreement of syntax and phonology is not necessarily a prediction when
+looking for dialect regions, it is not surprising---circumstantial
+evidence that a new method is valid because it agrees with an existing
+one. This contrasts strongly with the English work, which found no
+significant correlation of syntactic distance with phonological
+distance. It may be that using the same corpus for both Swedish
+studies was the key difference; the two English corpora's ages differed by
+almost 50 years.
 
-The last is the most interesting because previous work will not have
-exposed this difference. Traditional dialectometry focuses on a strong
-agreement among a few features from each collection site. Because
-syntactic features are fewer in number than phonological ones, they
-are under-represented in this type of analysis. Unfortunately, this
-means that the syntactic contribution to isogloss bundles is
-correspondingly reduced. In addition, because of isogloss bundles'
-insensitivity to rare variations, syntactic features rarely contribute
-to isogloss bundles of successful dialect boundaries.
-% I really need to CITE this.
+This dissertation agrees more closely with dialectology than previous
+work. Although the English study reproduced the north/south divide
+well known in British dialectology, it did not produce any more
+detailed regions. In contrast, this study reproduced all of the
+Swedish dialect regions. With respect to individual phenomena,
+however, the feature comparison was inconclusive; a few results were
+positive, but most were very close. There are two problems: the
+corpora once again differ in age---most of Swedish dialectology dates
+from around 1900 while Swediasyn was collected in 2000---as well as a
+lack of significance testing. The small feature differences found
+between may well be significant, since the nature of statistical
+methods is to accumulate many small differences, but it is not
+possible to tell without a test.
 
-In contrast, computational analysis, such as \cite{shackleton07},
-captures feature variation precisely using statistical analysis and
-sophisticated algorithms. The resulting analysis displays dialects as
-gradient phenomena, displaying much more complexity than the
-corresponding isogloss analysis. But current specialized computational
-methods only apply to phonology. Syntactic data cannot be analyzed
-without a syntax-specific method.
-
-This paper attempts to address that lack, and provide some first steps
-to show whether syntax and phonology assist each other in establishing
-dialects, or whether their dialect regions are unrelated. If they are not
-related, and syntactic gradients can be as weak as phonological ones,
-then some new dialect regions may become apparent that were not visible in
-previous phonology-only analyses.
-
-\subsection{Improvements on British Dialect Experiment}
-
-This dissertation improves on the British experiment in a number of
-ways. It addresses the obvious criticism that syntax distance on the
-ICE requires so much data that the results are no more informative
-syntax those of traditional dialectology---its precision lags
-phonological distance methods badly. However, $R$ works with much
-smaller corpora when run on Swedia2000. This shows that the problem
-with the British experiment is not the distance method, but the
-corpus, which fails to capture dialect differences. Most likely is
-that the interviewees, mostly in a college setting, actively tried to
-suppress dialect differences during the interview.
-
-Another problem with the current study is the 40-year difference in
-collection dates between the phonological corpus and the syntactic
-corpus. A recent phonological corpus would likely show the same sort
-of changes in the North/South divide that show up in the syntactic
-corpus. The British population became more mobile during the second
-half of the 20th century, and the SED survey explicitly attempted to capture
-the dialects that existed before this happened \cite{orton78}.
-It would also be nice to have data from the rest of the United Kingdom for
-comparison as well, or at least Scotland and Wales as with the ICE.
-
-
-% TODO: integrate this.
-% Alternatively, I could just look at the region pairs that fail to
-% achieve significance in the syntactic permutation test and check to
-% see if their phonological distance is lower than the other pairs. I
-% don't do this (yet).
-
-One interesting question is
-how phonological and syntactic distances correlate with geographic
-distance---\namecite{gooskens04a} shows that often the correlation is
-very good. This would also allow better visualization of dialect areas
-than a hierarchical dendrogram.
+Significance testing for precise feature analysis is future work, but
+this is not necessarily a problem. For phonological dialectometry,
+which begin with Kessler's paper on Irish \cite{kessler95}, extraction
+of specific features did not begin until much later, two to three
+years after Heeringa's dissertation on the subject \cite{heeringa04},
+with such work as \quotecite{prokic07}.
+% I published similar work but it sucked and was only ever a
+% presentation at a medical conference
+In any case, \namecite{wiersma09} mentions a method for features of
+individual regions that could be adapted to comparisons between a pair
+of regions.
 
 \section{Future Work}
 
-Try all those smarter variants of $R$.
+Some avenues of future work are obvious; Swediasyn is part of the
+larger Nodalida project to create a syntactic dialect corpus for all
+Scandinavian languages. And Swediasyn is itself incomplete; it does
+not include any of Swedish-speaking Finland yet. Unfortunately, this
+work depends on others since I do not speak any
+Scandinavian language natively.
 
-Include the rest of Nodalida once it is done.
+With regard to feature sets, it is interesting that trigrams perform better
+than the more complicated feature sets. From a linguists' point of
+view, this is disturbing: why should the flattest representation of
+syntax perform the best? This performance difference also
+discourages others from developing even more complicated and
+linguistically interesting feature sets. The reason for trigrams'
+performance is likely because of the amount of automatic annotation
+that is a prerequisite for the complex features developed
+here. Trigrams rely on an automatic part-of-speech tagger, while
+leaf-ancestor paths rely on an automatic parser that uses automatic
+part-of-speech tags from that same tagger.
 
-Better normalisation and feature ranking are needed. It appears that
-the current normalisations vary either in favouring differences
-only in high-frequency features OR in favouring rare features so much
-that the most important appear to be those that only occur in one of
-the two regions.
+To enable more complex feature sets, manual annotation is needed. But
+this is labour intensive. Failing that, improved automatic annotation
+is needed, although this still usually implies some manual
+annotation in the form of bootstrapping. Bootstrapping should help
+automatic parsing of dialect interviews: not only does the subject
+matter of an interview differ from the typical newspaper training
+corpus, the syntactic features where the dialect differs from the
+standard language are precisely those that are hardest to
+parse. Giving a machine parser a sample of dialect speech as training
+would allow it to identify some of these features.
 
-Quantitative comparison to phonology. There is a dissertation out for
-it now, based on the same data. So it should be easy.
+Processing of features is another area for future work: normalisation
+is the first half of this problem. The current sentence-level
+normalisations function well, but the overuse normalisation tends to
+rank highly features that may just be noise from the annotation
+error. On the other hand, without the overuse normalisation, only very
+common features are high ranked. This makes it hard to notice the
+unique features of a dialect that do not occur much. A compromise that
+takes frequency into account to some extent is needed, so that rare
+features can be highly ranked without introducing noise from
+annotation errors.
 
-Better comparison to dialectology.
-NOTE for conclusions: But this has taken some time in phonology too. (at least 8-10
-years) so this is not such a big problem.
+The other half of the feature-processing problem is a test for
+significance when comparing two regions. This would make sure that
+comparisons to the dialectology literature are significant in the
+future. \namecite{wiersma09} provides a similar method for testing
+significance of individual features in a single region, so it should
+be easy to modify this to work for comparisons between two regions.
 
-Better parsers!
+Finally, another obvious extension of this work is a quantitative
+comparison of these results on Swedish to the results in Leinonen's
+upcoming dissertation on Swedish phonological dialectometry. Given the
+agreement between these results and her published work, it is likely
+that the correlation will be high. This comparison should be fairly
+easy since both results use the same dialect corpus as a basis.
 
-\section{The End}
-
-This dissertation contributes a better understanding of syntax with
-respect to dialectometry. It establishes that statistical methods can
-find interesting things, and with not much more data than is expected
-of previous dialectometry in other areas. Remember, the majoriy of
-interviews used here were less than 1000 sentences. Previous work
-pointed the way (Nerbonne \& Wiersma (2006) and Sanders (2008)) but
-failed to establish the utility and reliability of these methods
-either by lack of dialect application or by lack of consistent
-results. This dissertation addresses these shortcomings
-comprehensively.
-
-In addition, it points the way toward future work in Swedish; while
-the results here are interesting, it is difficult to corraborate them
-solidly because of the lack of study on Swedish dialects, both in
-dialectology and dialectometry. This gap in the literature is on its
-way to being remedied with the work of Leinonen in dialectometry and
-X,Y,Z in dialectology.
-
-Like its findings, future directions based on this work are
-twofold. In general dialectometry, syntactic investigations should
-begin, hopefully extending to languages for which the syntactic
-variation is already well-studied.
-
-In Swedish, I hope that this investigation of syntactic dialect
-variation will lead to further work in this area; there is little
-enough right now, and perhaps a computer-generated overview of the
-interesting features will spark some new avenues of investigation for
-linguists.
-
-%%%%%%%%% cut two (raw) %%%%%%%%%
+\section{Conclusion}
 
 This dissertation establishes that statistical methods for syntactic
-dialectometry can be useful. The results show that significant
-distances can be obtained, which was shown by earlier work and not
-much else. They show that dialect distances correlate with geographic
-distance for many parameter settings. Clustering dialect distances
-reproduces two well-known aspects of Swedish dialects: the Scanian
-border, and a north-to-south gradient, as well as a previously unremarked
-aspect: differences between the cities and the
-countryside. Mult-dimensional scaling produces the same
-results. Finally, interesting features have been discovered from these
-same clusters, but features in the dialectology literature do not
-necessarily appear.
+dialectometry can be useful. Its results show that significant
+distances can be obtained with dialect corpora. This much had been
+accomplished by previous work. However, this work goes on to establish
+that even smaller corpora are sufficient, and investigates variations
+on both feature set and distance measure. It shows that a syntactic
+measure can reproduce the traditional regions of dialectometry, and
+that a syntactic measure can produce substantial agreement with a
+phonological measure. Its comparison to invidual dialect phenomena is
+inconclusive, but opens an avenue for future investigation, and more
+importantly, future development of methods to compare and rank
+individual features.
 
-In summary, this dissertation has answered its questions with some
-degree of accuracy. Although the more complete verification is still
-missing, it points the way for practical studies in the future: many
-parameter variations are explored and the most efficacious are pointed
-out.
+Future directions based on this work are twofold. First, with a
+statistical method established for syntax, dialectometry can begin to
+investigate the syntactic features of other languages. Second, in
+Swedish, this work and future work similar to it can contribute to
+dialectology in general; syntax has been relatively neglected in
+Swedish dialectology. As Swediasyn and Nodalida are completed, the
+automatic analysis detailed in this dissertation can provide a quick
+analysis of new data, and point linguists toward interesting dialect
+features.
+
+In conclusion, this dissertation has answered its questions and
+established statistical methods for syntactic dialectometry. It points
+the way for future syntactic dialect studies, future expansion of statistical
+methods in dialectometry, and future syntactic analysis of Swedish.
 
 %%% Local Variables: 
 %%% mode: latex
