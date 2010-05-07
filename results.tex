@@ -32,7 +32,7 @@ maps are produced. Next, multi-dimensional scaling gives an smoother
 view of similarity than clusters. Finally, features are ranked and
 extracted from each cluster in the consensus tree.
 
-\section{Distances}
+\section{Parameter Settings}
 
 There are 180 parameter settings investigated in this chapter. This
 number arises from the four parameters: measure, feature set, sampling
@@ -60,17 +60,44 @@ settings are given in table \ref{parameter-settings}.
   $R^2$ \\
   Kullback-Leibler divergence \\
   Jensen-Shannon divergence \\
-  cosine dissimilarity\\\hline
-\end{tabular}
-\begin{tabular}{|c|c|c|} \hline
-  Sampling Method & Iterations of normalisations \\ \hline
-  1000 sentences & 1 \\
-  All sentences & 5 \\\hline
+  cosine dissimilarity\\\hline \hline
+  Sampling Method \\ \hline
+  1000 sentences \\
+  All sentences \\ \hline \hline
+  Iterations of normalisation \\ \hline
+  1 \\
+  5 \\ \hline
 \end{tabular}
 \caption{Settings for the five parameters tested}
 \label{parameter-settings}
 \end{table}
 % Actually, all this should probably go in methods too, somewhere as a summary.
+
+In addition, the size of each of the 30 interview sites are given in
+table \ref{corpus-size}.
+
+\begin{table}
+\begin{tabular}{c|cc|c|cc}
+      Site & Sentences & Words & Site & Sentences & Words \\\hline
+     Ankarsrum &  630 &  7708 & Leksand &  923 &   10676\\
+    Anundsjo &  1144 &   11897 &  Loderup &  429 &   7850\\
+    Arsunda &  937 &   8933 & Norra Rorum &  546 &  9160\\
+     Asby &  693 &   7171 & Orust &  1067 &   11409\\
+     Bara &  696 &   10724 & Ossjo &  481 &   12275\\
+     Bengtsfors &  663 &   7423 & Segerstad &  837 &   9746\\
+    Boda &  1029 &   17425 &  Skinnskatteberg &  730 &   9529\\
+     Bredsatra &  360 &   6938 & Sorunda &  768 &   11144\\
+     Faro &  659 &   8260 & Sproge &  381 &   4399\\
+     Floby &  557 &   6392 & StAnna &  876 &   13156\\
+     Fole &  727 &   9920 & Tors\.as &  374 &   9217\\
+     Frillesas &  572 &   9634 & Torso &  956 &   15577\\
+    Indal &  1126 &   13090 &  Vaxtorp &  903 &   11353\\
+     Jamshog &  301 &   8661 & Viby &  431 &   6734\\
+     K\"ola &  528 &   10133 & Villberga &  680 &   11479\\
+\end{tabular}
+  \caption{Corpus Size of Interview Sites}
+  \label{corpus-size}
+\end{table}
 
 \section{Significant Distances}
 
@@ -79,22 +106,19 @@ measure has succeeded in finding reliable distances. The measures
 should have zero non-significant distances, or at least a small
 number. In the tables, the total number of comparisons between all 30
 regions is the $435=30(30-1) / 2$. In the first set,
-\ref{sig-1-1000} -- \ref{sig-1-full}, the results are shown
+tables \ref{sig-1-1000} -- \ref{sig-1-full}, the results are shown
 from one iteration of the normalisation step. In the second set,
 tables \ref{sig-5-1000} -- \ref{sig-5-full}, the results
 from five normalisation iterations are shown.
 
 Bold numbers in the tables indicate that more than 5\% of the
-distances were not significant. They are not marked in table
-\ref{sig-5-full}, the 5-iteration table that compares full corpora,
-because so few distances are significant. In fact, the only
-combination with {\it less} than 5\% non-significant results is cosine
-dissimilarity with unigram features. Note that here, 5\% is an
-arbitrary cutoff point not related to the usual significance cutoff $p
-< 0.05$; the basis for these tables are themselves number of
-significant distances found.
-% TODO:Make sure this is true; Wybo's discussion of family errors
-% doesn't seem to apply here but it might.
+distances were not significant. In table \ref{sig-5-full}, the
+5-iteration table that compares full corpora, the only combination
+with {\it less} than 5\% non-significant results is cosine
+dissimilarity with unigram features, marked with italics. Note that
+here, 5\% is an arbitrary cutoff point not related to the usual
+significance cutoff $p < 0.05$; the basis for these tables are
+themselves number of significant distances found.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
@@ -177,7 +201,7 @@ Analysis of the significance of dialect distance provides a measure of
 how reliable the distances to be analysed later in this chapter are. A
 distance that does not find significant distances between of 30
 regions is not suitable for precise inspection, although small numbers
-of non-significant distances will still allow less precise methods to
+of non-significant distances will still allow methods to
 return interpretable results.
 
 The highest number of significant distances are found in the first
@@ -298,14 +322,18 @@ available information for finding significant distances.
 
 \section{Correlation}
 
-Correlation with geographic distance is another indicator that a
-syntactic measure is finding significant distances. Although
-correlation with geographic is not a guaranteed indicator that the
-measure is successful, the geographic basis of dialect variation is
-well-known \cite{chambers98}. In addition to straight-line geographic
-distance, travel distance is presented. Travel distance can be more
-informative than straight-line distance because it accounts for
-natural obstacles such as mountains, lakes and islands.
+In dialectology, the default expectation for dialect distance is that
+it correlates with geographic distance \cite{chambers98}. A lack of
+correlation does not necessarily mean that a measure is useless, but
+presence of correlation means that the distance measure substantiates the
+well-known tendency of dialect distributions to be more or less
+smoothly gradient over physical space.
+
+In addition, distance measures are more likely to correlate
+significantly with travel distance than with straight-line geographic
+distance. This makes sense since the difficulty of moving from place
+to place is what influences dialect formation, and taking roads into
+account is an improved estimate over straight-line distance.
 
 The tables that present geographic and table correlation,
 \ref{cor-1-1000} -- \ref{travel-cor-5-full}, mark significant
@@ -478,19 +506,6 @@ combined feature sets.
 
 \subsection{Analysis}
 
-In dialectology, the default expectation for dialect distance is that
-it correlates with geographic distance \cite{chambers98}. A lack of
-correlation does not necessarily mean that a measure is useless, but
-presence of correlation means that the distance measure substantiates the
-well-known tendency of dialect distributions to be more or less
-smoothly gradient over physical space.
-
-In addition, the distance measures are more likely to correlate
-significantly with travel distance than with straight-line geographic
-distance. This makes sense since the difficulty of moving from place
-to place is what influences dialect formation, and taking roads into
-account is an improved estimate over straight-line distance.
-
 As with the number of significant distances, trigrams and unigrams are
 the most likely to to correlate with geographic and travel distance,
 as well as the combined feature set for the 5-normalisation parameter
@@ -543,10 +558,13 @@ removed before averaging.
  \label{self-correlation-measures}
 \end{table}
 
-In table \ref{self-correlation-measures}, $R$ and Jensen-Shannon
-produce nearly identical results. Also, cosine similarity arrives
-at different results than the other measures, though the correlation
-is still higher than with travel distance.
+The inter-measure correlation mostly says what is visible from the
+significance testing and correlations. $R$ and Jensen-Shannon produce
+nearly identical results, and correlate highly. Cosine similarity is
+quite different from the other measures, though the correlation is
+still higher than with travel distance. This makes some sense in that
+the cosine at the heart of cosine similarity differs more from the
+sums of absolute values and logarithms of other measures.
 
 \subsection{Correlation with Corpus Size}
 
@@ -653,9 +671,9 @@ they moved throughout the country, or perhaps cultural differences
 between the interviewer and interviewees caused some participants in
 one area to talk more than in another area.
 
-Definitely the high correlations between corpus size and the
-5-normalisation distances are worrying. They are so much higher than
-the correlation of corpus size and travel distance that 5-normalised
+The high correlations between corpus size and the 5-normalisation
+distances are definitely worrying. They are so much higher than the
+correlation of corpus size and travel distance that 5-normalised
 distances might not be reliable.
 % It appears that multiple rounds of
 % normalisation inadvertently re-introduce a dependency on size.
@@ -679,7 +697,6 @@ corpora. It should avoid sampling, but also take the relative number
 of sentences into account. It is not difficult to come up
 with a simple method to do so, but it needs some checking to make sure
 that the method is valid.
-
 
 \section{Clusters}
 
@@ -778,8 +795,13 @@ agree more than those with only 1 round of normalisation.
 
 The consensus trees are also grouped into clusters, which are then
 mapped in figures \ref{map-consensus-1-1000} --
-\ref{map-consensus-5-1000}. The maps of Sweden were provided by Therese
-Leinonen and are the same those in \namecite{leinonen08}.
+\ref{map-consensus-5-1000}. The maps of Sweden were provided by
+Therese Leinonen and are the same those in \namecite{leinonen08}.  The
+outline maps are used by permission of Therese Leinonen. The
+multi-dimensional scaling and composite cluster maps were both
+generated by the L04 package from the University of Groningen.
+% TODO: CITE this, I think it's a Pieter Kliuweeg paper
+
 
 \begin{figure}
 \includegraphics[scale=0.7]{consensus-1-1000}
@@ -847,7 +869,9 @@ Leinonen and are the same those in \namecite{leinonen08}.
 %              [. {Bengtsfors}
 %                 [. {Sproge\\Floby}  ] ] ] ] ] ] ]
 
-The cluster dendrograms in chapter \ref{results-chapter} are dangerous
+\subsubsection{Analysis}
+
+The cluster dendrograms are dangerous
 to interpret too closely on their own; the instability of a single
 dendrogram means that small clusters cannot be analysed reliably. For
 example, in figure \ref{cluster-5-r-trigram}, a two-way split
@@ -963,10 +987,13 @@ simply as ``non-Stockholm''.
 
 \subsection{Composite Cluster Maps}
 
-Composite cluster maps start with the same data as consensus trees:
-multiple cluster trees. They, too, provide a stabler view of the
-groups that regions form when clustered. However, they provide a better way to
-visualise the boundaries between regions.
+Composite cluster maps use an underlying technique similar to
+consensus trees--cluster dendrograms, but they combine and present the
+information in a very different way. They, too, provide a stabler view
+of the groups that regions form when clustered. This view, however,
+emphasises the boundaries between regions. The result looks
+much more like the traditional isogloss boundaries of
+dialectology.
 
 The two composite cluster maps in figures \ref{map-composite-1-1000}
 -- \ref{map-composite-5-1000} are the composite of the same
@@ -992,12 +1019,6 @@ only or ratio added as well).
 \label{map-composite-5-1000}
 \end{figure}
 
-Composite cluster maps use an underlying technique similar to consensus
-trees--cluster dendrograms, but they combine and present the information in
-a very different way. The result looks much more like the traditional
-isogloss boundaries of dialectology. The composite cluster maps are in
-maps\ref{map-composite-1-1000} -- \ref{map-composite-5-1000}.
-
 All three composite clusters maps provide a picture similar to the
 consensus tree map \ref{map-consensus-5-1000} of the previous
 section. The north-to-south gradient is supported by the
@@ -1014,11 +1035,13 @@ visible in maps\ref{map-composite-1-1000} and
 of Sk\.ane is one reason why its boundary with the rest of Sweden is
 so strong.
 
-Compared to the consensus tree maps, the composite cluster maps cannot
-support the city/country distinction because there is no way to
-identify distant areas by their colour. On the other hand, it is
-possible to detect the relative strength of a boundary. To combine
-these two features, multi-dimensional scaling is needed.
+\begin{sloppypar}
+  Compared to the consensus tree maps, the composite cluster maps
+  cannot support the city/country distinction because there is no way
+  to identify distant areas by their colour. On the other hand, it is
+  possible to detect the relative strength of a boundary. To combine
+  these two features, multi-dimensional scaling is needed.
+\end{sloppypar}
 % But of course MDS maps can't be combined into a consensus...
 
 % However, K\"ola and Frilles\.as still separate fairly well from their
@@ -1032,25 +1055,25 @@ these two features, multi-dimensional scaling is needed.
 \section{Multi-Dimensional Scaling}
 
 \begin{sloppypar}
-Multi-dimensional scaling (MDS) plays a similar role to clusters,
-condensing the high-dimensional information into an
-easier-to-understand form. The difference is that
-the grouping here is ``soft'' rather than ``hard'': only enough
-scaling is done to produce the desired number of dimensions, and there
-is no exclusive membership of a groups. This also means that
-MDS maps are more stable than dendrograms.
+  Multi-dimensional scaling (MDS) plays a similar role to clusters,
+  condensing the high-dimensional information into an
+  easier-to-understand form.  It differs, however, in producing
+  gradient numbers, not binary trees: only enough scaling is done to
+  produce the desired number of dimensions, and there is no exclusive
+  membership in a single group. This also means that MDS maps are more
+  stable than dendrograms.  Also, because of the way that the
+  3-dimensional points map to colours, the maps vary. However, they
+  are still comparable: if two regions are blue in one map and both
+  are orange in another, then they have the same relation to each
+  other.
 \end{sloppypar}
+
 
 The maps shown here in figures \ref{mds-1-1000-js-trigram} --
 \ref{mds-5-1000-js-trigram} are from the same parameter settings as the
 dendrograms, with the addition of the all-combined feature set. This
 provides a combined MDS view somewhat analoguous to the consensus trees or
 composite clusters for the cluster dendrograms.
-
-The outline maps are used by permission of Therese Leinonen (CITE her
-dissertation after I get a copy to read). The MDS and composite
-clusters were both generated by the L04 package from the University of
-Groningen.
 
 \begin{figure}
 \includegraphics[scale=0.82]{Sverigekarta-mds-1-1000-r-trigram-ratio}
@@ -1094,15 +1117,6 @@ Groningen.
 \label{mds-5-1000-js-trigram}
 \end{figure}
 
-Multi-dimensional scaling (MDS) operates similarly to cluster
-dendrograms in that it reduces the high-dimensional distances to a
-lower-dimensionality representation. It differs, however, in producing
-gradient numbers, not binary trees. This means that the MDS maps
-naturally have gradient borders. Also, because of the way that the
-3-dimensional points map to colours, the maps vary. However, they are
-still comparable: if two regions are blue in one map and both are
-orange in another, then they have the same relation to each other.
-
 Despite the differences between MDS and the preceding methods, the
 similar results are evident; the maps (figures
 \ref{mds-1-1000-r-trigram} -- \ref{mds-5-1000-js-trigram}) all show
@@ -1140,8 +1154,24 @@ the aid of computers, whereas the second kind are the rare features
 that are easy for linguists to notice.
 
 There are two sets of rankings on display here; the first set is the
-previous normalisation for sentence size, whereas the second is normalised for
-relative overuse, based on \quotecite{wiersma09} normalisation.
+previous normalisation for sentence size, whereas the second is
+normalised for relative overuse, based on \quotecite{wiersma09}
+normalisation.  Without the overuse normalisation, the top-ranked
+features will tend to be the most common ones, those found in almost
+every sentence in the interview. These common features tend to
+highlight gradient differences: differences in quantity but not in
+quality. In contrast, the overuse normalisation allows us to see which
+features happen only a few times in one side of the comparison and not
+at all in the other. This is closer to a traditional linguistic
+analysis.
+
+In addition, only features that appear in both groups were ranked;
+although features that only appear in one or the other can be
+interesting, they tend to be noisy in features extracted from
+automatically annotated corpora. It is not possible to tell which
+unique features are interesting and which are noise, especially when
+using the overuse normalisation, which makes rarely occurring features
+rank similarly to common ones.
 
 These results compare clusters from the consensus trees
 based on 1 round of normalisation (figures \ref{consensus-1-1000} and
@@ -1152,7 +1182,7 @@ normalisation and full-corpus comparisons only had one tree for input
 and was not usable. Given these three consensus trees, the groups in
 table \ref{feature-ranking-clusters} are the relevant ones for analysis.
 
-There are four groups, three small and one containing the remainder of
+There are four clusters, three small and one large which contains the remainder of
 the sites. Cluster A, containing Floby and Bengtsfors, appears in all
 three consensus trees. Its features are coloured blue in the following
 figures. Cluster B, containing Jamshog, Torsas and Ossjo, appears in the
@@ -1163,7 +1193,6 @@ the third consensus tree differs from the first two in splitting the
 remainder into two groups, but this division is ignored here to reduce
 the number of comparisons. Between large groups of sites, such
 comparisons are unlikely to be informative anyway.
-
 
 \begin{table}
   \begin{enumerate}
@@ -1178,6 +1207,24 @@ comparisons are unlikely to be informative anyway.
   \caption{Clusters discussed}
   \label{feature-ranking-clusters}
 \end{table}
+
+For each pair of clusters, I rank and analyse the input features by
+comparing feature differences. The features presented here are the ten
+highest ranked features for a particular comparison. Although each
+feature set has ten features ranked here, they are better thought of
+as two sets of five features differences. The top five positive
+features are shown as are the top five negative features.
+
+This has two advantages. It splits the features so that both the
+positive and negative evidence are always visible; otherwise, in some
+cases, if one side is strong enough, the other would be pushed out of
+the top ten. However, it still allows the relative weight of evidence
+to be estimated. For example, if some cluster has some idiosyncratic
+features, most of the features will be positive, meaning that most of
+the distance comes from features typical of this cluster. The two-part
+feature will show this: the five positive features will have much
+higher values than the five negative features.
+
 
 The first subsection, \ref{feature-ranking-complete}, shows all
 comparisons between regions for a single parameter setting: trigram
@@ -1194,50 +1241,6 @@ all feature sets.
 
 In the final subsection, \ref{feature-ranking-psg}, the high-ranked
 phrase-structure rules are given.
-
-%%% FORK HERE (from Discussion)
-Next I rank and analyse the input features by comparing their
-differences. The features analysed here are the ten highest ranked
-features for a particular comparison, based on the consensus tree
-clusters of figures \ref{consensus-1-1000} --
-\ref{consensus-5-1000}. The clusters are labelled A to D from top to
-bottom. The clusters are given in table
-\ref{feature-ranking-clusters}. Although each feature set has ten
-features ranked here, it's actually two sets of five features, because
-these are differences. The top five positive features are shown as are
-the top five negative features.
-
-This has two advantages. It splits the features so that both the
-positive and negative evidence are always visible; otherwise, in some
-cases, if one side is strong enough, the other would be pushed out of
-the top ten. However, it still allows the relative weight of evidence
-to be estimated. For example, if some cluster has some idiosyncratic
-features, most of the features will be positive, meaning that most of
-the distance comes from features typical of this cluster. The two-part
-feature will show this: the five positive features will have much
-higher values than the five negative features.
-
-For feature ranking, there is an additonal normalisation used
-called overuse normalisation, which ranks rarely used features more
-highly.  This can be useful; without it, the top-ranked features will
-tend to be the most common ones, those found in almost every sentence
-in the interview. These common features tend to highlight
-gradient differences: differences in quantity but not in quality. In contrast,
-the overuse normalisation allows us to see which features happen only
-a few times in one side of the comparison and not at all in the
-other. This is closer to a traditional linguistic analysis.
-
-
-%%% FORK HERE (from REsults)
-
-
-In addition, only features that appear in both groups were ranked;
-although features that only appear in one or the other can be
-interesting, they tend to be noisy in features extracted from
-automatically annotated corpora. It is not possible to tell which
-unique features are interesting and which are noise, especially when
-using the overuse normalisation, which makes rarely occurring features
-equal to common ones.
 
 The most common parts of speech are given below. The complete list is
 given in Appendix X. (TODO: Move most of this list to an
@@ -1297,10 +1300,11 @@ appendix).
 
 \subsection{Trigram Features}
 \label{feature-ranking-complete}
+
 The analysis will start with trigram features without the overuse
 normalisation, since trigrams have the highest rate of significance of
-the non-combined feature sets. (The combined feature set is difficult
-to read because of the mixing of feature types.)
+the non-combined feature sets. (The combined feature set is not
+presented because the mixed feature types make it difficult to read.)
 
 As mentioned above, the top-ranked trigrams are common, typical of the
 core of the sentence. Cluster A's typical trigrams, for example,
@@ -1342,12 +1346,6 @@ highlights the trigram AB-AB-AB as important.
 
 \subsection{Trigrams with Overuse Normalisation}
 \label{feature-ranking-overuse}
-%% FORK (old)
-The figures in this section show the highest ranked features for
-trigram features with 1000-sentence sampling. Overuse normalisation is
-added.  The results are somewhat different from the previous section
-without the overuse normalisation.
-%% FORK (new)
 
 Given this lack of information, there are two dimensions along which
 the comparisons can be altered: normalisation and feature
