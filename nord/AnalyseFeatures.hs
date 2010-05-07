@@ -7,27 +7,25 @@ main = getArgs >>= mapM (withFileLines tail) >>= concat & scale & mapM_ putStrLn
 scale lines = l |> histogram & norm (length l) & Map.filterWithKey match & format
   where l = lines |> filter (/="***")
         match :: String -> Double -> Bool
-        match = ssacTrigram2
+        match = possessivePronounTrigram1
 norm len = Map.map (fromIntegral &  (/ fromIntegral len))
 format d = map (uncurry (printf "%s %.5f")) (("TOTAL",sum (map snd l)):l)
   where l = Map.toList d
 ----------
 indefiniteProperNounsTrigram f n = "EN-PN" `isInfixOf` f
-possessiveArticleTrigram1 f n = any (`isInfixOf` f) bigrams
-  where bigrams = ["PO-PO-NN", "PO-PO-AJ", "PO-AJ-NN"
-                  , "NN-PO-NN", "NN-PO-AJ", "PO-AJ-NN"
-                  , "PO-NN", "PO-AJ", "AJ-NN"]
+possessiveArticleTrigram1 f n = f `elem` trigrams
+  where trigrams = ["PO-PO-AJ", "PO-AJ-NN", "PR-PO-AJ", "NN-PO-AJ"
+                   ,"NN-AJ-NN", "PR-AJ-NN"]
 possessiveArticleTrigram2 f n = f `elem` trigrams
-  where trigrams = ["PO-PO-NN", "PO-PO-AJ", "PO-AJ-NN"
-                   , "NN-PO-NN", "NN-PO-AJ", "PO-AJ-NN"]
+  where trigrams = ["PO-PO-AJ", "PO-AJ-NN", "PR-PO-AJ", "NN-PO-AJ"]
 possessiveArticleTrigram3 f n = any (`isInfixOf` f) bigrams
-  where bigrams = ["PN-NN", "PO-NN", "NN-PN", "NN-PO"]
+  where bigrams = ["NN-PN", "NN-PO"] -- ["PN-NN", "PO-NN", "NN-PN", "NN-PO"]
 -- North: huset mitt
 possessivePronounTrigram1 f n = "NN-PO" `isInfixOf` f
 -- South: mitt hus(et? I don't think so)
 possessivePronounTrigram2 f n = "PO-NN" `isInfixOf` f
 redundantPossessivePronoun f n = f == "NN-PO-PN"
-postadjectivalArticle1 f n = any (==f) trigrams
+postadjectivalArticle1 f n = f `elem` trigrams
   where trigrams = ["EN-AJ-EN", "AJ-EN-NN"]
 doubledefiniteTrigram f n = f == "PO-AJ-NN"
 -- restrictive, similar to his survey
@@ -36,3 +34,6 @@ ssacTrigram1 f n = "AB-UK-PO"==f
 -- meant to exclude true clefts.
 ssacTrigram2 f n = "-UK-PO" `isSuffixOf` f && not (any (`isPrefixOf` f) nouns)
   where nouns = ["NN", "PO", "PR"]
+-- test of throwaway comments about Per sitt hus vs han sitt hus
+-- this MIGHT be legal in North Sweden, but I doubt it.
+genitiveReflexiveTrigram f n = f `elem` ["PO-PO-NN", "NN-PR-PO"]
