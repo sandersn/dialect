@@ -742,14 +742,14 @@ it is not already annotated, it must be possible to annotate it
 automatically so I can avoid time-consuming manual annotation.
 Automatic annotation will require a syntactically annotated
 training corpus (\ref{syntactically-annotated-training}) and a parser
-(\ref{parsers}). A distance measure must be defined for the regions
+(\ref{parsers-proposal}). A distance measure must be defined for the regions
 within the dialect corpus (\ref{nerbonne06}), syntactic features must
 be extracted for the distance measures (\ref{syntactic-features}), and
 the results tested for significance (\ref{permutationtest}) and
 clustered (\ref{cluster-analysis}) to determine which dialect regions
 are found by the corpus. Finally, the most highly ranked features used
 to produce the dialect distances must be enumerated
-(\ref{feature-ranking}).
+(\ref{feature-ranking-proposal}).
 
 To investigate the second hypothesis, I need a method to combine
 different types of features (\ref{combine-feature-sets}) and back off
@@ -834,7 +834,7 @@ lexically annotated for morphology and part-of-speech.
 % spraakbanken.gu.se/om/eng/index.html actually.
 
 \subsection{Parsing}
-\label{parsers}
+\label{parsers-proposal}
 %% Um, this seems useful, but I'm not sure why I put it here...
 %% TODO: Figure out what this is for and use it somewhere?
 % In order to investigate hypothesis 1, I will need to produce features
@@ -943,7 +943,7 @@ correlation is lower than the original correlation more than 95\% of
 the time.
 
 \subsection{Feature Ranking}
-\label{feature-ranking}
+\label{feature-ranking-proposal}
 % TODO: THIS is hypothesis 1B and I left it out!
 Feature ranking is needed for the first hypothesis so that the results
 of $R$ can be compared qualitatively to the Swedish dialectology
