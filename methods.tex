@@ -4,14 +4,14 @@
 I first discuss previous work that mine is related to but does not
 use. Then I discuss previous work, including previous work that I have
 done, that I use in this dissertation. Finally, I discuss the methods
-used to prepare the data for input and analyse the results.
+used to prepare the data for input and analyze the results.
 
 There is a lot of background information, like other distance
 measures and the underlying math of the distance measure I did use.
 
 Here is what Josh misunderstood: he thought that I was taking the top
 3 features first from each set of features (which have the set of
-features normalised across sites, which I don't do, because to do this
+features normalized across sites, which I don't do, because to do this
 properly would obviate the need for MDS since I'd be working with a
 distance instead of a dissimilarity). But the top 3 would be different
 for each site pair. THEN he thought I was doing MDS.
@@ -363,7 +363,7 @@ necessary for comparison to previous work. Then the features are
 counted, producing a mapping of feature types to token counts.
 
 At this point, two corpora are compared based on these feature
-counts. The feature counts are first normalised to account for
+counts. The feature counts are first normalized to account for
 variation in corpus size and sentence length (described in
 the next section). Optionally, they are converted to ratios, meaning
 that the counts are scaled relative to the other corpus. For example,
@@ -399,8 +399,8 @@ because there aren't enough speakers per village.
 The two corpora being compared can differ in size, even if they are
 samples with the same number of sentences; if one corpus contains many
 long sentences with the other contains many short ones, raw counts
-will favour the features extracted from the long sentences simply
-because each sentence yields more features. Addtionally, the counts can
+will favor the features extracted from the long sentences simply
+because each sentence yields more features. Additionally, the counts can
 optionally be converted to ratios to ignore the effect of
 frequency---in effect, this ranks features only by how much they differ
 between the two corpora, ignoring the question of how often they occur
@@ -410,7 +410,7 @@ corpora is just as important as a high ratio for a common feature that
 happens thousands of times.
 
 The first normalization normalizes the counts for each feature within the
-pair of vectors $a$ and $b$. The purpose is to normalise the
+pair of vectors $a$ and $b$. The purpose is to normalize the
 difference in sentence length, where longer sentences with more words
 cause features to be relatively more frequent than corpora with many
 short sentences.  Each count $c_i$ in the vector $c$ is converted to a
@@ -481,7 +481,7 @@ section \ref{parsers}.
 % should make a note of this and say
 % "feature sets" is used in the rest of this dissertation to mean
 % "feature type sets" (except maybe in the discussion of the
-% normalisation, which should refer to vectors anyway)
+% normalization, which should refer to vectors anyway)
 
 \namecite{nerbonne06} argue that POS trigrams can accurately represent
 at least the important parts of syntax, similar to the way chunk
@@ -653,7 +653,7 @@ indicate less important words.
 
 Leaf-head paths represent a compromise between leaf-ancestor paths and
 trigrams. Like trigrams, they capture lexical context, but the context
-is based on head dependendies, so long-distance context is
+is based on head dependencies, so long-distance context is
 possible. Like leaf-ancestor paths, they capture information about the
 nested structure of the sentence, although not as completely or
 explicitly.
@@ -689,7 +689,7 @@ figure \ref{psg-example}.
 \end{figure}
 
 Phrase structure rules are most similar to leaf-ancestor paths in
-emphasising the upper structure of constituency parse trees. Unlike
+emphasizing the upper structure of constituency parse trees. Unlike
 leaf-ancestor paths, they capture some context to the left and
 right. They also only cover one level in the tree, whereas
 leaf-ancestor paths traverse it from leaf to root. Phrase structure
@@ -723,8 +723,8 @@ leaf-ancestor paths of capturing left and right context.
 As described in section \ref{leaf-head-paths}, the usual labels for
 leaf-head paths are the leaves of the tree: `root-V-N-Det-the' is the
 first leaf-head path for ``The dog barks'', which has the parts of
-speec ``Det N V''. However, one can
-also use the arc labels of the depdency parse to create arc-head
+speech ``Det N V''. However, one can
+also use the arc labels of the dependency parse to create arc-head
 paths. These paths have the same shape as their corresponding
 leaf-head-paths, but use the labels of the dependency arcs between
 words instead of the parts of speech of the words themselves.
@@ -786,9 +786,9 @@ from more complicated distance measures to less complicated ones.
 
 Each combination was evaluated with ten-fold cross-validation on
 Talbanken. The best combination was Jeffrey divergence with 5 nearest
-neighbours, no feature weighting, inverse distance neighbour
+neighbors, no feature weighting, inverse distance neighbor
 weighting, and fallback to the Overlap metric for fewer than two
-neighbours. Jeffrey divergence is a symmetric variant of
+neighbors. Jeffrey divergence is a symmetric variant of
 Kullback-Leibler divergence, also described in section
 \ref{kl-divergence}. These parameter settings were used as a basis for
 parsing and generation of leaf-ancestor paths.
@@ -833,7 +833,7 @@ the one that produces the highest number of significant distances
 between regions. So, if a feature set finds significant differences
 between 90 out of 100 regions, its weight will be 0.90 and will be double
 the weight for a feature set that only finds significant differences
-betwen 45/100 regions.
+between 45/100 regions.
 
 % I don't think I'll do this (I probably won't even do the Volk thing
 % since it involves a lot of parameterisation in icecore.h.
@@ -851,7 +851,7 @@ betwen 45/100 regions.
 There are several reasons to test distance measures besides
 $R$. There are a couple of a priori reasons for this: $R$ is fairly
 simple, so more complicated variations on it may provide better
-sensitivity at the expence of sensitivity to noise. Also, variations
+sensitivity at the expense of sensitivity to noise. Also, variations
 explore the measure space better in case that $R$ is not significant
 for some combination of corpus/feature set.
 
@@ -932,7 +932,7 @@ KL(a||b) = \sum_i {c_{ai} \log\frac{c_{ai}}{c_{bi}} + c_{bi} \log\frac{c_{bi}}{c
 \subsubsection{Jensen-Shannon divergence}
 
 Several variants of relative entropy exist that lift various restrictions from the input
-distributions. One is Jenson-Shannon divergence \cite{lin91}, which
+distributions. One is Jensen-Shannon divergence \cite{lin91}, which
 was designed as a dissimilarity from the start. It uses the same
 denominator for both directions: the average of the two
 probabilities. That means that each feature's entropy is found using
@@ -969,9 +969,9 @@ and related areas such as information extraction and data
 mining. \namecite{nerbonne06} use it as reference point for
 comparison to previous work in these areas. Cosine similarity measures
 the similarity between two high-dimensional points in space. Each
-feature is modelled as a dimension, and the type count from each
+feature is modeled as a dimension, and the type count from each
 corpus is plotted as a point on that dimension. The result is equation
-\ref{cosmeasure} or the non-vectorised version in
+\ref{cosmeasure} or the non-vectorized version in
 \ref{cosmeasureiterative}.
 
 \begin{equation}
@@ -1106,7 +1106,7 @@ which is not common for constituency parsers \cite{petrov07}.
 The Berkeley parser learns a latent annotations, which means that it learns
 grammars from training data by assuming that the training gives a
 coarser picture than the true grammar, but one that is also too
-specialised to the observed sentences. For example, it may start with
+specialized to the observed sentences. For example, it may start with
 the single category NP for noun phrases, which is too coarse to
 capture the subject/object distinction. So the category will be split
 into NP1 and NP2. However, because the splits are cutoff to a certain
@@ -1137,7 +1137,7 @@ After a distance measure has been defined for the interview sites
 within the dialect corpus (see above, section \ref{nerbonne06}) and
 syntactic features have been extracted (\ref{syntactic-features}), the
 results must tested for significance (\ref{permutationtest}). The
-significant results must be analysed by clustering
+significant results must be analyzed by clustering
 (\ref{cluster-analysis}), multi-dimensional scaling (\ref{mds}) and
 principal components analysis (\ref{pca}) to determine which dialect
 regions are found by the distance measure. Finally, the most highly
@@ -1211,7 +1211,7 @@ of the most similar regions. An example is given in figure
 
 \begin{figure}
   \Tree[. [. [. A B ] C ] [. D E ] ]
- \caption{Hierarchical Cluster Dendogram}
+ \caption{Hierarchical Cluster Dendrogram}
   \label{example-dendrogram}
 \end{figure}
 
@@ -1220,7 +1220,7 @@ together. There are a variety of clustering algorithms, but
 hierarchical clustering is the most appropriate method for this
 problem because it does not specify the number of groups ahead of
 time. Other clustering algorithms such as k-means or expectation
-maximisation require the number of expected
+maximization require the number of expected
 clusters to be given. Hierarchical clustering creates its clusters implicitly by
 grouping items using a binary merge operation. The merge is repeated
 until a tree with a single root is formed. The implicit clusters can
@@ -1305,7 +1305,7 @@ cluster merge to form a single tree (figure
 
 To find the two closest groups, \quotecite{ward63} method is used. At
 each merge step, this method evaluates every possible binary
-merge. Each merge is given a score that minimises some objective
+merge. Each merge is given a score that minimizes some objective
 function---for example, the average of distances between regions in
 the new group. The best merge replaces its children and the process
 repeats until a singly rooted tree is created. For $n$ regions, this
@@ -1534,8 +1534,8 @@ Multi-dimensional scaling (MDS) is an alternate approach to making the
 high-dimensional dissimilarities more easily interpretable. Instead
 of creating a tree, multi-dimensional scaling reduces the
 high-dimensional dissimilarities to 3 dimensions, which can
-then be represented using (Red,Green,Blue) colour triples. When
-painted on a map, these colours provide a nice visualisation of
+then be represented using (Red,Green,Blue) color triples. When
+painted on a map, these colors provide a nice visualization of
 the regions that similar sites form as well as how sharp the boundaries are
 with other regions.
 
@@ -1574,7 +1574,7 @@ of gradient descent as described in \cite{kruskal64b}.
 \subsubsection{Principal Components Analysis}
 \label{pca}
 
-Principal Components Analysis (PCA) is useful in conjuction with MDS
+Principal Components Analysis (PCA) is useful in conjunction with MDS
 because the 3 (or so) dimensions that MDS produces can be correlated
 with features. Since the features correlated with the first few dimensions are
 the most important, they can be used when comparing with dialectology
@@ -1585,7 +1585,7 @@ example, the dissimilarity between site A and B is not comparable to
 the dissimilarity between site B and C. This is because
 dissimilarities are not distances---they don't satisfy the triangle
 inequality. PCA allows us to reduce the number of dimensions to
-something that can be visualised, as well as telling us which
+something that can be visualized, as well as telling us which
 dimensions contributed the most to the composite dimensions (the
 principal components).
 
@@ -1680,18 +1680,18 @@ this example, NN-VB's overall average score is
 \subsubsection{Wiersma's Measure of Feature Overuse}
 
 \namecite{wiersma09} uses a method similar to the one described above,
-but with an additional normalisation intended to show which features
+but with an additional normalization intended to show which features
 are used relatively more in one or the other of the two regions to be
-compared. This normalisation is similar to the optional second
-normalisation: it also removes the effect of frequency. However, this
-normalisation removes the effect of frequency from the difference
+compared. This normalization is similar to the optional second
+normalization: it also removes the effect of frequency. However, this
+normalization removes the effect of frequency from the difference
 of the two regions, whereas the second removes it from the distance
-between two regions. Both normalisations are similar in being of
+between two regions. Both normalizations are similar in being of
 limited value for the noisier data, automatically annotated. However,
 the results could improve if the data are sufficiently clean.
 % But how can we know?!
 
-The normalisation centres the two counts around 1.0 by dividing each count
+The normalization centers the two counts around 1.0 by dividing each count
 by the average count, scaled by the total size of the corpora. The equation
 for a feature $i$ with paired counts $c_{ai}$ and $c_{bi}$ is given in
 equation \ref{overuse-norm} for corpus $a$. There,
@@ -1712,11 +1712,11 @@ and $b$ are given in equation \ref{overuse-norm-simple}.
   \label{overuse-norm-simple}
 \end{equation}
 
-For example, the previous one-to-one example shows that NN-VB occurrs
+For example, the previous one-to-one example shows that NN-VB occurs
 20 more times in corpus $b$ than in $a$. Let this arise from the
 counts $c_{a\textrm{NN-VB}} = 10$ and $c_{b\textrm{NN-VB}}=30$. Also
 let the corpus sizes for $a$ and $b$ be $N_a = 40$ and $N_b = 100$
-respectively. For the overuse-normalised numbers, this gives
+respectively. For the overuse-normalized numbers, this gives
 \[o_{a\textrm{NN-VB}} = \frac{10(100+40)}{(10+30)40} = 1400 / 1600 =
 0.875\] and \[o_{a\textrm{NN-VB}} = \frac{30(100+40)}{(10+30)100} = 4200
 / 4000 = 1.05\]

@@ -1,4 +1,5 @@
 \chapter{Questions}
+\label{questions-chapter}
 % TODO: rewrite to avoid overuse of important.
 % TODO: Hey! This is a good idea. I should do it! It's not trivial but
 % shouldn't be hard.
@@ -62,7 +63,7 @@ measure. Here, performance is measured using the same criteria as for
 distance measures: the number of significant distances between regions
 and the similarity of the results to those found by dialectologists.
 
-A final question is whether the syntactic dialectometry practised here
+A final question is whether the syntactic dialectometry practiced here
 agrees with phonological dialectometry on the same corpus. Unlike the
 previous questions, which use agreement between syntactic
 dialectometry and dialectology, there is no {\it a priori} reason to
@@ -109,8 +110,8 @@ the geometry of the isogloss.
 
 If a number of isoglosses coincide, they form an isogloss bundle,
 which separates one region from another. Isogloss bundles are simple
-in theory, but in practise they are difficult to find because
-isoglosses rarely coincide perfectly. In practise, undisputed isogloss
+in theory, but in practice they are difficult to find because
+isoglosses rarely coincide perfectly. In practice, undisputed isogloss
 bundles only occur between well-known dialects, such as the
 boundaries between Low and High German or Northern and Southern
 English of England. In cases where more precision is required, there
@@ -120,7 +121,7 @@ rarely coincide that only a few may be construed as forming an
 isogloss boundary.
 
 Dialectology does not have a clear equivalent to dialectometry's
-distance. The closest analogue is size of isogloss bundle; to reflect
+distance. The closest analog is size of isogloss bundle; to reflect
 this, dialect maps typically indicate size of isogloss bundle by
 thickness of boundary line. Additionally, some regions are known to differ from
 others much more than the rest of the regions. This usually mirrors
@@ -133,7 +134,7 @@ To match the features of dialectology to the features that $R$ uses to
 produce a distance, I first need to find discussion of Swedish dialect
 features in the dialectology literature. For example,
 \namecite{rosenkvist07} discusses the South-Swedish apparent
-cleft. This feature is best analysed as a single feature; Rosenkvist
+cleft. This feature is best analyzed as a single feature; Rosenkvist
 mentions that it occurs in southern and central Swedish and not
 northern Swedish, but does not give a more precise location than
 ``Svealand and G\"otaland''. So we will compare this feature directly
@@ -144,12 +145,12 @@ Typically this requires conversion of a minimalist structure to a
 simpler structure based on a phrase-structure grammar. This produces a
 skeleton parse or parse fragment. Then the skeletal structure can be
 broken into features in the same way that parses of corpus sentences
-are. Once converted, the feature should appearch in the list of
+are. Once converted, the feature should appear in the list of
 important features for regions in southern Sweden.
 
-In the apparent cleft example, the apparent cleft is realised as an
+In the apparent cleft example, the apparent cleft is realized as an
 additional use of the word {\it som}, ordinarily a
-complementiser. Typically, the next step is to identify the minimalist
+complementizer. Typically, the next step is to identify the minimalist
 structure for this, but Rosenkvist's 2007 paper does not yet provide
 this analysis. Although there is no structure to translate to a
 phrase-structure skeleton, his analysis provides enough clues to
@@ -176,7 +177,7 @@ other features that contribute more, what are they?
 % cleft (if it exists) in English and Japanese.
 
 \subsection{Isogloss Boundaries}
-%add connective sentences! or pharagraph!
+%add connective sentences! or paragraph!
 
 Isogloss boundaries are intermediate in complexity between features unspecified
 for location and regions demarcated by isogloss bundles. For the
@@ -187,7 +188,7 @@ a difference in degree and not in quality. The real difference in
 analysis occurs when dialectology has identified an isogloss bundle.
 
 \subsection{Isogloss Bundles}
-%add connective sentences! or pharagraph!
+%add connective sentences! or paragraph!
 
 Isogloss bundles compare straightforwardly to dialectometry, insofar as
 dialectometric methods produce regions. There are two primary ways for
@@ -206,7 +207,7 @@ In contrast, multi-dimensional scaling (MDS) is a straightforward
 mathematical transformation of the high-dimensional space created by
 measuring distances between all regions in the corpus. Although MDS
 does not produce spurious information, its results are often hard to
-analyse because it produces boundaries of varying strength. Very
+analyze because it produces boundaries of varying strength. Very
 different regions stand out, but similar regions appear similar even
 if they contain some differences. This similarity can make it
 difficult to decide whether an area should be considered one region or
@@ -221,7 +222,7 @@ two.
 \begin{figure}
   \includegraphics[width=0.5\textwidth]{Sverigekarta-Landskap-mds-dep}
   \label{mds-dep-small}
-  \caption{Swedia, Multi-Dimensional Scaling of Depedency Path Distance}
+  \caption{Swedia, Multi-Dimensional Scaling of Dependency Path Distance}
 \end{figure}
 
 Once both dialectologic and dialectometric regions have been
@@ -250,7 +251,7 @@ dialect X and the standard language''.
 
 \section{Alternate Distance Measures}
 
-% maybe re-organise to be (1),(2),(3) therefore it's simple
+% maybe re-organize to be (1),(2),(3) therefore it's simple
 % instead of "it's simple", (1) (2) (3).
 Of the measures considered in this dissertation, $R$ is the
 simplest---it's the sum of difference in feature counts. It is almost
@@ -275,7 +276,7 @@ There are basically two directions to explore when creating an
 distance measure to replace $R$. The first direction is to address
 $R$'s simplicity by finding a more complex measure, such as using more
 sophisticated ways to measure difference or the capability to use
-numberic features. The second direction is to address $R$'s ignorance
+numeric features. The second direction is to address $R$'s ignorance
 of syntax by finding a measure with specific knowledge of syntax. The
 first direction is easier, given the statistical bent of the corpus
 used here and the number of statistical measures commonly used in
@@ -350,7 +351,7 @@ only return 0 for corpora that are equal.  A symmetric function
 returns the same number whether measuring from point X to point Y or
 from point Y to point X. The triangle inequality means that distance
 from point X to point Y plus point Y to point Z is at least as long as
-travelling straight from point X to point Z.  If this is true, it
+traveling straight from point X to point Z.  If this is true, it
 means that the function is measuring the same thing between all
 corpora and therefore that the shortest path between two points can be
 shortened by substituting a path with fewer intermediate
@@ -419,7 +420,7 @@ Feature sets that use other information might also be useful;
 convolution kernels give a single number that captures the difference
 between two trees \cite{collins01}; a similar feature that captures
 aspects of a single tree such as depth, branching degree or
-homogenaiety might be useful. Besides this, there are numerous simple
+homogeneity might be useful. Besides this, there are numerous simple
 features used in other computational linguistic work that attempt to
 capture the most important characteristics of a sentence in a simple,
 ad-hoc way, such as the first or last $n$ words of a sentence, a

@@ -1,11 +1,25 @@
 \chapter{Introduction}
-% TODO: Probably just copy the abstract+conclusion in here and merge
-% the two...
-This dissertation examines syntax distance in dialectometry using
-computational methods as a basis. It is a continuation of my previous
+% Its results show that significant
+% distances can be obtained with dialect corpora. This much had been
+% accomplished by previous work. However, this work goes on to establish
+% that even smaller corpora are sufficient, and investigates variations
+% on both feature set and distance measure. It shows that a syntactic
+% measure can reproduce the traditional regions of dialectometry, and
+% that a syntactic measure can produce substantial agreement with a
+% phonological measure. Its comparison to individual dialect phenomena is
+% inconclusive, but opens an avenue for future investigation, and more
+% importantly, future development of methods to compare and rank
+% individual features.
+
+This dissertation establishes the utility and reliability of a
+statistical method for syntactic dialectometry. It is a continuation of my previous
 work \cite{sanders07}, \cite{sanders08b} and earlier work by
-\namecite{nerbonne06}, the first computational measure of syntax
-distance. Dialectometry has existed as a field since
+\namecite{nerbonne06}, the first statistical measure of syntax
+distance. These pioneering studies explored this measure, but failed
+to compare it to established results from syntactic dialectology. establish that it reproduces the results of syntactic dialectology. This
+dissertation 
+
+Dialectometry has existed as a field since
 \namecite{seguy73} and is a sub-field of dialectology
 \cite{chambers98}; recently, computational methods have come to
 dominate dialectometry, but they are limited in focus compared to
@@ -78,7 +92,7 @@ has the additional advantage that its intermediate data structures are
 easy to interpret as the linguistic processes of epenthesis, deletion and
 metathesis. These things are not possible
 with syntactic distance: neither matched sentence collections nor
-straightfoward functions for decomposition and combinations.
+straightforward functions for decomposition and combinations.
 
 A secondary reason for dialectometry's focus on phonology is that it
 is inherited from dialectology's focus on phonology.
@@ -96,6 +110,7 @@ Whatever the reason, much less dialectology work on syntax is
 available for comparison with new dialectometry results.
 
 \subsection{Problems}
+% TODO:Or "Gaps in the field" or "Places to improve upon" or something
 
 Because of the preceding two reasons, syntax is a relatively
 undeveloped area in dialectometry. Currently, the literature lacks a
@@ -174,7 +189,7 @@ I addressed this problem \cite{sanders08b} by measuring $R$ between
 the nine Government Office Regions of England, using the International
 Corpus of English Great Britain \cite{nelson02}. Speakers were classified by
 birthplace. I also introduced Sampson's leaf-ancestor paths as
-features \cite{sampson00}. I found statistically
+a feature set \cite{sampson00}. I found statistically
 significant differences between most corpora, using both trigrams and
 leaf-ancestor paths as features. However, $R$'s distances were not
 significantly correlated with Levenshtein distances. Nor did I
@@ -197,9 +212,6 @@ features found by dialectologists.
 % into account so that the features it produces are
 % useful and comparable to each other. And those features are \ldots
 
-% % TODO Henrik Rosenkvist seems to
-% % be the main guy interested in syntactic analysis of dialect distance
-
 % Overview : Goal, Variables, Method
 %   Contribution
 % Literature Review
@@ -212,20 +224,101 @@ features found by dialectologists.
 % Goal: To extend existing measurement methods. To measure them
 % better. To measure them on more complete data.
 
-\section{Dissertation Overview}
+\section{Overview of the Dissertation}
 
-How I will solve these problems and test these hypotheses.
+The problem outlined in the previous section is that dialectometry
+lacks a statistical method for syntax, one that is tailored for syntax
+but at the same time does not require the linguist to specify ad-hoc
+features manually. There has been early work providing such a method,
+but so far no comprehensive treatment to show that it is a reliable
+extension (into syntax)(?). This dissertation addresses the lack
+directly by applying the method to a dialect corpus, then comparing
+the results to existing syntactic dialectology literature of Swedish,
+as well as phonological work using established dialectometry
+methods. In addition, it tests variations of the experimental
+parameters in order to identify the highest-performing parameters. In
+summary, this analysis allows future dialectometry studies to include
+syntactic as well as phonological analyses, having an idea of the best
+method and parameters to use.
 
-Blah blah a few sentences on methods: $R$ and feature extraction and
-analysis blah blah.
+There are three research questions that must be answered to determine
+the reliability of this measure. They are given in chapter
+\ref{questions-chapter}. First, does the measure agree with the
+results of dialectology? Previous work has not addressed this
+question, but it is crucial that a new measure reproduce the results
+from previous linguistic work. To answer this question, the results
+Swedish dialect distance results will be processed in a number of ways
+so that they are comparable to previous dialect work on Swedish in
+multiple ways.
 
-As regards to Swedish: I use the Swediasyn, Swedish section, to test
-the hypotheses on Swedish. [[Describes Swediasyn]]
-There has been some syntactic dialectology on
-Swedish. [[So far I know of a couple of papers by Rosenkvist.]] It is
-not clear whether syntactic features follow the same boundaries as
-other features. [[There isn't a whole lot of literature on any
-boundaries actually.]]
+Second, which parameter variations produce the best agreement with
+dialectology work? Both the distance measure and feature set can be
+varied, as well as a number of other parameter settings, mostly
+dealing with controlling for the effects of corpus size. The distance
+measures include simple measures like $R$, which is a sum of differences, more
+complex variants such as Jensen-Shannon divergence, which is a sum of
+logarithmic differences, and cosine similarity, which models each
+corpus as a vector in high-dimensional space and finds the angle
+between two corpus vectors. Feature sets can be even more varied,
+although all the feature sets discussed here assume that the word is the
+basic unit of syntactic analysis and that words are naturally grouped
+into sentences. Some example feature sets are part-of-speech trigrams,
+which are simply triples of parts of speech. Leaf-ancestor paths and
+leaf-head paths use the syntactic structure of the sentence, with
+leaf-ancestor paths based on constituent grammars (phrase-structure
+grammars) and leaf-head paths based on dependency grammars.
+
+Third, does the measure agree with the results of phonological
+dialectometry? Agreement is not required; phonological and syntactic
+dialect boundaries may disagree, but they are more likely to agree
+than disagree, so if the two dialectometric measurements agree, then
+this inspires confidence on the new method based on the old method's
+reliability.
+
+To answer the three research questions, I start with the statistical
+method described in the previous section with the parameter variations
+described above in chapter \ref{methods-chapter}. To make sure that
+the results are comparable to previous dialectology, I use the dialect
+corpus Swediasyn, which is a transcription of interviews recorded
+throughout Sweden in various villages. The interviewees were balanced
+between older and younger men and women. To generate features from the
+Swediasyn, a good deal of processing is required; the corpus is a
+transcription with no syntactic annotation. To annotate the Swediasyn,
+I use a number of automatic annotators, trained on Talbanken, a corpus
+of spoken and written Swedish. However, Talbanken does not include
+dialect sources, so some amount of error is expected during the
+annotation process. After annotation, feature generation is
+straightforward: transformation of parse trees and other annotations.
+
+After measuring distances between the interview sites, a number of
+analytic methods are applied to the distances so that they can be
+compared to dialectology work. The methods are a test of significance,
+a test of correlation, cluster dendrograms and consensus trees,
+composite cluster maps, multi-dimensional scaling, and feature
+ranking. The tests of significance and correlation represent the
+distances' trustworthiness and ability to match dialectology's
+assumptions, respectively. The consensus trees, and multi-dimensional
+scaling both produce maps. These maps allow the linguist to visually
+compare the results with traditional region maps. In the same way,
+composite cluster maps allow visual comparison of the results to
+isogloss bundles from dialectology. Finally, feature ranking allows
+the linguist to view the features that contribute most to separating
+two regions. These features can be compared to the dialect phenomena cataloged
+by dialectologists.
+% Note: There are no isogloss bundles in Swedish dialectology. But
+% whatever. (Also I don't really use feature ranking to compare to
+% dialectology)
+
+The results in chapter \ref{results-chapter} are presented in the same
+order as their corresponding analysis appear in \ref{methods-chapter}.
+The dissertation concludes with discussion in chapter
+\ref{discussion-chapter}. Here, I compare the results to the dialectology
+and phonological dialectometry of Swedish. Then I discuss the relation
+of this work to previous work in syntactic dialectology, detailing its
+contribution to the field. I finish by presenting avenues for future
+work: with a statistical measure of dialect distance, dialectometry
+can analyze syntactic features as well as phonological and lexical
+ones, producing more complete analyses.
 
 %%% Local Variables: 
 %%% mode: latex
