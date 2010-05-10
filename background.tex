@@ -1,80 +1,86 @@
 \chapter{Introduction}
-% Its results show that significant
-% distances can be obtained with dialect corpora. This much had been
-% accomplished by previous work. However, this work goes on to establish
-% that even smaller corpora are sufficient, and investigates variations
-% on both feature set and distance measure. It shows that a syntactic
-% measure can reproduce the traditional regions of dialectometry, and
-% that a syntactic measure can produce substantial agreement with a
-% phonological measure. Its comparison to individual dialect phenomena is
-% inconclusive, but opens an avenue for future investigation, and more
-% importantly, future development of methods to compare and rank
-% individual features.
 
 This dissertation establishes the utility and reliability of a
-statistical method for syntactic dialectometry. It is a continuation of my previous
-work \cite{sanders07}, \cite{sanders08b} and earlier work by
-\namecite{nerbonne06}, the first statistical measure of syntax
-distance. These pioneering studies explored this measure, but failed
-to compare it to established results from syntactic dialectology. establish that it reproduces the results of syntactic dialectology. This
-dissertation 
+statistical distance measure for syntactic dialectometry, expanding
+dialectometry's methods to include syntax as well as phonology and the
+lexicon. It is a continuation of my previous work \cite{sanders07},
+\cite{sanders08b} and earlier work by \namecite{nerbonne06}, the first
+statistical measure of syntax distance. These pioneering studies
+explored this measure, but failed to compare it to established results
+in dialectology to see if the new method reproduces them. This
+dissertation does so, as well as investigating a number of variant
+measures and feature sets. It uses Swedish dialect data as a basis for
+investigation.
 
-Dialectometry has existed as a field since
-\namecite{seguy73} and is a sub-field of dialectology
-\cite{chambers98}; recently, computational methods have come to
-dominate dialectometry, but they are limited in focus compared to
-previous work; most have explored phonological distance only, while
-earlier methods integrated phonological, lexical, and syntactic data.
-
-Dialectology is the study of linguistic variation. % in space / over
+Dialectology is the study of linguistic variation \cite{chambers98}.
 % distance / other variables.
-Its goal is to characterize the linguistic features that
-separate two language varieties. Dialectometry is a subfield of
-dialectology that uses mathematically sophisticated methods to extract
-and combine linguistic features. In recent years it has
-been associated with computational linguistic work, most of which
-has focused on phonology, starting with
-\namecite{kessler95}, followed by \namecite{nerbonne97} and
-\namecite{nerbonne01}. \namecite{heeringa04} provides a comprehensive
-review of phonological distance in dialectometry as well as some new
-methods.
+Its goal is to characterize the linguistic features that separate
+language varieties. The tools that it uses to do this include
+isoglosses---geographic descriptions of a particular linguistic
+variable--as well as traditional phonological and syntactic analyses
+of dialect phenomena. Traditional dialectology predates
+sociolinguistics, but has adopted many of its tools so that it has
+become in some ways a subfield of sociolinguistics.
+
+Dialectometry is a subfield of dialectology that uses mathematically
+sophisticated methods to extract and combine linguistic features
+\cite{seguy73}. Its focus is the manipulation of large data sets in a
+uniform way, characterizing the differences between regions in a
+gradient and statistically sound way. As result, in recent years most
+work in the field has been computational linguistic, largely focused
+on phonology, starting with \namecite{kessler95}, followed by
+\namecite{nerbonne97} and \namecite{nerbonne01}. \namecite{heeringa04}
+provides a comprehensive review of phonological distance in
+dialectometry as well as some new methods.
+
+This dissertation compares the results of the syntactic distance
+measure with syntactic dialectology, both in the form of the traditional
+Swedish dialect regions as well as analysis of syntactic dialect
+features. It also compares the results to phonological dialectometry's
+results on Swedish.
+
+\section{Overview of Dialectometry}
 
 In dialectometry, a distance measure can be defined in two parts:
-first, a method of decomposing the linguistic data into minimal,
-linguistically meaningful features, and second, a method of combining
-the features in a mathematically and linguistically sound way. Figure
-\ref{abstract-distance-measure-model} gives an overview of how the
-model works. Input consists of two corpora; each item in each corpus
-is decomposed into a set of features extracted by $f(s)$. The
-resulting corpora are then compared by $d(S,T)$, which combines the
-corpora into a single number: the distance.
+first, a method of decomposing the data into features that capture
+linguistic properties, and second, a method of combining the features
+of two corpora, usually by summing them in some way. The decomposition
+method can be thought of as ``feature extraction'' for any number of
+feature sets, while the combining method can be thought of as the
+``distance'', since it combines a large set of features into a single
+number. Figure \ref{abstract-distance-measure-model} gives an overview
+of how the model works. Input consists of two corpora; each item in
+each corpus is decomposed into a set of features extracted by $f$. The
+resulting corpora are then compared by $d$, which combines the corpora
+into a single number: the distance.
 
 \begin{figure}
 \[\xymatrix@C=1pc{
- \textrm{Corpus} \ar@{>}[d]|{f(s)} &
+ \textrm{Corpus} \ar@{>}[d]|{} &
   S = s_o,s_1,\ldots
-  \ar@{>}[d] % \ar@<2ex>[d] \ar@<-2ex>[d]
+  \ar@{>}[dd]|{f}
   &&
   T = t_o,t_1,\ldots
-  \ar@{>}[d] % \ar@<2ex>[d] \ar@<-2ex>[d]
+  \ar@{>}[dd]|{f}
   \\
- *\txt{Decomposition} \ar@{>}[d]|{d(S,T)} &
+\textrm{Decomposition}\ar@{>}[dd] &&&\\
+ &
  *{\begin{array}{c}
      \left[ + f_o, +f_1 \ldots \right], \\
      \left[ - f_o, +f_1 \ldots \right], \\
      \ldots \\ \end{array}}
- \ar@{>}[dr]
+ \ar@{>}[ddr]
  &&
  *{\begin{array}{c}
      \left[ + f_o, -f_1 \ldots \right], \\
      \left[ + f_o, -f_1 \ldots \right], \\
      \ldots \\ \end{array}}
- \ar@{>}[dl]  \\
- \textrm{Combination} &
- & \textrm{Distance} & \\
+ \ar@{>}[ddl]  \\
+ \textrm{Combination} && d & \\
+ & & \textrm{Distance} & \\
 } \]
 \label{abstract-distance-measure-model}
-\caption{Abstract Distance Measure Model : $f \circ d$}
+\caption{Abstract Distance Measure Model : $d \circ f$}
 \end{figure}
 
 Dialectometry has focused on phonological distance measures, while
@@ -90,26 +96,64 @@ measuring changes between any two sequences of characters taken from a
 common alphabet. Levenshtein distance is simple mathematically, and
 has the additional advantage that its intermediate data structures are
 easy to interpret as the linguistic processes of epenthesis, deletion and
-metathesis. These things are not possible
-with syntactic distance: neither matched sentence collections nor
-straightforward functions for decomposition and combinations.
+metathesis.
 
-A secondary reason for dialectometry's focus on phonology is that it
-is inherited from dialectology's focus on phonology.
-% (TODO:Cite?)
-This might be solely due to the history of dialectology as a field, but it is
-likely that more phonological than syntactic differences exist between
-dialects, due to historically greater standardization
-of syntax via the written form of language. Phonological
-dialect features are less likely to be stigmatized and suppressed by a
-standard dialect than syntactic ones.
-% (TODO:Cite, probably
-% Trudgill and Chambers something like '98, maybe where they talk about
-% what aspects of dialects are noticed and stigmatized).
-Whatever the reason, much less dialectology work on syntax is
-available for comparison with new dialectometry results.
+These things are not possible with syntactic distance: neither matched
+sentences nor a single obvious function for decomposition and
+combinations. Matched sentences could in theory be collected, but the
+number of possible interview responses in syntax is so much larger
+that the required time and number of informants would be
+correspondingly much greater. For example, in the Survey of English
+Dialects \cite{orton63}, phonological items were elicited by asking
+the interviewee to answer a question: ``cow'' is the standard English
+answer to ``What is the animal that you get milk from?''. This method
+avoids priming the interviewee with the interviewer's
+pronunciation. However, It does not always have the desired effect,
+even for phonology: for the item ``newt'', the responses ``newt'',
+``ewt'' and ``eft'' are all comparable phonologically, but a response
+like ``salamander'' is not. This problem is exponentially worse for
+syntax: an interview question that is sufficiently abstract to avoid
+priming a particular structure has a low chance of eliciting that very
+structure. For example, a prompt such as ``I took your drink. What do
+you say to me?'' has a low chance of eliciting sentences that
+exemplify the differing English orders of direct and indirect objects
+such as ``give it me'' versus ``give it to me''.
+% for example, in many parts of English, the answer will consist
+% entirely of expletives.
 
-\subsection{Problems}
+The specification of functions for decomposition and combination of
+syntax faces a different problem. Although many decomposition and
+combination methods can be proposed, the standard syntactic theories
+% this is what chomsky calls it so shut up. he's always right
+cannot be practically used. For example, the parsers in this
+dissertation use probabilistic phrase structure rules or dependencies
+to reprsenent the grammar of a language. This is typical for parsers
+in computational linguistics, but it means that their output, and by
+extension the features based on their output, is quite different from
+the lexical representations of minimalism. In order to decompose
+sentences to minimalist features, a broad-coverage minimalist parser
+would be required. Since such a parser does not yet exist, it is
+impossible to use the standard linguistic theory in the same way that
+phonology does.
+
+%% I'm cutting this paragraph because it makes this section too long
+%% and it's more of a pet theory of mine than anything I can back up.
+% A secondary reason for dialectometry's focus on phonology is that it
+% is inherited from dialectology's focus on phonology.
+% % (TODO:Cite?)
+% This might be solely due to the history of dialectology as a field, but it is
+% likely that more phonological than syntactic differences exist between
+% dialects, due to historically greater standardization
+% of syntax via the written form of language. Phonological
+% dialect features are less likely to be stigmatized and suppressed by a
+% standard dialect than syntactic ones.
+% % (TODO:Cite, probably
+% % Trudgill and Chambers something like '98, maybe where they talk about
+% % what aspects of dialects are noticed and stigmatized).
+% Whatever the reason, much less dialectology work on syntax is
+% available for comparison with new dialectometry results.
+
+\subsection{Syntax and Dialectometry}
 % TODO:Or "Gaps in the field" or "Places to improve upon" or something
 
 Because of the preceding two reasons, syntax is a relatively
@@ -117,60 +161,64 @@ undeveloped area in dialectometry. Currently, the literature lacks a
 generally accepted syntax measure. Unfortunately, approaching the
 problem by copying phonology is not a good solution; there are real
 differences between syntax and phonology that mean phonological
-approaches do not apply. For example, there are fewer differences to be
-found in syntax, and they occur more sparsely.
-% (TODO: Back this up either with reasoning or citation).
-However, dialectology has traditionally worked with fairly small
-corpora. This suffices for phonology, because
-it is easy to extract good features and there are many
-consistent differences between corpora. For syntax, though, it is not possible
-% (TODO: Weasel a bit)
-to identify reliable features in small corpora.
+approaches do not apply. For example, there are fewer differences to
+be found in syntax, and they occur more sparsely.  Because
+dialectology has traditionally worked with fairly small corpora, and
+because of the difficulty of collecting syntactic data, most surveys
+cover even fewer syntactic variables than phonological ones. There are
+two approaches to remedy this. The first manually enhances the
+differences that do exist in small, carefully collected corpora; the
+second switches to larger, non-survey corpora and uses statistical
+methods to find differences.
 
-There are two approaches that have been proposed to remedy this. The
-first, proposed by \namecite{spruit08} for analyzing the Syntactic
-Atlas of the Dutch Dialects \cite{barbiers05}, is to continue using
-small dialectology corpora and manually extract features so that only
-the most salient features are used. Then a sophisticated method of
-combination such as Goebl's Weighted Identity Value (WIV), described
-below and by \namecite{goebl06}, can be used to produce a
-distance. WIV is more complex mathematically than Levenshtein
-distance, and operates on any type of linguistic feature. However, manual feature
-extraction is not feasible in knowledge-poor or time-constrained
-environments. It is also subject to bias from the
-dialectologist. Since the best manually extracted features are those that capture
-the difference between two dialects, the best-known features are most
-likely to become the best manual features, passing over the rarely
-occurring and obscure features that might actually be the best
-indicators of a particular dialect.
+The first approach is proposed by \namecite{spruit08} for analyzing
+the Syntactic Atlas of the Dutch Dialects \cite{barbiers05}, is to
+continue using small dialectology corpora and manually extract
+features so that only the most salient features are used. Then a
+sophisticated method of combination such as Goebl's Weighted Identity
+Value (WIV), described below and by \namecite{goebl06}, can be used to
+produce a distance. WIV is more complex mathematically than
+Levenshtein distance, and operates on any type of linguistic
+feature. However, manual feature extraction is not feasible in
+knowledge-poor or time-constrained environments. It is also subject to
+bias from the dialectologist. Since the best manually extracted
+features are those that capture the difference between two dialects,
+the best-known features are most likely to become the best manual
+features, passing over the rarely occurring and previously unknown
+features that might actually be the best indicators of a particular
+dialect.
 
-This approach ignores the specific properties of the syntax distance
-problem. It is easy to define features for syntactic structure. This
-proposal covers part-of-speech trigrams, leaf-ancestor paths, and
-dependency paths over nodes, but many variations on these features are
-possible, such as lexical trigrams, lexicalized leaf-ancestor paths,
-or dependency paths over dependency arc labels. Methods from other
-syntactic work in computational linguistics could apply too: supertags
-\cite{joshi94}, convolution kernels \cite{collins01} or any number of
-simpler features such as tree height, number of nodes, or number of
-words. The problem is not finding a feature set. The problem is
-finding a good feature set. Small corpora hamper this search by making
-statistical significance difficult to achieve, especially since
-syntactic dialect differences are expected to be less frequent than
-phonological ones. Fortunately, syntactic corpora are typically larger
-than phonological corpora because the annotation work is easier; much
-of the syntactic annotation can be generated automatically and then
-corrected manually.
+This first approach ignores the specific properties of the syntax
+distance problem. Given a large corpus, manually defined features will
+have less coverage than the automatically extracted features used by
+the second, statistical approach. Furthermore, automatically extracted
+features are easy to define for syntax.  This dissertation covers
+part-of-speech trigrams, leaf-ancestor paths, and dependency paths
+over nodes, but many variations on these features are possible, such
+as lexical trigrams, lexicalized leaf-ancestor paths, or dependency
+paths over dependency arc labels. Methods from other syntactic work in
+computational linguistics could apply too: supertags \cite{joshi94},
+convolution kernels \cite{collins01} or any number of simpler features
+such as tree height, number of nodes, or number of words.
+
+The problem for the statistical approach is not defining a feature
+set. The problem is defining a good feature set. This is the reason
+that the statistical approach uses large corpora: with enough data,
+statistically significant comparisons can be made between the
+different features; the highest ranked ones can be discovered
+automatically rather than manually.  Fortunately, the typical syntactic corpus
+is larger than a phonological corpus because the annotation
+work is easier; much of the syntactic annotation can be generated
+automatically.
 
 Even with a feature set defined, a distance measure still requires a
-method of combining features. One such method, a simple statistical
-measure called $R$, has been proposed by \namecite{nerbonne06} based
-on work by \namecite{kessler01}. At present, however, $R$ has not been
-adequately shown to detect dialect differences. A small body of work
-suggests that it does, but as yet there has not been a satisfying
-correlation of its results with phonology or, as with phonological
-distance, with existing results from the dialectology literature on
-syntax.
+method of combining features to find a distance. One such method, a
+simple statistical measure called $R$, has been proposed by
+\namecite{nerbonne06} based on work by \namecite{kessler01}. At
+present, however, $R$ has not been adequately shown to detect dialect
+differences. A small body of work suggests that it does, but as yet
+there has not been a satisfying correlation of its results with
+existing results from the dialectology literature on syntax.
 
 Nerbonne \& Wiersma's first paper used part-of-speech trigram features
 as a proxy for syntactic information and $R$ for syntax distance
