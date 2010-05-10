@@ -888,6 +888,13 @@
      defence.
      Did I ever put up a table showing corpus sizes? I should probably
      put it in somewhere...
+** 2010/05/10
+   - Demi yaya
+   - Yah yah
+   - I must remember to add a note in the discussion that even though
+     trigrams are better here because of the annotation error, my work
+     from English shows that with manual annotation leaf-ancestors
+     have a small advantage.
 * Plan
 ** January
 *** Get results
