@@ -341,16 +341,17 @@ list the properties formally.
 \label{distance-properties-triangle}
 \end{equation}
 
-In the rest of the dissertation, `distance` will generally be used as
-a generic term to refer to a dissimilarity; exceptions where the term `distance`
+In the rest of the dissertation, `distance' will generally be used as
+a generic term to refer to a dissimilarity; exceptions where the term `distance'
 implies all three properties will be noted. In addition, some of the
 dissimilarities have common names that contain the other terms. For
 example, Kullback-Leibler divergence is augmented here to behave as a
-dissimilarity, but it retains its original name when mentioned.
+dissimilarity, but it retains its original name when
+mentioned.
 
 \subsection{Feature Sets}
 
-New feature sets are easy to propose. All that's needed is some way to
+New feature sets are easy to propose. All that is needed is some way to
 condense or divide the information about the sentence into symbols
 that can be used as input to a statistical distance
 measure. Specifically, the feature sets used in this dissertation use
@@ -373,16 +374,13 @@ ad-hoc way, such as the first or last $n$ words of a sentence, a
 certain number of words surrounding the predicate, or sentence length.
 
 Even before looking at results, it seems that each of these has its
-own advantages and disadvantages. Simpler features like
-first-$n$-words are presumably intended to reflect
-processing priorities (CITE if I want to keep this in
-here). Leaf-ancestor paths capture upper structure of the constituent
-parse. Dependency paths capture similar information but with more
-emphasis on long-distance relations between words. Trigrams capture
-less detail but are less influenced by annotator error since they
-require only part-of-speech annotation.
-
-% \subsection{Evaluating Feature Sets}
+own advantages and disadvantages. Leaf-ancestor paths capture upper
+structure of the constituent parse, but no left and right
+context. Dependency paths capture some of the sentence structure, but
+some of the surrounding context as well. Trigrams capture only
+immediate left-right context, but include word order information. They
+are also less influenced by annotator error since they require only
+part-of-speech annotation.
 
 Because evaluation of feature set performance is necessarily evaluation
 of the overall combination of feature set and measure, the previously
@@ -390,104 +388,79 @@ discussed measures of agreement with dialectology should all be used
 as measures of performance. With the distance measure held constant,
 the different feature sets can be evaluated against one another.
 
-In addition to comparison against dialectology, a couple of additional
-measures indicate feature set quality. Of the two, geographical
-distance is more important; although there is no {\it a priori} reason
-for geographical distance to match dialect distance, the dialectology
-literature overwhelmingly shows that it does \cite{gooskens04a} (and
-probably \cite{heeringa04}, \cite{kondrak02}, and others).
-
-% rewrite to avoid overuse of important.
-Statistical significance is also important. Although significance does not
-necessarily indicate a good set of features, a lack of statistical
-significance indicates that the feature set does not allow the distance
-measure to find valid distances.
+Before comparison though, the distances produced for a given
+combination of feature set and measure must be checked for
+significance. For example, a very sensitive combination could be
+inappropriate for small data sets if it can only achieve significance
+with large data sets. The significance test ensures that subsequent
+evaluation is valid.
 
 \subsection{Distance Measures}
 
-% maybe re-organize to be (1),(2),(3) therefore it's simple
-% instead of "it's simple", (1) (2) (3).
-Of the measures considered in this dissertation, $R$ is the
-simplest---the sum of difference in feature counts. It is almost the
-simplest statistical measure possible; it uses very simple math and
-treats its feature as opaque symbols.  Despite this, R performs more
-consistently, than other measures tested in this
+Of the measures considered in this dissertation, $R$ and $R^2$ have
+been tested in previous work. $R$ is quite simple; it is a sum of
+differences of features. It treats features as opaque symbols; it is
+not necessarily limited syntax. Perhaps because of its simplicity, $R$
+performs more consistently than other measures tested in this
 dissertation: It gives significant results across a larger variety of
 feature sets than more complicated measures do.
 
-The question of measure is more important than feature set because
-measures are harder to construct than feature sets. The measure also
-has a greater effect on the results, and the relation between measure
-and the quality of its results is not as obvious as the same relation
-between feature set and quality of results.
+% The question of measure is more important than feature set because
+% measures are harder to construct than feature sets. The measure also
+% has a greater effect on the results, and the relation between measure
+% and the quality of its results is not as obvious as the same relation
+% between feature set and quality of results.
 
-TODO: The introduction and justification here are worthless. Their
-statements are false or irrelevant. So maybe this section as a whole
-is worthless.
+% TODO: The introduction and justification here are worthless. Their
+% statements are false or irrelevant. So maybe this section as a whole
+% is worthless.
 
-There are basically two directions to explore when creating an
-distance measure to replace $R$. The first direction is to address
-$R$'s simplicity by finding a more complex measure, such as using more
-sophisticated ways to measure difference or the capability to use
-numeric features. The second direction is to address $R$'s ignorance
-of syntax by finding a measure with specific knowledge of syntax. The
+There are two obvious directions to explore when creating a distance
+measure to replace $R$. The first direction is to address $R$'s
+simplicity by defining a more complex measure that uses sophisticated
+ways to measure difference over still-opaque symbolic features. The
+second direction is to address $R$'s ignorance of syntax by defining a
+measure with specific knowledge of syntax. Finding candidates for the
 first direction is easier, given the statistical bent of the corpus
 used here and the number of statistical measures commonly used in
-computational linguistics. A number of these measures are described in
-the Methods chapter after the description of $R$.  Additionally, the
-statistical framework is powerful enough that most syntax-specific
-knowledge can be represented in terms of features instead of
-integrated into the distance measure's algorithm.
+computational linguistics. Additionally, the dialectometric model that
+divides a measure into distance measure and feature set is powerful
+enough that most syntax-specific knowledge can be represented in terms
+of features instead of integrated into the distance measure's
+algorithm.
 
-TODO: ``Statistical'' is not quite the right word here.
+Indeed, this makes syntax-aware measures difficult to
+specify---they must incorporate knowledge of syntax in a way that
+cannot be reified as features. Unlike dialect surveys of phonology,
+dialect interviews do not consist of aligned lists of sentences. That
+means that pairwise sentence-to-sentence comparison are impossible;
+comparison must occur at a lower level. This constraint makes it
+difficult to encode any useful awareness of syntax into a syntax-aware
+distance measure that cannot be easily represented in the feature set
+for a syntax-ignorant measure instead.
 
-Indeed, it is so difficult to think of syntax-specific algorithms that
-none are presented in this dissertation. However, a number of more
-complicated statistical measures are presented and some are tested. Goebl's
-Weighted Identity Value (in German, Gewichteter Identit\"atswert) is
-the earliest to be used in dialectometry, but others such as
-Kullback-Leibler divergence and its variants are a good fit because of
-their similarity to $R$.
+It is so difficult to define a useful syntax-aware distance measure
+that none are presented in this dissertation. Syntax awareness is
+restricted to the feature sets. However, a number of more complicated
+statistical measures similar to $R$ are presented. Evaluation of the
+distance measures proceeds similarly to evaluation of feature sets;
+results for various measures are compared, holding feature set
+constant. The results are checked for significance, then for agreement
+with dialectology.
 
-
-\subsection{Syntax-specific distance measures}
-
-As mentioned above, syntax-specific measures are more difficult to
-specify---they must somehow incorporate knowledge of syntax in the
-measure itself, in such a way that cannot be reified as features that
-could then be processed by a generic statistical measure. This is
-difficult when working with syntactic corpora; the amount of
-information about each sentence is much lower than the amount of
-information about each word in a traditional dialectology corpus of
-phonology. Specifically, there is no alignment between sentences, nor is
-there a predefined list of sentences to be elicited. In addition,
-there is no well-accepted model equivalent the one set out by
-\namecite{chomsky68}, which can be further augmented by later work in
-phonology, such as \quotecite{goldsmith76} autosegmental
-phonology. Dialectology work on phonology has relaxed these
-assumptions, but switching to statistical analysis of unordered
-corpora \cite{sanders06} and \cite{hinrichs07} has not
-been as successful as abandoning distinctive features \cite{heeringa04}.
-
-The hidden structure available for syntax is the parse---whether this
-is a constituent parse, dependency parse or some variant of shallow
-parse. Working by analogy from phonology, segments have hidden
-structure in the form of distinctive features. Segment order in
-phonology corresponds to word order in syntax. Unfortunately, as just
-mentioned, the analogy does not extend to corpus order. However, there
-is one piece of information that is not available to phonology (at
-least pre-autosegmental phonology): the upper structure is
-connected. For the current set of experiments, the upper structure is
-processed, divided and assigned as features attached to an individual
-word in the form of leaf-ancestor paths or dependency paths. This
-approach allows the features to be given to $R$ and treated as if they
-are independent, which is of course not true.
-
-However, even taking advantage of this connected upper structure only
-provides additional features per sentence. These features can be
-profitably added to the others when using a statistical measure, but
-they do not require a new measure.
-
+% The hidden structure available for syntax is the parse---whether this
+% is a constituent parse, dependency parse or some variant of shallow
+% parse. Working by analogy from phonology, segments have hidden
+% structure in the form of distinctive features. Segment order in
+% phonology corresponds to word order in syntax. Unfortunately, as just
+% mentioned, the analogy does not extend to corpus order. However, there
+% is one piece of information that is not available to phonology (at
+% least pre-autosegmental phonology): the upper structure is
+% connected. For the current set of experiments, the upper structure is
+% processed, divided and assigned as features attached to an individual
+% word in the form of leaf-ancestor paths or dependency paths. This
+% approach allows the features to be given to $R$ and treated as if they
+% are independent, which is of course not true.
 
 \section{Question 3 : Agreement with Phonological Dialectometry}
 
