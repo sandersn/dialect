@@ -1,20 +1,18 @@
 \chapter{Methods}
 \label{methods-chapter}
 
-I first discuss previous work that mine is related to but does not
-use. Then I discuss previous work, including previous work that I have
-done, that I use in this dissertation. Finally, I discuss the methods
-used to prepare the data for input and analyze the results.
-
-There is a lot of background information, like other distance
-measures and the underlying math of the distance measure I did use.
-
-Here is what Josh misunderstood: he thought that I was taking the top
-3 features first from each set of features (which have the set of
-features normalized across sites, which I don't do, because to do this
-properly would obviate the need for MDS since I'd be working with a
-distance instead of a dissimilarity). But the top 3 would be different
-for each site pair. THEN he thought I was doing MDS.
+This chapter contains four sections. The first discusses related work,
+dialectometry since its development in the middle of the 20th century,
+starting with \namecite{seguy73} and continuing with
+\namecite{goebl06}. The second section discusses the previous work on
+statistical methods for syntactic dialectometry, as well as the
+feature sets and distance measures developed in this dissertation. The
+third and fourth sections cover the application of the work to Swedish
+dialects. Specifically, the third section deals with input analysis:
+which Swedish corpora were used and which annotators served as a basis for
+extracting features. The fourth section covers output analysis,
+detailing the methods used to process the distances between interview
+sites so that they can be compared to the dialectology literature.
 
 \section{Related Work}
 
@@ -89,15 +87,15 @@ methods were more sophisticated mathematically than previous
 dialectometry and operated on any features extracted from the data. His
 analyses have used primarily the Atlas Linguistique de Fran\c{c}ais.
 
-\namecite{goebl06} provides a summary of his work. Most relevant for
-this paper are the measures Relative Identity Value and Weighted
+\namecite{goebl06} provides a summary of his work. Most relevant
+are the measures Relative Identity Value and Weighted
 Identity Value. They are general methods that are the basis for nearly
 all subsequent fine-grained dialectometrical analyses. They have three
 important properties. First, they are independent of the source
 data. They can operate over any linguistic data for which they are
 given a feature set, such as the one proposed by \namecite{gersic71} for
 phonology. Second, they can compare data even for items that do not
-have identical feature sets, such as Ger\v{s}i\'c's $d$,
+have identical feature sets, unlike Ger\v{s}i\'c's $d$, for example,
 which cannot compare consonants and vowels. Third, they can compare
 data sets that are missing some entries. This improves on S\'eguy's
 analysis by providing a principled way to handle missing survey
@@ -106,12 +104,12 @@ responses.
 Relative Identity Value, when comparing any two items, counts the
 number of features which share the same value and then discounts
 (lowers) the importance of the result by the number of unshared
-features. The result is a single percentage that indicates
-relative similarity. Calculating this distance between all pairs
-of items in two regions produces a matrix which can be used for
-clustering or other purposes. Note that the presentation below splits
-Goebl's original equations into more manageable pieces; the high-level
-equation for Relative Identity Value is:
+features. The result is a single percentage that indicates relative
+similarity. This percentage, when measured between all pairs of sites
+in a corpus, can be scaled to produce a dissimilarity. Note that the
+presentation below splits Goebl's original equations into more
+manageable pieces; the high-level equation for Relative Identity Value
+is:
 
 \begin{equation}
   \frac{\textrm{identical}_{jk}} {\textrm{identical}_{jk} - \textrm{unidentical}_{jk}}
@@ -122,23 +120,29 @@ For some items being compared $j$ and $k$. In this case
 \begin{equation}
   \textrm{identical}_{jk} = |f \in \textrm{\~N}_{jk} : f_j = f_k|
 \end{equation}
-where $\textrm{\~N}_{jk}$ is the set of features shared by  $j$ and
-$k$ and $f_j$ and $f_k$ are the value of some feature $f$ for $j$ and
-$k$ respectively. \textit{unidentical} is defined similarly, except
-that it counts all features N, not just the shared features
-$\textrm{\~N}_{jk}$.
+where $\textrm{\~N}_{jk}$ is the set of features shared by $j$ and
+$k$. In other words, of the total universe of features $N$, both $j$
+and $k$ must contain the feature for it to be included in
+$\textrm{\~N}_{jk}$. So if a feature occurs only in $j$ but not in
+$k$, it will be included in $N$, but not in $\textrm{\~N}_{jk}$. This
+ensures that the comparison $f_j = f_k$ is always valid, where $f_j$
+and $f_k$ are the value of some feature $f$ for $j$ and $k$
+respectively.  \textit{unidentical} is defined similarly, except that
+it counts all features N, not just the shared features
+$\textrm{\~N}_{jk}$. Here, features that occur in only $j$ or only $k$
+contribute toward \textit{unidentical}'s total.
 
 \begin{equation}
   \textrm{unidentical}_{jk} = |f \in \textrm{N} : f_j \neq f_k|
 \end{equation}
 
-Weighted Identity Value is a refinement of Relative Identity
+Weighted Identity Value (WIV) is a refinement of Relative Identity
 Value. This measure defines some differences as more
 important than others. In particular, feature values that only occur
 in a few items give more information than feature values that appear
-in a large number of items. This
-idea shows up later in the normalization of syntax distance given by
-\namecite{nerbonne06}.
+in a large number of items. \quotecite{wiersma09} normalization,
+covered at the end of this chapter, reuses this idea for feature
+ranking.
 
 The mathematical reasoning behind this idea is fairly simple. Goebl
 is interested in feature values that occur in only a few items. If a
@@ -147,9 +151,9 @@ items belong to the same group. This feature value provides {\it no}
 useful information for distinguishing the items.  The situation
 improves if all but one item share the same value for a feature; at
 least there are now two groups, although the larger group is still not
-very informative.  The most information is available if each item
+very informative. The most information is available if each item
 being studied has a different value for a feature; the items fall
-trivially into singleton groups, one per item.
+trivially into singleton groups, one per item. 
 
 Equation \ref{wiv-ident} implements this idea by discounting
 the \textit{identical} count from equation \ref{riv} by
@@ -183,15 +187,19 @@ therefore
   \label{wiv-full}
   \end{equation}
 
-  \noindent{}where $\textrm{agree}f_{j}$ is the number of items that agree
-  with item $j$ on feature $f$ and $Ni$ is the total number of
-  items ($w$ is the weight, discussed below). Because of the
-  piecewise definition of \textit{identical}, this number is always at
-  least $1$ because $f_k$ agrees already with $f_j$.
-  This equation takes the count of shared features and weights
-  them by the size of the sharing group. The features that are shared
-  with a large number of other items get a larger fraction of the normal
-  count subtracted.
+  \noindent{}where $\textrm{agree}f_{j}$ is the number of items that
+  agree with item $j$ on feature $f$ and $Ni$ is the total number of
+  items ($w$ is the weight, discussed below). Because of the piecewise
+  definition of \textit{identical}, this number is always at least $1$
+  because $f_k$ agrees already with $f_j$.  This equation takes the
+  count of shared features and weights them by the size of the sharing
+  group. The features that are shared with a large number of other
+  items get a larger fraction of the normal count subtracted. WIV is
+  similar to entropy from information theory, which forms the basis of
+  the Kullback-Leibler and Jensen-Shannon divergences described later
+  in this chapter \cite{lin91}. The difference is that WIV substracts
+  values from 1 to make common features less important, while entropy
+  takes the logarithm.
 
   For example, let $j$ and $k$ be sets of productions for the
   underlying English segment /s/. The allophones of /s/ vary mostly on the feature
@@ -223,7 +231,12 @@ therefore
   groups, so that \textit{voice} might be worth less than
   \textit{place} for /t/ because /t/'s allophones vary more over
   \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
-  facilitate the presentation.
+  facilitate the presentation, but typically it's used like an ad-hoc
+  equivalent of information gain: the linguist can give more weight to
+  features that are believed to be salient.
+% TODO: Check out Goebl's book again and find out for sure how he
+% chose $w$. Was this the book in French? It's been years since I had
+% to read a serious amount in French.
 
 \section{Dialectometry}
 
@@ -244,7 +257,7 @@ inclusion of distinctive features or phonetic
 correlates. \namecite{heeringa04} gives an excellent analysis of the
 applications and variations of Levenshtein distance. While Levenshtein
 distance provides much information as a classifier, it is limited
-because it must have a word aligned corpus for comparison. A number of
+because it must have a word-aligned corpus for comparison. A number of
 statistical methods have been proposed that remove this requirement
 such as \namecite{hinrichs07} and \namecite{sanders09}, but none have
 been as successful on existing dialect resources, which are small and
@@ -257,38 +270,42 @@ process.
 Recently, computational dialectometry has expanded to analysis of
 syntax as well. The first work in this area was \quotecite{nerbonne06}
 analysis of Finnish L2 learners of English, followed by
-\quotecite{sanders07} analysis of British dialect areas. Syntax
-distance must be approached quite differently than phonological
-distance. Syntactic data is extractable from raw text, so it is much
-easier to build a syntactic corpus. But this implies an associated
-drop in manual linguistic processing of the data. As a result, the
-principal difference between present phonological and syntactic
+\quotecite{sanders07} analysis of British dialect areas. As explained
+in chapter \ref{questions-chapter}, syntax distance must be approached
+quite differently than phonological distance. Syntactic corpora can be
+built quickly by automatically annotating raw text, so it is easier to
+build a large syntactic corpus than a phonological one; phonological
+annotation does not yet have a method for automatic
+annotation. However, automatic annotators, while faster, cannot
+compete with human annotators in quality of annotation.  For example,
+the principal difference between present phonological and syntactic
 corpora is that phonology data is word-aligned, while syntax data is
-not sentence-aligned. Automatically constructed syntactic corpora
-lead naturally to statistical measures over large amounts of data
-rather than more sensitive measures that operate on small corpora.
+not sentence-aligned. This difference leads syntactic approaches
+naturally to statistical measures over large amounts of data rather
+than more sensitive measures that operate on small corpora.
 
 \namecite{nerbonne06} were the first to use the syntactic distance
-measure described below. They analyzed two corpora, both of Finnish
-L2 speakers of English. The first corpus was gathered from speakers
-who learned English after childhood and the second was gathered from
-speakers who learned English as children. Nerbonne \& Wiersma found a
-significant difference between the two corpora. The trigrams that
-contributed most to the difference were those in the older corpus that
-are unexpected in English. For example, the trigram COP-ADJ-N/COM is
-not common in English because a noun phrase following a copula
-typically begins with a determiner. Other trigrams indicate
-hypercorrection on the part of the older speakers; they appear in the
-younger corpus but not as often. Nerbonne \& Wiersma analyzed this as
-interference from Finnish; the younger learners of English learned it
-more completely with less interference from Finnish.
+measure described below. They analyzed a corpus of Finnish L2 speakers
+of English, divided by age. The first age group consisted of speakers
+who learned English after childhood and the second of speakers who
+learned English as children. Nerbonne \& Wiersma found a significant
+difference between the two age groups. The features that contributed
+most to the difference were those in the older age group that are
+unexpected in English. For example, some important features for the
+older age group involved determiners, which English has but Finnish
+does not. The features showed underuse of determiners, as well as
+overuse, probably due to hypercorrection. Interestingly, some of these
+features occur in the younger age group, but not as often.  Nerbonne
+\& Wiersma analyzed this pattern as interference from Finnish; the younger
+age group learned English more completely with less interference
+from Finnish.
 
 My subsequent work in \cite{sanders07} and \cite{sanders08b}
 expanded on the Finnish experiment in two ways. First, it introduced
 leaf-ancestor paths as an alternative feature type. Second, it tested
-the distance method on a larger set of corpora: Government Office
+the distance method on a larger set of sites: the Government Office
 Regions of England, as well as Scotland and Wales, for a total of
-11 corpora. Each was smaller than the Finnish L2 corpora, so the
+11 sites. Each was smaller than the Finnish L2 age groups, so the
 permutation test parameters had to be adjusted for some feature
 combinations.
 
@@ -327,7 +344,7 @@ its basis.
 trigrams and uses differences between trigram type counts in a
 permutation test of significance. The heart of the measure is simple:
 the difference in type counts between the combined features of two
-corpora. \namecite{kessler01} originally proposed this measure, the
+sites. \namecite{kessler01} originally proposed this measure, the
 {\sc Recurrence} metric ($R$):
 
 \begin{equation}
@@ -335,10 +352,10 @@ R = \sum_i |c_{ai} - c_{bi}|
 \label{rmeasure}
 \end{equation}
 
-\noindent{}Given two corpora $a$ and $b$, $c_a$ and $c_b$ are the
+\noindent{}Given two sites $a$ and $b$, $c_a$ and $c_b$ are the
 feature counts. $i$ ranges over all features, so $c_{ai}$ and $c_{bi}$ are the
-counts of corpora $a$ and $b$ for feature $i$. $R$ is designed to
-represent the amount of variation exhibited by the two corpora while
+counts of sites $a$ and $b$ for feature $i$. $R$ is designed to
+represent the amount of variation exhibited by the two sites while
 the contribution of individual features remains transparent to aid later
 analysis. Unfortunately, it doesn't indicate whether its results are significant; a
 permutation test is needed for that, described in section
@@ -350,28 +367,28 @@ The methods used in this dissertation are an evolution of those in my
 previous work on British English: \cite{sanders07} and
 \cite{sanders08b}. There, I compared phonological and syntactic
 dialectometry as described above. The process is similar to Wiersma's
-work in \cite{nerbonne06} and \cite{wiersma09}. Here, it is slightly
-simpler and with a few variations.
+work in \cite{nerbonne06} and \cite{wiersma09}, but with
+variants of both feature set and distance measure.
 
-The input are 30 corpora, one for each interview site (described in
+The input is 30 interview sites (described in
 section \ref{syntactically-annotated-corpus}). The sentences in each
-corpus have their features generated (the features are described in
-\ref{syntactic-features}). Optionally, only 1000 sentences are sampled
-with replacement, but the corpus sizes, unlike the British interviews
+site have their features extracted (the features are described in
+section \ref{syntactic-features}). Optionally, only 1000 sentences are sampled
+with replacement, but the site sizes, unlike the British interviews
 in my previous work, are fairly similar in size so this is only
 necessary for comparison to previous work. Then the features are
 counted, producing a mapping of feature types to token counts.
 
-At this point, two corpora are compared based on these feature
+At this point, two sites are compared based on these feature
 counts. The feature counts are first normalized to account for
-variation in corpus size and sentence length (described in
-the next section). Optionally, they are converted to ratios, meaning
-that the counts are scaled relative to the other corpus. For example,
-counts of 10 and 30 would produce the ration 1 to 3, as would the
+variation in site size and sentence length (described in
+the next section). Then they are converted to ratios, meaning
+that the counts are scaled relative to the other site. For example,
+counts of 10 and 30 would produce the ratio 1 to 3, as would the
 counts 100 and 300. Finally, the distance (described above in
 \ref{nerbonne06}) is calculated 10 times and the result is averaged.
 
-The corpus is sampled by sentence rather than by feature because the
+The sites are sampled by sentence rather than by feature because the
 intent is to capture syntax, where the composite unit is the
 sentence. Similarly, phonology's composite unit is the word---most
 processes operate within the word on individual segments; some
@@ -379,9 +396,9 @@ processes operate between words but they are fewer. Therefore, the
 assumption that words are independent will lose some information but
 not the majority. In the same way, the basic unit of syntax is the
 sentence; processes operate on the words in the sentence, but
-inter-sentence processes are fewer. Because of this, the corpora are
+inter-sentence processes are fewer. Because of this, the sites are
 sampled by sentence, combining the sentences of all speakers from an
-interview site into a single corpus.
+interview site.
 
 This dissertation skips the per-speaker sampling of
 \quotecite{wiersma09} work on Finnish L2 speakers. I assume that,
@@ -389,54 +406,56 @@ since discovery of dialect features is the goal of this research, the
 sentences of speakers from the same village are independent of the
 speaker, at least with respect to dialect features. Although the
 motivation is partly theoretical, there is also a difference between
-the Swediasyn dialect corpus, with 2-4 speakers for each of 30 sites,
+the Swediasyn dialect corpus, with 2--4 speakers for each of 30 sites,
 and Wiersma's L2 corpus, with dozens of speakers but only two
 groups. Sampling per-speaker would not be feasible for the Swediasyn
 because there aren't enough speakers per village.
 
 \subsubsection{Normalization}
 
-The two corpora being compared can differ in size, even if they are
-samples with the same number of sentences; if one corpus contains many
-long sentences with the other contains many short ones, raw counts
+The two sites being compared can differ in size, even if the
+samples contain the same number of sentences; if one site contains many
+long sentences and the other contains many short ones, raw counts
 will favor the features extracted from the long sentences simply
-because each sentence yields more features. Additionally, the counts can
-optionally be converted to ratios to ignore the effect of
+because each sentence yields more features. Additionally, the counts
+are converted to ratios to ignore the effect of
 frequency---in effect, this ranks features only by how much they differ
-between the two corpora, ignoring the question of how often they occur
-relative to the other features extracted from the corpora. That is,
+between the two sites, ignoring the question of how often they occur
+relative to the other features extracted from the two sites. That is,
 a high ratio for a rare feature that happens only ten times in both
-corpora is just as important as a high ratio for a common feature that
+sites is just as important as a high ratio for a common feature that
 happens thousands of times.
 
-The first normalization normalizes the counts for each feature within the
-pair of vectors $a$ and $b$. The purpose is to normalize the
+The first normalization normalizes the counts for each feature within
+the pair of sites $a$ and $b$. The purpose is to normalize the
 difference in sentence length, where longer sentences with more words
-cause features to be relatively more frequent than corpora with many
-short sentences.  Each count $c_i$ in the vector $c$ is converted to a
-frequency $f_i$ \[f_i=\frac{c_i}{N} \] where $N$ is the length of
-$c$. For two corpora $c_a$ and $c_b$ this produces two frequency
-vectors, $f_{a}$ and $f_{b}$.Then the original counts in $c_a$ and
-$c_b$ are redistributed according to the frequencies in $f_a$ and $f_b$:
-\[\forall j \in a,b : c'_{ji} = \frac{f_{ji}(c_{ai}+c_{bi})}{f_{ai}+f_{bi}}\]
+cause features to be relatively more frequent than sites with many
+short sentences.  Each feature count $i$ in a vector, for example
+$a$, is converted to a frequency $f_i$ \[f_i=\frac{i}{N} \] where
+$N$ is the length of $a$. For two sites $a$ and $b$ this produces
+two frequency vectors, $f_{a}$ and $f_{b}$.Then the original counts in
+$a$ and $b$ are redistributed according to the frequencies in
+$f_a$ and $f_b$:
+\[a'_{i} = \frac{f_{ai}(a_{i}+b_{i})}{f_{ai}+f_{bi}},
+b'_{i} = \frac{f_{bi}(a_{i}+b_{i})}{f_{ai}+f_{bi}}\]
 This redistributes the total of a pair from $a$ and $b$ based on
 their relative frequencies. In other words, the total for each feature
 remains the same:
-\[ c_{ai} + c_{bi} = c'_{ai} + c'_{bi} \]
-but the values of $c_{ai}$ and $c_{bi}$ are scaled by their frequency
+\[ a_{i} + b_{i} = a'_{i} + b'_{i} \]
+but the values of $a'_{i}$ and $b'_{i}$ are scaled by their frequency
 within their respective vectors.
 
-For example, assume that the two corpora have 10 sentences each, with
-a corpus $a$ with only 40 words and another, $b$, with 100 words. This
+For example, assume that the two sites have 10 sentences each, with a
+site $a$ with only 40 words and another, $b$, with 100 words. This
 results in $N_a = 40$ and $N_b = 100$. Assume also that there is a
-feature $i$ that occurs in both: $c_{ai} = 8$ in $a$ and $c_{bi} = 10$ in
-$b$. This means that the relative frequencies are $f_{ai} = 8/40 = 0.2$
-and $f_{bi} = 10/100 = 0.1$. The first normalization will redistribute the
+feature $i$ that occurs in both: $a_{i} = 8$ and $b_{i} = 10$. This
+means that the relative frequencies are $f_{ai} = 8/40 = 0.2$ and
+$f_{bi} = 10/100 = 0.1$. The first normalization will redistribute the
 total count ($10 + 8 = 18$) according to relative frequencies. So
-\[c_{ai}' = \frac{0.2(18)}{0.2+0.1} = 3.6 / 0.3 = 12\] and
-\[c_{bi}' = \frac{0.1(18)}{0.2+0.1} = 1.8 / 0.3 = 6\] Now that 8 has
-been scaled to 12 and 10 to 6, the fact that corpus $b$ has more words
-has been neutralized. This reflects the intuition that something that
+\[a'_i = \frac{0.2(18)}{0.2+0.1} = 3.6 / 0.3 = 12\] and
+\[b'_i = \frac{0.1(18)}{0.2+0.1} = 1.8 / 0.3 = 6\] Now that 8 has
+been scaled to 12 and 10 to 6, the fact that site $b$ has more words
+has been normalized. This reflects the intuition that something that
 occurs 8 of 40 times is more important than something that occurs 10
 of 100 times.
 
@@ -450,38 +469,30 @@ feature count is $N / 2n$, where $N$ is the number of feature
 occurrences in both the permutations and $n$ is the number of feature
 types. Division by two is necessary since we are multiplying counts
 from a single permutation by merged counts from both
-permutations. Each entry in the ratio vector now becomes \[\forall j
-\in a,b : r_{ji} = \frac{2nc_{ji}'}{N}\]
+permutations. Each entry in the ratio vector now becomes
+\[ r_{ai} = \frac{2na'_i}{N}, r_{bi} = \frac{2nb'_i}{N}\]
 
 For example, given the previous example numbers, this second
 normalization first finds the average. Assuming 5 unique features for
-$a$'s 40 total features and 30 for $b$'s total 100 features gives \[n
-= 5 + 30 = 35\] and
-\[N = 40 + 100 = 140\]
-Therefore, the average feature has $140 / 2(35) = 2$
-occurrences in $a$ and $b$ respectively. Dividing $c_{ai}' = 12$ and
-$c_{bi}' = 6$ by this average gives $r_{ai} = 6$
-and $r_{bi} = 3$. In other words, $r_{ai}$ occurs 6 times more
-than the average feature.
+$a$'s 40 total features and 30 for $b$'s total 100 features gives
+\[n = 5 + 30 = 35\] and
+\[N = 40 + 100 = 140\] Therefore, the average feature has $140 / 2(35)
+= 2$ occurrences in $a$ and $b$ respectively. Dividing $a'_i = 12$ and
+$b'_i = 6$ by this average gives $r_{ai} = 6$ and $r_{bi} = 3$. In
+other words, $r_{ai}$ occurs 6 times more than the average feature.
 
 \subsection{Syntax Features}
 \label{syntactic-features}
 
-In order to investigate hypothesis 1, the distance measure, such as
-$R$, needs features that capture the dialect syntax of the interview
-corpora given as input. Following Nerbonne and Wiersma 2006, I
-start with parts of speech, then add the leaf-ancestor paths that I
-tried on the ICE-GB, and finally add dependency-ancestor paths, as
-well as variants on these three feature sets. These feature sets each
-depend on a different type of automatic annotation, which described in
-section \ref{parsers}.
-
-% Hey, these should really be feature *type* sets since they are sets
-% of feature types, not sets of observed feature tokens. Maybe I
-% should make a note of this and say
-% "feature sets" is used in the rest of this dissertation to mean
-% "feature type sets" (except maybe in the discussion of the
-% normalization, which should refer to vectors anyway)
+In order to answer question 1, whether the distance measure agrees
+with dialectology, a distance measure such as $R$ needs features that
+capture the dialect syntax of the interview corpus given as
+input. Following \namecite{nerbonne06}, I start with parts of speech,
+then add the leaf-ancestor paths from my work on the ICE-GB
+\cite{sanders07}, and finally add dependency-ancestor paths and
+phrase-structure rules, as well as variants on these features. These
+feature sets each depend on a different type of automatic annotation,
+which is described in section \ref{parsers}.
 
 \namecite{nerbonne06} argue that POS trigrams can accurately represent
 at least the important parts of syntax, similar to the way chunk
@@ -493,13 +504,13 @@ and Wiersma did, or taken from the leaves of the trees of a
 syntactically annotated corpus as I did with the
 International Corpus of English \cite{sanders07}.
 
-On the other hand, it might be better to represent the upper structure
-of trees in the feature set, assuming that syntax is in fact a
-phenomenon that involves hidden structure above the visible words of
-the sentence. \quotecite{sampson00} leaf-ancestor paths provide one
-way to do this: for each leaf in the parse tree, leaf-ancestor paths produce
-the path from that leaf back to the root. Generation is simple as long
-as every sibling is unique. For example, the parse tree
+On the other hand, if syntax is in fact a phenomenon that involves
+hidden structure above the visible words of the sentence, a feature
+set should be constructed to capture that
+structure. \quotecite{sampson00} leaf-ancestor paths provide one way
+to do this: for each leaf in the parse tree, leaf-ancestor paths
+produce the path from that leaf back to the root. Generation is simple
+as long as every sibling is unique. For example, the parse tree
 
 \Tree[.S [.NP [.Det the ] [.N dog ] ] [.VP [.V barks ] ] ]
 
@@ -605,7 +616,7 @@ measure of similarity between gold-standard and machine-parsed trees,
 to be used in evaluating parsers. The underlying idea of a collection
 of features that capture distance between trees transfers quite nicely
 to this application. I replaced POS trigrams with leaf-ancestor paths
-for the ICE corpus and found improved results on smaller corpora than
+for the ICE corpus and found improved results on smaller sites than
 Nerbonne and Wiersma had tested \cite{sanders07}. The additional
 precision that leaf-ancestor paths provide appears to aid in attaining
 significant results.
@@ -740,30 +751,30 @@ The sentence for the leaf-head example is given in figure
 
 \subsubsection{Tags from Berkeley Parser}
 
-The Berkeley parser, as described in section \ref{parsers}, can
-either tag incoming sentences with its own part of speech tagger,
-using the same splitting process as the rest of the parser, or with
-parts of speech specified externally. In this case, the external
-part-of-speech tagger is T'n'T. Although the Berkeley-generated POS
-tags are not as good, it may be useful to see how they change the
-overall results---although it seems that accurate parts of speech are
-required for good features to be generated, it is useful to see how
-much the results degrade when given lower quality parts of
-speech.
-Note that the Berkeley-generated POS tags are used to generate
-trigrams and leaf-head paths, by taking the POS tags and feeding them
-into MaltParser.
+The Berkeley parser \cite{petrov06}, as described in section
+\ref{parsers}, can either tag incoming sentences with its own part of
+speech tagger, using the same splitting process as the rest of the
+parser, or with parts of speech specified externally. In this case,
+the external part-of-speech tagger is T`n'T \cite{brants00}. Although
+the Berkeley-generated POS tags are not as good, it may be useful to
+see how they change the overall results---although it seems that
+accurate parts of speech are required for good features to be
+generated, it is useful to see how much the results degrade when given
+lower quality parts of speech.  Note that the Berkeley-generated POS
+tags are used to generate trigrams and leaf-head paths, by taking the
+POS tags and feeding them into MaltParser.
 
 To get the Berkeley parser to generate parts of speech, it is given
-the interview corpora directly, skipping the tagging by T'n'T.
-Using the same method it uses to parsing the higher structure of the
-sentence, it also tags words with parts
-of speech. After parsing, these parts of speech are extracted from the
-leaves of the parse trees. First, the parts of speech are used to
-create trigram features. Second, the Berkeley-tagged words are
-converted to CONLL format and given to MaltParser for dependency
-parsing. This produces dependency parses based on parts of speech from
-the Berkeley parser.
+the interview sites directly, skipping the tagging by T`n'T.  Using
+the same method it uses to parsing the higher structure of the
+sentence, it also tags words with parts of speech. After parsing,
+these parts of speech are extracted from the leaves of the parse
+trees. First, the parts of speech are used to create trigram
+features. Second, the parts of speech are given to MaltParser for
+dependency parsing. This produces dependency parses based on parts of
+speech from the Berkeley parser. The result is trigrams and leaf-head
+paths based on Berkeley-generated POS tags instead of T`n'T-generated
+POS tags.
 
 \subsubsection{Dependencies from alternate MaltParser training}
 
@@ -866,42 +877,36 @@ resolving Hypotheses 1 and 2.
 % tested with large corpora, to my knowledge at least. (This is not
 % particularly useful and I don't believe that WIV would actually be
 % good, so I should probably just drop this.)
+% TODO: WIV SHOULD work, I should explain why I DON'T try it.
 
-% (maybe it was relative entropy or just normal-kind entropy).
-% TODO: WIV, also Kullback-Leibler Divergence could work.
-% Maybe also k-NN/MBL, HMM binary classifier (?), maybe even a
-% neural net
-
-\subsubsection{KL divergence}
+\subsubsection{Kullback-Leibler divergence}
 \label{kl-divergence}
-
-% TODO: Find original citation for KL divergence
 
 Kullback-Leibler divergence, or relative entropy, is described in
 \namecite{manningschutze}.  Relative entropy is similar to $R$ but
 more widely used in computational linguistics. The name relative
 entropy implies an intuitive interpretation: it is the number of bits
-of entropy incurred when compressing a corpus $b$ with the optimal
-compression scheme for a second corpus $a$. Unless the two corpora
+of entropy incurred when compressing a site $b$ with the optimal
+compression scheme for a second site $a$. Unless the two sites
 are identical, the relative entropy $KL(a||b)$ is non-zero because
 $a$'s optimal compression scheme will over-compress $b$'s
 features that are more common in $a$ than in $b$, whereas it will
 under-compress features that are less common in $a$ than in $b$.
 
-For example, assume that corpus $a$ has two features with type counts
+For example, assume that site $a$ has two features with type counts
 \{S-NP-N : 20, S-VP-PP-N : 10\}. An optimal compression scheme for $a$
 would compress S-NP-N twice as much as S-VP-PP-N because it occurs
 twice as often. However, if this compression scheme is used on a
-corpus $b$ with the feature counts \{S-NP-N : 15, S-VP-PP-N : 15\},
+site $b$ with the feature counts \{S-NP-N : 15, S-VP-PP-N : 15\},
 efficiency will be worse; S-NP-N and S-VP-PP-N occur the same number
 of times in $b$, so the smaller compressed size of S-NP-N will be used
 less often than expected, while the larger compressed size of
 S-VP-PP-N will be used more. This difference can be measured precisely
 for each feature:
 
-\[ c_{ai} \log\frac{c_{ai}}{c_{bi}} \]
+\[ a_i \log\frac{a_i}{b_i} \]
 
-where $c_{ai}$ is type count of the $i$th feature in $a$ and $c_{bi}$
+where $a_i$ is type count of the $i$th feature in $a$ and $b_i$
 is the type count of the $i$th feature in $b$. This measures the
 number of bits lost, or entropy, for each feature $i$. Like $R$'s
 differences, the per-feature entropy can be summed to find the total
@@ -909,16 +914,16 @@ entropy. In the example above, the entropy for S-NP-N is $20
 \log\frac{20}{15} = 5.75$.
 
 However, Kullback-Leibler divergence as defined is a divergence: it
-measures the divergence of features in the corpus $c_b$ from the
-features of corpus $c_a$. A dissimilarity is required for
+measures the divergence of features in the site $b$ from the
+features of site $a$. A dissimilarity is required for
 dialectology, which means that the divergence must additionally be
 symmetric. A divergence can be made symmetric by calculating it twice:
-the divergence from $c_a$ to $c_b$ added to the one from $c_b$ to
-$c_a$. The complete formula is given in equation \ref{klmeasure} and
+the divergence from $a$ to $b$ added to the one from $b$ to
+$a$. The complete formula is given in equation \ref{klmeasure} and
 the complete example is worked in equation \ref{klexample}.
 
 \begin{equation}
-KL(a||b) = \sum_i {c_{ai} \log\frac{c_{ai}}{c_{bi}} + c_{bi} \log\frac{c_{bi}}{c_{ai}}}
+KL(a||b) = \sum_i {a_i \log\frac{a_i}{b_i} + b_i \log\frac{b_i}{a_i}}
 \label{klmeasure}
 \end{equation}
 
@@ -938,26 +943,26 @@ denominator for both directions: the average of the two
 probabilities. That means that each feature's entropy is found using
 the following formula:
 
-\[ c_{ai} \log\frac{c_{bi}}{(c_{ai} + c_{bi}) / 2} +
-c_{bi} \log\frac{c_{ai}}{(c_{ai} + c_{bi}) / 2} \]
+\[ a_i \log\frac{b_i}{(a_i + b_i) / 2} + b_i \log\frac{a_i}{(a_i + b_i) / 2} \]
 
-There is a common subexpression in this value: $(c_{ai} + c_{bi}) /
-2$: the average of the two features. If we let $\bar{c_i} = (c_{ai} + c_{bi}) /
-2$ rewrite the formula to take advantage of this simplification, we
-get equation \ref{jsmeasure}.
+There is a common subexpression in this value: $(a_i + b_i) / 2$: the
+average of the two features. If we let $\bar{c_i} = (a_i + b_i) / 2$
+rewrite the formula to take advantage of this simplification, we get
+equation \ref{jsmeasure}.
 
 \begin{equation}
-JS = \sum_i {c_{ai} \log\frac{c_{bi}}{\bar{c_i}} + c_{ai}
-  \log\frac{c_{bi}}{\bar{c_i}}}
+JS = \sum_i {a_i \log\frac{b_i}{\bar{c_i}} + a_i \log\frac{b_i}{\bar{c_i}}}
 \label{jsmeasure}
 \end{equation}
 
 Unlike Kullback-Leibler divergence, Jensen-Shannon divergence does not
-require the feature counts to be absolutely continuous; in other
-words, that if $c_{ai}$ is non-zero, then $c_{bi}$ has to be non-zero
-too. Since the current implementation of Kullback-Leibler divergence
-simply skips zero values, this means it ignores features unique to a
-particular corpus. Jensen-Shannon divergence avoids this problem.
+require that features exist in both sites being compared in order to
+be counted. KL divergence cannot count unique features, in fact,
+because if either $a_i$ or $b_i$ is zero, then it will divide by zero
+at some point. The current implementation of KL divergence simply
+skips zero values, which means it ignores features unique to a
+particular site. Jensen-Shannon divergence avoids this problem because
+it divides by $\bar{c_i}$, the average of the feature counts.
 % In addition, it provides bounds on variational distance
 % and the Bayes probability of error.
 % TODO: Find out what this means
@@ -970,33 +975,33 @@ mining. \namecite{nerbonne06} use it as reference point for
 comparison to previous work in these areas. Cosine similarity measures
 the similarity between two high-dimensional points in space. Each
 feature is modeled as a dimension, and the type count from each
-corpus is plotted as a point on that dimension. The result is equation
+site is plotted as a point on that dimension. The result is equation
 \ref{cosmeasure} or the non-vectorized version in
 \ref{cosmeasureiterative}.
 
 \begin{equation}
-  \frac{c_{a}\cdot c_{b}} {||c_{ai}||||c_{bi}||}
+  \frac{a\cdot b} {||a_i||||b_i||}
   \label{cosmeasure}
 \end{equation}
 
 \begin{equation}
-  \frac{\sum_i {c_{ai}c_{bi}}} {\sqrt{\sum_i {c_{ai}^2}} +
-    \sqrt{\sum_i{c_{bi}^2}}}
+  \frac{\sum_i {a_ib_i}} {\sqrt{\sum_i {a_i^2}} + \sqrt{\sum_i{b_i^2}}}
   \label{cosmeasureiterative}
 \end{equation}
 
-Interestingly, the results for this measure are very different from
+Interestingly, the results for this measure are somewhat different from
 the other distance measures, possibly because, unlike the others
 described, it is not a linear sum.
 
 \section{Input Processing}
-To investigate the first question, agreement with dialectology, I need a dialect corpus that can
-be syntactically annotated (\ref{syntactically-annotated-corpus}); if
-it is not already annotated, it must be possible to annotate it
-automatically so I can avoid time-consuming manual annotation.
-Automatic annotation requires a syntactically annotated
-training corpus (\ref{syntactically-annotated-training}) and parsers
-for the models of syntax I use as a basis (\ref{parsers}).
+To investigate the first question, agreement with dialectology, I need
+a dialect corpus that can be syntactically annotated
+(\ref{syntactically-annotated-corpus}); if it is not already
+annotated, it must be possible to annotate it automatically so I can
+avoid time-consuming manual annotation. Automatic annotation requires
+a syntactically annotated training corpus
+(\ref{syntactically-annotated-training}) and parsers for the models of
+syntax I use as a basis (\ref{parsers}).
 
 % To investigate the second question, quality of features, I need a
 % method to combine different types of features
@@ -1018,18 +1023,16 @@ for the models of syntax I use as a basis (\ref{parsers}).
 % translate it
 % Vangsnes, Øystein A. 2007. ScanDiaSyn: Prosjektparaplyen Nordisk dialektsyntaks. In T. Arboe (ed.), Nordisk dialektologi og sociolingvistik, Peter Skautrup Centeret for Jysk Dialektforskning, Århus Universitet. 54-72.
 
-The first question requires a dialect corpus that can
-be syntactically annotated.
-The dialect corpus used in this dissertation is SweDiaSyn, the
-Swedish part of the ScanDiaSyn.
+In order to find dialect distance between sites, a dialect corpus that
+can be syntactically annotated is required.  The dialect corpus used
+in this dissertation is SweDiaSyn, the Swedish part of the ScanDiaSyn.
 SweDiaSyn is a transcription of SweDia 2000 \cite{bruce99}. SweDia
-2000 was collected
-between 1998 and 2000 from 97 locations in Sweden and 10 in
-Finland. Each location has 12 interviewees: three 30-minute interviews
-for each of older male, older female, younger male and younger female.
-However, the SweDiaSyn transcriptions do not yet include all of SweDia
-2000; the completed transcriptions currently focus on older
-speakers.
+2000 was collected between 1998 and 2000 from 97 locations in Sweden
+and 10 in Finland. Each location has 12 interviewees: three 30-minute
+interviews for each of older male, older female, younger male and
+younger female.  However, the SweDiaSyn transcriptions do not yet
+include all of SweDia 2000; the completed transcriptions currently
+focus on older speakers.
 
 Currently there are 36,713 sentences of transcribed speech
 from 49 sites, an average of 749 sentences per site.
@@ -1049,8 +1052,7 @@ site. The sites range from 301 to 1,144 sentences.
 \subsection{Talbanken}
 \label{syntactically-annotated-training}
 
-Because the first question requires a syntactically annotated
-corpus, and because SweDiaSyn consists of unannotated lexical items only,
+Because SweDiaSyn consists of unannotated lexical items only,
 Talbanken05, a syntactically-annotated corpus, is used to train
 the automatic annotators which in turn annotate SweDiaSyn. Talbanken05
 is a treebank of written and transcribed spoken Swedish, roughly
@@ -1081,7 +1083,7 @@ allows the features to be extracted for use by the distance measure.
 
 Before annotation, the SweDiaSyn sentences are cleaned in order to
 improve the output of the parsers.  Cleaning the sentences consists of
-removing stop words and mumbles, as well as restarts, which are marked
+removing restarts, stops, and mumbled words, which are all marked
 in the transcription.
 
 \subsubsection{Tags `n' Trigrams}
@@ -1103,7 +1105,7 @@ parser has shown good performance on languages other than English,
 which is not common for constituency parsers \cite{petrov07}.
 % Note: petrov 06 is a actually a lot better at explaining this.
 
-The Berkeley parser learns a latent annotations, which means that it learns
+The Berkeley parser learns latent annotations, which means that it learns
 grammars from training data by assuming that the training gives a
 coarser picture than the true grammar, but one that is also too
 specialized to the observed sentences. For example, it may start with
@@ -1129,76 +1131,48 @@ language, it achieves this by relying on a machine learner to choose
 the correct option at points where multiple options exist. The machine
 learner is either a memory-based learner or a support vector machine
 trained on a history-based model. This model uses the internal state
-of the parser while as features for training.
+of the parser as features for training.
 
 \section{Output Analysis}
 \label{output-analysis}
 After a distance measure has been defined for the interview sites
 within the dialect corpus (see above, section \ref{nerbonne06}) and
 syntactic features have been extracted (\ref{syntactic-features}), the
-results must tested for significance (\ref{permutationtest}). The
+results must be tested for significance (\ref{permutationtest}). The
 significant results must be analyzed by clustering
-(\ref{cluster-analysis}), multi-dimensional scaling (\ref{mds}) and
-principal components analysis (\ref{pca}) to determine which dialect
-regions are found by the distance measure. Finally, the most highly
-ranked features used to produce the dialect distances must be
-enumerated (\ref{feature-ranking}).
+(\ref{cluster-analysis}) and multi-dimensional scaling (\ref{mds}) to
+determine which dialect regions are found by the distance
+measure. Finally, the most highly ranked features used to produce the
+dialect distances must be enumerated (\ref{feature-ranking}).
 
 \subsection{Permutation test}
 \label{permutationtest}
 
-However, to find out if the value of $R$ is significant, we
-must use a permutation test with a Monte Carlo technique described by
-\namecite{good95}, following
-closely the same usage by \namecite{nerbonne06}. The intuition behind
-the technique is to compare the $R$ of the two corpora with the $R$ of
-two random subsets of the combined corpora. If the random subsets' $R$s
-are greater than the $R$ of the two actual corpora more than $p$ percent
-of the time, then we can reject the null hypothesis that the two were
-are actually drawn from the same corpus: that is, we can assume that
-the two corpora are different.
+To find out if a dialect distance value is significant as measured, a
+permutation test with a Monte Carlo technique described by
+\namecite{good95} is required, following closely the same usage by
+\namecite{nerbonne06}. The intuition behind the technique is to
+compare the distance between two sites with the distance between two
+random subsets of the shuffled, combined sites. This shuffling and
+subsets is repeated multiple times. If the random subsets' distance is
+less than the distance of the two actual sites more than $p$ percent
+of the time, then we can reject the null hypothesis that the two sites
+were are actually drawn from the same dialect: that is, we can assume
+that the two sites are different. The reason is that the distance
+should be larger between the samples of the original corpora than the
+distance between the random subsets: any real differences will be
+randomly redistributed between both subsets by the shuffling
+process.
 
-The first hypothesis requires that the distances produced by a
-distance measure be checked for significance; it is possible that
-there may not be enough data for two regions to adequately distinguish
-them from each other. A permutation test detects whether two corpora are
-significantly different on the basis of the $R$ measure
-described in section \ref{nerbonne06}. The test first calculates $R$
-between samples of the two corpora. Then the corpora are mixed
-together and $R$ is calculated between two samples drawn from the
-mixed corpus. If the two corpora are different, $R$ should be larger
-between the samples of the original corpora than $R$ from the mixed
-corpus: any real differences will be randomly redistributed by the
-mixing process, lowering the mixed $R$. Repeating this comparison
-enough times will show if the difference is significant. Twenty times
-is the minimum needed to detect significance for $p < 0.05$
-significance; however, I repeat the test 100
-times, enough to detect significance for $p < 0.01$.
-
-To see how this works, for example, assume that $R$ detects real
-differences between the two British regions London
-and Scotland such that $R(\textrm{London},\textrm{Scotland}) =
-100$. The permutation test then mixes London and Scotland to
-create LSMixed and splits it into two pieces. Since the real
-differences are now mixed between the two shuffled corpora, we
-would expect $R(\textrm{LSMixed}_1, \textrm{LSMixed}_2) < 100$.
-This should be true at least 95\% of the time for the distance $100$
-to be significant.
-
-%% I don't think normalization is important enough to mention if I
-%% have to add all the sections from the H2/H3.
-% \subsection{Normalization}
-% Afterward, the distance must be normalized to account for two things:
-% the length of sentences in the corpus and the amount of variety in the
-% corpus. If sentence length differs too much between corpora, there
-% will be consistently lower token counts in one corpus, which would
-% cause a spuriously large $R$. In addition, if one corpus has less
-% variety than the other, it will have inflated type counts, because
-% more tokens will be allocated to fewer types. To avoid
-% this, all tokens are scaled by the average number of types per token
-% across both corpora: $2n/N$ where $n$ is the type count and $N$ is
-% the token count. The factor $2$ is necessary because the scaling
-% occurs based on the token counts of the two corpora combined.
+To see how this works, for example, assume that the distance between
+the two British regions London and Scotland is some value such as
+100. The permutation test then shuffles London and Scotland to create
+a combined site ``LSMixed'' and splits it into two random sites. Since the
+real differences between London and Scotland are now mixed between the
+two random subset, we would expect the distance between these two
+subsets to be less than 100. This should be true at least 95\% of the
+time for the distance $100$ to be significant according to the normal
+threshold of significance, $p < 0.05$, in the social sciences.
 
 % this next subsection might need to be changed or deleted
 \subsection{Cluster Analysis}
@@ -1256,7 +1230,7 @@ determine what is a cluster and what is not.
 With hierarchical clustering defined, ``bottom-up'' now needs a
 definition. As in any tree-building problem, the two obvious ways one
 can build a tree are top-down and bottom-up. Bottom-up clustering
-works in the following way. First, each speaker is put into its own
+works in the following way. First, each site is put into its own
 group. Then the algorithm determines the distance between each pair of
 groups. The closest two groups are merged into a single group and the
 process is repeated until a single root group is created. This process
@@ -1560,9 +1534,9 @@ turning them into distances.
 \end{table}
 
 \begin{figure}
-  \includegraphics[width=0.4\textwidth]{Sverigekarta-Landskap-mds-dep}
-  \label{mds-dep}
-  \caption{Example of MDS on Swediasyn}
+  \includegraphics[scale=0.4]{Sverigekarta-mds-1-1000-js-trigram-ratio}
+ \caption{Swedia, Multi-Dimensional Scaling of Trigrams measured by
+    Jensen-Shannon divergence}
 \end{figure}
 
 Kruskal calls this measure of distortion Stress.  An initial stress is
@@ -1571,101 +1545,95 @@ each dissimilarity would have to change in order for all to satisfy
 the triangle inequality. This initial stress is reduced by a process
 of gradient descent as described in \cite{kruskal64b}.
 
-\subsubsection{Principal Components Analysis}
-\label{pca}
-
-Principal Components Analysis (PCA) is useful in conjunction with MDS
-because the 3 (or so) dimensions that MDS produces can be correlated
-with features. Since the features correlated with the first few dimensions are
-the most important, they can be used when comparing with dialectology
-results.
-
-Each comparison between sites constitutes a new dimension because, for
-example, the dissimilarity between site A and B is not comparable to
-the dissimilarity between site B and C. This is because
-dissimilarities are not distances---they don't satisfy the triangle
-inequality. PCA allows us to reduce the number of dimensions to
-something that can be visualized, as well as telling us which
-dimensions contributed the most to the composite dimensions (the
-principal components).
-
-TODO: Research this and get the details of the math.
-
 \subsection{Correlation}
 
-Correlation is interesting on two levels. First, it is useful to find
-out how well the results from various measures and feature sets
-correlate. Second, it is useful to find out how well the results agree
-with outside authorities. In particular, correlation with geographical
-distance is strong circumstantial evidence that a distance measure is
-doing its job. However, comparison to other work on the same corpus,
-such as phonological dialectometry \cite{leinonen08}, is also
-informative since it is possible that phonological distance matches
-syntactic distance.
+Correlation is useful on two levels. First, correlation between
+dialect distance and other measures provides an idea of how well
+dialect distance agrees with these other measures. Although
+traditional dialectology measures are do not provide numeric distances
+to correlate with syntactic dialect distance, other distances, such as
+geographic distance, travel distance, and phonological dialect
+distance do. These correlations provide circumstantial evidence that
+the distances are valid. Second, it is interesting to measure
+correlation between varying combinations of feature set and distance
+measure. Disparate combinations may end up by producing distances that
+correlate highly.
 
-TODO: Also explain what kinds of things I actually
-correlate:geographic distance and travel distance, which I get from
-Bing maps, and corpus size.
+For geographic and travel distance, distances were obtained from Bing
+Maps. Travel distance is not guaranteed to be completely accurate, but
+even so should correlate more highly with dialect distance than
+straight-line geographic distance. Still, travel
+distance was defined in terms of Sweden's roads and ferries in
+2010. This may differ from the travel distances over the time period
+for which dialect usage was strongest.  \namecite{gooskens04a}
+estimates Norwegian travel times for 1900; a similar estimate for
+Sweden would probably give even higher correlation.
 
-However, the significance from Pearson's $R$, the usual measure of
-correlation, is overestimated for inter-region distances because of
-the way that all regions connect to all other regions. A large part of
-the significance found by Pearson's $R$ would arise from the massively
-overlapping information in the distances between fully connected
-regions. Mantel's test provides tests Pearson's $R$ for significance
-between inter-connected sites \cite{mantel67}. Mantel's test is much like
-the permutation test for significance described above.  It first finds
-the correlation between two sets of distances.  One distance result
-set is permuted repeatedly and at each step correlated with the other
-set. The original correlation is significant if the permuted
-correlation is lower than the original correlation more than 95\% of
-the time.
 
+\begin{equation}
+  r_{ab} = \frac{\sum^n_{i=1}(a_i - \bar{a})(b_i - \bar{b})}
+  {\sqrt{\sum^n_{i=1}(a_i - \bar{a})^2}
+    \sqrt{\sum^n_{i=1}(b_i - \bar{b})^2}}
+  \label{pearsons-r}
+\end{equation}
+
+Correlation uses Pearson's $r$, which is defined in equation
+\ref{pearsons-r} \cite{aron06}. Pearson's $r$ takes two vectors,
+called $a$ and $b$ here. In the equation, $\bar{a}$ and $\bar{b}$ are
+the averages of $a$ and $b$ respectively.  Like distance itself,
+correlation must be checked for significance. Mantel's test provides
+tests Pearson's $r$ for significance between inter-connected sites
+\cite{mantel67}. Mantel's test is much like the permutation test for
+significance described above.  It first finds the correlation between
+two sets of distances.  One distance result set is permuted repeatedly
+and at each step correlated with the other set. The original
+correlation is significant if the permuted correlation is lower than
+the original correlation more than 95\% of the time.
 
 \subsection{Feature Ranking}
 \label{feature-ranking}
 
-Feature ranking is needed to compare the results of $R$ qualitatively
-to the Swedish dialectology literature; $R$'s most important features
+Feature ranking is needed to compare distances qualitatively
+to the Swedish dialectology literature; the most important features
 should be similar to those discussed most by dialectologists when
 comparing regions. Without feature ranking of some kind, there is no
 way to relate the quantitative distances between regions with the
-features that contribute most to the distances.
+features that contribute most to those distances.
 
-A simple feature ranking for $R$ is easy for
-one-to-one region comparisons; each feature's normalized weight is
+A simple feature ranking for distance is easy for
+one-to-one site comparisons; each feature's normalized weight is
 equal to its importance in determining the distance between the two
-regions. See figure \ref{feature-ranking-1-1}: features that appear
-more often in one region of the compared pair are negative, while features
-that appear more often in the other region are positive. In the
-example, the bigram AB-AJ occurs more often in the left-hand-region,
-while NN-VB and PN-VB occur more often in the right-hand-region. This
+sites. See figure \ref{feature-ranking-1-1}: features that appear
+more often in one site of the compared pair are negative, while features
+that appear more often in the other site are positive. In the
+example, the bigram AB-AJ occurs more often in the left-hand-site,
+while NN-VB and PN-VB occur more often in the right-hand-site. This
 is the same as the first step of $R$ and $R^2$: $R$ then takes the
 absolute value of this difference and $R^2$ takes the square.
 
 \begin{figure}
   \includegraphics[scale=0.8]{feature-ranking-1-1}
-  \label{feature-ranking-1-1}
   \caption{Feature-ranking 1:1}
+  \label{feature-ranking-1-1}
 \end{figure}
 
-Features can be ranked between a single region and multiple regions by
+Features can be ranked between a single site and multiple site by
 averaging. For example, in figure \ref{feature-ranking-1-many}, the
-binary comparison between the left-hand region and each of the three
-right-hand regions produces three sets of features. The features can
+binary comparison between the left-hand site and each of the three
+right-hand sites produces three sets of features. The features can
 be combined by averaging the score for each feature type. NN-VB's
 averaged score would be $50 + 20 + 80 / 3 = 50$, for example.
 
 \begin{figure}
   \includegraphics[scale=0.8]{feature-ranking-1-many}
+ \caption{Feature-ranking 1:Many}
   \label{feature-ranking-1-many}
-  \caption{Feature-ranking 1:Many}
 \end{figure}
 
-This average can be extended to compare two sets of regions. As can be
+This average can be extended to compare two sets of sites. As can be
 seen in figure \ref{feature-ranking-many-many}, each feature on the
 right-hand side is no longer a single number, but an average of the
-comparison against each region on the left-hand side. Therefore, in
+comparison against each sites on the left-hand side. Therefore, in
 this example, NN-VB's overall average score is
 
 \[ \bigg(\frac{50+30}{2} + \frac{20+30}{2} + \frac{80+30}{2}\bigg) / 3 =
@@ -1673,64 +1641,81 @@ this example, NN-VB's overall average score is
 
 \begin{figure}
   \includegraphics[scale=0.8]{feature-ranking-many-many}
-  \label{feature-ranking-many-many}
   \caption{Feature-ranking Many:Many}
+  \label{feature-ranking-many-many}
 \end{figure}
 
 \subsubsection{Wiersma's Measure of Feature Overuse}
 
 \namecite{wiersma09} uses a method similar to the one described above,
 but with an additional normalization intended to show which features
-are used relatively more in one or the other of the two regions to be
+are used relatively more in one or the other of the two sites to be
 compared. This normalization is similar to the optional second
 normalization: it also removes the effect of frequency. However, this
 normalization removes the effect of frequency from the difference
-of the two regions, whereas the second removes it from the distance
-between two regions. Both normalizations are similar in being of
+of the two sites, whereas the second removes it from the distance
+between two sites. Both normalizations are similar in being of
 limited value for the noisier data, automatically annotated. However,
 the results could improve if the data are sufficiently clean.
 % But how can we know?!
 
 The normalization centers the two counts around 1.0 by dividing each count
-by the average count, scaled by the total size of the corpora. The equation
-for a feature $i$ with paired counts $c_{ai}$ and $c_{bi}$ is given in
-equation \ref{overuse-norm} for corpus $a$. There,
-$N_a$ and $N_b$ are the sizes of the corpora $a$ and $b$, and $N$
-is the combined size of the two corpora.
+by the average count, scaled by the total size of the two sites. The equation
+for a feature $i$ with paired counts $a_i$ and $b_i$ is given in
+equation \ref{overuse-norm} for site $a$. There,
+$N_a$ and $N_b$ are the sizes of the sites $a$ and $b$, and $N$
+is the combined size of the two sites.
 
 \begin{equation}
-  o_{ai} = c_{ai} / \frac{(c_{ai} + c_{bi})N_a}{N_a + N_b}
+  o_{ai} = a_i / \frac{(a_i + b_i)N_a}{N_a + N_b}
   \label{overuse-norm}
 \end{equation}
 
-The equation can be simplified slightly; equations of this form for both corpus $a$
-and $b$ are given in equation \ref{overuse-norm-simple}.
+The equation can be simplified slightly; equations of this form for
+both sites $a$ and $b$ are given in equation
+\ref{overuse-norm-simple}.
 
 \begin{equation}
-  o_{ai} = \frac{c_{ai}(N_a + N_b)}{(c_{ai} + c_{bi})N_a} \textrm{  and  }
-  o_{bi} = \frac{c_{bi}(N_a + N_b)}{(c_{ai} + c_{bi})N_b}
+  o_{ai} = \frac{a_i(N_a + N_b)}{(a_i + b_i)N_a} \textrm{  and  }
+  o_{bi} = \frac{b_i(N_a + N_b)}{(a_i + b_i)N_b}
   \label{overuse-norm-simple}
 \end{equation}
 
 For example, the previous one-to-one example shows that NN-VB occurs
-20 more times in corpus $b$ than in $a$. Let this arise from the
-counts $c_{a\textrm{NN-VB}} = 10$ and $c_{b\textrm{NN-VB}}=30$. Also
-let the corpus sizes for $a$ and $b$ be $N_a = 40$ and $N_b = 100$
+20 more times in site $b$ than in $a$. Let this arise from the
+counts $a_{\textrm{NN-VB}} = 10$ and $b_{\textrm{NN-VB}}=30$. Also
+let the site sizes for $a$ and $b$ be $N_a = 40$ and $N_b = 100$
 respectively. For the overuse-normalized numbers, this gives
 \[o_{a\textrm{NN-VB}} = \frac{10(100+40)}{(10+30)40} = 1400 / 1600 =
 0.875\] and \[o_{a\textrm{NN-VB}} = \frac{30(100+40)}{(10+30)100} = 4200
 / 4000 = 1.05\]
 
 With the frequencies turned into ratios of overuse, it is possible to
-see that the additional 20 occurrences in corpus $b$ are not that
+see that the additional 20 occurrences in site $b$ are not that
 important; they only give $o_{b\textrm{NN-VB}}$ a value of
 1.05. Unlike frequencies, identical overuses occur between pairs
 of the same ratio rather than the same difference. In other words,
-$c_{ai}=2,c_{bi}=12$ gives the same overuse, $o_{b}=1.2$, as
-$c_{aj}=10,c_{bj}=60$, because in both cases
-$c_{b}=6c_{a}$. In contrast, frequency comparison gives a difference
-of $c_{bi} - c_{ai} = 10$ and $c_{bj} - c_{aj} = 50$, making the
+$a_i=2,b_i=12$ gives the same overuse, $o_{b}=1.2$, as
+$a_j=10,b_j=60$, because in both cases
+$b=6a$. In contrast, frequency comparison gives a difference
+of $b_i - a_i = 10$ and $b_j - a_j = 50$, making the
 second difference much more important.
+
+\section{Conclusion}
+
+Besides giving an overview of the previous work, this chapter covered
+the methods used in this dissertation, which fall into three
+categories: distance measure methods, methods for processing dialect
+corpora to be used with a distance measure, and methods for processing
+distances to be compared with dialectology results. The last two,
+while not the focus of the research, are complex, partly because of
+the dissimilarity between the required inputs and outputs and partly
+because dialectology presents its results in many forms, meaning that
+many methods are required to produce comparable forms from
+dialectometry distances.  The results, in chapter
+\ref{results-chapter}, mirror the order of the last two sections, with
+the bulk devoted to the output processing that produces maps that are
+comparable to dialectology.
 
 %%% Local Variables: 
 %%% mode: latex

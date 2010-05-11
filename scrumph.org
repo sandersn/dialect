@@ -895,6 +895,10 @@
      trigrams are better here because of the annotation error, my work
      from English shows that with manual annotation leaf-ancestors
      have a small advantage.
+** 2010/05/11
+   - Demi yaya
+   - I guess this is the day that the draft is technically due. I
+     thought it was tomorrow. Hmf.
 * Plan
 ** January
 *** Get results
