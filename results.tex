@@ -25,10 +25,10 @@ of statistical syntactic dialectometry: whether or not significant
 results can be found.
 
 Next, the specific dialectological results are examined. First,
-cluster dendrograms provide a visualization of which regions the
+cluster dendrograms provide a visualization of which sites the
 distance measures find to be similar. In addition, to improve the
 reliability of the dendrograms, consensus trees and composite cluster
-maps are produced. Next, multi-dimensional scaling gives an smoother
+maps are produced. Next, multi-dimensional scaling gives a smoother
 view of similarity than clusters. Finally, features are ranked and
 extracted from each cluster in the consensus tree.
 
@@ -95,7 +95,7 @@ table \ref{corpus-size}.
      Jamshog &  301 &   8661 & Viby &  431 &   6734\\
      K\"ola &  528 &   10133 & Villberga &  680 &   11479\\
 \end{tabular}
-  \caption{Corpus Size of Interview Sites}
+  \caption{Size of Interview Sites}
   \label{corpus-size}
 \end{table}
 
@@ -105,7 +105,7 @@ Significant distances help answer the question whether a syntactic
 measure has succeeded in finding reliable distances. The measures
 should have zero non-significant distances, or at least a small
 number. In the tables, the total number of comparisons between all 30
-regions is the $435=30(30-1) / 2$. In the first set,
+sites is the $435=30(30-1) / 2$. In the first set,
 tables \ref{sig-1-1000} -- \ref{sig-1-full}, the results are shown
 from one iteration of the normalization step. In the second set,
 tables \ref{sig-5-1000} -- \ref{sig-5-full}, the results
@@ -113,7 +113,7 @@ from five normalization iterations are shown.
 
 Bold numbers in the tables indicate that more than 5\% of the
 distances were not significant. In table \ref{sig-5-full}, the
-5-iteration table that compares full corpora, the only combination
+5-iteration table that compares full sites, the only combination
 with {\it less} than 5\% non-significant results is cosine
 dissimilarity with unigram features, marked with italics. Note that
 here, 5\% is an arbitrary cutoff point not related to the usual
@@ -153,7 +153,7 @@ themselves number of significant distances found.
   Leaf-Arc Labels&14&19&\textbf{37}&\textbf{94}&17 \\
   All Features Combined&0&0&1&8&2 \\
 \end{tabular}
- \caption{Number of significant distances for complete regions, 1
+ \caption{Number of significant distances for complete sites, 1
    normalization}
  \label{sig-1-full}
 \end{table}
@@ -189,7 +189,7 @@ themselves number of significant distances found.
   Leaf-Arc Labels&\textbf{294} & \textbf{290} & \textbf{291} & \textbf{293} & \textbf{162}\\
   All Features Combined&\textbf{279} & \textbf{279} & \textbf{279} & \textbf{269} & \textbf{191}\\
 \end{tabular}
- \caption{Number of significant distances for complete regions, 5
+ \caption{Number of significant distances for complete sites, 5
    normalizations}
  \label{sig-5-full}
 \end{table}
@@ -200,22 +200,22 @@ themselves number of significant distances found.
 Analysis of the significance of dialect distance provides a measure of
 how reliable the distances to be analyzed later in this chapter are. A
 distance that does not find significant distances between of 30
-regions is not suitable for precise inspection, although small numbers
+sites is not suitable for precise inspection, although small numbers
 of non-significant distances will still allow methods to
 return interpretable results.
 
 The highest number of significant distances are found in the first
 case (figure \ref{sig-1-1000}): 1 round of normalization with a
-fixed-size sample of 1000 sentences. From there, both full-corpus
+fixed-size sample of 1000 sentences. From there, both full-site
 comparisons (figure \ref{sig-1-full}) and 5 rounds of normalization
 (figure \ref{sig-5-1000}) have fewer significant distances, although
 the number is still usable. However, the combination of the two, with
-5 rounds of normalization over full-corpus comparisons, has only one
+5 rounds of normalization over full-site comparisons, has only one
 combination with fewer than 5\% of distances that are {\it not}
-significant. Although both full-corpus comparisons and multiple rounds
+significant. Although both full-site comparisons and multiple rounds
 of normalization may increase the precision of the results, their
 combined effect on significance is so detrimental that its results are
-useless. For the rest of the analysis, the combination of full-corpus
+useless. For the rest of the analysis, the combination of full-site
 comparison and 5 rounds of normalization will be skipped.
 
 \subsubsection{Significance by Measure}
@@ -226,7 +226,7 @@ had different parameter settings for which it was stronger. For
 1000-sentence sampling, cosine similarity resulted in all significant
 distances, even for part-of-speech unigrams, which are intended as the
 baseline feature set. Excluding unigrams, Jensen-Shannon divergence
-has similar performance. For full-corpus comparisons, both perform
+has similar performance. For full-site comparisons, both perform
 considerably worse; surprisingly, both perform better on unigram
 features, Jensen-Shannon so much so that it's the only feature set for
 which it finds all significant distances. $R$, on the other hand,
@@ -243,10 +243,10 @@ dissimilarity. Recall that the divergence from point A to B may differ
 from the divergence from point B to A. A divergence like
 Kullback-Leibler can be converted to a dissimilarity by measuring
 $KL(A,B) + KL(B,A)$. However, this dissimilarity must skip features
-unique to a single corpus in order to avoid division by zero. This
-means that for smaller corpora Kullback-Leibler loses information that
+unique to a single site in order to avoid division by zero. This
+means that for smaller sites Kullback-Leibler loses information that
 Jensen-Shannon is able to use.  On the other hand, while this may
-explain Kullback-Leibler's improved performance for full-corpus
+explain Kullback-Leibler's improved performance for full-site
 comparisons, it doesn't explain Jensen-Shannon's much worse
 performance.
 
@@ -306,8 +306,8 @@ constituent analysis.
 It is disappointing linguistically that trigrams provide the most
 reliable results so far; a linguist would expect that including
 syntactic information would make it easier to measure the differences
-between regions. If it is, as hypothesized here, an effect of chaining
-machine annotators, a study using manually annotated corpora could
+between sites. If it is, as hypothesized here, an effect of chaining
+machine annotators, a study using a manually annotated corpus could
 detect this. However, it still means that trigrams are the most useful
 feature set from a practical view, because automatic trigram tagging
 is very close to human performance with little training. That means
@@ -365,12 +365,12 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&-0.01 & 0.03 & 0.02 & -0.02 & 0.08\\
   Trigram&0.17 & 0.17 & 0.10 & 0.19 & 0.13\\
-  Dependency&-0.06 & 0.03 & 0.00 & -0.07 & 0.05\\
+  Leaf-Head&-0.06 & 0.03 & 0.00 & -0.07 & 0.05\\
   Phrase-Structure Rules&0.01 & \textit{0.18*} & 0.16 & 0.01 & 0.12\\
   Phrase-Structure with Grandparents&0.03 & \textit{0.25*} & 0.21* & 0.03 & 0.12\\
   Unigram&\textit{0.18*} & 0.17 & \textit{0.29**} & \textit{0.30**} & \textit{0.18*}\\
   Dependencies, MaltParser trained by Timbl&-0.07 & 0.02 & -0.00 & -0.08 & 0.05\\
-  Dependency, Arc Labels&-0.07 & 0.06 & -0.06 & -0.09 & 0.00\\
+  Arc-Head&-0.07 & 0.06 & -0.06 & -0.09 & 0.00\\
   All Features Combined&-0.02 & 0.03 & 0.01 & -0.02 & 0.07\\
 \end{tabular}
  \caption{Geographic correlation for sample size 1000, 1 normalization iteration}
@@ -382,15 +382,15 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&0.02 & 0.09 & 0.11 & -0.00 & 0.09\\
   Trigram&\textit{0.27*} & \textit{0.26*} & \textit{0.30**} & 0.21* & 0.08\\
-  Dependency&-0.03 & 0.12 & 0.14 & -0.06 & 0.02\\
+  Leaf-Head&-0.03 & 0.12 & 0.14 & -0.06 & 0.02\\
   Phrase-Structure Rules&0.13 & \textit{0.36**} & 0.30** & 0.11 & \textit{0.20*}\\
   Phrase-Structure with Grandparents&0.15 & 0.41** & 0.36** & 0.14 & 0.19*\\
   Unigram&\textit{0.20*} & \textit{0.20*} & \textit{0.33**} & \textit{0.33**} & \textit{0.22*}\\
   Dependencies, MaltParser trained by Timbl&-0.02 & 0.14 & 0.16 & -0.05 & 0.02\\
-  Dependency, Arc Labels&-0.06 & 0.13 & -0.01 & -0.12 & -0.03\\
+  Arc-Head&-0.06 & 0.13 & -0.01 & -0.12 & -0.03\\
   All Features Combined&0.03 & 0.11 & 0.16 & -0.00 & 0.04\\
 \end{tabular}
- \caption{Geographic correlation for complete corpora, 1 normalization iteration}
+ \caption{Geographic correlation for complete sites, 1 normalization iteration}
  \label{cor-1-full}
 \end{table}
 
@@ -399,12 +399,12 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&0.14 & 0.14 & 0.16 & 0.15 & 0.08\\
   Trigram&\textit{0.22*} & 0.17 & \textit{0.22*} & \textit{0.22*} & 0.16\\
-  Dependency&0.10 & 0.11 & 0.15 & 0.12 & 0.10\\
+  Leaf-Head&0.10 & 0.11 & 0.15 & 0.12 & 0.10\\
   Phrase-Structure Rules&0.14 & 0.10 & 0.14 & 0.15 & 0.06\\
   Phrase-Structure with Grandparents&0.16 & 0.14 & 0.14 & 0.15 & 0.05\\
   Unigram&0.12 & 0.11 & 0.14 & 0.13 & 0.17\\
   Dependencies, MaltParser trained by Timbl&0.09 & 0.12 & 0.16 & 0.11 & 0.11\\
-  Dependency, Arc Labels&0.08 & 0.10 & 0.14 & 0.10 & 0.09\\
+  Arc-Head&0.08 & 0.10 & 0.14 & 0.10 & 0.09\\
   All Features Combined&0.19 & 0.16 & \textit{0.20*} & \textit{0.21*} & 0.11\\
 \end{tabular}
  \caption{Geographic correlation for sample size 1000, 5
@@ -417,15 +417,15 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&-0.14 & -0.16 & -0.15 & -0.15 & -0.08\\
   Trigram&-0.09 & -0.07 & -0.09 & -0.09 & -0.09\\
-  Dependency&-0.22 & -0.21 & -0.18 & -0.22 & -0.10\\
+  Leaf-Head&-0.22 & -0.21 & -0.18 & -0.22 & -0.10\\
   Phrase-Structure Rules&-0.19 & -0.14 & -0.11 & -0.20 & -0.01\\
   Phrase-Structure with Grandparents&-0.17 & -0.11 & -0.09 & -0.18 & -0.02\\
   Unigram&-0.10 & -0.06 & -0.07 & -0.08 & 0.14\\
   Dependencies, MaltParser trained by Timbl&-0.19 & -0.18 & -0.18 & -0.19 & -0.10\\
-  Dependency, Arc Labels&-0.21 & -0.18 & -0.18 & -0.21 & -0.10\\
+  Arc-Head&-0.21 & -0.18 & -0.18 & -0.21 & -0.10\\
   All Features Combined&-0.18 & -0.18 & -0.16 & -0.18 & -0.09\\
 \end{tabular}
- \caption{Geographic correlation for complete corpora, 5 normalizations}
+ \caption{Geographic correlation for complete sites, 5 normalizations}
  \label{cor-5-full}
 \end{table}
 
@@ -434,12 +434,12 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&-0.03 & 0.02 & 0.01 & -0.04 & 0.07\\
   Trigram&0.20 & 0.19 & 0.11 & \textit{0.23*} & 0.14\\
-  Dependency&-0.07 & 0.01 & -0.01 & -0.08 & 0.05\\
+  Leaf-Head&-0.07 & 0.01 & -0.01 & -0.08 & 0.05\\
   Phrase-Structure Rules&0.01 & \textit{0.18*} & 0.17 & 0.00 & 0.14\\
   Phrase-Structure with Grandparents&0.03 & \textit{0.26*} & 0.22* & 0.03 & 0.15\\
   Unigram&\textit{0.20*} & \textit{0.19*} & \textit{0.30**} & \textit{0.31**} & \textit{0.21*}\\
   Dependencies, MaltParser trained by Timbl&-0.08 & 0.02 & -0.01 & -0.09 & 0.05\\
-  Dependency, Arc Labels&-0.08 & 0.05 & -0.06 & -0.10 & 0.00\\
+  Arc-Head&-0.08 & 0.05 & -0.06 & -0.10 & 0.00\\
   All Features Combined&-0.03 & 0.03 & 0.01 & -0.03 & 0.06\\
 \end{tabular}
  \caption{Travel correlation for sample size 1000, 1 normalization iteration}
@@ -451,15 +451,15 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&0.02 & 0.08 & 0.11 & 0.00 & 0.08\\
   Trigram&\textit{0.31*} & \textit{0.28*} & \textit{0.32**} & 0.26* & 0.09\\
-  Dependency&-0.02 & 0.12 & 0.13 & -0.05 & 0.01\\
+  Leaf-Head&-0.02 & 0.12 & 0.13 & -0.05 & 0.01\\
   Phrase-Structure Rules&0.15 & \textit{0.37**} & 0.32** & 0.13 & \textit{0.22*}\\
   Phrase-Structure with Grandparents&0.17 & 0.43** & 0.38** & 0.16 & 0.22*\\
   Unigram&\textit{0.22*} & \textit{0.22*} & \textit{0.33**} & \textit{0.34**} & \textit{0.24*}\\
   Dependencies, MaltParser trained by Timbl&-0.01 & 0.14 & 0.17 & -0.04 & 0.02\\
-  Dependency, Arc Labels&-0.06 & 0.12 & -0.02 & -0.12 & -0.03\\
+  Arc-Head&-0.06 & 0.12 & -0.02 & -0.12 & -0.03\\
   All Features Combined&0.04 & 0.10 & 0.16 & 0.01 & 0.04\\
 \end{tabular}
- \caption{Travel correlation for complete corpora, 1 normalization iteration}
+ \caption{Travel correlation for complete sites, 1 normalization iteration}
  \label{travel-cor-1-full}
 \end{table}
 
@@ -468,12 +468,12 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&0.17 & 0.19* & 0.17* & 0.18 & 0.07\\
   Trigram&\textit{0.24*} & \textit{0.20*} & \textit{0.25*} & \textit{0.26*} & 0.16\\
-  Dependency&0.14 & 0.16 & 0.17 & 0.15 & 0.10\\
+  Leaf-Head&0.14 & 0.16 & 0.17 & 0.15 & 0.10\\
   Phrase-Structure Rules&0.17 & 0.14 & 0.16* & 0.18 & 0.06\\
   Phrase-Structure with Grandparents&0.19 & \textit{0.18*} & 0.17* & 0.19 & 0.06\\
   Unigram&0.15 & 0.13 & \textit{0.17*} & 0.16 & \textit{0.20*}\\
   Dependencies, MaltParser trained by Timbl&0.12 & 0.16 & 0.18 & 0.14 & 0.11\\
-  Dependency, Arc Labels&0.09 & 0.13 & 0.14 & 0.11 & 0.08\\
+  Arc-Head&0.09 & 0.13 & 0.14 & 0.11 & 0.08\\
   All Features Combined&\textit{0.23*} & \textit{0.20*} & \textit{0.22*} & \textit{0.24*} & 0.11\\
 \end{tabular}
  \caption{Travel correlation for sample size 1000, 5 normalizations}
@@ -485,22 +485,22 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&-0.13 & -0.13 & -0.10 & -0.13 & -0.04\\
   Trigram&-0.06 & -0.04 & -0.05 & -0.06 & -0.05\\
-  Dependency&-0.20 & -0.17 & -0.13 & -0.19 & -0.06\\
+  Leaf-Head&-0.20 & -0.17 & -0.13 & -0.19 & -0.06\\
   Phrase-Structure Rules&-0.15 & -0.08 & -0.05 & -0.15 & 0.04\\
   Phrase-Structure with Grandparents&-0.12 & -0.05 & -0.03 & -0.13 & 0.03\\
   Unigram&-0.07 & -0.03 & -0.04 & -0.05 & \textit{0.18*}\\
   Dependencies, MaltParser trained by Timbl&-0.18 & -0.15 & -0.12 & -0.18 & -0.05\\
-  Dependency, Arc Labels&-0.20 & -0.17 & -0.14 & -0.19 & -0.06\\
+  Arc-Head&-0.20 & -0.17 & -0.14 & -0.19 & -0.06\\
   All Features Combined&-0.16 & -0.14 & -0.11 & -0.15 & -0.05\\
 \end{tabular}
- \caption{Travel correlation for complete corpora, 5 normalizations}
+ \caption{Travel correlation for complete sites, 5 normalizations}
  \label{travel-cor-5-full}
 \end{table}
 
 From the tables we see that parameter settings that correlate
 significantly do so at rates around 0.2 to 0.3, with a high of 0.37
 for phrase-structure-rule features measured by $R^2$, 1 normalization
-iteration and comparison of full corpora.  The significant
+iteration and comparison of full sites.  The significant
 correlations are mostly concentrated in the trigram, unigram and
 combined feature sets.
 
@@ -522,7 +522,7 @@ the significant correlations based on phrase-structure rules are not valid.
 
 It is worthwhile to note, however, that the valid and significant
 correlations based on phrase-structure grammars give the highest
-correlations: 0.37 for $R^2$ with full-corpus comparisons and 1 round
+correlations: 0.37 for $R^2$ with full-site comparisons and 1 round
 of normalization.
 The addition of more data and more normalization is interesting in
 expanding the correlating parameter settings beyond those that include
@@ -537,7 +537,7 @@ the data, at the cost of additional interference from noisy data.
 \subsection{Inter-measure Correlation}
 
 Correlation between measures simply indicates that they are using
-similar information from the corpus to do their classification. This
+similar information to do their classification. This
 is expected since most measures are quite similar. The one that
 differs the most, cosine similarity, also correlates the least with
 the others. The average correlation between different measures is
@@ -573,25 +573,25 @@ an undesired defect in sampling or normalization. Correlation with
 corpus size is presented in tables \ref{size-cor-1-1000} --
 \ref{size-cor-5-full}.
 
-Corpus size between two regions can be measured in two different ways:
-either by the sum of the regions' sizes, or by the difference. Here
+Corpus size between two sites can be measured in two different ways:
+either by the sum of the sites' sizes, or by the difference. Here
 the sum is used: a larger sum means more tokens. If there is a
 correlation with size, it must arise because higher token counts are
-not properly normalized. In other words, two large regions will
+not properly normalized. In other words, two large sites will
 have more tokens, leading to higher type counts, which directly leads
-to higher distances. Smaller regions will lead to lower distances.
+to higher distances. Smaller sites will lead to lower distances.
 
 \begin{table}
 \begin{tabular}{l|rrrrr}
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&-0.38 & -0.26 & -0.37 & -0.40 & -0.37\\
   Trigram&0.12 & -0.12 & -0.16 & 0.14 & -0.18\\
-  Dependency&-0.39 & -0.26 & -0.35 & -0.43 & -0.39\\
+  Leaf-Head&-0.39 & -0.26 & -0.35 & -0.43 & -0.39\\
   Phrase-Structure Rules&0.06 & 0.15 & 0.00 & 0.03 & -0.10\\
   Phrase-Structure with Grandparents&0.08 & 0.19 & 0.07 & 0.04 & -0.09\\
   Unigram&-0.08 & -0.14 & -0.09 & -0.09 & -0.10\\
   Dependencies, MaltParser trained by Timbl&-0.35 & -0.23 & -0.28 & -0.37 & -0.37\\
-  Dependency, Arc Labels&-0.44 & -0.26 & -0.40 & -0.48 & -0.34\\
+  Arc-Head&-0.44 & -0.26 & -0.40 & -0.48 & -0.34\\
   All Features Combined&-0.37 & -0.26 & -0.38 & -0.42 & -0.40\\
 \end{tabular}
 \caption{Size correlation for sample size 1000, 1 normalization}
@@ -603,15 +603,15 @@ to higher distances. Smaller regions will lead to lower distances.
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&-0.19 & -0.15 & -0.16 & -0.24 & -0.36\\
   Trigram&\textit{0.30*} & 0.08 & 0.19 & 0.08 & -0.39\\
-  Dependency&-0.17 & -0.06 & -0.08 & -0.26 & -0.41\\
+  Leaf-Head&-0.17 & -0.06 & -0.08 & -0.26 & -0.41\\
   Phrase-Structure Rules&0.52** & \textit{0.40**} & 0.30* & 0.47** & -0.21\\
   Phrase-Structure with Grandparents&0.54** & 0.43** & 0.37** & 0.50** & -0.22\\
   Unigram&-0.09 & -0.13 & -0.11 & -0.13 & -0.13\\
   Dependencies, MaltParser trained by Timbl&-0.08 & 0.02 & 0.09 & -0.14 & -0.39\\
-  Dependency, Arc Labels&-0.32 & -0.16 & -0.26 & -0.40 & -0.35\\
+  Arc-Head&-0.32 & -0.16 & -0.26 & -0.40 & -0.35\\
   All Features Combined&-0.15 & -0.11 & -0.10 & -0.25 & -0.42\\
 \end{tabular}
-\caption{Size correlation for complete corpora, 1 normalization}
+\caption{Size correlation for complete sites, 1 normalization}
 \label{size-cor-1-full}
 \end{table}
 
@@ -620,12 +620,12 @@ to higher distances. Smaller regions will lead to lower distances.
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&\textit{0.35*} & 0.36** & 0.06 & 0.27 & -0.32\\
   Trigram&\textit{0.75**} & \textit{0.63**} & \textit{0.46**} & \textit{0.68**} & -0.24\\
-  Dependency&\textit{0.46**} & \textit{0.44**} & 0.14 & \textit{0.38**} & -0.33\\
+  Leaf-Head&\textit{0.46**} & \textit{0.44**} & 0.14 & \textit{0.38**} & -0.33\\
   Phrase-Structure Rules&\textit{0.85**} & \textit{0.59**} & 0.36** & \textit{0.85**} & -0.34\\
   Phrase-Structure with Grandparents&\textit{0.88**} & \textit{0.66**} & 0.40** & \textit{0.88**} & -0.36\\
   Unigram&0.38** & 0.35** & 0.14 & 0.19 & -0.04\\
   Dependencies, MaltParser trained by Timbl&\textit{0.44**} & \textit{0.41**} & 0.16 & \textit{0.39*} & -0.30\\
-  Dependency, Arc Labels&0.20 & 0.28* & -0.00 & 0.09 & -0.28\\
+  Arc-Head&0.20 & 0.28* & -0.00 & 0.09 & -0.28\\
   All Features Combined&\textit{0.58**} & \textit{0.48**} & 0.21 & \textit{0.47**} & -0.31\\
 \end{tabular}
  \caption{Size correlation for sample size 1000, 5 normalizations}
@@ -637,15 +637,15 @@ to higher distances. Smaller regions will lead to lower distances.
 & $R$ & $R^2$ & KL & JS & cos  \\ \hline
   Leaf-Ancestor&-0.55 & -0.38 & -0.26 & -0.53 & -0.17\\
   Trigram&-0.29 & -0.27 & -0.19 & -0.26 & -0.14\\
-  Dependency&-0.61 & -0.43 & -0.27 & -0.58 & -0.18\\
+  Leaf-Head&-0.61 & -0.43 & -0.27 & -0.58 & -0.18\\
   Phrase-Structure Rules&-0.21 & -0.08 & -0.04 & -0.22 & -0.14\\
   Phrase-Structure with Grandparents&-0.24 & -0.08 & -0.03 & -0.26 & -0.14\\
   Unigram&-0.38 & -0.25 & -0.30 & -0.32 & -0.08\\
   Dependencies, MaltParser trained by Timbl&-0.52 & -0.33 & -0.20 & -0.51 & -0.15\\
-  Dependency, Arc Labels&-0.59 & -0.45 & -0.33 & -0.54 & -0.20\\
+  Arc-Head&-0.59 & -0.45 & -0.33 & -0.54 & -0.20\\
   All Features Combined&-0.61 & -0.44 & -0.26 & -0.55 & -0.18\\
 \end{tabular}
-\caption{Size correlation for complete corpora, 5 normalizations}
+\caption{Size correlation for complete sites, 5 normalizations}
 \label{size-cor-5-full}
 \end{table}
 
@@ -691,19 +691,19 @@ more highly. This is not the case.
 
 % TODO: I also should write this up when I have time
 Alternatively, it is possible that the fixed-size sampling method is not doing its
-job in eliminating size differences between corpora. Future work
+job in eliminating size differences between interview sites. Future work
 should develop a method for normalizing a comparison between two full
-corpora. It should avoid sampling, but also take the relative number
+sites. It should avoid sampling, but also take the relative number
 of sentences into account. It is not difficult to come up
 with a simple method to do so, but it needs some checking to make sure
 that the method is valid.
 
 \section{Clusters}
 
-Cluster dendrograms provide a visualization of which regions the
+Cluster dendrograms provide a visualization of which sites the
 distance measures find to be similar.  Clusters answer the question of
 whether $R$ is useful for dialectometry more precisely than correlation by
-inducing grouping regions. These groups can be compared to
+grouping sites. These groups can be compared to
 regions proposed by syntactic dialectology.
 
 Within the same settings for sampling and number of normalization
@@ -735,7 +735,7 @@ differ from their 5-normalized equivalents, figures
 \begin{figure}
   \includegraphics[width=0.9\textwidth]{dist-1-full-r_sq-psg-ratio-clusterward}
  \caption{Dendrogram With $R^2$ measure and phrase-structure-rule features,
- 1 normalization, complete corpora}
+ 1 normalization, complete sites}
   \label{cluster-1-r_sq-psg}
 \end{figure}
 
@@ -755,11 +755,11 @@ differ from their 5-normalized equivalents, figures
 
 The highest correlation of 1-normalized distances with travel
 distance, 0.37, is given by $R^2$ measured over phrase-structure-rule
-features, comparing full corpora. Those parameter settings produce the
+features, comparing full sites. Those parameter settings produce the
 dendrogram in figure \ref{cluster-1-r_sq-psg}. The highest
 correlation of 5-normalized distances with travel distance, 0.26, is
 given by the Jensen-Shannon measure and trigram features, comparing
-1000-sentence samples of corpora. Its dendrogram is in figure
+1000-sentence samples of sites. Its dendrogram is in figure
 \ref{cluster-5-js-trigram}.
 
 Unlike the significances, cosine similarity's dendrograms are fairly
@@ -783,7 +783,7 @@ in distances cause large re-arrangements in the tree. Only dendrograms
 whose input distances were at least 95\% significant were used. That is, a
 measure/feature set combination had to be non-bold in tables
 \ref{sig-1-1000} to \ref{sig-5-full} to be included. The consensus
-tree for full-corpora comparisons and 5 rounds of normalization is not
+tree for full-site comparisons and 5 rounds of normalization is not
 given because there is only one dendrogram that qualifies.
 
 In addition, more dendrograms were used to build
@@ -818,7 +818,7 @@ generated by the L04 package from the University of Groningen.
 %   [. {Sproge\\Faro}  ]
 %   [. {Jamshog\\Bredsatra}  ]
 %   [. {Floby\\Bengtsfors}  ] ]
-\caption{Consensus Tree for full corpus comparison and 1 normalization}
+\caption{Consensus Tree for full site comparison and 1 normalization}
 \label{consensus-1-full}
 \end{figure}
 
@@ -837,7 +837,7 @@ generated by the L04 package from the University of Groningen.
 
 \begin{figure}
 \includegraphics[scale=0.85]{Sverigekarta-Landskap-consensus-1-full}
-\caption{Consensus Tree for full corpus comparison and 1 normalization, Mapped}
+\caption{Consensus Tree for full site comparison and 1 normalization, Mapped}
 \label{map-consensus-1-full}
 \end{figure}
 
@@ -875,7 +875,7 @@ The cluster dendrograms are dangerous
 to interpret too closely on their own; the instability of a single
 dendrogram means that small clusters cannot be analyzed reliably. For
 example, in figure \ref{cluster-5-r-trigram}, a two-way split
-between the regions on the top and bottom of the page is
+between the sites on the top and bottom of the page is
 obvious, and a three-way split is easy to argue for, but outliers like
 Anundsj\"o and \.Arsunda are likely to shift from group to group in
 other dendrograms.
@@ -887,11 +887,11 @@ cutoff for splitting clusters is. The three consensus trees in figures
 detail but share most details.
 
 For 1000-sentence samples and 1 round of normalization, there is one
-cluster: Floby and Bengtsfors. Full-corpus comparison finds
+cluster: Floby and Bengtsfors. Full-site comparison finds
 another cluster: J\"amshog, \"Ossj\"o and Tors\.as. Finally,
 1000-sentence samples and 5 rounds of normalization finds another
 cluster consisting of L\"oderup and Breds\"atra. It also finds
-a large two-way split between the regions and adds Sproge to the first
+a large two-way split between the sites and adds Sproge to the first
 cluster with Floby and Bengtsfors. To aid further analysis, the
 clusters are assigned colors, which are detailed in figures
 \ref{blue-cluster} -- \ref{orange-cluster}. 
@@ -990,8 +990,8 @@ simply as ``non-Stockholm''.
 Composite cluster maps use an underlying technique similar to
 consensus trees--cluster dendrograms, but they combine and present the
 information in a very different way. They, too, provide a stabler view
-of the groups that regions form when clustered. This view, however,
-emphasizes the boundaries between regions. The result looks
+of the groups that sites form when clustered. This view, however,
+emphasizes the boundaries between sites. The result looks
 much more like the traditional isogloss boundaries of
 dialectology.
 
@@ -1009,13 +1009,13 @@ only or ratio added as well).
 
 \begin{figure}
 \includegraphics[scale=0.82]{Sverigekarta-cluster-1-full}
-\caption{Composite Cluster Map for complete corpora, 1 normalization}
+\caption{Composite Cluster Map for complete sites, 1 normalization}
 \label{map-composite-1-full}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.82]{Sverigekarta-cluster-5-1000}
-\caption{Composite Cluster Map for complete corpora, 5 normalizations}
+\caption{Composite Cluster Map for complete sites, 5 normalizations}
 \label{map-composite-5-1000}
 \end{figure}
 
@@ -1063,7 +1063,7 @@ so strong.
   membership in a single group. This also means that MDS maps are more
   stable than dendrograms.  Also, because of the way that the
   3-dimensional points map to colors, the maps vary. However, they
-  are still comparable: if two regions are blue in one map and both
+  are still comparable: if two sites are blue in one map and both
   are orange in another, then they have the same relation to each
   other.
 \end{sloppypar}
@@ -1091,14 +1091,14 @@ composite clusters for the cluster dendrograms.
 
 \begin{figure}
 \includegraphics[scale=0.82]{Sverigekarta-mds-1-full-r-trigram-ratio}
-\caption{$R$ measure with trigram features, full-corpus comparison and
+\caption{$R$ measure with trigram features, full-site comparison and
   1 round of normalization}
 \label{mds-1-full-r-trigram}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.82]{Sverigekarta-mds-1-full-r_sq-psg-ratio}
-\caption{$R^2$ measure with phrase-structure-rule features, full-corpus comparison and
+\caption{$R^2$ measure with phrase-structure-rule features, full-site comparison and
   1 round of normalization}
 \label{mds-1-full-r_sq-psg}
 \end{figure}
@@ -1147,8 +1147,8 @@ Malm\"o.
 Ranked features answer the question of agreement with dialectology
 more precisely than the previous two sections. Feature ranking has two
 advantages in precision: first, it can reveal aggregate differences that may
-not be noticeable without counting a large corpus; second, it can
-point out rare features that only occur in one kind of corpus. The
+not be noticeable without counting a large amount of data; second, it can
+point out rare features that only occur in one site. The
 first kind of features are unlikely to be noticed by linguists without
 the aid of computers, whereas the second kind are the rare features
 that are easy for linguists to notice.
@@ -1165,9 +1165,9 @@ features happen only a few times in one side of the comparison and not
 at all in the other. This is closer to a traditional linguistic
 analysis.
 
-In addition, only features that appear in both groups were ranked;
-although features that only appear in one or the other can be
-interesting, they tend to be noisy in features extracted from
+In addition, only features that appear in both groups being compared
+were ranked; although features that only appear in one or the other
+can be interesting, they tend to be noisy in features extracted from
 automatically annotated corpora. It is not possible to tell which
 unique features are interesting and which are noise, especially when
 using the overuse normalization, which makes rarely occurring features
@@ -1178,7 +1178,7 @@ based on 1 round of normalization (figures \ref{consensus-1-1000} and
 \ref{consensus-1-full}) as well as the consensus tree based on 5
 rounds of normalization and a 1000-sentence sample (figure
 \ref{consensus-5-1000}. The consensus tree for 5 rounds or
-normalization and full-corpus comparisons only had one tree for input
+normalization and full-site comparisons only had one tree for input
 and was not usable. Given these three consensus trees, the groups in
 table \ref{feature-ranking-clusters} are the relevant ones for analysis.
 
@@ -1227,7 +1227,7 @@ higher values than the five negative features.
 
 
 The first subsection, \ref{feature-ranking-complete}, shows all
-comparisons between regions for a single parameter setting: trigram
+comparisons between clusters for a single parameter setting: trigram
 features, 1000-sentence sampling and sentence-size normalization
 only. Besides unigrams, these are the parameters that give the highest
 correlation with travel distance for 1000-sentence sampling.
@@ -1469,7 +1469,7 @@ sentences are generally more complex than the general sites in cluster D.
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-dep-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features}
+  \caption{cluster A $\Leftrightarrow$ cluster B, leaf-head features}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-over}
@@ -1487,12 +1487,12 @@ sentences are generally more complex than the general sites in cluster D.
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-redep-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features,
+  \caption{cluster A $\Leftrightarrow$ cluster B, leaf-head features,
 MaltParser trained by Timbl}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-deparc-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, dependency features
+  \caption{cluster A $\Leftrightarrow$ cluster B, leaf-head features
     with arc labels}
 \end{figure}
 \begin{figure}

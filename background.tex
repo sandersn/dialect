@@ -193,10 +193,10 @@ distance problem. Given a large corpus, manually defined features will
 have less coverage than the automatically extracted features used by
 the second, statistical approach. Furthermore, automatically extracted
 features are easy to define for syntax.  This dissertation covers
-part-of-speech trigrams, leaf-ancestor paths, and dependency paths
+part-of-speech trigrams, leaf-ancestor paths, and leaf-head paths
 over nodes, but many variations on these features are possible, such
-as lexical trigrams, lexicalized leaf-ancestor paths, or dependency
-paths over dependency arc labels. Methods from other syntactic work in
+as lexical trigrams, lexicalized leaf-ancestor paths, or arc-head
+paths. Methods from other syntactic work in
 computational linguistics could apply too: supertags \cite{joshi94},
 convolution kernels \cite{collins01} or any number of simpler features
 such as tree height, number of nodes, or number of words.
@@ -238,7 +238,7 @@ the nine Government Office Regions of England, using the International
 Corpus of English Great Britain \cite{nelson02}. Speakers were classified by
 birthplace. I also introduced Sampson's leaf-ancestor paths as
 a feature set \cite{sampson00}. I found statistically
-significant differences between most corpora, using both trigrams and
+significant differences between most regions, using both trigrams and
 leaf-ancestor paths as features. However, $R$'s distances were not
 significantly correlated with Levenshtein distances. Nor did I
 show any qualitative similarities between known syntactic dialect

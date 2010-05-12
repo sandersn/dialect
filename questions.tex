@@ -1,9 +1,5 @@
 \chapter{Questions}
 \label{questions-chapter}
-% TODO: rewrite to avoid overuse of important.
-% TODO: rewrite to avoid overuse of $R$. Say "statistical method" or
-% something
-
 % along with
 % various kinds of backoff, for example, to bigrams or coarser node
 % tags.
@@ -49,7 +45,7 @@ quickly.
 % on average, each committee meeting results in 2.1 new feature sets
 % being proposed, and only 0.7 new distance measures.
 In this dissertation, I evaluate several feature sets besides POS trigrams and
-leaf-ancestor paths, such as phrase structure rules, dependency paths,
+leaf-ancestor paths, such as phrase structure rules, leaf-head paths,
 and lexical trigrams. I also evaluate variants of these feature sets,
 for example varying the POS tagger or POS tag set. I also evaluate
 combined feature sets.
@@ -57,8 +53,9 @@ combined feature sets.
 Feature sets can be evaluated by comparing performance of different
 feature sets on a fixed corpus and with a fixed distance
 measure. Here, performance is measured using the same criteria as for
-distance measures: the number of significant distances between regions
-and the similarity of the results to those found by dialectologists.
+distance measures: the number of significant distances between
+interview sites and the similarity of the results to those found by
+dialectologists.
 
 Besides feature sets, this dissertation evaluates a number of measures
 beyond the $R$ of previous work, such as Kullbeck-Leibler divergence
@@ -174,13 +171,13 @@ phrase-structure skeleton, his analysis provides enough clues to
 produce some features directly. Trigrams are easiest; he mentions that
 his corpus search used the strings {\it det \"ar som} (``It is that'')
 and {\it det \"ar bara som} ``It's just that''. These words only need
-part-of-speech annotation to be trigram features. Dependency
+part-of-speech annotation to be trigram features. Leaf-head
 paths can also use these parts of speech for the local dependencies
 between {\it det,\"ar} and {\it som}. Rosenkvist also mentions
 some syntactic properties of apparent clefts that are useful for
-specifying dependency path features: the subject of the {\it
+specifying leaf-head path features: the subject of the {\it
   som}-clause must be a pronoun, so we should expect to see
-dependency paths of the form {\it ROOT-som-PRON} in the regions that
+leaf-head paths of the form {\it ROOT-som-PRON} in the regions that
 have the apparent cleft.
 
 Once dialectometric features have been specified from some linguistic
@@ -227,7 +224,7 @@ a region.
 
 In contrast, multi-dimensional scaling (MDS) is a mathematical
 transformation of the high-dimensional space created by measuring
-distances between all regions in the corpus; see figure
+distances between all sites in the corpus; see figure
 \ref{mds-example-small} for an example. Although MDS does not produce
 spurious information, its results are often hard to analyze because it
 produces boundaries of varying strength. Very different regions stand
@@ -361,7 +358,7 @@ dependency graph to each word, dividing the information according to
 the word's position in the sentence. Trigrams attach the leaves to
 each word, along with the leaves to the left and right.
 Leaf-ancestor paths attach vertical slices of the tree to each
-word. Dependency paths attach the path to the root to each word.
+word. Leaf-head paths attach the path to the root to each word.
 
 Feature sets that use other information might also be useful;
 convolution kernels give a single number that captures the difference
@@ -376,7 +373,7 @@ certain number of words surrounding the predicate, or sentence length.
 Even before looking at results, it seems that each of these has its
 own advantages and disadvantages. Leaf-ancestor paths capture upper
 structure of the constituent parse, but no left and right
-context. Dependency paths capture some of the sentence structure, but
+context. Leaf-head paths capture some of the sentence structure, but
 some of the surrounding context as well. Trigrams capture only
 immediate left-right context, but include word order information. They
 are also less influenced by annotator error since they require only

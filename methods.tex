@@ -489,7 +489,7 @@ with dialectology, a distance measure such as $R$ needs features that
 capture the dialect syntax of the interview corpus given as
 input. Following \namecite{nerbonne06}, I start with parts of speech,
 then add the leaf-ancestor paths from my work on the ICE-GB
-\cite{sanders07}, and finally add dependency-ancestor paths and
+\cite{sanders07}, and finally add leaf-head paths and
 phrase-structure rules, as well as variants on these features. These
 feature sets each depend on a different type of automatic annotation,
 which is described in section \ref{parsers}.
@@ -737,7 +737,7 @@ first leaf-head path for ``The dog barks'', which has the parts of
 speech ``Det N V''. However, one can
 also use the arc labels of the dependency parse to create arc-head
 paths. These paths have the same shape as their corresponding
-leaf-head-paths, but use the labels of the dependency arcs between
+leaf-head paths, but use the labels of the dependency arcs between
 words instead of the parts of speech of the words themselves.
 
 The sentence for the leaf-head example is given in figure
@@ -839,12 +839,12 @@ feature set differently based on its reliability.
 
 Volk used an a priori reliability measure for ranking
 quality of combined feature types; I use number of significant
-region differences for ranking: the top-ranked feature set will be
+site differences for ranking: the top-ranked feature set will be
 the one that produces the highest number of significant distances
-between regions. So, if a feature set finds significant differences
-between 90 out of 100 regions, its weight will be 0.90 and will be double
+between sites. So, if a feature set finds significant differences
+between 90 out of 100sites, its weight will be 0.90 and will be double
 the weight for a feature set that only finds significant differences
-between 45/100 regions.
+between 45/100 sites.
 
 % I don't think I'll do this (I probably won't even do the Volk thing
 % since it involves a lot of parameterisation in icecore.h.
@@ -1178,9 +1178,9 @@ threshold of significance, $p < 0.05$, in the social sciences.
 \subsection{Cluster Analysis}
 \label{cluster-analysis}
 The first hypothesis requires a clustering method to allow
-inter-region distances to be compared more easily. The dendrogram that
+inter-site distances to be compared more easily. The dendrogram that
 binary hierarchical clustering produces allows easy visual comparison
-of the most similar regions. An example is given in figure
+of the most similar sites. An example is given in figure
 \ref{example-dendrogram}.
 
 \begin{figure}
@@ -1189,7 +1189,7 @@ of the most similar regions. An example is given in figure
   \label{example-dendrogram}
 \end{figure}
 
-A clustering algorithm provides understanding of which regions group
+A clustering algorithm provides understanding of which sites group
 together. There are a variety of clustering algorithms, but
 hierarchical clustering is the most appropriate method for this
 problem because it does not specify the number of groups ahead of
@@ -1202,8 +1202,8 @@ be extracted by looking at which speakers share the same subtree, as
 well as looking for large differences in internal node heights connecting subtrees.
 
 The initial step for any clustering algorithm is to find distances
-between all pairs of regions as described above.
-These distances between all pairs of regions result in a set of
+between all pairs of sites as described above.
+These distances between all pairs of sites result in a set of
 high-dimensional spatial relationships. While they could be analyzed
 as such, such high-dimensional distances are difficult to
 visualize. The job of a clustering algorithm is to reduce
@@ -1280,9 +1280,9 @@ cluster merge to form a single tree (figure
 To find the two closest groups, \quotecite{ward63} method is used. At
 each merge step, this method evaluates every possible binary
 merge. Each merge is given a score that minimizes some objective
-function---for example, the average of distances between regions in
+function---for example, the average of distances between sites in
 the new group. The best merge replaces its children and the process
-repeats until a singly rooted tree is created. For $n$ regions, this
+repeats until a singly rooted tree is created. For $n$ sites, this
 takes $n-1$ iterations, because at each step, two groups are merged.
 
 \begin{table}
@@ -1298,7 +1298,7 @@ takes $n-1$ iterations, because at each step, two groups are merged.
 \end{table}
 
 For example, using the distances in table \ref{cluster-distances} for
-the five example regions, the first merge is trivial since each region
+the five example sites, the first merge is trivial since each site
 starts in its own singleton tree (figure \ref{ward-cluster-1}): the
 distance between A and B, 10, is the minimum and thus the best. This
 produces the forest in figure \ref{ward-cluster-2}.
@@ -1597,7 +1597,7 @@ Feature ranking is needed to compare distances qualitatively
 to the Swedish dialectology literature; the most important features
 should be similar to those discussed most by dialectologists when
 comparing regions. Without feature ranking of some kind, there is no
-way to relate the quantitative distances between regions with the
+way to relate the quantitative distances between sites with the
 features that contribute most to those distances.
 
 A simple feature ranking for distance is easy for
