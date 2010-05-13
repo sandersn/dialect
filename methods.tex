@@ -412,6 +412,7 @@ groups. Sampling per-speaker would not be feasible for the Swediasyn
 because there aren't enough speakers per village.
 
 \subsubsection{Normalization}
+\label{normalization}
 
 The two sites being compared can differ in size, even if the
 samples contain the same number of sentences; if one site contains many
@@ -675,6 +676,14 @@ explicitly.
 This section describes the variants besides the main feature sets
 already described above: trigrams, leaf-ancestor paths and leaf-head
 paths. Most are variants on these three main sets.
+
+\subsubsection{Part-of-Speech Unigrams}
+
+Part-of-speech unigrams are single parts of speech. Unlike POS
+trigrams, they do not capture context or order, only distributional
+differences. In this dissertation, they serve as a baseline since they
+are not expected to capture syntactic variation as much as the other
+feature sets.
 
 \subsubsection{Phrase Structure Rules}
 
@@ -1174,14 +1183,13 @@ subsets to be less than 100. This should be true at least 95\% of the
 time for the distance $100$ to be significant according to the normal
 threshold of significance, $p < 0.05$, in the social sciences.
 
-% this next subsection might need to be changed or deleted
 \subsection{Cluster Analysis}
 \label{cluster-analysis}
-The first hypothesis requires a clustering method to allow
-inter-site distances to be compared more easily. The dendrogram that
-binary hierarchical clustering produces allows easy visual comparison
-of the most similar sites. An example is given in figure
-\ref{example-dendrogram}.
+The first question, agreement with dialectology, requires a clustering
+method to allow inter-site distances to be compared more easily. The
+dendrogram that binary hierarchical clustering produces allows easy
+visual comparison of the most similar sites. An example is given in
+figure \ref{example-dendrogram}.
 
 \begin{figure}
   \Tree[. [. [. A B ] C ] [. D E ] ]
@@ -1646,11 +1654,12 @@ this example, NN-VB's overall average score is
 \end{figure}
 
 \subsubsection{Wiersma's Measure of Feature Overuse}
+\label{wiersma-normalization}
 
 \namecite{wiersma09} uses a method similar to the one described above,
 but with an additional normalization intended to show which features
 are used relatively more in one or the other of the two sites to be
-compared. This normalization is similar to the optional second
+compared. This normalization is similar to the second
 normalization: it also removes the effect of frequency. However, this
 normalization removes the effect of frequency from the difference
 of the two sites, whereas the second removes it from the distance

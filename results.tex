@@ -15,24 +15,30 @@ The organization of this chapter mirrors the order of the methods
 chapter, particularly the output analysis (section
 \ref{output-analysis}). First, there is an overview of the different
 parameter settings, the combinations of distance measure and feature
-set, as well as other settings. Then the number of significant
-distances for each parameter setting is given, which is followed by
-the correlation with geography and travel distance for each parameter
-setting. These sections focus mainly on detecting which settings do not
-produce valid results, so that they can be ignored in the rest of the
-chapter. At a high level, they answer the question of the suitability
-of statistical syntactic dialectometry: whether or not significant
-results can be found.
+set, as well as other settings (section
+\ref{section-parameter-settings}). Then the number of significant
+distances for each parameter setting is given (section
+\ref{section-significant}), which is followed by the correlation with
+geography and travel distance for each parameter setting (section
+\ref{section-correlation}). These sections focus mainly on detecting
+which settings do not produce valid results, so that they can be
+ignored in the rest of the chapter. At a high level, they answer the
+question of the suitability of statistical syntactic dialectometry:
+whether or not significant results can be found.
 
 Next, the specific dialectological results are examined. First,
 cluster dendrograms provide a visualization of which sites the
-distance measures find to be similar. In addition, to improve the
-reliability of the dendrograms, consensus trees and composite cluster
-maps are produced. Next, multi-dimensional scaling gives a smoother
-view of similarity than clusters. Finally, features are ranked and
-extracted from each cluster in the consensus tree.
+distance measures find to be similar (section
+\ref{section-clusters}). In addition, to improve the reliability of
+the dendrograms, consensus trees (section \ref{section-consensus}) and
+composite cluster maps are produced (section
+\ref{section-composite-cluster}). Next, multi-dimensional scaling
+gives a smoother view of similarity than clusters (section
+\ref{section-mds}). Finally, features are ranked and extracted from
+each cluster in the consensus tree (section \ref{section-features}).
 
 \section{Parameter Settings}
+\label{section-parameter-settings}
 
 There are 180 parameter settings investigated in this chapter. This
 number arises from the four parameters: measure, feature set, sampling
@@ -68,6 +74,7 @@ settings are given in table \ref{parameter-settings}.
   1 \\
   5 \\ \hline
 \end{tabular}
+\vspace{5mm}
 \caption{Settings for the five parameters tested}
 \label{parameter-settings}
 \end{table}
@@ -100,16 +107,18 @@ table \ref{corpus-size}.
 \end{table}
 
 \section{Significant Distances}
+\label{section-significant}
 
 Significant distances help answer the question whether a syntactic
-measure has succeeded in finding reliable distances. The measures
-should have zero non-significant distances, or at least a small
-number. In the tables, the total number of comparisons between all 30
-sites is the $435=30(30-1) / 2$. In the first set,
-tables \ref{sig-1-1000} -- \ref{sig-1-full}, the results are shown
-from one iteration of the normalization step. In the second set,
-tables \ref{sig-5-1000} -- \ref{sig-5-full}, the results
-from five normalization iterations are shown.
+measure has succeeded in finding reliable distances; the measure will
+always return some distance, but if the sites are too small, it may
+not be significant. Therefore the results should have few to no
+non-significant distances. In the tables, the total number of
+comparisons between all 30 sites is the $435=30(30-1) / 2$. In the
+first set, tables \ref{sig-1-1000} -- \ref{sig-1-full}, the results
+are shown from one iteration of the normalization step. In the second
+set, tables \ref{sig-5-1000} -- \ref{sig-5-full}, the results from
+five normalization iterations are shown.
 
 Bold numbers in the tables indicate that more than 5\% of the
 distances were not significant. In table \ref{sig-5-full}, the
@@ -205,10 +214,10 @@ of non-significant distances will still allow methods to
 return interpretable results.
 
 The highest number of significant distances are found in the first
-case (figure \ref{sig-1-1000}): 1 round of normalization with a
+case (table \ref{sig-1-1000}): 1 round of normalization with a
 fixed-size sample of 1000 sentences. From there, both full-site
-comparisons (figure \ref{sig-1-full}) and 5 rounds of normalization
-(figure \ref{sig-5-1000}) have fewer significant distances, although
+comparisons (table \ref{sig-1-full}) and 5 rounds of normalization
+(table \ref{sig-5-1000}) have fewer significant distances, although
 the number is still usable. However, the combination of the two, with
 5 rounds of normalization over full-site comparisons, has only one
 combination with fewer than 5\% of distances that are {\it not}
@@ -218,7 +227,7 @@ combined effect on significance is so detrimental that its results are
 useless. For the rest of the analysis, the combination of full-site
 comparison and 5 rounds of normalization will be skipped.
 
-\subsubsection{Significance by Measure}
+\subsection{Significance by Measure}
 
 The distance measures most likely to find significance are, in order,
 cosine dissimilarity, Jensen-Shannon divergence and $R$. Each method
@@ -228,7 +237,7 @@ distances, even for part-of-speech unigrams, which are intended as the
 baseline feature set. Excluding unigrams, Jensen-Shannon divergence
 has similar performance. For full-site comparisons, both perform
 considerably worse; surprisingly, both perform better on unigram
-features, Jensen-Shannon so much so that it's the only feature set for
+features, Jensen-Shannon so much so that it is the only feature set for
 which it finds all significant distances. $R$, on the other hand,
 performs decently on all combinations of parameter settings; its low
 significance for phrase structure rules is shared by Kullback-Leibler
@@ -250,7 +259,7 @@ explain Kullback-Leibler's improved performance for full-site
 comparisons, it doesn't explain Jensen-Shannon's much worse
 performance.
 
-\subsubsection{Significance by Feature Set}
+\subsection{Significance by Feature Set}
 
 % \item Unigrams do form an adequate baseline; they are bad but not too
 %   bad.
@@ -297,7 +306,7 @@ paths. As a result, the important leaf-head paths consist mainly of a
 couple of parts-of-speech.
 
 Another reason could be a difference in parsers: MaltParser has been
-tested before with Swedish (CITE). Besides English, the Berkeley
+tested on Swedish by its designers \cite{nivre06b}. Besides English, the Berkeley
 parser has been tested prominently on German and Chinese. Therefore,
 the difference would better be explained by appealing to the
 difference in parsers rather than an unsuitability of Swedish for
@@ -321,10 +330,11 @@ available information for finding significant distances.
 
 
 \section{Correlation}
+\label{section-correlation}
 
 In dialectology, the default expectation for dialect distance is that
 it correlates with geographic distance \cite{chambers98}. A lack of
-correlation does not necessarily mean that a measure is useless, but
+correlation does not necessarily mean that a measure is invalid, but
 presence of correlation means that the distance measure substantiates the
 well-known tendency of dialect distributions to be more or less
 smoothly gradient over physical space.
@@ -497,7 +507,7 @@ corpus size is presented in tables \ref{size-cor-1-1000} --
  \label{travel-cor-5-full}
 \end{table}
 
-From the tables we see that parameter settings that correlate
+From tables \ref{cor-1-1000} -- \ref{travel-cor-5-full} we see that parameter settings that correlate
 significantly do so at rates around 0.2 to 0.3, with a high of 0.37
 for phrase-structure-rule features measured by $R^2$, 1 normalization
 iteration and comparison of full sites.  The significant
@@ -507,14 +517,14 @@ combined feature sets.
 \subsection{Analysis}
 
 As with the number of significant distances, trigrams and unigrams are
-the most likely to to correlate with geographic and travel distance,
+the most likely to correlate with geographic and travel distance,
 as well as the combined feature set for the 5-normalization parameter
 setting.
 % As before, a possible explanation is that unigrams are
 % simpler, so the type count is a higher than for other measures. With
 % more rounds of normalization, more correlations shift over to
 % trigrams.
-Note that in figures \ref{cor-1-1000} --
+Note that in tables \ref{cor-1-1000} --
 \ref{travel-cor-5-full}, the significant correlations are marked with
 an asterisk, but only the italicized correlations are based on at
 least 95\% significant distances. For example, this means that most of
@@ -536,35 +546,39 @@ the data, at the cost of additional interference from noisy data.
 
 \subsection{Inter-measure Correlation}
 
-Correlation between measures simply indicates that they are using
-similar information to do their classification. This
-is expected since most measures are quite similar. The one that
-differs the most, cosine similarity, also correlates the least with
-the others. The average correlation between different measures is
-given in table \ref{self-correlation-measures}. The correlations are
-averaged over the correlations for all combinations of feature set
-with 1000-sentence samples and with non-significant correlations
-removed before averaging.
+Correlation between measures indicates that they produce similar
+results. It also suggests that they use similar information to do
+so. For example, cosine similarity correlates the least with the
+others, which means that its results are the least like the
+others. It also implies that cosine similarity uses information from
+input features differently than the other measures.
+
+The average correlation between different measures is given in table
+\ref{self-correlation-measures}. The correlations are averaged over
+the correlations for all combinations of feature set with
+1000-sentence samples and with non-significant correlations removed
+before averaging.
 
 \begin{table}
   \begin{tabular}{r|cccc}
- & $R^2$ & $KL$ & $JS$ & cos \\ \hline
-  $R$ & 0.85 & 0.85 & 0.98 & 0.39\\
-  $R^2$&& 0.90 & 0.83 & 0.57\\
-  $KL$ &&& 0.88 & 0.67\\
-  $JS$ &&&& 0.44
-\end{tabular}
-\caption{Average Inter-measure-correlation of measures}
- \label{self-correlation-measures}
+    & $R^2$ & $KL$ & $JS$ & cos \\ \hline
+    $R$ & 0.85 & 0.85 & 0.98 & 0.39\\
+    $R^2$&& 0.90 & 0.83 & 0.57\\
+    $KL$ &&& 0.88 & 0.67\\
+    $JS$ &&&& 0.44
+  \end{tabular}
+  \caption{Average Inter-measure-correlation of measures}
+  \label{self-correlation-measures}
 \end{table}
 
-The inter-measure correlation mostly says what is visible from the
-significance testing and correlations. $R$ and Jensen-Shannon produce
-nearly identical results, and correlate highly. Cosine similarity is
-quite different from the other measures, though the correlation is
-still higher than with travel distance. This makes some sense in that
-the cosine at the heart of cosine similarity differs more from the
-sums of absolute values and logarithms of other measures.
+The inter-measure correlation is essentially a reflection of the
+results from the significance testing and correlations. $R$ and
+Jensen-Shannon produce nearly identical results, and also correlate
+highly. Cosine similarity is quite different from the other measures,
+though the correlation is still higher than with travel distance. This
+is expected insofar as the cosine operation at the heart of cosine similarity
+differs more from the sums of absolute values or logarithms of other
+measures.
 
 \subsection{Correlation with Corpus Size}
 
@@ -664,10 +678,10 @@ is not a predicted as a side effect of the way dialect distance is
 measured. The fact that travel distance also correlates with corpus
 size at a rate of 0.32 confuses the issue further. Is corpus size the
 determining variable? Or is there an unknown variable influencing all
-three? Some possibilities are ``interviewer boundaries'', common in
-corpora collected by multiple people \cite{chambers98}, or perhaps the
-interviewers got better over time and collected longer interviews as
-they moved throughout the country, or perhaps cultural differences
+three? One possibility is ``interviewer boundaries'', common in
+corpora collected by multiple people \cite{nerbonne03}.  Perhaps a
+single interviewer improved with practice and collected longer interviews as
+the interview collection progressed. Or perhaps cultural differences
 between the interviewer and interviewees caused some participants in
 one area to talk more than in another area.
 
@@ -690,40 +704,62 @@ then the distances from full-corpus comparisons should correlate even
 more highly. This is not the case.
 
 % TODO: I also should write this up when I have time
-Alternatively, it is possible that the fixed-size sampling method is not doing its
-job in eliminating size differences between interview sites. Future work
+Alternatively, it is possible that the fixed-size sampling method is not
+properly eliminating size differences between interview sites. Future work
 should develop a method for normalizing a comparison between two full
 sites. It should avoid sampling, but also take the relative number
-of sentences into account. It is not difficult to come up
-with a simple method to do so, but it needs some checking to make sure
-that the method is valid.
+of sentences into account.
 
 \section{Clusters}
+\label{section-clusters}
 
 Cluster dendrograms provide a visualization of which sites the
-distance measures find to be similar.  Clusters answer the question of
-whether $R$ is useful for dialectometry more precisely than correlation by
-grouping sites. These groups can be compared to
+distance measures find most similar. They are formed in a bottom-up
+manner, repeatedly merging the two most similar groups at each step
+until only one group remains. The resulting dendrogram usually has
+obvious sub-trees which can be treated clusters. By grouping sites
+into clusters, cluster dendrograms allow closer comparison to
+dialectology than correlation. These clusters can be compared to the
 regions proposed by syntactic dialectology.
 
-Within the same settings for sampling and number of normalization
-iterations, the clusters based on sentence-length normalization alone are fairly
-similar, regardless of measure and feature set. Changing the sampling
-settings or the number of normalizations substantial reconfiguration.
+The first two dendrograms in this section hold feature set, measure,
+and sample size constant at trigrams, Jensen-Shannon, and
+1000-sentence samples, respectively. Then they vary the amount of
+normalization: figure \ref{cluster-1-js-trigram} has 1 normalization
+round, while figure \ref{cluster-5-js-trigram} has 5. These two examples
+were chosen because of their high numbers of significant
+distances and correlation with travel distance; the highest
+correlation of 5-normalized distances with travel distance, 0.26, is
+with the Jensen-Shannon measure and trigram features in figure
+\ref{cluster-5-js-trigram}.
 
-For example, the clusters produced by $R$ (figure
-\ref{cluster-1-r-trigram}) and Jensen-Shannon divergence are fairly
-similar (figure \ref{cluster-1-js-trigram}). Both are based on trigram
-features with sentence-length normalization only. Those dendrograms
-differ from their 5-normalized equivalents, figures
-\ref{cluster-5-r-trigram} and \ref{cluster-5-js-trigram}.
+The third figure, figure \ref{cluster-1-r_sq-psg}, gives the dendrogram
+for the parameter settings with the highest travel distance
+correlation, phrase-structure rules, 1 normalization, 1000-sentence
+samples, and $R^2$ measure. The highest correlation of 1-normalized
+distances with travel distance, 0.37, is given by $R^2$ measured over
+phrase-structure-rule features, comparing full sites. Those parameter
+settings produce the dendrogram in figure
+\ref{cluster-1-r_sq-psg}.
 
-\begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-1-1000-r-trigram-ratio-clusterward}
- \caption{Dendrogram With $R$
-    measure and trigram features, 1 normalization, 1000 samples}
-  \label{cluster-1-r-trigram}
-\end{figure}
+% Within the same settings for sampling and number of normalization
+% iterations, the clusters based on sentence-length normalization alone are fairly
+% similar, regardless of measure and feature set. Changing the sampling
+% settings or the number of normalizations substantial reconfiguration.
+
+% For example, the clusters produced by $R$ (figure
+% \ref{cluster-1-r-trigram}) and Jensen-Shannon divergence are fairly
+% similar (figure \ref{cluster-1-js-trigram}). Both are based on trigram
+% features with sentence-length normalization only. Those dendrograms
+% differ from their 5-normalized equivalents, figures
+% \ref{cluster-5-r-trigram} and \ref{cluster-5-js-trigram}.
+
+% \begin{figure}
+%   \includegraphics[width=0.9\textwidth]{dist-1-1000-r-trigram-ratio-clusterward}
+%  \caption{Dendrogram With $R$
+%     measure and trigram features, 1 normalization, 1000 samples}
+%   \label{cluster-1-r-trigram}
+% \end{figure}
 
 \begin{figure}
   \includegraphics[width=0.9\textwidth]{dist-1-1000-js-trigram-ratio-clusterward}
@@ -733,6 +769,14 @@ differ from their 5-normalized equivalents, figures
 \end{figure}
 
 \begin{figure}
+  \includegraphics[width=0.9\textwidth]{dist-5-1000-js-trigram-ratio-clusterward}
+ \caption{Dendrogram With Jensen-Shannon
+    measure and trigram features, 5 normalizations, 1000 samples}
+  \label{cluster-5-js-trigram}
+\end{figure}
+
+
+\begin{figure}
   \includegraphics[width=0.9\textwidth]{dist-1-full-r_sq-psg-ratio-clusterward}
  \caption{Dendrogram With $R^2$ measure and phrase-structure-rule features,
  1 normalization, complete sites}
@@ -740,32 +784,24 @@ differ from their 5-normalized equivalents, figures
 \end{figure}
 
 
-\begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-5-1000-r-trigram-ratio-clusterward}
- \caption{Dendrogram With $R$ measure and trigram features, 5 normalizations, 1000 samples}
-  \label{cluster-5-r-trigram}
-\end{figure}
+% \begin{figure}
+%   \includegraphics[width=0.9\textwidth]{dist-5-1000-r-trigram-ratio-clusterward}
+%  \caption{Dendrogram With $R$ measure and trigram features, 5 normalizations, 1000 samples}
+%   \label{cluster-5-r-trigram}
+% \end{figure}
 
-\begin{figure}
-  \includegraphics[width=0.9\textwidth]{dist-5-1000-js-trigram-ratio-clusterward}
- \caption{Dendrogram With Jensen-Shannon
-    measure and trigram features, 5 normalizations, 1000 samples}
-  \label{cluster-5-js-trigram}
-\end{figure}
-
-The highest correlation of 1-normalized distances with travel
-distance, 0.37, is given by $R^2$ measured over phrase-structure-rule
-features, comparing full sites. Those parameter settings produce the
-dendrogram in figure \ref{cluster-1-r_sq-psg}. The highest
-correlation of 5-normalized distances with travel distance, 0.26, is
-given by the Jensen-Shannon measure and trigram features, comparing
-1000-sentence samples of sites. Its dendrogram is in figure
-\ref{cluster-5-js-trigram}.
 
 Unlike the significances, cosine similarity's dendrograms are fairly
 similar to those of other features. See for example figure
 \ref{cluster-5-cos-trigram}, with cosine, trigram features and
 5 iterations of normalization.
+
+However, it is difficult to judge the amount of agreement between
+these individual dendrograms. These figures are mostly given as
+examples rather than for in-depth comparison. Instead of manually
+comparing each to the dialect regions of Sweden, a better option is to
+aggregrate them automatically into a single dendrogram, retaining only
+the clusters that agree. This is a consensus tree.
 
 \begin{figure}
  \includegraphics[width=0.9\textwidth]{dist-5-1000-cos-trigram-ratio-clusterward}
@@ -776,17 +812,22 @@ similar to those of other features. See for example figure
 
 
 \subsection{Consensus Trees}
+\label{section-consensus}
 
-Consensus trees combine the results of cluster dendrograms, which
-avoids the dendrograms' problem of instability, where small changes
-in distances cause large re-arrangements in the tree. Only dendrograms
-whose input distances were at least 95\% significant were used. That is, a
+Consensus trees combine the results of cluster dendrograms, retaining
+only clusters that occur in the majority of dendrograms. When
+dendrograms have high agreement, the resulting consensus tree will
+retain most of the detail. When dendrograms have low agreement, the
+resulting consensus tree will be fairly flat.  This avoids the
+dendrograms' problem of instability, where small changes in distances
+cause large re-arrangements in the tree. Only dendrograms whose input
+distances were at least 95\% significant were used. That is, a
 measure/feature set combination had to be non-bold in tables
 \ref{sig-1-1000} to \ref{sig-5-full} to be included. The consensus
 tree for full-site comparisons and 5 rounds of normalization is not
 given because there is only one dendrogram that qualifies.
 
-In addition, more dendrograms were used to build
+It's worthwhile to note that more dendrograms were used to build
 the consensus tree of figure \ref{consensus-5-1000} than were used in
 figures \ref{consensus-1-1000} and \ref{consensus-1-full}. Despite this, figure
 \ref{consensus-5-1000} retains much more detail, indicating that its
@@ -795,11 +836,11 @@ agree more than those with only 1 round of normalization.
 
 The consensus trees are also grouped into clusters, which are then
 mapped in figures \ref{map-consensus-1-1000} --
-\ref{map-consensus-5-1000}. The maps of Sweden were provided by
-Therese Leinonen and are the same those in \namecite{leinonen08}.  The
-outline maps are used by permission of Therese Leinonen. The
-multi-dimensional scaling and composite cluster maps were both
-generated by the L04 package from the University of Groningen.
+\ref{map-consensus-5-1000}. The outline map of Sweden were provided by
+Therese Leinonen and are the same as those in \namecite{leinonen08}. The
+L04 package from the University of Groningen was used to map the
+consensus trees onto the map of Sweden; the multi-dimensional scaling
+maps and composite cluster maps also used L04.
 % TODO: CITE this, I think it's a Pieter Kliuweeg paper
 
 
@@ -853,7 +894,7 @@ generated by the L04 package from the University of Groningen.
 
 % TODO: Try these two again, excluding cosine. Because I believe cosine sucks
 % or at least is a Rogue Element.
-% Later: Probably not worth it.
+% Later: I think I tried this and not much difference.
 
 % Just the ratio ones that are significantly correlated with travel
 % distance.
@@ -871,20 +912,20 @@ generated by the L04 package from the University of Groningen.
 
 \subsubsection{Analysis}
 
-The cluster dendrograms are dangerous
-to interpret too closely on their own; the instability of a single
-dendrogram means that small clusters cannot be analyzed reliably. For
-example, in figure \ref{cluster-5-r-trigram}, a two-way split
-between the sites on the top and bottom of the page is
-obvious, and a three-way split is easy to argue for, but outliers like
-Anundsj\"o and \.Arsunda are likely to shift from group to group in
-other dendrograms.
+The cluster dendrograms are dangerous to interpret too closely on
+their own; the instability of a single dendrogram means that small
+clusters cannot be analyzed reliably. For example, in figure
+\ref{cluster-5-js-trigram}, a two-way split between the sites on the
+top and bottom of the page is obvious, and another in the top cluster
+is easy to argue for, but outliers like Anundsj\"o and \.Arsunda are
+likely to shift from group to group in other dendrograms.
 
 It is safer to analyze the consensus trees; the smoothing effect of
 taking the majority rule of each cluster will show where the optimal
 cutoff for splitting clusters is. The three consensus trees in figures
 \ref{consensus-1-1000} -- \ref{consensus-5-1000} vary in amount of
-detail but share most details.
+detail but the trees with more clusters do not contradict the clusters
+of the flatter trees.
 
 For 1000-sentence samples and 1 round of normalization, there is one
 cluster: Floby and Bengtsfors. Full-site comparison finds
@@ -986,6 +1027,7 @@ simply as ``non-Stockholm''.
 
 
 \subsection{Composite Cluster Maps}
+\label{section-composite-cluster}
 
 Composite cluster maps use an underlying technique similar to
 consensus trees--cluster dendrograms, but they combine and present the
@@ -1027,7 +1069,7 @@ weak horizontal boundaries present up and down Sweden.
 Of these boundaries, the one between Sk\.ane and the rest of Sweden is
 the strongest. Due to the lack of interview sites in the middle of
 south Sweden, the boundary is drawn further north than it
-traditionally appears, but this is an effect of the software the
+traditionally appears, but this is an effect of the software that
 produced the figure. Notice that there is also a boundary between
 J\"amshog, Tors\.as, and \"Ossjo\" and the other sites, especially
 visible in maps\ref{map-composite-1-1000} and
@@ -1053,34 +1095,55 @@ so strong.
 
 
 \section{Multi-Dimensional Scaling}
+\label{section-mds}
 
 \begin{sloppypar}
   Multi-dimensional scaling (MDS) plays a similar role to clusters,
-  condensing the high-dimensional information into an
-  easier-to-understand form.  It differs, however, in producing
-  gradient numbers, not binary trees: only enough scaling is done to
-  produce the desired number of dimensions, and there is no exclusive
-  membership in a single group. This also means that MDS maps are more
-  stable than dendrograms.  Also, because of the way that the
-  3-dimensional points map to colors, the maps vary. However, they
-  are still comparable: if two sites are blue in one map and both
-  are orange in another, then they have the same relation to each
-  other.
+  condensing the high-dimensional information into an form that is
+  easier to understand. It differs, however, in producing gradient
+  numbers, not binary trees: cluster dendrograms put each site into
+  one and only one cluster, whereas MDS puts each site into 3D space;
+  the clusters are only implicit in the positions.  This also means
+  that MDS maps are more stable than dendrograms.
 \end{sloppypar}
+
+\quotecite{kruskal64b} MDS works by positioning the dissimilarities in
+high-dimensional space, then converting them to true distances in some
+lower dimensional space---in this case, three dimensions. It distorts
+the dissimilarities equally and by the minimum amount
+necessary. Kruskal calls the measure of distortion Stress. Once the
+sites are points in 3D space, each sites' x, y, and z co-ordinates can
+be mapped onto the colors red, green, and blue, then drawn on a map of
+Sweden.
+
+It must be noted that the maps vary in color because of the way that
+MDS positions the sites in 3D space, based on the distances between
+them. The orientation of the sites may differ between runs of the MDS
+algorithm, but Kruskal's method guarantees that its results will be
+comparable given some rotation. Equivalent MDS maps may be rotated
+with respect to each other in 3D space, and this rotation is visible
+in the color selection: if two sites are both blue in one map and in
+another map are both orange, then they have the same relation to each
+other.
 
 
 The maps shown here in figures \ref{mds-1-1000-js-trigram} --
-\ref{mds-5-1000-js-trigram} are from the same parameter settings as the
-dendrograms, with the addition of the all-combined feature set. This
-provides a combined MDS view somewhat analogous to the consensus trees or
-composite clusters for the cluster dendrograms.
+\ref{mds-1-full-r_sq-psg} are based on the same parameter settings as the
+dendrograms in figures \ref{cluster-1-js-trigram} --
+\ref{cluster-1-r_sq-psg}. The first two are Jensen-Shannon divergence
+measured over trigrams, with 1 and 5 rounds of normalization,
+respectively. The third is $R^2$ measured over phrase-structure rules
+with 1 round of normalization.
+% 1st is not used
+% 3rd is not used
+% 5th is not used
 
-\begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-1-1000-r-trigram-ratio}
-\caption{$R$ measure with trigram features, 1000-sentence sampling and
-  1 round of normalization}
-\label{mds-1-1000-r-trigram}
-\end{figure}
+% \begin{figure}
+% \includegraphics[scale=0.82]{Sverigekarta-mds-1-1000-r-trigram-ratio}
+% \caption{$R$ measure with trigram features, 1000-sentence sampling and
+%   1 round of normalization}
+% \label{mds-1-1000-r-trigram}
+% \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.82]{Sverigekarta-mds-1-1000-js-trigram-ratio}
@@ -1089,11 +1152,25 @@ composite clusters for the cluster dendrograms.
 \label{mds-1-1000-js-trigram}
 \end{figure}
 
+% \begin{figure}
+% \includegraphics[scale=0.82]{Sverigekarta-mds-1-full-r-trigram-ratio}
+% \caption{$R$ measure with trigram features, full-site comparison and
+%   1 round of normalization}
+% \label{mds-1-full-r-trigram}
+% \end{figure}
+
+% \begin{figure}
+% \includegraphics[scale=0.82]{Sverigekarta-mds-5-1000-r-trigram-ratio}
+% \caption{$R$ measure with trigram features, 1000-sentence sampling and
+%   5 rounds of normalization}
+% \label{mds-5-1000-r-trigram}
+% \end{figure}
+
 \begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-1-full-r-trigram-ratio}
-\caption{$R$ measure with trigram features, full-site comparison and
-  1 round of normalization}
-\label{mds-1-full-r-trigram}
+\includegraphics[scale=0.82]{Sverigekarta-mds-5-1000-js-trigram-ratio}
+\caption{Jensen-Shannon measure with trigram features, 1000-sentence sampling and
+  5 rounds of normalization}
+\label{mds-5-1000-js-trigram}
 \end{figure}
 
 \begin{figure}
@@ -1103,23 +1180,9 @@ composite clusters for the cluster dendrograms.
 \label{mds-1-full-r_sq-psg}
 \end{figure}
 
-\begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-5-1000-r-trigram-ratio}
-\caption{$R$ measure with trigram features, 1000-sentence sampling and
-  5 rounds of normalization}
-\label{mds-5-1000-r-trigram}
-\end{figure}
-
-\begin{figure}
-\includegraphics[scale=0.82]{Sverigekarta-mds-5-1000-js-trigram-ratio}
-\caption{Jensen-Shannon measure with trigram features, 1000-sentence sampling and
-  5 rounds of normalization}
-\label{mds-5-1000-js-trigram}
-\end{figure}
-
 Despite the differences between MDS and the preceding methods, the
 similar results are evident; the maps (figures
-\ref{mds-1-1000-r-trigram} -- \ref{mds-5-1000-js-trigram}) all show
+\ref{mds-1-1000-js-trigram} -- \ref{mds-5-1000-js-trigram}) all show
 the same patterns as the other methods. That is, there is a general
 north-to-south gradience, especially easy to see in map
 \ref{mds-1-1000-js-trigram}. There is a strong southern cluster,
@@ -1143,27 +1206,35 @@ Sk\.ane and Blekinge are grey: clearly similar but not identical to
 Malm\"o.
 
 \section{Features}
+\label{section-features}
 
 Ranked features answer the question of agreement with dialectology
-more precisely than the previous two sections. Feature ranking has two
-advantages in precision: first, it can reveal aggregate differences that may
-not be noticeable without counting a large amount of data; second, it can
-point out rare features that only occur in one site. The
-first kind of features are unlikely to be noticed by linguists without
-the aid of computers, whereas the second kind are the rare features
-that are easy for linguists to notice.
+more precisely than the previous two methods. Features are ranked by
+their normalized weight, which tells how much weight the distance
+measure will give it. This can reveal aggregate differences that may
+only be noticeable when counting a large amount of data. Conversely,
+with different normalization settings, feature ranking can also point
+out rare features that only occur in one site. The first kind of
+features are unlikely to be noticed by linguists without the aid of
+computers, whereas the second kind are the rare features that are easy
+for linguists to notice.
 
-There are two sets of rankings on display here; the first set is the
-previous normalization for sentence size, whereas the second is
-normalized for relative overuse, based on \quotecite{wiersma09}
-normalization.  Without the overuse normalization, the top-ranked
-features will tend to be the most common ones, those found in almost
-every sentence in the interview. These common features tend to
-highlight gradient differences: differences in quantity but not in
-quality. In contrast, the overuse normalization allows us to see which
-features happen only a few times in one side of the comparison and not
-at all in the other. This is closer to a traditional linguistic
-analysis.
+Both kinds of normalizations are shown below; in the first set of
+rankings, the normalizations for sentence size are applied, as
+described in section \ref{normalization}, whereas the second set of
+ranking is normalized for relative overuse, based on
+\quotecite{wiersma09} normalization described in
+section{wiersma-normalization}. The overuse normalization shows which
+features are used relatively more when comparing two sites. It
+normalizes for feature frequency between two sites.
+
+Without the overuse normalization, the top-ranked features will tend to
+be the most common ones, those found in almost every sentence in the
+interview. These common features tend to highlight gradient
+differences: differences in quantity but not in quality. In contrast,
+the overuse normalization allows us to see which features happen only
+a few times in one side of the comparison and not at all in the
+other. This is closer to a traditional linguistic analysis.
 
 In addition, only features that appear in both groups being compared
 were ranked; although features that only appear in one or the other
@@ -1177,22 +1248,24 @@ These results compare clusters from the consensus trees
 based on 1 round of normalization (figures \ref{consensus-1-1000} and
 \ref{consensus-1-full}) as well as the consensus tree based on 5
 rounds of normalization and a 1000-sentence sample (figure
-\ref{consensus-5-1000}. The consensus tree for 5 rounds or
+\ref{consensus-5-1000}). The consensus tree for 5 rounds of
 normalization and full-site comparisons only had one tree for input
 and was not usable. Given these three consensus trees, the groups in
 table \ref{feature-ranking-clusters} are the relevant ones for analysis.
 
-There are four clusters, three small and one large which contains the remainder of
-the sites. Cluster A, containing Floby and Bengtsfors, appears in all
-three consensus trees. Its features are colored blue in the following
-figures. Cluster B, containing Jamshog, Torsas and Ossjo, appears in the
-second two trees. It features are colored red. Cluster C, containing
-Loderup and Bredsatra, appears only in the third tree. Its features
-are colored yellow. The remainder of the sites are in Cluster D;
-the third consensus tree differs from the first two in splitting the
-remainder into two groups, but this division is ignored here to reduce
-the number of comparisons. Between large groups of sites, such
-comparisons are unlikely to be informative anyway.
+There are four clusters, three small and one large which contains the
+remainder of the sites. They are listed in table
+\ref{feature-ranking-clusters}. Cluster A, containing Floby and
+Bengtsfors, appears in all three consensus trees. Its features are
+colored blue in the following figures. Cluster B, containing Jamshog,
+Torsas and Ossjo, appears in the second two trees. It features are
+colored red. Cluster C, containing Loderup and Bredsatra, appears only
+in the third tree. Its features are colored yellow. The remainder of
+the sites are in Cluster D; the third consensus tree differs from the
+first two in splitting the remainder into two groups, but this
+division is ignored here to reduce the number of comparisons. Between
+large groups of sites, such comparisons are unlikely to be informative
+anyway.
 
 \begin{table}
   \begin{enumerate}
@@ -1231,72 +1304,67 @@ comparisons between clusters for a single parameter setting: trigram
 features, 1000-sentence sampling and sentence-size normalization
 only. Besides unigrams, these are the parameters that give the highest
 correlation with travel distance for 1000-sentence sampling.
-
 In the next subsection, \ref{feature-ranking-overuse}, the overuse
 normalization is added, keeping other parameter settings the same.
-
 The third subsection, \ref{feature-ranking-feature-sets},
 a single comparison between cluster A and cluster B is given for
 all feature sets.
-
 In the final subsection, \ref{feature-ranking-psg}, the high-ranked
 phrase-structure rules are given.
+The parts of speech for the features are given in table
+\ref{pos-list}. The non-terminals are given in table
+\ref{nonterminal-list}.
 
-The most common parts of speech are given below. The complete list is
-given in Appendix X. (TODO: Move most of this list to an
-appendix).
+\begin{table}
+\begin{tabular}{c|c||c|c}
+  POS & Part of speech & POS & Part of speech \\ \hline
+ $++$ & coordinating conjunction&MV & verb ``m\.aste'' (must) \\
+ AB & adverb&NN & noun \\
+ AJ & adjective&PN & proper name \\
+ AN & adjectival noun&PO & pronoun \\
+ AV & verb ``vara'' (be)&PR & preposition \\
+ BV & verb ``bli(va)'' (become) &QV & verb ``kunna'' (can) \\
+EN & indefinite article&RO & numeral \\
+ FV & verb ``f\.a'' (get) &SP & present participle \\
+ GV & verb ``g\"ora'' (do) &SV & verb ``skola'' (shall) \\
+ HV & verb ``hava'' (have) &UK & subordinating conjunction \\
+ I? & question mark &VN & verbal noun \\
+ ID & idiom &VV & other verb \\
+ IM & infinitive marker &WV & verb ``vilja'' (want) \\
+ IP & period &XX & Unclassifiable \\
+MN & meta-noun &YY & Interjection \\ \hline
+\end{tabular}
+\vspace{5mm}
+\caption{List of parts of speech}
+\label{pos-list}
+\end{table}
 
-\begin{itemize}
-\item $++$ = coordinating conjunction
-\item AB = adverb
-\item AJ = adjective
-\item AN = adjectival noun
-\item AV = verb ``vara'' (be)
-\item BV = verb ``bli(va)'' (become) %
-% \item EH = hesitation
-\item EN = indefinite article
-\item FV = verb ``f\.a'' (get) %
-\item GV = verb ``g\"ora'' (do) %
-\item HV = verb ``hava'' (have) %
-\item I? = question mark %
-\item IC = quotation mark %
-\item ID = idiom
-\item IG = other punctuation mark %
-\item IK = comma, correction
-\item IM = infinitive marker
-\item IP = period
-% \item IQ = colon
-% \item IR = parenthesis
-% \item IS = semicolon
-% \item IT = dash
-\item IU = exclamation mark
-\item KV = ``komma at'' (periphrastic future)
-\item MN = meta-noun
-\item MV = verb ``m\.aste'' (must)
-\item NJ = falling juncture
-\item NN = noun
-\item PN = proper name
-\item PO = pronoun
-\item PR = preposition
-\item PU = list item
-% \item QQ = ?
-\item QV = verb ``kunna'' (can)
-% \item RJ = level juncture
-\item RO = numeral
-\item SP = present participle
-\item SV = verb ``skola'' (shall)
-\item TP = perfect participle
-% \item UJ = rising juncture
-\item UK = subordinating conjunction
-% \item UU = exclamation
-\item VN = verbal noun
-\item VV = other verb
-\item WV = verb ``vilja'' (want)
-\item YY = Interjection
-\item XX = Unclassifiable
-\end{itemize}
-
-%%% END FORK
+\begin{table}
+  \begin{tabular}{c|c}
+    NT & Non-terminal \\ \hline
+     $+$F & Coordination at main clause level \\
+     AA & other adverbial \\
+     AP & adjective phrase \\
+     AVP & adverb phrase \\
+     CAP & Coordinated adjective phrase \\
+     CNP & Coordinated noun phrase \\
+     CONJP & Other coordinated phrase \\
+     CS & Coordinated S \\
+     ET & Other nominal post-modifier \\
+     MS & Macrosyntagm \\
+     NAC & Not a constituent \\
+     NP & Noun phrase \\
+     OA & Object adverbial \\
+     PP & Prepositional phrase \\
+     RA & Place adverbial \\
+     S & Sentence \\
+     SS & Other subject \\
+     TA & Time adverbial \\ \hline
+   \end{tabular}
+   \vspace{5mm}
+    \caption{List of non-terminal labels}
+    \label{nonterminal-list}
+\end{table}
 
 \subsection{Trigram Features}
 \label{feature-ranking-complete}
@@ -1551,6 +1619,23 @@ normalization is susceptible to noise, especially for more error-prone
 feature sets. Even though more detail may be available with this
 normalization step, the features must be inspected for general trends
 because individual features are not necessarily reliable.
+
+\section{Conclusion}
+
+This chapter provided results and analysis of the results with no
+comparison to other work. The next chapter
+will compare the results to dialectology, phonological dialectometry,
+and previous work in syntactic dialectometry. Even before this
+comparison, however, the distance measure seems to be successful at
+producing dialect distance.
+
+Quite a few patterns are visible: the significance tests show that the
+distance measure is finding significant distances for most parameter
+settings; the analysis of correlation shows that some correlate with
+geographic and travel distance. The dendrogram maps, composite cluster
+maps, and MDS maps all show a picture of with fairly well-defined areas.
+Finally, the feature rankings show some interesting patterns but
+nothing definitive.
 
 
 %%% Local Variables: 
