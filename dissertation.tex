@@ -1,141 +1,122 @@
-\documentclass{iuthesis}
-% macros that I like go here.
-\usepackage{graphicx}
+%%
+%% This just contains the outline stuff.  Each chapter, the abstract,
+%% acknowledgements, etc. are all in separate files. 
+%%
+%% LaTeX 2e
+%%
+
+
+%% Book style, start chapters on either side of page (openany)
+%% Report style, start chapters on either side of page (openany)
+%%%%% DRAFT style doesn't include the figures!!!
+%%%\documentclass[10pt,draft]{report}
+\documentclass[10pt]{report}
+
+%
+% Use Doug Eck's thesis style file 
+%
+\usepackage{thesis}
+\usepackage{robbib}
 \usepackage[all]{xy}
 \usepackage{qtree}
-\usepackage{robbib}
-\includeonly{background,questions,methods,results,discussion}
-\title{A Statistical Method for Syntactic Dialectometry}
-\author{Nathan C. Sanders}
-\advisor{Sandra K\"ubler}
-\secondreader{Markus Dickinson}
-\thirdreader{Steven Franks}
-\fourthreader{Michael Gasser}
+\usepackage{cgloss4e}
 
-\department{Linguistics}
-\submitdate{2010/05/12} % a hopeful guess
-\copyrightyear{2010}
+
+\usepackage{palatino}
+\usepackage{epsfig}
+
+\usepackage{verbatim}
+
+
+%%
+%%                        DOUBLE SPACING
+%%
+%                        \usepackage{doublespace}
+\usepackage{setspace}
+\doublespacing
+
+
+\lefthyphenmin=2
+\righthyphenmin=3
+
+
+%% use this to use command: \afterpage{\clearpage} to fix floating
+%% table/figure queue backups in latex processing.
+\usepackage{afterpage}
+
+
+%% Allow pages to be of differing heights to achieve optimal vertical
+%% spacing of lines of text
+\raggedbottom
+
+
+%%
+%% Start of document itself
+%%
 \begin{document}
 
-\begin{dedication}
-  It's a great day for freedom
-\end{dedication}
-\begin{acknowledgements}
-  I always thought Heeringa's acknowledgements were
-  pretty cool
-\end{acknowledgements}
-\begin{abstract}
-  This dissertation establishes the reliability and boundaries of a
-  statistical method for syntactic dialectometry.
-\end{abstract}
+\title{A Statistical Method for Syntactic Dialectometry}
+\author{Nathan C. Sanders}
+\date{\today}
 
-\frontmatter
-\maketitle
-\signaturepage
-\copyrightpage
-\makededication
-\makeack
-\makeabstract
-\tableofcontents
-\mainmatter
+
+\principaladviser{Sandra K\"ubler}
+\firstreader{Markus Dickinson}
+\secondreader{Steven Franks}
+\externalreader{Michael Gasser}
+\submitdate{May 12, 2010}
+
+%%
+%% THIS STUFF IS FOR THE ABSTRACT,TOC,FIGURE LIST, ACKNOWL, TITLE,
+%% COPYRIGHT, ETC.   
+%% Call the other files: acknowledge.tex, abstract.tex, dedication.tex
+%%
+\beforepreface
+\afterpreface
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The chapters
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \include{background}
-
 \include{questions}
-
 \include{methods}
-
 \include{results}
-
 \include{discussion}
 
-\backmatter
 
-\begin{center}
-\section*{Curriculum Vitae}
-\end{center}
-% \begin{tabular}{c|c|c} % re-arrange and maybe put home page on there?
-% Electronic Mail & Address & Telephone \\
-% \hline
-% ncsander@indiana.edu & 4780 E St. Rd. 45 & 812-606-9785 \\
-% sanders\_n@yahoo.com & Bloomington, IN 47408  & \\
-% \end{tabular}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Bibliography
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{QUALIFICATIONS}
-\begin{description}
-  \item[Dialect Classification/Dialectology] Extraction of
-    linguistic, human-interpretable features
-  \item[Machine learning] Statistical (e.g. unsupervised clustering) \\
-    Symbolic (e.g. learning and learnability in Optimality theory)
-  \item[Parsing] Adaptation of computer science parsers to learner
-    natural language
-  \item[Programming] Fluent in Python, Haskell, Java/C\#, and Scheme \\
-    Experience in C++, Perl, Visual Basic, Javascript, F\#, and
-    Common Lisp \\
-    Experience in prototyping and web programming \\
-    Three-time competitor, ACM International Collegiate Programming
-    Contest
-\end{description}
-% See http://www.sandersn.com/research.html for papers
-% and code in the above areas.
-\subsection*{EDUCATION}
-\begin{description}
-\item [PhD student in Linguistics, minor Computer Science] Indiana
-  University, 2010
-\item [MA Computational Linguistics] Indiana University, 2006, GPA 3.98
-\item[BA Computer Science] minors in French and Spanish,
-		College of the Ozarks, summa cum laude May 2004
-\end{description}
-\subsection*{EXPERIENCE}
-\begin{description}
-\item[August 2009--November 2009]
-  SDET Intern, Microsoft, Bing Search Infrastructure --- Wrote
-  software to suggest tests to developers at checkin. Tested
-  the distributed computation system forming the infrastructure of
-  Bing.
-\item[August 2005--May 2009]
-  Research Assistant, IU School of Medicine --- Investigated linguistic
-  aspects of cochlear implant user development. Developed novel distance
-  measure and compared it to existing measures and human judgments.
-\item[May 2005--August 2005]
-  Application Developer, IU Archives of Traditional Music --- Wrote Java
-  application to gather cataloging data for videos. Worked with librarians and
-  ethnomusicologists to gather archival metadata requirements.
-\item[August 2004--May 2005]
-  Web Programmer, IU Overseas Studies --- Maintained database and its
-  web interface. Developed new features on request and maintained
-  office computers.
-\item[Summer 2004, Summer 2003]
-  Lead Programmer, Everyware Inc --- Implemented web framework
-  for interactive site building. Rewrote existing plug-in
-  architecture and extended existing interface.
-\item[Summer 2002]
-  Intern Programmer, SIL International --- Programmed import
-  process for translation editor in C++, with a pre-processor in Python.
-\item[Spring 2001--Spring 2004]
-  Lab Assistant, College of the Ozarks Foreign Language Lab ---
-  Tutored students in Spanish and French. Maintained lab
-  computers and created tracking databases.
-\end{description}
-\subsection*{PUBLICATIONS}
-
-% no idea why I have to indent *twice*
-\indent\indent Sanders, N. C. 2009. Phonological distance measures. \emph{Journal
-    of Quantitative Linguistics}, 43:96--114.
-
-  Sanders, N. C. 2008. Cluster analysis of phonological distance
-  measures of cochlear implant users. In \emph{Proceedings of the
-    Tenth International Conference on Cochlear Implants and Other
-    Implantable Auditory Technologies}, 113.
-
- Sanders, N. C. 2007. Measuring Syntactic Difference in British
-  English. In \emph{Proceeding of the ACL 2007 Student Research
-    Workshop}, 1--6, Prague, Czech Republic, June.
-
-  Sanders, N. C. and Chin, S. B. 2006. Phonological distance measures for cochlear implant users. \emph{Wiener Medizinische Wochenschrift 156}, [Suppl 119] 8
-
- Sanders, N. C.  2004. Compiler error detection techniques applied to natural language processing. In \emph{Proceedings of the Thirty-fifth SIGCSE Technical Symposium on Computer Science Education}. Association for Computing Machinery, 515
-
+%% standard citation style ... name and date
+%\bibliographystyle{abbrv}  %%{alpha}
 \bibliographystyle{robbib}
 \bibliography{central}
+
+
+%
+% Put CV in file called vitae.tex
+%
+
+% Can change spacing to single-spacing, but need to set font for
+%  effect to occur.  So, set font to small and then back to normalsize.
+\setstretch{1}\small\normalsize
+\newpage
+\vitapage
+
 \end{document}
+
+
+
+
+
+
+
+
+

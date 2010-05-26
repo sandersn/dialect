@@ -1,0 +1,350 @@
+
+%-------------------------------------------------------------
+% Indiana Univeristy Ph.D. Thesis -- LaTeX style macros
+%--------------------------------------------------------------
+
+% Page layout
+
+\makeatletter
+\oddsidemargin 0.5in 
+\evensidemargin 0.0in		
+\marginparwidth 40pt \marginparsep 10pt
+\topmargin 0pt \headsep .5in \headheight 14pt
+\textheight 8.1in \textwidth 6in
+\parskip 7pt plus 2pt minus 2pt
+\if@twoside\else\flushbottom\fi
+\brokenpenalty=10000
+
+% The following section is copied from rep12.sty and \Huge is changed into
+% \huge to make the chapter headings smaller.
+
+%\def\@makechapterhead#1{ \vspace*{50pt} { \parindent 0pt \raggedright
+
+% \ifnum \c@secnumdepth >\m@ne \huge\bf \@chapapp{} \thechapter \par 
+% \vskip 20pt \fi \huge \bf #1\par 
+% \nobreak \vskip 40pt } }
+\newif\ifmainpage \mainpagetrue
+\def\@makechapterhead#1{\ifmainpage \vspace*{50pt} \fi 
+ { \parindent 0pt \raggedright 
+ \ifnum \c@secnumdepth >\m@ne \huge\bf \thechapter \vskip 5pt \hrule height1pt 
+ \par \vskip 15pt \fi \huge \bf #1\par 
+ \nobreak \vskip 40pt }}
+
+% Uncomment these to get a consecutive numbering for fig, table, and eqs
+%\def\cl@chapter{\@elt{section}\@elt{footnote}}
+%\def\thefigure{\@arabic\c@figure}
+%\def\thetable{\@arabic\c@table}
+%\def\theequation{\arabic{equation}}
+
+% Redefine the macro used for floats (including figures and tables)
+% so that single spacing is used.
+% (Note \def\figure{\@float{figure}set single spacing} doesn't work
+%  because figure has an optional argument)
+
+\def\@xfloat#1[#2]{\ifhmode \@bsphack\@floatpenalty -\@Mii\else
+   \@floatpenalty-\@Miii\fi\def\@captype{#1}\ifinner
+      \@parmoderr\@floatpenalty\z@
+    \else\@next\@currbox\@freelist{\@tempcnta\csname ftype@#1\endcsname
+       \multiply\@tempcnta\@xxxii\advance\@tempcnta\sixt@@n
+       \@tfor \@tempa :=#2\do
+                        {\if\@tempa h\advance\@tempcnta \@ne\fi
+                         \if\@tempa t\advance\@tempcnta \tw@\fi
+                         \if\@tempa b\advance\@tempcnta 4\relax\fi
+                         \if\@tempa p\advance\@tempcnta 8\relax\fi
+         }\global\count\@currbox\@tempcnta}\@fltovf\fi
+    \global\setbox\@currbox\vbox\bgroup 
+    \def\baselinestretch{1}\@normalsize
+    \boxmaxdepth\z@
+    \hsize\columnwidth \@parboxrestore}
+
+% Redefine the macro used for footnotes to use single spacing
+
+\long\def\@footnotetext#1{\insert\footins{\def\baselinestretch{1}\footnotesize
+    \interlinepenalty\interfootnotelinepenalty 
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+   \edef\@currentlabel{\csname
+p@footnote\endcsname\@thefnmark}\@makefntext
+    {\rule{\z@}{\footnotesep}\ignorespaces
+      #1\strut}}}
+
+% Some changes to meet my preferences for sectioning
+
+\def\chapter{\clearpage     
+   \thispagestyle{plain}    
+   \global\@topnum\z@       
+   \@afterindenttrue       
+   \secdef\@chapter\@schapter}
+%\def\sections{\@startsection {section}{2}{\z@}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}{\huge\bf}}
+\def\section{\@startsection {section}{2}{\z@}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}{\Large\bf}}
+\def\subsection{\@startsection{subsection}{3}{\z@}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}{\large\bf}}
+%\def\subsubsection{\@startsection{subsubsection}{4}{\z@}{2.0ex plus 1ex minus .2ex}{-1em}{\normalsize\it}}
+%\def\subsubsection#1{\subsubsections{#1.}}
+%\def\subsubsections{\@startsection{subsubsection}{4}{\parindent}{2.0ex plus 1ex minus .2ex}{-1em}{\normalsize\it}}
+%\def\subsubsection{\@startsection{subsubsection}{4}{\z@}{3.25ex plus
+% 1ex minus .2ex}{1.5ex plus .2ex}{\normalsize\bf}}
+\def\paragraph{\@startsection
+     {paragraph}{5}{\z@}{3.25ex plus 1ex minus .2ex}{-1em}{\normalsize\bf}}
+%\def\thebibliography#1{\sections*{References\@mkboth
+%  {REFERENCES}{REFERENCES}}\list
+%  {\relax}{\setlength{\labelsep}{0em}
+%        \setlength{\itemindent}{-\bibhang}
+%        \setlength{\leftmargin}{\bibhang}}
+%    \def\newblock{\hskip .11em plus .33em minus .07em}
+%    \sloppy\clubpenalty4000\widowpenalty4000
+%    \sfcode`\.=1000\relax
+%    \addcontentsline{toc}{chapter}{References}}
+
+% Bibliography style used by University of Waterloo (Thanks Todd!)
+\def\thebibliography#1{\chapter*{Bibliography\@mkboth
+  {BIBLIOGRAPHY}{BIBLIOGRAPHY}}\addcontentsline{toc}{chapter}{Bibliography}\list
+  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \usecounter{enumi}}
+    \def\newblock{\hskip .11em plus .33em minus .07em}
+    \sloppy\clubpenalty4000\widowpenalty4000
+    \sfcode`\.=1000\relax}
+  
+\let\endthebibliography=\endlist
+
+% Appendix style used by IUB
+\def\appendix{\par
+ \setcounter{chapter}{0}
+ \setcounter{section}{0}
+ \mainpagefalse
+ \def\@chapapp{Appendix}
+ \def\thechapter{\Alph{chapter}}
+ \if@twoside
+ \def\chaptermark##1{\markboth {\sl{\ifnum \c@secnumdepth >\m@ne
+      \thechapter. \ \fi ##1}}{\sl{\ifnum \c@secnumdepth >\m@ne
+      \thechapter. \ \fi ##1}}}
+ \fi
+}
+
+% Definitions for front matters
+
+\def\principaladviser#1{\gdef\@principaladviser{#1}}
+\def\advis@r{Adviser}
+\def\principaladvisor#1{\gdef\@principaladviser{#1}\gdef\advis@r{Advisor}}
+\def\firstreader#1{\gdef\@firstreader{#1}}
+\def\secondreader#1{\gdef\@secondreader{#1}}
+\def\thirdreader#1{\gdef\@thirdreader{#1}}
+\def\fourthreader#1{\gdef\@fourthreader{#1}}
+\def\fifthreader#1{\gdef\@fifthreader{#1}}
+\def\externalreader#1{\gdef\@externalreader{#1}}
+\def\submitmonth#1{\gdef\@submitmonth{#1}}
+\def\submitdate#1{\gdef\@submitdate{#1}}
+\def\copyrightyear#1{\gdef\@copyrightyear{#1}} % \author, \title in report
+\def\@title{}\def\@author{}
+\def\@principaladviser{}\def\@firstreader{}\def\@secondreader{}
+\def\@thirdreader{}\def\@fourthreader{}\def\@fifthreader{}
+\def\@externalreader{}
+\def\@submitmonth{\ifcase\the\month\or
+  January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi \space
+\number\the\year}
+\def\@submitdate{}
+\ifnum\month=12
+    \@tempcnta=\year \advance\@tempcnta by 1
+\edef\@copyrightyear{\number\the\@tempcnta}
+\else
+    \def\@copyrightyear{\number\the\year}
+\fi
+\newif\ifcopyright \newif\iffigurespage \newif\iftablespage
+\copyrighttrue \figurespagetrue \tablespagetrue
+
+
+\def\titlep{
+\thispagestyle{empty}	\null\vskip 1in	
+\begin{center}
+{\Large\uppercase\expandafter{\@title}}		
+\end{center}	\vfill
+\begin{center}		
+{\large \@author}\\	
+\end{center}	
+\vfill	
+\begin{center}
+Submitted to the faculty of the Graduate School\\
+in partial fulfillment of the requirements\\
+for the degree\\
+Doctor of Philosophy\\
+%in the Department of Computer Science\\
+in Linguistics \\
+Indiana University\\
+\end{center}
+\vfill
+\begin{center}
+\@submitmonth\\
+\end{center}
+\vskip.5in\newpage}
+
+\def\copyrightpage{
+\null\vfill	
+\begin{center}
+\Large Copyright \copyright\ 
+\@copyrightyear\\		
+\@author\\
+ALL RIGHTS RESERVED\\
+\end{center}	
+\vfill\newpage}
+
+\long\def\signature#1{
+\begin{center}
+\begin{minipage}{5in}
+\hbox to 5in{\hfil\shortstack{\vrule width 3in height 0.4pt\\#1}}
+\end{minipage}
+\end{center}}
+
+\long\def\firstsignature#1{
+\begin{center}
+\begin{minipage}{5in}
+\hbox to 5in{\shortstack{Doctoral \\ Committee}
+	\hfil\shortstack{\vrule width 3in height 0.4pt\\#1}}
+\end{minipage}
+\end{center}}
+
+\long\def\lastsignature#1{
+\begin{center}
+\begin{minipage}{5in}
+\hbox to 5in{\shortstack{%Bloomington, Indiana\\ \@submitdate.}
+			 \@submitdate}
+	\hfil\shortstack{\vrule width 3in height 0.4pt\\#1}}
+\end{minipage}
+\end{center}}
+
+\def\signaturepage{
+\begin{center}
+\begin{minipage}{5in}
+\parindent=0pt
+Accepted by the Graduate Faculty, Indiana University, in partial
+fulfillment of
+the requirements of the degree of Doctor of Philosophy.
+\par
+\vspace{.5in}
+\end{minipage}
+\end{center}
+
+\firstsignature{\@principaladviser \\(Principal Advisor)} 
+\vfill
+\signature{\@firstreader}	
+\vfill	
+\signature{\@secondreader}	
+\vfill
+%\signature{\@thirdreader}	
+%\vfill		
+%\signature{\@fourthreader}	
+%\vfill
+%\signature{\@fifthreader}	
+%\vfill		
+\lastsignature{\@externalreader}
+\vfill
+\newpage
+}
+
+\def\acknowledgementpage{%
+	\chapter*{Acknowledgements}
+	\addcontentsline{toc}{chapter}{Acknowledgements}
+	\input{acknowledge}
+\vfill\newpage}
+
+\def\dedicationpage{%
+\null\vfill
+\input{dedication}
+\vfill\newpage}
+
+\def\abstractpage{%
+	\chapter*{Abstract}
+	\addcontentsline{toc}{chapter}{Abstract}
+	\input{abstract}
+	\vfill\newpage}
+
+\def\vitapage{%
+	\section*{Curriculum Vitae}
+	\thispagestyle{empty}
+	\pagestyle{empty}
+	\input{vitae}
+\vfill\newpage}
+
+\def\beforepreface{
+	\pagenumbering{roman}
+	\pagestyle{plain}
+	\titlep
+	\signaturepage
+	\ifcopyright\copyrightpage\fi
+        \dedicationpage
+        \acknowledgementpage
+        \abstractpage
+}
+
+\def\prefacesection#1{%
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}}
+
+\def\abstractpage{%
+	\chapter*{Abstract}
+	\addcontentsline{toc}{chapter}{Abstract}
+	\input{abstract}
+	\vfill\newpage}
+
+% The following section is copied and \uppercase is changed to \sl to
+% modify running head on pages (other that all uppercase).
+% It also draws a line after the head
+
+\if@twoside         % If two-sided printing.
+\def\ps@headings{\let\@mkboth\markboth
+\def\@oddfoot{}\def\@evenfoot{}		% No feet.
+\def\@evenhead{\vbox{\hbox to \textwidth{\rm\thepage\hfil\sl\leftmark}
+	\break\smallskip\hrule}}	%  Left heading.
+\def\@oddhead{\vbox{\hbox to \textwidth{\sl\rightmark\hfil\rm\thepage}
+	\break\smallskip\hrule}}	% Right heading.
+\def\chaptermark##1{\markboth {\sl{\ifnum \c@secnumdepth >\m@ne
+      \thechapter. \ \fi ##1}}{}}
+\def\sectionmark##1{\markright {\sl{\ifnum \c@secnumdepth >\z@
+   \thesection. \ \fi ##1}}}}
+\else               % If one-sided printing.
+\def\ps@headings{\let\@mkboth\markboth
+\def\@oddfoot{}\def\@evenfoot{}		% No feet.
+%\def\@oddhead{\hbox{}\sl\rightmark \hfil\rm\thepage}
+\def\@oddhead{\vbox{\hbox to \textwidth{\sl\rightmark\hfil\rm\thepage}
+		\break\smallskip\hrule}} %% Heading.
+\def\chaptermark##1{\markright{\sl{\ifnum \c@secnumdepth >\m@ne 
+	\thechapter. \ \fi ##1}}}}
+\fi
+
+% Afterpreface. Uncomment the lines if you don't want to have any
+% extra spaces between chapters.
+
+\def\afterpreface{\newpage
+	\tableofcontents
+	\newpage
+	\iftablespage
+%		{\addvspace{10pt}
+%		\let\saveaddvspace=\addvspace
+%		\def\addvspace##1{}
+		\listoftables
+%		\let\addvspace=\saveaddvspace}
+		\newpage
+	\fi
+	\iffigurespage
+%		{\addvspace{10pt}
+%		\let\saveaddvspace=\addvspace
+%		\def\addvspace##1{}
+		\listoffigures
+%		\let\addvspace=\saveaddvspace}
+		\newpage
+	\fi
+	\pagenumbering{arabic}
+	\pagestyle{headings}}
+
+% Start with pagestyle{headings} in case front matter isn't processed
+
+\pagestyle{headings}
+\makeatother
+
+% Make Index and Make Glossary
+
+%\makeindex
+%\makeglossary 
+
+
+

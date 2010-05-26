@@ -937,10 +937,31 @@
 ** April
 *** Results
 *** Discussion
-** May
+** May/June
 *** Cleanup and Defence
+http://www.indiana.edu/~grdschl/electronic-method.php
+**** TODO Abstract
+    double-spaced, 350 words
+**** TODO Cleanup
+    From Sandra mostly.
+    Redo the feature extraction figures to use more space and proper
+    $\to$ instead of . and ->
+    Possible 'future work' moved up to the present
+**** TODO Presentation
+    (how long?)
+**** TODO Formatting
+    - list of figures, appendices, abbrevs and other materials
+    - Vita page
+**** TODO ProQuest submission
+    - Do you has? The $65 for MICROFILM???
+    - I DON'T think we'll completely lose the tech to read hard
+      drives, but whatEVER.
+**** TODO Defence
+    - Get accceptance page and abstract signed
+    - June 11th, 1 PM
+    - Make a bound copy for the department
 ** June
-*** Slop/revisions
+*** Revisions
 * TODO Remember to upgrade blog software
 
 ask local Swedish speaker to look over automatic annotation quality

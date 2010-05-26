@@ -1293,10 +1293,10 @@ positive and negative evidence are always visible; otherwise, in some
 cases, if one side is strong enough, the other would be pushed out of
 the top ten. However, it still allows the relative weight of evidence
 to be estimated. For example, if some cluster has some idiosyncratic
-features, most of the features will be positive, meaning that most of
-the distance comes from features typical of this cluster. The two-part
-feature will show this: the five positive features will have much
-higher values than the five negative features.
+features, most of the features will be positive, meaning that features
+typical of that cluster contribute most to the distance between it and
+other clusters. The two-part feature will show this: the five positive
+features will have much higher values than the five negative features.
 
 
 The first subsection, \ref{feature-ranking-complete}, shows all
@@ -1377,25 +1377,38 @@ presented because the mixed feature types make it difficult to read.)
 As mentioned above, the top-ranked trigrams are common, typical of the
 core of the sentence. Cluster A's typical trigrams, for example,
 typically involve a pronoun or a verb or both: PO-AV-AB
-(pronoun-copula-adverb), $++$-PO-AV (conjunction-pronoun-copula) and
-PO-VV-AB (pronoun-verb-adverb). The same is of the other clusters for
-the most part. Unfortunately, this makes it hard to say interesting
-things about the difference in feature distribution. It does appear
-that clusters B and C have heavier use of adverbs and of
-conjunctions. The comparison between cluster A and cluster B even
-highlights the trigram AB-AB-AB as important.
+(pronoun-copula-adverb, figure
+\ref{clusterA-clusterB-feat-5-1000-trigram-ratio}), $++$-PO-AV
+(conjunction-pronoun-copula, figure
+\ref{clusterA-clusterB-feat-5-1000-trigram-ratio}) and PO-VV-AB
+(pronoun-verb-adverb, figure
+\ref{clusterA-clusterD-feat-5-1000-trigram-ratio}). The same is of the
+other clusters for the most part. Unfortunately, this makes it hard to
+say interesting things about the difference in feature
+distribution. It does appear that clusters B and C have heavier use of
+adverbs and of conjunctions; for example $++$-AB-AV in in figure
+\ref{clusterA-clusterC-feat-5-1000-trigram-ratio}. The comparison
+between cluster A and cluster B even highlights the trigram AB-AB-AB
+(figure \ref{clusterA-clusterB-feat-5-1000-trigram-ratio})as
+important.
+
+% TODO: Discuss the ending in IP. Ends of sentences? Sentences are
+% shorter? (I hope the second is false.)
 
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-ratio}
   \caption{cluster A $\Leftrightarrow$ cluster B, trigram features}
+  \label{clusterA-clusterB-feat-5-1000-trigram-ratio}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-trigram-ratio}
   \caption{cluster A $\Leftrightarrow$ cluster C, trigram features}
+  \label{clusterA-clusterC-feat-5-1000-trigram-ratio}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-trigram-ratio}
   \caption{cluster A $\Leftrightarrow$ cluster D, trigram features}
+  \label{clusterA-clusterD-feat-5-1000-trigram-ratio}
 \end{figure}
 
 
@@ -1420,32 +1433,40 @@ the comparisons can be altered: normalization and feature
 set. Starting with normalization, let us add the overuse normalization
 technique. Differences appear immediately. First, the balance of
 feature weight obviously differs here. For example, in the comparison
-between cluster A and cluster B, the features of cluster A are more
-important in distinguishing the two than the features of cluster
-B. The comparison between cluster A and cluster D is so lop-sided that
-cluster D contributes no features at all.
+between cluster A and cluster B (figure
+\ref{clusterA-clusterB-feat-5-1000-trigram-over}), the features of
+cluster A are more important in distinguishing the two than the
+features of cluster B. The comparison between cluster A and cluster D (figure
+\ref{clusterA-clusterD-feat-5-1000-trigram-over})
+is so lop-sided that cluster D contributes no features at all.
 
 With the overuse normalization, cluster A has two interesting
 patterns. First, the trigrams it overuses are filled with indefinite
 articles (EN) and prepositions (PR). Examples include VV-EN-AB
 (verb-indefinite-adverb), PR-EN-AB (preposition-indefinite-adverb) and
-PR-EN-VN (preposition-indefinite-verbal noun), as well as IM-PR-NN
+PR-EN-VN (preposition-indefinite-verbal noun) in figure
+\ref{clusterA-clusterB-feat-5-1000-trigram-over}, as well as IM-PR-NN
 (infinitive marker-preposition-noun) and PR-ID-PR
-(preposition-idiom-preposition). Second, the trigrams it underuses
-mostly end with pronouns: 4 of 5 trigrams in the comparison with
-cluster B and 4 or 5 in the comparison with cluster C. Even in the
-comparison with cluster D, 4 of 5 of the ``least overused'' trigrams
-end with pronouns. (The low values in the bottom half of the
-comparison with cluster D are not underused by cluster A, because
-cluster D has no unique features here. Instead they are the ``least
-overused'' by cluster A.)
+(preposition-idiom-preposition) in figure
+\ref{clusterA-clusterD-feat-5-1000-trigram-over}. Second, the trigrams
+it underuses mostly end with pronouns: 4 of 5 trigrams in the
+comparison with cluster B (figure
+\ref{clusterA-clusterB-feat-5-1000-trigram-over}) and 4 or 5 in the
+comparison with cluster C (figure
+\ref{clusterA-clusterC-feat-5-1000-trigram-over}). Even in the
+comparison with cluster D (figure
+\ref{clusterA-clusterD-feat-5-1000-trigram-over}), 4 of 5 of the
+``least overused'' trigrams end with pronouns. (The low values in the
+bottom half of the comparison with cluster D are not underused by
+cluster A, because cluster D has no unique features here. Instead they
+are the ``least overused'' by cluster A.)
 
 Cluster B shows one interesting pattern: overuse of sk\"ola (shall),
-including an interesting trigram SV-QV-AB (shall verb-can
-verb-adverb). Although this could be a mistake on the part of the
-tagger, the different forms of this verb are limited, so this is
-unlikely: identifying them is not hard. Instead it points to the
-possibility of double modals.
+including an interesting trigram SV-QV-AB (shall verb-can verb-adverb)
+in figure \ref{clusterB-clusterD-feat-5-1000-trigram-over}. Although
+this could be a mistake on the part of the tagger, the different forms
+of this verb are limited, so this is unlikely: identifying them is not
+hard. Instead it points to the possibility of double modals.
 %% a quick search suggests that Fennell and Butters (1996) finds
 %% evidence in German and Scandinavian languages...but it's a book ro
 %% something. Google Scholar has no link, just a wimpy citation.
@@ -1455,10 +1476,14 @@ possibility of double modals.
 %% Thrainsson and Vikner 1995 (but focussing on Danish and Icelandic)
 
 Cluster C doesn't gain any interesting patterns with overuse
-normalization except for a surprising variety in the verbs: g\"ora
-(do), hava (have), kunna (get), sk\"ola (shall), vara (be) and vilja
-(want). Many uses of adverbs show up as well. It is not clear what
-either of these patterns mean linguistically, however.
+normalization in figures
+\ref{clusterA-clusterC-feat-5-1000-trigram-over},
+\ref{clusterB-clusterC-feat-5-1000-trigram-over}, and
+\ref{clusterC-clusterD-feat-5-1000-trigram-over}, except for a
+surprising variety in the verbs: g\"ora (do), hava (have), kunna
+(get), sk\"ola (shall), vara (be) and vilja (want). Many uses of
+adverbs show up as well. It is not clear what either of these patterns
+mean linguistically, however.
 % I have no idea whether to make that verb singular or plural.
 % So like whatever.
 
@@ -1472,16 +1497,19 @@ clusters is worthwhile.
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, trigram features
     with overuse normalization}
+  \label{clusterA-clusterB-feat-5-1000-trigram-over}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-trigram-over}
   \caption{cluster A $\Leftrightarrow$ cluster C, trigram features
     with overuse normalization}
+  \label{clusterA-clusterC-feat-5-1000-trigram-over}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-trigram-over}
   \caption{cluster A $\Leftrightarrow$ cluster D, trigram features
     with overuse normalization}
+  \label{clusterA-clusterD-feat-5-1000-trigram-over}
 \end{figure}
 
 
@@ -1489,16 +1517,19 @@ clusters is worthwhile.
   \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-trigram-over}
   \caption{cluster B $\Leftrightarrow$ cluster C, trigram features
     with overuse normalization}
+  \label{clusterB-clusterC-feat-5-1000-trigram-over}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-trigram-over}
   \caption{cluster B $\Leftrightarrow$ cluster D, trigram features
     with overuse normalization}
+  \label{clusterB-clusterD-feat-5-1000-trigram-over}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-trigram-over}
   \caption{cluster C $\Leftrightarrow$ cluster D, trigram features
     with overuse normalization}
+  \label{clusterC-clusterD-feat-5-1000-trigram-over}
 \end{figure}
 
 \subsection{Variation Across Feature Sets}
@@ -1509,35 +1540,41 @@ leaf-ancestor paths and leaf-head paths give additional information
 about cluster A that lead to the conclusion its defining
 characteristic is simple sentences, simpler at least than the other
 clusters. Specifically, cluster A's overused leaf-ancestor paths
-include few nested sentences. This contrasts sharply with cluster B
-and cluster C, which include many nested sentences. Cluster A does
-have complex paths, but they feature prepositional phrases. (Note: NAC
-stands for ``not a constituent'' and indicates that the parser could
-not decide what the correct constituent was at that point.) (Or that
-there are crossing branches, which is less common.)
+include few nested sentences (figure
+\ref{clusterA-clusterB-feat-5-1000-path-over}). This contrasts sharply
+with cluster B and cluster C, which include many nested
+sentences. Cluster A does have complex paths, but they feature
+prepositional phrases. (Note: NAC stands for ``not a constituent'' and
+indicates that the parser could not decide what the correct
+constituent was at that point, or that there are crossing branches,
+which is less common.)
 
 This characteristic of cluster A appears in the leaf-head paths as
-well; cluster A's paths contain many [adjective]-noun-preposition
-sequences, but few verb-verb sequences that indicate nested
-phrases. Again, cluster B and cluster C have many of these
-sequences. Both clusters have a number of overused adverb features as
-well, similar to the trigram results. Note that comparison to cluster
-D is less interesting. Because it has fewer unique characteristics,
-when compared to it, clusters A, B and C show more generic
-characteristics. For example, all three clusters show that their
-sentences are generally more complex than the general sites in cluster D.
+well (figure \ref{clusterA-clusterB-feat-5-1000-dep-over}); cluster
+A's paths contain many [adjective]-noun-preposition sequences, but few
+verb-verb sequences that indicate nested phrases. Again, cluster B and
+cluster C have many of these sequences. Both clusters have a number of
+overused adverb features as well, similar to the trigram results. Note
+that comparison to cluster D is less interesting. Because it has fewer
+unique characteristics, when compared to it, clusters A, B and C show
+more generic characteristics. For example, all three clusters show
+that their sentences are generally more complex than the general sites
+in cluster D.
 
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-path-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, leaf-ancestor path features}
+  \label{clusterA-clusterB-feat-5-1000-path-over}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, trigram features}
+  \label{clusterA-clusterB-feat-5-1000-trigram-over2}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-dep-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, leaf-head features}
+  \label{clusterA-clusterB-feat-5-1000-dep-over}
 \end{figure}
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-over}
@@ -1573,43 +1610,49 @@ MaltParser trained by Timbl}
 \label{feature-ranking-psg}
 
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
     rule features}
+  \label{clusterA-clusterB-feat-5-1000-psg-over2}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-psg-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-psg-over}
   \caption{cluster A $\Leftrightarrow$ cluster C, phrase-structure rule features}
+  \label{clusterA-clusterC-feat-5-1000-psg-over}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-psg-ratio}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-psg-over}
   \caption{cluster A $\Leftrightarrow$ cluster D, phrase-structure rule features}
+  \label{clusterA-clusterD-feat-5-1000-psg-over}
 \end{figure}
 
 
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-psg-ratio}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-psg-over}
   \caption{cluster B $\Leftrightarrow$ cluster C, phrase-structure rule features}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-psg-ratio}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-psg-over}
   \caption{cluster B $\Leftrightarrow$ cluster D, phrase-structure rule features}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-psg-ratio}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-psg-over}
   \caption{cluster C $\Leftrightarrow$ cluster D, phrase-structure rule features}
 \end{figure}
 
 Analysis of the phrase-structure-rule features is difficult because of
-all the noise. Features like S$\to++$-AB (conjunction-adverb)
-S$\to$FV-PO-AB-VV (get verb-pronoun-adverb-verb) are hard to describe
-as anything but junk rules created by the parser. On the other hand,
-there are a lot of linguistically odd but reasonable rules like
-S$\to$PO-AV-NP-IP (pronoun-copula-noun phrase-period), which makes a
-certain kind of sense if you can be persuaded that copular sentences
-are special enough to deserve their own rule. (Remember that
-statistical parsers trained on interview data are particularly
-susceptible to this kind of persuasion.)
+all the noise. In figures
+\ref{clusterA-clusterB-feat-5-1000-psg-over2} and
+\ref{clusterA-clusterD-feat-5-1000-psg-over}, features like
+S$\to++$-AB (conjunction-adverb) S$\to$FV-PO-AB-VV (get
+verb-pronoun-adverb-verb) are hard to describe as anything but junk
+rules created by the parser. On the other hand, there are a lot of
+linguistically odd but reasonable rules like S$\to$PO-AV-NP-IP
+(pronoun-copula-noun phrase-period) in figure
+\ref{clusterA-clusterC-feat-5-1000-psg-over}. Although this is not a
+good linguistic decomposition, it is one that a statistical parser
+would create when copular sentences are
+common enough.
 
 Overall both normalizations leave something to be desired; without
 overuse normalization, only very common features appear. These

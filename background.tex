@@ -3,8 +3,7 @@
 This dissertation establishes the utility and reliability of a
 statistical distance measure for syntactic dialectometry, expanding
 dialectometry's methods to include syntax as well as phonology and the
-lexicon. It is a continuation of my previous work \cite{sanders07},
-\cite{sanders08b} and earlier work by \namecite{nerbonne06}, the first
+lexicon. It is a continuation of my previous work \cite{sanders07,sanders08b} and earlier work by \namecite{nerbonne06}, the first
 statistical measure of syntax distance. These pioneering studies
 explored this measure, but failed to compare it to established results
 in dialectology to see if the new method reproduces them. This
@@ -51,8 +50,8 @@ feature sets, while the combining method can be thought of as the
 number. Figure \ref{abstract-distance-measure-model} gives an overview
 of how the model works. Input consists of two corpora; each item in
 each corpus is decomposed into a set of features extracted by $f$. The
-resulting corpora are then compared by $d$, which combines the corpora
-into a single number: the distance.
+resulting set of features are then compared by $d$, which combines
+them into a single number: the distance.
 
 \begin{figure}
 \[\xymatrix@C=1pc{
@@ -122,7 +121,7 @@ such as ``give it me'' versus ``give it to me''.
 % entirely of expletives.
 
 The specification of functions for decomposition and combination of
-syntax faces a different problem. Although many decomposition and
+syntax faces another problem. Although many decomposition and
 combination methods can be proposed, the standard syntactic theories
 % this is what chomsky calls it so shut up. he's always right
 cannot be practically used. For example, the parsers in this
@@ -133,8 +132,8 @@ extension the features based on their output, is quite different from
 the lexical representations of minimalism. In order to decompose
 sentences to minimalist features, a broad-coverage minimalist parser
 would be required. Since such a parser does not yet exist, it is
-impossible to use the standard linguistic theory in the same way that
-phonology does.
+impossible to use the minimalist syntactic structure in the same way that
+phonological dialectometry uses distinctive features, for example.
 
 %% I'm cutting this paragraph because it makes this section too long
 %% and it's more of a pet theory of mine than anything I can back up.
@@ -291,7 +290,7 @@ the reliability of this measure. They are given in chapter
 \ref{questions-chapter}. First, does the measure agree with the
 results of dialectology? Previous work has not addressed this
 question, but it is crucial that a new measure reproduce the results
-from previous linguistic work. To answer this question, the results
+from previous linguistic work. To answer this question, the
 Swedish dialect distance results will be processed in a number of ways
 so that they are comparable to previous dialect work on Swedish in
 multiple ways.
@@ -325,7 +324,7 @@ method described in the previous section with the parameter variations
 described above in chapter \ref{methods-chapter}. To make sure that
 the results are comparable to previous dialectology, I use the dialect
 corpus Swediasyn, which is a transcription of interviews recorded
-throughout Sweden in various villages. The interviewees were balanced
+in villages throughout Sweden. The interviewees were balanced
 between older and younger men and women. To generate features from the
 Swediasyn, a good deal of processing is required; the corpus is a
 transcription with no syntactic annotation. To annotate the Swediasyn,
