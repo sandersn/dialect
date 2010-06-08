@@ -164,12 +164,12 @@ p@footnote\endcsname\@thefnmark}\@makefntext
 \end{center}	
 \vfill	
 \begin{center}
-Submitted to the faculty of the Graduate School\\
+Submitted to the faculty of the University Graduate School\\
 in partial fulfillment of the requirements\\
 for the degree\\
 Doctor of Philosophy\\
 %in the Department of Computer Science\\
-in Linguistics \\
+in the Department of Linguistics \\
 Indiana University\\
 \end{center}
 \vfill
@@ -216,9 +216,11 @@ ALL RIGHTS RESERVED\\
 \begin{center}
 \begin{minipage}{5in}
 \parindent=0pt
+\begin{center}
 Accepted by the Graduate Faculty, Indiana University, in partial
 fulfillment of
 the requirements of the degree of Doctor of Philosophy.
+\end{center}
 \par
 \vspace{.5in}
 \end{minipage}
@@ -253,7 +255,7 @@ the requirements of the degree of Doctor of Philosophy.
 \vfill\newpage}
 
 \def\abstractpage{%
-	\chapter*{Abstract}
+	\section*{Nathan Sanders}
 	\addcontentsline{toc}{chapter}{Abstract}
 	\input{abstract}
 	\vfill\newpage}
@@ -281,7 +283,10 @@ the requirements of the degree of Doctor of Philosophy.
 	\addcontentsline{toc}{chapter}{#1}}
 
 \def\abstractpage{%
-	\chapter*{Abstract}
+	%\chapter*{Abstract}
+	\section*{\centering Nathan Sanders}
+        \thispagestyle{empty}
+        \pagestyle{empty}
 	\addcontentsline{toc}{chapter}{Abstract}
 	\input{abstract}
 	\vfill\newpage}

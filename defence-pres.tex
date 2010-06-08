@@ -1,0 +1,517 @@
+\documentclass{beamer}
+
+\usetheme{Ilmenau}
+\usepackage[all]{xy}
+
+\title{A Statistical Method for Syntactic Dialectometry}
+\author{Nathan Sanders}
+\date{\today}
+\AtBeginSection[] % Do nothing for \section*
+{
+\begin{frame}<beamer>
+\frametitle{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+}
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+\begin{frame}
+  This dissertation establishes the utility and reliability of a
+  statistical measure for syntactic dialectometry.
+\end{frame}
+\section{Introduction}
+\begin{frame}
+  \frametitle{Dialectology}
+\begin{columns}
+\column[c]{0.5\textwidth}
+  \begin{definition}
+    Dialectology is the study of linguistic variation.
+  \end{definition}
+% One variable at a time, use your in-built intuition to combine
+% variables. This requires good intuition and lots of it.
+\column[c]{0.5\textwidth}
+  \includegraphics[scale=0.22]{dialektboka-karta8}
+\end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Dialectometry}
+\begin{columns}
+\column[c]{0.5\textwidth}
+ \begin{definition}
+    Dialectometry is a subfield that studies variation quantitatively,
+    using methods from statistics and information theory.
+ \end{definition}
+% Combine variables first, use less intuition.
+% This requires good combining methods, which is harder than it
+% sounds.
+% NOTE: You can still manually extract variables by hand. It's a
+% separate issue. That's how my work differs from Spruit's.
+\column[r]{0.5\textwidth}
+\includegraphics[scale=0.25]{Sverigekarta-cluster-5-1000}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Abstract Distance Measure Model}
+\[\xymatrix@C=1pc{
+ \textrm{Corpus} \ar@{>}[d]|{} &
+  S = s_o,s_1,\ldots
+  \ar@{>}[dd]|{f}
+  &&
+  T = t_o,t_1,\ldots
+  \ar@{>}[dd]|{f}
+  \\
+\textrm{Decomposition}\ar@{>}[dd] &&&\\
+ &
+ *{\begin{array}{c}
+     \left[ + f_o, +f_1 \ldots \right], \\
+     \left[ - f_o, +f_1 \ldots \right], \\
+     \ldots \\ \end{array}}
+ \ar@{>}[dr]
+ &&
+ *{\begin{array}{c}
+     \left[ + f_o, -f_1 \ldots \right], \\
+     \left[ + f_o, -f_1 \ldots \right], \\
+     \ldots \\ \end{array}}
+ \ar@{>}[dl]  \\
+ \textrm{Combination} && \textrm{Distance} & \\
+} \]
+\end{frame}
+% % These two are probably too much--more appropriate for a 50 minute
+% % talk
+% \begin{frame}
+%   Feature decomposition
+% \end{frame}
+% \begin{frame}
+%   Distance measure
+% \end{frame}
+
+
+\begin{frame}
+  \frametitle{Phonological versus Syntactic Dialectology}
+  Unlike phonology, in syntax:
+  \begin{itemize}
+% because it's easier to introspect on syntax, perhaps because of the
+% influence of a writing system, which also leads to standardization
+  \item There are fewer syntactic dialect differences.
+    % : a larger corpus is needed
+  \item There is no accepted measure of syntactic distance.
+    % : because corpora have to be larger, but there is no good way to
+    % annotate larger corpora collected this way.
+  \item There is no accepted way to extract linguistic information
+    from syntactic corpora.
+   % : without manual annotation, mainstream syntax cannot be used
+    % (and in fact NO corpus of mainstream annotated sentences exists,
+    % much less a dialect one.)
+    % ((Idiot syntacticians don't believe that corpora is useful, even
+    % small non-repeating ones. ANYWAY. This is the reason that
+    % empiricists don't believe that minimalism can possibly be
+    % capturing actual language, because the theory has never been
+    % tested on actual language, just miniature tests.))
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Syntax and Dialectology}
+  Goebl and Spruit
+\begin{itemize}
+\item They propose small numbers of features extracted by hand and a
+  complex distance measure.
+\item This works with smaller corpora, including dialect surveys.
+\item Gaps in linguistic knowledge can bias feature selection.
+%In other words, you have to do dialectology before you can do dialectometry
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Syntax and Dialectology}
+  Nerbonne \& Wiersma and Sanders
+\begin{itemize}
+\item They propose large numbers of automatically extracted features
+  and a simple distance measure.
+\item This requires larger corpora.
+\item But they can be automatically annotated.
+\item Until now, there has been no thorough examination of this
+  method's ability to reproduce existing dialect knowledge.
+\end{itemize}
+\end{frame}
+
+\section{Questions}
+\begin{frame}
+ \frametitle{Question 1}
+
+Do the results of this statistical measure for syntactic dialectometry
+agree with dialectology?
+
+%% \includegraphics[scale=0.25]{Sverigekarta-Landskap-consensus-5-1000}
+ % oops I need a map of the traditional areas here. I don't have one
+ % of those in PDF form I think
+ %% \includegraphics[scale=0.25]{Sverigekarta-Landskap-consensus-5-1000}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Question 2}
+ What parameter variations produce the best agreement with
+  dialectology?
+\end{frame}
+
+\begin{frame}
+  \frametitle{Question 3}
+ Do the results of this statistical measure for syntax agree with the
+  results for a phonological measure of distance on the same data?
+\end{frame}
+
+\section{Methods}
+\begin{frame}
+  \frametitle{Feature Set}
+  Capture syntactic information by representing individual units of
+  information.
+\[\xymatrix@C=1pc{
+ \textrm{Corpus} \ar@{>}[d]|{} &
+  S = s_o,s_1,\ldots
+  \ar@{>}[dd]|{f}
+  &&
+  T = t_o,t_1,\ldots
+  \ar@{>}[dd]|{f}
+  \\
+\textrm{Decomposition} &&&\\
+ &
+ *{\begin{array}{c}
+     \left[ + f_o, +f_1 \ldots \right], \\
+     \left[ - f_o, +f_1 \ldots \right], \\
+     \ldots \\ \end{array}}
+ &&
+ *{\begin{array}{c}
+     \left[ + f_o, -f_1 \ldots \right], \\
+     \left[ + f_o, -f_1 \ldots \right], \\
+     \ldots \\ \end{array}} \\
+} \]
+
+\end{frame}
+% TODO: Examples in a second frame
+\begin{frame}
+  \frametitle{Feature Sets}
+  \begin{tabular}{c|c}
+  Leaf-Ancestor Paths & Nested Structure \\ \hline
+  Leaf-Head Paths & \\
+  Leaf-Head Paths, based on Timbl training &Long-distance context  \\
+  Leaf-Arc Paths & \\ \hline
+  Phrase Structure Rule & Internal Structure \\
+  Phrase Structure Rule with Grandparent & \\ \hline
+  Trigrams & Context and order \\ \hline
+  Unigrams & Baseline \\ \hline
+  Combined & \\
+  \end{tabular}
+\end{frame}
+\begin{frame}
+  \frametitle{Distance Measure}
+  Combine two sets of features into a single number.
+\[\xymatrix@C=1pc{
+\textrm{Decomposition}\ar@{>}[dd] &&&\\
+ &
+ *{\begin{array}{c}
+     \left[ + f_o, +f_1 \ldots \right], \\
+     \left[ - f_o, +f_1 \ldots \right], \\
+     \ldots \\ \end{array}}
+ \ar@{>}[dr]
+ &&
+ *{\begin{array}{c}
+     \left[ + f_o, -f_1 \ldots \right], \\
+     \left[ + f_o, -f_1 \ldots \right], \\
+     \ldots \\ \end{array}}
+ \ar@{>}[dl]  \\
+ \textrm{Combination} && \textrm{Distance} & \\
+} \]
+\end{frame}
+% TODO: Definitions in a second frame
+\begin{frame}
+  \frametitle{Measures}
+  \begin{tabular}{c|c}
+  $R$ & $\Sigma_i |a_i - b_i|$ \\
+  $R^2$ & $\Sigma_i (a_i - b_i)^2$ \\ \hline
+  Kullback-Leibler divergence & $\sum_i {a_i \log\frac{a_i}{b_i} + b_i \log\frac{b_i}{a_i}}$ \\
+  Jensen-Shannon divergence & $\sum_i {a_i \log\frac{b_i}{\bar{c_i}} + a_i \log\frac{b_i}{\bar{c_i}}}$ \\ \hline
+  Cosine similarity & $\cos(a,b)$ \\
+  \end{tabular}
+\end{frame}
+\begin{frame}
+  \frametitle{Sampling / Iterations}
+  \begin{itemize}
+  \item 1000 sentences with replacement
+  \item All sentences
+ \end{itemize}
+  \begin{itemize}
+  \item 1 normalization iteration
+  \item 5 normalization iterations
+ \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Input Processing: Corpora}
+  \begin{columns}
+    \column[c]{0.5\textwidth}
+    The Swediasyn is a dialect corpus collected in 2000 from more than
+    100 villages through Sweden and Swedish-speaking Finland. Four
+    speakers from each village were interviewed. The interviews were
+    later transcribed, 30 so far.
+    \column[c]{0.5\textwidth}
+    Talbanken is a mixed newspaper / speech corpus collected in the
+    1970s. It is used for training automatic annotators.
+  \end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Input Processing: Annotators}
+  \begin{itemize}
+  \item Tags`n'Trigrams for part-of-speech tagging
+  \item The Berkeley parser for phrase-structure parsing
+  \item MaltParser for dependency parsing
+  \end{itemize}
+\end{frame}
+% \begin{frame}
+% \frametitle{Phonology}
+%   Determine average value for insertion and deletion--this should be
+%   half the average substitution cost for arbitrary segments.
+% \end{frame}
+\begin{frame}
+  \frametitle{Output Processing: Significance}
+  \begin{enumerate}
+  \item Find $d = R(sample(a),sample(b))$.
+  \item Now, at least 20 times:
+  \item $shuffled = shuffle(a,b)$
+  \item $shuffle_a = sample(shuffled)$
+  \item $shuffle_b = sample(shuffled)$
+  \item Find $d_{shuffle} = R(shuffle_a,shuffle_b)$
+  \item Is $d_{shuffle} < d$ ? It should be; shuffling should destroy any significant differences.
+  \item If $d_{shuffle} < d$ more than 95\% of the time, $d$ is significant.
+  \end{enumerate}
+\end{frame}
+\begin{frame}
+  \frametitle{Output Processing: Correlation with Travel Distance}
+ \begin{itemize}
+  \item Dialects generally correlate with distance
+  \item Swedish dialects have no sharp boundaries, meaning that
+    correlation should be even better.
+ \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Output Processing: Cluster Analysis}
+  Produce hierarchical clusters which:
+  \begin{itemize}
+  \item Put each site in a unique cluster (hard clustering)
+  \item Consensus trees improve stability by using only clusters that
+    occur in the majority of parameter settings
+  \item Composite cluster maps display clusters as boundaries, similar
+    to isoglosses.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Output Processing: Multi-dimensional scaling}
+  Produce 3D clusters which:
+  \begin{itemize}
+  \item Do not put sites in unique clusters (soft clustering)
+  \item Maps high dimensional dissimilarity space to 3 dimensional distance
+ \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Output Processing: Feature Ranking}
+  \begin{itemize}
+  \item Compares the rate of individual features between regions.
+  \item Features are characteristic of one or the other of a region
+    pair.
+  \end{itemize}
+\end{frame}
+\section{Results}
+\begin{frame}
+  \frametitle{Organization}
+  Results are grouped by sample size and normalization.
+  \begin{tabular}{c|c|c|}
+  &  1 iteration & 5 iterations \\ \hline
+  1000 sentences & 1-1000 & 5-1000 \\ \hline
+Full site &    1-full & 5-full \\ \hline
+  \end{tabular}
+\end{frame}
+\begin{frame}
+  \frametitle{Significance}
+\begin{center}
+  \begin{tabular}{c|c|c|}
+  &  1 & 5 \\ \hline
+  1000 & $\circ$ &  $\circ$\\ \hline
+Full & $\circ$ & $\times$\\ \hline
+\end{tabular}
+\end{center}
+  \begin{itemize}
+  \item The highest number of significant distances was 1-1000.
+  \item However, decreasing significance generally means more informative
+    results;
+  \item As classifiers become more sensitive, they deal with increased
+    noise, which means less significance.
+    % This trend holds across feature sets, such that trigrams give
+    % the best trade-off between significance and sensitivity.
+    % (Unfortunately. This is a pretty low-end tradeoff.)
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Correlation with Travel Distance}
+  \begin{center}
+  \begin{tabular}{c|c|c|}
+  &  1 & 5 \\ \hline
+  1000 & 0.24 &  0.22\\ \hline
+Full & 0.29 & 0.18 \\ \hline
+\end{tabular}
+\end{center}
+ \begin{itemize}
+  % \item Correlation with travel and geographic distance is low but significant.
+  % \item Most correlations are 0.2 to 0.3, with a high of 0.37.
+  \item This is lower than predicted by the ``boundary free'' view of
+    Swedish dialects. % which is the usual, well accepted, view
+  \item Correlation with travel distance is slightly better than with
+    geographic distance.
+    % probably this points to a shortcoming in the distance measure
+    % rather than new information about Swedish dialects.
+    % also, given the size-geographical distance correlation (0.45**),
+    % it all may be epiphenomenal and we learn nothing from looking at
+    % correlations.
+ \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Clusters and Consensus Trees}
+  \begin{itemize}
+  % \item Consensus trees are the easiest way to interpret hierarchical clusters.
+ \item Of the previous groups, the 5-1000 setting
+    retains the most detailed consensus tree.
+  \item Where the others have clusters, they agree with 5-1000's.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Clusters and Consensus Trees}
+  \begin{columns} \column[c]{0.5\textwidth}
+    \begin{center}
+      \includegraphics[scale=0.3]{Sverigekarta-Landskap-consensus-5-1000}
+    \end{center} \column[c]{0.5\textwidth}
+    \begin{itemize}
+    \item When projected on a map of Sweden, this tree reproduces the
+      major dialect areas.
+    \item (North, East, West, South)
+    % \item South divides into multiple clusters.
+    % \item But North and East are part of the same cluster.
+    %   maybe an effect of cities? Cities are big these days
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Composite Cluster Maps}
+\begin{columns}
+\column[c]{0.5\textwidth}
+\includegraphics[scale=0.3]{Sverigekarta-cluster-5-1000}
+\column[c]{0.5\textwidth}
+The composite cluster maps reproduce dialectology's
+  \begin{itemize}
+  \item Weak boundaries between regions.
+  \item North-to-south gradient.
+\end{itemize}
+ Notably, the southern boundary is stronger than the rest, and
+    Tors\aa{}s/J\"amshog/\"Ossj\"o are further isolated within this area.
+\end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Multi-Dimensional Scaling}
+  \begin{itemize}
+  \item MDS maps are harder to analyze because they cannot be combined.
+  \item However, most MDS maps show the same pattern as the other two
+    mapping methods.
+ \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Features}
+  \begin{itemize}
+  \item Overall, feature extraction was biased by the two
+    normalization methods.
+  \item Without the overuse normalization, the results tend to be
+    features that occur in {\it every} dialect; it only highlights
+    differences.
+  \item With the overuse normalization, the results tend to be quite
+    noisy.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Features}
+  Nonetheless, some interesting features appeared:
+  \begin{itemize}
+  \item The southern clusters had odd positioning of adverbs,
+    conjunctions and ends of sentences.
+  \item This may point to non-standard placement of adverbs.
+  \item The tightest southern cluster showed possible use of double modals.
+  \end{itemize}
+  % TODO: Pictures here? I guess, I could put some example features.
+  % But they are pretty ugly.
+\end{frame}
+\section{Discussion}
+\begin{frame}
+  \frametitle{Comparison to Dialectology}
+  Good agreement at the levels of
+  \begin{itemize}
+  \item regions (consensus tree maps, MDS maps)
+  \item boundaries (composite cluster maps)
+  \item distances (composite cluster maps)
+  \end{itemize}
+  But not for specific features.
+\end{frame}
+\begin{frame}
+  \frametitle{Comparison to Dialectology Features}
+  \begin{itemize}
+ \item About a third of the results were positive, a third negative
+    and a third inconclusive.
+  \item However, none were very strong.
+  \item None could be verified as significant, given current methods.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Comparison to Phonological Dialectometry}
+  \begin{itemize}
+ \item Agreement with Leinonen's variable maps is good.
+ \item All syntactic boundaries have an analogue in a boundary for
+   some phonological variable.
+  \item Results are preliminary; correlation is needed to know whether
+    the similarities are significant.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Comparison to Syntactic Dialectometry}
+  \begin{itemize}
+  \item This dissertation shows agreement with dialectology.
+  \item Previous work found significant differences but did not
+    produce distances, regions or boundaries that agreed with
+    dialectology.
+  \item The sites used here are smaller than in previous work.
+  \item This indicates that corpora specifically collected for dialect
+    work still have an advantage.
+ \item The parameter variations analyzed here guide future research.
+ \end{itemize}
+\end{frame}
+\section{Conclusion}
+\begin{frame}
+  \frametitle{Future Work}
+  \begin{itemize}
+  \item Correlation with phonological dialectometry
+ \item Rapid analysis of the rest of Swedia and Nodalida.
+ \item Improved feature normalization.
+  \item Significance testing for feature-by-feature comparisons.
+ \item Improved automatic annotation to reduce feature noise.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Conclusion}
+  This dissertation establishes the utility and reliability of a
+  statistical measure for syntactic dialectometry.
+\end{frame}
+
+\end{document}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
