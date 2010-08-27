@@ -280,6 +280,41 @@ swediaWords = [
   ("Vaxtorp", 11353),
   ("Viby", 6734),
   ("Villberga", 11479)]
+swediaPopulations = [
+  ("Ankarsrum", 1568),
+  ("Anundsjo", 5060),
+  -- ("Arjeplog", ),
+  ("Arsunda", 2161),
+  ("Asby", 626),
+  ("Bara", 3639),
+  ("Bengtsfors", 11614),
+  ("Boda", 942),
+  ("Bredsatra", 266),
+  ("Faro", 634),
+  ("Floby", 1432),
+  ("Fole", 347),
+  ("Frillesas", 1943),
+  ("Indal", 1961),
+  ("Jamshog", 11764),
+  ("Ko"++umlaut++"la", 1521),
+  ("Leksand", 15340), -- WARNING: One filename is typoed "Leksand " not "Leksand"
+  ("Loderup", 923),
+  -- ("Nederlulea", ),
+  ("Norra Rorum", 526),
+  ("Orust", 15175),
+  ("Ossjo", 522),
+  -- ("Overkalix", ),
+  ("Segerstad", 103),
+  ("Skinnskatteberg", 4093),
+  ("Sorunda", 4714),
+  ("Sproge", 139),
+  ("StAnna", 2350),
+  ("Torsa"++ring++"s", 7639),
+  ("Torso", 556),
+  --"Torsö",
+  ("Vaxtorp", 2377),
+  ("Viby", 3088),
+  ("Villberga", 1255)]
 swediaWordsPerSentence = [("Ankarsrum",12.234920634920634)
                          ,("Anundsjo",10.399475524475525)
                          ,("Arsunda",9.533617929562434)

@@ -12,9 +12,10 @@ is a good measure of syntax distance. Previous results have shown that
 it can obtain significant distances, but has either failed to do so
 reliably, as in my work on British English \cite{sanders08b}, or has
 not compared traditional dialect areas, as in
-\namecite{nerbonne06}. $R$, and statistical methods as a whole, still
-need to show that they can contribute to dialectometry's study of
-syntax.
+\namecite{nerbonne06}. Neither study showed that a statistical method
+could adequately reproduce existing knowledge about some dialect area,
+which is necessary before $R$, and statistical methods as a whole, can
+contribute to dialectometry's study of syntax.
 
 This leads to the first question: will the features found by
 dialectologists agree with the highly ranked features used by a
@@ -25,11 +26,13 @@ question is whether the regions of Sweden accepted by dialectology
 will be reproduced by a statistical method. For example, my previous
 research on British English reproduced the well-known North
 England-South England dialect regions. However, this dissertation
-eliminates the corpus variability in that research
-\cite{sanders08b}. With a corpus collected for the purpose of dialect
-research, and with a phonological corpus transcribed from the same
-interviews, more precise comparisons should be possible, both between
-regions and between syntax and phonology.
+eliminates the corpus variability in that research, where a forty-year
+gap separated the phonology and syntax corpora, and the syntax corpus
+was not collected with dialectology in mind \cite{sanders08b}. With a
+corpus collected for the purpose of dialect research, and with a
+phonological corpus transcribed from the same interviews, more precise
+comparisons should be possible, both between regions and between
+syntax and phonology.
 
 A secondary question, relevant once the utility of a statistical
 measure for syntax is established, is what variations of the two
@@ -140,7 +143,11 @@ discussion of Swedish dialect features in the dialectology
 literature. For example, \namecite{rosenkvist07} discusses the South
 Swedish apparent cleft. Here, the sentence contains an embedded clause
 with similar surface appearance to a true cleft. Unlike a true cleft,
-however, there is no clefted constituent in the matrix clause.
+however, there is no clefted constituent in the matrix clause. The
+apparent cleft appears in southern Sweden, but its precise
+distribution is not known; Rosenkvist finds some uses everywhere
+except Norrland (northern Sweden), but finds heaviest use in the
+former Danish provinces in the south.
 
 %% This stuff makes no sense!
 % This feature is best analyzed as a
@@ -149,8 +156,7 @@ however, there is no clefted constituent in the matrix clause.
 % precise location than ``Svealand and G\"otaland''. So we will compare
 % this feature directly to features found in any part of the corpus.
 
-Next the feature should be expressed formally. Ideally, this involves
-a syntactic description based on something like minimalism. This
+Next the feature should be expressed formally. This
 formal description can then be translated to the format representation
 used by the dialectometry. Again, these would be the same ideally, but
 the dialectology study may not be complete; for example, Rosenkvist's
@@ -168,17 +174,17 @@ complementizer. Typically, the next step is to identify the minimalist
 structure for this, but Rosenkvist's 2007 paper does not yet provide
 this analysis. Although there is no structure to translate to a
 phrase-structure skeleton, his analysis provides enough clues to
-produce some features directly. Trigrams are easiest; he mentions that
-his corpus search used the strings {\it det \"ar som} (``It is that'')
-and {\it det \"ar bara som} ``It's just that''. These words only need
-part-of-speech annotation to be trigram features. Leaf-head
-paths can also use these parts of speech for the local dependencies
-between {\it det,\"ar} and {\it som}. Rosenkvist also mentions
-some syntactic properties of apparent clefts that are useful for
-specifying leaf-head path features: the subject of the {\it
-  som}-clause must be a pronoun, so we should expect to see
-leaf-head paths of the form {\it ROOT-som-PRON} in the regions that
-have the apparent cleft.
+produce some features directly. Part-of-speech n-grams are easiest; he
+mentions that his corpus search used the strings {\it det \"ar som}
+(``It is that'') and {\it det \"ar bara som} ``It's just that''. These
+words only need part-of-speech annotation to be n-gram
+features. Leaf-head paths can also use these parts of speech for the
+local dependencies between {\it det,\"ar}, and {\it som}. Rosenkvist
+also mentions some syntactic properties of apparent clefts that are
+useful for specifying leaf-head path features: the subject of the {\it
+  som}-clause must be a pronoun, so we should expect to see leaf-head
+paths of the form {\it ROOT-som-PRON} in the regions that have the
+apparent cleft.
 
 Once dialectometric features have been specified from some linguistic
 analysis, the analysis consists of the following questions: in what
@@ -225,7 +231,8 @@ a region.
 In contrast, multi-dimensional scaling (MDS) is a mathematical
 transformation of the high-dimensional space created by measuring
 distances between all sites in the corpus; see figure
-\ref{mds-example-small} for an example. Although MDS does not produce
+\ref{mds-example-small} for an example and section \ref{mds} for a
+complete discussion. Although MDS does not produce
 spurious information, its results are often hard to analyze because it
 produces boundaries of varying strength. Very different regions stand
 out, but similar regions appear similar even if they contain some
@@ -257,10 +264,13 @@ the dialectometric distances must first be translated to something
 like the isogloss bundles of dialectometry. Composite cluster maps
 provide this translation by drawing dark boundaries when large
 distances separate regions; see figure
-\ref{composite-example-small}. Alternatively, statements like ``in
+\ref{composite-example-small} and discussion in section
+\ref{methods-composite-clustering}. Alternatively, statements like ``in
 general, Southern Swedish is syntactically identical to Standard
-Swedish'' \cite{rosenkvist07} can be construed as a rough statement of
-distance between Southern Swedish and Standard Swedish.
+Swedish'' \cite{rosenkvist07} can be construed as saying, roughly,
+that there is very l ittle distance between Southern and Standard
+Swedish. Ultimately, though, the distances from a quantitative
+analysis do not have a clear analogue in qualitative analyses.
 
 \begin{figure}
   \includegraphics[scale=0.4]{Sverigekarta-cluster-1-full}
@@ -292,7 +302,7 @@ For example, in previous work, I showed that leaf-ancestor paths have
 a small advantage of trigrams \cite{sanders07} in terms of finding
 significant distances. Therefore, Question 2 breaks into two smaller
 questions: (1) how can new variations be proposed? and (2) how can
-they be evaluated? However, these questions are explored, an
+they be evaluated? However, before these questions are explored, an
 definition of terms related to distance measures is in order.
 
 \subsection{Definition of dialectometry terms}
@@ -300,23 +310,15 @@ definition of terms related to distance measures is in order.
 There are several terms related to distance in mathematics. In order
 from least restrictive to most restrictive, they are `divergence',
 `dissimilarity' and `distance'. In this dissertation, a `measure' is
-used to refer to any of these three functions. A divergence is a
-measure that is not required to be either symmetric or to satisfy the
-triangle inequality. A dissimilarity is symmetric, but is not required
-to satisfy the triangle inequality. A distance satisfies both
-properties. For this dissertation, the measure only needs to be a
-dissimilarity; a distance is not needed because methods used to compare
-the results to dialectology results only require dissimilarities as
-input.
-
-All three kinds of functions must always return positive numbers, and
-only return 0 for corpora that are equal.  A symmetric function
-returns the same number whether measuring from point X to point Y or
-from point Y to point X. The triangle inequality means that distance
-from point X to point Y plus point Y to point Z is at least as long as
-traveling straight from point X to point Z.  In other words, it means
-that it will always be longer to take the two-leg path than to take
-the single-leg path. Equations
+used to refer to any of these three functions.  All three kinds of
+functions must always return positive numbers, and only return 0 for
+corpora that are equal.  A symmetric function returns the same number
+whether measuring from point X to point Y or from point Y to point
+X. The triangle inequality means that distance from point X to point Y
+plus point Y to point Z is at least as long as traveling straight from
+point X to point Z.  In other words, it means that it will always be
+longer to take the two-leg path than to take the single-leg
+path. Equations
 \ref{distance-properties-positive}-\ref{distance-properties-triangle}
 list the properties formally.
 
@@ -327,6 +329,7 @@ list the properties formally.
 
 \begin{equation}
  d(x,y) = 0 \textrm{ iff } x=y
+ \label{distance-properties-eqq}
 \end{equation}
 
 \begin{equation}
@@ -338,13 +341,34 @@ list the properties formally.
 \label{distance-properties-triangle}
 \end{equation}
 
-In the rest of the dissertation, `distance' will generally be used as
-a generic term to refer to a dissimilarity; exceptions where the term `distance'
-implies all three properties will be noted. In addition, some of the
-dissimilarities have common names that contain the other terms. For
+A divergence satisfies equations \ref{distance-properties-positive}
+and \ref{distance-properties-eqq}: it is always positive and only zero
+when two sites are equal. It is less restrictive than the other two
+kinds of measures, and is the only one that can capture the common
+dialect situation where speakers of dialect X can understand speakers
+of dialect Y better than speakers of Y understand those of
+X. Unfortunately, the methods used for aggregate comparison in
+dialectology, such as hierarchical dendrograms and multi-dimensional
+scaling (MDS), require more restrictive measures. Specifically,
+dissimilarities are divergences that are in addition
+symmetric. Dissimilarities can be used in hierarchical dendrograms and
+MDS because multiple dissimilarity comparisons can be mapped into
+distance space by situating each pair of sites in its own orthogonal
+dimension. This high-dimensionality avoids violating the triangle
+inequality. Finally, distances are dissimilarities that additionally
+satisfy the triangle inequality without special consideration, so
+multiple pairwise comparisons can inhabit the same
+dimensions. However, this is not necessary for the analyses in this
+dissertation.
+
+Therefore, the measures described in the rest of the dissertation will
+be dissimilarities, but not necessarily distances. In the rest of the
+dissertation, `distance' will usually be used as a generic term to
+refer to a dissimilarity; exceptions where the term `distance' implies
+all three properties will be noted. In addition, some of the
+dissimilarities have common names that contain other terms. For
 example, Kullback-Leibler divergence is augmented here to behave as a
-dissimilarity, but it retains its original name when
-mentioned.
+dissimilarity, but it retains its original name when mentioned.
 
 \subsection{Feature Sets}
 
@@ -385,7 +409,7 @@ discussed measures of agreement with dialectology should all be used
 as measures of performance. With the distance measure held constant,
 the different feature sets can be evaluated against one another.
 
-Before comparison though, the distances produced for a given
+Before comparison, though, the distances produced for a given
 combination of feature set and measure must be checked for
 significance. For example, a very sensitive combination could be
 inappropriate for small data sets if it can only achieve significance
@@ -418,13 +442,12 @@ simplicity by defining a more complex measure that uses sophisticated
 ways to measure difference over still-opaque symbolic features. The
 second direction is to address $R$'s ignorance of syntax by defining a
 measure with specific knowledge of syntax. Finding candidates for the
-first direction is easier, given the statistical bent of the corpus
-used here and the number of statistical measures commonly used in
-computational linguistics. Additionally, the dialectometric model that
-divides a measure into distance measure and feature set is powerful
-enough that most syntax-specific knowledge can be represented in terms
-of features instead of integrated into the distance measure's
-algorithm.
+first direction is easier, given the number of statistical measures
+commonly used in computational linguistics. Additionally, the
+dialectometric model that divides a measure into distance measure and
+feature set is powerful enough that most syntax-specific knowledge can
+be represented in terms of features instead of integrated into the
+distance measure's algorithm.
 
 Indeed, this makes syntax-aware measures difficult to
 specify---they must incorporate knowledge of syntax in a way that
@@ -441,7 +464,7 @@ that none are presented in this dissertation. Syntax awareness is
 restricted to the feature sets. However, a number of more complicated
 statistical measures similar to $R$ are presented. Evaluation of the
 distance measures proceeds similarly to evaluation of feature sets;
-results for various measures are compared, holding feature set
+results for various measures are compared, holding the feature set
 constant. The results are checked for significance, then for agreement
 with dialectology.
 

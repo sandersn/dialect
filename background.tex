@@ -25,7 +25,7 @@ Dialectometry is a subfield of dialectology that uses mathematically
 sophisticated methods to extract and combine linguistic features
 \cite{seguy73}. Its focus is the manipulation of large data sets in a
 uniform way, characterizing the differences between regions in a
-gradient and statistically sound way. As result, in recent years most
+gradient and statistically sound way. As a result, in recent years most
 work in the field has been computational linguistic, largely focused
 on phonology, starting with \namecite{kessler95}, followed by
 \namecite{nerbonne97} and \namecite{nerbonne01}. \namecite{heeringa04}
@@ -43,12 +43,12 @@ results on Swedish.
 In dialectometry, a distance measure can be defined in two parts:
 first, a method of decomposing the data into features that capture
 linguistic properties, and second, a method of combining the features
-of two corpora, usually by summing them in some way. The decomposition
+from tw corpora to produce a single number. The decomposition
 method can be thought of as ``feature extraction'' for any number of
 feature sets, while the combining method can be thought of as the
-``distance'', since it combines a large set of features into a single
+``distance'', since it represents differences as a single
 number. Figure \ref{abstract-distance-measure-model} gives an overview
-of how the model works. Input consists of two corpora; each item in
+of how the model works. The input consists of two corpora; each item in
 each corpus is decomposed into a set of features extracted by $f$. The
 resulting set of features are then compared by $d$, which combines
 them into a single number: the distance.
@@ -95,11 +95,16 @@ measuring changes between any two sequences of characters taken from a
 common alphabet. Levenshtein distance is simple mathematically, and
 has the additional advantage that its intermediate data structures are
 easy to interpret as the linguistic processes of epenthesis, deletion and
-metathesis.
+metathesis. Other methods have been proposed; \namecite{kondrak02}
+give several simpler alternatives to Levenshtein distance and
+\namecite{sanders06} and \namecite{hinrichs07} give two different
+statistical measures. However, Levenshtein distance remains dominant
+for currently available corpora because it maintains the best balance
+between required corpus size and quality of results.
 
 These things are not possible with syntactic distance: neither matched
 sentences nor a single obvious function for decomposition and
-combinations. Matched sentences could in theory be collected, but the
+combinations exist. Matched sentences could in theory be collected, but the
 number of possible interview responses in syntax is so much larger
 that the required time and number of informants would be
 correspondingly much greater. For example, in the Survey of English
@@ -116,7 +121,7 @@ priming a particular structure has a low chance of eliciting that very
 structure. For example, a prompt such as ``I took your drink. What do
 you say to me?'' has a low chance of eliciting sentences that
 exemplify the differing English orders of direct and indirect objects
-such as ``give it me'' versus ``give it to me''.
+such as ``give me it'' versus ``give it to me'' or ``give it me''.
 % for example, in many parts of England, the answer will consist
 % entirely of expletives.
 
@@ -134,6 +139,15 @@ sentences to minimalist features, a broad-coverage minimalist parser
 would be required. Since such a parser does not yet exist, it is
 impossible to use the minimalist syntactic structure in the same way that
 phonological dialectometry uses distinctive features, for example.
+
+For similar reasons, methods from lexical dialectology are not simple
+to adapt to syntax. There are two problems: first, lexical feature
+extraction ranges from trivial to easy, so there are no applicable
+techniques for feature extraciton. Second, there has been little work
+on distance measure specifically for lexical dialectometry. Lexical
+distance typically uses a non-specific method such as Goebl's GIW,
+described in chapter \ref{methods-chapter}; see for example
+\namecite{spruit06}.
 
 %% I'm cutting this paragraph because it makes this section too long
 %% and it's more of a pet theory of mine than anything I can back up.
@@ -174,13 +188,15 @@ the Syntactic Atlas of the Dutch Dialects \cite{barbiers05}, is to
 continue using small dialectology corpora and manually extract
 features so that only the most salient features are used. Then a
 sophisticated method of combination such as Goebl's Weighted Identity
-Value (WIV), described below and by \namecite{goebl06}, can be used to
+Value (WIV), described in chapter \ref{methods-chapter}, and by \namecite{goebl06}, can be used to
 produce a distance. WIV is more complex mathematically than
 Levenshtein distance, and operates on any type of linguistic
-feature. However, manual feature extraction is not feasible in
-knowledge-poor or time-constrained environments. It is also subject to
-bias from the dialectologist. Since the best manually extracted
-features are those that capture the difference between two dialects,
+feature. However, manual feature extraction requires that the dialect
+situation be understood first. In other words, traditional
+dialectology methods must be used to find interesting features before
+dialectometry can proceed. This negates the usual advantages of dialectometric
+methods in providing rapid analysis in knowledge-poor environments.
+Manual feature extraction is also subject to bias from the dialectologist:
 the best-known features are most likely to become the best manual
 features, passing over the rarely occurring and previously unknown
 features that might actually be the best indicators of a particular
@@ -233,16 +249,17 @@ imply success on dialect differences.
 
 I addressed this problem \cite{sanders08b} by measuring $R$ between
 the nine Government Office Regions of England, using the International
-Corpus of English Great Britain \cite{nelson02}. Speakers were classified by
-birthplace. I also introduced Sampson's leaf-ancestor paths as
-a feature set \cite{sampson00}. I found statistically
+Corpus of English Great Britain \cite{nelson02}; see the discussion in
+section \ref{methods-chapter-dialectometry-section}. Speakers were
+classified by birthplace. I also introduced Sampson's leaf-ancestor
+paths as a feature set \cite{sampson00}. I found statistically
 significant differences between most regions, using both trigrams and
 leaf-ancestor paths as features. However, $R$'s distances were not
-significantly correlated with Levenshtein distances. Nor did I
-show any qualitative similarities between known syntactic dialect
-features and the high-ranked features used by $R$ in producing its
-distance. As a result, it is not clear whether the significant $R$ distances
-correlate with dialectometric phonological distance or with known
+significantly correlated with Levenshtein distances. Nor did I show
+any qualitative similarities between known syntactic dialect features
+and the high-ranked features used by $R$ in producing its distance. As
+a result, it is not clear whether the significant $R$ distances
+correlate either with dialectometric phonological distance or with known
 features found by dialectologists.
 
 % NOTE: 2-d stuff is not the primary problem, since we can't compare
@@ -329,9 +346,13 @@ Swediasyn, a good deal of processing is required; the corpus is a
 transcription with no syntactic annotation. To annotate the Swediasyn,
 I use a number of automatic annotators, trained on Talbanken, a corpus
 of spoken and written Swedish. However, Talbanken does not include
-dialect sources, so some amount of error is expected during the
+dialect sources, so error is expected during the
 annotation process. After annotation, feature generation is
-straightforward: transformation of parse trees and other annotations.
+straightforward: transformation of parse trees and other
+annotations. Because automatic annotators should make identical
+mistakes when annotating identical dialect structures, the resulting
+features should contribute usefully to distance, despite being
+incorrect linguistically.
 
 After measuring distances between the interview sites, a number of
 analytic methods are applied to the distances so that they can be
