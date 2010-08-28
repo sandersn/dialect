@@ -75,7 +75,7 @@ compared. This is a reasonable restriction, but later studies were
 able to lift it because of the availability of greater computational
 power. Work following S\'eguy's improves on both aspects. In
 particular, Hans Goebl developed dialectometry models that are
-more mathematically sophisticated.
+more mathematically sophisticated, while retaining the survey-syle small feature set.
 
 \subsection{Goebl}
 
@@ -95,7 +95,7 @@ important properties. First, they are independent of the source
 data. They can operate over any linguistic data for which they are
 given a feature set, such as the one proposed by \namecite{gersic71} for
 phonology. Second, they can compare data even for items that do not
-have identical feature sets, unlike Ger\v{s}i\'c's $d$, for example,
+have identical feature sets, unlike Ger\v{s}i\'c's measure $d$, for example,
 which cannot compare consonants and vowels. Third, they can compare
 data sets that are missing some entries. This improves on S\'eguy's
 analysis by providing a principled way to handle missing survey
@@ -144,7 +144,7 @@ in a large number of items. \quotecite{wiersma09} normalization,
 covered at the end of this chapter, reuses this idea for feature
 ranking.
 
-The mathematical reasoning behind this idea is fairly simple. Goebl
+The reasoning behind this idea is fairly simple. Goebl
 is interested in feature values that occur in only a few items. If a
 feature has some value that is shared by all of the items, then all
 items belong to the same group. This feature value provides {\it no}
@@ -197,9 +197,11 @@ therefore
   items get a larger fraction of the normal count subtracted. WIV is
   similar to entropy from information theory, which forms the basis of
   the Kullback-Leibler and Jensen-Shannon divergences described later
-  in this chapter \cite{lin91}. The difference is that WIV substracts
+  in this chapter \cite{lin91}. The difference is that WIV subtracts
   values from 1 to make common features less important, while entropy
-  takes the logarithm.
+  takes the logarithm. The result is similar, but the two divergences
+  are theoretically more principled in directly referring to information theory.
+% TODO: CITE Shannon. Seriously, how did I avoid it?
 
   For example, let $j$ and $k$ be sets of productions for the
   underlying English segment /s/. The allophones of /s/ vary mostly on the feature
@@ -231,7 +233,7 @@ therefore
   groups, so that \textit{voice} might be worth less than
   \textit{place} for /t/ because /t/'s allophones vary more over
   \textit{place}. In equation \ref{wiv-voice}, $w$ is left at 1 to
-  facilitate the presentation, but typically it's used like an ad-hoc
+  facilitate the presentation, but typically it is used like an ad-hoc
   equivalent of information gain: the linguist can give more weight to
   features that are believed to be salient.
 % TODO: Check out Goebl's book again and find out for sure how he
@@ -256,7 +258,12 @@ distance. This distance is essentially the count of differing
 segments, although various refinements have been tried, such as
 inclusion of distinctive features or phonetic
 correlates. \namecite{heeringa04} gives an excellent analysis of the
-applications and variations of Levenshtein distance. While Levenshtein
+applications and variations of Levenshtein distance. He investigated
+varying levels of detail and differing feature sets. Interestinly,
+although he extracted features from phonetic correlates, phonological
+(distinctive) features, segments, and orthographic characters, the
+more complex features failed to give any significant improvement over
+simple segments. In addition, while Levenshtein
 distance provides much information as a classifier, it is limited
 because it must have a word-aligned corpus for comparison. A number of
 statistical methods have been proposed that remove this requirement
@@ -272,34 +279,37 @@ Recently, computational dialectometry has expanded to analysis of
 syntax as well. The first work in this area was \quotecite{nerbonne06}
 analysis of Finnish L2 learners of English, followed by
 \quotecite{sanders07} analysis of British dialect areas. As explained
-in chapter \ref{questions-chapter}, syntax distance must be approached
-quite differently than phonological distance. Syntactic corpora can be
-built quickly by automatically annotating raw text, so it is easier to
-build a large syntactic corpus than a phonological one; phonological
-annotation does not yet have a method for automatic
-annotation. However, automatic annotators, while faster, cannot
-compete with human annotators in quality of annotation.  For example,
-the principal difference between present phonological and syntactic
-corpora is that phonology data is word-aligned, while syntax data is
-not sentence-aligned. This difference leads syntactic approaches
-naturally to statistical measures over large amounts of data rather
-than more sensitive measures that operate on small corpora.
+in chapters \ref{background-chapter} and \ref{questions-chapter},
+syntax distance must be approached quite differently than phonological
+distance. Syntactic corpora can be built quickly by automatically
+annotating raw text, so it is easier to build a large syntactic corpus
+than a phonological one; phonological annotation does not yet have a
+method for automatic annotation. However, automatic annotators, while
+faster, cannot compete with human annotators in quality of annotation.
+This trade-off between annotation methods leads to the principal
+difference between present phonological and syntactic corpora:
+phonology data is word-aligned, keeping varying segments relatively
+close, while syntax data is not sentence-aligned, meaning that
+variation is distributed throughout the corpus. This difference leads
+syntactic approaches naturally to statistical measures over large
+amounts of data rather than more sensitive measures that operate on
+small corpora.
 
 \namecite{nerbonne06} were the first to use the syntactic distance
 measure described below. They analyzed a corpus of Finnish L2 speakers
 of English, divided by age. The first age group consisted of speakers
 who learned English after childhood and the second of speakers who
 learned English as children. Nerbonne \& Wiersma found a significant
-difference between the two age groups. The features that contributed
-most to the difference were those in the older age group that are
-unexpected in English. For example, some important features for the
-older age group involved determiners, which English has but Finnish
-does not. The features showed underuse of determiners, as well as
-overuse, probably due to hypercorrection. Interestingly, some of these
-features occur in the younger age group, but not as often.  Nerbonne
-\& Wiersma analyzed this pattern as interference from Finnish; the younger
-age group learned English more completely with less interference
-from Finnish.
+difference between the two age groups. The features that were
+unexpected in English contributed most to the difference; these were
+associated primarily with the older age group. For example, some important
+features for the older age group involved determiners, which English
+has but Finnish does not. The features showed underuse of determiners,
+as well as overuse, probably due to hypercorrection. Interestingly,
+some of these features occur in the younger age group, but not as
+often.  Nerbonne \& Wiersma analyzed this pattern as interference from
+Finnish; the younger age group learned English more completely with
+less interference from Finnish.
 
 My subsequent work in \cite{sanders07} and \cite{sanders08b}
 expanded on the Finnish experiment in two ways. First, it introduced
@@ -371,18 +381,18 @@ dialectometry as described above. The process is similar to Wiersma's
 work in \cite{nerbonne06} and \cite{wiersma09}, but with
 variants of both feature set and distance measure.
 
-The input is 30 interview sites (described in
-section \ref{syntactically-annotated-corpus}). The sentences in each
-site have their features extracted (the features are described in
-section \ref{syntactic-features}). Optionally, only 1000 sentences are sampled
-with replacement, but the site sizes, unlike the British interviews
-in my previous work, are fairly similar in size so this is only
-necessary for comparison to previous work. Then the features are
+The input is 30 interview sites (described in section
+\ref{syntactically-annotated-corpus}). The sentences in each site have
+their features extracted (the features are described in section
+\ref{syntactic-features}). Optionally, only 1000 sentences per site
+are sampled with replacement, but the site sizes, unlike the British
+interviews in my previous work, are fairly similar in size so this is
+only required for comparison to previous work. Then the features are
 counted, producing a mapping of feature types to token counts.
 
 At this point, two sites are compared based on these feature
 counts. The feature counts are first normalized to account for
-variation in site size and sentence length (described in
+variation in corpus size (described in
 the next section). Then they are converted to ratios, meaning
 that the counts are scaled relative to the other site. For example,
 counts of 10 and 30 would produce the ratio 1 to 3, as would the
@@ -468,9 +478,9 @@ times each feature appears, then divide each scaled count by it. This
 produces numbers whose average is 1.0 and whose values are multiples
 of the amount that they are greater than the average.  The average
 feature count is $N / 2n$, where $N$ is the number of feature
-occurrences in both the permutations and $n$ is the number of feature
-types. Division by two is necessary since we are multiplying counts
-from a single permutation by merged counts from both
+occurrences and $n$ is the number of feature
+types in the combined sites. Division by two is necessary since we are multiplying counts
+from a single permutation by summed counts from the combined sitesboth
 permutations. Each entry in the ratio vector now becomes
 \[ r_{ai} = \frac{2na'_i}{N}, r_{bi} = \frac{2nb'_i}{N}\]
 
@@ -482,6 +492,14 @@ $a$'s 40 total features and 30 for $b$'s total 100 features gives
 = 2$ occurrences in $a$ and $b$ respectively. Dividing $a'_i = 12$ and
 $b'_i = 6$ by this average gives $r_{ai} = 6$ and $r_{bi} = 3$. In
 other words, $r_{ai}$ occurs 6 times more than the average feature.
+
+Together, these normalizations control for the effect of variation in
+sentence length (the first normalization), corpus size (the second
+normalization), and relative overuse (the second
+normalization). Furthermore, the normalizations can be iterated, with
+the normalized output further re-normalized. This exaggerates the
+differntiating effect of the normalization, which allows distance
+measures to be more sensetive to feature count variations.
 
 \subsection{Syntax Features}
 \label{syntactic-features}
@@ -506,6 +524,15 @@ and Wiersma did, or taken from the leaves of the trees of a
 syntactically annotated corpus as I did with the
 International Corpus of English \cite{sanders07}.
 
+Of course, bigrams are a possible feature since they are so similar to
+trigrams. I do not use them here for several reasons. First, previous
+work uses trigrams, so trigrams are needed in order to remain
+comparable. But bigrams offer only reduced sparseness and noise
+reductions compared to trigrams. However, neither feature sparseness
+nor noise is a problem for trigrams when used with the distance
+measures developed here, as will be seen in the results in chapter
+\ref{results-chapter}.
+
 On the other hand, if syntax is in fact a phenomenon that involves
 hidden structure above the visible words of the sentence, a feature
 set should be constructed to capture that
@@ -519,7 +546,7 @@ as long as every sibling is unique. For example, the parse tree
 creates the following leaf-ancestor paths:
 
 \begin{itemize}
-\item S-NP-Det-The
+\item S-NP-Det-the
 \item S-NP-N-dog
 \item S-VP-V-barks
 \end{itemize}
@@ -710,7 +737,7 @@ figure \ref{psg-example}.
 \end{figure}
 
 Phrase structure rules are most similar to leaf-ancestor paths in
-emphasizing the upper structure of constituency parse trees. Unlike
+emphasizing the hidden, parse structure of constituency parse trees. Unlike
 leaf-ancestor paths, they capture some context to the left and
 right. They also only cover one level in the tree, whereas
 leaf-ancestor paths traverse it from leaf to root. Phrase structure
@@ -758,6 +785,12 @@ The sentence for the leaf-head example is given in figure
 \item root-SS-dog
 \item root-barks
 \end{itemize}
+% TODO: To the future work section, add:
+% 1. Extract deps from CFG parses from Berkeley
+% 2. Label dep features with both arc and POS tags interleaved in the
+% proper order.
+% 3. Better tag set. (duh, probably already have this one)
+% 4. Non-linear feature set combination.
 
 \subsubsection{Tags from Berkeley Parser}
 
@@ -840,21 +873,6 @@ words, all features are counted together with equal
 weight. This is easy and should allow the feature ranker
 to find a greater variety of features that capture the
 same underlying syntactic information.
-
-A more sophisticated method of combining features can be
-adapted from Martin Volk's method for deciding prepositional phrase
-(PP) attachment \cite{volk02}. Volk uses a number of different feature
-sets to decide where to attach PPs. However, he also weights each
-feature set differently based on its reliability.
-
-Volk used an a priori reliability measure for ranking
-quality of combined feature types; I use number of significant
-site differences for ranking: the top-ranked feature set will be
-the one that produces the highest number of significant distances
-between sites. So, if a feature set finds significant differences
-between 90 out of 100sites, its weight will be 0.90 and will be double
-the weight for a feature set that only finds significant differences
-between 45/100 sites.
 
 % I don't think I'll do this (I probably won't even do the Volk thing
 % since it involves a lot of parameterisation in icecore.h.
@@ -950,7 +968,7 @@ Several variants of relative entropy exist that lift various restrictions from t
 distributions. One is Jensen-Shannon divergence \cite{lin91}, which
 was designed as a dissimilarity from the start. It uses the same
 denominator for both directions: the average of the two
-probabilities. That means that each feature's entropy is found using
+frequencies. That means that each feature's entropy is found using
 the following formula:
 
 \[ a_i \log\frac{b_i}{(a_i + b_i) / 2} + b_i \log\frac{a_i}{(a_i + b_i) / 2} \]
@@ -973,9 +991,10 @@ at some point. The current implementation of KL divergence simply
 skips zero values, which means it ignores features unique to a
 particular site. Jensen-Shannon divergence avoids this problem because
 it divides by $\bar{c_i}$, the average of the feature counts.
-% In addition, it provides bounds on variational distance
-% and the Bayes probability of error.
-% TODO: Find out what this means
+Because KL divergence ignores features unique to one site, it should
+be less susceptible to noise than JS divergence. This can be useful in
+the presence of unreliable annotators. However, KL divergence will
+also produce less detail in the case that unique features are useful.
 
 \subsubsection{Cosine similarity}
 
@@ -985,17 +1004,20 @@ mining. \namecite{nerbonne06} use it as reference point for
 comparison to previous work in these areas. Cosine similarity measures
 the similarity between two high-dimensional points in space. Each
 feature is modeled as a dimension, and the type count from each
-site is plotted as a point on that dimension. The result is equation
-\ref{cosmeasure} or the non-vectorized version in
-\ref{cosmeasureiterative}.
+site is plotted as a point on that dimension. In equation \ref{cosmeasure}, vectors $a$
+and $b$ are multiplied, then divided by the product of their
+lengths. This equation can be written in an element-by-element way as in
+equation \ref{cosmeasureiterative}. Here, the vector multiplication is
+written out as the sum of pairwise products. The vector length of $a$
+and $b$ is written as a square root of sum of squares.
 
 \begin{equation}
-  \frac{a\cdot b} {||a_i||||b_i||}
+  \frac{a\cdot b} {||a||||b||}
   \label{cosmeasure}
 \end{equation}
 
 \begin{equation}
-  \frac{\sum_i {a_ib_i}} {\sqrt{\sum_i {a_i^2}} + \sqrt{\sum_i{b_i^2}}}
+  \frac{\sum_i {a_ib_i}} {\sqrt{\sum_i {a_i^2}} \cdot \sqrt{\sum_i{b_i^2}}}
   \label{cosmeasureiterative}
 \end{equation}
 
@@ -1101,7 +1123,7 @@ The Tags `n' Trigrams (T`n'T) tagger \cite{brants00} is used for tagging, with
 the POS annotations from Talbanken05 used as training. T`n'T is an
 efficient Markov-model trigram tagger, meaning that it uses only the
 previous two words to decide on the part of speech for a word. It
-backs off to even less context in the case of sparse data; if a
+backs off to even less context in the case of sparse data; if
 the trigram composed of the current word and the previous two words has not been seen before, most of the decision will be based
 on the current word and one previous word. T`n'T handles unknown words
 by a simple form of suffix analysis---unknown words that have similar
@@ -1289,7 +1311,7 @@ cluster merge to form a single tree (figure
 To find the two closest groups, \quotecite{ward63} method is used. At
 each merge step, this method evaluates every possible binary
 merge. Each merge is given a score that minimizes some objective
-function---for example, the average of distances between sites in
+function---here, the average of distances between sites in
 the new group. The best merge replaces its children and the process
 repeats until a singly rooted tree is created. For $n$ sites, this
 takes $n-1$ iterations, because at each step, two groups are merged.
@@ -1414,10 +1436,10 @@ ancestor.
 \end{figure}
 
 For example, consider the three hierarchical dendrograms of figure
-\ref{consensus-example-input}. They cluster the input set \{A B
-C D E\} three different ways. The majority-rule consensus tree for
-these three trees is given in figure \ref{consensus-example-output}.
-This example is adapted from the one given by \namecite{amenta03}.
+\ref{consensus-example-input}, adapted from the example given by
+\namecite{amenta03}. They cluster the input set \{A B C D E\} three
+different ways. The majority-rule consensus tree for these three trees
+is given in figure \ref{consensus-example-output}.
 
 The spans for the internal nodes of the three trees are given in
 figure \ref{consensus-tree-spans}. There is quite a bit of overlap at
@@ -1502,8 +1524,12 @@ separate them.
 
 But this still relies on hierarchical clustering, which is not very
 stable. To work around this, I use multiple hierarchical cluster trees
-from different combinations of distance measure and feature set. I
-combine the weights from the trees and scale the line darkness
+based on the parameter variations described above in section
+\ref{methods-chapter-dialectometry-section}. Each set of parameters
+generates one dendrogram, which produces a matrix of
+cluster-separation counts for each parameter variant in feature set,
+distance measure, normalization count, and sampling method. I average
+cluster-separation count matrices and scale the line darkness
 accordingly to get a more stable picture of which boundaries are
 important.
 
@@ -1522,13 +1548,18 @@ painted on a map, these colors provide a nice visualization of
 the regions that similar sites form as well as how sharp the boundaries are
 with other regions.
 
-MDS of dissimilarities uses \quotecite{kruskal64a} method. It reduces
-$m$ dissimilarities to an $n$ dimensional space by distorting the
-individual dissimilarities by the minimum amount needed to convert
-them into distances in $n$ dimensions. Since dissimilarities do not
-satisfy the triangle inequality, this means finding the minimum
-amount all dissimilarities need to change in order to satisfy it,
-turning them into distances.
+MDS of dissimilarities uses \quotecite{kruskal64a} method to reduce
+$m$ dissimilarities to an $n$ dimensional space, where $n < m$. Since
+dissimilarities do not satisfy the triangle inequality, the mapping to
+lower-dimensional space will require some change of the
+dissimilarities. The question is how to minimize the change. Kruskal's
+method defines a global measure of how much change is required called
+Stress. An initial Stress is obtained by sorting the dissimilarities
+by size and measuring how far each dissimilarity would have to change
+in order for all the dissimilarities to be mapped to points in
+n-dimensional space.  This initial stress is reduced by a process of
+gradient descent as described in \cite{kruskal64b}, which ultimately
+results in the minimum overall distortion of the dissimilarities.
 
 \begin{table}
   \begin{tabular}{c|cccc}
@@ -1548,18 +1579,13 @@ turning them into distances.
     Jensen-Shannon divergence}
 \end{figure}
 
-Kruskal calls this measure of distortion Stress.  An initial stress is
-obtained by sorting the dissimilarities by size and measuring how far
-each dissimilarity would have to change in order for all to satisfy
-the triangle inequality. This initial stress is reduced by a process
-of gradient descent as described in \cite{kruskal64b}.
 
 \subsection{Correlation}
 
 Correlation is useful on two levels. First, correlation between
 dialect distance and other measures provides an idea of how well
 dialect distance agrees with these other measures. Although
-traditional dialectology measures are do not provide numeric distances
+traditional dialectology measures do not provide numeric distances
 to correlate with syntactic dialect distance, other distances, such as
 geographic distance, travel distance, and phonological dialect
 distance do. These correlations provide circumstantial evidence that
@@ -1660,13 +1686,14 @@ this example, NN-VB's overall average score is
 \namecite{wiersma09} uses a method similar to the one described above,
 but with an additional normalization intended to show which features
 are used relatively more in one or the other of the two sites to be
-compared. This normalization is similar to the second
-normalization: it also removes the effect of frequency. However, this
-normalization removes the effect of frequency from the difference
-of the two sites, whereas the second removes it from the distance
-between two sites. Both normalizations are similar in being of
-limited value for the noisier data, automatically annotated. However,
-the results could improve if the data are sufficiently clean.
+compared. This normalization is similar to the second step of the
+normalization described in section \ref{normalization}: it also
+removes the effect of frequency. However, this normalization removes
+the effect of frequency from the difference of the two sites, whereas
+the second removes it from the distance between two sites. Both
+normalizations are similar in being of limited value for the noisier
+data, automatically annotated. However, the results could improve if
+the data are sufficiently clean.
 % But how can we know?!
 
 The normalization centers the two counts around 1.0 by dividing each count
@@ -1697,7 +1724,7 @@ counts $a_{\textrm{NN-VB}} = 10$ and $b_{\textrm{NN-VB}}=30$. Also
 let the site sizes for $a$ and $b$ be $N_a = 40$ and $N_b = 100$
 respectively. For the overuse-normalized numbers, this gives
 \[o_{a\textrm{NN-VB}} = \frac{10(100+40)}{(10+30)40} = 1400 / 1600 =
-0.875\] and \[o_{a\textrm{NN-VB}} = \frac{30(100+40)}{(10+30)100} = 4200
+0.875\] and \[o_{b\textrm{NN-VB}} = \frac{30(100+40)}{(10+30)100} = 4200
 / 4000 = 1.05\]
 
 With the frequencies turned into ratios of overuse, it is possible to

@@ -43,7 +43,7 @@ each cluster in the consensus tree (section \ref{section-features}).
 There are 180 parameter settings investigated in this chapter. This
 number arises from the four parameters: measure, feature set, sampling
 method and number of normalization iterations. 5 measures, 9 feature
-sets, 2 sampling methods and 2 numbers of normalization iterations
+sets, 2 sampling methods and 2 iterations of normalization
 gives $5\times 9 \times 2 \times 2=180$ different settings. The
 settings are given in table \ref{parameter-settings}.
 
@@ -96,7 +96,7 @@ table \ref{corpus-size}.
      Bredsatra &  360 &   6938 & Sorunda &  768 &   11144\\
      Faro &  659 &   8260 & Sproge &  381 &   4399\\
      Floby &  557 &   6392 & StAnna &  876 &   13156\\
-     Fole &  727 &   9920 & Tors\.as &  374 &   9217\\
+     Fole &  727 &   9920 & Tors\aa{}s &  374 &   9217\\
      Frillesas &  572 &   9634 & Torso &  956 &   15577\\
     Indal &  1126 &   13090 &  Vaxtorp &  903 &   11353\\
      Jamshog &  301 &   8661 & Viby &  431 &   6734\\
@@ -112,7 +112,7 @@ table \ref{corpus-size}.
 Significant distances help answer the question whether a syntactic
 measure has succeeded in finding reliable distances; the measure will
 always return some distance, but if the sites are too small, it may
-not be significant. Therefore the results should have few to no
+not be significant. Therefore the results should have few
 non-significant distances. In the tables, the total number of
 comparisons between all 30 sites is the $435=30(30-1) / 2$. In the
 first set, tables \ref{sig-1-1000} -- \ref{sig-1-full}, the results
@@ -120,8 +120,8 @@ are shown from one iteration of the normalization step. In the second
 set, tables \ref{sig-5-1000} -- \ref{sig-5-full}, the results from
 five normalization iterations are shown.
 
-Bold numbers in the tables indicate that more than 5\% of the
-distances were not significant. In table \ref{sig-5-full}, the
+Bold numbers in the tables indicate that fewer than 95\% of the
+distances were significant. In table \ref{sig-5-full}, the
 5-iteration table that compares full sites, the only combination
 with {\it less} than 5\% non-significant results is cosine
 dissimilarity with unigram features, marked with italics. Note that
@@ -142,7 +142,7 @@ themselves number of significant distances found.
   Leaf-Arc Labels&0&0&0&0&0 \\
   All Features Combined &0&0&0&0&0 \\
 \end{tabular}
-\caption{Number of significant distances for sample size 1000, 1
+\caption{Number of non-significant distances for sample size 1000, 1
   normalization}
 \label{sig-1-1000}
 \end{table}
@@ -162,7 +162,7 @@ themselves number of significant distances found.
   Leaf-Arc Labels&14&19&\textbf{37}&\textbf{94}&17 \\
   All Features Combined&0&0&1&8&2 \\
 \end{tabular}
- \caption{Number of significant distances for complete sites, 1
+ \caption{Number of non-significant distances for complete sites, 1
    normalization}
  \label{sig-1-full}
 \end{table}
@@ -180,7 +180,7 @@ themselves number of significant distances found.
   Leaf-Arc Labels&6 & \textbf{54} & 17 & 1 & 0\\
   All Features Combined&0 & 4 & 0 & 0 & 0\\
 \end{tabular}
-\caption{Number of significant distances for sample size 1000, 5
+\caption{Number of non-significant distances for sample size 1000, 5
   normalizations}
 \label{sig-5-1000}
 \end{table}
@@ -198,7 +198,7 @@ themselves number of significant distances found.
   Leaf-Arc Labels&\textbf{294} & \textbf{290} & \textbf{291} & \textbf{293} & \textbf{162}\\
   All Features Combined&\textbf{279} & \textbf{279} & \textbf{279} & \textbf{269} & \textbf{191}\\
 \end{tabular}
- \caption{Number of significant distances for complete sites, 5
+ \caption{Number of non-significant distances for complete sites, 5
    normalizations}
  \label{sig-5-full}
 \end{table}
@@ -208,7 +208,7 @@ themselves number of significant distances found.
 
 Analysis of the significance of dialect distance provides a measure of
 how reliable the distances to be analyzed later in this chapter are. A
-distance that does not find significant distances between of 30
+distance that does not find significant distances between the 30
 sites is not suitable for precise inspection, although small numbers
 of non-significant distances will still allow methods to
 return interpretable results.
@@ -232,16 +232,18 @@ comparison and 5 rounds of normalization will be skipped.
 The distance measures most likely to find significance are, in order,
 cosine dissimilarity, Jensen-Shannon divergence and $R$. Each method
 had different parameter settings for which it was stronger. For
-1000-sentence sampling, cosine similarity resulted in all significant
-distances, even for part-of-speech unigrams, which are intended as the
-baseline feature set. Excluding unigrams, Jensen-Shannon divergence
-has similar performance. For full-site comparisons, both perform
-considerably worse; surprisingly, both perform better on unigram
-features, Jensen-Shannon so much so that it is the only feature set for
-which it finds all significant distances. $R$, on the other hand,
-performs decently on all combinations of parameter settings; its low
-significance for phrase structure rules is shared by Kullback-Leibler
-and Jensen-Shannon divergences.
+1000-sentence sampling, tables \ref{sig-1-1000} and \ref{sig-5-1000},
+cosine similarity resulted in all significant distances, even for
+part-of-speech unigrams, which are intended as the baseline feature
+set. Excluding unigrams, Jensen-Shannon divergence has similar
+performance. For full-site comparisons, tables \ref{sig-1-full} and
+\ref{sig-5-full}, both perform considerably worse; surprisingly, both
+perform better on unigram features, Jensen-Shannon so much so that it
+is the only feature set for which it finds all significant
+distances. $R$, on the other hand, performs decently on all
+combinations of parameter settings; its low significance for phrase
+structure rules is shared by Kullback-Leibler and Jensen-Shannon
+divergences.
 % TODO : Maybe more on cosine later. Maybe not.
 
 When comparing the performance of Kullback-Leibler and Jensen-Shannon
@@ -303,7 +305,13 @@ could be that there is less room for error; many of the common
 leaf-head paths are short: short interview sentences with simple
 structure make for shorter leaf-head paths than leaf-ancestor
 paths. As a result, the important leaf-head paths consist mainly of a
-couple of parts-of-speech.
+couple of parts-of-speech. This difference in feature length holds for
+any length of sentence, but is exaggerated for simple sentences, where
+the amount of structure generated for a phrase-structure parse for a
+clause is more than for a dependency parse. In general, clauses,
+embedded and otherwise, produce the largest difference in amount of
+structure between the two, so the feature length differs for deeply
+nested sentences as well.
 
 Another reason could be a difference in parsers: MaltParser has been
 tested on Swedish by its designers \cite{nivre06b}. Besides English, the Berkeley
@@ -356,7 +364,8 @@ marked by italics.
 
 Besides this, correlation between combinations of measure/feature set
 can show how closely related they are--in other words, how similarly
-they view the underlying data which remains the same for all.
+they view the underlying data which remains the same for all. It is
+analyzed in section \ref{results-chapter-inter-measure-correlation}.
 
 This is similar to the reasoning behind correlation with
 geography---but the assumption is that geography is a factor
@@ -545,13 +554,21 @@ the data, at the cost of additional interference from noisy data.
 % OK never mind this isn't true.
 
 \subsection{Inter-measure Correlation}
+\label{results-chapter-inter-measure-correlation}
 
-Correlation between measures indicates that they produce similar
+Correlation between measures shows that they produce similar
 results. It also suggests that they use similar information to do
 so. For example, cosine similarity correlates the least with the
 others, which means that its results are the least like the
 others. It also implies that cosine similarity uses information from
-input features differently than the other measures.
+input features differently than the other measures. Since the
+performance of the summed, non-cosine measures is a little better for
+this site size, practical use of this distance method should probably
+start with them. In other computational linguistic applications,
+cosine distance is typically used with larger corpora, so it is
+possible that it provides better results with larger corpora, such as
+corpora based on entire provinces of Sweden rather than the individual
+villages used in this dissertation.
 
 The average correlation between different measures is given in table
 \ref{self-correlation-measures}. The correlations are averaged over
@@ -571,7 +588,7 @@ before averaging.
   \label{self-correlation-measures}
 \end{table}
 
-The inter-measure correlation is essentially a reflection of the
+The inter-measure correlation is essentially a summary of the
 results from the significance testing and correlations. $R$ and
 Jensen-Shannon produce nearly identical results, and also correlate
 highly. Cosine similarity is quite different from the other measures,
@@ -663,13 +680,23 @@ to higher distances. Smaller sites will lead to lower distances.
 \label{size-cor-5-full}
 \end{table}
 
-A large number of parameter settings that include 5 iterations of
-normalization correlate with corpus size. However, corpus size also
-correlates with geographic distance at a rate of 0.31 for $p < 0.01$
-and travel distance at a rate of 0.32 for $p < 0.01$. This makes the
-conclusion that these distances are invalid difficult to defend. Therefore,
-results with 5 normalizations will be presented in the rest of this
-chapter.
+In tables \ref{size-cor-1-1000} and \ref{size-cor-1-full}, the
+1-normalized correlations, only two correlations are
+significant. However, in table \ref{size-cor-5-1000}, 5-normalized
+correlations with 1000-sampling, a large number of correlations are
+significant. Specifically, the highest performing measures, $R$, $R^2$,
+and Jensen-Shannon divergence, correlate significantly with size for
+nearly all feature sets. Since this is not a predicted correlation, it
+means that these distances may be invalid. However, another piece of
+evidence makes this conclusion uncertain: geographics distance also
+correlates with corpus size at a rate of 0.31, $p < 0.01$, and travel
+distance correlates at 0.32, $p < 0.01$. This correlation is also
+unexpected, since there is no reason to expect that distance predicts
+corpus size or vice versa. However, it shows that the size correlation of
+dialect distance may at least by partly explained here by the
+unexpected correlation with geographic and travel distance. Therefore,
+5-normalised results will be presented throughout the rest of the
+results.
 
 \subsubsection{Analysis}
 
@@ -685,13 +712,17 @@ the interview collection progressed. Or perhaps cultural differences
 between the interviewer and interviewees caused some participants in
 one area to talk more than in another area.
 
-The high correlations between corpus size and the 5-normalization
-distances are definitely worrying. They are so much higher than the
-correlation of corpus size and travel distance that 5-normalized
+Although the size correlation of the dialect distances may be
+explained by the correlation with geographic/travel distance, they are still
+somewhat worrying. There is a great enough difference above the
+correlation of corpus size and geographic/travel distance that 5-normalized
 distances might not be reliable.
+However, if 5-normalization introduces a dependency on corpus size,
+then the distances from full-corpus comparisons should correlate even
+more highly. This is not the case.
 % It appears that multiple rounds of
 % normalization inadvertently re-introduce a dependency on size.
-% TODO: This probably IS a bug in that only Fred norm can be
+% TODO: This probably IS a bug in that only Freq norm can be
 % iterated. Ratio norm should probably be in a separate loop like so:
 % #ifdef RATIO_NORM
 %   for(sample::iterator i = ab.begin(); i!=ab.end(); i++) {
@@ -699,9 +730,6 @@ distances might not be reliable.
 %     i->second.second *= 2 * types / tokens;
 %   }
 % #endif
-However, if 5-normalization introduces a dependency on corpus size,
-then the distances from full-corpus comparisons should correlate even
-more highly. This is not the case.
 
 % TODO: I also should write this up when I have time
 Alternatively, it is possible that the fixed-size sampling method is not
@@ -717,7 +745,7 @@ Cluster dendrograms provide a visualization of which sites the
 distance measures find most similar. They are formed in a bottom-up
 manner, repeatedly merging the two most similar groups at each step
 until only one group remains. The resulting dendrogram usually has
-obvious sub-trees which can be treated clusters. By grouping sites
+obvious sub-trees which can be treated as clusters. By grouping sites
 into clusters, cluster dendrograms allow closer comparison to
 dialectology than correlation. These clusters can be compared to the
 regions proposed by syntactic dialectology.
@@ -760,6 +788,9 @@ settings produce the dendrogram in figure
 %     measure and trigram features, 1 normalization, 1000 samples}
 %   \label{cluster-1-r-trigram}
 % \end{figure}
+
+% TODO: Remove R.app's captions in favour of mine.
+% TODO: Remove R.app's x-scale (y-scale) too
 
 \begin{figure}
   \includegraphics[width=0.9\textwidth]{dist-1-1000-js-trigram-ratio-clusterward}
@@ -846,14 +877,14 @@ maps and composite cluster maps also used L04.
 
 \begin{figure}
 \includegraphics[scale=0.7]{consensus-1-1000}
-% \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\Tors\.as\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Ossjo\\Orust\\Norra Rorum\\Loderup\\Leksand\\K\"ola\\Jamshog\\Indal\\Frillesas\\Fole\\Faro\\Bredsatra\\Boda\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Floby\\Bengtsfors}  ] ]
+% \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\Tors\aa{}s\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Ossjo\\Orust\\Norra Rorum\\Loderup\\Leksand\\K\"ola\\Jamshog\\Indal\\Frillesas\\Fole\\Faro\\Bredsatra\\Boda\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Floby\\Bengtsfors}  ] ]
 \caption{Consensus Tree for 1000-samples and 1 normalization}
 \label{consensus-1-1000}
 \end{figure}
 
 \begin{figure}
 \includegraphics[scale=0.7]{consensus-1-full}
-% \Tree[. {Villberga\\Viby\\Torso\\Tors\.as\\Sorunda\\Segerstad\\Ossjo\\Orust\\Norra Rorum\\Loderup\\Leksand\\K\"ola\\Indal\\Fole\\Boda\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum}
+% \Tree[. {Villberga\\Viby\\Torso\\Tors\aa{}s\\Sorunda\\Segerstad\\Ossjo\\Orust\\Norra Rorum\\Loderup\\Leksand\\K\"ola\\Indal\\Fole\\Boda\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum}
 %   [. {Vaxtorp\\Skinnskatteberg}  ]
 %   [. {StAnna\\Frillesas}  ]
 %   [. {Sproge\\Faro}  ]
@@ -865,7 +896,7 @@ maps and composite cluster maps also used L04.
 
 \begin{figure}
 \includegraphics[scale=0.7]{consensus-5-1000}
-% \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Orust\\Norra Rorum\\Leksand\\K\"ola\\Indal\\Frillesas\\Fole\\Floby\\Faro\\Boda\\Bengtsfors\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Loderup\\Bredsatra}  ] [. {Tors\.as\\Ossjo\\Jamshog}  ] ]
+% \Tree[. {Villberga\\Viby\\Vaxtorp\\Torso\\StAnna\\Sproge\\Sorunda\\Skinnskatteberg\\Segerstad\\Orust\\Norra Rorum\\Leksand\\K\"ola\\Indal\\Frillesas\\Fole\\Floby\\Faro\\Boda\\Bengtsfors\\Bara\\Asby\\Arsunda\\Anundsjo\\Ankarsrum} [. {Loderup\\Bredsatra}  ] [. {Tors\aa{}s\\Ossjo\\Jamshog}  ] ]
 \caption{Consensus Tree for 1000-samples and 5 normalizations}
 \label{consensus-5-1000}
 \end{figure}
@@ -917,19 +948,19 @@ their own; the instability of a single dendrogram means that small
 clusters cannot be analyzed reliably. For example, in figure
 \ref{cluster-5-js-trigram}, a two-way split between the sites on the
 top and bottom of the page is obvious, and another in the top cluster
-is easy to argue for, but outliers like Anundsj\"o and \.Arsunda are
+is easy to argue for, but outliers like Anundsj\"o and \AA{}rsunda are
 likely to shift from group to group in other dendrograms.
 
 It is safer to analyze the consensus trees; the smoothing effect of
 taking the majority rule of each cluster will show where the optimal
-cutoff for splitting clusters is. The three consensus trees in figures
-\ref{consensus-1-1000} -- \ref{consensus-5-1000} vary in amount of
-detail but the trees with more clusters do not contradict the clusters
-of the flatter trees.
+cutoff for splitting clusters is removing spurious detail. The three
+consensus trees in figures \ref{consensus-1-1000} --
+\ref{consensus-5-1000} vary in amount of detail but the trees with
+more clusters do not contradict the clusters of the flatter trees.
 
 For 1000-sentence samples and 1 round of normalization, there is one
 cluster: Floby and Bengtsfors. Full-site comparison finds
-another cluster: J\"amshog, \"Ossj\"o and Tors\.as. Finally,
+another cluster: J\"amshog, \"Ossj\"o and Tors\aa{}s. Finally,
 1000-sentence samples and 5 rounds of normalization finds another
 cluster consisting of L\"oderup and Breds\"atra. It also finds
 a large two-way split between the sites and adds Sproge to the first
@@ -950,7 +981,7 @@ clusters are assigned colors, which are detailed in figures
 \begin{figure}
 \begin{itemize}
 \item J\"amsh\"og
-\item Tors\.as
+\item Tors\aa{}s
 \item \"Ossj\"o
 \end{itemize}
 \caption{Red Cluster}
@@ -976,10 +1007,10 @@ clusters are assigned colors, which are detailed in figures
 \item Sproge
 \item Skinnskatteberg
 \item Orust
-\item V\.axtorp
-\item F\.ar\"o
+\item V\aa{}xtorp
+\item F\aa{}r\"o
 \item Asby
-\item \.Arsunda
+\item \AA{}rsunda
 \item Anundsj\"o
 \item Ankarsrum
 \item Fole
@@ -993,9 +1024,9 @@ clusters are assigned colors, which are detailed in figures
 \item Viby
 \item Bara
 \item S:t Anna
-\item Frilles\.as
+\item Frilles\aa{}s
 \item J\"amshog
-\item Tors\.as
+\item Tors\aa{}s
 \item \"Ossj\"o
 \item K\"ola
 \item L\"oderup
@@ -1013,17 +1044,23 @@ clusters are assigned colors, which are detailed in figures
 When these clusters are mapped onto the geography of Sweden, some
 patterns are visible. Since figure \ref{consensus-5-1000} is strictly
 more complex than the preceding two, it is used as the basis for this
-analysis--see map \ref{map-consensus-5-1000}. The large two-way split
+analysis--see figure \ref{map-consensus-5-1000}. The large two-way split
 is between the orange and cyan clusters. The orange cluster, which
 includes red and yellow clusters, forms two horizontal bands across
 Sweden. The centers of the orange cluster appear to be Stockholm and
 Malm\"o. Meanwhile, the red and yellow clusters form a boundary along
-the northern border of Sk\.ane and Blekinge counties.
+the northern border of Sk\aa{}ne and Blekinge counties.
 
 Meanwhile, the cyan cluster, which includes the blue cluster, seems to
 represent the countryside of Sweden. On the other hand, because the
 blue cluster is near G\"oteborg, it might be better characterized
-simply as ``non-Stockholm''.
+simply as ``non-Stockholm''. This matches the traditional dialect
+regions of Sweden, with the exception of of the city/country divide,
+and the fact that this hard clustering simplifies the dialect
+boundaries, which are traditionally believed to be gradient. Also, the
+island Gotland is not put in a separate cluster as predicted by
+traditional boundaries. For discussion, see section
+\ref{discussion-chapter-dialectology-section}.
 
 
 \subsection{Composite Cluster Maps}
@@ -1066,15 +1103,15 @@ consensus tree map \ref{map-consensus-5-1000} of the previous
 section. The north-to-south gradient is supported by the
 weak horizontal boundaries present up and down Sweden.
 
-Of these boundaries, the one between Sk\.ane and the rest of Sweden is
+Of these boundaries, the one between Sk\aa{}ne and the rest of Sweden is
 the strongest. Due to the lack of interview sites in the middle of
 south Sweden, the boundary is drawn further north than it
 traditionally appears, but this is an effect of the software that
-produced the figure. Notice that there is also a boundary between
-J\"amshog, Tors\.as, and \"Ossjo\" and the other sites, especially
-visible in maps\ref{map-composite-1-1000} and
+produced the figure. Notice that there is also a boundary between the
+red cluster, comprised of J\"amshog, Tors\aa{}s, and \"Ossj\"o, and the
+other sites, especially visible in figures \ref{map-composite-1-1000} and
 \ref{map-composite-5-1000}. Their presence along the northern border
-of Sk\.ane is one reason why its boundary with the rest of Sweden is
+of Sk\aa{}ne is one reason why its boundary with the rest of Sweden is
 so strong.
 
 \begin{sloppypar}
@@ -1086,9 +1123,9 @@ so strong.
 \end{sloppypar}
 % But of course MDS maps can't be combined into a consensus...
 
-% However, K\"ola and Frilles\.as still separate fairly well from their
+% However, K\"ola and Frilles\aa{}s still separate fairly well from their
 % neighbors. These sites are on the edges of the country and have strong borders
-% with surrounding, Like the cluster J\"amshog, Tors\.as and \"Ossj\"o,
+% with surrounding, Like the cluster J\"amshog, Tors\aa{}s and \"Ossj\"o,
 % these sites are different from the others. However, they don't have
 % any geographic coherence, so it is more likely these are remnants of a
 % dialect that was historically wider spread and has since receded.
@@ -1118,13 +1155,13 @@ Sweden.
 
 It must be noted that the maps vary in color because of the way that
 MDS positions the sites in 3D space, based on the distances between
-them. The orientation of the sites may differ between runs of the MDS
-algorithm, but Kruskal's method guarantees that its results will be
-comparable given some rotation. Equivalent MDS maps may be rotated
-with respect to each other in 3D space, and this rotation is visible
-in the color selection: if two sites are both blue in one map and in
-another map are both orange, then they have the same relation to each
-other.
+them. Kruskal's method guarantees that its results are comparable for
+equivalent inputs, but this may not always be obvious because the
+color equivalence may be difficult to decipher. Equivalent MDS maps
+may be rotated with respect to each other in 3D space, and this
+rotation is visible in the color selection: if two sites are both blue
+in one map and in another map are both orange, then they have the same
+relation to each other.
 
 
 The maps shown here in figures \ref{mds-1-1000-js-trigram} --
@@ -1182,7 +1219,7 @@ with 1 round of normalization.
 
 Despite the differences between MDS and the preceding methods, the
 similar results are evident; the maps (figures
-\ref{mds-1-1000-js-trigram} -- \ref{mds-5-1000-js-trigram}) all show
+\ref{mds-1-1000-js-trigram} -- \ref{mds-1-full-r_sq-psg}) all show
 the same patterns as the other methods. That is, there is a general
 north-to-south gradience, especially easy to see in map
 \ref{mds-1-1000-js-trigram}. There is a strong southern cluster,
@@ -1195,14 +1232,14 @@ is easier to see the gradation from north to south. For example, in
 figure \ref{mds-1-full-r_sq-psg}, looking from the north to south, the
 colors change quickly close to Stockholm, then fade to green further
 south, then transition back to blues and purples further south, in
-Sk\.ane.
+Sk\aa{}ne.
 
 The Stockholm and Malm\"o areas, which are in the same cluster in the
 consensus tree maps, are here seen to be similar without being
 identical. For example, in figure \ref{mds-5-1000-js-trigram}, the
 Stockholm area is a shade of blue-green while the Malm\"o area is a
 shade of blue-grey. Also in figure \ref{mds-5-1000-js-trigram},
-Sk\.ane and Blekinge are grey: clearly similar but not identical to
+Sk\aa{}ne and Blekinge are grey: clearly similar but not identical to
 Malm\"o.
 
 \section{Features}
@@ -1224,7 +1261,7 @@ rankings, the normalizations for sentence size are applied, as
 described in section \ref{normalization}, whereas the second set of
 ranking is normalized for relative overuse, based on
 \quotecite{wiersma09} normalization described in
-section{wiersma-normalization}. The overuse normalization shows which
+\section{wiersma-normalization}. The overuse normalization shows which
 features are used relatively more when comparing two sites. It
 normalizes for feature frequency between two sites.
 
@@ -1270,11 +1307,11 @@ anyway.
 \begin{table}
   \begin{enumerate}
    \item[A] (Blue) Floby, Bengtsfors
-    \item[B] (Red) J\"amshog, \"Ossj\"o, Tors\.as
+    \item[B] (Red) J\"amshog, \"Ossj\"o, Tors\aa{}s
     \item[C] (Yellow) L\"oderup, Breds\"atra
     \item[D] (Cyan) Segerstad, K\"ola, S:t Anna, Sorunda, Norra Rorum,
-      Villberga, Torso, Boda, Frilles\.as, Indal, Leksand, Anundsj\"o,
-      \.Arsunda, Asby, Orust, V\.axtorp, Fole, Sproge, F\.ar\"o,
+      Villberga, Torso, Boda, Frilles\aa{}s, Indal, Leksand, Anundsj\"o,
+      \AA{}rsunda, Asby, Orust, V\aa{}xtorp, Fole, Sproge, F\aa{}r\"o,
       Ankarsrum, Skinnskatteberg
   \end{enumerate}
   \caption{Clusters discussed}
@@ -1286,7 +1323,8 @@ comparing feature differences. The features presented here are the ten
 highest ranked features for a particular comparison. Although each
 feature set has ten features ranked here, they are better thought of
 as two sets of five features differences. The top five positive
-features are shown as are the top five negative features.
+features are shown as are the top five negative features, scaled such
+that the most important feature has the value 1.0.
 
 This has two advantages. It splits the features so that both the
 positive and negative evidence are always visible; otherwise, in some
@@ -1318,14 +1356,14 @@ The parts of speech for the features are given in table
 \begin{table}
 \begin{tabular}{c|c||c|c}
   POS & Part of speech & POS & Part of speech \\ \hline
- $++$ & coordinating conjunction&MV & verb ``m\.aste'' (must) \\
+ $++$ & coordinating conjunction&MV & verb ``m\aa{}ste'' (must) \\
  AB & adverb&NN & noun \\
  AJ & adjective&PN & proper name \\
  AN & adjectival noun&PO & pronoun \\
  AV & verb ``vara'' (be)&PR & preposition \\
  BV & verb ``bli(va)'' (become) &QV & verb ``kunna'' (can) \\
 EN & indefinite article&RO & numeral \\
- FV & verb ``f\.a'' (get) &SP & present participle \\
+ FV & verb ``f\aa{}'' (get) &SP & present participle \\
  GV & verb ``g\"ora'' (do) &SV & verb ``skola'' (shall) \\
  HV & verb ``hava'' (have) &UK & subordinating conjunction \\
  I? & question mark &VN & verbal noun \\
@@ -1372,28 +1410,42 @@ MN & meta-noun &YY & Interjection \\ \hline
 The analysis will start with trigram features without the overuse
 normalization, since trigrams have the highest rate of significance of
 the non-combined feature sets. (The combined feature set is not
-presented because the mixed feature types make it difficult to read.)
+presented because the mixed feature types make it difficult to
+interpret.)
 
 As mentioned above, the top-ranked trigrams are common, typical of the
-core of the sentence. Cluster A's typical trigrams, for example,
-typically involve a pronoun or a verb or both: PO-AV-AB
+core of the sentence. The trigrams typical of cluster A, are formed
+most often, for example, from a trigram like \textit{ ``och det
+  \"ar''} ``and it's'', followed by an adverb such as
+\textit{``v\"al''} ``well''. Figures
+\ref{clusterA-clusterB-feat-5-1000-trigram-ratio} --
+\ref{clusterA-clusterD-feat-5-1000-trigram-ratio} generalize this
+observation by the high rankings of the POS trigrams PO-AV-AB
 (pronoun-copula-adverb, figure
 \ref{clusterA-clusterB-feat-5-1000-trigram-ratio}), $++$-PO-AV
 (conjunction-pronoun-copula, figure
-\ref{clusterA-clusterB-feat-5-1000-trigram-ratio}) and PO-VV-AB
+\ref{clusterA-clusterB-feat-5-1000-trigram-ratio}), and PO-VV-AB
 (pronoun-verb-adverb, figure
-\ref{clusterA-clusterD-feat-5-1000-trigram-ratio}). The same is of the
-other clusters for the most part. Unfortunately, this makes it hard to
-say interesting things about the difference in feature
-distribution. It does appear that clusters B and C have heavier use of
-adverbs and of conjunctions; for example $++$-AB-AV in in figure
+\ref{clusterA-clusterD-feat-5-1000-trigram-ratio}) The same is true of
+the other clusters for the most part. Unfortunately, this makes it
+hard to say interesting things about the difference in feature
+distribution. It does appear that clusters B and C use adverbs and of
+conjunctions that differ from the other clusters; for example
+$++$-AB-AV in in figure
 \ref{clusterA-clusterC-feat-5-1000-trigram-ratio}. The comparison
-between cluster A and cluster B even highlights the trigram AB-AB-AB
+between cluster A and cluster B highlights the trigram AB-AB-AB
 (figure \ref{clusterA-clusterB-feat-5-1000-trigram-ratio}) as
-important.
+important, but more interesting are the $++$-AB-AV
+(conjunction-copula-adverb) and AB-AV-AB (adverb-copula-adverb)
+trigrams in the bottom halves of figures
+\ref{clusterA-clusterB-feat-5-1000-trigram-ratio} and
+\ref{clusterA-clusterC-feat-5-1000-trigram-ratio}. These trigrams
+derive from sequences like \textit{``och s\aa{} \"ar''} (``and is
+so'') and \textit{``inte \"ar ju''} (``is not now''), which do
+not reflect standard Swedish grammar.
 
-% TODO: Discuss the ending in IP. Ends of sentences? Sentences are
-% shorter? (I hope the second is false.)
+% TODO: Get a whole example sentence probably. Ugh. People want so
+% much context!
 
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-ratio}
