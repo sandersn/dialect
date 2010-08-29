@@ -1446,6 +1446,7 @@ not reflect standard Swedish grammar.
 
 % TODO: Get a whole example sentence probably. Ugh. People want so
 % much context!
+% TODO: Also format these examples properly.
 
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-ratio}
@@ -1490,7 +1491,9 @@ between cluster A and cluster B (figure
 cluster A are more important in distinguishing the two than the
 features of cluster B. The comparison between cluster A and cluster D (figure
 \ref{clusterA-clusterD-feat-5-1000-trigram-over})
-is so lop-sided that cluster D contributes no features at all.
+is so lop-sided that cluster D contributes no features at all. This
+occurs when none of the features the two clusters share are overused
+in cluster D.
 
 With the overuse normalization, cluster A has two interesting
 patterns. First, the trigrams it overuses are filled with indefinite
@@ -1500,7 +1503,9 @@ PR-EN-VN (preposition-indefinite-verbal noun) in figure
 \ref{clusterA-clusterB-feat-5-1000-trigram-over}, as well as IM-PR-NN
 (infinitive marker-preposition-noun) and PR-ID-PR
 (preposition-idiom-preposition) in figure
-\ref{clusterA-clusterD-feat-5-1000-trigram-over}. Second, the trigrams
+\ref{clusterA-clusterD-feat-5-1000-trigram-over}. 
+The sequence  \textit{``arrr''}
+Second, the trigrams
 it underuses mostly end with pronouns: 4 of 5 trigrams in the
 comparison with cluster B (figure
 \ref{clusterA-clusterB-feat-5-1000-trigram-over}) and 4 or 5 in the
@@ -1518,7 +1523,11 @@ including an interesting trigram SV-QV-AB (shall verb-can verb-adverb)
 in figure \ref{clusterB-clusterD-feat-5-1000-trigram-over}. Although
 this could be a mistake on the part of the tagger, the different forms
 of this verb are limited, so this is unlikely: identifying them is not
-hard. Instead it points to the possibility of double modals.
+hard. An example utterance with this pattern is \textit{``F\"or det
+  var \ldots''} ``For it was that one \ldots''. Here the construction
+\textit{``skulla kunna''} appears to be a double modal, similar to the
+English double modal ``should can''.
+% TODO: Get the full sentence either from jones or flenser
 %% a quick search suggests that Fennell and Butters (1996) finds
 %% evidence in German and Scandinavian languages...but it's a book ro
 %% something. Google Scholar has no link, just a wimpy citation.
@@ -1533,7 +1542,7 @@ normalization in figures
 \ref{clusterB-clusterC-feat-5-1000-trigram-over}, and
 \ref{clusterC-clusterD-feat-5-1000-trigram-over}, except for a
 surprising variety in the verbs: g\"ora (do), hava (have), kunna
-(get), sk\"ola (shall), vara (be) and vilja (want). Many uses of
+(can), sk\"ola (shall), vara (be) and vilja (want). Many uses of
 adverbs show up as well. It is not clear what either of these patterns
 mean linguistically, however.
 % I have no idea whether to make that verb singular or plural.
@@ -1587,14 +1596,18 @@ clusters is worthwhile.
 \subsection{Variation Across Feature Sets}
 \label{feature-ranking-feature-sets}
 
-Moving to other features sets with overuse normalization,
-leaf-ancestor paths and leaf-head paths give additional information
-about cluster A that lead to the conclusion its defining
+Moving to other feature sets with overuse normalization, leaf-ancestor
+paths and leaf-head paths, figures
+\ref{clusterA-clusterB-feat-5-1000-path-over} and
+\ref{clusterA-clusterB-feat-5-1000-dep-over}, give additional
+information about cluster A that lead to the conclusion its defining
 characteristic is simple sentences, simpler at least than the other
 clusters. Specifically, cluster A's overused leaf-ancestor paths
 include few nested sentences (figure
 \ref{clusterA-clusterB-feat-5-1000-path-over}). This contrasts sharply
-with cluster B and cluster C, which include many nested
+with cluster B and cluster C in figures
+\ref{clusterB-clusterC-feat-5-1000-path-over} --
+\ref{clusterC-clusterD-feat-5-1000-path-over}, which include many nested
 sentences. Cluster A does have complex paths, but they feature
 prepositional phrases. (Note: NAC stands for ``not a constituent'' and
 indicates that the parser could not decide what the correct
@@ -1605,14 +1618,23 @@ This characteristic of cluster A appears in the leaf-head paths as
 well (figure \ref{clusterA-clusterB-feat-5-1000-dep-over}); cluster
 A's paths contain many [adjective]-noun-preposition sequences, but few
 verb-verb sequences that indicate nested phrases. Again, cluster B and
-cluster C have many of these sequences. Both clusters have a number of
-overused adverb features as well, similar to the trigram results. Note
-that comparison to cluster D is less interesting. Because it has fewer
-unique characteristics, when compared to it, clusters A, B and C show
-more generic characteristics. For example, all three clusters show
-that their sentences are generally more complex than the general sites
-in cluster D.
+cluster C (figures \ref{clusterB-clusterC-feat-5-1000-path-over} --
+\ref{clusterC-clusterD-feat-5-1000-path-over}) have many of these
+sequences. Both clusters have a number of overused adverb features as
+well, similar to the trigram results. Note that comparison to cluster
+D is less interesting. Because it has fewer unique characteristics,
+when compared to it, clusters A, B and C show more generic
+characteristics. For example, all three clusters show that their
+sentences are generally more complex than the general sites in cluster
+D. This may be a sign that the normalizations are not fully working;
+cluster D is larger than A, which is larger than clusters B and C, so
+it seems that larger sets of sites are decided based on simpler
+features.
 
+% TODO: remove clusterA-clusterB-feat-5-1000-*-over in favour of
+% cluster*-cluster*-feat-5-1000-path-over and
+% cluster*-cluster*-feat-5-1000-dep-over (but make sure first that
+% nobody refers to these figures)
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-path-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, leaf-ancestor path features}
@@ -1730,7 +1752,7 @@ settings; the analysis of correlation shows that some correlate with
 geographic and travel distance. The dendrogram maps, composite cluster
 maps, and MDS maps all show a picture of with fairly well-defined areas.
 Finally, the feature rankings show some interesting patterns but
-nothing definitive.
+nothing definitive. More qualitative analysis is needed in the future.
 
 
 %%% Local Variables: 

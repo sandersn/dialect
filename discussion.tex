@@ -34,12 +34,19 @@ corresponding features from interview sites.
 
 The default expectation of dialect distance is that it should
 correlate with geographic distance, see \namecite{chambers98} and
-\namecite{gooskens04a}. This is especially true for the Scandinavian
-languages; \namecite{hallberg05} points out that Swedish dialect areas
-form a continuous gradient without any strong boundaries. This means a
-particularly strong correlation between geography and
-dialect. Therefore, the first step is to compare the correlation of
-geographic distance with dialect distance as measured
+\namecite{gooskens04a}. The principal places that geographic distance
+fails to correlate with dialect distance are where dialect boundaries
+that exist between adjacent sites; here, a small geographic distance
+is paired with large dialect distance. For non-adjacent sites, in
+contrast, a large geographical distance may be paired with a small
+dialect distance. This can occur, for example, with relic dialects,
+where the innovative dialect expands from the center, leaving similar
+dialects isolated on the edges. However, neither of these cases holds
+for the Scandinavian languages; \namecite{hallberg05} points out that
+Swedish dialect areas form a continuous gradient without any strong
+boundaries. This means a particularly strong correlation between
+geography and dialect. Therefore, the first step is to compare the
+correlation of geographic distance with dialect distance as measured
 here.
 
 Unfortunately, the correlations between geographic distance and
@@ -59,8 +66,11 @@ composite cluster maps (figure \ref{map-composite-5-1000} in chapter
 \ref{results-chapter}, for example) show this pattern best, but the
 consensus tree and MDS maps do as well. The exceptions to this
 gradient are the areas surrounding Stockholm and Malm\"o, as well as
-the whole of the southern provinces Sk\aa{}ne and Blekinge. These two
-exceptions will be discussed more in the next section.
+the whole of the southern provinces Sk\aa{}ne and Blekinge. It may be
+that modern urbanization has created a city/country divide, with
+Stockholm and Malm\"o innovating and the rural areas becoming relic
+dialects. These two exceptions will be discussed more in the next
+section.
 
 \subsection{Dialect Regions}
 % so which is it? A city/country divide or is just that the
@@ -76,7 +86,7 @@ Sweden. In addition, the island of Gotland forms a separate area. The
 MDS maps and consensus tree maps reproduce these areas with varying
 degrees of fidelity.
 
-For example, in the consensus tree map \ref{map-consensus-5-1000}, the
+For example, in the consensus tree figure \ref{map-consensus-5-1000}, the
 cyan cluster corresponds to the Northern and Western dialect areas,
 the orange cluster corresponds to the Eastern area, and the red/yellow
 cluster corresponds to the Southern. There is a question that arises
@@ -102,8 +112,8 @@ There are three possible explanations for this: first, there could be
 statistical, accumulative evidence which Swedish dialectologists have
 missed; second, the distribution of Swediasyn interview sites may be
 too sparse to reflect the real border; in particular, there are very
-few in Sm\aa{}land; third, the dialect landscape may have changed since
-the prevailing dialectology opinion was established.  The last
+few in Sm\aa{}land; third, the dialect landscape may have changed
+since the prevailing dialectology opinion was established.  The last
 explanation is attractive, since the Swedia corpus is around 50 years
 newer than newest dialectology studies. However, this is an old
 boundary: it mirrors the Sweden-Denmark political border that existed
@@ -114,7 +124,13 @@ reproducing the boundary described by Hallberg, also place a boundary
 at the same location as these syntactic results. This boundary is
 visible in factors 2 (figure \ref{leinonen-factors-1-2}) and 5 (figure
 \ref{leinonen-factors-5-6}) of her factor analysis based on the
-phonology data of Swedia.
+phonology data of Swedia, discussed below in section
+\ref{discussion-chapter-phonological-dialectometry}. Both Leinonen's
+method and mine are capable of detecting distributional patterns that
+are difficult to see from manual analysis. For example, in the
+previuos chapter, I showed that the trigrams AB-AV-AB, despite
+appearing in all interview sites, was more common in central Swedish
+cluster A.
 
 % The second explanation may also be true, considering that Leinonen's
 % results reproduce the boundary that Hallberg mentions, but it does not
@@ -193,7 +209,7 @@ example.
 
 \begin{figure}
   \gll H\"a finns vattne d\"ari hinken. \\
-  Here found the-water in the-bucket \\
+  Here found water-the in bucket-the \\
   \trans `There is water in the bucket.'
   \caption{Suffix marking for partitive}
   \label{partitive-article}
@@ -201,8 +217,9 @@ example.
 
 Unfortunately, the part-of-speech tag set used for this dissertation
 is quite coarse; it does not record whether nouns are marked with the
-definite suffix. Therefore, there is no way to tell the difference
-between suffixed dialect usage and bare standard usage.
+definite suffix. Therefore, there is no way for the distance measure
+to tell the difference between suffixed dialect usage and bare
+standard usage.
 
 \subsubsection{Proper-Noun Articles}
 
@@ -226,7 +243,7 @@ precedes kinship terms that are used as proper names, for example
 ``Mother'' or ``Grandfather''. An example is given in figure
 \ref{indefinite-article-proper-noun}. Standard Swedish does not
 include this feature. In Sweden, this feature is found along the
-border with Norway as well as Northern Sweden. In our data, this
+border with Norway as well as Northern Sweden. In the Swediasyn data, this
 includes the interview sites K\"ola, Indal, and Anundsj\"o---the dark
 area in figure \ref{indefinite-article-proper-noun-map}, there labeled
 ``Prepropriell artikel''.
@@ -259,7 +276,7 @@ be drawn is that the hypothesis is not yet disproved.
   Neighbors' the striped cat \\
   \trans `The neighbors' striped cat'
   \caption{Simultaneous possessive and determiner in noun phrase in
-    Danish}
+    Danish, and at one time Southwest Sweden}
   \label{possessive-plus-article-example}
 \end{figure}
 
@@ -278,13 +295,15 @@ addition, this pattern alternates with the standard Swedish pattern on
 the island of Gotland (cross-hatched on the map), which includes the
 interview sites Fole, F\aa{}r\"o and Sproge.
 
-This pattern can be detected by looking for the
+This pattern can be detected by analyzing the per-site recall for the
 4-grams PO-PO-AJ-NN, PR-PO-AJ-NN and NN-PO-AJ-NN. The first is the
 sequence pronoun-pronoun-adjective-noun, for example {\it mitt det
   gamla huset} ``My the old house-the''. The second starts with a
 proper name, such as {\it Pers} ``Per's'', and the third starts with a
-noun, such as {\it naboen} ``neighbor's''. These three 4-tag sequence
-can be encoded as trigrams by breaking them into two pieces.
+noun, such as {\it naboens} ``neighbor's''. These three 4-tag sequence
+can be encoded as trigrams by breaking them into two pieces. This
+allows them to be searched for in that the distance measure would have
+encountered them.
 
 In addition to this pattern, there is a second in the north of
 Sweden. Here, it is simply that possessive personal pronouns are
@@ -300,12 +319,13 @@ Sk\aa{}ne that he has asked do not recognize this form either, so it is
 possible that it has fallen out of use in the 70 years or so since it
 was last reported.
 
-Executing a similar search for the Gotland sites (F\aa{}r\"o, Fole and
-Sproge), but with the addition of the standard trigrams PO-AJ-NN,
-PR-AJ-NN and NN-AJ-NN, shows similar results: 0.00441 on Gotland,
-0.00495 outside Gotland. This opposite the predicted direction.
+Executing a similar search for the alternation of standard
+Swedish with the possessive pronoun pattern in the Gotland sites (F\aa{}r\"o,
+Fole and Sproge), the standard Swedish trigrams PO-AJ-NN, PR-AJ-NN and
+NN-AJ-NN show similar results: 0.00441 in Gotland, 0.00495 outside
+Gotland. This is opposite the predicted direction.
 
-The final region in map \ref{possessive-plus-article-map}, in northern
+The final region in figure \ref{possessive-plus-article-map}, in northern
 Sweden, which includes Indal and Anundsj\"o, is actually more
 complicated than can be captured by the part-of-speech tags used here;
 this region allows possessive proper nouns to occur with
@@ -401,11 +421,12 @@ sequence is noun-possessive pronoun-proper noun. An example
 of this pattern is given in figure \ref{proper-noun-post-possessive}.
 
 This pattern overlaps slightly into Sweden, covering the interview
-site K\"ola. The distribution is given in map
+site K\"ola. The distribution is given in figure
 \ref{proper-noun-post-possessive-map}. Note that the northern area
-with small stripes is the same as in map
-\ref{possessive-plus-article-map}. The area of interest is the first,
-with larger, thick stripes.
+with small stripes is the same as in figure
+\ref{possessive-plus-article-map}, and the northern area with thin
+stripes has no matching sites. The area of interest is the one with
+larger, thick stripes that covers the majority of Norway.
 
 This phenomenon maps to a trigram NN-PO-PN: noun-pronoun-proper
 noun. The occurrence rate of this trigram in K\"ola to the rest of
@@ -420,7 +441,8 @@ Delsing mentions briefly that central Sweden, including \"Alvdalen and
 V\"asterdalarna, uses the dative form of nouns for the
 s-genitive. However, the part-of-speech tag set used here does not
 distinguish between dative and other cases on nouns, so it is not
-possible to represent this phenomenon.
+possible to represent this phenomenon in a way that the distance
+measures could have used.
 
 \subsubsection{Double indefinite}
 
@@ -450,14 +472,17 @@ each adjective, even for multiple adjectives, so {\it en stor en bil}
 In central Sweden, a similar pattern occurs, but the article is not
 perceived as independent. Instead it is perceived as a suffix of the
 adjective. In other words, the above example is perceived as {\it en
-  stor-en bil} instead. Unfortunately, this pattern appears identical
-to the ordinary Swedish case given the course part-of-speech tag set
-in use.  In contrast, the first pattern is quite easy to represent
-with trigrams: the 4-gram EN-AJ-EN-NN and the
+  stor-en bil} instead. According to Delsing, there is a difference in
+intonation compared to the North Swedish construction, which does not
+stress the intermediate articles nor co-ordinate them morphologically
+as would be expected with a suffix. Unfortunately, this pattern
+appears identical to the ordinary Swedish case given the course
+part-of-speech tag set in use.  In contrast, the first pattern is
+quite easy to represent with trigrams: the 4-gram EN-AJ-EN-NN and the
 6-gram EN-AJ-EN-AJ-EN-NN---alternating series of indefinite articles
-and adjectives ended by a noun. These larger n-grams can be broken into
-the trigrams EN-AJ-EN and AJ-EN-NN in order to search for them in the
-Swedia-based data.
+and adjectives ended by a noun. These larger n-grams can be broken
+into the trigrams EN-AJ-EN and AJ-EN-NN in order to search for them in
+the Swedia-based data.
 
 The northern pattern includes the interview sites Anundsj\"o and
 Indal. When measured, these trigrams occur at a rate of 0.00054 there
@@ -514,9 +539,11 @@ However, in North Sweden, there is a fourth option, where the
 adjective combines with the noun into a single word (figure
 \ref{adjective-single-definite-suffix-example}). Delsing gives
 examples like {\it storhuset} (the big house) and {\it
-  stor-svart-gamm-katta} (the big, black, old cat). In Norrland,
-Delsing finds that this construction is used almost to the exclusion
-of the normal Swedish one. Further south, the two co-exist.
+  stor-svart-gamm-katta} (the big, black, old cat), in which a series
+of adjectives appear prefixed to a noun without their usual
+morphological inflection. In Norrland, Delsing finds that this
+construction is used almost to the exclusion of the normal Swedish
+one. Further south, the two co-exist.
 
 
 Therefore, since the annotation scheme does not differentiate between
@@ -578,7 +605,8 @@ verb-adverb-subordinating conjunction-pronoun). Although these
 part-of-speech sequences can obviously appear in other contexts, they
 should appear more in the region that has apparent clefts than in the
 region that does not. Converting these sequences to trigrams is
-straightforward, producing 5 unique trigrams of interest.
+straightforward, producing 5 unique trigrams of interest, which the
+distances measures should also have used to obtain their distances.
 
 Rosenkvist captures the geographical distribution of the apparent
 cleft in two ways. He first consults two collections of Swedish
@@ -634,7 +662,7 @@ small differences is the inherent in the working of the statistical
 approach in this dissertation.
 
 \section{Comparison to Phonological Dialectometry}
-
+\label{discussion-chapter-phonological-dialectometry}
 \begin{figure}
   \includegraphics[scale=0.4]{leinonen-factors-1-2}
   \caption{Factors 1 and 2 of Swedish vowels}
@@ -788,12 +816,19 @@ into two categories: syntactic dialectometry and Swedish
 dialectology.
 
 \section{Future Work}
+% TODO: Cite Shannon
+% TODO: To the future work section, add:
+% 1. Extract deps from CFG parses from Berkeley
+% 2. Label dep features with both arc and POS tags interleaved in the
+% proper order.
+% 3. Better tag set. (duh, probably already have this one)
+% 4. Non-linear feature set combination.
 
 Some avenues of future work are obvious; Swediasyn is part of the
 larger Nodalida project to create a syntactic dialect corpus for all
 Scandinavian languages. And Swediasyn is itself not a complete
 transcription of Swedia; for example, it does not include any of
-Swedish-speaking Finland yet. Unfortunately, this work depends on
+Swedish-speaking Finland yet \cite{johennessen09}. Unfortunately, this work depends on
 others since I do not speak any Scandinavian language natively. Once
 these corpora are complete, they will provide a more complete picture
 of syntactic variation over the entire Scandinavian language area.
@@ -813,13 +848,23 @@ part-of-speech tags from that same tagger.
 To enable more complex feature sets, manual annotation is needed. But
 this is labor intensive. Failing that, improved automatic annotation
 is needed, although this still usually implies some manual annotation
-in the form of a seed corpus for bootstrapping. Bootstrapping should
-help automatic parsing of dialect interviews: not only does the
-subject matter of an interview differ from the typical newspaper
-training corpus, the syntactic features where the dialect differs from
-the standard language are precisely those that are hardest to
-parse. Giving a machine parser a sample of dialect speech as training
-would allow it to identify some of these features.
+in the form of a seed corpus for bootstrapping
+\cite{blitzer07,mcdonald06}. Bootstrapping should help automatic
+parsing of dialect interviews: not only does the subject matter of an
+interview differ from the typical newspaper training corpus, the
+syntactic features where the dialect differs from the standard
+language are precisely those that are hardest to parse. Giving a
+machine parser a sample of dialect speech as training would allow it
+to identify some of these features. For example, in the case of the
+possible double modals discussed at the end of chapter
+\ref{results-chapter}, the part of speech tagger never saw the tokens
+\textit{``skulla kunna''} juxtaposed in the training. If both words
+were not part of a closed class, it is likely that the tagger would
+not produce the correct tag for this pair. The same problem applies to
+parser, but because syntactic training is even more sparse, the parser
+is less less likely to to have seen similar structures in
+training. The parser is correspondingly less likely to produce a
+double modal structure without having seen it in training.
 
 Processing of features is another area for future work: normalization
 is the first half of this problem. The current sentence-level
@@ -857,7 +902,7 @@ on to establish that even smaller interviews of dialect speakers are
 sufficient to produce significant distances, and investigates
 variations on both feature set and distance measure. It shows that a
 syntactic measure can reproduce the traditional regions of
-dialectometry, and that a it can produce agreement with a phonological
+dialectometry, and that it can produce agreement with a phonological
 measure. Its comparison to individual dialect phenomena is
 inconclusive, but opens an avenue for future investigation, and more
 importantly, future development of methods to compare and rank
