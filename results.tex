@@ -1,8 +1,5 @@
 \chapter{Results}
 \label{results-chapter}
-% TODO: Many tables are ugly
-% TODO: Re-order features in order of importance in all tables
-% eg unigram last, preceded by deparc, timbl-dep (redep), etc
 
 These results are meant to answer two main questions: first, how well does
 this approach to syntactic dialectometry agree with dialectology?
@@ -203,9 +200,6 @@ themselves number of significant distances found.
  \label{sig-5-full}
 \end{table}
 
-% TODO: Need to add references to diagrams and also any
-% citations
-
 Analysis of the significance of dialect distance provides a measure of
 how reliable the distances to be analyzed later in this chapter are. A
 distance that does not find significant distances between the 30
@@ -244,7 +238,6 @@ distances. $R$, on the other hand, performs decently on all
 combinations of parameter settings; its low significance for phrase
 structure rules is shared by Kullback-Leibler and Jensen-Shannon
 divergences.
-% TODO : Maybe more on cosine later. Maybe not.
 
 When comparing the performance of Kullback-Leibler and Jensen-Shannon
 divergence it is not surprising that Jensen-Shannon outperforms
@@ -872,7 +865,7 @@ Therese Leinonen and are the same as those in \namecite{leinonen08}. The
 L04 package from the University of Groningen was used to map the
 consensus trees onto the map of Sweden; the multi-dimensional scaling
 maps and composite cluster maps also used L04.
-% TODO: CITE this, I think it's a Pieter Kliuweeg paper
+% TODO: CITE this, I think it's a Pieter Klieweg paper
 
 
 \begin{figure}
@@ -922,24 +915,6 @@ maps and composite cluster maps also used L04.
 % It would still be cool to eliminate only the non-significant distances
 % and re-run the clusters. (I can't remember if that's easily possible
 % with R though, it may only be a feature of MDS.)
-
-% TODO: Try these two again, excluding cosine. Because I believe cosine sucks
-% or at least is a Rogue Element.
-% Later: I think I tried this and not much difference.
-
-% Just the ratio ones that are significantly correlated with travel
-% distance.
-% However: This is even more of a mess than the freq results.
-% [. {s0} [. {}
-%     [. {} [. {Köla} [. {Ossjo} [. {Torsås\\Jamshog}  ] ] ]
-%           [. {Villberga\\Viby\\Torso\\StAnna\\Sorunda\\Norra Rorum\\Frillesas\\Boda\\Bara}
-%              [. {Loderup\\Bredsatra}  ] ] ]
-%     [. {Orust\\Leksand\\Indal\\Fole\\Faro\\Asby\\Arsunda\\Anundsjo}
-%        [. {Vaxtorp\\Skinnskatteberg}  ]
-%        [. {Ankarsrum}
-%           [. {Segerstad} 
-%              [. {Bengtsfors}
-%                 [. {Sproge\\Floby}  ] ] ] ] ] ] ]
 
 \subsubsection{Analysis}
 
@@ -1631,52 +1606,67 @@ cluster D is larger than A, which is larger than clusters B and C, so
 it seems that larger sets of sites are decided based on simpler
 features.
 
-% TODO: remove clusterA-clusterB-feat-5-1000-*-over in favour of
-% cluster*-cluster*-feat-5-1000-path-over and
-% cluster*-cluster*-feat-5-1000-dep-over (but make sure first that
-% nobody refers to these figures)
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-path-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, leaf-ancestor path features}
   \label{clusterA-clusterB-feat-5-1000-path-over}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-trigram-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, trigram features}
-  \label{clusterA-clusterB-feat-5-1000-trigram-over2}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-path-over}
+  \caption{cluster A $\Leftrightarrow$ cluster C, leaf-ancestor path features}
+  \label{clusterA-clusterC-feat-5-1000-path-over}
 \end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-path-over}
+  \caption{cluster A $\Leftrightarrow$ cluster D, leaf-ancestor path features}
+  \label{clusterA-clusterD-feat-5-1000-path-over}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-path-over}
+  \caption{cluster B $\Leftrightarrow$ cluster C, leaf-ancestor path features}
+  \label{clusterB-clusterC-feat-5-1000-path-over}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-path-over}
+  \caption{cluster B $\Leftrightarrow$ cluster D, leaf-ancestor path features}
+  \label{clusterB-clusterD-feat-5-1000-path-over}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-path-over}
+  \caption{cluster C $\Leftrightarrow$ cluster D, leaf-ancestor path features}
+  \label{clusterC-clusterD-feat-5-1000-path-over}
+\end{figure}
+
+
 \begin{figure}
   \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-dep-over}
   \caption{cluster A $\Leftrightarrow$ cluster B, leaf-head features}
   \label{clusterA-clusterB-feat-5-1000-dep-over}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-psg-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
-    rule features}
+  \includegraphics[scale=1.2]{clusterA-clusterC-feat-5-1000-dep-over}
+  \caption{cluster A $\Leftrightarrow$ cluster C, leaf-head features}
+  \label{clusterA-clusterC-feat-5-1000-dep-over}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-grand-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, phrase-structure
-    rules features, with grandparent}
+  \includegraphics[scale=1.2]{clusterA-clusterD-feat-5-1000-dep-over}
+  \caption{cluster A $\Leftrightarrow$ cluster D, leaf-head features}
+  \label{clusterA-clusterD-feat-5-1000-dep-over}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-unigram-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, unigram features}
+  \includegraphics[scale=1.2]{clusterB-clusterC-feat-5-1000-dep-over}
+  \caption{cluster B $\Leftrightarrow$ cluster C, leaf-head features}
+  \label{clusterB-clusterC-feat-5-1000-dep-over}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-redep-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, leaf-head features,
-MaltParser trained by Timbl}
+  \includegraphics[scale=1.2]{clusterB-clusterD-feat-5-1000-dep-over}
+  \caption{cluster B $\Leftrightarrow$ cluster D, leaf-head features}
+  \label{clusterB-clusterD-feat-5-1000-dep-over}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-deparc-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, leaf-head features
-    with arc labels}
-\end{figure}
-\begin{figure}
-  \includegraphics[scale=1.2]{clusterA-clusterB-feat-5-1000-all-over}
-  \caption{cluster A $\Leftrightarrow$ cluster B, all combined features}
+  \includegraphics[scale=1.2]{clusterC-clusterD-feat-5-1000-dep-over}
+  \caption{cluster C $\Leftrightarrow$ cluster D, leaf-head features}
+  \label{clusterC-clusterD-feat-5-1000-dep-over}
 \end{figure}
 
 
